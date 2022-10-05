@@ -9,7 +9,6 @@
   .link_menu {
     transition: all 0.3s ease;
     white-space: nowrap;
-    font-size: 1.1rem;
 
     &.active,
     &:hover {
@@ -31,6 +30,10 @@
       width: 24px;
       height: 24px;
       background-color: var(--sidebar-menu-item-color);
+      &.arrow {
+        width: 16px;
+        height: 17px;
+      }
     }
   }
 }
@@ -38,15 +41,18 @@
   .item_menu {
     &:first-child {
       .link_menu {
-        background-color: transparent !important;
-        box-shadow: none;
+        // background-color: transparent !important;
+        // box-shadow: none;
 
-        i,
-        span {
-          color: $color-blue !important;
-        }
+        // i,
+        // span {
+        //   color: $color-blue !important;
+        // }
       }
     }
+  }
+  #wr_list_submenu {
+    background-color: var(--sidebar-submenu-bg);
   }
 }
 
@@ -62,10 +68,6 @@
   }
 }
 
-.main-menu {
-  max-height: 400px;
-  overflow-y: auto;
-}
 body.mini_left {
   .sidebar {
     .button-language {

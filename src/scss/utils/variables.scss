@@ -211,16 +211,22 @@ $border-color: #d5d5d5;
 $enable-negative-margins: true;
 
 //SPACER
-$spacer: 1rem;
 $spacers: (
   0: 0,
-  1: $spacer * 0.25,
-  2: $spacer * 0.5,
-  3: $spacer,
-  4: $spacer * 1.5,
-  5: $spacer * 3,
+  sm: 5px,
+  8px: 8px,
+  1: 10px,
+  15: 15px,
+  16: 16px,
+  2: 20px,
+  24: 24px,
+  3: 30px,
+  4: 40px,
+  5: 50px,
   6: 60px,
-);
+  7: 70px,
+  8: 80px,
+) !default;
 
 $form-switch-width: 2.5em !default;
 $accordion-button-bg: $color-blue-5;

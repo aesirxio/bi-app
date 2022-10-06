@@ -230,7 +230,7 @@ const Table = ({
           {rows.length ? (
             <table {...getTableProps()} className={`w-100 mb-4 ${classNameTable}`}>
               <thead>
-                {headerGroups.map((headerGroup) => {
+                {headerGroups.map((headerGroup, index) => {
                   let newHeaderGroup = '';
 
                   dataList
@@ -240,10 +240,11 @@ const Table = ({
                     : (newHeaderGroup = headerGroup.headers);
 
                   return (
-                    <tr {...headerGroup.getHeaderGroupProps()} className="bg-blue">
-                      {newHeaderGroup.map((column) => {
+                    <tr key={index} {...headerGroup.getHeaderGroupProps()} className="bg-blue">
+                      {newHeaderGroup.map((column, index) => {
                         return (
                           <th
+                            key={index}
                             {...column.getHeaderProps()}
                             className="fw-normal px-2 py-3 flex-1 bg-blue"
                           >
@@ -281,9 +282,13 @@ const Table = ({
                           onRightClickItem(e, row.original);
                         }}
                       >
-                        {newRowCells.map((cell) => {
+                        {newRowCells.map((cell, index) => {
                           return (
-                            <td {...cell.getCellProps()} className="fw-normal px-2 py-3">
+                            <td
+                              key={index}
+                              {...cell.getCellProps()}
+                              className="fw-normal px-2 py-3"
+                            >
                               {cell.render('Cell')}
                             </td>
                           );

@@ -13,7 +13,7 @@ import { isLogin } from '../../auth';
 
 const AuthLayout = () => {
   return isLogin() ? (
-    <Redirect to="/root" />
+    <Redirect to="/" />
   ) : (
     <div className="container-fluid">
       <div className="row">

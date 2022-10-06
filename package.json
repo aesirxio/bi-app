@@ -84,5 +84,8 @@
     "react-scripts": "^5.0.1",
     "sass": "^1.52",
     "serve": "^13.0.2"
+  },
+  "overrides": {
+    "autoprefixer": "10.4.5"
   }
 }

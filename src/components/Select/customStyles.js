@@ -3,13 +3,14 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-const customStyles = (isBorder) => {
+const customStyles = (isBorder, arrowColor) => {
   return {
     control: (provided) => {
       return {
         ...provided,
-        minHeight: 50,
-        boxShadow: '0 3px 5px rgb(0 0 0 / 5%)',
+        minHeight: 32,
+        boxShadow: 'none',
+        borderRadius: '5px',
         borderColor: isBorder ? 'var(--border-color)' : 'transparent',
         '&:hover': {
           // borderColor: isBorder ? '#8bdcbc' : 'transparent',
@@ -25,12 +26,12 @@ const customStyles = (isBorder) => {
     menu: (styles) => {
       return {
         ...styles,
-        top: 'calc(100% - 2px)',
+        top: 'calc(100% - 15px)',
         margin: 0,
         border: 0,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
-        // borderLeft: '1px solid var(--border-color)',
+        borderLeft: '1px solid var(--border-color)',
         borderRight: '1px solid var(--border-color)',
         boxShadow: '0 3px 5px rgb(0 0 0 / 5%)',
         borderTop: '1px solid var(--border-color)',
@@ -51,7 +52,7 @@ const customStyles = (isBorder) => {
 
     dropdownIndicator: (base) => ({
       ...base,
-      color: 'var(--bs-success)',
+      color: arrowColor ? arrowColor : 'var(--bs-success)',
       '&:hover': {
         color: 'var(--bs-success)',
       },

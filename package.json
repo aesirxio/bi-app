@@ -41,6 +41,7 @@
     "react-timezone-select": "^1.0.7",
     "react-toastify": "^9.0.8",
     "react-transition-group": "^4.4.2",
+    "recharts": "^2.1.14",
     "simple-react-validator": "^1.6.0",
     "swiper": "^6.3.5",
     "url": "^0.11.0",

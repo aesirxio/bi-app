@@ -10,6 +10,9 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
 import ComponentCard from 'components/ComponentCard';
+import Revenue from './Component/Revenue';
+import RegisteredUser from './Component/RegisteredUser';
+import UsersMapping from './Component/UsersMapping';
 
 const HomePage = observer(
   class HomePage extends Component {
@@ -32,7 +35,7 @@ const HomePage = observer(
               <p className="mb-0">{t('txt_dashboard_below')}</p>
             </div>
           </div>
-          <div className="row gx-24">
+          <div className="row gx-24 mb-24">
             <div className="col-lg-3">
               <ComponentCard
                 title={t('txt_visitors')}
@@ -80,6 +83,20 @@ const HomePage = observer(
                 percent={'11%'}
                 textPercent={'form June'}
               ></ComponentCard>
+            </div>
+          </div>
+          <div className="row gx-24 mb-24">
+            <div className="col-lg-7"></div>
+            <div className="col-lg-5">
+              <Revenue></Revenue>
+            </div>
+          </div>
+          <div className="row gx-24 mb-24">
+            <div className="col-lg-7">
+              <RegisteredUser></RegisteredUser>
+            </div>
+            <div className="col-lg-5">
+              <UsersMapping></UsersMapping>
             </div>
           </div>
         </div>

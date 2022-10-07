@@ -77,7 +77,7 @@ const RegisteredUser = () => {
   return (
     <div className="py-2 bg-white rounded-1 shadow-sm">
       <div className="d-flex justify-content-between align-items-center py-16 px-24 ">
-        <h2 className="mb-0 fs-5 fw-semibold">New Registered Users</h2>
+        <h2 className="mb-0 fs-4 fw-semibold">New Registered Users</h2>
         <a href="#" className="fs-14 text-body">
           <span className="pe-1">View more</span>
           <span

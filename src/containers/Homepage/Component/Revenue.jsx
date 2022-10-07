@@ -48,7 +48,7 @@ const Revenue = () => {
   );
   return (
     <div className="py-2 bg-white rounded-1 shadow-sm">
-      <h2 className="py-16 px-24 mb-0 fs-5 fw-semibold">Revenue by subscribers</h2>
+      <h2 className="py-16 px-24 mb-0 fs-4 fw-semibold">Revenue by subscribers</h2>
       <div className="fs-14 fw-semibold">
         <Table columns={columnsTable} data={dataTable}></Table>
       </div>

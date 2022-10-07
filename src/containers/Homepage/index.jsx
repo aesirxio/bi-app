@@ -92,10 +92,10 @@ const HomePage = observer(
             </div>
           </div>
           <div className="row gx-24 mb-24">
-            <div className="col-lg-7">
+            <div className="col-lg-6">
               <RegisteredUser></RegisteredUser>
             </div>
-            <div className="col-lg-5">
+            <div className="col-lg-6">
               <UsersMapping></UsersMapping>
             </div>
           </div>

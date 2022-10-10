@@ -12,7 +12,8 @@ const LoginPage = lazy(() => import('../containers/LoginPage'));
 
 const WelcomePage = lazy(() => import('../containers/WelcomePage'));
 const DashboardPage = lazy(() => import('../containers/Homepage'));
-const AudiencePage = lazy(() => import('../containers/Audience'));
+const AudiencePage = lazy(() => import('../containers/AudiencePage'));
+const RevenuePage = lazy(() => import('../containers/RevenuePage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
@@ -40,6 +41,11 @@ const mainRoutes = [
     path: '/audience/overview',
     exact: true,
     main: () => <AudiencePage />,
+  },
+  {
+    path: '/revenue',
+    exact: true,
+    main: () => <RevenuePage />,
   },
 ];
 

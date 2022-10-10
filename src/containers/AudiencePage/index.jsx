@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import AreaChart from 'components/AreaChartComponent';
 import ComponentCard from 'components/ComponentCard';
 
-class Audience extends Component {
+class AudiencePage extends Component {
   render() {
     const { t } = this.props;
     const listNewUser = [
@@ -98,7 +98,13 @@ class Audience extends Component {
                 lineType="monotone"
                 areaColors={['#3BB346', 'pink']}
                 lineColors={['#0FC6C2', 'red']}
-                lines={['line1', 'line2']}
+                lines={['line1']}
+                isDot
+                defaultValue={{ label: 'Sessions', value: 'session' }}
+                options={[
+                  { label: 'Sessions', value: 'session' },
+                  { label: 'Localhost', value: 'localhost' },
+                ]}
               />
             </Col>
             <Col lg={3}>
@@ -218,4 +224,4 @@ class Audience extends Component {
     );
   }
 }
-export default withTranslation('common')(Audience);
+export default withTranslation('common')(AudiencePage);

@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import AreaChartController from './AreaChartController';
-
+import './index.scss';
 const AreaChartComponent = ({
   data,
   height,
@@ -20,12 +20,38 @@ const AreaChartComponent = ({
   lineColors,
   chartTitle,
   lines,
+  defaultValue,
+  options,
+  isDot,
+  hiddenGrid,
+  XAxisOptions,
+  ...props
 }) => {
+  const { t } = props;
+  const customizedTooltip = ({ payload }) => {
+    return (
+      <div className="areachart-tooltip p-15 text-white bg-blue-5 rounded-3">
+        <p className="text-uppercase fw-semibold fs-12 mb-sm">{t('txt_in_total')}</p>
+        {payload &&
+          payload.map((item, index) => {
+            return (
+              <p key={index} className="mb-0 fw-bold">
+                {payload.length > 1 && `${item.name}: `}$ {item.value}
+              </p>
+            );
+          })}
+      </div>
+    );
+  };
   return (
     <div className="bg-white rounded-3 p-24 shadow-sm">
       {data ? (
         <>
-          <AreaChartController chartTitle={chartTitle} />
+          <AreaChartController
+            chartTitle={chartTitle}
+            defaultValue={defaultValue}
+            options={options}
+          />
           <ResponsiveContainer width="100%" height={height ?? 500}>
             <AreaChart data={data}>
               {lines && (
@@ -47,20 +73,23 @@ const AreaChartComponent = ({
                   })}
                 </defs>
               )}
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="7 7" {...hiddenGrid} />
+              <XAxis dataKey="name" {...XAxisOptions} />
+              <YAxis axisLine={false} tickLine={false} />
+              <Tooltip content={customizedTooltip} />
               {lines &&
                 lines.map((item, index) => {
                   return (
                     <Area
                       key={index}
+                      dot={isDot && { strokeWidth: 4 }}
+                      activeDot={{ strokeWidth: 2, r: 7 }}
                       type={lineType ?? 'temperature'}
                       dataKey={item}
                       stroke={lineColors[index]}
                       fillOpacity={1}
                       fill={`url(#${item}_${index})`}
+                      strokeWidth={2}
                     />
                   );
                 })}

@@ -7,8 +7,8 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
 import { UPDATE_GENERAL_FIELD_KEY } from '../../../constants/ProfileModule';
-import Storage from 'aesirx-dma-lib/src/Utils/Storage';
-import { AUTHORIZATION_KEY } from 'aesirx-dma-lib/src/Constant/Constant';
+import Storage from 'library/Utils/Storage';
+import { AUTHORIZATION_KEY } from 'library/Constant/Constant';
 
 class UpdateGeneralViewModel {
   profileStore = null;

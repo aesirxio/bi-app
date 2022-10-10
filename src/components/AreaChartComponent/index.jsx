@@ -1,5 +1,6 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
+import { withTranslation } from 'react-i18next';
 import {
   AreaChart,
   Area,
@@ -21,7 +22,7 @@ const AreaChartComponent = ({
   lines,
 }) => {
   return (
-    <div className="bg-white rounded-3 p-24 shadow">
+    <div className="bg-white rounded-3 p-24 shadow-sm">
       {data ? (
         <>
           <AreaChartController chartTitle={chartTitle} />
@@ -72,4 +73,4 @@ const AreaChartComponent = ({
     </div>
   );
 };
-export default AreaChartComponent;
+export default withTranslation('common')(AreaChartComponent);

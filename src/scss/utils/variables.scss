@@ -12,7 +12,7 @@ $gray-200: #e9ecef !default;
 $gray-300: #dedede !default;
 $gray-400: #ced4da !default;
 $gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
+$gray-600: #8e8e8e !default;
 $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #1a2226 !default;
@@ -40,11 +40,12 @@ $red: #cb222c !default;
 $orange: #f78464 !default;
 $yellow: #ff9e01 !default;
 $green: #1ab394 !default;
+$green-light: rgba(#1ab394, 0.15) !default;
 $teal: #20c997 !default;
 $cyan: #1a73e8 !default;
 
 //MAIN COLOR BLUE
-$color-blue: #081240;
+$color-blue: #0a083b;
 $color-blue-1: #3b5998;
 $color-blue-2: #00acee;
 $color-blue-3: #005f89;
@@ -65,6 +66,7 @@ $colors: (
   'orange': $orange,
   'yellow': $yellow,
   'green': $green,
+  'green-light': $green-light,
   'teal': $teal,
   'cyan': $cyan,
   'white': $white,
@@ -95,8 +97,10 @@ $theme-colors: (
   'dark': $dark,
   'gray-100': $gray-100,
   'gray-300': $gray-300,
+  'gray': $gray-600,
   'cyan': $cyan,
   'blue-9': $color-blue-9,
+  'green-light': $green-light,
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -105,7 +109,7 @@ $theme-colors: (
 // Settings for the `<body>` element.
 
 $body-bg: $white !default;
-$body-color: $gray-900 !default;
+$body-color: #0a083b !default;
 $body-text-align: null !default;
 
 $link-color: $primary !default;
@@ -131,11 +135,11 @@ $font-size-lg: $font-size-base * 1.25 !default;
 $h1-font-size: $font-size-base * 2.5 !default;
 $h2-font-size: $font-size-base * 2 !default;
 $h3-font-size: $font-size-base * 1.75 !default;
-$h4-font-size: $font-size-base * 1.5 !default;
-$h5-font-size: $font-size-base * 1.25 !default;
+$h4-font-size: $font-size-base * 1.25 !default;
+$h5-font-size: $font-size-base * 1.125 !default;
 $h6-font-size: $font-size-base !default;
-$h7-font-size: $font-size-base * 0.75 !default;
-$h8-font-size: $font-size-base * 0.875 !default;
+$h7-font-size: $font-size-base * 0.875 !default;
+$h8-font-size: $font-size-base * 0.75 !default;
 
 // scss-docs-start font-sizes
 $font-sizes: (
@@ -145,8 +149,8 @@ $font-sizes: (
   4: $h4-font-size,
   5: $h5-font-size,
   6: $h6-font-size,
-  12: $h7-font-size,
-  14: $h8-font-size,
+  14: $h7-font-size,
+  12: $h8-font-size,
   sm: $font-size-sm,
 ) !default;
 // scss-docs-end font-sizes
@@ -168,12 +172,12 @@ $border-widths: (
 $border-color: $gray-300 !default;
 
 $border-radius: 0.25rem !default;
-$border-radius-sm: 0.2rem !default;
+$border-radius-sm: 5px !default;
 $border-radius-lg: 10px !default;
 $border-radius-pill: 50rem !default;
 
 $box-shadow: 0 0.5rem 1rem rgba($black, 0.15) !default;
-$box-shadow-sm: 0 0.185rem 0.3125rem rgba($black, 0.05) !default;
+$box-shadow-sm: 0px 0px 5px 0px #2223280d !default;
 $box-shadow-lg: 0 1rem 3rem rgba($black, 0.175) !default;
 $box-shadow-inset: inset 0 1px 2px rgba($black, 0.075) !default;
 

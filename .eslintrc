@@ -24,10 +24,10 @@
     ],
     "rules": {
         "no-unused-vars": "error",
-        "react/display-name": "warn",
-        "react/prop-types": "warn",
+        "react/display-name": "off",
+        "react/prop-types": "off",
         "react/jsx-key": "warn",
-        "no-unsafe-optional-chaining": "warn",
+        "no-unsafe-optional-chaining": "off",
         "react/no-deprecated": "warn",
         "react/no-children-prop": "warn",
         "no-case-declarations": "warn"

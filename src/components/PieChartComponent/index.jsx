@@ -6,7 +6,8 @@ import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector } from 'rechar
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
-const PieChartComponent = ({ data, colors, height, chartTitle, link }) => {
+import { withTranslation } from 'react-i18next';
+const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const RADIAN = Math.PI / 180;
 
@@ -95,9 +96,9 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link }) => {
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
           textAnchor={textAnchor}
-          fill="#333"
+          fill="var(--body-color)"
           className="fw-semibold"
-        >{`Value: ${value}`}</text>
+        >{`${t('txt_value')}: ${value}`}</text>
         <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
@@ -111,14 +112,17 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link }) => {
       </g>
     );
   };
+
+  const { t } = props;
+
   return (
-    <div className="p-24 bg-white rounded-3 shadow">
+    <div className="p-24 bg-white rounded-3 shadow-sm">
       {chartTitle && (
-        <div className="d-flex justify-content-between mb-24">
-          <h5 className="fw-semibold">{chartTitle} </h5>
+        <div className="d-flex justify-content-between">
+          <h5 className="fw-semibold text-blue-0">{chartTitle} </h5>
           {link && (
             <Link to={link} className="text-decoration-none text-color">
-              View more
+              {t('txt_view_more')}
               <FontAwesomeIcon
                 className="text-success ms-1 align-middle"
                 icon={faChevronRight}
@@ -136,7 +140,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link }) => {
               data={data}
               cx="50%"
               cy="50%"
-              outerRadius={105}
+              outerRadius={90}
               labelLine={false}
               label={customizedLabel}
               fill="#8884D8"
@@ -161,4 +165,4 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link }) => {
   );
 };
 
-export default PieChartComponent;
+export default withTranslation('common')(PieChartComponent);

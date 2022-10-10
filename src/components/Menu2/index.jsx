@@ -48,21 +48,21 @@ class Menu2 extends React.Component {
 
     return (
       <nav>
-        <div className="py-1 px-3 item_menu item_menu_home">
+        <div className="py-1 px-16 item_menu item_menu_home">
           <a
             href="/"
-            className="d-block text-blue-0 p-3 link_menu rounded-2 text-decoration-none  "
+            className="d-block text-blue-0 p-16 link_menu rounded-2 text-decoration-none  "
           >
             <i>
               <FontAwesomeIcon icon={faArrowLeft} />
             </i>
-            <span className="ms-3 text text-white">{t('txt_back_to_dashboard')}</span>
+            <span className="ms-16 text text-white">{t('txt_back_to_dashboard')}</span>
           </a>
         </div>
         {dataMenu.map((item, index) => {
           return (
             <div key={index}>
-              <ul className="wr_list_menu_2 list-unstyled mb-0 py-1 px-3">
+              <ul className="wr_list_menu_2 list-unstyled mb-0 py-1 px-16">
                 {item.listMenu.map((value, key) => {
                   return (
                     <li
@@ -72,13 +72,13 @@ class Menu2 extends React.Component {
                     >
                       <NavLink
                         to={value.link}
-                        className={`d-block rounded-1 p-3 link_menu text-blue-0 text-decoration-none`}
+                        className={`d-block rounded-1 p-16 link_menu text-blue-0 text-decoration-none`}
                         activeClassName={`active`}
                       >
                         <i>
                           <FontAwesomeIcon icon={value.icons} />
                         </i>
-                        <span className="ms-3 text">{t(value.text)}</span>
+                        <span className="ms-16 text">{t(value.text)}</span>
                       </NavLink>
                     </li>
                   );

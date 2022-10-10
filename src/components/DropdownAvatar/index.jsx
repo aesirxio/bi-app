@@ -89,14 +89,14 @@ class DropdownAvatar extends React.Component {
             id="dropdown-custom-components position-relative"
           ></Dropdown.Toggle>
           <Dropdown.Menu className="shadow border-0">
-            <div className="p-3">
+            <div className="p-16">
               <ul className="list-unstyled ps-0 mb-0 list_menu_avatar">
                 {data.map((value, index) => {
                   return (
                     <li key={index}>
                       <Dropdown.Item
                         href={value.link}
-                        className="text-blue-0 d-block rounded-1 text-decoration-none p-2"
+                        className="text-blue-0 d-block rounded-1 text-decoration-none p-16"
                       >
                         {t(value.text)}
                       </Dropdown.Item>
@@ -107,9 +107,9 @@ class DropdownAvatar extends React.Component {
             </div>
             <div
               onClick={logout}
-              className="d-flex align-items-center p-3 text-green border-top-1 border-gray cursor-pointer"
+              className="d-flex align-items-center p-16 text-green border-top-1 border-gray cursor-pointer"
             >
-              <span className="ps-2 pe-2">{t('txt_sign_out')}</span>
+              <span className="px-16">{t('txt_sign_out')}</span>
             </div>
           </Dropdown.Menu>
         </Dropdown>

@@ -105,16 +105,16 @@ const UpdatePassword = observer(
       this.validator.purgeFields();
       return (
         <div>
-          <div className="bg-white p-3">
+          <div className="bg-white p-16">
             <form>
               <div className="row">
                 <div className="col-4">
-                  <label className="form-label mb-3" htmlFor="curr_password">
+                  <label className="form-label mb-16" htmlFor="curr_password">
                     <span className="text-blue-0">{t('txt_current_password')}</span>
                   </label>
                   <input
                     type="password"
-                    className="form-control mb-3"
+                    className="form-control mb-16"
                     id="curr_password"
                     onBlur={this.blurringFieldHandler}
                     disabled={this.state.loading}
@@ -132,12 +132,12 @@ const UpdatePassword = observer(
                   )}
                 </div>
                 <div className="col-4">
-                  <label className="form-label mb-3" htmlFor="new_password">
+                  <label className="form-label mb-16" htmlFor="new_password">
                     <span className="text-blue-0">{t('txt_new_password')}</span>
                   </label>
                   <input
                     type="password"
-                    className="form-control mb-3"
+                    className="form-control mb-16"
                     id="new_password"
                     onBlur={this.blurringFieldHandler}
                     disabled={this.state.loading}
@@ -153,12 +153,12 @@ const UpdatePassword = observer(
                   )}
                 </div>
                 <div className="col-4">
-                  <label className="form-label mb-3" htmlFor="new_password">
+                  <label className="form-label mb-16" htmlFor="new_password">
                     <span className="text-blue-0 text-nowrap">{t('txt_confirm_password')}</span>
                   </label>
                   <input
                     type="password"
-                    className="form-control mb-3"
+                    className="form-control mb-16"
                     id="new_checked_password"
                     onBlur={this.blurringFieldHandler}
                     disabled={this.state.loading}

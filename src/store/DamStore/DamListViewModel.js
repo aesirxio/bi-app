@@ -160,10 +160,11 @@ class DamListViewModel {
     if (data.item) {
       if (data?.type) {
         switch (data.type) {
-          case 'update':
+          case 'update': {
             const findIndex = this.assets.findIndex((asset) => asset.id === data.item.id);
             this.assets[findIndex] = { ...this.assets[findIndex], ...data.item };
             break;
+          }
           case 'delete':
             this.assets = this.assets.filter((asset) => {
               return asset.id !== data.item?.id;
@@ -206,12 +207,13 @@ class DamListViewModel {
     if (data.item) {
       if (data?.type) {
         switch (data.type) {
-          case 'update':
+          case 'update': {
             const findIndex = this.collections.findIndex(
               (collection) => collection.id === data.item.id
             );
             this.collections[findIndex] = { ...this.collections[findIndex], ...data.item };
             break;
+          }
           case 'delete':
             this.collections = this.collections.filter((collection) => {
               return collection.id !== data.item?.id;

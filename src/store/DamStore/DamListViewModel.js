@@ -31,13 +31,6 @@ class DamListViewModel {
     this.damStore = damStore;
   }
 
-  getSubscription = () => {
-    this.damStore.getSubscription(
-      this.callbackOnSubscriptionSuccessHandler,
-      this.callbackOnErrorHander
-    );
-  };
-
   getCollections = (collectionId) => {
     this.isSearch = false;
     this.status = PAGE_STATUS.LOADING;

@@ -14,7 +14,6 @@ import SimpleReactValidator from 'simple-react-validator';
 import { withDamViewModel } from 'store/DamStore/DamViewModelContextProvider';
 import { renderingGroupFieldHandler } from 'utils/form';
 import { notify } from 'components/Toast';
-import { DAM_SUBSCIPTION_FIELD_KEY } from 'aesirx-dma-lib/src/Constant/DamConstant';
 
 const SettingList = observer(
   class SettingList extends Component {
@@ -46,22 +45,6 @@ const SettingList = observer(
       const { t } = this.props;
       this.formPropsData = {
         ...this.formPropsData,
-        key:
-          this.damListViewModel?.subscription?.[0]?.[DAM_SUBSCIPTION_FIELD_KEY.PRODUCT]?.[
-            DAM_SUBSCIPTION_FIELD_KEY.PRODUCT_OPTION
-          ]?.plugin_params?.key ?? '',
-        secret:
-          this.damListViewModel?.subscription?.[0]?.[DAM_SUBSCIPTION_FIELD_KEY.PRODUCT]?.[
-            DAM_SUBSCIPTION_FIELD_KEY.PRODUCT_OPTION
-          ]?.plugin_params?.secret ?? '',
-        region:
-          this.damListViewModel?.subscription?.[0]?.[DAM_SUBSCIPTION_FIELD_KEY.PRODUCT]?.[
-            DAM_SUBSCIPTION_FIELD_KEY.PRODUCT_OPTION
-          ]?.plugin_params?.region ?? '',
-        bucket:
-          this.damListViewModel?.subscription?.[0]?.[DAM_SUBSCIPTION_FIELD_KEY.PRODUCT]?.[
-            DAM_SUBSCIPTION_FIELD_KEY.PRODUCT_OPTION
-          ]?.plugin_params?.bucket ?? '',
       };
       if (this.formPropsData?.storage?.value === 'aws') {
         return [

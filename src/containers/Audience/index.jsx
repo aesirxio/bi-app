@@ -19,74 +19,90 @@ class Audience extends Component {
           <Row>
             <Col lg={9}>
               <AreaChart
-                lines={2}
-                height="500px"
+                chartTitle="Overview"
+                height={500}
                 data={[
                   {
                     name: 'Jan',
                     line1: 400,
+                    line2: 700,
                   },
                   {
                     name: 'Feb',
                     line1: 530,
+                    line2: 730,
                   },
                   {
                     name: 'Mar',
                     line1: 410,
+                    line2: 710,
                   },
                   {
                     name: 'Apr',
                     line1: 395,
+                    line2: 795,
                   },
                   {
                     name: 'May',
                     line1: 380,
+                    line2: 780,
                   },
                   {
                     name: 'Jun',
                     line1: 204,
+                    line2: 704,
                   },
                   {
                     name: 'Jul',
                     line1: 420,
+                    line2: 720,
                   },
                   {
                     name: 'Aug',
                     line1: 680,
+                    line2: 780,
                   },
                   {
                     name: 'Sep',
                     line1: 670,
+                    line2: 770,
                   },
                   {
                     name: 'Oct',
                     line1: 568,
+                    line2: 768,
                   },
                   {
                     name: 'Nov',
                     line1: 940,
+                    line2: 740,
                   },
                   {
                     name: 'Dec',
                     line1: 360,
+                    line2: 760,
                   },
                 ]}
                 colors={['#1AB394']}
                 lineType="monotone"
-                areaColors={['#3BB346']}
-                lineColors={['#0FC6C2']}
+                areaColors={['#3BB346', 'pink']}
+                lineColors={['#0FC6C2', 'red']}
+                lines={['line1', 'line2']}
               />
             </Col>
+            <Col lg={3}></Col>
+          </Row>
+          <Row>
+            <Col lg={9}></Col>
             <Col lg={3}>
               <PieChart
-                titleChart="Visitors"
-                height="288px"
-                chartArea={{ top: '10', bottom: '70', width: '100%', height: '75%' }}
+                height={320}
+                chartTitle="Visitors"
                 data={[
-                  ['Percentage', 'Percent'],
-                  ['Returning visitors', 40],
-                  ['New visitors', 60],
+                  { name: 'Smart', value: 400 },
+                  { name: 'Stupid', value: 600 },
                 ]}
+                colors={['#1AB394', '#1A73E8']}
                 legendPosition="bottom"
               />
             </Col>

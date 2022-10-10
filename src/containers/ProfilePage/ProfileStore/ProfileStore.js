@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import AesirxMemberApiService from 'aesirx-dma-lib/src/Member/Member';
+import AesirxMemberApiService from 'library/Member/Member';
 import { runInAction } from 'mobx';
 import ProfileModel from '../ProfileModel/ProfileModel';
 

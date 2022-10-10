@@ -145,7 +145,7 @@ const UpdateGeneral = observer(
           {!memberInfo ? (
             <Spinner />
           ) : (
-            <div className="bg-white p-3 rounded-3">
+            <div className="bg-white p-16 rounded-3">
               <div className="row">
                 <FormComponent
                   formClassName={'col-9 row'}

@@ -11,7 +11,6 @@ import { FORMAT_DATE } from '../../../constants/FormFieldType';
 import Label from '../Label';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import '../../ComponentDatepicker/index.scss';
 import './index.scss';
 
 const DatePicker = lazy(() => import('react-datepicker'));

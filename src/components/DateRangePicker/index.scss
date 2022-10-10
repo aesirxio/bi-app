@@ -6,7 +6,7 @@
 @import 'react-datepicker/dist/react-datepicker.css';
 @import '../../scss/utils/bootstrap.scss';
 
-.wrapper_datepicker {
+.daterange-picker {
   .react-datepicker__input-container {
     height: 50px;
   }
@@ -23,8 +23,9 @@
 
   .react-datepicker {
     border: 0;
-    padding: 1rem;
+    padding: 0 16px 16px 16px;
     vertical-align: middle;
+    display: flex;
   }
 
   .react-datepicker__header {
@@ -82,5 +83,24 @@
     &:hover {
       background-color: rgba($color: $color-blue-3, $alpha: 0.4);
     }
+  }
+  .react-datepicker__year-read-view--down-arrow,
+  .react-datepicker__month-read-view--down-arrow,
+  .react-datepicker__month-year-read-view--down-arrow,
+  .react-datepicker__navigation-icon::before {
+    top: 12px;
+    border-width: 2px 2px 0 0;
+  }
+  .icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  .react-datepicker__close-icon {
+    right: 35px;
   }
 }

@@ -13,6 +13,7 @@ import ComponentCard from 'components/ComponentCard';
 import Revenue from './Component/Revenue';
 import RegisteredUser from './Component/RegisteredUser';
 import ComponentContinent from 'components/ComponentContinent';
+import DateRangePicker from 'components/DateRangePicker';
 
 const HomePage = observer(
   class HomePage extends Component {
@@ -30,9 +31,12 @@ const HomePage = observer(
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
           <div className="d-flex align-items-center justify-content-between mb-24">
-            <div>
+            <div className="position-relative">
               <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_dashboard')}</h2>
               <p className="mb-0">{t('txt_dashboard_below')}</p>
+            </div>
+            <div className="position-relative">
+              <DateRangePicker></DateRangePicker>
             </div>
           </div>
           <div className="row gx-24 mb-24">

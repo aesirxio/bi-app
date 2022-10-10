@@ -7,7 +7,6 @@ import React, { useEffect } from 'react';
 import { useExpanded, usePagination, useRowSelect, useTable } from 'react-table';
 
 import styles from './index.module.scss';
-import { DAM_ASSETS_FIELD_KEY } from 'aesirx-dma-lib/src/Constant/DamConstant';
 import Dropzone from 'components/Dropzone';
 import { useTranslation, withTranslation } from 'react-i18next';
 import ComponentNoData from '../ComponentNoData';
@@ -22,7 +21,6 @@ const Table = ({
   noSelection = true,
   isList = true,
   classNameTable,
-  onDoubleClick,
   createAssets,
   onRightClickItem,
 }) => {
@@ -125,11 +123,6 @@ const Table = ({
                       <tr
                         key={row.getRowProps().key}
                         {...row.getRowProps()}
-                        onDoubleClick={
-                          row.original[DAM_ASSETS_FIELD_KEY.TYPE]
-                            ? () => {}
-                            : () => onDoubleClick(row.original.id)
-                        }
                         onContextMenu={(e) => {
                           onRightClickItem(e, row.original);
                         }}
@@ -187,11 +180,6 @@ const Table = ({
                     <div
                       className={`item_thumb d-flex align-items-center justify-content-center bg-white shadow-sm h-100 rounded-2 overflow-hidden  flex-column`}
                       key={Math.random(40, 200)}
-                      onDoubleClick={
-                        row.original[DAM_ASSETS_FIELD_KEY.TYPE]
-                          ? () => {}
-                          : () => onDoubleClick(row.original.id)
-                      }
                       onContextMenu={(e) => {
                         onRightClickItem(e, row.original);
                       }}

@@ -26,9 +26,6 @@ const SbarLeft = observer(
       this.damListViewModel = this.viewModel ? this.viewModel.damListViewModel : null;
     }
 
-    componentDidMount() {
-      this.damListViewModel.getSubscription();
-    }
     render() {
       let { settingPage } = this.props;
 

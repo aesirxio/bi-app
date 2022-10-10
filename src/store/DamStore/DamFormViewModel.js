@@ -3,7 +3,6 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { DAM_ASSETS_FIELD_KEY } from 'aesirx-dma-lib/src/Constant/DamConstant';
 import { notify } from 'components/Toast';
 import PAGE_STATUS from 'constants/PageStatus';
 import { saveAs } from 'file-saver';
@@ -50,10 +49,9 @@ class DamFormViewModel {
   };
 
   downloadFile = () => {
-    saveAs(
-      this.damEditdata?.[DAM_ASSETS_FIELD_KEY.DOWNLOAD_URL],
-      this.damEditdata?.[DAM_ASSETS_FIELD_KEY.NAME]
-    );
+    saveAs();
+    // this.damEditdata?.[DAM_ASSETS_FIELD_KEY.DOWNLOAD_URL],
+    // this.damEditdata?.[DAM_ASSETS_FIELD_KEY.NAME]
   };
 
   callbackOnErrorHander = (data) => {

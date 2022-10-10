@@ -10,7 +10,6 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
-    "aesirx-dma-lib": "aesirxio/dma-lib#develop-dam",
     "bootstrap": "5.0.2",
     "d3-fetch": "^3.0.1",
     "date-fns": "^2.16.1",
@@ -51,7 +50,6 @@
   "scripts": {
     "start": "npm run build && serve -s build",
     "build": "npm run build:lib && react-scripts build",
-    "build:lib": "cd node_modules/aesirx-dma-lib && npm i && npm run build && cd ../../",
     "test": "react-scripts test",
     "dev": "react-scripts start",
     "lint": "eslint --fix \"src/**/\"",

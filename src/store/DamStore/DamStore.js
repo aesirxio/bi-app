@@ -3,31 +3,12 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxDamApiService } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 import DamUtils from './DamUtils';
 
+// import { AesirxDamApiService } from 'aesirx-dma-lib';
+const AesirxDamApiService = {};
 export default class DamStore {
-  getSubscription = async (callbackOnSuccess, callbackOnError) => {
-    try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.getDamSubscription();
-      if (responsedDataFromLibary) {
-        runInAction(() => {
-          callbackOnSuccess(responsedDataFromLibary);
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      runInAction(() => {
-        callbackOnError({
-          message: 'Something went wrong',
-        });
-      });
-      return error;
-    }
-  };
-
   updateSubscription = async (data) => {
     try {
       const damService = new AesirxDamApiService();

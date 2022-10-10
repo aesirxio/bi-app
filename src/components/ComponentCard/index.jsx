@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.scss';
 import SelectComponent from 'components/Select';
-import { components } from 'react-select';
 const ComponentCard = ({
   title,
   icon,
@@ -13,26 +12,9 @@ const ComponentCard = ({
   options,
   defaultValue,
 }) => {
-  const { ValueContainer, Placeholder } = components;
-  const CustomValueContainer = ({ children, ...props }) => {
-    return (
-      <ValueContainer {...props} className="valueContainerCustom px-16">
-        {!props.hasValue && (
-          <Placeholder {...props} isFocused={props.isFocused}>
-            {props.selectProps.placeholder}
-          </Placeholder>
-        )}
-
-        {React.Children.map(children, (child) =>
-          child && child.type !== Placeholder ? child : null
-        )}
-      </ValueContainer>
-    );
-  };
-
   return (
     <div className="bg-white p-24 shadow-sm rounded-1">
-      <div className="d-flex justify-content-between mb-16">
+      <div className="d-flex justify-content-between align-items-start mb-16">
         <div className="d-flex align-items-center">
           {icon && (
             <div
@@ -58,11 +40,7 @@ const ComponentCard = ({
             options={options}
             className={`fs-sm`}
             isBorder={true}
-            plColor={'#808495'}
-            arrowColor={'##222328'}
-            components={{
-              ValueContainer: CustomValueContainer,
-            }}
+            arrowColor={'#222328'}
           />
         )}
       </div>

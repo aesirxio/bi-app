@@ -1,6 +1,7 @@
 import Table from 'components/Table';
 import React from 'react';
-const RegisteredUser = () => {
+import { withTranslation } from 'react-i18next';
+const RegisteredUser = (props) => {
   const columnsTable = React.useMemo(
     () => [
       {
@@ -74,12 +75,13 @@ const RegisteredUser = () => {
     ],
     []
   );
+  const { t } = props;
   return (
     <div className="py-2 bg-white rounded-1 shadow-sm">
       <div className="d-flex justify-content-between align-items-center py-16 px-24 ">
-        <h2 className="mb-0 fs-5 fw-semibold">New Registered Users</h2>
+        <h2 className="mb-0 fs-4 fw-semibold">{t('txt_new_registered_users')}</h2>
         <a href="#" className="fs-14 text-body">
-          <span className="pe-1">View more</span>
+          <span className="pe-1">{t('txt_view_more')}</span>
           <span
             className="icon arrow d-inline-block align-text-bottom ms-auto bg-success"
             style={{
@@ -98,4 +100,4 @@ const RegisteredUser = () => {
     </div>
   );
 };
-export default RegisteredUser;
+export default withTranslation('common')(RegisteredUser);

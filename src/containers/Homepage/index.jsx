@@ -12,7 +12,7 @@ import PAGE_STATUS from 'constants/PageStatus';
 import ComponentCard from 'components/ComponentCard';
 import Revenue from './Component/Revenue';
 import RegisteredUser from './Component/RegisteredUser';
-import UsersMapping from './Component/UsersMapping';
+import ComponentContinent from 'components/ComponentContinent';
 
 const HomePage = observer(
   class HomePage extends Component {
@@ -92,11 +92,11 @@ const HomePage = observer(
             </div>
           </div>
           <div className="row gx-24 mb-24">
-            <div className="col-lg-7">
+            <div className="col-lg-6">
               <RegisteredUser></RegisteredUser>
             </div>
-            <div className="col-lg-5">
-              <UsersMapping></UsersMapping>
+            <div className="col-lg-6">
+              <ComponentContinent></ComponentContinent>
             </div>
           </div>
         </div>

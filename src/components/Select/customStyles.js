@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-const customStyles = (isBorder, arrowColor) => {
+const customStyles = (isBorder, plColor, arrowColor) => {
   return {
     control: (provided) => {
       return {
@@ -26,7 +26,7 @@ const customStyles = (isBorder, arrowColor) => {
     menu: (styles) => {
       return {
         ...styles,
-        top: 'calc(100% - 15px)',
+        top: 'calc(100% - 5px)',
         margin: 0,
         border: 0,
         borderTopLeftRadius: 0,
@@ -64,7 +64,7 @@ const customStyles = (isBorder, arrowColor) => {
     placeholder: (defaultStyles) => {
       return {
         ...defaultStyles,
-        color: 'var(--text-title-color)',
+        color: plColor ? plColor : 'var(--text-title-color)',
       };
     },
     multiValue: (styles) => {

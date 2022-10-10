@@ -37,7 +37,7 @@ test:
   except:
     - master
   script:
-    - npm run release
+    - npm run build
 
 
 dev:

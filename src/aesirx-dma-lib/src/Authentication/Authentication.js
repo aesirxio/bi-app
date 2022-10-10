@@ -37,7 +37,8 @@ class AesirxAuthenticationApiService {
             : AXIOS_CONFIGS.CLIENT_SECRET,
         license_key: AXIOS_CONFIGS.LICENSE,
         test_mode: AXIOS_CONFIGS.TEST_MODE,
-        domain: window.location.hostname,
+        // domain: window.location.hostname,
+        domain: 'localhost',
       };
 
       const config = {

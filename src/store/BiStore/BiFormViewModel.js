@@ -8,19 +8,19 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { saveAs } from 'file-saver';
 import { makeAutoObservable } from 'mobx';
 
-class DamFormViewModel {
+class BiFormViewModel {
   show = false;
   showContextMenu = false;
   showDeleteModal = false;
-  damEditdata = null;
+  biEditdata = null;
   editMode = null;
-  damListViewModel = null;
+  biListViewModel = null;
   formStatus = PAGE_STATUS.READY;
-  damStore = null;
+  biStore = null;
 
-  constructor(damStore) {
+  constructor(biStore) {
     makeAutoObservable(this);
-    this.damStore = damStore;
+    this.biStore = biStore;
   }
 
   openContextMenu = () => {
@@ -50,8 +50,8 @@ class DamFormViewModel {
 
   downloadFile = () => {
     saveAs();
-    // this.damEditdata?.[DAM_ASSETS_FIELD_KEY.DOWNLOAD_URL],
-    // this.damEditdata?.[DAM_ASSETS_FIELD_KEY.NAME]
+    // this.biEditdata?.[DAM_ASSETS_FIELD_KEY.DOWNLOAD_URL],
+    // this.biEditdata?.[DAM_ASSETS_FIELD_KEY.NAME]
   };
 
   callbackOnErrorHander = (data) => {
@@ -60,11 +60,11 @@ class DamFormViewModel {
 
   callbackOnSuccessHandler = (data) => {
     if (data) {
-      this.damListViewModel.assets = this.damListViewModel.assets.filter((asset) => {
+      this.biListViewModel.assets = this.biListViewModel.assets.filter((asset) => {
         return asset.id !== data.id;
       });
     }
   };
 }
 
-export default DamFormViewModel;
+export default BiFormViewModel;

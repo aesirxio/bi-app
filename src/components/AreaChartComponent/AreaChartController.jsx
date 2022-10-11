@@ -4,23 +4,25 @@ import { ButtonGroup, Button } from 'react-bootstrap';
 import SelectComponent from 'components/Select';
 import { withTranslation } from 'react-i18next';
 
-const AreaChartController = ({ chartTitle, ...props }) => {
+const AreaChartController = ({ chartTitle, isSelection, ...props }) => {
   const [view, setView] = useState('months');
   const { t } = props;
   return (
     <div className="d-flex justify-content-between mb-24">
       <div className="d-flex align-items-center">
         <h5 className="me-24 mb-0 text-blue-0">{chartTitle}</h5>
-        <SelectComponent
-          defaultValue={{ label: 'Session', value: 'session' }}
-          options={[
-            { label: 'Session', value: 'session' },
-            { label: 'Localhost', value: 'localhost' },
-          ]}
-          className={`fs-sm`}
-          isBorder={true}
-          plColor={'#808495'}
-        />
+        {isSelection && (
+          <SelectComponent
+            defaultValue={{ label: 'Session', value: 'session' }}
+            options={[
+              { label: 'Session', value: 'session' },
+              { label: 'Localhost', value: 'localhost' },
+            ]}
+            className={`fs-sm`}
+            isBorder={true}
+            plColor={'#808495'}
+          />
+        )}
       </div>
       <ButtonGroup>
         <Button

@@ -210,4 +210,30 @@ $utilities: (
       80vh: 80vh,
     ),
   ),
+  'rounded-top-start': (
+    property: border-top-left-radius,
+    class: rounded-top-start,
+    values: (
+      null: $border-radius,
+      0: 0,
+      1: $border-radius-sm,
+      2: $border-radius,
+      3: $border-radius-lg,
+      circle: 50%,
+      pill: $border-radius-pill,
+    ),
+  ),
+  'rounded-top-end': (
+    property: border-top-right-radius,
+    class: rounded-top-end,
+    values: (
+      null: $border-radius,
+      0: 0,
+      1: $border-radius-sm,
+      2: $border-radius,
+      3: $border-radius-lg,
+      circle: 50%,
+      pill: $border-radius-pill,
+    ),
+  ),
 );

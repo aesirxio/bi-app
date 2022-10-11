@@ -25,7 +25,7 @@ const AreaChartComponent = ({
     <div className="bg-white rounded-3 p-24 shadow-sm">
       {data ? (
         <>
-          <AreaChartController chartTitle={chartTitle} />
+          <AreaChartController chartTitle={chartTitle} isSelection={true} />
           <ResponsiveContainer width="100%" height={height ?? 500}>
             <AreaChart data={data}>
               {lines && (

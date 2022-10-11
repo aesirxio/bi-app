@@ -19,7 +19,7 @@ const Table = ({
   dataList,
   dataThumb,
   thumbColumnsNumber,
-  noSelection = true,
+  selection = true,
   isList = true,
   classNameTable,
   onDoubleClick,
@@ -53,10 +53,11 @@ const Table = ({
       },
     },
     (hooks) => {
-      !noSelection &&
+      !selection &&
         hooks.visibleColumns.push((columns) => [
           {
             id: 'selection',
+            className: 'px-24 py-2 border-bottom-1 text-uppercase',
             Header: ({ getToggleAllPageRowsSelectedProps }) => (
               <div>
                 <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
@@ -79,7 +80,7 @@ const Table = ({
   return (
     <>
       {isList ? (
-        <div className="bg-white col">
+        <div className="bg-white rounded-3 shadow-sm">
           {rows.length ? (
             <table {...getTableProps()} className={`w-100 mb-4 ${classNameTable}`}>
               <thead>

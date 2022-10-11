@@ -3,8 +3,6 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-.btn_toggle {
-  &:after {
-    display: none !important;
-  }
+.dropdown-toggle::after {
+  display: none;
 }

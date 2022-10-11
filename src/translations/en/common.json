@@ -159,5 +159,7 @@
   "txt_acg_session_duration": "Avg. Session Duration",
   "txt_bounce_rate": "Bounce Rate",
   "txt_page_session": "Page/Session",
-  "txt_in_total": "In Total"
+  "txt_in_total": "In Total",
+  "txt_description": "Description",
+  "txt_search": "Search"
 }

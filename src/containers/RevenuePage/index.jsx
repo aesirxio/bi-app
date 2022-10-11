@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import AreaChart from 'components/AreaChartComponent';
+import RevenueList from './Component/RevenueList';
 
 class RevenuePage extends Component {
   render() {
@@ -23,11 +24,11 @@ class RevenuePage extends Component {
               },
               {
                 name: 'Feb',
-                line1: 530,
+                line1: 930,
               },
               {
                 name: 'Mar',
-                line1: 410,
+                line1: 210,
               },
               {
                 name: 'Apr',
@@ -35,7 +36,7 @@ class RevenuePage extends Component {
               },
               {
                 name: 'May',
-                line1: 380,
+                line1: 780,
               },
               {
                 name: 'Jun',
@@ -47,7 +48,7 @@ class RevenuePage extends Component {
               },
               {
                 name: 'Aug',
-                line1: 680,
+                line1: 280,
               },
               {
                 name: 'Sep',
@@ -55,7 +56,7 @@ class RevenuePage extends Component {
               },
               {
                 name: 'Oct',
-                line1: 568,
+                line1: 168,
               },
               {
                 name: 'Nov',
@@ -63,18 +64,21 @@ class RevenuePage extends Component {
               },
               {
                 name: 'Dec',
-                line1: 360,
+                line1: 120,
               },
             ]}
             colors={['#1AB394']}
             hiddenGrid={{ vertical: false }}
             lineType="monotone"
-            XAxisOptions={{ tickLine: false, padding: { left: 50, right: 50 } }}
+            XAxisOptions={{ axisLine: true, padding: { left: 80, right: 80 } }}
             isDot
             areaColors={['#165DFF']}
             lineColors={['#751FF9']}
             lines={['line1']}
           />
+          <div className="mt-4">
+            <RevenueList></RevenueList>
+          </div>
         </div>
       </>
     );

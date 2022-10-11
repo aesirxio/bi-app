@@ -100,6 +100,8 @@ class AudiencePage extends Component {
                 lineColors={['#0FC6C2', 'red']}
                 lines={['line1']}
                 isDot
+                hiddenGrid={{ vertical: false }}
+                XAxisOptions={{ axisLine: true, padding: { left: 50, right: 50 } }}
                 defaultValue={{ label: 'Sessions', value: 'session' }}
                 options={[
                   { label: 'Sessions', value: 'session' },

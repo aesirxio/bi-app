@@ -20,11 +20,12 @@ const AreaChartComponent = ({
   lineColors,
   chartTitle,
   lines,
-  defaultValue,
-  options,
+  defaultValue, // Select default
+  options, // Select Options
   isDot,
   hiddenGrid,
-  XAxisOptions,
+  XAxisOptions, // Line Ngang
+  YAxisOptions, // Line Doc
   ...props
 }) => {
   const { t } = props;
@@ -73,9 +74,22 @@ const AreaChartComponent = ({
                   })}
                 </defs>
               )}
-              <CartesianGrid strokeDasharray="7 7" {...hiddenGrid} />
-              <XAxis dataKey="name" {...XAxisOptions} />
-              <YAxis axisLine={false} tickLine={false} />
+              <CartesianGrid
+                strokeDasharray="7 7"
+                vertical={hiddenGrid?.vertical ?? true}
+                horizontal={hiddenGrid?.horizontal ?? true}
+              />
+              <XAxis
+                dataKey="name"
+                tickLine={false}
+                axisLine={XAxisOptions?.axisLine ?? false}
+                padding={XAxisOptions?.padding}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={YAxisOptions?.axisLine ?? false}
+                padding={YAxisOptions?.padding}
+              />
               <Tooltip content={customizedTooltip} />
               {lines &&
                 lines.map((item, index) => {

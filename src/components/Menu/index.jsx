@@ -36,15 +36,15 @@ const dataMenu = [
     submenu: [
       {
         text: 'txt_menu_overview',
-        link: '/audience/overview',
+        link: '/behavior/overview',
       },
       {
         text: 'txt_menu_click_anchor',
-        link: '/audience/overview',
+        link: '/behavior/click-anchor',
       },
       {
         text: 'txt_menu_utm_tracking',
-        link: '/audience/overview',
+        link: '/behavior/utm-tracking',
       },
     ],
   },

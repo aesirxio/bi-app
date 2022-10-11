@@ -6,8 +6,7 @@
 import { runInAction } from 'mobx';
 import BiUtils from './BiUtils';
 
-// import { AesirxBiApiService } from 'aesirx-dma-lib';
-const AesirxBiApiService = {};
+import AesirxBiApiService from 'library/Bi/Bi';
 export default class BiStore {
   updateSubscription = async (data) => {
     try {

@@ -145,7 +145,7 @@ const Table = ({
                     >
                       {newRowCells.map((cell, index) => {
                         return (
-                          <td key={index} {...cell.getCellProps()} className="px-24 py-2">
+                          <td key={index} {...cell.getCellProps()} className="py-2">
                             {cell.render('Cell')}
                           </td>
                         );

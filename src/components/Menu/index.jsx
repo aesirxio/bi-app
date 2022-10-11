@@ -198,7 +198,7 @@ function Menu(props) {
                         isOpenCollapse?.includes(menuListkey + '-')
                       }
                     >
-                      <ul id="wr_list_submenu" className="list-unstyled py-8px">
+                      <ul id="wr_list_submenu" className="list-unstyled">
                         {menuList.submenu.map((value, menuListSubkey) => {
                           return (
                             <li

@@ -38,21 +38,16 @@
   }
 }
 .wr_list_menu {
-  .item_menu {
-    &:first-child {
-      .link_menu {
-        // background-color: transparent !important;
-        // box-shadow: none;
-
-        // i,
-        // span {
-        //   color: $color-blue !important;
-        // }
-      }
-    }
-  }
   #wr_list_submenu {
     background-color: var(--sidebar-submenu-bg);
+    .item_menu {
+      &:first-child {
+        margin-top: 8px;
+      }
+      &:last-child {
+        margin-bottom: 8px;
+      }
+    }
   }
 }
 

@@ -1,10 +1,7 @@
 import Spinner from 'components/Spinner';
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
 const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props }) => {
@@ -116,20 +113,24 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
   const { t } = props;
 
   return (
-    <div className="p-24 bg-white rounded-3 shadow-sm">
+    <div className="p-24 bg-white rounded-3 shadow-sm h-100">
       {chartTitle && (
         <div className="d-flex justify-content-between">
           <h5 className="fw-semibold text-blue-0">{chartTitle} </h5>
           {link && (
-            <Link to={link} className="text-decoration-none text-color">
-              {t('txt_view_more')}
-              <FontAwesomeIcon
-                className="text-success ms-1 align-middle"
-                icon={faChevronRight}
-                width={4}
-                height={9}
-              />
-            </Link>
+            <a href={link} className="fs-14 text-body">
+              <span className="pe-1">{t('txt_view_detail')}</span>
+              <span
+                className="icon arrow d-inline-block align-text-bottom ms-auto bg-success"
+                style={{
+                  WebkitMaskImage: `url(/assets/images/arrow-right.svg)`,
+                  WebkitMaskRepeat: 'no-repeat',
+                  WebkitMaskPosition: 'center',
+                  width: '10px',
+                  height: '16px',
+                }}
+              ></span>
+            </a>
           )}
         </div>
       )}

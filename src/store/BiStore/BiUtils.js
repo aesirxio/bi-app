@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-class DamUtils {
+class BiUtils {
   transformPersonaResponseIntoModel = (response) => {
     return response;
   };
@@ -13,6 +13,6 @@ class DamUtils {
   };
 }
 
-const utils = new DamUtils();
+const utils = new BiUtils();
 
 export default utils;

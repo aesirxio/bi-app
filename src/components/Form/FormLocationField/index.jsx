@@ -7,7 +7,8 @@ import React, { lazy, useEffect, useState } from 'react';
 
 import _ from 'lodash';
 
-import { AesirxFacebookDataApiService, AesirxGoogleDataApiService } from 'aesirx-dma-lib';
+import FacebookData from 'library/FacebookData/FacebookData';
+import GoogleData from 'library/GoogleData/GoogleData';
 
 const FormRadio = lazy(() => import('../FormRadio'));
 const SelectComponent = lazy(() => import('../../Select'));
@@ -37,7 +38,7 @@ const FormLocationField = ({ field, validator }) => {
   // GET DATA FACEBOOKADS
   const fetchSearchLocationFromFacebookData = async (inputValue) => {
     if (inputValue.length > 3) {
-      const facebookDataAPIService = new AesirxFacebookDataApiService();
+      const facebookDataAPIService = new FacebookData();
       let response = await facebookDataAPIService.getLocationsFromFacebookData(inputValue);
 
       return filterLocation(inputValue, response?.data);
@@ -49,7 +50,7 @@ const FormLocationField = ({ field, validator }) => {
   // GET DATA GOOGLEADS
   const fetchSearchLocationFromGoggleData = async (inputValue) => {
     if (inputValue.length > 3) {
-      const googleDataAPIService = new AesirxGoogleDataApiService();
+      const googleDataAPIService = new GoogleData();
       let response = await googleDataAPIService.getSearchLocationFromGoogleData(inputValue);
       return filterLocation(inputValue, response?.google_ad_user_locations);
     }

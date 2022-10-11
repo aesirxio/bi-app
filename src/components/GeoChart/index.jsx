@@ -32,7 +32,6 @@ const GeoChart = (props) => {
       scale: 600,
     },
   };
-  console.log(configContinent);
   useEffect(() => {
     csv('/assets/data/countries.csv').then((cities) => {
       const markerList = props.data.map((item) => {

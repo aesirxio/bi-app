@@ -7,8 +7,8 @@ import { notify } from 'components/Toast';
 import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 
-class DamListViewModel {
-  damStore = null;
+class BiListViewModel {
+  biStore = null;
   paginationCollections = null;
   collections = [];
   status = PAGE_STATUS.READY;
@@ -23,25 +23,18 @@ class DamListViewModel {
   };
   pageSize = 5;
   isList = false;
-  damIdsSelected = null;
+  biIdsSelected = null;
   isSearch = false;
   subscription = null;
-  constructor(damStore) {
+  constructor(biStore) {
     makeAutoObservable(this);
-    this.damStore = damStore;
+    this.biStore = biStore;
   }
-
-  getSubscription = () => {
-    this.damStore.getSubscription(
-      this.callbackOnSubscriptionSuccessHandler,
-      this.callbackOnErrorHander
-    );
-  };
 
   getCollections = (collectionId) => {
     this.isSearch = false;
     this.status = PAGE_STATUS.LOADING;
-    this.damStore.getCollections(
+    this.biStore.getCollections(
       collectionId,
       this.callbackOnCollectionsSuccessHandler,
       this.callbackOnErrorHander
@@ -50,7 +43,7 @@ class DamListViewModel {
 
   createCollections = (data) => {
     notify(
-      this.damStore.createCollections(
+      this.biStore.createCollections(
         data,
         this.callBackOnCollectionCreateSuccessHandler,
         this.callbackOnErrorHander
@@ -61,7 +54,7 @@ class DamListViewModel {
 
   updateCollections = (data) => {
     notify(
-      this.damStore.updateCollections(
+      this.biStore.updateCollections(
         data,
         this.callBackOnCollectionCreateSuccessHandler,
         this.callbackOnErrorHander
@@ -72,7 +65,7 @@ class DamListViewModel {
 
   deleteCollections = (data) => {
     notify(
-      this.damStore.deleteCollections(
+      this.biStore.deleteCollections(
         data,
         this.callBackOnCollectionCreateSuccessHandler,
         this.callbackOnErrorHander
@@ -84,7 +77,7 @@ class DamListViewModel {
   getAssets = (collectionId, dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, dataFilter };
-    this.damStore.getAssets(
+    this.biStore.getAssets(
       collectionId,
       this.dataFilter,
       this.callbackOnAssetsSuccessHandler,
@@ -96,7 +89,7 @@ class DamListViewModel {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
 
-    this.damStore.getAssets(
+    this.biStore.getAssets(
       collectionId,
       this.dataFilter,
       this.callBackOnAssetsFilterSuccessHandler,
@@ -106,7 +99,7 @@ class DamListViewModel {
 
   createAssets = (data) => {
     notify(
-      this.damStore.createAssets(
+      this.biStore.createAssets(
         data,
         this.callBackOnAssetsCreateSuccessHandler,
         this.callbackOnErrorHander
@@ -117,7 +110,7 @@ class DamListViewModel {
 
   deleteAssets = (data) => {
     notify(
-      this.damStore.deleteAssets(
+      this.biStore.deleteAssets(
         data,
         this.callBackOnAssetsCreateSuccessHandler,
         this.callbackOnErrorHander
@@ -128,7 +121,7 @@ class DamListViewModel {
 
   updateAssets = (data) => {
     notify(
-      this.damStore.updateAssets(
+      this.biStore.updateAssets(
         data,
         this.callBackOnAssetsCreateSuccessHandler,
         this.callbackOnErrorHander
@@ -239,4 +232,4 @@ class DamListViewModel {
   };
 }
 
-export default DamListViewModel;
+export default BiListViewModel;

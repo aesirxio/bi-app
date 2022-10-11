@@ -5,12 +5,15 @@
   "author": "AesirX",
   "repository": "https://gitlab.redweb.dk/aesirx/bi",
   "dependencies": {
+    "axios": "^0.21.0",
+    "axios-auth-refresh": "^3.0.0",
+    "crypto-js": "^4.1.1",
+    "query-string": "^7.1.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
-    "aesirx-dma-lib": "aesirxio/dma-lib#develop-dam",
     "bootstrap": "5.0.2",
     "d3-fetch": "^3.0.1",
     "date-fns": "^2.16.1",
@@ -51,8 +54,7 @@
   },
   "scripts": {
     "start": "npm run build && serve -s build",
-    "build": "npm run build:lib && react-scripts build",
-    "build:lib": "cd node_modules/aesirx-dma-lib && npm i && npm run build && cd ../../",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "dev": "react-scripts start",
     "lint": "eslint --fix \"src/**/\"",
@@ -89,6 +91,6 @@
     "serve": "^13.0.2"
   },
   "overrides": {
-    "autoprefixer": "10.4.5"
+    "autoprefixer": "10.4.12"
   }
 }

@@ -12,7 +12,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight
 import './index.scss';
 import ComponentImage from '../ComponentImage';
 
-import { Storage } from 'aesirx-dma-lib';
+import Storage from 'library/Utils/Storage';
 class Welcome extends Component {
   name = '';
   constructor(props) {
@@ -32,7 +32,6 @@ class Welcome extends Component {
     });
   };
   render() {
-    
     return (
       <ModalComponent
         show={this.state.showModal}

@@ -47,7 +47,7 @@ const Revenue = () => {
     []
   );
   return (
-    <div className="py-2 bg-white rounded-1 shadow-sm">
+    <div className="py-2 bg-white rounded-3 shadow-sm h-100">
       <h2 className="py-16 px-24 mb-0 fs-4 fw-semibold">Revenue by subscribers</h2>
       <div className="fs-14 fw-semibold">
         <Table columns={columnsTable} data={dataTable}></Table>

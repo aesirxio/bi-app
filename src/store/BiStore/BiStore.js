@@ -3,35 +3,15 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxDamApiService } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
-import DamUtils from './DamUtils';
+import BiUtils from './BiUtils';
 
-export default class DamStore {
-  getSubscription = async (callbackOnSuccess, callbackOnError) => {
-    try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.getDamSubscription();
-      if (responsedDataFromLibary) {
-        runInAction(() => {
-          callbackOnSuccess(responsedDataFromLibary);
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      runInAction(() => {
-        callbackOnError({
-          message: 'Something went wrong',
-        });
-      });
-      return error;
-    }
-  };
-
+import AesirxBiApiService from 'library/Bi/Bi';
+export default class BiStore {
   updateSubscription = async (data) => {
     try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.updateDamSubscription(data);
+      const biService = new AesirxBiApiService();
+      const responsedDataFromLibary = await biService.updateBiSubscription(data);
       if (responsedDataFromLibary) {
         return true;
       } else {
@@ -45,8 +25,8 @@ export default class DamStore {
 
   getCollections = async (collectionId, callbackOnSuccess, callbackOnError) => {
     try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.getCollections(collectionId);
+      const biService = new AesirxBiApiService();
+      const responsedDataFromLibary = await biService.getCollections(collectionId);
       if (responsedDataFromLibary?.list) {
         const collectionDataModel = responsedDataFromLibary?.list;
         if (collectionDataModel) {
@@ -97,10 +77,10 @@ export default class DamStore {
 
   createCollections = async (data, callbackOnSuccess, callbackOnError) => {
     try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.createCollections(data);
+      const biService = new AesirxBiApiService();
+      const responsedDataFromLibary = await biService.createCollections(data);
       if (responsedDataFromLibary) {
-        const getDetailCollection = await damService.getCollection(responsedDataFromLibary);
+        const getDetailCollection = await biService.getCollection(responsedDataFromLibary);
         if (getDetailCollection?.item) {
           runInAction(() => {
             callbackOnSuccess({
@@ -149,8 +129,8 @@ export default class DamStore {
 
   updateCollections = async (data, callbackOnSuccess, callbackOnError) => {
     try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.updateCollections(data);
+      const biService = new AesirxBiApiService();
+      const responsedDataFromLibary = await biService.updateCollections(data);
       if (responsedDataFromLibary) {
         runInAction(() => {
           callbackOnSuccess({
@@ -192,8 +172,8 @@ export default class DamStore {
 
   deleteCollections = async (data, callbackOnSuccess, callbackOnError) => {
     try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.deleteCollections(data?.id);
+      const biService = new AesirxBiApiService();
+      const responsedDataFromLibary = await biService.deleteCollections(data?.id);
       if (responsedDataFromLibary) {
         runInAction(() => {
           callbackOnSuccess({
@@ -235,10 +215,10 @@ export default class DamStore {
 
   getAssets = async (collectionId, dataFilter, callbackOnSuccess, callbackOnError) => {
     try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.getAssets(collectionId, dataFilter);
+      const biService = new AesirxBiApiService();
+      const responsedDataFromLibary = await biService.getAssets(collectionId, dataFilter);
       if (responsedDataFromLibary?.list) {
-        const homeDataModels = DamUtils.transformPersonaResponseIntoModel(
+        const homeDataModels = BiUtils.transformPersonaResponseIntoModel(
           responsedDataFromLibary.list
         );
         if (homeDataModels) {
@@ -289,11 +269,11 @@ export default class DamStore {
 
   createAssets = async (data, callbackOnSuccess, callbackOnError) => {
     try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.createAssets(data);
+      const biService = new AesirxBiApiService();
+      const responsedDataFromLibary = await biService.createAssets(data);
       console.log(responsedDataFromLibary);
       if (responsedDataFromLibary) {
-        const getDetailAsset = await damService.getAsset(responsedDataFromLibary);
+        const getDetailAsset = await biService.getAsset(responsedDataFromLibary);
         if (getDetailAsset.item) {
           runInAction(() => {
             callbackOnSuccess({
@@ -342,8 +322,8 @@ export default class DamStore {
 
   updateAssets = async (data, callbackOnSuccess, callbackOnError) => {
     try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.updateAssets(data);
+      const biService = new AesirxBiApiService();
+      const responsedDataFromLibary = await biService.updateAssets(data);
       if (responsedDataFromLibary) {
         runInAction(() => {
           callbackOnSuccess({
@@ -385,8 +365,8 @@ export default class DamStore {
 
   deleteAssets = async (data, callbackOnSuccess, callbackOnError) => {
     try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.deleteAssets(data?.id);
+      const biService = new AesirxBiApiService();
+      const responsedDataFromLibary = await biService.deleteAssets(data?.id);
       if (responsedDataFromLibary) {
         runInAction(() => {
           callbackOnSuccess({
@@ -428,12 +408,12 @@ export default class DamStore {
 
   search = async (query) => {
     try {
-      const damService = new AesirxDamApiService();
-      const responsedDataFromLibary = await damService.search({
+      const biService = new AesirxBiApiService();
+      const responsedDataFromLibary = await biService.search({
         'filter[search]': query,
       });
       if (responsedDataFromLibary?.assets || responsedDataFromLibary?.collections) {
-        const homeDataModels = DamUtils.transformResponseIntoSearchItems([
+        const homeDataModels = BiUtils.transformResponseIntoSearchItems([
           ...responsedDataFromLibary?.assets,
           ...responsedDataFromLibary?.collections,
         ]);

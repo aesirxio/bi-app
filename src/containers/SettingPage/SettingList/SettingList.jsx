@@ -11,14 +11,13 @@ import { observer } from 'mobx-react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import SimpleReactValidator from 'simple-react-validator';
-import { withDamViewModel } from 'store/DamStore/DamViewModelContextProvider';
+import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { renderingGroupFieldHandler } from 'utils/form';
 import { notify } from 'components/Toast';
-import { DAM_SUBSCIPTION_FIELD_KEY } from 'aesirx-dma-lib/src/Constant/DamConstant';
 
 const SettingList = observer(
   class SettingList extends Component {
-    damListViewModel = null;
+    biListViewModel = null;
 
     formPropsData = null;
     constructor(props) {
@@ -29,7 +28,7 @@ const SettingList = observer(
         loading: false,
       };
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
-      this.damListViewModel = this.viewModel ? this.viewModel.damListViewModel : null;
+      this.biListViewModel = this.viewModel ? this.viewModel.biListViewModel : null;
       this.formPropsData = {
         storage: {
           label: 'AesirX',
@@ -46,22 +45,6 @@ const SettingList = observer(
       const { t } = this.props;
       this.formPropsData = {
         ...this.formPropsData,
-        key:
-          this.damListViewModel?.subscription?.[0]?.[DAM_SUBSCIPTION_FIELD_KEY.PRODUCT]?.[
-            DAM_SUBSCIPTION_FIELD_KEY.PRODUCT_OPTION
-          ]?.plugin_params?.key ?? '',
-        secret:
-          this.damListViewModel?.subscription?.[0]?.[DAM_SUBSCIPTION_FIELD_KEY.PRODUCT]?.[
-            DAM_SUBSCIPTION_FIELD_KEY.PRODUCT_OPTION
-          ]?.plugin_params?.secret ?? '',
-        region:
-          this.damListViewModel?.subscription?.[0]?.[DAM_SUBSCIPTION_FIELD_KEY.PRODUCT]?.[
-            DAM_SUBSCIPTION_FIELD_KEY.PRODUCT_OPTION
-          ]?.plugin_params?.region ?? '',
-        bucket:
-          this.damListViewModel?.subscription?.[0]?.[DAM_SUBSCIPTION_FIELD_KEY.PRODUCT]?.[
-            DAM_SUBSCIPTION_FIELD_KEY.PRODUCT_OPTION
-          ]?.plugin_params?.bucket ?? '',
       };
       if (this.formPropsData?.storage?.value === 'aws') {
         return [
@@ -194,7 +177,7 @@ const SettingList = observer(
       delete formpropsdata.storage;
       if (this.formPropsData.storage?.value === 'aws') {
         const data = {
-          id: this.damListViewModel.subscription?.[0]?.id,
+          id: this.biListViewModel.subscription?.[0]?.id,
           store: [
             {
               type: 'product-aesirx-dam',
@@ -208,13 +191,13 @@ const SettingList = observer(
             },
           ],
         };
-        const response = this.damListViewModel.damStore.updateSubscription(data);
+        const response = this.biListViewModel.biStore.updateSubscription(data);
         if (response) {
           notify('Success', 'success');
         }
       } else {
         const data = {
-          id: this.damListViewModel.subscription?.[0]?.id,
+          id: this.biListViewModel.subscription?.[0]?.id,
           store: [
             {
               type: 'product-aesirx-dam',
@@ -225,7 +208,7 @@ const SettingList = observer(
             },
           ],
         };
-        const response = this.damListViewModel.damStore.updateSubscription(data);
+        const response = this.biListViewModel.biStore.updateSubscription(data);
         if (response) {
           notify('Success', 'success');
         } else {
@@ -262,4 +245,4 @@ const SettingList = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withDamViewModel(SettingList)));
+export default withTranslation('common')(withRouter(withBiViewModel(SettingList)));

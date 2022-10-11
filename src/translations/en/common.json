@@ -163,5 +163,6 @@
   "txt_page_session": "Page/Session",
   "txt_in_total": "In Total",
   "txt_description": "Description",
-  "txt_search": "Search"
+  "txt_search": "Search",
+  "txt_date_range": "Date range"
 }

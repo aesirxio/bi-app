@@ -3,6 +3,6 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-.dropdown-toggle::after {
-  display: none;
+.dropdown::after {
+  display: none !important;
 }

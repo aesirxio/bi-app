@@ -92,7 +92,7 @@ const Table = ({
 
   return (
     <>
-      <div className="bg-white col">
+      <div className="bg-white fs-14">
         {rows.length ? (
           <table {...getTableProps()} className={`w-100 mb-4 ${classNameTable}`}>
             <thead>

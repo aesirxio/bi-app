@@ -149,5 +149,16 @@
   "txt_sign_in_to_getting_started": "Sign In to getting started.",
   "txt_folders": "FOLDERS",
   "txt_of": "of",
-  "txt_used": "used"
+  "txt_used": "used",
+  "txt_audience": "Audience",
+  "txt_analytic_details": "Here is your analytic details",
+  "txt_value": "Value",
+  "txt_hours": "Hours",
+  "txt_days": "Days",
+  "txt_weeks": "Weeks",
+  "txt_months": "Months",
+  "txt_page_views": "Page Views",
+  "txt_acg_session_duration": "Avg. Session Duration",
+  "txt_bounce_rate": "Bounce Rate",
+  "txt_page_session": "Page/Session"
 }

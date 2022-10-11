@@ -12,6 +12,7 @@ const LoginPage = lazy(() => import('../containers/LoginPage'));
 
 const WelcomePage = lazy(() => import('../containers/WelcomePage'));
 const DashboardPage = lazy(() => import('../containers/Homepage'));
+const AudiencePage = lazy(() => import('../containers/Audience'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
@@ -34,6 +35,11 @@ const mainRoutes = [
     path: ['/setting', '/setting/configuration'],
     exact: true,
     main: () => <SettingPage />,
+  },
+  {
+    path: '/audience/overview',
+    exact: true,
+    main: () => <AudiencePage />,
   },
 ];
 

@@ -13,7 +13,7 @@ const ComponentCard = ({
   defaultValue,
 }) => {
   return (
-    <div className="bg-white p-24 shadow-sm rounded-2">
+    <div className="bg-white p-24 shadow-sm rounded-3">
       <div className="d-flex justify-content-between align-items-start mb-16">
         <div className="d-flex align-items-center">
           {icon && (
@@ -32,7 +32,7 @@ const ComponentCard = ({
               ></span>
             </div>
           )}
-          <h6 className="mb-0 fw-semibold">{title}</h6>
+          <h6 className="mb-0 fw-semibold text-blue-0">{title}</h6>
         </div>
         {options && (
           <SelectComponent
@@ -45,7 +45,7 @@ const ComponentCard = ({
         )}
       </div>
       <div className="d-flex justify-content-between">
-        <h3 className="mb-0 fw-semibold fs-1">{value}</h3>
+        <h3 className="mb-0 fw-semibold fs-1 text-color">{value}</h3>
         <div className="d-flex flex-wrap align-item-center">
           <div className="d-flex w-100 mb-sm justify-content-end">
             <span

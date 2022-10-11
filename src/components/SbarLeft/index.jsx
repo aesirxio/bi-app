@@ -14,7 +14,7 @@ import { Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
 import Menu2 from 'components/Menu2';
-import { withDamViewModel } from 'store/DamStore/DamViewModelContextProvider';
+import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react';
 const SbarLeft = observer(
   class SbarLeft extends React.Component {
@@ -23,7 +23,7 @@ const SbarLeft = observer(
       this.state = {};
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
-      this.damListViewModel = this.viewModel ? this.viewModel.damListViewModel : null;
+      this.biListViewModel = this.viewModel ? this.viewModel.biListViewModel : null;
     }
 
     render() {
@@ -93,4 +93,4 @@ const SbarLeft = observer(
   }
 );
 
-export default withTranslation('common')(withDamViewModel(SbarLeft));
+export default withTranslation('common')(withBiViewModel(SbarLeft));

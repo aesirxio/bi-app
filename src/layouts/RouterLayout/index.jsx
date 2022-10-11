@@ -16,12 +16,12 @@ import history from '../../routes/history';
 
 import { Toast } from '../../components/Toast';
 import NotFound from '../../containers/NotFound';
-import { DamStoreProvider } from 'store/DamStore/DamViewModelContextProvider';
-import DamViewModel from 'store/DamStore/DamViewModel';
-import DamStore from 'store/DamStore/DamStore';
+import { BiStoreProvider } from 'store/BiStore/BiViewModelContextProvider';
+import BiViewModel from 'store/BiStore/BiViewModel';
+import BiStore from 'store/BiStore/BiStore';
 
-const damStore = new DamStore();
-const damsViewModel = new DamViewModel(damStore);
+const biStore = new BiStore();
+const damsViewModel = new BiViewModel(biStore);
 const RouterLayout = () => {
   const authPath = authRoutes
     .map((item) => {
@@ -56,14 +56,14 @@ const RouterLayout = () => {
             <Route exact path={authPath}>
               <AuthLayout />
             </Route>
-            <DamStoreProvider viewModel={damsViewModel}>
+            <BiStoreProvider viewModel={damsViewModel}>
               <Route exact path={mainPath}>
                 <MainLayout />
               </Route>
               <Route exact path={settingPath}>
                 <SettingLayout />
               </Route>
-            </DamStoreProvider>
+            </BiStoreProvider>
             <Route path="*">
               <NotFound />
             </Route>

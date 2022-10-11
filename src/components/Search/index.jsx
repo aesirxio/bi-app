@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next';
 
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { useState } from 'react';
-import { useDamViewModel } from 'store/DamStore/DamViewModelContextProvider';
+import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
 import { observer } from 'mobx-react';
 
 const Search = observer(() => {
-  const damListViewModel = useDamViewModel();
+  const biListViewModel = useBiViewModel();
   const { t } = useTranslation('common');
 
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +19,7 @@ const Search = observer(() => {
     setIsLoading(true);
 
     try {
-      const items = await damListViewModel.damListViewModel.damStore.search(query);
+      const items = await biListViewModel.biListViewModel.biStore.search(query);
       setOptions(items);
       setIsLoading(false);
     } catch (error) {
@@ -28,21 +28,21 @@ const Search = observer(() => {
   };
 
   const handleChange = (data) => {
-    damListViewModel.damFormViewModel.damEditdata = data[0];
-    damListViewModel.damFormViewModel.openModal();
+    biListViewModel.biFormViewModel.biEditdata = data[0];
+    biListViewModel.biFormViewModel.openModal();
   };
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
-      damListViewModel.damListViewModel.isSearch = true;
+      biListViewModel.biListViewModel.isSearch = true;
       const assets = options.filter((asset) => asset.type);
       const collections = options.filter((collection) => !collection.type);
       if (assets) {
-        damListViewModel.damListViewModel.assets = assets;
+        biListViewModel.biListViewModel.assets = assets;
       }
 
       if (collections) {
-        damListViewModel.damListViewModel.collections = collections;
+        biListViewModel.biListViewModel.collections = collections;
       }
     }
   };

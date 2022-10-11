@@ -14,6 +14,7 @@ import Revenue from './Component/Revenue';
 import RegisteredUser from './Component/RegisteredUser';
 import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from 'components/DateRangePicker';
+import AreaChartComponent from 'components/AreaChartComponent';
 
 const HomePage = observer(
   class HomePage extends Component {
@@ -90,7 +91,67 @@ const HomePage = observer(
             </div>
           </div>
           <div className="row gx-24 mb-24">
-            <div className="col-lg-7"></div>
+            <div className="col-lg-7">
+              <AreaChartComponent
+                chartTitle={t('txt_total_revenue')}
+                height={390}
+                data={[
+                  {
+                    name: 'Jan',
+                    line1: 400,
+                  },
+                  {
+                    name: 'Feb',
+                    line1: 530,
+                  },
+                  {
+                    name: 'Mar',
+                    line1: 410,
+                  },
+                  {
+                    name: 'Apr',
+                    line1: 395,
+                  },
+                  {
+                    name: 'May',
+                    line1: 380,
+                  },
+                  {
+                    name: 'Jun',
+                    line1: 204,
+                  },
+                  {
+                    name: 'Jul',
+                    line1: 420,
+                  },
+                  {
+                    name: 'Aug',
+                    line1: 680,
+                  },
+                  {
+                    name: 'Sep',
+                    line1: 670,
+                  },
+                  {
+                    name: 'Oct',
+                    line1: 568,
+                  },
+                  {
+                    name: 'Nov',
+                    line1: 940,
+                  },
+                  {
+                    name: 'Dec',
+                    line1: 360,
+                  },
+                ]}
+                colors={['#1AB394']}
+                lineType="monotone"
+                areaColors={['#3BB346', 'pink']}
+                lineColors={['#0FC6C2', 'red']}
+                lines={['line1']}
+              />
+            </div>
             <div className="col-lg-5">
               <Revenue></Revenue>
             </div>

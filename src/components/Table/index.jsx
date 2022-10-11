@@ -5,27 +5,22 @@
 
 import React, { useEffect } from 'react';
 import { useExpanded, usePagination, useRowSelect, useTable } from 'react-table';
-
-import styles from './index.module.scss';
-import Dropzone from 'components/Dropzone';
-import { useTranslation, withTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import ComponentNoData from '../ComponentNoData';
 
 const Table = ({
   columns,
   data,
+  pagination,
+  store,
+  setLoading,
   onSelect,
   dataList,
-  dataThumb,
-  thumbColumnsNumber,
   noSelection = true,
-  isList = true,
   classNameTable,
   createAssets,
   onRightClickItem,
 }) => {
-  const { t } = useTranslation('common');
-
   const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
     const defaultRef = React.useRef();
     const resolvedRef = ref || defaultRef;
@@ -41,7 +36,21 @@ const Table = ({
     );
   });
 
-  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } = useTable(
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    rows,
+    pageOptions,
+    previousPage,
+    canPreviousPage,
+    canNextPage,
+    gotoPage,
+    nextPage,
+    state: { pageIndex },
+    state,
+  } = useTable(
     {
       columns,
       data,
@@ -74,151 +83,145 @@ const Table = ({
     useRowSelect
   );
 
+  const handlePagination = async (pageIndex) => {
+    setLoading(true);
+    await store.goToPage(pageIndex);
+    setLoading(false);
+  };
+
   return (
     <>
-      {isList ? (
-        <div className="bg-white col">
-          {rows.length ? (
-            <table {...getTableProps()} className={`w-100 mb-4 ${classNameTable}`}>
-              <thead>
-                {headerGroups.map((headerGroup, index) => {
-                  let newHeaderGroup = '';
+      <div className="bg-white col">
+        {rows.length ? (
+          <table {...getTableProps()} className={`w-100 mb-4 ${classNameTable}`}>
+            <thead>
+              {headerGroups.map((headerGroup, index) => {
+                let newHeaderGroup = '';
+
+                dataList
+                  ? (newHeaderGroup = headerGroup.headers.filter(
+                      (item) => !dataList.some((other) => item.id === other)
+                    ))
+                  : (newHeaderGroup = headerGroup.headers);
+
+                return (
+                  <tr key={index} {...headerGroup.getHeaderGroupProps()}>
+                    {newHeaderGroup.map((column, index) => {
+                      return (
+                        <th
+                          key={index}
+                          {...column.getHeaderProps()}
+                          className={`${column.className}`}
+                        >
+                          {column.render('Header')}
+                        </th>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.length > 0 &&
+                rows.map((row) => {
+                  prepareRow(row);
+                  let newRowCells = '';
 
                   dataList
-                    ? (newHeaderGroup = headerGroup.headers.filter(
-                        (item) => !dataList.some((other) => item.id === other)
+                    ? (newRowCells = row.cells.filter(
+                        (item) => !dataList.some((other) => item.column.id === other)
                       ))
-                    : (newHeaderGroup = headerGroup.headers);
+                    : (newRowCells = row.cells);
 
                   return (
-                    <tr key={index} {...headerGroup.getHeaderGroupProps()}>
-                      {newHeaderGroup.map((column, index) => {
+                    <tr
+                      key={row.getRowProps().key}
+                      {...row.getRowProps()}
+                      onContextMenu={(e) => {
+                        onRightClickItem(e, row.original);
+                      }}
+                    >
+                      {newRowCells.map((cell, index) => {
                         return (
-                          <th
-                            key={index}
-                            {...column.getHeaderProps()}
-                            className={`${column.className}`}
-                          >
-                            {column.render('Header')}
-                          </th>
+                          <td key={index} {...cell.getCellProps()} className="px-24 py-2">
+                            {cell.render('Cell')}
+                          </td>
                         );
                       })}
                     </tr>
                   );
                 })}
-              </thead>
-              <tbody {...getTableBodyProps()}>
-                {rows.length > 0 &&
-                  rows.map((row) => {
-                    prepareRow(row);
-                    let newRowCells = '';
+            </tbody>
+          </table>
+        ) : null}
 
-                    dataList
-                      ? (newRowCells = row.cells.filter(
-                          (item) => !dataList.some((other) => item.column.id === other)
-                        ))
-                      : (newRowCells = row.cells);
-
-                    return (
-                      <tr
-                        key={row.getRowProps().key}
-                        {...row.getRowProps()}
-                        onContextMenu={(e) => {
-                          onRightClickItem(e, row.original);
-                        }}
-                      >
-                        {newRowCells.map((cell, index) => {
-                          return (
-                            <td key={index} {...cell.getCellProps()} className="px-24 py-2">
-                              {cell.render('Cell')}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-          ) : null}
-
-          {rows.length === 0 ? (
-            <ComponentNoData
-              icons="/assets/images/ic_project.svg"
-              title="No Matching Results"
-              text="Can not found any project with that keyword. Please try another keyword."
-              width="w-50"
-              createAssets={createAssets}
-            />
-          ) : null}
-        </div>
-      ) : (
-        <div {...getTableBodyProps()} className={`row ${rows.length === 0 ? 'col' : ''}`}>
-          {rows.map((row, index) => {
-            prepareRow(row);
-            let newRowCells = row.cells;
-            if (dataThumb && dataThumb.length > 0) {
-              newRowCells = row.cells.filter(
-                (item) => !dataThumb.some((other) => item.column.id === other)
-              );
-            }
-
+        {rows.length === 0 ? (
+          <ComponentNoData
+            icons="/assets/images/ic_project.svg"
+            title="No Matching Results"
+            text="Can not found any project with that keyword. Please try another keyword."
+            width="w-50"
+            createAssets={createAssets}
+          />
+        ) : null}
+      </div>
+      {pagination && pageOptions.length ? (
+        <div className="mt-2 text-center pagination">
+          <button
+            className="border-1 bg-white opacity-50 text-body btn"
+            onClick={async () => {
+              previousPage();
+              handlePagination(pageIndex);
+            }}
+            disabled={!canPreviousPage}
+          >
+            <span className="material-icons fs-4 align-middle">arrow_back_ios</span>
+          </button>
+          {pageOptions.map((item, key) => {
             return (
-              newRowCells.length > 0 && (
-                <React.Fragment key={Math.random(40, 200)}>
-                  {index === 0 ? (
-                    <div className="col-12">
-                      <p className="fw-bold">{t('txt_folders')}</p>
-                    </div>
-                  ) : null}
-                  <div
-                    {...row.getRowProps()}
-                    className={`col_thumb cursor-pointer ${styles.col_thumb} col-${
-                      !thumbColumnsNumber ? '3' : thumbColumnsNumber
-                    } mb-4 zindex-2`}
-                    key={Math.random(40, 200)}
-                  >
-                    <div
-                      className={`item_thumb d-flex align-items-center justify-content-center bg-white shadow-sm h-100 rounded-2 overflow-hidden  flex-column`}
-                      key={Math.random(40, 200)}
-                      onContextMenu={(e) => {
-                        onRightClickItem(e, row.original);
-                      }}
-                    >
-                      {newRowCells.map((cell) => {
-                        return (
-                          <div
-                            {...cell.getCellProps()}
-                            className={`ct_cell ${styles.ct_cell} d-block`}
-                            key={Math.random(40, 200)}
-                          >
-                            {cell.render('Cell')}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </React.Fragment>
-              )
+              <button
+                key={key}
+                onClick={() => {
+                  gotoPage(item);
+                  handlePagination(item + 1);
+                }}
+                className={`btn border-1  ${
+                  item === state.pageIndex
+                    ? 'btn-primary text-white border-primary'
+                    : 'bg-white opacity-50 number'
+                } ${
+                  pageIndex === 0
+                    ? item < pageIndex + 5
+                      ? 'visible_number'
+                      : ''
+                    : pageIndex === 1
+                    ? item < pageIndex + 4
+                      ? 'visible_number'
+                      : ''
+                    : item === pageIndex - 2 ||
+                      item === pageIndex - 1 ||
+                      item === pageIndex + 1 ||
+                      item === pageIndex + 2
+                    ? 'visible_number'
+                    : ''
+                }`}
+              >
+                {item + 1}
+              </button>
             );
           })}
-
-          {rows.length === 0 ? (
-            <ComponentNoData
-              icons="/assets/images/ic_project.svg"
-              title="No Matching Results"
-              text="Can not found any project with that keyword. Please try another keyword."
-              width="w-50"
-              createAssets={createAssets}
-            />
-          ) : (
-            <>
-              <div className="position-absolute h-100 w-100 top-0 start-0 zindex-1">
-                <Dropzone createAssets={createAssets} noClick={true} />
-              </div>
-            </>
-          )}
+          <button
+            className="border-1 bg-white opacity-50 text-body btn"
+            onClick={() => {
+              nextPage();
+              handlePagination(pageIndex + 2);
+            }}
+            disabled={!canNextPage}
+          >
+            <span className="material-icons fs-4 align-middle">arrow_forward_ios</span>
+          </button>
         </div>
-      )}
+      ) : null}
     </>
   );
 };

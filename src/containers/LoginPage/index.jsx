@@ -6,8 +6,6 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import SimpleReactValidator from 'simple-react-validator';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
 
 import './index.scss';
 
@@ -61,90 +59,74 @@ class LoginPage extends React.Component {
     const { t } = this.props;
 
     return (
-      <div className="row align-items-center vh-100 bg-blue-9">
-        <div className="col-12 d-flex flex-column justify-content-center align-items-center ">
-          <p className="fs-2 fw-bold mb-4 text-center">
-            <img
-              className="pe-2"
-              style={{ verticalAlign: 'inherit' }}
-              alt="aesirx"
-              src="/assets/images/logo/welcome-logo.png"
-            />
-          </p>
-          <div className="d-block bg-white p-2 p-lg-5">
-            <form>
-              <label className="form-label mb-3" htmlFor="email">
-                Email <span>*</span>
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChange}
-                ref={this.usernameInput}
-                onBlur={() => {
-                  this.validator.showMessageFor('Email or username');
-                }}
+      <div className="vh-100 bg-blue-9">
+        <div className="row justify-content-center align-items-center h-100">
+          <div className="col-4">
+            <p className="fs-2 fw-bold mb-2 text-center">
+              <img
+                className="pe-2"
+                style={{ verticalAlign: 'inherit' }}
+                alt="aesirx"
+                src="/assets/images/logo/welcome-logo.png"
               />
-              {this.validator.message('Email or username', this.state.username, 'required', {
-                className: 'text-danger',
-              })}
-              <label className="form-label mt-4 mb-3" htmlFor="password">
-                Password <span>*</span>
-              </label>
-              <InputPassword
-                type="password"
-                className="form-control"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChange}
-                onKeyPress={this.onKeyPress}
-                onBlur={() => {
-                  this.validator.showMessageFor('password');
-                }}
-              />
-              {this.validator.message('password', this.state.password, 'required', {
-                className: 'text-danger',
-              })}
-              <div className="mt-4 mb-3 d-flex justify-content-end">
-                <a
-                  className="fw-bold ms-auto"
-                  target={'_blank'}
-                  rel="noreferrer"
-                  href="https://dam.aesirx.io/auth/forgotpassword"
+            </p>
+            <div className="d-block bg-white p-2 p-lg-5">
+              <h1 className="fs-2 text-primary fw-normal text-center mb-16 lh-base">
+                {t('txt_login_text_1')} <br /> {t('txt_login_text_2')}
+              </h1>
+              <form>
+                <label className="form-label mb-16" htmlFor="email">
+                  Email <span>*</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.handleInputChange}
+                  ref={this.usernameInput}
+                  onBlur={() => {
+                    this.validator.showMessageFor('Email or username');
+                  }}
+                />
+                {this.validator.message('Email or username', this.state.username, 'required', {
+                  className: 'text-danger',
+                })}
+                <label className="form-label mt-2 mb-16" htmlFor="password">
+                  Password <span>*</span>
+                </label>
+                <InputPassword
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.handleInputChange}
+                  onKeyPress={this.onKeyPress}
+                  onBlur={() => {
+                    this.validator.showMessageFor('password');
+                  }}
+                />
+                {this.validator.message('password', this.state.password, 'required', {
+                  className: 'text-danger',
+                })}
+                <button
+                  type="button"
+                  className={`btn w-100 fw-medium btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login mt-3`}
+                  onClick={this.handleSubmit}
                 >
-                  {t('tx_forgot_password')}
-                </a>
-              </div>
-              <button
-                type="button"
-                className={`btn w-100 fw-medium btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login`}
-                onClick={this.handleSubmit}
-              >
-                {t('txt_sign_in')}
-                <div className="ps-2 btn_loading">
-                  <div
-                    className="spinner-border"
-                    style={{ width: '1.7rem', height: '1.7rem' }}
-                    role="status"
-                  >
-                    <span className="visually-hidden">Loading...</span>
+                  {t('txt_sign_in')}
+                  <div className="ps-2 btn_loading">
+                    <div
+                      className="spinner-border"
+                      style={{ width: '1.7rem', height: '1.7rem' }}
+                      role="status"
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
                   </div>
-                </div>
-                <i className="ms-1 btn_icon_login">
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </i>
-              </button>
-              <a
-                href="https://dam.aesirx.io/auth/register"
-                target="_blank"
-                rel="noreferrer"
-                className="d-flex justify-content-center mt-4 fw-bold"
-              >
-                {t('txt_do_not_have_an_account')}
-              </a>
-            </form>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

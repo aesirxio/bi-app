@@ -13,7 +13,7 @@ const ComponentCard = ({
   defaultValue,
 }) => {
   return (
-    <div className="bg-white p-24 shadow-sm rounded-1">
+    <div className="bg-white p-24 shadow-sm rounded-2">
       <div className="d-flex justify-content-between align-items-start mb-16">
         <div className="d-flex align-items-center">
           {icon && (

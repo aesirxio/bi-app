@@ -8,6 +8,9 @@ const RegisteredUser = (props) => {
         Header: 'NAME',
         accessor: 'name',
         className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 ',
+        Cell: ({ value }) => {
+          return <div className="px-24">{value}</div>;
+        },
       },
       {
         Header: 'EMAIL',
@@ -30,7 +33,7 @@ const RegisteredUser = (props) => {
           let color = value === 'Active' ? '#3EAD8A' : '#F59E0B';
           let backgroundColor = value === 'Active' ? '#D0F4E8' : '#FFEAC8';
           return (
-            <div className="text-end">
+            <div className="px-24 text-end">
               <span
                 className="px-1 py-sm rounded-pill fs-12"
                 style={{ backgroundColor: backgroundColor }}

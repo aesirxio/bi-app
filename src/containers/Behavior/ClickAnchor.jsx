@@ -1,13 +1,14 @@
 import AreaChartComponent from 'components/AreaChartComponent';
 import BarChartComponent from 'components/BarChartComponent';
+import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from 'components/DateRangePicker';
 import PieChartComponent from 'components/PieChartComponent';
 import React, { Component } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import BehaviorTable from './Component/BehaviorTable';
+import MostClickingPages from './Component/MostClickingPages';
 
-class BehaviorOverviewPage extends Component {
+class BehaviorClickAnchorPage extends Component {
   render() {
     const { t } = this.props;
     const dataAreaChart = [
@@ -74,27 +75,27 @@ class BehaviorOverviewPage extends Component {
     ];
     const dataBarChart = [
       {
-        name: 'Click',
+        name: '20-25',
         bar1: 4000,
       },
       {
-        name: 'Anchor',
+        name: '26-35',
         bar1: 3000,
       },
       {
-        name: 'Scroll',
+        name: '36-40',
         bar1: 2000,
       },
       {
-        name: 'Download',
+        name: '41-45',
         bar1: 2780,
       },
       {
-        name: 'Purchase',
+        name: '46-50',
         bar1: 1890,
       },
       {
-        name: 'Register',
+        name: '51-55',
         bar1: 2390,
       },
     ];
@@ -109,7 +110,7 @@ class BehaviorOverviewPage extends Component {
         <div className="py-4 px-3 h-100 d-flex flex-column">
           <div className="d-flex align-items-center justify-content-between mb-24">
             <div className="position-relative">
-              <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_behavior')}</h2>
+              <h1 className="text-blue-0 fw-bold mb-8px fs-2">{t('txt_behavior_clicking')}</h1>
             </div>
             <div className="position-relative">
               <DateRangePicker></DateRangePicker>
@@ -128,27 +129,33 @@ class BehaviorOverviewPage extends Component {
               />
             </Col>
             <Col lg={6}>
-              <BarChartComponent
-                chartTitle={'Event count'}
-                height={390}
-                bars={['bar1']}
-                barColors={['#2C94EA']}
-                data={dataBarChart}
-              ></BarChartComponent>
+              <ComponentContinent></ComponentContinent>
             </Col>
           </Row>
           <Row className="gx-24 mb-24">
-            <Col lg={9}>
-              <BehaviorTable></BehaviorTable>
-            </Col>
             <Col lg={3}>
               <PieChartComponent
                 height={300}
                 chartTitle={t('txt_gender')}
+                link={'#'}
                 data={dataPieChart}
                 colors={['#2C94EA', '#8E30FF', '#FF7723']}
                 legendPosition="bottom"
               />
+            </Col>
+            <Col lg={4}>
+              <BarChartComponent
+                chartTitle={'By Age'}
+                height={390}
+                bars={['bar1']}
+                barColors={['#005DAC']}
+                data={dataBarChart}
+                margin={{ left: -20 }}
+                viewMoreLink={'#'}
+              ></BarChartComponent>
+            </Col>
+            <Col lg={5}>
+              <MostClickingPages></MostClickingPages>
             </Col>
           </Row>
         </div>
@@ -156,4 +163,4 @@ class BehaviorOverviewPage extends Component {
     );
   }
 }
-export default withTranslation('common')(BehaviorOverviewPage);
+export default withTranslation('common')(BehaviorClickAnchorPage);

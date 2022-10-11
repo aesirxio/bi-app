@@ -1,24 +1,40 @@
-import AreaChartController from 'components/AreaChartComponent/AreaChartController';
+import HeaderFilterComponent from 'components/HeaderFilterComponent';
 import Spinner from 'components/Spinner';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar } from 'recharts';
-const BarChartComponent = ({ data, height, chartTitle, bars, barColors }) => {
-  console.log('data', data);
+const BarChartComponent = (props) => {
   return (
-    <div className="bg-white rounded-3 p-24 shadow-sm">
-      {data ? (
+    <div className="bg-white rounded-3 px-24 py-3 shadow-sm">
+      {props.data ? (
         <>
-          <AreaChartController chartTitle={chartTitle} />
-          <ResponsiveContainer width="100%" height={height ?? 500}>
-            <BarChart data={data} layout={'vertical'} margin={{ left: 40 }}>
+          <HeaderFilterComponent
+            chartTitle={props.chartTitle}
+            viewMoreLink={props.viewMoreLink}
+            filterButtons={props.filterButtons}
+          />
+          <ResponsiveContainer width="100%" height={props.height ?? 500}>
+            <BarChart data={props.data} layout={'vertical'} margin={props.margin}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis type="number" />
-              <YAxis type="category" dataKey="name" />
+              <XAxis
+                type="number"
+                style={{
+                  fontSize: '12px',
+                }}
+              />
+              <YAxis
+                type="category"
+                dataKey="name"
+                style={{
+                  fontSize: '12px',
+                }}
+              />
               <Tooltip />
-              {bars &&
-                bars.map((item, index) => {
-                  return <Bar barSize={32} key={index} dataKey={item} fill={barColors[index]} />;
+              {props.bars &&
+                props.bars.map((item, index) => {
+                  return (
+                    <Bar barSize={32} key={index} dataKey={item} fill={props.barColors[index]} />
+                  );
                 })}
             </BarChart>
           </ResponsiveContainer>

@@ -1,13 +1,17 @@
 import Table from 'components/Table';
 import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
-const Revenue = () => {
+import { withTranslation } from 'react-i18next';
+const Revenue = (props) => {
   const columnsTable = React.useMemo(
     () => [
       {
         Header: 'TYPE',
         accessor: 'type',
         className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 ',
+        Cell: ({ value }) => {
+          return <div className="px-24">{value}</div>;
+        },
       },
       {
         Header: 'PERCENTAGE (%)',
@@ -31,7 +35,7 @@ const Revenue = () => {
         accessor: 'value',
         className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 text-end',
         Cell: ({ value }) => {
-          return <div className="text-end">{value}</div>;
+          return <div className="text-end px-24">{value}</div>;
         },
       },
     ],
@@ -46,13 +50,14 @@ const Revenue = () => {
     ],
     []
   );
+  const { t } = props;
   return (
     <div className="py-2 bg-white rounded-3 shadow-sm h-100">
-      <h2 className="py-16 px-24 mb-0 fs-4 fw-semibold">Revenue by subscribers</h2>
+      <h2 className="py-16 px-24 mb-0 fs-4 fw-semibold">{t('txt_revenue_by_subscribers')}</h2>
       <div className="fs-14 fw-semibold">
         <Table columns={columnsTable} data={dataTable}></Table>
       </div>
     </div>
   );
 };
-export default Revenue;
+export default withTranslation('common')(Revenue);

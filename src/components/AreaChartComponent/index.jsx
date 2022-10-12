@@ -77,11 +77,17 @@ const AreaChartComponent = ({
                 tickLine={false}
                 axisLine={XAxisOptions?.axisLine ?? false}
                 padding={XAxisOptions?.padding}
+                style={{
+                  fontSize: '14px',
+                }}
               />
               <YAxis
                 tickLine={false}
                 axisLine={YAxisOptions?.axisLine ?? false}
                 padding={YAxisOptions?.padding}
+                style={{
+                  fontSize: '14px',
+                }}
               />
               <Tooltip content={customizedTooltip} />
               {lines &&

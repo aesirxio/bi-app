@@ -15,10 +15,18 @@ import RegisteredUser from './Component/RegisteredUser';
 import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from 'components/DateRangePicker';
 import AreaChartComponent from 'components/AreaChartComponent';
-const HomePage = observer(
-  class HomePage extends Component {
+import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+const Dashboard = observer(
+  class Dashboard extends Component {
     constructor(props) {
       super(props);
+      const { viewModel } = props;
+      this.viewModel = viewModel ? viewModel : null;
+      this.biListViewModel = this.viewModel ? this.viewModel.biListViewModel : null;
+    }
+
+    componentDidMount() {
+      this.biListViewModel.getDashboard();
     }
 
     render() {
@@ -172,4 +180,4 @@ const HomePage = observer(
   }
 );
 
-export default withTranslation('common')(HomePage);
+export default withTranslation('common')(withBiViewModel(Dashboard));

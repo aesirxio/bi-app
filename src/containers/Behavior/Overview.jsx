@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import BehaviorTable from './Component/BehaviorTable';
+import ComponentFilter from 'components/ComponentFilter';
 
 class BehaviorOverviewPage extends Component {
   render() {
@@ -115,6 +116,7 @@ class BehaviorOverviewPage extends Component {
               <DateRangePicker></DateRangePicker>
             </div>
           </div>
+          <ComponentFilter isContinent />
           <Row className="gx-24 mb-24">
             <Col lg={6}>
               <AreaChartComponent

@@ -19,7 +19,7 @@ const Table = ({
   setLoading,
   onSelect,
   dataList,
-  noSelection = true,
+  selection = true,
   classNameTable,
   createAssets,
   onRightClickItem,
@@ -65,10 +65,11 @@ const Table = ({
       },
     },
     (hooks) => {
-      !noSelection &&
+      !selection &&
         hooks.visibleColumns.push((columns) => [
           {
             id: 'selection',
+            className: 'px-24 py-2 border-bottom-1 text-uppercase',
             Header: ({ getToggleAllPageRowsSelectedProps }) => (
               <div>
                 <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
@@ -97,7 +98,7 @@ const Table = ({
 
   return (
     <>
-      <div className="bg-white col">
+      <div className="bg-white fs-14">
         {rows.length ? (
           <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
             <thead>

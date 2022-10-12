@@ -55,6 +55,7 @@ $utilities: (
           'blue-2': $color-blue-3,
           'blue-3': $color-blue-6,
           'blue-4': $color-blue-8,
+          'blue-5': $color-blue,
           'gray-2': rgba($color-gray-2, 0.7),
           'gray-3': $color-gray-3,
           'green-2': rgba($green, 0.15),
@@ -200,6 +201,7 @@ $utilities: (
     values: (
       100: 100%,
       80: 80%,
+      120: 120px,
     ),
   ),
   'max-height': (

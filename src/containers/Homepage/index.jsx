@@ -13,9 +13,8 @@ import ComponentCard from 'components/ComponentCard';
 import Revenue from './Component/Revenue';
 import RegisteredUser from './Component/RegisteredUser';
 import ComponentContinent from 'components/ComponentContinent';
-// import DateRangePicker from 'components/DateRangePicker';
+import DateRangePicker from 'components/DateRangePicker';
 import AreaChartComponent from 'components/AreaChartComponent';
-import DatePickerComponent from './Component/DatePicker';
 const HomePage = observer(
   class HomePage extends Component {
     constructor(props) {
@@ -34,11 +33,10 @@ const HomePage = observer(
           <div className="d-flex align-items-center justify-content-between mb-24">
             <div className="position-relative">
               <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_dashboard')}</h2>
-              <p className="mb-0">{t('txt_dashboard_below')}</p>
+              <p className="mb-0 text-color">{t('txt_dashboard_below')}</p>
             </div>
             <div className="position-relative">
-              <DatePickerComponent></DatePickerComponent>
-              {/* <DateRangePicker></DateRangePicker> */}
+              <DateRangePicker></DateRangePicker>
             </div>
           </div>
           <div className="row gx-24 mb-24">

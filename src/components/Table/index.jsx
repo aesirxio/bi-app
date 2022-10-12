@@ -99,7 +99,7 @@ const Table = ({
 
   return (
     <>
-      <div className="bg-white fs-14">
+      <div className="bg-white fs-14 text-color">
         {rows.length ? (
           <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
             <thead>

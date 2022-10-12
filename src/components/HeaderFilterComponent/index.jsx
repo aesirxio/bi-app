@@ -32,7 +32,7 @@ const HeaderFilterComponent = ({
       </div>
       {viewMoreLink && (
         <a href={viewMoreLink} className="fs-14 text-body">
-          <span className="pe-1">{t('txt_view_detail')}</span>
+          <span className="pe-1 text-color">{t('txt_view_detail')}</span>
           <span
             className="icon arrow d-inline-block align-text-bottom ms-auto bg-success"
             style={{

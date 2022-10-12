@@ -75,8 +75,8 @@ const ProfilePage = observer(
           <div>
             <div className="d-flex flex-row justify-content-between py-4 px-16">
               <div>
-                <h2>{t('txt_title_profilfe_setting')}</h2>
-                <span className="text-black-50">{t('txt_title_set_information_name')}</span>
+                <h2 className="text-blue-0">{t('txt_title_profilfe_setting')}</h2>
+                <span className="text-color">{t('txt_title_set_information_name')}</span>
               </div>
               {/* <div className='d-flex flex-row'>
               <div className='me-16'>

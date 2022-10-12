@@ -60,7 +60,7 @@ const ComponentContinent = (props) => {
   return (
     <div className="py-2 px-24 bg-white rounded-3 shadow-sm h-100">
       <div className="d-flex justify-content-between align-items-center pb-16">
-        <h2 className="mb-0 fs-4 fw-semibold">{t('txt_continent')}</h2>
+        <h2 className="mb-0 fs-4 fw-semibold text-blue-0">{t('txt_continent')}</h2>
         <div className="ms-16 me-auto">
           <SelectComponent
             defaultValue={{ label: 'Asia', value: 'asia' }}
@@ -79,7 +79,7 @@ const ComponentContinent = (props) => {
           />
         </div>
         <a href="#" className="fs-14 text-body">
-          <span className="pe-1">{t('txt_view_more')}</span>
+          <span className="pe-1 text-color">{t('txt_view_more')}</span>
           <span
             className="icon arrow d-inline-block align-text-bottom ms-auto bg-success"
             style={{
@@ -99,12 +99,15 @@ const ComponentContinent = (props) => {
           </div>
           <div className="col-lg-5">
             <div className="d-flex justify-content-between align-items-center py-16 border-bottom-1">
-              <div className="fs-5 fw-bold">{t('txt_Country')}</div>
-              <div className="fs-5 fw-bold">{t('txt_views')}</div>
+              <div className="fs-5 fw-bold text-blue-0">{t('txt_Country')}</div>
+              <div className="fs-5 fw-bold text-blue-0">{t('txt_views')}</div>
             </div>
             {data.map((item, key) => {
               return (
-                <div key={key} className="d-flex justify-content-between align-items-center py-16">
+                <div
+                  key={key}
+                  className="d-flex justify-content-between align-items-center py-16 text-color"
+                >
                   <div>
                     <img src={item.flag} className="pe-1"></img>
                     {item.country}

@@ -48,20 +48,12 @@ class Header extends React.Component {
       >
         <ComponentHambuger handleAction={this.handleMenuLeft} />
         <div className="wrapper_header_logo bg-dark w-248 h-80 d-flex align-items-center">
-          <a href="/" className={`header_logo d-block px-3`}>
-            {isMini ? (
-              <ComponentImage
-                className="logo_white pe-0"
-                src="/assets/images/logo/logo-white.svg"
-                alt="R Digital"
-              />
-            ) : (
-              <ComponentImage
-                className="logo_white pe-6"
-                src="/assets/images/logo/logo-white.svg"
-                alt="R Digital"
-              />
-            )}
+          <a href="/" className={`header_logo d-block ${isMini ? '' : 'mx-3'}`}>
+            <ComponentImage
+              className={`logo_white ${isMini ? 'pe-0' : 'pe-6'}`}
+              src="/assets/images/logo/logo-white.svg"
+              alt="R Digital"
+            />
           </a>
         </div>
         <div className="content_header h-80 border-start-1 flex-1 d-flex align-items-center ps-4 pr-4 position-relative">

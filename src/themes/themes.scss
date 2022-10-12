@@ -314,9 +314,6 @@
       color: var(--text-color) !important;
     }
   }
-  [class*='border-'] {
-    border-color: var(--border-color) !important;
-  }
   .form-check-input {
     &[type='checkbox'] {
       border-color: var(--border-color);

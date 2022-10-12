@@ -33,6 +33,7 @@ $grays: (
 // fusv-enable
 
 $blue: #005f89 !default;
+$dark-blue: #3e545e !default;
 $indigo: #6610f2 !default;
 $purple: #6f42c1 !default;
 $pink: #d63384 !default;
@@ -105,6 +106,7 @@ $theme-colors: (
   'gray-800': $gray-800,
   'cyan': $cyan,
   'blue-9': $color-blue-9,
+  'dark-blue': $dark-blue,
   'green-light': $green-light,
 ) !default;
 // scss-docs-end theme-colors-map

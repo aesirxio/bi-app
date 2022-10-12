@@ -8,6 +8,8 @@ import { NavLink } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import './index.scss';
 import { Collapse, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 const dataStream = [
   {
     text: 'DAM Pages',
@@ -143,15 +145,15 @@ function Menu(props) {
         <Button
           variant=""
           onClick={() => handleOpen('data-stream')}
-          className={`d-flex align-items-center justify-content-start rounded-2 link_menu text-decoration-none text-break w-100 px-24 py-2 shadow-none ${
+          className={`d-flex align-items-center justify-content-start rounded-2 link_menu text-decoration-none text-break w-100 py-2 shadow-none ${
             isOpenCollapse === 'data-stream' ? 'active' : ''
           }`}
           aria-controls="wr_list_submenu"
           aria-expanded={isOpenCollapse === 'data-stream'}
         >
           <div>
-            <div className="data-stream-text fs-sm mb-sm text-start">Data Stream</div>
-            <div className="fw-bold fs-5 text-white mb-0">
+            <div className="data-stream-text mb-sm text-start">{t('txt_menu_data_stream')}</div>
+            <div className="data-stream-value fw-bold text-white mb-0 text-start">
               {dataStream?.find((x) => x.value === dataStreamActive)?.text}
             </div>
           </div>
@@ -164,7 +166,7 @@ function Menu(props) {
           ></span>
         </Button>
         <Collapse in={isOpenCollapse === 'data-stream'}>
-          <ul id="wr_list_submenu" className="list-unstyled">
+          <ul id="wr_list_submenu" className="list-unstyled mb-0">
             {dataStream.map((item, index) => {
               return (
                 item.value !== dataStreamActive && (
@@ -173,7 +175,9 @@ function Menu(props) {
                     className={`item_menu cursor-pointer`}
                     onClick={() => handleChangeDataStream(item.value)}
                   >
-                    <span className="d-block rounded-1 px-24 py-16 mb-8px link_menu text-white text-decoration-none">
+                    <span
+                      className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
+                    >
                       {item.text}
                     </span>
                   </li>
@@ -183,8 +187,8 @@ function Menu(props) {
           </ul>
         </Collapse>
       </nav>
-      <nav className="main-menu pt-3 pb-1 py-3">
-        <p className="text-white-50 fs-14 px-3 mb-0">{t('txt_main_menu')}</p>
+      <nav className="main-menu py-24 mt-0">
+        <p className="menu_title text-dark-blue fs-14 mb-0 text-uppercase">{t('txt_main_menu')}</p>
         <ul id="wr_list_menu" className="list-unstyled mb-0 pt-md-1">
           {dataMenu.map((menuList, menuListkey) => {
             return (
@@ -198,7 +202,7 @@ function Menu(props) {
                       <NavLink
                         exact={true}
                         to={menuList.link}
-                        className={`d-block rounded-1 px-24 py-16 mb-8px link_menu text-white text-decoration-none `}
+                        className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
                         activeClassName={`active`}
                       >
                         <span
@@ -263,9 +267,12 @@ function Menu(props) {
                                 <NavLink
                                   exact={true}
                                   to={value.link}
-                                  className={`d-block rounded-1 px-24 py-16 mb-8px link_menu text-white text-decoration-none `}
+                                  className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
                                   activeClassName={`active`}
                                 >
+                                  <i className="icon-submenu text-white">
+                                    <FontAwesomeIcon icon={faCircle} />
+                                  </i>
                                   <span className="text d-inline-block">{t(value.text)}</span>
                                 </NavLink>
                               )}
@@ -281,8 +288,8 @@ function Menu(props) {
           })}
         </ul>
       </nav>
-      <nav className="border-top py-3">
-        <p className="text-white-50 fs-14 px-3 mb-0">{t('txt_set_up')}</p>
+      <nav className="border-top border-dark-blue py-2 mt-0 mb-auto">
+        <p className="menu_title text-dark-blue fs-14 mb-0 text-uppercase">{t('txt_set_up')}</p>
         <ul id="wr_list_menu" className="list-unstyled mb-0 pt-md-1">
           {dataMenuSetup.map((value, key) => {
             return (
@@ -290,7 +297,7 @@ function Menu(props) {
                 <NavLink
                   exact={true}
                   to={value.link}
-                  className={`d-block rounded-1 px-24 py-16 link_menu text-white text-decoration-none `}
+                  className={`d-block px-24 py-16 link_menu text-white text-decoration-none `}
                   activeClassName={`active`}
                 >
                   <span

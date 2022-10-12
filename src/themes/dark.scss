@@ -52,4 +52,7 @@
   --btn-outline-secondary-color: #ffffffcc;
   --btn-action-bg: #0d0d0d;
   --btn-action-color: #ffffffcc;
+  [class*='border-'] {
+    border-color: var(--border-color) !important;
+  }
 }

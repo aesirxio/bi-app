@@ -10,27 +10,27 @@ const RevenueList = ({ ...props }) => {
       {
         Header: 'ID',
         accessor: 'id',
-        className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 text-uppercase ',
+        className: 'py-2 fs-12 opacity-50 border-bottom-1 text-uppercase ',
       },
       {
         Header: t('txt_name'),
         accessor: 'name',
-        className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 text-uppercase ',
+        className: 'py-2 fs-12 opacity-50 border-bottom-1 text-uppercase ',
       },
       {
         Header: t('txt_email'),
         accessor: 'email',
-        className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 text-uppercase ',
+        className: 'py-2 fs-12 opacity-50 border-bottom-1 text-uppercase ',
       },
       {
         Header: t('txt_date'),
         accessor: 'date',
-        className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 text-uppercase',
+        className: 'py-2 fs-12 opacity-50 border-bottom-1 text-uppercase',
       },
       {
         Header: t('txt_value'),
         accessor: 'value',
-        className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 text-uppercase',
+        className: 'py-2 fs-12 opacity-50 border-bottom-1 text-uppercase',
         Cell: ({ value }) => {
           return <div className="fw-bold">{value}</div>;
         },
@@ -38,7 +38,7 @@ const RevenueList = ({ ...props }) => {
       {
         Header: t('txt_description'),
         accessor: 'description',
-        className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 text-uppercase',
+        className: 'py-2 fs-12 opacity-50 border-bottom-1 text-uppercase',
         Cell: ({ value }) => {
           return <div className="fw-bold">{value}</div>;
         },
@@ -51,7 +51,7 @@ const RevenueList = ({ ...props }) => {
           let color = value === 'Active' ? '#3EAD8A' : '#F59E0B';
           let backgroundColor = value === 'Active' ? '#D0F4E8' : '#FFEAC8';
           return (
-            <div className="text-end">
+            <div className="text-end px-24">
               <span
                 className="px-1 py-sm rounded-pill fs-12"
                 style={{ backgroundColor: backgroundColor }}

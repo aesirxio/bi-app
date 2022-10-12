@@ -71,7 +71,7 @@ body.mini_left {
 .data-stream {
   background-color: var(--sidebar-submenu-bg);
   &-text {
-    color: #3e545e;
+    color: $gray-600;
   }
   .link_menu {
     &.active,

@@ -10,10 +10,8 @@ import { makeAutoObservable } from 'mobx';
 class BiListViewModel {
   biStore = null;
   paginationCollections = null;
-  collections = [];
   status = PAGE_STATUS.READY;
-  assets = [];
-  paginationAssets = null;
+  data = [];
   tableRowHeader = null;
   dataFilter = {
     'filter[type]': '',
@@ -25,108 +23,29 @@ class BiListViewModel {
   isList = false;
   biIdsSelected = null;
   isSearch = false;
-  subscription = null;
   constructor(biStore) {
     makeAutoObservable(this);
     this.biStore = biStore;
   }
 
-  getCollections = (collectionId) => {
-    this.isSearch = false;
-    this.status = PAGE_STATUS.LOADING;
-    this.biStore.getCollections(
-      collectionId,
-      this.callbackOnCollectionsSuccessHandler,
-      this.callbackOnErrorHander
-    );
-  };
-
-  createCollections = (data) => {
-    notify(
-      this.biStore.createCollections(
-        data,
-        this.callBackOnCollectionCreateSuccessHandler,
-        this.callbackOnErrorHander
-      ),
-      'promise'
-    );
-  };
-
-  updateCollections = (data) => {
-    notify(
-      this.biStore.updateCollections(
-        data,
-        this.callBackOnCollectionCreateSuccessHandler,
-        this.callbackOnErrorHander
-      ),
-      'promise'
-    );
-  };
-
-  deleteCollections = (data) => {
-    notify(
-      this.biStore.deleteCollections(
-        data,
-        this.callBackOnCollectionCreateSuccessHandler,
-        this.callbackOnErrorHander
-      ),
-      'promise'
-    );
-  };
-
-  getAssets = (collectionId, dataFilter) => {
+  getDashboard = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, dataFilter };
-    this.biStore.getAssets(
-      collectionId,
+    this.biStore.getDashboard(
       this.dataFilter,
-      this.callbackOnAssetsSuccessHandler,
+      this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
     );
   };
 
-  filterAssets = (collectionId, dataFilter) => {
+  filterAssets = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
 
-    this.biStore.getAssets(
-      collectionId,
+    this.biStore.getDashboard(
       this.dataFilter,
-      this.callBackOnAssetsFilterSuccessHandler,
+      this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
-    );
-  };
-
-  createAssets = (data) => {
-    notify(
-      this.biStore.createAssets(
-        data,
-        this.callBackOnAssetsCreateSuccessHandler,
-        this.callbackOnErrorHander
-      ),
-      'promise'
-    );
-  };
-
-  deleteAssets = (data) => {
-    notify(
-      this.biStore.deleteAssets(
-        data,
-        this.callBackOnAssetsCreateSuccessHandler,
-        this.callbackOnErrorHander
-      ),
-      'promise'
-    );
-  };
-
-  updateAssets = (data) => {
-    notify(
-      this.biStore.updateAssets(
-        data,
-        this.callBackOnAssetsCreateSuccessHandler,
-        this.callbackOnErrorHander
-      ),
-      'promise'
     );
   };
 
@@ -138,96 +57,12 @@ class BiListViewModel {
     } else notify(error.message, 'error');
   };
 
-  callbackOnAssetsSuccessHandler = (data) => {
+  callbackOnDataSuccessHandler = (data) => {
     if (data) {
       this.status = PAGE_STATUS.READY;
-      this.assets = [...data?.list];
-      this.paginationAssets = data.pagination;
+      this.data = data;
     } else {
       this.status = PAGE_STATUS.ERROR;
-      this.paginationAssets = null;
-    }
-  };
-
-  callBackOnAssetsCreateSuccessHandler = (data) => {
-    if (data.item) {
-      if (data?.type) {
-        switch (data.type) {
-          case 'update': {
-            const findIndex = this.assets.findIndex((asset) => asset.id === data.item.id);
-            this.assets[findIndex] = { ...this.assets[findIndex], ...data.item };
-            break;
-          }
-          case 'delete':
-            this.assets = this.assets.filter((asset) => {
-              return asset.id !== data.item?.id;
-            });
-            break;
-          case 'create':
-            this.assets = [...this.assets, data?.item];
-            break;
-
-          default:
-            break;
-        }
-      }
-    }
-  };
-
-  callBackOnAssetsFilterSuccessHandler = (data) => {
-    if (data) {
-      this.status = PAGE_STATUS.READY;
-      this.assets = [...data?.list];
-      this.paginationAssets = data.pagination;
-    } else {
-      this.status = PAGE_STATUS.ERROR;
-      this.paginationAssets = null;
-    }
-  };
-
-  callbackOnCollectionsSuccessHandler = (data) => {
-    if (data) {
-      this.status = PAGE_STATUS.READY;
-      this.collections = [...data?.list];
-      this.paginationCollections = data.pagination;
-    } else {
-      this.status = PAGE_STATUS.ERROR;
-      this.paginationCollections = null;
-    }
-  };
-
-  callBackOnCollectionCreateSuccessHandler = (data) => {
-    if (data.item) {
-      if (data?.type) {
-        switch (data.type) {
-          case 'update': {
-            const findIndex = this.collections.findIndex(
-              (collection) => collection.id === data.item.id
-            );
-            this.collections[findIndex] = { ...this.collections[findIndex], ...data.item };
-            break;
-          }
-          case 'delete':
-            this.collections = this.collections.filter((collection) => {
-              return collection.id !== data.item?.id;
-            });
-            break;
-          case 'create':
-            this.collections = [...this.collections, data?.item];
-            break;
-
-          default:
-            break;
-        }
-      }
-    }
-  };
-
-  callbackOnSubscriptionSuccessHandler = (data) => {
-    if (data) {
-      this.subscription = data;
-    } else {
-      this.status = PAGE_STATUS.READY;
     }
   };
 }

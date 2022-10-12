@@ -14,7 +14,7 @@ registerLocale('de', de);
 registerLocale('uk', uk);
 registerLocale('es', es);
 
-function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, ...props }) {
+function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, isDays, ...props }) {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const pickerRef = useRef(null);
@@ -66,12 +66,18 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, ...props }) {
     if (!start || !end) return 0;
     return moment(end).diff(moment(start), 'days') + 1;
   };
+  const getDateDiffString = (start, end) => {
+    let startDate = start ? moment(start).format('DD MMM, YYYY') : '';
+    let endDate = end ? moment(end).format('DD MMM, YYYY') : '';
+    let result = placeholder;
+    if (start || end) {
+      result = getDateDiff(start, end) == 1 ? t('txt_today') : startDate + ' - ' + endDate;
+    }
+    return result;
+  };
 
   return (
-    <div
-      onClick={handleOpenDatePicker}
-      className="position-relative daterange-picker wrapper_datepicker"
-    >
+    <div onClick={handleOpenDatePicker} className="position-relative daterange-picker">
       <DatePicker
         dateFormat="dd MMM, yyyy"
         selectsRange={true}
@@ -81,12 +87,16 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, ...props }) {
           setDateRange(update);
         }}
         value={
-          getDateDiff(startDate, endDate)
+          !isDays
+            ? getDateDiffString(startDate, endDate)
+            : getDateDiff(startDate, endDate)
             ? `${getDateDiff(startDate, endDate)} ${t('txt_days')}`
-            : t('txt_date_range')
+            : placeholder
         }
         isClearable={true}
-        className={`form-control border-0 rounded-1 fs-14 text-color fw-semibold opacity-100 mw-120 h-100`}
+        className={`${
+          isDays ? 'fs-14 fw-semibold mw-120' : 'ps-16 pe-5'
+        } form-control border-0 rounded-1 text-color opacity-100 h-100`}
         showPopperArrow={false}
         monthsShown={2}
         open={isOpen}

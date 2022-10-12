@@ -119,7 +119,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
           <h5 className="fw-semibold text-blue-0">{chartTitle} </h5>
           {link && (
             <a href={link} className="fs-14 text-body">
-              <span className="pe-1">{t('txt_view_detail')}</span>
+              <span className="pe-1 text-color">{t('txt_view_detail')}</span>
               <span
                 className="icon arrow d-inline-block align-text-bottom ms-auto bg-success"
                 style={{

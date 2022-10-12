@@ -7,6 +7,7 @@ import React, { useEffect } from 'react';
 import { useExpanded, usePagination, useRowSelect, useTable } from 'react-table';
 import { withTranslation } from 'react-i18next';
 import ComponentNoData from '../ComponentNoData';
+import './index.scss';
 
 const Table = ({
   columns,
@@ -94,7 +95,7 @@ const Table = ({
     <>
       <div className="bg-white fs-14">
         {rows.length ? (
-          <table {...getTableProps()} className={`w-100 mb-4 ${classNameTable}`}>
+          <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
             <thead>
               {headerGroups.map((headerGroup, index) => {
                 let newHeaderGroup = '';
@@ -113,6 +114,7 @@ const Table = ({
                           key={index}
                           {...column.getHeaderProps()}
                           className={`${column.className}`}
+                          rowSpan={`${column.rowSpan ?? 1}`}
                         >
                           {column.render('Header')}
                         </th>
@@ -144,7 +146,7 @@ const Table = ({
                     >
                       {newRowCells.map((cell, index) => {
                         return (
-                          <td key={index} {...cell.getCellProps()} className="px-24 py-2">
+                          <td key={index} {...cell.getCellProps()} className="py-2">
                             {cell.render('Cell')}
                           </td>
                         );

@@ -1,7 +1,6 @@
 import React from 'react';
 
 function ComponentSVG({ url, width, height, color }) {
-  console.log(color ? `'${color} !important'` : 'initial');
   return (
     <span
       className={`icon d-inline-block align-text-bottom ms-auto`}

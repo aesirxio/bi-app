@@ -9,6 +9,7 @@ const customStyles = (isBorder, plColor, arrowColor) => {
       return {
         ...provided,
         minHeight: 32,
+        height: '100%',
         boxShadow: 'none',
         borderRadius: '5px',
         borderColor: isBorder ? 'var(--border-color)' : 'transparent',
@@ -16,7 +17,7 @@ const customStyles = (isBorder, plColor, arrowColor) => {
           // borderColor: isBorder ? '#8bdcbc' : 'transparent',
           // borderRight: '1px solid var(--border-color)',
         },
-        borderRight: '1px solid var(--border-color)',
+        // borderRight: '1px solid var(--border-color)',
         backgroundColor: 'transparent',
         cursor: 'pointer',
         width: 'auto',

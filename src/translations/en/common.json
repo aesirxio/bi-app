@@ -94,7 +94,12 @@
   "txt_new_registered_users": "New Registered Users",
   "txt_continent": "Continent",
   "txt_view_more": "View more",
+  "txt_view_detail":"View detail",
   "txt_views": "Views",
+  "txt_behavior": "Behavior",
+  "txt_behavior_clicking": "Clicking Behavior",
+  "txt_most_clingking_pages": "Most Clicking Pages",
+  "txt_gender":"Gender",
   "txt_name": "Name",
   "txt_size": "Size",
   "txt_owner": "Owner",
@@ -164,5 +169,6 @@
   "txt_in_total": "In Total",
   "txt_description": "Description",
   "txt_search": "Search",
-  "txt_date_range": "Date range"
+  "txt_date_range": "Date range",
+  "txt_devices": "Devices"
 }

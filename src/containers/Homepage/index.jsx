@@ -13,9 +13,9 @@ import ComponentCard from 'components/ComponentCard';
 import Revenue from './Component/Revenue';
 import RegisteredUser from './Component/RegisteredUser';
 import ComponentContinent from 'components/ComponentContinent';
-import DateRangePicker from 'components/DateRangePicker';
+// import DateRangePicker from 'components/DateRangePicker';
 import AreaChartComponent from 'components/AreaChartComponent';
-
+import DatePickerComponent from './Component/DatePicker';
 const HomePage = observer(
   class HomePage extends Component {
     constructor(props) {
@@ -37,7 +37,8 @@ const HomePage = observer(
               <p className="mb-0">{t('txt_dashboard_below')}</p>
             </div>
             <div className="position-relative">
-              <DateRangePicker></DateRangePicker>
+              <DatePickerComponent></DatePickerComponent>
+              {/* <DateRangePicker></DateRangePicker> */}
             </div>
           </div>
           <div className="row gx-24 mb-24">

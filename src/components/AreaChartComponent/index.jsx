@@ -1,3 +1,4 @@
+import HeaderFilterComponent from 'components/HeaderFilterComponent';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
@@ -10,8 +11,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import AreaChartController from './AreaChartController';
-import './index.scss';
 const AreaChartComponent = ({
   data,
   height,
@@ -20,8 +19,6 @@ const AreaChartComponent = ({
   lineColors,
   chartTitle,
   lines,
-  defaultValue, // Select default
-  options, // Select Options
   isDot,
   hiddenGrid,
   XAxisOptions, // Line Ngang
@@ -45,14 +42,10 @@ const AreaChartComponent = ({
     );
   };
   return (
-    <div className="bg-white rounded-3 p-24 shadow-sm">
+    <div className="bg-white rounded-3 p-24 shadow-sm h-100">
       {data ? (
         <>
-          <AreaChartController
-            chartTitle={chartTitle}
-            defaultValue={defaultValue}
-            options={options}
-          />
+          <HeaderFilterComponent chartTitle={chartTitle} isSelection={true} filterButtons={true} />
           <ResponsiveContainer width="100%" height={height ?? 500}>
             <AreaChart data={data}>
               {lines && (

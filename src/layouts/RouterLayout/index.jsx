@@ -21,7 +21,7 @@ import BiViewModel from 'store/BiStore/BiViewModel';
 import BiStore from 'store/BiStore/BiStore';
 
 const biStore = new BiStore();
-const damsViewModel = new BiViewModel(biStore);
+const biViewModel = new BiViewModel(biStore);
 const RouterLayout = () => {
   const authPath = authRoutes
     .map((item) => {
@@ -56,7 +56,7 @@ const RouterLayout = () => {
             <Route exact path={authPath}>
               <AuthLayout />
             </Route>
-            <BiStoreProvider viewModel={damsViewModel}>
+            <BiStoreProvider viewModel={biViewModel}>
               <Route exact path={mainPath}>
                 <MainLayout />
               </Route>

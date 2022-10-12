@@ -6,6 +6,10 @@
 @import '../../scss/utils/bootstrap.scss';
 
 .item_menu {
+  margin-bottom: 8px;
+  &:last-child {
+    margin-bottom: 0;
+  }
   .link_menu {
     transition: all 0.3s ease;
     white-space: nowrap;
@@ -40,11 +44,13 @@
 #wr_list_submenu {
   background-color: var(--sidebar-submenu-bg);
   .item_menu {
+    margin-bottom: 8px;
     &:first-child {
-      margin-top: 8px;
+      padding-top: 8px;
     }
     &:last-child {
-      margin-bottom: 8px;
+      padding-bottom: 8px;
+      margin-bottom: 0;
     }
   }
 }
@@ -63,22 +69,67 @@
 body.mini_left {
   .sidebar {
     .button-language {
-      bottom: 2.25rem !important;
-      padding-bottom: 1rem !important;
+      padding-right: 0;
+      flex-wrap: wrap;
+      & > * {
+        width: 100%;
+      }
+      .theme-icon {
+        margin: 0 auto;
+      }
+    }
+    .menu_title {
+      padding: 0;
+      text-align: center;
+    }
+    .data-stream {
+      .link_menu {
+        padding: 0 5px;
+      }
+      .data-stream-text {
+        font-size: $h8-font-size;
+      }
+      .data-stream-value {
+        font-size: $font-size-sm;
+      }
+      .item_menu {
+        font-size: $font-size-sm;
+      }
+    }
+    .icon-submenu {
+      display: block;
     }
   }
 }
-.data-stream {
-  background-color: var(--sidebar-submenu-bg);
-  &-text {
-    color: $gray-600;
+.sidebar {
+  .menu_title {
+    padding: 0 24px;
   }
-  .link_menu {
-    &.active,
-    :hover {
+  .data-stream {
+    background-color: var(--sidebar-submenu-bg);
+    &-text {
+      color: $dark-blue;
+    }
+    .link_menu {
+      padding: 0 24px;
       .data-stream-text {
-        color: $white;
+        font-size: $font-size-sm;
+      }
+      .data-stream-value {
+        font-size: $h5-font-size;
+      }
+      &.active,
+      :hover {
+        .data-stream-text {
+          color: $white;
+        }
       }
     }
+  }
+  .icon-submenu {
+    display: none;
+  }
+  .button-language {
+    padding-right: 24px;
   }
 }

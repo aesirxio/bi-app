@@ -22,6 +22,7 @@ const MemberRolesPage = lazy(() => import('../containers/MemberRolesPage'));
 const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
+const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 
@@ -84,6 +85,11 @@ const mainRoutes = [
     path: '/region-country',
     exact: true,
     main: () => <RegionCountryPage />,
+  },
+  {
+    path: '/help-center',
+    exact: true,
+    main: () => <HelpCenterPage />,
   },
 ];
 

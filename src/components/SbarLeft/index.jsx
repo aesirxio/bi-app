@@ -5,17 +5,18 @@
 
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import i18n from 'translations/i18n';
+// import i18n from 'translations/i18n';
 
 import './index.scss';
 import Menu from '../Menu';
 import SwitchThemes from 'components/SwitchThemes';
-import { Dropdown } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
+// import { Dropdown } from 'react-bootstrap';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
 import Menu2 from 'components/Menu2';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react';
+import { NavLink } from 'react-router-dom';
 const SbarLeft = observer(
   class SbarLeft extends React.Component {
     constructor(props) {
@@ -27,16 +28,16 @@ const SbarLeft = observer(
     }
 
     render() {
-      let { settingPage } = this.props;
+      let { settingPage, t } = this.props;
 
-      const listLanguages = Object.keys(i18n.options.resources).map(function (key) {
-        return { language: key, title: i18n.options.resources[key].title };
-      });
-      let currentLanguage = listLanguages.filter((lang) => {
-        if (lang.language == i18n.language) {
-          return lang.title;
-        }
-      });
+      // const listLanguages = Object.keys(i18n.options.resources).map(function (key) {
+      //   return { language: key, title: i18n.options.resources[key].title };
+      // });
+      // let currentLanguage = listLanguages.filter((lang) => {
+      //   if (lang.language == i18n.language) {
+      //     return lang.title;
+      //   }
+      // });
       return (
         <aside
           className={`sidebar w-248  mt-0 position-relative bg-dark mh-100 h-100 overflow-hidden overflow-y-auto d-flex flex-column z-index-100 justify-content-between`}
@@ -49,8 +50,8 @@ const SbarLeft = observer(
             <Menu2 />
           )}
 
-          <div className="d-flex flex-wrap align-items-center bottom-0 mb-1 border-top w-100 py-1 button-language ">
-            <Dropdown as={'div'} className="col py-2 px-3">
+          <div className="d-flex align-items-center justify-content-between bottom-0 w-100 pt-1 button-language item_menu">
+            {/* <Dropdown as={'div'} className="col py-2 px-3">
               <Dropdown.Toggle
                 variant="dark"
                 id="dropdown-basic"
@@ -75,8 +76,23 @@ const SbarLeft = observer(
                   );
                 })}
               </Dropdown.Menu>
-            </Dropdown>
-            <div className="switch-theme-button col-auto py-2 px-3">
+            </Dropdown> */}
+            <NavLink
+              exact={true}
+              to={'/help-center'}
+              className={`d-block px-24 py-16 link_menu text-white text-decoration-none `}
+              activeClassName={`active`}
+            >
+              <span
+                className="icon d-inline-block align-text-bottom"
+                style={{
+                  WebkitMaskImage: `url(/assets/images/help-center.svg)`,
+                  WebkitMaskRepeat: 'no-repeat',
+                }}
+              ></span>
+              <span className="ms-16 text d-inline-block">{t('txt_menu_help_center')}</span>
+            </NavLink>
+            <div className="switch-theme-button col-auto py-2">
               <SwitchThemes />
             </div>
 

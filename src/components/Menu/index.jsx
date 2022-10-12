@@ -8,7 +8,16 @@ import { NavLink } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import './index.scss';
 import { Collapse, Button } from 'react-bootstrap';
-
+const dataStream = [
+  {
+    text: 'DAM Pages',
+    value: 'dam-pages',
+  },
+  {
+    text: 'DMA Pages',
+    value: 'dma-pages',
+  },
+];
 const dataMenu = [
   {
     text: 'txt_menu_dashboard',
@@ -89,6 +98,7 @@ const dataMenuSetup = [
 ];
 function Menu(props) {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
+  const [dataStreamActive, setDataStreamActive] = useState('dam-pages');
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {
       if (parentIndex) {
@@ -116,6 +126,11 @@ function Menu(props) {
     checkActiveMenu();
   };
 
+  const handleChangeDataStream = (value) => {
+    handleOpen('');
+    setDataStreamActive(value);
+  };
+
   useEffect(() => {
     checkActiveMenu();
   });
@@ -124,7 +139,51 @@ function Menu(props) {
 
   return (
     <>
-      <nav className="main-menu pt-3 pb-1 border-top py-3">
+      <nav className="data-stream item_menu">
+        <Button
+          variant=""
+          onClick={() => handleOpen('data-stream')}
+          className={`d-flex align-items-center justify-content-start rounded-2 link_menu text-decoration-none text-break w-100 px-24 py-2 shadow-none ${
+            isOpenCollapse === 'data-stream' ? 'active' : ''
+          }`}
+          aria-controls="wr_list_submenu"
+          aria-expanded={isOpenCollapse === 'data-stream'}
+        >
+          <div>
+            <div className="data-stream-text fs-sm mb-sm text-start">Data Stream</div>
+            <div className="fw-bold fs-5 text-white mb-0">
+              {dataStream?.find((x) => x.value === dataStreamActive)?.text}
+            </div>
+          </div>
+          <span
+            className="icon arrow d-inline-block align-text-bottom ms-auto"
+            style={{
+              WebkitMaskImage: `url(/assets/images/arrow-right.svg)`,
+              WebkitMaskRepeat: 'no-repeat',
+            }}
+          ></span>
+        </Button>
+        <Collapse in={isOpenCollapse === 'data-stream'}>
+          <ul id="wr_list_submenu" className="list-unstyled">
+            {dataStream.map((item, index) => {
+              return (
+                item.value !== dataStreamActive && (
+                  <li
+                    key={index}
+                    className={`item_menu cursor-pointer`}
+                    onClick={() => handleChangeDataStream(item.value)}
+                  >
+                    <span className="d-block rounded-1 px-24 py-16 mb-8px link_menu text-white text-decoration-none">
+                      {item.text}
+                    </span>
+                  </li>
+                )
+              );
+            })}
+          </ul>
+        </Collapse>
+      </nav>
+      <nav className="main-menu pt-3 pb-1 py-3">
         <p className="text-white-50 fs-14 px-3 mb-0">{t('txt_main_menu')}</p>
         <ul id="wr_list_menu" className="list-unstyled mb-0 pt-md-1">
           {dataMenu.map((menuList, menuListkey) => {
@@ -185,12 +244,6 @@ function Menu(props) {
                           WebkitMaskRepeat: 'no-repeat',
                         }}
                       ></span>
-                      {/* <span className="material-icons ms-auto align-items-center">
-                        {isOpenCollapse === menuListkey.toString() ||
-                        isOpenCollapse?.includes(menuListkey + '-')
-                          ? `arrow_drop_up`
-                          : `arrow_drop_down`}
-                      </span> */}
                     </Button>
                     <Collapse
                       in={

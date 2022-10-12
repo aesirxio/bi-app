@@ -49,29 +49,29 @@ const HeaderFilterComponent = ({
         <ButtonGroup>
           <Button
             onClick={() => setView('hours')}
-            className={`${view == 'hours' && 'text-white'} py-1 px-15 fs-12 lh-sm`}
-            variant={view == 'hours' ? 'secondary' : 'outline-secondary'}
+            className={`${view == 'hours' && 'text-white'} py-1 px-15 fs-12 lh-sm shadow-none`}
+            variant={view == 'hours' ? 'dark' : 'outline-secondary'}
           >
             {t('txt_hours')}
           </Button>
           <Button
             onClick={() => setView('days')}
-            className={`${view == 'days' && 'text-white'} py-1 px-15 fs-12 lh-sm`}
-            variant={view == 'days' ? 'secondary' : 'outline-secondary'}
+            className={`${view == 'days' && 'text-white'} py-1 px-15 fs-12 lh-sm shadow-none`}
+            variant={view == 'days' ? 'dark' : 'outline-secondary'}
           >
             {t('txt_days')}
           </Button>
           <Button
             onClick={() => setView('weeks')}
-            className={`${view == 'weeks' && 'text-white'} py-1 px-15 fs-12 lh-sm`}
-            variant={view == 'weeks' ? 'secondary' : 'outline-secondary'}
+            className={`${view == 'weeks' && 'text-white'} py-1 px-15 fs-12 lh-sm shadow-none`}
+            variant={view == 'weeks' ? 'dark' : 'outline-secondary'}
           >
             {t('txt_weeks')}
           </Button>
           <Button
             onClick={() => setView('months')}
-            className={`${view == 'months' && 'text-white'} py-1 px-15 fs-12 lh-sm`}
-            variant={view == 'months' ? 'secondary' : 'outline-secondary'}
+            className={`${view == 'months' && 'text-white'} py-1 px-15 fs-12 lh-sm shadow-none`}
+            variant={view == 'months' ? 'dark' : 'outline-secondary'}
           >
             {t('txt_months')}
           </Button>

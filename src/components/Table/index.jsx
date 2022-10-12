@@ -70,13 +70,14 @@ const Table = ({
           {
             id: 'selection',
             className: 'px-24 py-2 border-bottom-1 text-uppercase',
+            width: '50px',
             Header: ({ getToggleAllPageRowsSelectedProps }) => (
               <div>
                 <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
               </div>
             ),
             Cell: ({ row }) => (
-              <div className="wrapper_checkbox">
+              <div className="wrapper_checkbox px-24">
                 <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
               </div>
             ),
@@ -240,7 +241,11 @@ const Table = ({
                     >
                       {newRowCells.map((cell, index) => {
                         return (
-                          <td key={index} {...cell.getCellProps()} className="py-2">
+                          <td
+                            key={index}
+                            {...cell.getCellProps({ style: { width: cell.column.width } })}
+                            className="py-2"
+                          >
                             {cell.render('Cell')}
                           </td>
                         );

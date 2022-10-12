@@ -68,3 +68,17 @@ body.mini_left {
     }
   }
 }
+.data-stream {
+  background-color: var(--sidebar-submenu-bg);
+  &-text {
+    color: #3e545e;
+  }
+  .link_menu {
+    &.active,
+    :hover {
+      .data-stream-text {
+        color: $white;
+      }
+    }
+  }
+}

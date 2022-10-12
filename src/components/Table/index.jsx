@@ -125,7 +125,7 @@ const Table = ({
                             ...column.getHeaderProps(
                               canSort && !column.rowSpan
                                 ? column.getSortByToggleProps()
-                                : columnInside.getSortByToggleProps()
+                                : columnInside && columnInside.getSortByToggleProps()
                             ),
                           })}
                           className={`${column.className} ${

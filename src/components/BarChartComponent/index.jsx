@@ -18,12 +18,16 @@ const BarChartComponent = (props) => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 type="number"
+                axisLine={props.XAxisOptions?.axisLine ?? false}
+                tickLine={false}
                 style={{
                   fontSize: '12px',
                 }}
               />
               <YAxis
                 type="category"
+                axisLine={props.YAxisOptions?.axisLine ?? false}
+                tickLine={false}
                 dataKey="name"
                 style={{
                   fontSize: '12px',

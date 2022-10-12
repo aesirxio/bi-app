@@ -16,6 +16,11 @@ const AudiencePage = lazy(() => import('../containers/AudiencePage'));
 const RevenuePage = lazy(() => import('../containers/RevenuePage'));
 const BehaviorOverviewPage = lazy(() => import('../containers/Behavior/Overview'));
 const BehaviorClickAnchorPage = lazy(() => import('../containers/Behavior/ClickAnchor'));
+const UTMTrackingPage = lazy(() => import('../containers/Behavior/UTMTracking'));
+const SubscriptionPage = lazy(() => import('../containers/SubscriptionPage'));
+const MemberRolesPage = lazy(() => import('../containers/MemberRolesPage'));
+const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
+const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
@@ -54,6 +59,31 @@ const mainRoutes = [
     path: '/behavior/click-anchor',
     exact: true,
     main: () => <BehaviorClickAnchorPage />,
+  },
+  {
+    path: '/behavior/utm-tracking',
+    exact: true,
+    main: () => <UTMTrackingPage />,
+  },
+  {
+    path: '/subscription',
+    exact: true,
+    main: () => <SubscriptionPage />,
+  },
+  {
+    path: '/member-roles',
+    exact: true,
+    main: () => <MemberRolesPage />,
+  },
+  {
+    path: '/data-stream',
+    exact: true,
+    main: () => <DataStreamPage />,
+  },
+  {
+    path: '/region-country',
+    exact: true,
+    main: () => <RegionCountryPage />,
   },
 ];
 

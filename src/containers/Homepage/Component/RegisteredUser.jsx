@@ -15,14 +15,14 @@ const RegisteredUser = (props) => {
       {
         Header: 'EMAIL',
         accessor: 'email',
-        className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 ',
+        className: 'py-2 fs-12 opacity-50 border-bottom-1 ',
       },
       {
         Header: 'DATE',
         accessor: 'date',
-        className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 text-end',
+        className: 'py-2 fs-12 opacity-50 border-bottom-1',
         Cell: ({ value }) => {
-          return <div className="text-end">{value}</div>;
+          return <div>{value}</div>;
         },
       },
       {

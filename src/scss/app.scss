@@ -97,7 +97,7 @@ textarea {
 .h-80 {
   height: 80px;
 }
-.h-196{
+.h-196 {
   height: 196px;
 }
 .img-avatar-35 {
@@ -422,6 +422,10 @@ textarea {
   .wr_btn_dam {
     z-index: 5;
   }
+}
+
+.progress {
+  background-color: #d9d9d9;
 }
 
 @include media-breakpoint-down(lg) {

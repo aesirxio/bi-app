@@ -16,7 +16,7 @@ const Revenue = (props) => {
       {
         Header: 'PERCENTAGE (%)',
         accessor: 'percentage',
-        className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 ',
+        className: 'py-2 fs-12 opacity-50 border-bottom-1 ',
         Cell: ({ value }) => {
           return (
             <div className="d-flex align-items-center">

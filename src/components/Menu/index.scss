@@ -37,20 +37,17 @@
     }
   }
 }
-.wr_list_menu {
-  #wr_list_submenu {
-    background-color: var(--sidebar-submenu-bg);
-    .item_menu {
-      &:first-child {
-        margin-top: 8px;
-      }
-      &:last-child {
-        margin-bottom: 8px;
-      }
+#wr_list_submenu {
+  background-color: var(--sidebar-submenu-bg);
+  .item_menu {
+    &:first-child {
+      margin-top: 8px;
+    }
+    &:last-child {
+      margin-bottom: 8px;
     }
   }
 }
-
 .section_menu_title,
 .header_logo {
   transition: all 0.3s ease;

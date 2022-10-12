@@ -4,10 +4,12 @@
  */
 
 import React, { useEffect } from 'react';
-import { useExpanded, usePagination, useRowSelect, useTable } from 'react-table';
+import { useExpanded, usePagination, useRowSelect, useSortBy, useTable } from 'react-table';
 import { withTranslation } from 'react-i18next';
 import ComponentNoData from '../ComponentNoData';
 import './index.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 
 const Table = ({
   columns,
@@ -21,6 +23,8 @@ const Table = ({
   classNameTable,
   createAssets,
   onRightClickItem,
+  canSort,
+  sortAPI,
 }) => {
   const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
     const defaultRef = React.useRef();
@@ -79,6 +83,7 @@ const Table = ({
           ...columns,
         ]);
     },
+    useSortBy,
     useExpanded,
     usePagination,
     useRowSelect
@@ -108,14 +113,103 @@ const Table = ({
                 return (
                   <tr key={index} {...headerGroup.getHeaderGroupProps()}>
                     {newHeaderGroup.map((column, index) => {
+                      let sortParams = column.sortParams ?? column.id;
+                      let columnInside = '';
+                      if (column.rowSpan && canSort && !sortAPI) {
+                        columnInside = column.columns[0];
+                      }
                       return (
                         <th
                           key={index}
-                          {...column.getHeaderProps()}
-                          className={`${column.className}`}
+                          {...(!sortAPI && {
+                            ...column.getHeaderProps(
+                              canSort && !column.rowSpan
+                                ? column.getSortByToggleProps()
+                                : columnInside.getSortByToggleProps()
+                            ),
+                          })}
+                          className={`${column.className} ${
+                            sortAPI && sortParams !== 'number' && sortParams !== 'selection'
+                              ? 'cursor-pointer'
+                              : ''
+                          }`}
+                          {...(sortAPI &&
+                            sortParams !== 'number' &&
+                            sortParams !== 'selection' && {
+                              onClick: async () => {
+                                setLoading(true);
+                                if (store.sortBy.id === sortParams && store.sortBy.desc) {
+                                  store.sortBy = { desc: true };
+                                } else if (store.sortBy.id !== sortParams) {
+                                  store.sortBy = { id: sortParams, desc: false };
+                                } else {
+                                  store.sortBy = { id: sortParams, desc: !store.sortBy.desc };
+                                }
+                                await store.getItems();
+                                setLoading(false);
+                              },
+                            })}
                           rowSpan={`${column.rowSpan ?? 1}`}
                         >
                           {column.render('Header')}
+                          {canSort && (
+                            <span className="position-relative">
+                              {sortAPI ? (
+                                store?.sortBy?.id === sortParams &&
+                                sortParams !== 'number' &&
+                                sortParams !== 'selection' ? (
+                                  store?.sortBy?.desc ? (
+                                    <FontAwesomeIcon
+                                      className="sort-icon sort-icon-down ms-sm"
+                                      icon={faSortDown}
+                                    />
+                                  ) : (
+                                    <FontAwesomeIcon
+                                      className="sort-icon sort-icon-up ms-sm mb-nsm"
+                                      icon={faSortUp}
+                                    />
+                                  )
+                                ) : (
+                                  ''
+                                )
+                              ) : !column.rowSpan ? (
+                                column.isSorted &&
+                                sortParams !== 'number' &&
+                                sortParams !== 'selection' ? (
+                                  column.isSortedDesc ? (
+                                    <FontAwesomeIcon
+                                      className="sort-icon sort-icon-down ms-sm"
+                                      icon={faSortDown}
+                                    />
+                                  ) : (
+                                    <FontAwesomeIcon
+                                      className="sort-icon sort-icon-up ms-sm mb-nsm"
+                                      icon={faSortUp}
+                                    />
+                                  )
+                                ) : (
+                                  ''
+                                )
+                              ) : columnInside.isSorted &&
+                                // Column have rowSpan
+                                sortParams !== 'number' &&
+                                sortParams !== 'selection' ? (
+                                columnInside.isSortedDesc ? (
+                                  <FontAwesomeIcon
+                                    className="sort-icon sort-icon-down ms-sm"
+                                    icon={faSortDown}
+                                  />
+                                ) : (
+                                  <FontAwesomeIcon
+                                    className="sort-icon sort-icon-up ms-sm mb-nsm"
+                                    icon={faSortUp}
+                                  />
+                                )
+                              ) : (
+                                ''
+                              )}
+                            </span>
+                          )}
                         </th>
                       );
                     })}

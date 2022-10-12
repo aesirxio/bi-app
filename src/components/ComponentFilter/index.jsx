@@ -34,6 +34,8 @@ const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) 
             isOpen={openDatePicker}
             setIsOpen={setOpenDatePicker}
             datePickerRef={datePickerRef}
+            placeholder={t('txt_date_range')}
+            isDays
           />
           <FontAwesomeIcon className="text-success" icon={faChevronDown} />
         </div>

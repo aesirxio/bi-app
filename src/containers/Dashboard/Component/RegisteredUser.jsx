@@ -82,9 +82,9 @@ const RegisteredUser = (props) => {
   return (
     <div className="py-2 bg-white rounded-3 shadow-sm h-100">
       <div className="d-flex justify-content-between align-items-center py-16 px-24 ">
-        <h2 className="mb-0 fs-4 fw-semibold">{t('txt_new_registered_users')}</h2>
+        <h2 className="mb-0 fs-4 fw-semibold text-blue-0">{t('txt_new_registered_users')}</h2>
         <a href="#" className="fs-14 text-body">
-          <span className="pe-1">{t('txt_view_more')}</span>
+          <span className="pe-1 text-color">{t('txt_view_more')}</span>
           <span
             className="icon arrow d-inline-block align-text-bottom ms-auto bg-success"
             style={{

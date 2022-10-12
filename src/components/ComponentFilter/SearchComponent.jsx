@@ -12,7 +12,7 @@ function SearchComponent({ ...props }) {
       <input
         placeholder={t('txt_search')}
         onChange={setValue}
-        className="form-control border-end-0 pe-2 border-0 pe-4"
+        className="form-control border-end-0 pe-2 border-0 pe-4 fs-14 text-color"
       />
       <i className="text-green position-absolute top-0 bottom-0 end-0 pe-24 d-flex align-items-center">
         <FontAwesomeIcon icon={faSearch} />

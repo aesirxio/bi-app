@@ -1,40 +1,27 @@
-import React, { useState } from 'react';
-
-import './index.scss';
-import DatePicker from 'react-datepicker';
+import ComponentDatePicker from 'components/ComponentDatePicker';
+import ComponentSVG from 'components/ComponentSVG';
+import React, { useRef, useState } from 'react';
 import { withTranslation } from 'react-i18next';
-// import { FORMAT_DATE } from 'constants/FormFieldType';
 
 const DateRangePicker = (props) => {
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [startDate, endDate] = dateRange;
-  const { t, i18n } = props;
+  const [openDatePicker, setOpenDatePicker] = useState(false);
+  const datePickerRef = useRef(null);
+
+  const { t } = props;
 
   return (
-    <div className="position-relative daterange-picker">
-      <span
-        className={`icon arrow d-inline-block align-text-bottom ms-auto bg-success`}
-        style={{
-          WebkitMaskImage: `url(/assets/images/calendar.svg)`,
-          WebkitMaskRepeat: 'no-repeat',
-          WebkitMaskPosition: 'center',
-        }}
-      ></span>
-      <DatePicker
-        dateFormat="dd MMM, yyyy"
-        selectsRange={true}
-        startDate={startDate}
-        endDate={endDate}
-        onChange={(update) => {
-          setDateRange(update);
-        }}
-        isClearable={true}
-        className={`form-control border-0 shadow-sm p-16 pe-8 rounded-1`}
-        placeholderText={t('txt_select_date')}
-        showPopperArrow={false}
-        monthsShown={2}
-        locale={i18n.language}
+    <div
+      style={{ minHeight: '50px' }}
+      ref={datePickerRef}
+      className="d-flex align-items-center bg-white rounded-1 shadow-sm pe-16 py-sm"
+    >
+      <ComponentDatePicker
+        isOpen={openDatePicker}
+        setIsOpen={setOpenDatePicker}
+        datePickerRef={datePickerRef}
+        placeholder={t('txt_select_date')}
       />
+      <ComponentSVG url="/assets/images/calendar.svg" color="#00B96D" />
     </div>
   );
 };

@@ -21,7 +21,7 @@
   --date-picker-header-bg: #fff;
 
   --input-disabled-bg: #e9ecef;
-  --input-placeholder-color: #6c757d;
+  --input-placeholder-color: var(--body-color);
 
   --calendar-current-timeline: #74ad31;
   --calendar-header-bg: #dce6eb;
@@ -303,15 +303,15 @@
       }
     }
     &:focus {
-      color: var(--text-color);
+      color: var(--body-color);
       background-color: var(--content-bg);
     }
     &::placeholder {
-      color: var(--input-placeholder-color);
+      color: var(--body-color);
     }
     .react-datepicker__input-container input {
       background: inherit !important;
-      color: var(--text-color) !important;
+      color: var(--body-color) !important;
     }
   }
   .form-check-input {

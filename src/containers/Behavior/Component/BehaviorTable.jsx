@@ -6,7 +6,7 @@ const BehaviorTable = () => {
     () => [
       {
         Header: 'Campaign',
-        accessor: 'campagin',
+        accessor: 'campagin-parent',
         className: 'px-3 py-16 fs-sm fw-semibold bg-gray-700 rounded-top-start-3',
         rowSpan: '2',
         columns: [
@@ -145,7 +145,12 @@ const BehaviorTable = () => {
   return (
     <div className="bg-white rounded-3 shadow-sm h-100">
       <div className="fs-14">
-        <Table classNameTable={'text-center mb-0'} columns={columnsTable} data={dataTable}></Table>
+        <Table
+          classNameTable={'text-center mb-0'}
+          columns={columnsTable}
+          data={dataTable}
+          canSort={true}
+        ></Table>
       </div>
     </div>
   );

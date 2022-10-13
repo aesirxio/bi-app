@@ -38,6 +38,16 @@ class BiListViewModel {
     );
   };
 
+  getAudience = (dataFilter) => {
+    this.status = PAGE_STATUS.LOADING;
+    this.dataFilter = { ...this.dataFilter, dataFilter };
+    this.biStore.getDashboard(
+      this.dataFilter,
+      this.callbackOnDataSuccessHandler,
+      this.callbackOnErrorHander
+    );
+  };
+
   filterAssets = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };

@@ -4,7 +4,12 @@
  */
 
 import BaseItemModel from 'library/Abstract/BaseItemModel';
-import { BI_DASHBOARD_FIELD_KEY } from 'library/Constant/BiConstant';
+import {
+  BI_DASHBOARD_FIELD_KEY,
+  BI_WIDGET_FIELD_KEY,
+  BI_NEW_USERS_KEY,
+  BI_CONTINENTS_KEY,
+} from 'library/Constant/BiConstant';
 // import BaseModel from '../Abstract/BaseModel';
 // import {
 //   DAM_ASSETS_API_FIELD_KEY,
@@ -280,74 +285,74 @@ class DashboardModel extends BaseItemModel {
   constructor(entity) {
     super(entity);
     if (entity) {
-      if (entity[BI_DASHBOARD_FIELD_KEY.VISITOR]) {
+      if (entity[BI_WIDGET_FIELD_KEY.VISITOR]) {
         this.visitor = {
-          [BI_DASHBOARD_FIELD_KEY.VALUE]:
-            entity[BI_DASHBOARD_FIELD_KEY.VISITOR][BI_DASHBOARD_FIELD_KEY.VALUE] ?? '',
-          [BI_DASHBOARD_FIELD_KEY.PERCENT]:
-            entity[BI_DASHBOARD_FIELD_KEY.VISITOR][BI_DASHBOARD_FIELD_KEY.PERCENT] ?? '',
-          [BI_DASHBOARD_FIELD_KEY.INCREASE]:
-            entity[BI_DASHBOARD_FIELD_KEY.VISITOR][BI_DASHBOARD_FIELD_KEY.INCREASE] ?? '',
+          [BI_WIDGET_FIELD_KEY.VALUE]:
+            entity[BI_WIDGET_FIELD_KEY.VISITOR][BI_WIDGET_FIELD_KEY.VALUE] ?? '',
+          [BI_WIDGET_FIELD_KEY.PERCENT]:
+            entity[BI_WIDGET_FIELD_KEY.VISITOR][BI_WIDGET_FIELD_KEY.PERCENT] ?? '',
+          [BI_WIDGET_FIELD_KEY.INCREASE]:
+            entity[BI_WIDGET_FIELD_KEY.VISITOR][BI_WIDGET_FIELD_KEY.INCREASE] ?? '',
         };
       }
-      if (entity[BI_DASHBOARD_FIELD_KEY.TOTAL_REVENUE]) {
+      if (entity[BI_WIDGET_FIELD_KEY.TOTAL_REVENUE]) {
         this.total_revenue = {
-          [BI_DASHBOARD_FIELD_KEY.VALUE]:
-            entity[BI_DASHBOARD_FIELD_KEY.TOTAL_REVENUE][BI_DASHBOARD_FIELD_KEY.VALUE] ?? '',
-          [BI_DASHBOARD_FIELD_KEY.PERCENT]:
-            entity[BI_DASHBOARD_FIELD_KEY.TOTAL_REVENUE][BI_DASHBOARD_FIELD_KEY.PERCENT] ?? '',
-          [BI_DASHBOARD_FIELD_KEY.INCREASE]:
-            entity[BI_DASHBOARD_FIELD_KEY.TOTAL_REVENUE][BI_DASHBOARD_FIELD_KEY.INCREASE] ?? '',
+          [BI_WIDGET_FIELD_KEY.VALUE]:
+            entity[BI_WIDGET_FIELD_KEY.TOTAL_REVENUE][BI_WIDGET_FIELD_KEY.VALUE] ?? '',
+          [BI_WIDGET_FIELD_KEY.PERCENT]:
+            entity[BI_WIDGET_FIELD_KEY.TOTAL_REVENUE][BI_WIDGET_FIELD_KEY.PERCENT] ?? '',
+          [BI_WIDGET_FIELD_KEY.INCREASE]:
+            entity[BI_WIDGET_FIELD_KEY.TOTAL_REVENUE][BI_WIDGET_FIELD_KEY.INCREASE] ?? '',
         };
       }
-      if (entity[BI_DASHBOARD_FIELD_KEY.SESSIONS]) {
+      if (entity[BI_WIDGET_FIELD_KEY.SESSIONS]) {
         this.sessions = {
-          [BI_DASHBOARD_FIELD_KEY.VALUE]:
-            entity[BI_DASHBOARD_FIELD_KEY.SESSIONS][BI_DASHBOARD_FIELD_KEY.VALUE] ?? '',
-          [BI_DASHBOARD_FIELD_KEY.PERCENT]:
-            entity[BI_DASHBOARD_FIELD_KEY.SESSIONS][BI_DASHBOARD_FIELD_KEY.PERCENT] ?? '',
-          [BI_DASHBOARD_FIELD_KEY.INCREASE]:
-            entity[BI_DASHBOARD_FIELD_KEY.SESSIONS][BI_DASHBOARD_FIELD_KEY.INCREASE] ?? '',
+          [BI_WIDGET_FIELD_KEY.VALUE]:
+            entity[BI_WIDGET_FIELD_KEY.SESSIONS][BI_WIDGET_FIELD_KEY.VALUE] ?? '',
+          [BI_WIDGET_FIELD_KEY.PERCENT]:
+            entity[BI_WIDGET_FIELD_KEY.SESSIONS][BI_WIDGET_FIELD_KEY.PERCENT] ?? '',
+          [BI_WIDGET_FIELD_KEY.INCREASE]:
+            entity[BI_WIDGET_FIELD_KEY.SESSIONS][BI_WIDGET_FIELD_KEY.INCREASE] ?? '',
         };
       }
-      if (entity[BI_DASHBOARD_FIELD_KEY.CONVERSION_RATE]) {
+      if (entity[BI_WIDGET_FIELD_KEY.CONVERSION_RATE]) {
         this.conversion_rate = {
-          [BI_DASHBOARD_FIELD_KEY.VALUE]:
-            entity[BI_DASHBOARD_FIELD_KEY.CONVERSION_RATE][BI_DASHBOARD_FIELD_KEY.VALUE] ?? '',
-          [BI_DASHBOARD_FIELD_KEY.PERCENT]:
-            entity[BI_DASHBOARD_FIELD_KEY.CONVERSION_RATE][BI_DASHBOARD_FIELD_KEY.PERCENT] ?? '',
-          [BI_DASHBOARD_FIELD_KEY.INCREASE]:
-            entity[BI_DASHBOARD_FIELD_KEY.CONVERSION_RATE][BI_DASHBOARD_FIELD_KEY.INCREASE] ?? '',
+          [BI_WIDGET_FIELD_KEY.VALUE]:
+            entity[BI_WIDGET_FIELD_KEY.CONVERSION_RATE][BI_WIDGET_FIELD_KEY.VALUE] ?? '',
+          [BI_WIDGET_FIELD_KEY.PERCENT]:
+            entity[BI_WIDGET_FIELD_KEY.CONVERSION_RATE][BI_WIDGET_FIELD_KEY.PERCENT] ?? '',
+          [BI_WIDGET_FIELD_KEY.INCREASE]:
+            entity[BI_WIDGET_FIELD_KEY.CONVERSION_RATE][BI_WIDGET_FIELD_KEY.INCREASE] ?? '',
         };
       }
       if (entity[BI_DASHBOARD_FIELD_KEY.REVENUE_BY_SUBSCRIBERS]) {
         this.revenue_by_subscribers = entity[BI_DASHBOARD_FIELD_KEY.REVENUE_BY_SUBSCRIBERS].map(
           (item) => {
             return {
-              [BI_DASHBOARD_FIELD_KEY.TYPE]: item[BI_DASHBOARD_FIELD_KEY.TYPE],
-              [BI_DASHBOARD_FIELD_KEY.PERCENT]: item[BI_DASHBOARD_FIELD_KEY.PERCENT],
-              [BI_DASHBOARD_FIELD_KEY.VALUE]: item[BI_DASHBOARD_FIELD_KEY.VALUE],
+              [BI_CONTINENTS_KEY.TYPE]: item[BI_CONTINENTS_KEY.TYPE],
+              [BI_WIDGET_FIELD_KEY.PERCENT]: item[BI_WIDGET_FIELD_KEY.PERCENT],
+              [BI_WIDGET_FIELD_KEY.VALUE]: item[BI_WIDGET_FIELD_KEY.VALUE],
             };
           }
         );
       }
-      if (entity[BI_DASHBOARD_FIELD_KEY.NEW_USERS]) {
-        this.new_users = entity[BI_DASHBOARD_FIELD_KEY.NEW_USERS].map((item) => {
+      if (entity[BI_NEW_USERS_KEY.NEW_USERS]) {
+        this.new_users = entity[BI_NEW_USERS_KEY.NEW_USERS].map((item) => {
           return {
-            [BI_DASHBOARD_FIELD_KEY.NAME]: item[BI_DASHBOARD_FIELD_KEY.NAME],
-            [BI_DASHBOARD_FIELD_KEY.EMAIL]: item[BI_DASHBOARD_FIELD_KEY.EMAIL],
-            [BI_DASHBOARD_FIELD_KEY.DATE]: item[BI_DASHBOARD_FIELD_KEY.DATE],
-            [BI_DASHBOARD_FIELD_KEY.STATUS]: item[BI_DASHBOARD_FIELD_KEY.STATUS],
+            [BI_NEW_USERS_KEY.NAME]: item[BI_NEW_USERS_KEY.NAME],
+            [BI_NEW_USERS_KEY.EMAIL]: item[BI_NEW_USERS_KEY.EMAIL],
+            [BI_NEW_USERS_KEY.DATE]: item[BI_NEW_USERS_KEY.DATE],
+            [BI_NEW_USERS_KEY.STATUS]: item[BI_NEW_USERS_KEY.STATUS],
           };
         });
       }
-      if (entity[BI_DASHBOARD_FIELD_KEY.CONTINENTS]) {
-        this.continents = entity[BI_DASHBOARD_FIELD_KEY.CONTINENTS].map((item) => {
+      if (entity[BI_CONTINENTS_KEY.CONTINENTS]) {
+        this.continents = entity[BI_CONTINENTS_KEY.CONTINENTS].map((item) => {
           return {
-            [BI_DASHBOARD_FIELD_KEY.COUNTRY]: item[BI_DASHBOARD_FIELD_KEY.COUNTRY],
-            [BI_DASHBOARD_FIELD_KEY.COUNTRY_CODE]: item[BI_DASHBOARD_FIELD_KEY.COUNTRY_CODE],
-            [BI_DASHBOARD_FIELD_KEY.FLAG]: item[BI_DASHBOARD_FIELD_KEY.FLAG],
-            [BI_DASHBOARD_FIELD_KEY.VIEWS]: item[BI_DASHBOARD_FIELD_KEY.VIEWS],
+            [BI_CONTINENTS_KEY.COUNTRY]: item[BI_CONTINENTS_KEY.COUNTRY],
+            [BI_CONTINENTS_KEY.COUNTRY_CODE]: item[BI_CONTINENTS_KEY.COUNTRY_CODE],
+            [BI_CONTINENTS_KEY.FLAG]: item[BI_CONTINENTS_KEY.FLAG],
+            [BI_CONTINENTS_KEY.VIEWS]: item[BI_CONTINENTS_KEY.VIEWS],
           };
         });
       }
@@ -359,13 +364,13 @@ class DashboardModel extends BaseItemModel {
   toJSON = () => {
     return {
       ...this.baseToJSON(),
-      [BI_DASHBOARD_FIELD_KEY.VISITOR]: this.visitor,
-      [BI_DASHBOARD_FIELD_KEY.TOTAL_REVENUE]: this.total_revenue,
-      [BI_DASHBOARD_FIELD_KEY.SESSIONS]: this.sessions,
-      [BI_DASHBOARD_FIELD_KEY.CONVERSION_RATE]: this.conversion_rate,
+      [BI_WIDGET_FIELD_KEY.VISITOR]: this.visitor,
+      [BI_WIDGET_FIELD_KEY.TOTAL_REVENUE]: this.total_revenue,
+      [BI_WIDGET_FIELD_KEY.SESSIONS]: this.sessions,
+      [BI_WIDGET_FIELD_KEY.CONVERSION_RATE]: this.conversion_rate,
       [BI_DASHBOARD_FIELD_KEY.REVENUE_BY_SUBSCRIBERS]: this.revenue_by_subscribers,
-      [BI_DASHBOARD_FIELD_KEY.NEW_USERS]: this.new_users,
-      [BI_DASHBOARD_FIELD_KEY.CONTINENTS]: this.continents,
+      [BI_NEW_USERS_KEY.NEW_USERS]: this.new_users,
+      [BI_CONTINENTS_KEY.CONTINENTS]: this.continents,
     };
   };
 }

@@ -1,9 +1,9 @@
 {"result": 
     {
-        "visitor": {"value": "170780", "percent": 11, "increase": true},
-        "total_revenue": {"value": "250333", "percent": 51,  "increase": true},
-        "sessions": {"value": "12455", "percent": 15,  "increase": false},
-        "conversion_rate": {"value": "55213", "percent": 21, "increase": true},
+        "visitor": {"value": "170780", "percent": 11, "increase": 1},
+        "total_revenue": {"value": "250333", "percent": 51,  "increase": 1},
+        "sessions": {"value": "12455", "percent": 15,  "increase": 0},
+        "conversion_rate": {"value": "55213", "percent": 21, "increase": 1},
         "revenue_by_subscribers": [
             {"type":"Starter", "percent": "66","value": "5240.85"},
             {"type":"Team", "percent": "15.6","value": "2524"},
@@ -14,7 +14,7 @@
             {"name": "Babila Ebwél", "email" :"babila@gmail.com", "date": "2022-10-07", "status" :"active"},
             {"name": "Brijamohan Mallick", "email" :"brijamohan@gmail.com", "date": "2022-10-02", "status" :"active"},
             {"name": "Babila Ebwél", "email" :"babila@gmail.com", "date": "2022-10-07", "status" :"active"},
-            {"name": "Brijamohan Mallick", "email" :"brijamohan@gmail.com", "date": "2022-10-02", "status" :"active"},
+            {"name": "Brijamohan Mallick", "email" :"brijamohan@gmail.com", "date": "2022-10-02", "status" :"waiting"},
             {"name": "Babila Ebwél", "email" :"babila@gmail.com", "date": "2022-10-07", "status" :"active"},
             {"name": "Brijamohan Mallick", "email" :"brijamohan@gmail.com", "date": "2022-10-02", "status" :"active"}
         ],

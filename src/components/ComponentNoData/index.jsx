@@ -3,18 +3,21 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import Dropzone from 'components/Dropzone';
 import { Component } from 'react';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
-import Button from 'components/Button';
+import ComponentImage from 'components/ComponentImage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 class ComponentNoData extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    const { className, createAssets, t } = this.props;
+    const { icons, text, title, link, linlText, isBtn, width, className, iconColor, iconBg } =
+      this.props;
     return (
       <div
         className={
@@ -23,7 +26,7 @@ class ComponentNoData extends Component {
             : 'text-center h-100 d-flex flex-column justify-content-center align-items-center'
         }
       >
-        {/* <p
+        <p
           style={{ width: '48px', height: '48px' }}
           className={`mb-2 d-inline-block position-relative rounded-circle ${iconBg}`}
         >
@@ -45,19 +48,7 @@ class ComponentNoData extends Component {
             </i>
             {linlText}
           </Link>
-        )} */}
-        <Dropzone createAssets={createAssets} noClick={false}>
-          <div className="d-flex align-items-center justify-content-center h-100 w-100">
-            <div>
-              <p>{t('txt_drop_files_anywhere_to_upload')}</p>
-              <p>{t('txt_or')}</p>
-              <Button
-                className="text-dark bg-white btn-white border w-100"
-                text="txt_select_file"
-              />
-            </div>
-          </div>
-        </Dropzone>
+        )}
       </div>
     );
   }

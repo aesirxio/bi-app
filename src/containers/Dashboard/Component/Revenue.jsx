@@ -2,7 +2,8 @@ import Table from 'components/Table';
 import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-const Revenue = (props) => {
+import numberWithCommas from 'utils/formatNumber';
+const Revenue = ({ t, data = [] }) => {
   const columnsTable = React.useMemo(
     () => [
       {
@@ -15,7 +16,7 @@ const Revenue = (props) => {
       },
       {
         Header: 'PERCENTAGE (%)',
-        accessor: 'percentage',
+        accessor: 'percent',
         className: 'py-2 fs-12 opacity-50 border-bottom-1 ',
         Cell: ({ value }) => {
           return (
@@ -35,24 +36,15 @@ const Revenue = (props) => {
         accessor: 'value',
         className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 text-end',
         Cell: ({ value }) => {
-          return <div className="text-end px-24">{value}</div>;
+          return <div className="text-end px-24">${numberWithCommas(value)}</div>;
         },
       },
     ],
     []
   );
-  const dataTable = React.useMemo(
-    () => [
-      { type: 'Starter', percentage: '66', value: '$5.240,85' },
-      { type: 'Team', percentage: '15.6', value: '$2.524' },
-      { type: 'Growth', percentage: '68', value: '$7.865,90' },
-      { type: 'Enterprise', percentage: '98.5', value: '$12.240,85' },
-    ],
-    []
-  );
-  const { t } = props;
+  const dataTable = React.useMemo(() => [...data], [data]);
   return (
-    <div className="py-2 bg-white rounded-3 shadow-sm h-100">
+    <div className="py-2 bg-white rounded-3 shadow-sm h-100 position-relative">
       <h2 className="py-16 px-24 mb-0 fs-4 fw-semibold text-blue-0">
         {t('txt_revenue_by_subscribers')}
       </h2>

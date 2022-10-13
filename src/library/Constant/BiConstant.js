@@ -4,25 +4,37 @@
  */
 
 const BI_DASHBOARD_FIELD_KEY = {
-  VISITOR: 'visitor',
-  TOTAL_REVENUE: 'total_revenue',
-  SESSIONS: 'sessions',
-  CONVERSION_RATE: 'conversion_rate',
   REVENUE_BY_SUBSCRIBERS: 'revenue_by_subscribers',
-  NEW_USERS: 'new_users',
+};
+const BI_CONTINENTS_KEY = {
   CONTINENTS: 'continents',
-  VALUE: 'value',
-  PERCENT: 'percent',
-  INCREASE: 'increase',
   TYPE: 'type',
-  NAME: 'name',
-  EMAIL: 'email',
-  DATE: 'date',
-  STATUS: 'status',
   COUNTRY: 'country',
   COUNTRY_CODE: 'country_code',
   FLAG: 'flag',
   VIEWS: 'views',
 };
 
-export { BI_DASHBOARD_FIELD_KEY };
+const BI_WIDGET_FIELD_KEY = {
+  VISITOR: 'visitor',
+  TOTAL_REVENUE: 'total_revenue',
+  SESSIONS: 'sessions',
+  CONVERSION_RATE: 'conversion_rate',
+  PAGE_VIEW: 'page_view',
+  AVG_SESSION_DURATION: 'avg_session_duration',
+  PAGE_SESSION: 'page_session',
+  BOUNCE_RATE: 'bounce_rate',
+  VALUE: 'value',
+  PERCENT: 'percent',
+  INCREASE: 'increase',
+};
+
+const BI_NEW_USERS_KEY = {
+  NEW_USERS: 'new_users',
+  NAME: 'name',
+  EMAIL: 'email',
+  DATE: 'date',
+  STATUS: 'status',
+};
+
+export { BI_DASHBOARD_FIELD_KEY, BI_WIDGET_FIELD_KEY, BI_NEW_USERS_KEY, BI_CONTINENTS_KEY };

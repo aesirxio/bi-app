@@ -49,7 +49,7 @@ const RegisteredUser = ({ t, data = [] }) => {
   );
   const dataTable = React.useMemo(() => [...data], [data]);
   return (
-    <div className="py-2 bg-white rounded-3 shadow-sm h-100">
+    <div className="py-2 bg-white rounded-3 shadow-sm h-100 position-relative">
       <div className="d-flex justify-content-between align-items-center py-16 px-24 ">
         <h2 className="mb-0 fs-4 fw-semibold text-blue-0">{t('txt_new_registered_users')}</h2>
         <a href="#" className="fs-14 text-body">

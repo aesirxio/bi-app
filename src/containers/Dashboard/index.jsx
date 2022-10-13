@@ -16,7 +16,12 @@ import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from 'components/DateRangePicker';
 import AreaChartComponent from 'components/AreaChartComponent';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-import { BI_DASHBOARD_FIELD_KEY } from 'library/Constant/BiConstant';
+import {
+  BI_DASHBOARD_FIELD_KEY,
+  BI_WIDGET_FIELD_KEY,
+  BI_NEW_USERS_KEY,
+  BI_CONTINENTS_KEY,
+} from 'library/Constant/BiConstant';
 import numberWithCommas from 'utils/formatNumber';
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -35,6 +40,7 @@ const Dashboard = observer(
     }
 
     render() {
+      console.log('this.biListViewModel.data', this.biListViewModel.data);
       const { t } = this.props;
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
@@ -58,18 +64,18 @@ const Dashboard = observer(
                 icon={'/assets/images/visitor.svg'}
                 iconColor={'#1AB394'}
                 value={numberWithCommas(
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.VISITOR]?.[
-                    BI_DASHBOARD_FIELD_KEY.VALUE
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.VISITOR]?.[
+                    BI_WIDGET_FIELD_KEY.VALUE
                   ]
                 )}
                 isIncrease={Boolean(
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.VISITOR]?.[
-                    BI_DASHBOARD_FIELD_KEY.INCREASE
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.VISITOR]?.[
+                    BI_WIDGET_FIELD_KEY.INCREASE
                   ]
                 )}
                 percent={`${
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.VISITOR]?.[
-                    BI_DASHBOARD_FIELD_KEY.PERCENT
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.VISITOR]?.[
+                    BI_WIDGET_FIELD_KEY.PERCENT
                   ]
                 }%`}
                 textPercent={'form June'}
@@ -83,18 +89,18 @@ const Dashboard = observer(
                 icon={'/assets/images/revenue-icon.svg'}
                 iconColor={'#2E71B1'}
                 value={numberWithCommas(
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.TOTAL_REVENUE]?.[
-                    BI_DASHBOARD_FIELD_KEY.VALUE
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.TOTAL_REVENUE]?.[
+                    BI_WIDGET_FIELD_KEY.VALUE
                   ]
                 )}
                 isIncrease={Boolean(
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.TOTAL_REVENUE]?.[
-                    BI_DASHBOARD_FIELD_KEY.INCREASE
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.TOTAL_REVENUE]?.[
+                    BI_WIDGET_FIELD_KEY.INCREASE
                   ]
                 )}
                 percent={`${
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.TOTAL_REVENUE]?.[
-                    BI_DASHBOARD_FIELD_KEY.PERCENT
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.TOTAL_REVENUE]?.[
+                    BI_WIDGET_FIELD_KEY.PERCENT
                   ]
                 }%`}
                 textPercent={'form June'}
@@ -108,18 +114,18 @@ const Dashboard = observer(
                 icon={'/assets/images/sessions.svg'}
                 iconColor={'#FFBE55'}
                 value={numberWithCommas(
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.SESSIONS]?.[
-                    BI_DASHBOARD_FIELD_KEY.VALUE
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.SESSIONS]?.[
+                    BI_WIDGET_FIELD_KEY.VALUE
                   ]
                 )}
                 isIncrease={Boolean(
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.SESSIONS]?.[
-                    BI_DASHBOARD_FIELD_KEY.INCREASE
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.SESSIONS]?.[
+                    BI_WIDGET_FIELD_KEY.INCREASE
                   ]
                 )}
                 percent={`${
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.SESSIONS]?.[
-                    BI_DASHBOARD_FIELD_KEY.PERCENT
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.SESSIONS]?.[
+                    BI_WIDGET_FIELD_KEY.PERCENT
                   ]
                 }%`}
                 textPercent={'form June'}
@@ -131,18 +137,18 @@ const Dashboard = observer(
                 icon={'/assets/images/conversion.svg'}
                 iconColor={'#EF3737'}
                 value={numberWithCommas(
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.CONVERSION_RATE]?.[
-                    BI_DASHBOARD_FIELD_KEY.VALUE
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.CONVERSION_RATE]?.[
+                    BI_WIDGET_FIELD_KEY.VALUE
                   ]
                 )}
                 isIncrease={Boolean(
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.CONVERSION_RATE]?.[
-                    BI_DASHBOARD_FIELD_KEY.INCREASE
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.CONVERSION_RATE]?.[
+                    BI_WIDGET_FIELD_KEY.INCREASE
                   ]
                 )}
                 percent={`${
-                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.CONVERSION_RATE]?.[
-                    BI_DASHBOARD_FIELD_KEY.PERCENT
+                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.CONVERSION_RATE]?.[
+                    BI_WIDGET_FIELD_KEY.PERCENT
                   ]
                 }%`}
                 textPercent={'form June'}
@@ -223,12 +229,12 @@ const Dashboard = observer(
           <div className="row gx-24 mb-24">
             <div className="col-lg-6">
               <RegisteredUser
-                data={this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.NEW_USERS]}
+                data={this.biListViewModel.data[BI_NEW_USERS_KEY.NEW_USERS]}
               ></RegisteredUser>
             </div>
             <div className="col-lg-6">
               <ComponentContinent
-                data={this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.CONTINENTS]}
+                data={this.biListViewModel.data[BI_CONTINENTS_KEY.CONTINENTS]}
               ></ComponentContinent>
             </div>
           </div>

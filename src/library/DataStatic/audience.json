@@ -1,0 +1,18 @@
+{"result": 
+    {
+        "visitor": {"value": "170780", "percent": 11, "increase": true},
+        "page_view": {"value": "1421230", "percent": 13,  "increase": false},
+        "sessions": {"value": "458327", "percent": 17,  "increase": true},
+        "avg_session_duration": {"value": "00:04:29s"},
+        "page_session": {"value": "5.28", "percent": 11,  "increase": true},
+        "bounce_rate": {"value": "47.85%", "percent": 17,  "increase": false},
+        "new_users": [
+            {"name": "Babila Ebwél", "email" :"babila@gmail.com", "date": "2022-10-07", "status" :"active"},
+            {"name": "Brijamohan Mallick", "email" :"brijamohan@gmail.com", "date": "2022-10-02", "status" :"active"},
+            {"name": "Babila Ebwél", "email" :"babila@gmail.com", "date": "2022-10-07", "status" :"active"},
+            {"name": "Brijamohan Mallick", "email" :"brijamohan@gmail.com", "date": "2022-10-02", "status" :"waiting"},
+            {"name": "Babila Ebwél", "email" :"babila@gmail.com", "date": "2022-10-07", "status" :"active"},
+            {"name": "Brijamohan Mallick", "email" :"brijamohan@gmail.com", "date": "2022-10-02", "status" :"active"}
+        ]
+    }
+}

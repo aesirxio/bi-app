@@ -24,11 +24,12 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
     return () => window.removeEventListener('mousedown', handleClickOutSide);
   });
 
-  const { t, i18n } = props;
-
-  // const handleApply = () => {
-  //   console.log('test');
-  // };
+  const { t, i18n, viewModel } = props;
+  const handleApply = async (e, startDate, endDate) => {
+    e.stopPropagation();
+    await viewModel.handleFilterDateRange(startDate, endDate);
+    setIsOpen(false);
+  };
   const handleClickOutSide = (event) => {
     let currentRef = datePickerRef ?? pickerRef;
     if (isOpen && !currentRef.current.contains(event.target)) {
@@ -53,7 +54,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
             <span
               style={{ cursor: 'pointer' }}
               className="btn btn-success ms-3 fw-bold text-uppercase fs-14 lh-sm rounded-1 py-1"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => handleApply(e, startDate, endDate)}
             >
               {t('txt_apply')}
             </span>
@@ -79,6 +80,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
   return (
     <div onClick={handleOpenDatePicker} className="position-relative daterange-picker">
       <DatePicker
+        style={{ margin: 0 }}
         dateFormat="dd MMM, yyyy"
         selectsRange={true}
         startDate={startDate}

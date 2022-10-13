@@ -44,11 +44,11 @@ const Revenue = ({ t, data = [] }) => {
   );
   const dataTable = React.useMemo(() => [...data], [data]);
   return (
-    <div className="py-2 bg-white rounded-3 shadow-sm h-100 position-relative">
+    <div className="py-2 bg-white rounded-3 shadow-sm h-100">
       <h2 className="py-16 px-24 mb-0 fs-4 fw-semibold text-blue-0">
         {t('txt_revenue_by_subscribers')}
       </h2>
-      <div className="fs-14 fw-semibold">
+      <div className="fs-14 fw-semibold h-100">
         <Table columns={columnsTable} data={dataTable}></Table>
       </div>
     </div>

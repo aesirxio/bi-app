@@ -6,6 +6,7 @@
 import { notify } from 'components/Toast';
 import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
+import moment from 'moment';
 
 class BiListViewModel {
   biStore = null;
@@ -48,7 +49,7 @@ class BiListViewModel {
     );
   };
 
-  filterAssets = (dataFilter) => {
+  handleFilter = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
 
@@ -58,7 +59,20 @@ class BiListViewModel {
       this.callbackOnErrorHander
     );
   };
+  handleFilterDateRange = (startDate, endDate) => {
+    this.status = PAGE_STATUS.LOADING;
+    let dateRangeFilter = {
+      'filter[start_date]': moment(startDate).format('YYYY-MM-DD'),
+      'filter[end_date]': moment(endDate).format('YYYY-MM-DD'),
+    };
+    this.dataFilter = { ...this.dataFilter, ...dateRangeFilter };
 
+    this.biStore.getDashboard(
+      this.dataFilter,
+      this.callbackOnDataSuccessHandler,
+      this.callbackOnErrorHander
+    );
+  };
   resetObservableProperties = () => {};
 
   callbackOnErrorHander = (error) => {

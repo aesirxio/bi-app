@@ -13,6 +13,7 @@ const BI_DASHBOARD_FIELD_KEY = {
   CONTINENTS: 'continents',
   VALUE: 'value',
   PERCENT: 'percent',
+  INCREASE: 'increase',
   TYPE: 'type',
   NAME: 'name',
   EMAIL: 'email',

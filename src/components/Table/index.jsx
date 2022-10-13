@@ -21,7 +21,6 @@ const Table = ({
   dataList,
   selection = true,
   classNameTable,
-  createAssets,
   onRightClickItem,
   canSort,
   sortAPI,
@@ -258,13 +257,9 @@ const Table = ({
         ) : null}
 
         {rows.length === 0 ? (
-          <ComponentNoData
-            icons="/assets/images/ic_project.svg"
-            title="No Matching Results"
-            text="Can not found any project with that keyword. Please try another keyword."
-            width="w-50"
-            createAssets={createAssets}
-          />
+          <div className="position-absolute top-50 start-50 translate-middle">
+            <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />
+          </div>
         ) : null}
       </div>
       {pagination && pageOptions.length ? (

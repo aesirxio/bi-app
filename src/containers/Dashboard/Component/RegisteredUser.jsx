@@ -1,7 +1,7 @@
 import Table from 'components/Table';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-const RegisteredUser = (props) => {
+const RegisteredUser = ({ t, data = [] }) => {
   const columnsTable = React.useMemo(
     () => [
       {
@@ -30,12 +30,12 @@ const RegisteredUser = (props) => {
         accessor: 'status',
         className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 text-end',
         Cell: ({ value }) => {
-          let color = value === 'Active' ? '#3EAD8A' : '#F59E0B';
-          let backgroundColor = value === 'Active' ? '#D0F4E8' : '#FFEAC8';
+          let color = value === 'active' ? '#3EAD8A' : '#F59E0B';
+          let backgroundColor = value === 'active' ? '#D0F4E8' : '#FFEAC8';
           return (
             <div className="px-24 text-end">
               <span
-                className="px-1 py-sm rounded-pill fs-12"
+                className="px-1 py-sm rounded-pill fs-12 text-capitalize"
                 style={{ backgroundColor: backgroundColor }}
               >
                 <span style={{ color: color }}>{value}</span>
@@ -47,38 +47,7 @@ const RegisteredUser = (props) => {
     ],
     []
   );
-  const dataTable = React.useMemo(
-    () => [
-      { name: 'Babila Ebwélé', email: 'babila@gmail.com', date: '2022-10-07', status: 'Active' },
-      {
-        name: 'Brijamohan Mallick',
-        email: 'brijamohan@gmail.com',
-        date: '2022-10-02',
-        status: 'Active',
-      },
-      { name: 'Babila Ebwélé', email: 'babila@gmail.com', date: '2022-10-04', status: 'Active' },
-      {
-        name: 'Brijamohan Mallick',
-        email: 'brijamohan@gmail.com',
-        date: '2022-10-07',
-        status: 'Waiting',
-      },
-      {
-        name: 'Babila Ebwélé',
-        email: 'babila@gmail.com',
-        date: '2022-10-07',
-        status: 'Active',
-      },
-      {
-        name: 'Brijamohan Mallick',
-        email: 'brijamohan@gmail.com',
-        date: '2022-10-07',
-        status: 'Active',
-      },
-    ],
-    []
-  );
-  const { t } = props;
+  const dataTable = React.useMemo(() => [...data], [data]);
   return (
     <div className="py-2 bg-white rounded-3 shadow-sm h-100">
       <div className="d-flex justify-content-between align-items-center py-16 px-24 ">

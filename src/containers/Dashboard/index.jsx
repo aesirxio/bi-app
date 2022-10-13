@@ -28,7 +28,10 @@ const Dashboard = observer(
     }
 
     componentDidMount() {
-      this.biListViewModel.getDashboard();
+      let fetchData = async () => {
+        await this.biListViewModel.getDashboard();
+      };
+      fetchData();
     }
 
     render() {
@@ -59,7 +62,11 @@ const Dashboard = observer(
                     BI_DASHBOARD_FIELD_KEY.VALUE
                   ]
                 )}
-                isIncrease={true}
+                isIncrease={Boolean(
+                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.VISITOR]?.[
+                    BI_DASHBOARD_FIELD_KEY.INCREASE
+                  ]
+                )}
                 percent={`${
                   this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.VISITOR]?.[
                     BI_DASHBOARD_FIELD_KEY.PERCENT
@@ -80,7 +87,11 @@ const Dashboard = observer(
                     BI_DASHBOARD_FIELD_KEY.VALUE
                   ]
                 )}
-                isIncrease={true}
+                isIncrease={Boolean(
+                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.TOTAL_REVENUE]?.[
+                    BI_DASHBOARD_FIELD_KEY.INCREASE
+                  ]
+                )}
                 percent={`${
                   this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.TOTAL_REVENUE]?.[
                     BI_DASHBOARD_FIELD_KEY.PERCENT
@@ -101,7 +112,11 @@ const Dashboard = observer(
                     BI_DASHBOARD_FIELD_KEY.VALUE
                   ]
                 )}
-                isIncrease={false}
+                isIncrease={Boolean(
+                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.SESSIONS]?.[
+                    BI_DASHBOARD_FIELD_KEY.INCREASE
+                  ]
+                )}
                 percent={`${
                   this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.SESSIONS]?.[
                     BI_DASHBOARD_FIELD_KEY.PERCENT
@@ -120,7 +135,11 @@ const Dashboard = observer(
                     BI_DASHBOARD_FIELD_KEY.VALUE
                   ]
                 )}
-                isIncrease={true}
+                isIncrease={Boolean(
+                  this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.CONVERSION_RATE]?.[
+                    BI_DASHBOARD_FIELD_KEY.INCREASE
+                  ]
+                )}
                 percent={`${
                   this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.CONVERSION_RATE]?.[
                     BI_DASHBOARD_FIELD_KEY.PERCENT
@@ -196,15 +215,21 @@ const Dashboard = observer(
               />
             </div>
             <div className="col-lg-5">
-              <Revenue></Revenue>
+              <Revenue
+                data={this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.REVENUE_BY_SUBSCRIBERS]}
+              ></Revenue>
             </div>
           </div>
           <div className="row gx-24 mb-24">
             <div className="col-lg-6">
-              <RegisteredUser></RegisteredUser>
+              <RegisteredUser
+                data={this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.NEW_USERS]}
+              ></RegisteredUser>
             </div>
             <div className="col-lg-6">
-              <ComponentContinent></ComponentContinent>
+              <ComponentContinent
+                data={this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.CONTINENTS]}
+              ></ComponentContinent>
             </div>
           </div>
         </div>

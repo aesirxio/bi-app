@@ -45,7 +45,7 @@ const GeoChart = (props) => {
       });
       setMarkers(markerList);
     });
-  }, []);
+  }, [props.data]);
 
   return (
     <>

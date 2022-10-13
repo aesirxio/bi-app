@@ -54,7 +54,7 @@ const Dashboard = observer(
               <p className="mb-0 text-color">{t('txt_dashboard_below')}</p>
             </div>
             <div className="position-relative">
-              <DateRangePicker></DateRangePicker>
+              <DateRangePicker viewModel={this.biListViewModel}></DateRangePicker>
             </div>
           </div>
           <div className="row gx-24 mb-24">

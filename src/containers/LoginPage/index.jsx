@@ -75,8 +75,8 @@ class LoginPage extends React.Component {
                 {t('txt_login_text_1')} <br /> {t('txt_login_text_2')}
               </h1>
               <form>
-                <label className="form-label mb-16" htmlFor="email">
-                  Email <span>*</span>
+                <label className="form-label mb-16">
+                  Username <span>*</span>
                 </label>
                 <input
                   type="text"

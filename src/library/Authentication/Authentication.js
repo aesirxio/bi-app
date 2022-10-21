@@ -12,50 +12,37 @@ import Storage from '../Utils/Storage';
 import { logout } from './Logout';
 
 class AesirxAuthenticationApiService {
-  async login(email, password) {
+  async login(username, password) {
     try {
-      if (!email || !password) return false;
+      if (!username || !password) return false;
       const AUTHORIZED_CODE_URL = BaseRoute.__createRequestURL(
         {
-          option: 'member',
-          api: 'hal',
-          task: 'login',
+          option: 'token',
+          api: 'oauth2',
         },
         false
       );
 
-      const reqAuthFormData = {
-        email: email,
-        password: password,
-        client_id:
-          process.env.OAUTH_CLIENT_ID !== undefined && process.env.OAUTH_CLIENT_ID !== ''
-            ? process.env.OAUTH_CLIENT_ID
-            : AXIOS_CONFIGS.CLIENT_ID,
-        secret:
-          process.env.OAUTH_CLIENT_SECRET !== undefined && process.env.OAUTH_CLIENT_SECRET !== ''
-            ? process.env.OAUTH_CLIENT_SECRET
-            : AXIOS_CONFIGS.CLIENT_SECRET,
-        license_key: AXIOS_CONFIGS.LICENSE,
-        test_mode: AXIOS_CONFIGS.TEST_MODE,
-        // domain: window.location.hostname,
-        domain: 'localhost',
-      };
+      const reqAuthFormData = new FormData();
+      reqAuthFormData.append('grant_type', 'password');
+      reqAuthFormData.append(
+        'client_id',
+        process.env.OAUTH_CLIENT_ID !== undefined && process.env.OAUTH_CLIENT_ID !== ''
+          ? process.env.OAUTH_CLIENT_ID
+          : AXIOS_CONFIGS.CLIENT_ID
+      );
+      reqAuthFormData.append(
+        'client_secret',
+        process.env.OAUTH_CLIENT_SECRET !== undefined && process.env.OAUTH_CLIENT_SECRET !== ''
+          ? process.env.OAUTH_CLIENT_SECRET
+          : AXIOS_CONFIGS.CLIENT_SECRET
+      );
+      reqAuthFormData.append('username', username);
+      reqAuthFormData.append('password', password);
 
-      const config = {
-        method: 'post',
-        url: AUTHORIZED_CODE_URL,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        data: qs.stringify(reqAuthFormData),
-      };
-
-      const {
-        data: { result },
-      } = await axios(config);
-
-      if (result?.access_token) {
-        return await this.setTokenUser(result, false);
+      const result = await axios.post(AUTHORIZED_CODE_URL, reqAuthFormData);
+      if (result) {
+        return await this.setTokenUser(result.data, false);
       }
       return false;
     } catch (error) {
@@ -98,25 +85,18 @@ class AesirxAuthenticationApiService {
     }
   };
 
-  setTokenUser = async (accessTokenData, isSocialLogin = true) => {
+  setTokenUser = async (accessTokenData) => {
     const serviceMember = new AesirxMemberApiService();
 
     let authorizationHeader = '';
     let tokenType = '';
     let accessToken = '';
-    let firstLogin = false;
     let refreshToken = '';
     if (accessTokenData) {
       tokenType = accessTokenData.token_type ?? 'Bearer';
       accessToken = accessTokenData.access_token ?? '';
       authorizationHeader = authorizationHeader.concat(tokenType).concat(' ').concat(accessToken);
       refreshToken = accessTokenData[AUTHORIZATION_KEY.REFRESH_TOKEN] ?? '';
-
-      if (isSocialLogin) {
-        firstLogin = accessTokenData.first_login;
-      } else {
-        firstLogin = accessTokenData.profile.lastVisitDate === '0000-00-00 00:00:00';
-      }
 
       const setStore = {
         [AUTHORIZATION_KEY.ACCESS_TOKEN]: accessToken,
@@ -145,23 +125,8 @@ class AesirxAuthenticationApiService {
         return false;
       }
 
-      try {
-        const fbadAppAccessToken = await serviceMember.getFacebookAdsAppAccessToken();
-
-        if (fbadAppAccessToken) {
-          const setStore = {
-            [AUTHORIZATION_KEY.FACEBOOK_ADS_APP_ACCESS_TOKEN]: fbadAppAccessToken.result,
-          };
-
-          this.setStore(setStore);
-        }
-      } catch (e) {
-        return false;
-      }
-
       return {
         success: true,
-        first_login: firstLogin,
       };
     }
   };

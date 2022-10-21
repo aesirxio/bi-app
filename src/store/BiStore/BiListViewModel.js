@@ -15,10 +15,9 @@ class BiListViewModel {
   data = [];
   tableRowHeader = null;
   dataFilter = {
-    'filter[type]': '',
-    'list[ordering]': '',
-    'list[direction]': '',
-    'filter[search]': '',
+    'filter[start_date]': moment().startOf('month').format('YYYY-MM-DD'),
+    'filter[end_date]': moment().format('YYYY-MM-DD'),
+    'filter[domain]': 'api.bi.aesirx.io',
   };
   pageSize = 5;
   isList = false;

@@ -15,7 +15,13 @@ registerLocale('uk', uk);
 registerLocale('es', es);
 
 function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, isDays, ...props }) {
-  const [dateRange, setDateRange] = useState([null, null]);
+  const { t, i18n, viewModel } = props;
+
+  const [dateRange, setDateRange] = useState([
+    moment(viewModel.dataFilter['filter[start_date]'], 'YYYY-MM-DD').toDate(),
+    moment(viewModel.dataFilter['filter[end_date]'], 'YYYY-MM-DD').toDate(),
+  ]);
+
   const [startDate, endDate] = dateRange;
   const pickerRef = useRef(null);
 
@@ -24,7 +30,6 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
     return () => window.removeEventListener('mousedown', handleClickOutSide);
   });
 
-  const { t, i18n, viewModel } = props;
   const handleApply = async (e, startDate, endDate) => {
     e.stopPropagation();
     await viewModel.handleFilterDateRange(startDate, endDate);

@@ -70,7 +70,7 @@ class DropdownAvatar extends React.Component {
       />
       <div className="text ps-3 pe-3">
         <p className="mb-0 text-blue-0 fs-14 fw-bold">
-          {Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME)}
+          {Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME) ?? 'Admin'}
         </p>
         {/* <p className="mb-0 text-blue-0 fs-14 opacity-75">Small business owner</p> */}
       </div>

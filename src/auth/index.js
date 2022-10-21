@@ -7,7 +7,7 @@ import history from '../routes/history';
 import { notify } from '../components/Toast';
 import AesirxAuthenticationApiService from 'library/Authentication/Authentication';
 import Storage from 'library/Utils/Storage';
-import { AXIOS_CONFIGS, AUTHORIZATION_KEY, GENERAL_CONFIG } from 'library/Constant/Constant';
+import { AXIOS_CONFIGS, GENERAL_CONFIG } from 'library/Constant/Constant';
 
 if (
   AXIOS_CONFIGS.CLIENT_ID === '' ||
@@ -53,10 +53,10 @@ const logout = () => {
 const isLogin = () => {
   try {
     const isAuthenticated = Storage.getItem('auth');
-    const userID = Storage.getItem(AUTHORIZATION_KEY.MEMBER_ID, null);
-    const userName = Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL, null);
+    // const userID = Storage.getItem(AUTHORIZATION_KEY.MEMBER_ID, null);
+    // const userName = Storage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL, null);
 
-    if (isAuthenticated && userID && userName) {
+    if (isAuthenticated) {
       return true;
     }
     return false;

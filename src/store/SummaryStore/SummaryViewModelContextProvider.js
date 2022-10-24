@@ -15,5 +15,5 @@ export const useSummaryViewModel = () => React.useContext(SummaryStore);
 
 /* HOC to inject store to any functional or class component */
 export const withSummaryViewModel = (Component) => (props) => {
-  return <Component {...props} viewModel={useSummaryViewModel()} />;
+  return <Component {...props} parentStore={props?.viewModel} viewModel={useSummaryViewModel()} />;
 };

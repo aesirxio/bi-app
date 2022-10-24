@@ -5,7 +5,8 @@ import ComponentCard from 'components/ComponentCard';
 import { BI_SUMMARY_FIELD_KEY } from 'library/Constant/BiConstant';
 import { observer } from 'mobx-react';
 import numberWithCommas from 'utils/formatNumber';
-
+import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+import { withRouter } from 'react-router-dom';
 const CardComponent = observer(
   class CardComponent extends Component {
     constructor(props) {
@@ -14,15 +15,29 @@ const CardComponent = observer(
       this.viewModel = viewModel ? viewModel : null;
       this.summaryListViewModel = this.viewModel ? this.viewModel.summaryListViewModel : null;
     }
+
     componentDidMount() {
       let fetchData = async () => {
-        await this.summaryListViewModel.getSummary();
+        await this.summaryListViewModel.getSummary({
+          domain: this.props.parentStore.biListViewModel.activeDomain,
+        });
       };
       fetchData();
     }
+
+    componentDidUpdate(prevProps) {
+      if (prevProps.location !== this.props.location) {
+        let fetchData = async () => {
+          await this.summaryListViewModel.getSummary({
+            domain: this.props.parentStore.biListViewModel.activeDomain,
+          });
+        };
+        fetchData();
+      }
+    }
+
     render() {
       const { t } = this.props;
-
       return (
         <div className="row gx-24 mb-24">
           <div className="col-lg-3">
@@ -80,4 +95,6 @@ const CardComponent = observer(
     }
   }
 );
-export default withTranslation('common')(withSummaryViewModel(CardComponent));
+export default withTranslation('common')(
+  withRouter(withBiViewModel(withSummaryViewModel(CardComponent)))
+);

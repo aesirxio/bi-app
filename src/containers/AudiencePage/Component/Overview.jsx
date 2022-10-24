@@ -3,6 +3,8 @@ import { withTranslation } from 'react-i18next';
 import AreaChart from 'components/AreaChartComponent';
 import { withVisitorViewModel } from 'store/VisitorStore/VisitorViewModelContextProvider';
 import { observer } from 'mobx-react';
+import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+import { withRouter } from 'react-router-dom';
 
 const OverviewComponent = observer(
   class OverviewComponent extends Component {
@@ -15,10 +17,24 @@ const OverviewComponent = observer(
     }
     componentDidMount() {
       let fetchData = async () => {
-        await this.visitorListViewModel.getVisitor();
+        await this.visitorListViewModel.getVisitor({
+          'filter[domain]': this.props.parentStore.biListViewModel.activeDomain,
+        });
       };
       fetchData();
     }
+
+    componentDidUpdate(prevProps) {
+      if (prevProps.location !== this.props.location) {
+        let fetchData = async () => {
+          await this.visitorListViewModel.getVisitor({
+            'filter[domain]': this.props.parentStore.biListViewModel.activeDomain,
+          });
+        };
+        fetchData();
+      }
+    }
+
     render() {
       const { t } = this.props;
       let dataOverview = this.visitorListViewModel
@@ -52,4 +68,6 @@ const OverviewComponent = observer(
     }
   }
 );
-export default withTranslation('common')(withVisitorViewModel(OverviewComponent));
+export default withTranslation('common')(
+  withRouter(withBiViewModel(withVisitorViewModel(OverviewComponent)))
+);

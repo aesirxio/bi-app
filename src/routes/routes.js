@@ -36,58 +36,58 @@ const authRoutes = [
 
 const mainRoutes = [
   {
-    path: '/',
+    path: ['/:domain', '/'],
     exact: true,
     main: () => <DashboardPage />,
   },
   {
-    path: ['/setting', '/setting/configuration'],
+    path: ['/:domain/setting', ':domain/setting/configuration'],
     exact: true,
     main: () => <SettingPage />,
   },
   {
-    path: '/audience/overview',
+    path: '/:domain/audience/overview',
     exact: true,
     main: () => <AudiencePage />,
   },
-  { path: '/revenue', exact: true, main: () => <RevenuePage /> },
+  { path: '/:domain/revenue', exact: true, main: () => <RevenuePage /> },
   {
-    path: '/behavior/overview',
+    path: '/:domain/behavior/overview',
     exact: true,
     main: () => <BehaviorOverviewPage />,
   },
   {
-    path: '/behavior/click-anchor',
+    path: '/:domain/behavior/click-anchor',
     exact: true,
     main: () => <BehaviorClickAnchorPage />,
   },
   {
-    path: '/behavior/utm-tracking',
+    path: '/:domain/behavior/utm-tracking',
     exact: true,
     main: () => <UTMTrackingPage />,
   },
   {
-    path: '/subscription',
+    path: '/:domain/subscription',
     exact: true,
     main: () => <SubscriptionPage />,
   },
   {
-    path: '/member-roles',
+    path: '/:domain/member-roles',
     exact: true,
     main: () => <MemberRolesPage />,
   },
   {
-    path: '/data-stream',
+    path: '/:domain/data-stream',
     exact: true,
     main: () => <DataStreamPage />,
   },
   {
-    path: '/region-country',
+    path: '/:domain/region-country',
     exact: true,
     main: () => <RegionCountryPage />,
   },
   {
-    path: '/help-center',
+    path: '/:domain/help-center',
     exact: true,
     main: () => <HelpCenterPage />,
   },

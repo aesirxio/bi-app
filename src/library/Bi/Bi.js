@@ -7,6 +7,8 @@ import {
   // AssetsModel,
   // ColectionModel,
   DashboardModel,
+  SummaryModel,
+  VisitorModel,
   // CollectionItemModel,
   // SubscriptionModel,
 } from './BiModel';
@@ -62,6 +64,44 @@ class AesirxBiApiService extends Component {
       let results = null;
       if (data) {
         results = new DashboardModel(data.result);
+      }
+      if (results) {
+        results = results.toJSON();
+      }
+      return results;
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancle' };
+      } else throw error;
+    }
+  };
+
+  getVisitor = async (dataFilter) => {
+    try {
+      const data = await this.route.getVisitor(dataFilter);
+
+      let results = null;
+      if (data) {
+        results = new VisitorModel(data);
+      }
+      if (results) {
+        results = results.toJSON();
+      }
+      return results;
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancle' };
+      } else throw error;
+    }
+  };
+
+  getSummary = async (dataFilter) => {
+    try {
+      const data = await this.route.getSummary(dataFilter);
+
+      let results = null;
+      if (data) {
+        results = new SummaryModel(data.result);
       }
       if (results) {
         results = results.toJSON();

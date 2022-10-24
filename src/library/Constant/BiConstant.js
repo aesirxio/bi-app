@@ -37,4 +37,30 @@ const BI_NEW_USERS_KEY = {
   STATUS: 'status',
 };
 
-export { BI_DASHBOARD_FIELD_KEY, BI_WIDGET_FIELD_KEY, BI_NEW_USERS_KEY, BI_CONTINENTS_KEY };
+const BI_VISITORS_FIELD_KEY = {
+  VISITS: 'visits',
+  DATE: 'date',
+};
+const BI_SUMMARY_FIELD_KEY = {
+  NUMBER_OF_VISITORS: 'number_of_visitors',
+  NUMBER_OF_PAGE_VIEWS: 'number_of_page_views',
+  NUMBER_OF_UNIQUE_PAGE_VIEWS: 'number_of_unique_page_views',
+  AVERAGE_SESSION_DURATION: 'average_session_duration',
+  NUMBER_OF_PAGES_PER_SESSION: 'number_of_pages_per_session',
+  BOUNCE_RATE: 'bounce_rate',
+};
+
+const BI_DOMAIN_FIELD_KEY = {
+  DOMAIN: 'domain',
+  NAME: 'name',
+};
+
+export {
+  BI_DASHBOARD_FIELD_KEY,
+  BI_WIDGET_FIELD_KEY,
+  BI_NEW_USERS_KEY,
+  BI_CONTINENTS_KEY,
+  BI_VISITORS_FIELD_KEY,
+  BI_DOMAIN_FIELD_KEY,
+  BI_SUMMARY_FIELD_KEY,
+};

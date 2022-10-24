@@ -111,6 +111,57 @@ export default class BiStore {
     }
   };
 
+  getVisitor = async (dataFilter, callbackOnSuccess, callbackOnError) => {
+    try {
+      const biService = new AesirxBiApiService();
+      const responsedDataFromLibary = await biService.getVisitor(dataFilter);
+      if (responsedDataFromLibary) {
+        const homeDataModels = BiUtils.transformPersonaResponseIntoModel(responsedDataFromLibary);
+
+        if (homeDataModels) {
+          runInAction(() => {
+            callbackOnSuccess(homeDataModels);
+          });
+        } else {
+          runInAction(() => {
+            callbackOnError({
+              message: 'No Result',
+            });
+          });
+        }
+      } else {
+        if (responsedDataFromLibary?.message === 'isCancle') {
+          runInAction(() => {
+            callbackOnError({
+              message: 'isCancle',
+            });
+          });
+        } else {
+          runInAction(() => {
+            callbackOnError({
+              message: 'Something went wrong from Server response',
+            });
+          });
+        }
+      }
+    } catch (error) {
+      console.log('errorrrr', error);
+      runInAction(() => {
+        if (error.response?.data.message) {
+          callbackOnError({
+            message: error.response?.data?.message,
+          });
+        } else {
+          callbackOnError({
+            message:
+              error.response?.data?._messages[0]?.message ??
+              'Something went wrong from Server response',
+          });
+        }
+      });
+    }
+  };
+
   getAudience = async (dataFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();

@@ -8,8 +8,8 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 
-class BiListViewModel {
-  biStore = null;
+class VisitorListViewModel {
+  visitorStore = null;
   paginationCollections = null;
   status = PAGE_STATUS.READY;
   data = [];
@@ -21,37 +21,17 @@ class BiListViewModel {
   };
   pageSize = 5;
   isList = false;
-  biIdsSelected = null;
+  visitorIdsSelected = null;
   isSearch = false;
-  constructor(biStore) {
+  constructor(visitorStore) {
     makeAutoObservable(this);
-    this.biStore = biStore;
+    this.visitorStore = visitorStore;
   }
-
-  getDashboard = (dataFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, dataFilter };
-    this.biStore.getDashboard(
-      this.dataFilter,
-      this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
-    );
-  };
 
   getVisitor = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, dataFilter };
-    this.biStore.getVisitor(
-      this.dataFilter,
-      this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
-    );
-  };
-
-  getAudience = (dataFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, dataFilter };
-    this.biStore.getDashboard(
+    this.visitorStore.getVisitor(
       this.dataFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
@@ -62,7 +42,7 @@ class BiListViewModel {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
 
-    this.biStore.getDashboard(
+    this.visitorStore.getVisitor(
       this.dataFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
@@ -71,12 +51,12 @@ class BiListViewModel {
   handleFilterDateRange = (startDate, endDate) => {
     this.status = PAGE_STATUS.LOADING;
     let dateRangeFilter = {
-      'filter[start_date]': moment(startDate).format('YYYY-MM-DD'),
-      'filter[end_date]': moment(endDate).format('YYYY-MM-DD'),
+      'filter[start_date]': moment(startDate).format('YYYY-MM-DD HH:mm:ss'),
+      'filter[end_date]': moment(endDate).endOf('day').format('YYYY-MM-DD HH:mm:ss'),
     };
     this.dataFilter = { ...this.dataFilter, ...dateRangeFilter };
 
-    this.biStore.getDashboard(
+    this.visitorStore.getVisitor(
       this.dataFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
@@ -100,4 +80,4 @@ class BiListViewModel {
   };
 }
 
-export default BiListViewModel;
+export default VisitorListViewModel;

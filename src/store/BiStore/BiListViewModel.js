@@ -17,11 +17,10 @@ class BiListViewModel {
   dataFilter = {
     'filter[start_date]': moment().startOf('month').format('YYYY-MM-DD HH:mm:ss'),
     'filter[end_date]': moment().endOf('day').format('YYYY-MM-DD HH:mm:ss'),
-    'filter[domain]': 'dam.aesirx.io',
   };
   pageSize = 5;
   isList = false;
-  biIdsSelected = null;
+  activeDomain = 'dam.aesirx.io';
   isSearch = false;
   constructor(biStore) {
     makeAutoObservable(this);
@@ -38,31 +37,25 @@ class BiListViewModel {
     );
   };
 
-  getVisitor = (dataFilter) => {
+  getListDomain = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, dataFilter };
-    this.biStore.getVisitor(
+    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    this.biStore.getListDomain(
       this.dataFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
     );
   };
 
-  getAudience = (dataFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, dataFilter };
-    this.biStore.getDashboard(
-      this.dataFilter,
-      this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
-    );
+  setActiveDomain = (domain) => {
+    this.activeDomain = domain;
   };
 
   handleFilter = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
 
-    this.biStore.getDashboard(
+    this.biStore.getListDomain(
       this.dataFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander

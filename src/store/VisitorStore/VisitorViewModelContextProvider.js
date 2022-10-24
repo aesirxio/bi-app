@@ -15,5 +15,5 @@ export const useVisitorViewModel = () => React.useContext(VisitorStore);
 
 /* HOC to inject store to any functional or class component */
 export const withVisitorViewModel = (Component) => (props) => {
-  return <Component {...props} viewModel={useVisitorViewModel()} />;
+  return <Component {...props} parentStore={props?.viewModel} viewModel={useVisitorViewModel()} />;
 };

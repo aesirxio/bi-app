@@ -7,6 +7,7 @@ import {
   // AssetsModel,
   // ColectionModel,
   DashboardModel,
+  DomainModel,
   SummaryModel,
   VisitorModel,
   // CollectionItemModel,
@@ -68,6 +69,27 @@ class AesirxBiApiService extends Component {
       if (results) {
         results = results.toJSON();
       }
+      return results;
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancle' };
+      } else throw error;
+    }
+  };
+
+  getListDomain = async (dataFilter) => {
+    try {
+      const data = await this.route.getListDomain(dataFilter);
+
+      let results = null;
+
+      if (data) {
+        results = new DomainModel(data);
+      }
+      if (results) {
+        results = results.toJSON();
+      }
+
       return results;
     } catch (error) {
       if (axios.isCancel(error)) {

@@ -377,14 +377,25 @@ class DashboardModel extends BaseItemModel {
     };
   };
 }
-class DomainModel extends BaseItemModel {
+class DomainModel extends BaseModel {
+  constructor(entities) {
+    super(entities);
+    if (entities) {
+      this.items = entities.result.map((element) => {
+        return new DomainItemModel(element);
+      });
+      this.items.pagination = this.getPagination();
+    }
+  }
+}
+class DomainItemModel extends BaseItemModel {
   name = null;
   domain = null;
   constructor(entity) {
     super(entity);
     if (entity) {
-      this.name = entity[BI_DOMAIN_FIELD_KEY.NAME][BI_DOMAIN_FIELD_KEY.NAME] ?? '';
-      this.domain = entity[BI_DOMAIN_FIELD_KEY.DOMAIN][BI_DOMAIN_FIELD_KEY.DOMAIN] ?? '';
+      this.name = entity[BI_DOMAIN_FIELD_KEY.NAME] ?? '';
+      this.domain = entity[BI_DOMAIN_FIELD_KEY.DOMAIN] ?? '';
     }
   }
   toObject = () => {

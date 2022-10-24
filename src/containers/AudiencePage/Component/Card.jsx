@@ -6,6 +6,8 @@ import ComponentCard from 'components/ComponentCard';
 import { BI_SUMMARY_FIELD_KEY } from 'library/Constant/BiConstant';
 import { observer } from 'mobx-react';
 import numberWithCommas from 'utils/formatNumber';
+import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+import { withRouter } from 'react-router-dom';
 
 const CardComponent = observer(
   class CardComponent extends Component {
@@ -17,10 +19,24 @@ const CardComponent = observer(
     }
     componentDidMount() {
       let fetchData = async () => {
-        await this.summaryListViewModel.getSummary();
+        await this.summaryListViewModel.getSummary({
+          domain: this.props.parentStore.biListViewModel.activeDomain,
+        });
       };
       fetchData();
     }
+
+    componentDidUpdate(prevProps) {
+      if (prevProps.location !== this.props.location) {
+        let fetchData = async () => {
+          await this.summaryListViewModel.getSummary({
+            domain: this.props.parentStore.biListViewModel.activeDomain,
+          });
+        };
+        fetchData();
+      }
+    }
+
     render() {
       const { t } = this.props;
 
@@ -115,4 +131,6 @@ const CardComponent = observer(
     }
   }
 );
-export default withTranslation('common')(withSummaryViewModel(CardComponent));
+export default withTranslation('common')(
+  withRouter(withBiViewModel(withSummaryViewModel(CardComponent)))
+);

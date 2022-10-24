@@ -24,6 +24,7 @@ import {
 import SummaryStore from 'store/SummaryStore/SummaryStore';
 import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
 import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';
+import { withRouter } from 'react-router-dom';
 const summaryStore = new SummaryStore();
 const summaryViewModel = new SummaryViewModel(summaryStore);
 const Dashboard = observer(
@@ -37,13 +38,15 @@ const Dashboard = observer(
 
     componentDidMount() {
       let fetchData = async () => {
-        await this.biListViewModel.getDashboard();
+        if (this.props.history.location.pathname === '/' || !this.props.history.location.pathname) {
+          this.props.history.push(`/${this.biListViewModel.activeDomain}`);
+        }
+        // await this.biListViewModel.getDashboard();
       };
       fetchData();
     }
 
     render() {
-      console.log('this.biListViewModel.data', this.biListViewModel.data);
       const { t } = this.props;
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
@@ -154,4 +157,4 @@ const Dashboard = observer(
   }
 );
 
-export default withTranslation('common')(withBiViewModel(Dashboard));
+export default withTranslation('common')(withRouter(withBiViewModel(Dashboard)));

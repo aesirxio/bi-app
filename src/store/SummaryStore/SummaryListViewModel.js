@@ -17,7 +17,6 @@ class SummaryListViewModel {
   dataFilter = {
     date_start: moment().startOf('month').format('YYYY-MM-DD HH:mm:ss'),
     date_end: moment().endOf('day').format('YYYY-MM-DD HH:mm:ss'),
-    domain: 'dam.aesirx.io',
   };
   pageSize = 5;
   isList = false;
@@ -30,7 +29,7 @@ class SummaryListViewModel {
 
   getSummary = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, dataFilter };
+    this.dataFilter = { ...this.dataFilter, ...dataFilter };
     this.summaryStore.getSummary(
       this.dataFilter,
       this.callbackOnDataSuccessHandler,

@@ -17,7 +17,6 @@ class VisitorListViewModel {
   dataFilter = {
     'filter[start_date]': moment().startOf('month').format('YYYY-MM-DD HH:mm:ss'),
     'filter[end_date]': moment().endOf('day').format('YYYY-MM-DD HH:mm:ss'),
-    'filter[domain]': 'dam.aesirx.io',
   };
   pageSize = 5;
   isList = false;
@@ -30,7 +29,7 @@ class VisitorListViewModel {
 
   getVisitor = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, dataFilter };
+    this.dataFilter = { ...this.dataFilter, ...dataFilter };
     this.visitorStore.getVisitor(
       this.dataFilter,
       this.callbackOnDataSuccessHandler,

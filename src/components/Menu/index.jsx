@@ -4,86 +4,15 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import './index.scss';
 import { Collapse, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
-const dataStream = [
-  {
-    text: 'DAM Pages',
-    value: 'dam-pages',
-  },
-  {
-    text: 'DMA Pages',
-    value: 'dma-pages',
-  },
-];
-const dataMenu = [
-  {
-    text: 'txt_menu_dashboard',
-    link: '/',
-    icons: '/assets/images/dashboard.svg',
-    icons_color: '/assets/images/dashboard.svg',
-  },
-  {
-    text: 'txt_menu_audience',
-    link: '/audience',
-    icons: '/assets/images/audience.svg',
-    icons_color: '/assets/images/audience.svg',
-    submenu: [
-      {
-        text: 'txt_menu_overview',
-        link: '/audience/overview',
-      },
-    ],
-  },
-  {
-    text: 'txt_menu_behavior',
-    link: '/behavior',
-    icons: '/assets/images/behavior.svg',
-    icons_color: '/assets/images/behavior.svg',
-    submenu: [
-      {
-        text: 'txt_menu_overview',
-        link: '/behavior/overview',
-      },
-      {
-        text: 'txt_menu_click_anchor',
-        link: '/behavior/click-anchor',
-      },
-      {
-        text: 'txt_menu_utm_tracking',
-        link: '/behavior/utm-tracking',
-      },
-    ],
-  },
-  {
-    text: 'txt_menu_revenue',
-    link: '/revenue',
-    icons: '/assets/images/revenue.svg',
-    icons_color: '/assets/images/revenue.svg',
-  },
-  {
-    text: 'txt_menu_subscription',
-    link: '/subscription',
-    icons: '/assets/images/subscription.svg',
-    icons_color: '/assets/images/subscription.svg',
-  },
-  {
-    text: 'txt_menu_member_roles',
-    link: '/member-roles',
-    icons: '/assets/images/member-roles.svg',
-    icons_color: '/assets/images/member-roles.svg',
-  },
-  {
-    text: 'txt_menu_data_stream',
-    link: '/data-stream',
-    icons: '/assets/images/data-stream.svg',
-    icons_color: '/assets/images/data-stream.svg',
-  },
-];
+import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+import { observer } from 'mobx-react-lite';
+
 const dataMenuSetup = [
   {
     text: 'txt_menu_region',
@@ -98,9 +27,10 @@ const dataMenuSetup = [
     icons_color: '/assets/images/setting.svg',
   },
 ];
-function Menu(props) {
+const Menu = observer((props) => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
-  const [dataStreamActive, setDataStreamActive] = useState('dam-pages');
+  const [dataStreamActive, setDataStreamActive] = useState('dam.aesirx.io');
+  const biStore = useBiViewModel();
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {
       if (parentIndex) {
@@ -131,14 +61,84 @@ function Menu(props) {
   const handleChangeDataStream = (value) => {
     handleOpen('');
     setDataStreamActive(value);
+    biStore.biListViewModel.setActiveDomain(value);
   };
+
+  const dataMenu = [
+    {
+      text: 'txt_menu_dashboard',
+      link: `/${dataStreamActive}`,
+      icons: '/assets/images/dashboard.svg',
+      icons_color: '/assets/images/dashboard.svg',
+    },
+    {
+      text: 'txt_menu_audience',
+      link: `/${dataStreamActive}/audience`,
+      icons: '/assets/images/audience.svg',
+      icons_color: '/assets/images/audience.svg',
+      submenu: [
+        {
+          text: 'txt_menu_overview',
+          link: `/${dataStreamActive}/audience/overview`,
+        },
+      ],
+    },
+    {
+      text: 'txt_menu_behavior',
+      link: `/${dataStreamActive}/behavior`,
+      icons: '/assets/images/behavior.svg',
+      icons_color: '/assets/images/behavior.svg',
+      submenu: [
+        {
+          text: 'txt_menu_overview',
+          link: `/${dataStreamActive}/behavior/overview`,
+        },
+        {
+          text: 'txt_menu_click_anchor',
+          link: `/${dataStreamActive}/behavior/click-anchor`,
+        },
+        {
+          text: 'txt_menu_utm_tracking',
+          link: `/${dataStreamActive}/behavior/utm-tracking`,
+        },
+      ],
+    },
+    {
+      text: 'txt_menu_revenue',
+      link: `/${dataStreamActive}/revenue`,
+      icons: '/assets/images/revenue.svg',
+      icons_color: '/assets/images/revenue.svg',
+    },
+    {
+      text: 'txt_menu_subscription',
+      link: `/${dataStreamActive}/subscription`,
+      icons: '/assets/images/subscription.svg',
+      icons_color: '/assets/images/subscription.svg',
+    },
+    {
+      text: 'txt_menu_member_roles',
+      link: `/${dataStreamActive}/member-roles`,
+      icons: '/assets/images/member-roles.svg',
+      icons_color: '/assets/images/member-roles.svg',
+    },
+    {
+      text: 'txt_menu_data_stream',
+      link: `/${dataStreamActive}/data-stream`,
+      icons: '/assets/images/data-stream.svg',
+      icons_color: '/assets/images/data-stream.svg',
+    },
+  ];
 
   useEffect(() => {
     checkActiveMenu();
-  });
+    let fetchData = async () => {
+      await biStore.biListViewModel.getListDomain();
+    };
+
+    fetchData();
+  }, [biStore.biListViewModel, dataStreamActive]);
 
   const { t } = props;
-
   return (
     <>
       <nav className="data-stream item_menu">
@@ -154,7 +154,7 @@ function Menu(props) {
           <div>
             <div className="data-stream-text mb-sm text-start">{t('txt_menu_data_stream')}</div>
             <div className="data-stream-value fw-bold text-white mb-0 text-start">
-              {dataStream?.find((x) => x.value === dataStreamActive)?.text}
+              {biStore.biListViewModel?.data?.find((x) => x.domain === dataStreamActive)?.name}
             </div>
           </div>
           <span
@@ -167,19 +167,26 @@ function Menu(props) {
         </Button>
         <Collapse in={isOpenCollapse === 'data-stream'}>
           <ul id="wr_list_submenu" className="list-unstyled mb-0">
-            {dataStream.map((item, index) => {
+            {biStore.biListViewModel?.data.map((item, index) => {
               return (
-                item.value !== dataStreamActive && (
+                item.domain !== dataStreamActive && (
                   <li
                     key={index}
                     className={`item_menu cursor-pointer`}
-                    onClick={() => handleChangeDataStream(item.value)}
+                    onClick={() => handleChangeDataStream(item.domain)}
                   >
-                    <span
-                      className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
+                    <NavLink
+                      exact={true}
+                      to={`${props.match.path.replace(':domain', item.domain)}`}
+                      className={``}
+                      activeClassName={`active`}
                     >
-                      {item.text}
-                    </span>
+                      <span
+                        className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
+                      >
+                        {item.name}
+                      </span>
+                    </NavLink>
                   </li>
                 )
               );
@@ -316,6 +323,6 @@ function Menu(props) {
       </nav>
     </>
   );
-}
+});
 
-export default withTranslation('common')(Menu);
+export default withTranslation('common')(withRouter(Menu));

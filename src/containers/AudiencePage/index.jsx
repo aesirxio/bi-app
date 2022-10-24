@@ -12,6 +12,7 @@ import VisitorStore from 'store/VisitorStore/VisitorStore';
 import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';
 import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
 import SummaryStore from 'store/SummaryStore/SummaryStore';
+import Spinner from 'components/Spinner';
 
 const visitorStore = new VisitorStore();
 const visitorViewModel = new VisitorViewModel(visitorStore);
@@ -23,6 +24,7 @@ const AudiencePage = observer(
   class AudiencePage extends Component {
     constructor(props) {
       super(props);
+      this.state = { loading: false };
     }
 
     render() {
@@ -41,6 +43,7 @@ const AudiencePage = observer(
       return (
         <>
           <div className="p-3">
+            {this.state.loading ? <Spinner /> : null}
             <div className="d-flex align-items-center justify-content-between mb-3">
               <div>
                 <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_audience')}</h2>
@@ -49,8 +52,8 @@ const AudiencePage = observer(
               <div className="position-relative">
                 <DateRangePicker
                   viewModelArr={[
-                    visitorViewModel.visitorListViewModel,
                     summaryViewModel.summaryListViewModel,
+                    visitorViewModel.visitorListViewModel,
                   ]}
                 ></DateRangePicker>
               </div>

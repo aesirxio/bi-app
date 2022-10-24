@@ -5,6 +5,7 @@ import { Col, Row } from 'react-bootstrap';
 import ComponentCard from 'components/ComponentCard';
 import { BI_SUMMARY_FIELD_KEY } from 'library/Constant/BiConstant';
 import { observer } from 'mobx-react';
+import numberWithCommas from 'utils/formatNumber';
 
 const CardComponent = observer(
   class CardComponent extends Component {
@@ -31,9 +32,9 @@ const CardComponent = observer(
                 title={t('txt_visitors')}
                 icon={'/assets/images/visitor.svg'}
                 iconColor={'#1AB394'}
-                value={
-                  this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] ?? 0
-                }
+                value={numberWithCommas(
+                  this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
+                )}
                 isIncrease={true}
                 percent={'11%'}
                 textPercent={'form June'}
@@ -46,9 +47,9 @@ const CardComponent = observer(
                 title={t('txt_page_views')}
                 icon={'/assets/images/view.svg'}
                 iconColor={'#2E71B1'}
-                value={
-                  this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS] ?? 0
-                }
+                value={numberWithCommas(
+                  this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+                )}
                 isIncrease={false}
                 percent={'13%'}
                 textPercent={'form June'}
@@ -74,10 +75,9 @@ const CardComponent = observer(
                 title={t('txt_acg_session_duration')}
                 icon={'/assets/images/duration.svg'}
                 iconColor={'#EF3737'}
-                value={
-                  this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION] ??
-                  0
-                }
+                value={numberWithCommas(
+                  this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION]
+                )}
                 isIncrease={false}
                 percent={'11%'}
                 textPercent={'form June'}
@@ -88,11 +88,9 @@ const CardComponent = observer(
                 title={t('txt_page_session')}
                 icon={'/assets/images/page.svg'}
                 iconColor={'#FFBE55'}
-                value={
-                  this.summaryListViewModel?.data[
-                    BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION
-                  ] ?? 0
-                }
+                value={numberWithCommas(
+                  this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION]
+                )}
                 isIncrease={false}
                 percent={'11%'}
                 textPercent={'form June'}
@@ -103,7 +101,9 @@ const CardComponent = observer(
                 title={t('txt_bounce_rate')}
                 icon={'/assets/images/rate.svg'}
                 iconColor={'#C8192E'}
-                value={this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.BOUNCE_RATE] ?? 0}
+                value={numberWithCommas(
+                  this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.BOUNCE_RATE]
+                )}
                 isIncrease={false}
                 percent={'11%'}
                 textPercent={'form June'}

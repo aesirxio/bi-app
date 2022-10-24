@@ -52,5 +52,5 @@ dev:
     - master
   script:
     - npm run build
-    - rsync -a --delete --progress --rsh='ssh -p4975' build/ dma@web1.aesir.io:/home/dma/domains/bi.dma.aesirx.io/public_html
+    - rsync -a --delete --progress --rsh='ssh -p4975' build/ aesirx@web1.aesir.io:/home/aesirx/domains/dashboard.aesirx.io/public_html
 

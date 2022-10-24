@@ -8,6 +8,7 @@ const DateRangePicker = (props) => {
   const datePickerRef = useRef(null);
 
   const { t, viewModelArr } = props;
+
   return (
     <div
       style={{ minHeight: '50px' }}

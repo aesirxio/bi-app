@@ -9,20 +9,23 @@ import Spinner from '../../components/Spinner';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import ComponentCard from 'components/ComponentCard';
 import Revenue from './Component/Revenue';
 import RegisteredUser from './Component/RegisteredUser';
+import CardComponent from './Component/Card';
 import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from 'components/DateRangePicker';
 import AreaChartComponent from 'components/AreaChartComponent';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import {
   BI_DASHBOARD_FIELD_KEY,
-  BI_WIDGET_FIELD_KEY,
   BI_NEW_USERS_KEY,
   BI_CONTINENTS_KEY,
 } from 'library/Constant/BiConstant';
-import numberWithCommas from 'utils/formatNumber';
+import SummaryStore from 'store/SummaryStore/SummaryStore';
+import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
+import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';
+const summaryStore = new SummaryStore();
+const summaryViewModel = new SummaryViewModel(summaryStore);
 const Dashboard = observer(
   class Dashboard extends Component {
     constructor(props) {
@@ -54,107 +57,14 @@ const Dashboard = observer(
               <p className="mb-0 text-color">{t('txt_dashboard_below')}</p>
             </div>
             <div className="position-relative">
-              <DateRangePicker viewModel={[this.biListViewModel]}></DateRangePicker>
+              <DateRangePicker
+                viewModelArr={[summaryViewModel.summaryListViewModel]}
+              ></DateRangePicker>
             </div>
           </div>
-          <div className="row gx-24 mb-24">
-            <div className="col-lg-3">
-              <ComponentCard
-                title={t('txt_visitors')}
-                icon={'/assets/images/visitor.svg'}
-                iconColor={'#1AB394'}
-                value={numberWithCommas(
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.VISITOR]?.[
-                    BI_WIDGET_FIELD_KEY.VALUE
-                  ]
-                )}
-                isIncrease={Boolean(
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.VISITOR]?.[
-                    BI_WIDGET_FIELD_KEY.INCREASE
-                  ]
-                )}
-                percent={`${
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.VISITOR]?.[
-                    BI_WIDGET_FIELD_KEY.PERCENT
-                  ]
-                }%`}
-                textPercent={'form June'}
-                options={[{ label: 'All Users', value: 'all-user' }]}
-                defaultValue={{ label: 'All Users', value: 'all-user' }}
-              ></ComponentCard>
-            </div>
-            <div className="col-lg-3">
-              <ComponentCard
-                title={t('txt_total_revenue')}
-                icon={'/assets/images/revenue-icon.svg'}
-                iconColor={'#2E71B1'}
-                value={numberWithCommas(
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.TOTAL_REVENUE]?.[
-                    BI_WIDGET_FIELD_KEY.VALUE
-                  ]
-                )}
-                isIncrease={Boolean(
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.TOTAL_REVENUE]?.[
-                    BI_WIDGET_FIELD_KEY.INCREASE
-                  ]
-                )}
-                percent={`${
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.TOTAL_REVENUE]?.[
-                    BI_WIDGET_FIELD_KEY.PERCENT
-                  ]
-                }%`}
-                textPercent={'form June'}
-                options={[{ label: 'All', value: 'all' }]}
-                defaultValue={{ label: 'All', value: 'all' }}
-              ></ComponentCard>
-            </div>
-            <div className="col-lg-3">
-              <ComponentCard
-                title={t('txt_sessions')}
-                icon={'/assets/images/sessions.svg'}
-                iconColor={'#FFBE55'}
-                value={numberWithCommas(
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.SESSIONS]?.[
-                    BI_WIDGET_FIELD_KEY.VALUE
-                  ]
-                )}
-                isIncrease={Boolean(
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.SESSIONS]?.[
-                    BI_WIDGET_FIELD_KEY.INCREASE
-                  ]
-                )}
-                percent={`${
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.SESSIONS]?.[
-                    BI_WIDGET_FIELD_KEY.PERCENT
-                  ]
-                }%`}
-                textPercent={'form June'}
-              ></ComponentCard>
-            </div>
-            <div className="col-lg-3">
-              <ComponentCard
-                title={t('txt_conversion_rate')}
-                icon={'/assets/images/conversion.svg'}
-                iconColor={'#EF3737'}
-                value={numberWithCommas(
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.CONVERSION_RATE]?.[
-                    BI_WIDGET_FIELD_KEY.VALUE
-                  ]
-                )}
-                isIncrease={Boolean(
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.CONVERSION_RATE]?.[
-                    BI_WIDGET_FIELD_KEY.INCREASE
-                  ]
-                )}
-                percent={`${
-                  this.biListViewModel.data[BI_WIDGET_FIELD_KEY.CONVERSION_RATE]?.[
-                    BI_WIDGET_FIELD_KEY.PERCENT
-                  ]
-                }%`}
-                textPercent={'form June'}
-              ></ComponentCard>
-            </div>
-          </div>
+          <SummaryStoreProvider viewModel={summaryViewModel}>
+            <CardComponent></CardComponent>
+          </SummaryStoreProvider>
           <div className="row gx-24 mb-24">
             <div className="col-lg-7">
               <AreaChartComponent

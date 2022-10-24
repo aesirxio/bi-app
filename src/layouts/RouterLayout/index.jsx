@@ -16,12 +16,7 @@ import history from '../../routes/history';
 
 import { Toast } from '../../components/Toast';
 import NotFound from '../../containers/NotFound';
-import { BiStoreProvider } from 'store/BiStore/BiViewModelContextProvider';
-import BiViewModel from 'store/BiStore/BiViewModel';
-import BiStore from 'store/BiStore/BiStore';
 
-const biStore = new BiStore();
-const biViewModel = new BiViewModel(biStore);
 const RouterLayout = () => {
   const authPath = authRoutes
     .map((item) => {
@@ -56,14 +51,12 @@ const RouterLayout = () => {
             <Route exact path={authPath}>
               <AuthLayout />
             </Route>
-            <BiStoreProvider viewModel={biViewModel}>
-              <Route exact path={mainPath}>
-                <MainLayout />
-              </Route>
-              <Route exact path={settingPath}>
-                <SettingLayout />
-              </Route>
-            </BiStoreProvider>
+            <Route exact path={mainPath}>
+              <MainLayout />
+            </Route>
+            <Route exact path={settingPath}>
+              <SettingLayout />
+            </Route>
             <Route path="*">
               <NotFound />
             </Route>

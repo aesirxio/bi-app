@@ -18,8 +18,8 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
   const { t, i18n, viewModel } = props;
 
   const [dateRange, setDateRange] = useState([
-    moment(viewModel.dataFilter['filter[start_date]'], 'YYYY-MM-DD').toDate(),
-    moment(viewModel.dataFilter['filter[end_date]'], 'YYYY-MM-DD').toDate(),
+    viewModel ? moment(viewModel?.dataFilter['filter[start_date]'], 'YYYY-MM-DD').toDate() : null,
+    viewModel ? moment(viewModel?.dataFilter['filter[end_date]'], 'YYYY-MM-DD').toDate() : null,
   ]);
 
   const [startDate, endDate] = dateRange;
@@ -32,7 +32,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
 
   const handleApply = async (e, startDate, endDate) => {
     e.stopPropagation();
-    await viewModel.handleFilterDateRange(startDate, endDate);
+    await viewModel?.handleFilterDateRange(startDate, endDate);
     setIsOpen(false);
   };
   const handleClickOutSide = (event) => {

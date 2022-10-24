@@ -115,7 +115,7 @@ class AesirxAuthenticationApiService {
             [AUTHORIZATION_KEY.TOKEN_USER_EXPIRE]: tokenUser.result.expire,
             [AUTHORIZATION_KEY.MEMBER_ID]: tokenUser.result.member_id,
             [AUTHORIZATION_KEY.AVATAR]: tokenUser.result.avatar,
-            [AUTHORIZATION_KEY.MEMBER_FULL_NAME]: tokenUser.result.member_full_name,
+            // [AUTHORIZATION_KEY.MEMBER_FULL_NAME]: tokenUser.result.member_full_name,
             [AUTHORIZATION_KEY.ORGANISATION_ID]: tokenUser.result.organisation_id,
             [AUTHORIZATION_KEY.MEMBER_EMAIL]: tokenUser.result.member_email,
           };

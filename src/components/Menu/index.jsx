@@ -133,6 +133,10 @@ const Menu = observer((props) => {
     checkActiveMenu();
     let fetchData = async () => {
       await biStore.biListViewModel.getListDomain();
+      if (props.match.params.domain) {
+        biStore.biListViewModel.setActiveDomain(props.match.params.domain);
+        setDataStreamActive(props.match.params.domain);
+      }
     };
 
     fetchData();
@@ -154,7 +158,10 @@ const Menu = observer((props) => {
           <div>
             <div className="data-stream-text mb-sm text-start">{t('txt_menu_data_stream')}</div>
             <div className="data-stream-value fw-bold text-white mb-0 text-start">
-              {biStore.biListViewModel?.data?.find((x) => x.domain === dataStreamActive)?.name}
+              {
+                biStore.biListViewModel?.data?.find((x) => x.domain === props.match.params.domain)
+                  ?.name
+              }
             </div>
           </div>
           <span

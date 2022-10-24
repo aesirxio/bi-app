@@ -75,19 +75,6 @@ const CardComponent = observer(
             </Col>
             <Col lg={4}>
               <ComponentCard
-                title={t('txt_sessions')}
-                icon={'/assets/images/sessions.svg'}
-                iconColor={'#FFBE55'}
-                value={'170,780'}
-                isIncrease={true}
-                percent={'17%'}
-                textPercent={'form June'}
-              ></ComponentCard>
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={4}>
-              <ComponentCard
                 title={t('txt_acg_session_duration')}
                 icon={'/assets/images/duration.svg'}
                 iconColor={'#EF3737'}
@@ -99,6 +86,8 @@ const CardComponent = observer(
                 textPercent={'form June'}
               ></ComponentCard>
             </Col>
+          </Row>
+          <Row>
             <Col lg={4}>
               <ComponentCard
                 title={t('txt_page_session')}

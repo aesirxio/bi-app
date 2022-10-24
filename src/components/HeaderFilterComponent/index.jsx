@@ -11,7 +11,7 @@ const HeaderFilterComponent = ({
   filterButtons,
   ...props
 }) => {
-  const [view, setView] = useState('months');
+  const [view, setView] = useState('days');
   const { t } = props;
   return (
     <div className="d-flex justify-content-between mb-24">

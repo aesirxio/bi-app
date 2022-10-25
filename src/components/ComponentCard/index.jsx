@@ -15,7 +15,7 @@ const ComponentCard = ({
 }) => {
   return (
     <div className="bg-white p-24 shadow-sm rounded-3">
-      <div className="d-flex justify-content-between align-items-start mb-16">
+      <div className="d-flex justify-content-between align-items-center mb-16">
         <div className="d-flex align-items-center">
           {icon && (
             <div

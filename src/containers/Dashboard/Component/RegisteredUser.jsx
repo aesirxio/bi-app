@@ -47,7 +47,39 @@ const RegisteredUser = ({ t, data = [] }) => {
     ],
     []
   );
-  const dataTable = React.useMemo(() => [...data], [data]);
+  // const dataTable = React.useMemo(() => [...data], [data]);
+  const dataTable = React.useMemo(
+    () => [
+      { name: 'Babila Ebwélé', email: 'babila@gmail.com', date: '2022-10-07', status: 'active' },
+      {
+        name: 'Brijamohan Mallick',
+        email: 'brijamohan@gmail.com',
+        date: '2022-10-02',
+        status: 'active',
+      },
+      { name: 'Babila Ebwélé', email: 'babila@gmail.com', date: '2022-10-04', status: 'active' },
+      {
+        name: 'Brijamohan Mallick',
+        email: 'brijamohan@gmail.com',
+        date: '2022-10-07',
+        status: 'waiting',
+      },
+      {
+        name: 'Babila Ebwélé',
+        email: 'babila@gmail.com',
+        date: '2022-10-07',
+        status: 'active',
+      },
+      {
+        name: 'Brijamohan Mallick',
+        email: 'brijamohan@gmail.com',
+        date: '2022-10-07',
+        status: 'active',
+      },
+    ],
+    []
+  );
+  console.log(data);
   return (
     <div className="py-2 bg-white rounded-3 shadow-sm h-100">
       <div className="d-flex justify-content-between align-items-center py-16 px-24 ">

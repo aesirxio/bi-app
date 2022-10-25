@@ -1,6 +1,6 @@
+import ComponentNoData from 'components/ComponentNoData';
 import HeaderFilterComponent from 'components/HeaderFilterComponent';
 import React from 'react';
-import { Spinner } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import {
   AreaChart,
@@ -43,9 +43,9 @@ const AreaChartComponent = ({
   };
   return (
     <div className="bg-white rounded-3 p-24 shadow-sm h-100">
-      {data ? (
+      <HeaderFilterComponent chartTitle={chartTitle} isSelection={true} filterButtons={true} />
+      {data.length ? (
         <>
-          <HeaderFilterComponent chartTitle={chartTitle} isSelection={true} filterButtons={true} />
           <ResponsiveContainer width="100%" height={height ?? 500}>
             <AreaChart data={data}>
               {lines && (
@@ -110,7 +110,9 @@ const AreaChartComponent = ({
           </ResponsiveContainer>
         </>
       ) : (
-        <Spinner />
+        <div className="position-absolute top-50 start-50 translate-middle">
+          <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />
+        </div>
       )}
     </div>
   );

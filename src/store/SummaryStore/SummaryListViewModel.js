@@ -64,9 +64,8 @@ class SummaryListViewModel {
   resetObservableProperties = () => {};
 
   callbackOnErrorHander = (error) => {
-    if (error.message === 'isCancle') {
-      this.status = PAGE_STATUS.READY;
-    } else notify(error.message, 'error');
+    this.status = PAGE_STATUS.READY;
+    notify(error.message, 'error');
   };
 
   callbackOnDataSuccessHandler = (data) => {

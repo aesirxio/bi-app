@@ -13,6 +13,7 @@ import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContext
 import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
 import SummaryStore from 'store/SummaryStore/SummaryStore';
 import Spinner from 'components/Spinner';
+import PAGE_STATUS from 'constants/PageStatus';
 
 const visitorStore = new VisitorStore();
 const visitorViewModel = new VisitorViewModel(visitorStore);
@@ -39,11 +40,13 @@ const AudiencePage = observer(
         { email: 'babila@gmail.com', status: 'Active' },
         { email: 'babila@gmail.com', status: 'Waiting' },
       ];
-
       return (
         <>
           <div className="p-3">
-            {this.state.loading ? <Spinner /> : null}
+            {summaryViewModel.summaryListViewModel.status === PAGE_STATUS.LOADING ||
+            visitorViewModel.visitorListViewModel.status === PAGE_STATUS.LOADING ? (
+              <Spinner />
+            ) : null}
             <div className="d-flex align-items-center justify-content-between mb-3">
               <div>
                 <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_audience')}</h2>

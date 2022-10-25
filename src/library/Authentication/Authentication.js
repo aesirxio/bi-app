@@ -6,7 +6,7 @@
 import axios from 'axios';
 import { AXIOS_CONFIGS, AUTHORIZATION_KEY } from '../Constant/Constant';
 import BaseRoute from '../Abstract/BaseRoute';
-import AesirxMemberApiService from '../Member/Member';
+// import AesirxMemberApiService from '../Member/Member';
 import qs from 'query-string';
 import Storage from '../Utils/Storage';
 import { logout } from './Logout';
@@ -86,7 +86,7 @@ class AesirxAuthenticationApiService {
   };
 
   setTokenUser = async (accessTokenData) => {
-    const serviceMember = new AesirxMemberApiService();
+    // const serviceMember = new AesirxMemberApiService();
 
     let authorizationHeader = '';
     let tokenType = '';
@@ -106,24 +106,23 @@ class AesirxAuthenticationApiService {
       };
       this.setStore(setStore);
 
-      try {
-        const tokenUser = await serviceMember.getTokenByUser();
-
-        if (tokenUser.result) {
-          const setStore = {
-            [AUTHORIZATION_KEY.TOKEN_USER]: tokenUser.result.token,
-            [AUTHORIZATION_KEY.TOKEN_USER_EXPIRE]: tokenUser.result.expire,
-            [AUTHORIZATION_KEY.MEMBER_ID]: tokenUser.result.member_id,
-            [AUTHORIZATION_KEY.AVATAR]: tokenUser.result.avatar,
-            // [AUTHORIZATION_KEY.MEMBER_FULL_NAME]: tokenUser.result.member_full_name,
-            [AUTHORIZATION_KEY.ORGANISATION_ID]: tokenUser.result.organisation_id,
-            [AUTHORIZATION_KEY.MEMBER_EMAIL]: tokenUser.result.member_email,
-          };
-          this.setStore(setStore);
-        }
-      } catch (e) {
-        return false;
-      }
+      // try {
+      //   const tokenUser = await serviceMember.getTokenByUser();
+      //   if (tokenUser.result) {
+      //     const setStore = {
+      //       [AUTHORIZATION_KEY.TOKEN_USER]: tokenUser.result.token,
+      //       [AUTHORIZATION_KEY.TOKEN_USER_EXPIRE]: tokenUser.result.expire,
+      //       [AUTHORIZATION_KEY.MEMBER_ID]: tokenUser.result.member_id,
+      //       [AUTHORIZATION_KEY.AVATAR]: tokenUser.result.avatar,
+      //       // [AUTHORIZATION_KEY.MEMBER_FULL_NAME]: tokenUser.result.member_full_name,
+      //       [AUTHORIZATION_KEY.ORGANISATION_ID]: tokenUser.result.organisation_id,
+      //       [AUTHORIZATION_KEY.MEMBER_EMAIL]: tokenUser.result.member_email,
+      //     };
+      //     this.setStore(setStore);
+      //   }
+      // } catch (e) {
+      //   return false;
+      // }
 
       return {
         success: true,

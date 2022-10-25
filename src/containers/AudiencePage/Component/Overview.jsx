@@ -62,6 +62,7 @@ const OverviewComponent = observer(
               { label: 'Sessions', value: 'session' },
               { label: 'Localhost', value: 'localhost' },
             ]}
+            loading={this.visitorListViewModel.status}
           />
         </div>
       );

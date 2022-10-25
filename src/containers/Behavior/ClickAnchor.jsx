@@ -1,109 +1,109 @@
-import AreaChartComponent from 'components/AreaChartComponent';
-import BarChartComponent from 'components/BarChartComponent';
-import ComponentContinent from 'components/ComponentContinent';
+// import AreaChartComponent from 'components/AreaChartComponent';
+// import BarChartComponent from 'components/BarChartComponent';
+// import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from 'components/DateRangePicker';
-import PieChartComponent from 'components/PieChartComponent';
+// import PieChartComponent from 'components/PieChartComponent';
 import React, { Component } from 'react';
-import { Col, Row } from 'react-bootstrap';
+// import { Col, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import MostClickingPages from './Component/MostClickingPages';
+// import MostClickingPages from './Component/MostClickingPages';
 
 class BehaviorClickAnchorPage extends Component {
   render() {
     const { t } = this.props;
-    const dataAreaChart = [
-      {
-        name: 'Jan',
-        line1: 400,
-        line2: 700,
-      },
-      {
-        name: 'Feb',
-        line1: 530,
-        line2: 730,
-      },
-      {
-        name: 'Mar',
-        line1: 410,
-        line2: 710,
-      },
-      {
-        name: 'Apr',
-        line1: 395,
-        line2: 795,
-      },
-      {
-        name: 'May',
-        line1: 380,
-        line2: 780,
-      },
-      {
-        name: 'Jun',
-        line1: 204,
-        line2: 704,
-      },
-      {
-        name: 'Jul',
-        line1: 420,
-        line2: 720,
-      },
-      {
-        name: 'Aug',
-        line1: 680,
-        line2: 780,
-      },
-      {
-        name: 'Sep',
-        line1: 670,
-        line2: 770,
-      },
-      {
-        name: 'Oct',
-        line1: 568,
-        line2: 768,
-      },
-      {
-        name: 'Nov',
-        line1: 940,
-        line2: 740,
-      },
-      {
-        name: 'Dec',
-        line1: 360,
-        line2: 760,
-      },
-    ];
-    const dataBarChart = [
-      {
-        name: '20-25',
-        bar1: 4000,
-      },
-      {
-        name: '26-35',
-        bar1: 3000,
-      },
-      {
-        name: '36-40',
-        bar1: 2000,
-      },
-      {
-        name: '41-45',
-        bar1: 2780,
-      },
-      {
-        name: '46-50',
-        bar1: 1890,
-      },
-      {
-        name: '51-55',
-        bar1: 2390,
-      },
-    ];
-    const dataPieChart = [
-      { name: 'Female', value: 400 },
-      { name: 'Male', value: 600 },
-      { name: 'Non-binary', value: 600 },
-    ];
+    // const dataAreaChart = [
+    //   {
+    //     name: 'Jan',
+    //     line1: 400,
+    //     line2: 700,
+    //   },
+    //   {
+    //     name: 'Feb',
+    //     line1: 530,
+    //     line2: 730,
+    //   },
+    //   {
+    //     name: 'Mar',
+    //     line1: 410,
+    //     line2: 710,
+    //   },
+    //   {
+    //     name: 'Apr',
+    //     line1: 395,
+    //     line2: 795,
+    //   },
+    //   {
+    //     name: 'May',
+    //     line1: 380,
+    //     line2: 780,
+    //   },
+    //   {
+    //     name: 'Jun',
+    //     line1: 204,
+    //     line2: 704,
+    //   },
+    //   {
+    //     name: 'Jul',
+    //     line1: 420,
+    //     line2: 720,
+    //   },
+    //   {
+    //     name: 'Aug',
+    //     line1: 680,
+    //     line2: 780,
+    //   },
+    //   {
+    //     name: 'Sep',
+    //     line1: 670,
+    //     line2: 770,
+    //   },
+    //   {
+    //     name: 'Oct',
+    //     line1: 568,
+    //     line2: 768,
+    //   },
+    //   {
+    //     name: 'Nov',
+    //     line1: 940,
+    //     line2: 740,
+    //   },
+    //   {
+    //     name: 'Dec',
+    //     line1: 360,
+    //     line2: 760,
+    //   },
+    // ];
+    // const dataBarChart = [
+    //   {
+    //     name: '20-25',
+    //     bar1: 4000,
+    //   },
+    //   {
+    //     name: '26-35',
+    //     bar1: 3000,
+    //   },
+    //   {
+    //     name: '36-40',
+    //     bar1: 2000,
+    //   },
+    //   {
+    //     name: '41-45',
+    //     bar1: 2780,
+    //   },
+    //   {
+    //     name: '46-50',
+    //     bar1: 1890,
+    //   },
+    //   {
+    //     name: '51-55',
+    //     bar1: 2390,
+    //   },
+    // ];
+    // const dataPieChart = [
+    //   { name: 'Female', value: 400 },
+    //   { name: 'Male', value: 600 },
+    //   { name: 'Non-binary', value: 600 },
+    // ];
 
     return (
       <>
@@ -116,7 +116,7 @@ class BehaviorClickAnchorPage extends Component {
               <DateRangePicker></DateRangePicker>
             </div>
           </div>
-          <Row className="gx-24 mb-24">
+          {/* <Row className="gx-24 mb-24">
             <Col lg={6}>
               <AreaChartComponent
                 chartTitle={t('txt_menu_overview')}
@@ -157,7 +157,7 @@ class BehaviorClickAnchorPage extends Component {
             <Col lg={5}>
               <MostClickingPages></MostClickingPages>
             </Col>
-          </Row>
+          </Row> */}
         </div>
       </>
     );

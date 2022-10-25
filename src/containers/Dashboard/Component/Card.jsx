@@ -49,13 +49,13 @@ const CardComponent = observer(
                 this.summaryListViewModel.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
               )}
               isIncrease={true}
-              percent={`3%`}
-              textPercent={'form June'}
+              // percent={`3%`}
+              // textPercent={'form June'}
               options={[{ label: 'All Users', value: 'all-user' }]}
               defaultValue={{ label: 'All Users', value: 'all-user' }}
             ></ComponentCard>
           </div>
-          <div className="col-lg-3">
+          {/* <div className="col-lg-3">
             <ComponentCard
               title={t('txt_total_revenue')}
               icon={'/assets/images/revenue-icon.svg'}
@@ -89,7 +89,7 @@ const CardComponent = observer(
               percent={`3%`}
               textPercent={'form June'}
             ></ComponentCard>
-          </div>
+          </div> */}
         </div>
       );
     }

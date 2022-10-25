@@ -34,6 +34,12 @@ export default class VisitorStore {
               message: 'isCancle',
             });
           });
+        } else if (responsedDataFromLibary === null) {
+          runInAction(() => {
+            callbackOnError({
+              message: 'No Result',
+            });
+          });
         } else {
           runInAction(() => {
             callbackOnError({

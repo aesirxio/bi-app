@@ -1,109 +1,109 @@
-import AreaChartComponent from 'components/AreaChartComponent';
-import BarChartComponent from 'components/BarChartComponent';
+// import AreaChartComponent from 'components/AreaChartComponent';
+// import BarChartComponent from 'components/BarChartComponent';
 import DateRangePicker from 'components/DateRangePicker';
-import PieChartComponent from 'components/PieChartComponent';
+// import PieChartComponent from 'components/PieChartComponent';
 import React, { Component } from 'react';
-import { Col, Row } from 'react-bootstrap';
+// import { Col, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import BehaviorTable from './Component/BehaviorTable';
-import ComponentFilter from 'components/ComponentFilter';
+// import BehaviorTable from './Component/BehaviorTable';
+// import ComponentFilter from 'components/ComponentFilter';
 
 class BehaviorOverviewPage extends Component {
   render() {
     const { t } = this.props;
-    const dataAreaChart = [
-      {
-        name: 'Jan',
-        line1: 400,
-        line2: 700,
-      },
-      {
-        name: 'Feb',
-        line1: 530,
-        line2: 730,
-      },
-      {
-        name: 'Mar',
-        line1: 410,
-        line2: 710,
-      },
-      {
-        name: 'Apr',
-        line1: 395,
-        line2: 795,
-      },
-      {
-        name: 'May',
-        line1: 380,
-        line2: 780,
-      },
-      {
-        name: 'Jun',
-        line1: 204,
-        line2: 704,
-      },
-      {
-        name: 'Jul',
-        line1: 420,
-        line2: 720,
-      },
-      {
-        name: 'Aug',
-        line1: 680,
-        line2: 780,
-      },
-      {
-        name: 'Sep',
-        line1: 670,
-        line2: 770,
-      },
-      {
-        name: 'Oct',
-        line1: 568,
-        line2: 768,
-      },
-      {
-        name: 'Nov',
-        line1: 940,
-        line2: 740,
-      },
-      {
-        name: 'Dec',
-        line1: 360,
-        line2: 760,
-      },
-    ];
-    const dataBarChart = [
-      {
-        name: 'Click',
-        bar1: 4000,
-      },
-      {
-        name: 'Anchor',
-        bar1: 3000,
-      },
-      {
-        name: 'Scroll',
-        bar1: 2000,
-      },
-      {
-        name: 'Download',
-        bar1: 2780,
-      },
-      {
-        name: 'Purchase',
-        bar1: 1890,
-      },
-      {
-        name: 'Register',
-        bar1: 2390,
-      },
-    ];
-    const dataPieChart = [
-      { name: 'Female', value: 400 },
-      { name: 'Male', value: 600 },
-      { name: 'Non-binary', value: 600 },
-    ];
+    // const dataAreaChart = [
+    //   {
+    //     name: 'Jan',
+    //     line1: 400,
+    //     line2: 700,
+    //   },
+    //   {
+    //     name: 'Feb',
+    //     line1: 530,
+    //     line2: 730,
+    //   },
+    //   {
+    //     name: 'Mar',
+    //     line1: 410,
+    //     line2: 710,
+    //   },
+    //   {
+    //     name: 'Apr',
+    //     line1: 395,
+    //     line2: 795,
+    //   },
+    //   {
+    //     name: 'May',
+    //     line1: 380,
+    //     line2: 780,
+    //   },
+    //   {
+    //     name: 'Jun',
+    //     line1: 204,
+    //     line2: 704,
+    //   },
+    //   {
+    //     name: 'Jul',
+    //     line1: 420,
+    //     line2: 720,
+    //   },
+    //   {
+    //     name: 'Aug',
+    //     line1: 680,
+    //     line2: 780,
+    //   },
+    //   {
+    //     name: 'Sep',
+    //     line1: 670,
+    //     line2: 770,
+    //   },
+    //   {
+    //     name: 'Oct',
+    //     line1: 568,
+    //     line2: 768,
+    //   },
+    //   {
+    //     name: 'Nov',
+    //     line1: 940,
+    //     line2: 740,
+    //   },
+    //   {
+    //     name: 'Dec',
+    //     line1: 360,
+    //     line2: 760,
+    //   },
+    // ];
+    // const dataBarChart = [
+    //   {
+    //     name: 'Click',
+    //     bar1: 4000,
+    //   },
+    //   {
+    //     name: 'Anchor',
+    //     bar1: 3000,
+    //   },
+    //   {
+    //     name: 'Scroll',
+    //     bar1: 2000,
+    //   },
+    //   {
+    //     name: 'Download',
+    //     bar1: 2780,
+    //   },
+    //   {
+    //     name: 'Purchase',
+    //     bar1: 1890,
+    //   },
+    //   {
+    //     name: 'Register',
+    //     bar1: 2390,
+    //   },
+    // ];
+    // const dataPieChart = [
+    //   { name: 'Female', value: 400 },
+    //   { name: 'Male', value: 600 },
+    //   { name: 'Non-binary', value: 600 },
+    // ];
 
     return (
       <>
@@ -116,7 +116,7 @@ class BehaviorOverviewPage extends Component {
               <DateRangePicker></DateRangePicker>
             </div>
           </div>
-          <ComponentFilter isContinent />
+          {/* <ComponentFilter isContinent />
           <Row className="gx-24 mb-24">
             <Col lg={6}>
               <AreaChartComponent
@@ -157,7 +157,7 @@ class BehaviorOverviewPage extends Component {
                 />
               </div>
             </Col>
-          </Row>
+          </Row> */}
         </div>
       </>
     );

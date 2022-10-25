@@ -1,7 +1,10 @@
 import ComponentNoData from 'components/ComponentNoData';
 import HeaderFilterComponent from 'components/HeaderFilterComponent';
+import Spinner from 'components/Spinner';
+import PAGE_STATUS from 'constants/PageStatus';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
+import './index.scss';
 import {
   AreaChart,
   Area,
@@ -23,6 +26,7 @@ const AreaChartComponent = ({
   hiddenGrid,
   XAxisOptions, // Line Ngang
   YAxisOptions, // Line Doc
+  loading,
   ...props
 }) => {
   const { t } = props;
@@ -41,8 +45,9 @@ const AreaChartComponent = ({
       </div>
     );
   };
+  console.log('props', props);
   return (
-    <div className="bg-white rounded-3 p-24 shadow-sm h-100">
+    <div className="bg-white rounded-3 p-24 shadow-sm h-100 ChartWrapper">
       <HeaderFilterComponent chartTitle={chartTitle} isSelection={true} filterButtons={true} />
       {data.length ? (
         <>
@@ -109,6 +114,8 @@ const AreaChartComponent = ({
             </AreaChart>
           </ResponsiveContainer>
         </>
+      ) : loading === PAGE_STATUS.LOADING ? (
+        <Spinner />
       ) : (
         <div className="position-absolute top-50 start-50 translate-middle">
           <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />

@@ -9,18 +9,18 @@ import Spinner from '../../components/Spinner';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import Revenue from './Component/Revenue';
-import RegisteredUser from './Component/RegisteredUser';
+// import Revenue from './Component/Revenue';
+// import RegisteredUser from './Component/RegisteredUser';
 import CardComponent from './Component/Card';
-import ComponentContinent from 'components/ComponentContinent';
+// import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from 'components/DateRangePicker';
-import AreaChartComponent from 'components/AreaChartComponent';
+// import AreaChartComponent from 'components/AreaChartComponent';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-import {
-  BI_DASHBOARD_FIELD_KEY,
-  BI_NEW_USERS_KEY,
-  BI_CONTINENTS_KEY,
-} from 'library/Constant/BiConstant';
+// import {
+//   BI_DASHBOARD_FIELD_KEY,
+//   BI_NEW_USERS_KEY,
+//   BI_CONTINENTS_KEY,
+// } from 'library/Constant/BiConstant';
 import SummaryStore from 'store/SummaryStore/SummaryStore';
 import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
 import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';
@@ -41,7 +41,6 @@ const Dashboard = observer(
         if (this.props.history.location.pathname === '/' || !this.props.history.location.pathname) {
           this.props.history.push(`/${this.biListViewModel.activeDomain}`);
         }
-        // await this.biListViewModel.getDashboard();
       };
       fetchData();
     }
@@ -71,7 +70,7 @@ const Dashboard = observer(
           <SummaryStoreProvider viewModel={summaryViewModel}>
             <CardComponent></CardComponent>
           </SummaryStoreProvider>
-          <div className="row gx-24 mb-24">
+          {/* <div className="row gx-24 mb-24">
             <div className="col-lg-7">
               <AreaChartComponent
                 chartTitle={t('txt_total_revenue')}
@@ -153,7 +152,7 @@ const Dashboard = observer(
                 data={this.biListViewModel.data[BI_CONTINENTS_KEY.CONTINENTS]}
               ></ComponentContinent>
             </div>
-          </div>
+          </div> */}
         </div>
       );
     }

@@ -11,6 +11,7 @@ const ComponentCard = ({
   textPercent,
   options,
   defaultValue,
+  handleChange,
 }) => {
   return (
     <div className="bg-white p-24 shadow-sm rounded-3">
@@ -41,6 +42,7 @@ const ComponentCard = ({
             className={`fs-sm`}
             isBorder={true}
             arrowColor={'#222328'}
+            onChange={handleChange}
           />
         )}
       </div>

@@ -14,7 +14,9 @@ class Spinner extends React.Component {
   render() {
     return (
       <div
-        className={`position-absolute top-50 start-50 translate-middle ${this.props.color ?? ''}`}
+        className={`position-absolute top-50 start-50 translate-middle zindex-1 ${
+          this.props.color ?? ''
+        }`}
       >
         <div
           className="spinner-border text-primary"

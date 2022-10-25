@@ -44,7 +44,7 @@ const OverviewComponent = observer(
         : [];
 
       return (
-        <div className="position-relative">
+        <div className="position-relative h-100">
           <AreaChart
             chartTitle={t('txt_menu_overview')}
             height={390}

@@ -3,7 +3,53 @@ import SelectComponent from 'components/Select';
 import React, { useEffect, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 const ComponentContinent = ({ t, data = [] }) => {
-  const dataMap = [...data];
+  // const dataMap = [...data];
+  console.log(data);
+  const dataMap = [
+    {
+      country: 'Vietnam',
+      country_code: 'VN',
+      views: '698',
+      flag: '/assets/images/flags/flag-vietnam.png',
+    },
+    {
+      country: 'Thailand',
+      country_code: 'TH',
+      views: '200',
+      flag: '/assets/images/flags/flag-thailand.png',
+    },
+    {
+      country: 'Cambodia',
+      country_code: 'KH',
+      views: '100',
+      flag: '/assets/images/flags/flag-cambodia.png',
+    },
+    {
+      country: 'Malaysia',
+      country_code: 'MY',
+      views: '235',
+      flag: '/assets/images/flags/flag-malaysia.png',
+    },
+    {
+      country: 'Myanmar',
+      country_code: 'MM',
+      views: '333',
+      flag: '/assets/images/flags/flag-myanmar.png',
+    },
+    {
+      country: 'Singapore',
+      country_code: 'SG',
+      views: '555',
+      flag: '/assets/images/flags/flag-singapore.png',
+    },
+    {
+      country: 'Philippines',
+      country_code: 'PH',
+      views: '123',
+      flag: '/assets/images/flags/flag-philippines.png',
+    },
+  ];
+
   const [continent, setContinent] = useState();
   const handleSelectMap = (map) => {
     if (map) {

@@ -42,7 +42,18 @@ const Revenue = ({ t, data = [] }) => {
     ],
     []
   );
-  const dataTable = React.useMemo(() => [...data], [data]);
+  console.log(data);
+  // const dataTable = React.useMemo(() => [...data], [data]);
+  const dataTable = React.useMemo(
+    () => [
+      { type: 'Starter', percent: '66', value: '5240.85' },
+      { type: 'Team', percent: '15.6', value: '2524' },
+      { type: 'Growth', percent: '68', value: '7865.90' },
+      { type: 'Enterprise', percent: '98.5', value: '12240.85' },
+    ],
+    []
+  );
+
   return (
     <div className="py-2 bg-white rounded-3 shadow-sm h-100 overflow-hidden">
       <h2 className="py-16 px-24 mb-0 fs-4 fw-semibold text-blue-0">

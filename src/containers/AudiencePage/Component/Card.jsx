@@ -16,6 +16,9 @@ const CardComponent = observer(
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
       this.summaryListViewModel = this.viewModel ? this.viewModel.summaryListViewModel : null;
+      this.state = {
+        page_views: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+      };
     }
     componentDidMount() {
       let fetchData = async () => {
@@ -36,6 +39,12 @@ const CardComponent = observer(
         fetchData();
       }
     }
+
+    handleChange = (data) => {
+      this.setState({
+        page_views: data.value,
+      });
+    };
 
     render() {
       const { t } = this.props;
@@ -63,14 +72,22 @@ const CardComponent = observer(
                 title={t('txt_page_views')}
                 icon={'/assets/images/view.svg'}
                 iconColor={'#2E71B1'}
-                value={numberWithCommas(
-                  this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-                )}
+                value={numberWithCommas(this.summaryListViewModel?.data[this.state.page_views])}
                 isIncrease={false}
                 // percent={'13%'}
                 // textPercent={'form June'}
-                options={[{ label: 'All Users', value: 'all' }]}
-                defaultValue={{ label: 'All Users', value: 'all' }}
+                options={[
+                  { label: 'All', value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS },
+                  {
+                    label: 'Unique',
+                    value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
+                  },
+                ]}
+                defaultValue={{
+                  label: 'All',
+                  value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+                }}
+                handleChange={this.handleChange}
               ></ComponentCard>
             </Col>
             <Col lg={4}>

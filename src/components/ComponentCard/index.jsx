@@ -47,24 +47,26 @@ const ComponentCard = ({
       <div className="d-flex justify-content-between">
         <h3 className="mb-0 fw-semibold fs-1 text-color">{value}</h3>
         <div className="d-flex flex-wrap align-item-center">
-          <div className="d-flex w-100 mb-sm justify-content-end">
-            <span
-              className={`icon-grown arrow d-inline-block align-text-bottom ms-auto text-primary ${
-                isIncrease ? 'bg-green' : 'bg-red'
-              }`}
-              style={{
-                WebkitMaskImage: `url(${
-                  isIncrease ? '/assets/images/grown-up.svg' : '/assets/images/grown-down.svg'
-                })`,
-                WebkitMaskRepeat: 'no-repeat',
-                WebkitMaskPosition: 'center',
-              }}
-            ></span>
-            <span className={`${isIncrease ? 'text-green' : 'text-danger'} fw-semibold`}>
-              {isIncrease ? '+' : '-'}
-              {percent}
-            </span>
-          </div>
+          {percent && (
+            <div className="d-flex w-100 mb-sm justify-content-end">
+              <span
+                className={`icon-grown arrow d-inline-block align-text-bottom ms-auto text-primary ${
+                  isIncrease ? 'bg-green' : 'bg-red'
+                }`}
+                style={{
+                  WebkitMaskImage: `url(${
+                    isIncrease ? '/assets/images/grown-up.svg' : '/assets/images/grown-down.svg'
+                  })`,
+                  WebkitMaskRepeat: 'no-repeat',
+                  WebkitMaskPosition: 'center',
+                }}
+              ></span>
+              <span className={`${isIncrease ? 'text-green' : 'text-danger'} fw-semibold`}>
+                {isIncrease ? '+' : '-'}
+                {percent}
+              </span>
+            </div>
+          )}
           <div className="w-100 text-gray fs-sm text-end">{textPercent}</div>
         </div>
       </div>

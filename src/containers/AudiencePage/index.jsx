@@ -1,4 +1,4 @@
-import PieChart from 'components/PieChartComponent';
+// import PieChart from 'components/PieChartComponent';
 import React, { Component } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
@@ -30,16 +30,16 @@ const AudiencePage = observer(
 
     render() {
       const { t } = this.props;
-      const listNewUser = [
-        { email: 'phu.tran@r-digital.tech', status: 'Active' },
-        { email: 'babila@gmail.com', status: 'Waiting' },
-        { email: 'babila@gmail.com', status: 'Active' },
-        { email: 'babila@gmail.com', status: 'Active' },
-        { email: 'babila@gmail.com', status: 'Waiting' },
-        { email: 'babila@gmail.com', status: 'Active' },
-        { email: 'babila@gmail.com', status: 'Active' },
-        { email: 'babila@gmail.com', status: 'Waiting' },
-      ];
+      // const listNewUser = [
+      //   { email: 'phu.tran@r-digital.tech', status: 'Active' },
+      //   { email: 'babila@gmail.com', status: 'Waiting' },
+      //   { email: 'babila@gmail.com', status: 'Active' },
+      //   { email: 'babila@gmail.com', status: 'Active' },
+      //   { email: 'babila@gmail.com', status: 'Waiting' },
+      //   { email: 'babila@gmail.com', status: 'Active' },
+      //   { email: 'babila@gmail.com', status: 'Active' },
+      //   { email: 'babila@gmail.com', status: 'Waiting' },
+      // ];
       return (
         <>
           <div className="p-3">
@@ -68,7 +68,7 @@ const AudiencePage = observer(
                   <OverviewComponent></OverviewComponent>
                 </VisitorStoreProvider>
               </Col>
-              <Col lg={3}>
+              {/* <Col lg={3}>
                 <div className="bg-white h-100 rounded-3 shadow-sm py-3 px-24">
                   <h5 className="mb-24 text-blue-0">{t('txt_new_registered_users')}</h5>
                   {listNewUser &&
@@ -91,7 +91,7 @@ const AudiencePage = observer(
                       );
                     })}
                 </div>
-              </Col>
+              </Col> */}
             </Row>
             <Row>
               <Col lg={9}>
@@ -99,7 +99,7 @@ const AudiencePage = observer(
                   <CardComponent></CardComponent>
                 </SummaryStoreProvider>
               </Col>
-              <Col lg={3}>
+              {/* <Col lg={3}>
                 <PieChart
                   height={300}
                   chartTitle={t('txt_visitors')}
@@ -110,7 +110,7 @@ const AudiencePage = observer(
                   colors={['#1AB394', '#1A73E8']}
                   legendPosition="bottom"
                 />
-              </Col>
+              </Col> */}
             </Row>
           </div>
         </>

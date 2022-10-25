@@ -65,6 +65,7 @@ class VisitorListViewModel {
 
   callbackOnErrorHander = (error) => {
     this.status = PAGE_STATUS.READY;
+    this.data = [];
     notify(error.message, 'error');
   };
 

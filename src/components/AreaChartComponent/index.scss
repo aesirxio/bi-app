@@ -1,17 +1,5 @@
 @import '../../scss/utils/bootstrap.scss';
 
-.recharts-tooltip-wrapper:focus-visible {
-  outline: none !important;
-}
-.areachart-tooltip {
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 9px;
-    border-bottom: 6px solid $color-blue;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-  }
+.ChartWrapper {
+  min-height: 300px;
 }

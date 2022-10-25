@@ -47,13 +47,13 @@ const HeaderFilterComponent = ({
       )}
       {filterButtons && (
         <ButtonGroup>
-          <Button
+          {/* <Button
             onClick={() => setView('hours')}
             className={`${view == 'hours' && 'text-white'} py-1 px-15 fs-12 lh-sm shadow-none`}
             variant={view == 'hours' ? 'dark' : 'outline-secondary'}
           >
             {t('txt_hours')}
-          </Button>
+          </Button> */}
           <Button
             onClick={() => setView('days')}
             className={`${view == 'days' && 'text-white'} py-1 px-15 fs-12 lh-sm shadow-none`}
@@ -61,7 +61,7 @@ const HeaderFilterComponent = ({
           >
             {t('txt_days')}
           </Button>
-          <Button
+          {/* <Button
             onClick={() => setView('weeks')}
             className={`${view == 'weeks' && 'text-white'} py-1 px-15 fs-12 lh-sm shadow-none`}
             variant={view == 'weeks' ? 'dark' : 'outline-secondary'}
@@ -74,7 +74,7 @@ const HeaderFilterComponent = ({
             variant={view == 'months' ? 'dark' : 'outline-secondary'}
           >
             {t('txt_months')}
-          </Button>
+          </Button> */}
         </ButtonGroup>
       )}
     </div>

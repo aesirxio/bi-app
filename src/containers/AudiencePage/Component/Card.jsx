@@ -52,10 +52,10 @@ const CardComponent = observer(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
                 )}
                 isIncrease={true}
-                percent={'11%'}
-                textPercent={'form June'}
-                options={[{ label: 'All Users', value: 'all-user' }]}
-                defaultValue={{ label: 'All Users', value: 'all-user' }}
+                // percent={'11%'}
+                // textPercent={'form June'}
+                // options={[{ label: 'All Users', value: 'all-user' }]}
+                // defaultValue={{ label: 'All Users', value: 'all-user' }}
               ></ComponentCard>
             </Col>
             <Col lg={4}>
@@ -67,10 +67,10 @@ const CardComponent = observer(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
                 )}
                 isIncrease={false}
-                percent={'13%'}
-                textPercent={'form June'}
-                options={[{ label: 'All', value: 'all' }]}
-                defaultValue={{ label: 'All', value: 'all' }}
+                // percent={'13%'}
+                // textPercent={'form June'}
+                options={[{ label: 'All Users', value: 'all' }]}
+                defaultValue={{ label: 'All Users', value: 'all' }}
               ></ComponentCard>
             </Col>
             <Col lg={4}>
@@ -82,8 +82,8 @@ const CardComponent = observer(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION]
                 )}
                 isIncrease={false}
-                percent={'11%'}
-                textPercent={'form June'}
+                // percent={'11%'}
+                // textPercent={'form June'}
               ></ComponentCard>
             </Col>
           </Row>
@@ -97,8 +97,8 @@ const CardComponent = observer(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION]
                 )}
                 isIncrease={false}
-                percent={'11%'}
-                textPercent={'form June'}
+                // percent={'11%'}
+                // textPercent={'form June'}
               ></ComponentCard>
             </Col>
             <Col lg={4}>
@@ -110,8 +110,8 @@ const CardComponent = observer(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.BOUNCE_RATE]
                 )}
                 isIncrease={false}
-                percent={'11%'}
-                textPercent={'form June'}
+                // percent={'11%'}
+                // textPercent={'form June'}
               ></ComponentCard>
             </Col>
           </Row>

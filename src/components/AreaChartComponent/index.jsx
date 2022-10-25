@@ -27,18 +27,19 @@ const AreaChartComponent = ({
   XAxisOptions, // Line Ngang
   YAxisOptions, // Line Doc
   loading,
+  tooltipComponent,
   ...props
 }) => {
-  const { t } = props;
   const customizedTooltip = ({ payload }) => {
     return (
       <div className="areachart-tooltip p-15 text-white bg-blue-5 rounded-3">
-        <p className="text-uppercase fw-semibold fs-12 mb-sm">{t('txt_in_total')}</p>
+        <p className="text-uppercase fw-semibold fs-12 mb-sm">{tooltipComponent.header}</p>
         {payload &&
           payload.map((item, index) => {
             return (
               <p key={index} className="mb-0 fw-bold">
-                {payload.length > 1 && `${item.name}: `}$ {item.value}
+                {payload.length > 1 && `${item.name}: `}
+                {tooltipComponent.value} {item.value}
               </p>
             );
           })}

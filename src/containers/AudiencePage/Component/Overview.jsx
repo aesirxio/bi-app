@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import AreaChart from 'components/AreaChartComponent';
 import { withVisitorViewModel } from 'store/VisitorStore/VisitorViewModelContextProvider';
 import { observer } from 'mobx-react';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
+import AreaChartComponent from 'components/AreaChartComponent';
 
 const OverviewComponent = observer(
   class OverviewComponent extends Component {
@@ -45,7 +45,7 @@ const OverviewComponent = observer(
 
       return (
         <div className="position-relative h-100">
-          <AreaChart
+          <AreaChartComponent
             chartTitle={t('txt_menu_overview')}
             height={390}
             data={dataOverview}
@@ -63,6 +63,10 @@ const OverviewComponent = observer(
               { label: 'Localhost', value: 'localhost' },
             ]}
             loading={this.visitorListViewModel.status}
+            tooltipComponent={{
+              header: t('txt_in_total'),
+              value: `visits:`,
+            }}
           />
         </div>
       );

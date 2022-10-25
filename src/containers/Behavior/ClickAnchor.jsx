@@ -126,6 +126,10 @@ class BehaviorClickAnchorPage extends Component {
                 areaColors={['#1AB394', '#9747FF']}
                 lineColors={['#1AB394', '#9747FF']}
                 lines={['line1', 'line2']}
+                tooltipComponent={{
+                  header: t('txt_in_total'),
+                  value: `$`,
+                }}
               />
             </Col>
             <Col lg={6}>

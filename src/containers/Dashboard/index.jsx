@@ -133,6 +133,10 @@ const Dashboard = observer(
                 isDot
                 hiddenGrid={{ vertical: false }}
                 XAxisOptions={{ axisLine: true, padding: { left: 20, right: 10 } }}
+                 tooltipComponent={{
+                  header: t('txt_in_total'),
+                  value: `$`,
+                }}
               />
             </div>
             <div className="col-lg-5">

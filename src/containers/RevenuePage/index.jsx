@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-// import AreaChart from 'components/AreaChartComponent';
+// import AreaChartComponent from 'components/AreaChartComponent';
 // import RevenueList from './Component/RevenueList';
 
 class RevenuePage extends Component {
@@ -14,7 +14,7 @@ class RevenuePage extends Component {
               <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_menu_revenue')}</h2>
             </div>
           </div>
-          {/* <AreaChart
+          {/* <AreaChartComponent
             chartTitle={t('txt_total_revenue')}
             height={390}
             data={[
@@ -75,6 +75,10 @@ class RevenuePage extends Component {
             areaColors={['#165DFF']}
             lineColors={['#751FF9']}
             lines={['line1']}
+            tooltipComponent={{
+              header: t('txt_in_total'),
+              value: `$`,
+            }}
           />
           <div className="mt-4">
             <RevenueList></RevenueList>

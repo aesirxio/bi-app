@@ -49,6 +49,7 @@ const CardComponent = observer(
                 this.summaryListViewModel.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
               )}
               isIncrease={true}
+              loading={this.summaryListViewModel.status}
               // percent={`3%`}
               // textPercent={'form June'}
               // options={[{ label: 'All Users', value: 'all-user' }]}

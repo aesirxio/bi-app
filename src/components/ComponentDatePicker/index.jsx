@@ -9,10 +9,12 @@ import vi from 'date-fns/locale/vi';
 import de from 'date-fns/locale/de';
 import uk from 'date-fns/locale/uk';
 import es from 'date-fns/locale/es';
+import { enUS } from 'date-fns/locale';
 registerLocale('vi', vi);
 registerLocale('de', de);
 registerLocale('uk', uk);
 registerLocale('es', es);
+registerLocale('en-US', enUS);
 
 function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, isDays, ...props }) {
   const { t, i18n, viewModelArr } = props;
@@ -32,7 +34,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
   const handleApply = async (e, startDate, endDate) => {
     e.stopPropagation();
     viewModelArr.map(async (viewModel) => {
-      await viewModel?.handleFilterDateRange(startDate, endDate);
+      await viewModel?.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
     });
     setIsOpen(false);
   };
@@ -78,11 +80,15 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
     let endDate = end ? moment(end).format('DD MMM, YYYY') : '';
     let result = placeholder;
     if (start || end) {
-      result = getDateDiff(start, end) == 1 ? t('txt_today') : startDate + ' - ' + endDate;
+      result =
+        getDateDiff(start, end) == 1
+          ? startDate !== moment().format('DD MMM, YYYY')
+            ? startDate
+            : t('txt_today')
+          : startDate + ` ${endDate ? '-' : ''} ` + endDate;
     }
     return result;
   };
-
   return (
     <div onClick={handleOpenDatePicker} className="position-relative daterange-picker">
       <DatePicker

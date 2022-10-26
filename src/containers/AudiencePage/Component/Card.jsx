@@ -60,6 +60,7 @@ const CardComponent = observer(
                 value={numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
                 )}
+                loading={this.summaryListViewModel.status}
                 isIncrease={true}
                 // percent={'11%'}
                 // textPercent={'form June'}
@@ -83,6 +84,7 @@ const CardComponent = observer(
                     value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
                   },
                 ]}
+                loading={this.summaryListViewModel.status}
                 defaultValue={{
                   label: 'All',
                   value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
@@ -98,6 +100,7 @@ const CardComponent = observer(
                 value={numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION]
                 )}
+                loading={this.summaryListViewModel.status}
                 isIncrease={false}
                 // percent={'11%'}
                 // textPercent={'form June'}
@@ -113,6 +116,7 @@ const CardComponent = observer(
                 value={numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION]
                 )}
+                loading={this.summaryListViewModel.status}
                 isIncrease={false}
                 // percent={'11%'}
                 // textPercent={'form June'}
@@ -126,6 +130,7 @@ const CardComponent = observer(
                 value={numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.BOUNCE_RATE]
                 )}
+                loading={this.summaryListViewModel.status}
                 isIncrease={false}
                 // percent={'11%'}
                 // textPercent={'form June'}

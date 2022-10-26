@@ -53,9 +53,6 @@ const Dashboard = observer(
 
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
-          {summaryViewModel.summaryListViewModel.status === PAGE_STATUS.LOADING ? (
-            <Spinner />
-          ) : null}
           <div className="d-flex align-items-center justify-content-between mb-24">
             <div className="position-relative">
               <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_dashboard')}</h2>

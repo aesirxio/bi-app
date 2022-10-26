@@ -12,8 +12,6 @@ import VisitorStore from 'store/VisitorStore/VisitorStore';
 import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';
 import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
 import SummaryStore from 'store/SummaryStore/SummaryStore';
-import Spinner from 'components/Spinner';
-import PAGE_STATUS from 'constants/PageStatus';
 
 const visitorStore = new VisitorStore();
 const visitorViewModel = new VisitorViewModel(visitorStore);
@@ -43,10 +41,6 @@ const AudiencePage = observer(
       return (
         <>
           <div className="p-3">
-            {summaryViewModel.summaryListViewModel.status === PAGE_STATUS.LOADING ||
-            visitorViewModel.visitorListViewModel.status === PAGE_STATUS.LOADING ? (
-              <Spinner />
-            ) : null}
             <div className="d-flex align-items-center justify-content-between mb-3">
               <div>
                 <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_audience')}</h2>

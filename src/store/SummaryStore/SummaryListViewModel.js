@@ -74,6 +74,7 @@ class SummaryListViewModel {
       this.data = data;
     } else {
       this.status = PAGE_STATUS.ERROR;
+      this.data = [];
     }
   };
 }

@@ -17,7 +17,7 @@ const OverviewComponent = observer(
     }
     componentDidMount() {
       let fetchData = async () => {
-        await this.visitorListViewModel.getVisitor({
+        await this.visitorListViewModel?.getVisitor({
           'filter[domain]': this.props.parentStore.biListViewModel.activeDomain,
         });
       };
@@ -37,18 +37,13 @@ const OverviewComponent = observer(
 
     render() {
       const { t } = this.props;
-      let dataOverview = this.visitorListViewModel
-        ? this.visitorListViewModel?.data?.map((item) => {
-            return { name: item.date, line: item.visits };
-          })
-        : [];
 
       return (
         <div className="position-relative h-100">
           <AreaChartComponent
             chartTitle={t('txt_menu_overview')}
             height={390}
-            data={dataOverview}
+            data={this?.visitorListViewModel?.data}
             colors={['#1AB394']}
             lineType="monotone"
             areaColors={['#3BB346', 'pink']}

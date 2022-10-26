@@ -1,6 +1,5 @@
 import ComponentNoData from 'components/ComponentNoData';
 import HeaderFilterComponent from 'components/HeaderFilterComponent';
-import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -14,6 +13,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import RingLoaderComponent from 'components/Spinner/ringLoader';
 const AreaChartComponent = ({
   data,
   height,
@@ -28,7 +28,7 @@ const AreaChartComponent = ({
   YAxisOptions, // Line Doc
   loading,
   tooltipComponent,
-  ...props
+  // ...props
 }) => {
   const customizedTooltip = ({ payload }) => {
     return (
@@ -46,11 +46,12 @@ const AreaChartComponent = ({
       </div>
     );
   };
-  console.log('props', props);
   return (
     <div className="bg-white rounded-3 p-24 shadow-sm h-100 ChartWrapper">
       <HeaderFilterComponent chartTitle={chartTitle} isSelection={true} filterButtons={true} />
-      {data.length ? (
+      {loading === PAGE_STATUS.LOADING ? (
+        <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white" />
+      ) : data.length ? (
         <>
           <ResponsiveContainer width="100%" height={height ?? 500}>
             <AreaChart data={data}>
@@ -115,8 +116,6 @@ const AreaChartComponent = ({
             </AreaChart>
           </ResponsiveContainer>
         </>
-      ) : loading === PAGE_STATUS.LOADING ? (
-        <Spinner />
       ) : (
         <div className="position-absolute top-50 start-50 translate-middle">
           <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />

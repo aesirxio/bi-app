@@ -1,6 +1,8 @@
 import React from 'react';
 import './index.scss';
 import SelectComponent from 'components/Select';
+import PulseLoaderComponent from 'components/Spinner/pulseLoader';
+import PAGE_STATUS from 'constants/PageStatus';
 const ComponentCard = ({
   title,
   icon,
@@ -12,6 +14,7 @@ const ComponentCard = ({
   options,
   defaultValue,
   handleChange,
+  loading,
 }) => {
   return (
     <div className="bg-white p-24 shadow-sm rounded-3">
@@ -46,7 +49,13 @@ const ComponentCard = ({
           />
         )}
       </div>
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between position-relative">
+        {loading === PAGE_STATUS.LOADING && (
+          <PulseLoaderComponent
+            className="d-flex justify-content-start align-items-center bg-white"
+            size="10px"
+          />
+        )}
         <h3 className="mb-0 fw-semibold fs-1 text-color">{value}</h3>
         <div className="d-flex flex-wrap align-item-center">
           {percent && (

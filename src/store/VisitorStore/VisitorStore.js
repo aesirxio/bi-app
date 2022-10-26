@@ -14,7 +14,7 @@ export default class VisitorStore {
       const responsedDataFromLibary = await biService.getVisitor(dataFilter);
       if (responsedDataFromLibary) {
         const homeDataModels =
-          VisitorUtils.transformPersonaResponseIntoModel(responsedDataFromLibary);
+          VisitorUtils.transformVisitorResponseIntoModel(responsedDataFromLibary);
 
         if (homeDataModels) {
           runInAction(() => {
@@ -34,17 +34,9 @@ export default class VisitorStore {
               message: 'isCancle',
             });
           });
-        } else if (responsedDataFromLibary === null) {
-          runInAction(() => {
-            callbackOnError({
-              message: 'No Result',
-            });
-          });
         } else {
           runInAction(() => {
-            callbackOnError({
-              message: 'Something went wrong from Server response',
-            });
+            callbackOnSuccess([]);
           });
         }
       }

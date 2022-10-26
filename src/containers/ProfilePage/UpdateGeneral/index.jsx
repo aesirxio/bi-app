@@ -11,7 +11,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { withTranslation } from 'react-i18next';
 import SimpleReactValidator from 'simple-react-validator';
 import FormComponent from '../../../components/Form';
-import Spinner from '../../../components/Spinner';
+// import Spinner from '../../../components/Spinner';
 import { FORM_FIELD_TYPE } from '../../../constants/FormFieldType';
 import { UPDATE_GENERAL_FIELD_KEY } from '../../../constants/ProfileModule';
 import '../index.scss';
@@ -143,7 +143,8 @@ const UpdateGeneral = observer(
       return (
         <>
           {!memberInfo ? (
-            <Spinner />
+            // <Spinner />
+            <></>
           ) : (
             <div className="bg-white p-16 rounded-3">
               <div className="row">

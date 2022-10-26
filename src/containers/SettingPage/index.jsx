@@ -3,15 +3,15 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React, { Suspense } from 'react';
-import Spinner from '../../components/Spinner';
+import React from 'react';
+// import Spinner from '../../components/Spinner';
 
 import SettingStore from './SettingStore/SettingStore';
 
 import { withTranslation } from 'react-i18next';
 import SettingViewModel from './SettingViewModel/SettingViewModel';
 import { SettingViewModelContextProvider } from './SettingViewModel/SettingViewModelContextProvider';
-import SettingList from './SettingList/SettingList';
+// import SettingList from './SettingList/SettingList';
 import './index.scss';
 const settingStore = new SettingStore();
 
@@ -22,15 +22,17 @@ const HomePage = (props) => {
 
   return (
     <SettingViewModelContextProvider viewModel={settingViewModel}>
-      <div className="py-4 px-3 h-100 storage-content">
-        <div className="mb-4">
-          <h2 className="text-blue-0">{t('txt_configuration_storage')}</h2>
-          <p>{t('txt_configuration_desc')}</p>
+      <div className="py-4 px-3 h-100 d-flex flex-column">
+        <div className="d-flex align-items-center justify-content-between mb-24">
+          <div className="position-relative">
+            <h1 className="text-blue-0 fw-bold mb-8px fs-2">{t('txt_menu_setting')}</h1>
+          </div>
         </div>
-        <Suspense fallback={<Spinner />}>
-          <SettingList />
-        </Suspense>
       </div>
+
+      {/* <Suspense fallback={<Spinner />}>
+          <SettingList />
+        </Suspense> */}
     </SettingViewModelContextProvider>
   );
 };

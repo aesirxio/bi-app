@@ -39,7 +39,7 @@ const Dashboard = observer(
     componentDidMount() {
       let fetchData = async () => {
         if (this.props.history.location.pathname === '/' || !this.props.history.location.pathname) {
-          this.props.history.push(`/${this.biListViewModel.activeDomain}`);
+          this.props.history.push(`/data-${this.biListViewModel.activeDomain}`);
         }
       };
       fetchData();

@@ -67,63 +67,63 @@ const Menu = observer((props) => {
   const dataMenu = [
     {
       text: 'txt_menu_dashboard',
-      link: `/${dataStreamActive}`,
+      link: `/data-${dataStreamActive}`,
       icons: '/assets/images/dashboard.svg',
       icons_color: '/assets/images/dashboard.svg',
     },
     {
       text: 'txt_menu_audience',
-      link: `/${dataStreamActive}/audience`,
+      link: `/data-${dataStreamActive}/audience`,
       icons: '/assets/images/audience.svg',
       icons_color: '/assets/images/audience.svg',
       submenu: [
         {
           text: 'txt_menu_overview',
-          link: `/${dataStreamActive}/audience/overview`,
+          link: `/data-${dataStreamActive}/audience/overview`,
         },
       ],
     },
     {
       text: 'txt_menu_behavior',
-      link: `/${dataStreamActive}/behavior`,
+      link: `/data-${dataStreamActive}/behavior`,
       icons: '/assets/images/behavior.svg',
       icons_color: '/assets/images/behavior.svg',
       submenu: [
         {
           text: 'txt_menu_overview',
-          link: `/${dataStreamActive}/behavior/overview`,
+          link: `/data-${dataStreamActive}/behavior/overview`,
         },
         {
           text: 'txt_menu_click_anchor',
-          link: `/${dataStreamActive}/behavior/click-anchor`,
+          link: `/data-${dataStreamActive}/behavior/click-anchor`,
         },
         {
           text: 'txt_menu_utm_tracking',
-          link: `/${dataStreamActive}/behavior/utm-tracking`,
+          link: `/data-${dataStreamActive}/behavior/utm-tracking`,
         },
       ],
     },
     {
       text: 'txt_menu_revenue',
-      link: `/${dataStreamActive}/revenue`,
+      link: `/data-${dataStreamActive}/revenue`,
       icons: '/assets/images/revenue.svg',
       icons_color: '/assets/images/revenue.svg',
     },
     {
       text: 'txt_menu_subscription',
-      link: `/${dataStreamActive}/subscription`,
+      link: `/data-${dataStreamActive}/subscription`,
       icons: '/assets/images/subscription.svg',
       icons_color: '/assets/images/subscription.svg',
     },
     {
       text: 'txt_menu_member_roles',
-      link: `/${dataStreamActive}/member-roles`,
+      link: `/data-${dataStreamActive}/member-roles`,
       icons: '/assets/images/member-roles.svg',
       icons_color: '/assets/images/member-roles.svg',
     },
     {
       text: 'txt_menu_data_stream',
-      link: `/${dataStreamActive}/data-stream`,
+      link: `/data-${dataStreamActive}/data-stream`,
       icons: '/assets/images/data-stream.svg',
       icons_color: '/assets/images/data-stream.svg',
     },
@@ -135,7 +135,7 @@ const Menu = observer((props) => {
       await biStore.biListViewModel.getListDomain();
       if (props.match.params.domain) {
         biStore.biListViewModel.setActiveDomain(props.match.params.domain);
-        setDataStreamActive(props.match.params.domain);
+        setDataStreamActive(`${props.match.params.domain}`);
       }
     };
 

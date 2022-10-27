@@ -14,7 +14,7 @@ const DateRangePicker = (props) => {
     <div
       style={{ minHeight: '50px' }}
       ref={datePickerRef}
-      className="d-flex align-items-center bg-white rounded-1 shadow-sm py-sm"
+      className="d-flex align-items-center bg-white rounded-1 shadow-sm"
     >
       <ComponentDatePicker
         isOpen={openDatePicker}

@@ -159,9 +159,13 @@ const Menu = observer((props) => {
             <div className="data-stream-text mb-sm text-start">{t('txt_menu_data_stream')}</div>
             <div className="data-stream-value fw-bold text-white mb-0 text-start">
               {
-                biStore.biListViewModel?.data?.find((x) => x.domain === props.match.params.domain)
-                  ?.name
+                biStore.biListViewModel?.data?.find(
+                  (x) => x.domain === biStore.biListViewModel?.activeDomain
+                )?.name
               }
+            </div>
+            <div className="data-stream-domain text-white mb-0 text-start fs-14">
+              {biStore.biListViewModel?.activeDomain}
             </div>
           </div>
           <span

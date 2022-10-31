@@ -21,6 +21,7 @@
   --date-picker-header-bg: #fff;
 
   --input-disabled-bg: #e9ecef;
+  --input-gray-bg: #f6f8fa;
   --input-placeholder-color: var(--body-color);
 
   --calendar-current-timeline: #74ad31;
@@ -75,6 +76,9 @@
   }
   .bg-blue-3 {
     background-color: var(--view-active-bg) !important;
+  }
+  .bg-gray-100 {
+    background-color: var(--input-gray-bg) !important;
   }
   .btn {
     &.btn-success {

@@ -64,8 +64,8 @@ const CardComponent = observer(
                 isIncrease={true}
                 // percent={'11%'}
                 // textPercent={'form June'}
-                // options={[{ label: 'All Users', value: 'all-user' }]}
-                // defaultValue={{ label: 'All Users', value: 'all-user' }}
+                options={[{ label: 'All Users', value: 'all-user' }]}
+                defaultValue={{ label: 'All Users', value: 'all-user' }}
               ></ComponentCard>
             </Col>
             <Col lg={4}>

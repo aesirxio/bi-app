@@ -1,7 +1,7 @@
 const { default: axios } = require('axios');
 ((window) => {
   const { location, localStorage, document, history } = window;
-  const { hostname, pathname, search } = location;
+  const { pathname, search, origin } = location;
   const { currentScript } = document;
 
   if (!currentScript) return;
@@ -23,44 +23,20 @@ const { default: axios } = require('axios');
     };
   };
 
-  const doNotTrack = () => {
-    const { doNotTrack, navigator, external } = window;
-
-    const msTrackProtection = 'msTrackingProtectionEnabled';
-    const msTracking = () => {
-      return external && msTrackProtection in external && external[msTrackProtection]();
-    };
-
-    const dnt = doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || msTracking();
-
-    return dnt == '1' || dnt === 'yes';
-  };
-
-  const trackingDisabled = () =>
-    (localStorage && localStorage.getItem('umami.disabled')) ||
-    (dnt && doNotTrack()) ||
-    (domain && !domains.includes(hostname));
-
   const _data = 'data-';
   const _false = 'false';
   const attr = currentScript.getAttribute.bind(currentScript);
   const website = attr(_data + 'website-id');
 
-  const hostUrl = attr(_data + 'host-url');
+  const hostUrl = endpoint_url;
   const autoTrack = attr(_data + 'auto-track') !== _false;
-  const dnt = attr(_data + 'do-not-track');
-  const cssEvents = attr(_data + 'css-events') !== _false;
-  const domain = attr(_data + 'domains') || '';
-  const domains = domain.split(',').map((n) => n.trim());
   const root = hostUrl
     ? hostUrl.replace(/\/$/, '')
     : currentScript.src.split('/').slice(0, -1).join('/');
-  const endpoint = `${root}/index.php?webserviceClient=site&webserviceVersion=1.0.0&option=reditem&view=webevent&task=init&api=hal`;
-  const eventClass = /^umami--([a-z]+)--([\w]+[\w-]*)$/;
-  const eventSelect = "[class*='umami--']";
-
-  let listeners = {};
-  let currentUrl = `${pathname}${search}`;
+  const endpointInit = `${root}/index.php?webserviceClient=site&webserviceVersion=1.0.0&option=reditem&view=webevent&task=init&api=hal`;
+  const endpointStart = `${root}/index.php?webserviceClient=site&webserviceVersion=1.0.0&option=reditem&view=webevent&task=start&api=hal`;
+  const endpointEnd = `${root}/index.php?webserviceClient=site&webserviceVersion=1.0.0&option=reditem&view=webevent&task=end&api=hal`;
+  let currentUrl = `${origin}${pathname}${search}`;
   let currentRef = document.referrer;
   let currentUserAgent = window.navigator.userAgent;
   let cache;
@@ -75,14 +51,33 @@ const { default: axios } = require('axios');
     return res.data.IPv4;
   };
   const initTracker = async (payload) => {
-    if (trackingDisabled()) return;
-    return fetch(endpoint, {
+    const fetchData = await fetch(endpointInit, {
       method: 'POST',
       body: JSON.stringify(payload),
-      headers: assign({ 'Content-Type': 'application/json' }, { ['x-umami-cache']: cache }),
-    })
-      .then((res) => res.text())
-      .then((text) => (cache = text));
+      headers: assign({ 'Content-Type': 'application/json' }, { ['x-tracker-cache']: cache }),
+    });
+    const response = await fetchData.json();
+    return response;
+  };
+
+  const startTracker = async (payload) => {
+    const fetchData = await fetch(endpointStart, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: assign({ 'Content-Type': 'application/json' }, { ['x-tracker-cache']: cache }),
+    });
+    const response = await fetchData.json();
+    return response;
+  };
+
+  const endTracker = async (payload) => {
+    const fetchData = await fetch(endpointEnd, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: assign({ 'Content-Type': 'application/json' }, { ['x-tracker-cache']: cache }),
+    });
+    const response = await fetchData.json();
+    return response;
   };
 
   const trackView = async (
@@ -90,15 +85,38 @@ const { default: axios } = require('axios');
     referrer = currentRef,
     user_agent = currentUserAgent
   ) => {
-    let ip = await getIpAddress();
-    initTracker(
-      assign(getPayload(), {
-        url,
-        referrer,
-        user_agent,
-        ip,
-      })
-    );
+    // Init Tracker
+    if (!localStorage.getItem('event_id') && !localStorage.getItem('uuid')) {
+      let ip = await getIpAddress();
+      const response = await initTracker({
+        url: url,
+        referrer: referrer,
+        user_agent: user_agent,
+        ip: ip,
+      });
+      localStorage.setItem('event_id', response.result.event_id);
+      localStorage.setItem('uuid', response.result.uuid);
+    }
+    // Start Tracker
+    const responseStart = await startTracker({
+      event_id: localStorage.getItem('event_id'),
+      uuid: localStorage.getItem('uuid'),
+      referrer: referrer,
+      url: url,
+    });
+    if (responseStart) {
+      localStorage.setItem('event_id_start', responseStart.result.event_id);
+      localStorage.setItem('uuid_start', responseStart.result.uuid);
+    }
+  };
+
+  const endTrackView = async () => {
+    // End Tracker
+    const responseEnd = await endTracker({
+      event_id: localStorage.getItem('event_id_start'),
+      uuid: localStorage.getItem('uuid_start'),
+    });
+    return responseEnd;
   };
 
   const trackEvent = (eventName, eventData, url = currentUrl, websiteUuid = website) =>
@@ -111,50 +129,6 @@ const { default: axios } = require('axios');
         event_data: eventData,
       })
     );
-
-  /* Handle events */
-
-  const addEvents = (node) => {
-    const elements = node.querySelectorAll(eventSelect);
-    Array.prototype.forEach.call(elements, addEvent);
-  };
-
-  const addEvent = (element) => {
-    const get = element.getAttribute.bind(element);
-    (get('class') || '').split(' ').forEach((className) => {
-      if (!eventClass.test(className)) return;
-
-      const [, event, name] = className.split('--');
-
-      const listener = listeners[className]
-        ? listeners[className]
-        : (listeners[className] = (e) => {
-            if (
-              event === 'click' &&
-              element.tagName === 'A' &&
-              !(
-                e.ctrlKey ||
-                e.shiftKey ||
-                e.metaKey ||
-                (e.button && e.button === 1) ||
-                get('target')
-              )
-            ) {
-              e.preventDefault();
-              trackEvent(name).then(() => {
-                const href = get('href');
-                if (href) {
-                  location.href = href;
-                }
-              });
-            } else {
-              trackEvent(name);
-            }
-          });
-
-      element.addEventListener(event, listener, true);
-    });
-  };
 
   /* Handle history changes */
 
@@ -175,46 +149,33 @@ const { default: axios } = require('axios');
     }
   };
 
-  const observeDocument = () => {
-    const monitorMutate = (mutations) => {
-      mutations.forEach((mutation) => {
-        const element = mutation.target;
-        addEvent(element);
-        addEvents(element);
-      });
-    };
-
-    const observer = new MutationObserver(monitorMutate);
-    observer.observe(document, { childList: true, subtree: true });
-  };
-
   /* Global */
 
-  if (!window.umami) {
-    const umami = (eventValue) => trackEvent(eventValue);
-    umami.trackView = trackView;
-    umami.trackEvent = trackEvent;
+  if (!window.tracker) {
+    const tracker = (eventValue) => trackEvent(eventValue);
+    tracker.trackView = trackView;
+    tracker.trackEvent = trackEvent;
 
-    window.umami = umami;
+    window.tracker = tracker;
   }
 
   /* Start */
 
-  if (autoTrack && !trackingDisabled()) {
+  if (autoTrack) {
     history.pushState = hook(history, 'pushState', handlePush);
     history.replaceState = hook(history, 'replaceState', handlePush);
 
     const update = () => {
       if (document.readyState === 'complete') {
         trackView();
-        if (cssEvents) {
-          addEvents(document);
-          observeDocument();
-        }
       }
     };
 
     document.addEventListener('readystatechange', update, true);
+
+    window.addEventListener('beforeunload', async () => {
+      await endTrackView();
+    });
 
     update();
   }

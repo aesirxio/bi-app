@@ -28,6 +28,7 @@ export default {
     replace({
       delimiters: ['', ''],
       preventAssignment: true,
+      endpoint_url: JSON.stringify(process.env.REACT_APP_ENDPOINT_URL),
     }),
     buble({
       objectAssign: true,

@@ -6,6 +6,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { babel } from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
+import { uglify } from 'rollup-plugin-uglify';
 
 export default {
   input: 'src/library/Tracker/index.js',
@@ -28,7 +29,7 @@ export default {
     replace({
       delimiters: ['', ''],
       preventAssignment: true,
-      endpoint_url: JSON.stringify(process.env.REACT_APP_ENDPOINT_URL),
+      envEndpoint: JSON.stringify(process.env.REACT_APP_ENDPOINT_URL),
     }),
     buble({
       objectAssign: true,
@@ -38,5 +39,6 @@ export default {
       },
     }),
     terser({ compress: { evaluate: false } }),
+    uglify(),
   ],
 };

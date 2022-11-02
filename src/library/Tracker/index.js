@@ -28,7 +28,7 @@ const { default: axios } = require('axios');
   const attr = currentScript.getAttribute.bind(currentScript);
   const website = attr(_data + 'website-id');
 
-  const hostUrl = endpoint_url;
+  const hostUrl = envEndpoint;
   const autoTrack = attr(_data + 'auto-track') !== _false;
   const root = hostUrl
     ? hostUrl.replace(/\/$/, '')

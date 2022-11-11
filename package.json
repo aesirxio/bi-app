@@ -61,17 +61,17 @@
     "simple-react-validator": "^1.6.0",
     "swiper": "^6.3.5",
     "url": "^0.11.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "analytics": "git+ssh://git@gitlab.redweb.dk:aesirx/analytics.git#master"
   },
   "scripts": {
     "start": "npm run build && serve -s build",
-    "build": "npm run build-tracker && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "dev": "npm run build-tracker && react-scripts start",
+    "dev": "react-scripts start",
     "lint": "eslint --fix \"src/**/\"",
     "lint:check": "eslint \"src/**/\"",
-    "lint:nowarns": "eslint --quiet \"src/**/\"",
-    "build-tracker": "rollup -c \"src/library/Tracker/rollup.tracker.config.js\""
+    "lint:nowarns": "eslint --quiet \"src/**/\""
   },
   "eslintConfig": {
     "extends": [

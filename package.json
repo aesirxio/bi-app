@@ -65,13 +65,12 @@
   },
   "scripts": {
     "start": "npm run build && serve -s build",
-    "build": "npm run build-tracker && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "dev": "npm run build-tracker && react-scripts start",
+    "dev": "react-scripts start",
     "lint": "eslint --fix \"src/**/\"",
     "lint:check": "eslint \"src/**/\"",
-    "lint:nowarns": "eslint --quiet \"src/**/\"",
-    "build-tracker": "rollup -c \"src/library/Tracker/rollup.tracker.config.js\""
+    "lint:nowarns": "eslint --quiet \"src/**/\""
   },
   "eslintConfig": {
     "extends": [
@@ -101,7 +100,8 @@
     "react-scripts": "^5.0.1",
     "rollup": "^3.2.4",
     "sass": "^1.52",
-    "serve": "^13.0.2"
+    "serve": "^13.0.2",
+    "analytics": "git+ssh://git@gitlab.redweb.dk:aesirx/analytics.git#master"
   },
   "overrides": {
     "autoprefixer": "10.4.5"

@@ -13,7 +13,7 @@ stages:
 
 .before_script: &build_before
   before_script:
-    - apk add --update openssh-client rsync
+    - apk add --update openssh-client rsync && apk add git
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh

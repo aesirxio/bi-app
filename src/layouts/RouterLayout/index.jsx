@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route, Router, Switch } from 'react-router-dom';
 import { authRoutes, mainRoutes, settingRoutes } from '../../routes/routes';
 
 import AuthLayout from '../AuthLayout';
@@ -17,7 +17,8 @@ import NotFound from '../../containers/NotFound';
 import { BiStoreProvider } from 'store/BiStore/BiViewModelContextProvider';
 import BiViewModel from 'store/BiStore/BiViewModel';
 import BiStore from 'store/BiStore/BiStore';
-import { AnalyticsReact } from 'analytics';
+import history from '../../routes/history';
+import AnalyticsContainer from 'components/AnalyticsContainer';
 
 const biStore = new BiStore();
 const biViewModel = new BiViewModel(biStore);
@@ -45,27 +46,30 @@ const RouterLayout = () => {
     .reduce((arr, el) => {
       return arr.concat(el);
     }, []);
-  const location = useLocation();
   return (
     <>
       <Toast />
-      <AnalyticsReact pathname={location.pathname} />
-      <Switch>
-        <Route exact path={authPath}>
-          <AuthLayout />
-        </Route>
-        <BiStoreProvider viewModel={biViewModel}>
-          <Route exact path={mainPath}>
-            <MainLayout />
-          </Route>
-          <Route exact path={settingPath}>
-            <SettingLayout />
-          </Route>
-        </BiStoreProvider>
-        <Route path="*">
-          <NotFound />
-        </Route>
-      </Switch>
+      <BrowserRouter>
+        <Router history={history}>
+          <AnalyticsContainer />
+          <Switch>
+            <Route exact path={authPath}>
+              <AuthLayout />
+            </Route>
+            <BiStoreProvider viewModel={biViewModel}>
+              <Route exact path={mainPath}>
+                <MainLayout />
+              </Route>
+              <Route exact path={settingPath}>
+                <SettingLayout />
+              </Route>
+            </BiStoreProvider>
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
+        </Router>
+      </BrowserRouter>
     </>
   );
 };

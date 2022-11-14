@@ -4,6 +4,8 @@
         {"name": "DMA", "domain": "dma.aesirx.io"},
         {"name": "DAM", "domain": "dam.aesirx.io"},
         {"name": "AesirX Deck", "domain": "deck.aesirx.io"},
-        {"name": "AesirX Retargeting", "domain": "retargeting.aesirx.io"}
+        {"name": "AesirX Retargeting", "domain": "retargeting.aesirx.io"},
+        {"name": "R-digital", "domain": "r-digital.tech"},
+        {"name": "Next-gen", "domain": "next-gen.io"}
     ]
 }

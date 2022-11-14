@@ -90,7 +90,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
     return result;
   };
   return (
-    <div onClick={handleOpenDatePicker} className="position-relative daterange-picker">
+    <div onClick={handleOpenDatePicker} className="position-relative daterange-picker w-100">
       <DatePicker
         style={{ margin: 0 }}
         dateFormat="dd MMM, yyyy"
@@ -109,7 +109,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
         }
         isClearable={false}
         className={`${
-          isDays ? 'fs-14 fw-semibold mw-120' : 'ps-16 pe-5'
+          isDays ? 'fs-14 fw-semibold mw-120' : 'ps-16 pe-6'
         } form-control border-0 rounded-1 text-color opacity-100 h-100`}
         showPopperArrow={false}
         monthsShown={2}

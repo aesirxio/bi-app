@@ -27,6 +27,11 @@
         color: $white !important;
       }
     }
+    &.active {
+      .icon.arrow {
+        transform: rotate(90deg);
+      }
+    }
 
     i,
     span {
@@ -122,7 +127,7 @@ body.mini_left {
         font-size: $h5-font-size;
       }
       &.active,
-      :hover {
+      &:hover {
         .data-stream-text {
           color: $white;
         }

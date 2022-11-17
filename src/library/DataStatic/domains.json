@@ -7,6 +7,7 @@
         {"name": "AesirX Retargeting", "domain": "retargeting.aesirx.io"},
         {"name": "R-digital", "domain": "r-digital.tech"},
         {"name": "Smile R-digital", "domain": "smile.r-digital.tech"},
-        {"name": "Next-gen", "domain": "next-gen.io"}
+        {"name": "Next-gen", "domain": "next-gen.io"},
+        {"name": "Deck Next-gen", "domain": "deck.next-gen.io"}
     ]
 }

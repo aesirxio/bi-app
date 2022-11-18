@@ -61,7 +61,7 @@ class LoginPage extends React.Component {
     return (
       <div className="vh-100 bg-blue-9">
         <div className="row justify-content-center align-items-center h-100">
-          <div className="col-4">
+          <div className="col-lg-4">
             <p className="fs-2 fw-bold mb-2 text-center">
               <img
                 className="pe-2"

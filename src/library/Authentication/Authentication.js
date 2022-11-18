@@ -159,7 +159,7 @@ class AesirxAuthenticationApiService {
           [key[AUTHORIZATION_KEY.REFRESH_TOKEN]]: refreshToken,
         };
         this.setStore(setStore);
-
+        window.history.go(0);
         return Promise.resolve();
       },
       (error) => {

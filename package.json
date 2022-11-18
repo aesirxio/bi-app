@@ -10,6 +10,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
+    "aesirx_analytics": "git+https://gitlab-ci-token:glpat-1xAG_m-nd5yc5i4Hg7mx@gitlab.redweb.dk/aesirx/analytics.git#master",
     "axios": "^0.21.0",
     "axios-auth-refresh": "^3.0.0",
     "bootstrap": "5.2.2",
@@ -51,8 +52,7 @@
     "simple-react-validator": "^1.6.0",
     "swiper": "^6.3.5",
     "url": "^0.11.0",
-    "web-vitals": "^2.1.4",
-    "aesirx_analytics": "git+https://gitlab-ci-token:glpat-1xAG_m-nd5yc5i4Hg7mx@gitlab.redweb.dk/aesirx/analytics.git#master"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "npm run build && serve -s build",

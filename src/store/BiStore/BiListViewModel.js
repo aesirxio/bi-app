@@ -37,11 +37,12 @@ class BiListViewModel {
     );
   };
 
-  getListDomain = (dataFilter) => {
+  getListDomain = (dataFilter, listDomains) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     this.biStore.getListDomain(
       this.dataFilter,
+      listDomains,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
     );

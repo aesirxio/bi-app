@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { withSummaryViewModel } from 'store/SummaryStore/SummaryViewModelContextProvider';
 import ComponentCard from 'components/ComponentCard';
-import { BI_SUMMARY_FIELD_KEY } from 'library/Constant/BiConstant';
+import { BI_SUMMARY_FIELD_KEY } from 'aesirx-dma-lib/src/Constant/BiConstant';
 import { observer } from 'mobx-react';
 import numberWithCommas from 'utils/formatNumber';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';

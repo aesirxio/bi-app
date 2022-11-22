@@ -13,8 +13,8 @@ import { withTranslation } from 'react-i18next';
 import ProfileStore from './ProfileStore/ProfileStore';
 import ProfileViewModel from './ProfileViewModel/ProfileViewModel';
 import { ProfileViewModelContextProvider } from './ProfileViewModel/ProfileViewModelContextProvider';
-import Storage from 'library/Utils/Storage';
-import { AUTHORIZATION_KEY } from 'library/Constant/Constant';
+import Storage from 'aesirx-dma-lib/src/Utils/Storage';
+import { AUTHORIZATION_KEY } from 'aesirx-dma-lib/src/Constant/Constant';
 
 const profileStore = new ProfileStore();
 const profileViewModel = new ProfileViewModel(profileStore);

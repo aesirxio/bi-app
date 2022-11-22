@@ -6,7 +6,7 @@
 import { runInAction } from 'mobx';
 import BiUtils from './BiUtils';
 
-import AesirxBiApiService from 'library/Bi/Bi';
+import AesirxBiApiService from 'aesirx-dma-lib/src/Bi/Bi';
 export default class BiStore {
   getCollections = async (collectionId, callbackOnSuccess, callbackOnError) => {
     try {
@@ -60,10 +60,10 @@ export default class BiStore {
     }
   };
 
-  getListDomain = async (dataFilter, callbackOnSuccess, callbackOnError) => {
+  getListDomain = async (dataFilter, listDomains, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
-      const responsedDataFromLibary = await biService.getListDomain(dataFilter);
+      const responsedDataFromLibary = await biService.getListDomain(dataFilter, listDomains);
       if (responsedDataFromLibary) {
         const homeDataModels = BiUtils.transformPersonaResponseIntoModel(responsedDataFromLibary);
 

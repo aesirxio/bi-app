@@ -6,7 +6,7 @@
 import { runInAction } from 'mobx';
 import VisitorUtils from './VisitorUtils';
 
-import AesirxBiApiService from 'library/Bi/Bi';
+import AesirxBiApiService from 'aesirx-dma-lib/src/Bi/Bi';
 export default class VisitorStore {
   getVisitor = async (dataFilter, callbackOnSuccess, callbackOnError) => {
     try {

@@ -6,7 +6,7 @@
 import { runInAction } from 'mobx';
 import SummaryUtils from './SummaryUtils';
 
-import AesirxBiApiService from 'library/Bi/Bi';
+import AesirxBiApiService from 'aesirx-dma-lib/src/Bi/Bi';
 export default class SummaryStore {
   getSummary = async (dataFilter, callbackOnSuccess, callbackOnError) => {
     try {

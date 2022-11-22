@@ -14,10 +14,11 @@ class BiListViewModel {
   status = PAGE_STATUS.READY;
   data = [];
   tableRowHeader = null;
-  dataFilter = {
-    'filter[start_date]': moment().startOf('month').format('YYYY-MM-DD HH:mm:ss'),
-    'filter[end_date]': moment().endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+  dateFilter = {
+    date_start: moment().startOf('month').format('YYYY-MM-DD'),
+    date_end: moment().endOf('day').format('YYYY-MM-DD'),
   };
+  dataFilter = {};
   pageSize = 5;
   isList = false;
   activeDomain = 'dam.aesirx.io';

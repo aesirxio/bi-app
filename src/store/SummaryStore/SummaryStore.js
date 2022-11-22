@@ -8,10 +8,10 @@ import SummaryUtils from './SummaryUtils';
 
 import AesirxBiApiService from 'aesirx-dma-lib/src/Bi/Bi';
 export default class SummaryStore {
-  getSummary = async (dataFilter, callbackOnSuccess, callbackOnError) => {
+  getSummary = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
-      const responsedDataFromLibary = await biService.getSummary(dataFilter);
+      const responsedDataFromLibary = await biService.getSummary(dataFilter, dateFilter);
       if (responsedDataFromLibary) {
         const homeDataModels =
           SummaryUtils.transformPersonaResponseIntoModel(responsedDataFromLibary);

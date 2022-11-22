@@ -26,9 +26,9 @@ function SubRows({ row, rowProps, visibleColumns, data, loading }) {
                 key={`${rowProps.key}-expanded-${i}`}
                 className="border-bottom-1 row_sub_component"
               >
-                {row.cells.map((cell) => {
+                {row.cells.map((cell, key) => {
                   return (
-                    <td {...cell.getCellProps()} className="px-2 py-3">
+                    <td key={key} {...cell.getCellProps()} className="px-2 py-3">
                       {cell.render(cell.column.SubCell ? 'SubCell' : 'Cell', {
                         value: cell.column.accessor && cell.column.accessor(x, i),
                         row: { ...row, original: x },

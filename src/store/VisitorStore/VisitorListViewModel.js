@@ -14,10 +14,11 @@ class VisitorListViewModel {
   status = PAGE_STATUS.READY;
   data = [];
   tableRowHeader = null;
-  dataFilter = {
-    'filter[start_date]': moment().startOf('month').format('YYYY-MM-DD HH:mm:ss'),
-    'filter[end_date]': moment().endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+  dateFilter = {
+    date_start: moment().startOf('month').format('YYYY-MM-DD'),
+    date_end: moment().endOf('day').format('YYYY-MM-DD'),
   };
+  dataFilter = {};
   pageSize = 5;
   isList = false;
   visitorIdsSelected = null;
@@ -27,11 +28,13 @@ class VisitorListViewModel {
     this.visitorStore = visitorStore;
   }
 
-  getVisitor = (dataFilter) => {
+  getVisitor = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    this.dateFilter = { ...this.dateFilter, ...dateFilter };
     this.visitorStore.getVisitor(
       this.dataFilter,
+      this.dateFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
     );
@@ -43,6 +46,7 @@ class VisitorListViewModel {
 
     this.visitorStore.getVisitor(
       this.dataFilter,
+      this.dateFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
     );
@@ -50,13 +54,14 @@ class VisitorListViewModel {
   handleFilterDateRange = (startDate, endDate) => {
     this.status = PAGE_STATUS.LOADING;
     let dateRangeFilter = {
-      'filter[start_date]': moment(startDate).format('YYYY-MM-DD HH:mm:ss'),
-      'filter[end_date]': moment(endDate).endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+      'filter[start_date]': moment(startDate).format('YYYY-MM-DD'),
+      'filter[end_date]': moment(endDate).endOf('day').format('YYYY-MM-DD'),
     };
-    this.dataFilter = { ...this.dataFilter, ...dateRangeFilter };
+    this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
 
     this.visitorStore.getVisitor(
       this.dataFilter,
+      this.dateFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
     );

@@ -133,7 +133,7 @@ const Menu = observer((props) => {
   useEffect(() => {
     checkActiveMenu();
     let fetchData = async () => {
-      await biStore.biListViewModel.getListDomain(domains);
+      await biStore.biListViewModel.getListDomain('', domains);
       if (props.match.params.domain) {
         biStore.biListViewModel.setActiveDomain(props.match.params.domain);
         setDataStreamActive(`${props.match.params.domain}`);

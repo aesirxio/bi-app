@@ -3,7 +3,7 @@ import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import numberWithCommas from 'utils/formatNumber';
-const Revenue = ({ t, data = [] }) => {
+const Revenue = ({ t }) => {
   const columnsTable = React.useMemo(
     () => [
       {
@@ -42,7 +42,6 @@ const Revenue = ({ t, data = [] }) => {
     ],
     []
   );
-  console.log(data);
   // const dataTable = React.useMemo(() => [...data], [data]);
   const dataTable = React.useMemo(
     () => [

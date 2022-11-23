@@ -5,7 +5,7 @@
 
 class SummaryUtils {
   transformPersonaResponseIntoModel = (response) => {
-    return response;
+    return response[0] ?? {};
   };
 
   transformResponseIntoSearchItems = (response) => {

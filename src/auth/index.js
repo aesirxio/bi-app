@@ -5,7 +5,7 @@
 
 import history from '../routes/history';
 import { notify } from '../components/Toast';
-import AesirxAuthenticationApiService from 'aesirx-dma-lib/src/Bi/Authentication';
+// import AesirxAuthenticationApiService from 'aesirx-dma-lib/src/Bi/Authentication';
 import Storage from 'aesirx-dma-lib/src/Utils/Storage';
 import { AXIOS_CONFIGS, GENERAL_CONFIG } from 'aesirx-dma-lib/src/Constant/Constant';
 
@@ -23,21 +23,25 @@ if (
 }
 
 // LOGIN
-const login = async ({ username, password }) => {
+const login = async () => {
   document.body.classList.add('body_login_page');
-  const authService = new AesirxAuthenticationApiService();
-  const result = await authService.login(username, password);
-  if (result) {
-    Storage.setItem('auth', true);
-    document.body.classList.remove('body_login_page');
+  // const authService = new AesirxAuthenticationApiService();
+  // const result = await authService.login(username, password);
+  Storage.setItem('auth', true);
+  document.body.classList.remove('body_login_page');
 
-    history.push('/');
-    return true;
-  } else {
-    notify('Login information is incorrect', 'error');
-    document.body.classList.remove('body_login_page');
-    return false;
-  }
+  history.push('/');
+  // if (result) {
+  //   Storage.setItem('auth', true);
+  //   document.body.classList.remove('body_login_page');
+
+  //   history.push('/');
+  //   return true;
+  // } else {
+  //   notify('Login information is incorrect', 'error');
+  //   document.body.classList.remove('body_login_page');
+  //   return false;
+  // }
 };
 
 // LOGOUT

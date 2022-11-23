@@ -5,7 +5,7 @@
 
 import React, { Suspense } from 'react';
 
-import { Route, Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { mainRoutes } from '../../routes/routes';
 
 import Spinner from '../../components/Spinner';

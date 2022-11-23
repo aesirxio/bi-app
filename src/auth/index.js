@@ -5,7 +5,7 @@
 
 import history from '../routes/history';
 import { notify } from '../components/Toast';
-import AesirxAuthenticationApiService from 'aesirx-dma-lib/src/Bi/Authentication';
+// import AesirxAuthenticationApiService from 'aesirx-dma-lib/src/Bi/Authentication';
 import Storage from 'aesirx-dma-lib/src/Utils/Storage';
 import { AXIOS_CONFIGS, GENERAL_CONFIG } from 'aesirx-dma-lib/src/Constant/Constant';
 
@@ -23,11 +23,10 @@ if (
 }
 
 // LOGIN
-const login = async ({ username, password }) => {
+const login = async () => {
   document.body.classList.add('body_login_page');
-  const authService = new AesirxAuthenticationApiService();
-  const result = await authService.login(username, password);
-  console.log('result', result);
+  // const authService = new AesirxAuthenticationApiService();
+  // const result = await authService.login(username, password);
   Storage.setItem('auth', true);
   document.body.classList.remove('body_login_page');
 

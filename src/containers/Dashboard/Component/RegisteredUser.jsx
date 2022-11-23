@@ -79,7 +79,6 @@ const RegisteredUser = ({ t, data = [] }) => {
     ],
     []
   );
-  console.log(data);
   return (
     <div className="py-2 bg-white rounded-3 shadow-sm h-100">
       <div className="d-flex justify-content-between align-items-center py-16 px-24 ">

@@ -1,7 +1,7 @@
 import Table from 'components/Table';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-const RegisteredUser = ({ t, data = [] }) => {
+const RegisteredUser = ({ t }) => {
   const columnsTable = React.useMemo(
     () => [
       {

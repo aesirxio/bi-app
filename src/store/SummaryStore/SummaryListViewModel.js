@@ -14,10 +14,11 @@ class SummaryListViewModel {
   status = PAGE_STATUS.READY;
   data = [];
   tableRowHeader = null;
-  dataFilter = {
-    date_start: moment().startOf('month').format('YYYY-MM-DD HH:mm:ss'),
-    date_end: moment().endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+  dateFilter = {
+    date_start: moment().startOf('month').format('YYYY-MM-DD'),
+    date_end: moment().endOf('day').format('YYYY-MM-DD'),
   };
+  dataFilter = {};
   pageSize = 5;
   isList = false;
   summaryIdsSelected = null;
@@ -27,11 +28,13 @@ class SummaryListViewModel {
     this.summaryStore = summaryStore;
   }
 
-  getSummary = (dataFilter) => {
+  getSummary = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    this.dateFilter = { ...this.dateFilter, ...dateFilter };
     this.summaryStore.getSummary(
       this.dataFilter,
+      this.dateFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
     );
@@ -43,6 +46,7 @@ class SummaryListViewModel {
 
     this.summaryStore.getSummary(
       this.dataFilter,
+      this.dateFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
     );
@@ -50,13 +54,14 @@ class SummaryListViewModel {
   handleFilterDateRange = (startDate, endDate) => {
     this.status = PAGE_STATUS.LOADING;
     let dateRangeFilter = {
-      date_start: moment(startDate).format('YYYY-MM-DD HH:mm:ss'),
-      date_end: moment(endDate).endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+      date_start: moment(startDate).format('YYYY-MM-DD'),
+      date_end: moment(endDate).endOf('day').format('YYYY-MM-DD'),
     };
-    this.dataFilter = { ...this.dataFilter, ...dateRangeFilter };
+    this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
 
     this.summaryStore.getSummary(
       this.dataFilter,
+      this.dateFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHander
     );

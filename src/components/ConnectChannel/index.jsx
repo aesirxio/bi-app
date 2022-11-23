@@ -56,9 +56,9 @@ class ConnectChannel extends React.Component {
       <>
         <div className="wrapper_tabs bg-white ">
           <Tabs defaultActiveKey="1" id="connectContent-tab">
-            {channels.map((value) => {
+            {channels.map((value, key) => {
               return (
-                <Tab eventKey={value.id} title={value.title}>
+                <Tab key={key} eventKey={value.id} title={value.title}>
                   {value.items.map((item) => {
                     {
                       return (

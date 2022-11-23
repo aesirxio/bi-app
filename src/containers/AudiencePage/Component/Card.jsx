@@ -23,7 +23,7 @@ const CardComponent = observer(
     componentDidMount() {
       let fetchData = async () => {
         await this.summaryListViewModel.getSummary({
-          domain: this.props.parentStore.biListViewModel.activeDomain,
+          'filter[domain]': this.props.parentStore.biListViewModel.activeDomain,
         });
       };
       fetchData();
@@ -33,7 +33,7 @@ const CardComponent = observer(
       if (prevProps.location !== this.props.location) {
         let fetchData = async () => {
           await this.summaryListViewModel.getSummary({
-            domain: this.props.parentStore.biListViewModel.activeDomain,
+            'filter[domain]': this.props.parentStore.biListViewModel.activeDomain,
           });
         };
         fetchData();

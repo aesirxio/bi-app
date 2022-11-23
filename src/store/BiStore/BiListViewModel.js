@@ -66,8 +66,8 @@ class BiListViewModel {
   handleFilterDateRange = (startDate, endDate) => {
     this.status = PAGE_STATUS.LOADING;
     let dateRangeFilter = {
-      'filter[start_date]': moment(startDate).format('YYYY-MM-DD'),
-      'filter[end_date]': moment(endDate).format('YYYY-MM-DD'),
+      date_start: moment(startDate).format('YYYY-MM-DD'),
+      date_end: moment(endDate).format('YYYY-MM-DD'),
     };
     this.dataFilter = { ...this.dataFilter, ...dateRangeFilter };
 

@@ -54,11 +54,11 @@ class VisitorListViewModel {
   handleFilterDateRange = (startDate, endDate) => {
     this.status = PAGE_STATUS.LOADING;
     let dateRangeFilter = {
-      'filter[start_date]': moment(startDate).format('YYYY-MM-DD'),
-      'filter[end_date]': moment(endDate).endOf('day').format('YYYY-MM-DD'),
+      date_start: moment(startDate).format('YYYY-MM-DD'),
+      date_end: moment(endDate).endOf('day').format('YYYY-MM-DD'),
     };
     this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
-
+    console.log('this.dateFilter', this.dateFilter);
     this.visitorStore.getVisitor(
       this.dataFilter,
       this.dateFilter,

@@ -58,7 +58,6 @@ class VisitorListViewModel {
       date_end: moment(endDate).endOf('day').format('YYYY-MM-DD'),
     };
     this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
-    console.log('this.dateFilter', this.dateFilter);
     this.visitorStore.getVisitor(
       this.dataFilter,
       this.dateFilter,

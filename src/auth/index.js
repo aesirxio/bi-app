@@ -23,25 +23,21 @@ if (
 }
 
 // LOGIN
-const login = async () => {
+const login = async ({ username, password }) => {
   document.body.classList.add('body_login_page');
   // const authService = new AesirxAuthenticationApiService();
   // const result = await authService.login(username, password);
-  Storage.setItem('auth', true);
-  document.body.classList.remove('body_login_page');
+  if (username === 'vcdemo' && password === 'vcdemo') {
+    Storage.setItem('auth', true);
+    document.body.classList.remove('body_login_page');
 
-  history.push('/');
-  // if (result) {
-  //   Storage.setItem('auth', true);
-  //   document.body.classList.remove('body_login_page');
-
-  //   history.push('/');
-  //   return true;
-  // } else {
-  //   notify('Login information is incorrect', 'error');
-  //   document.body.classList.remove('body_login_page');
-  //   return false;
-  // }
+    history.push('/');
+    return true;
+  } else {
+    notify('Login information is incorrect', 'error');
+    document.body.classList.remove('body_login_page');
+    return false;
+  }
 };
 
 // LOGOUT

@@ -7,6 +7,7 @@ import { observer } from 'mobx-react';
 import numberWithCommas from 'utils/formatNumber';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
+import { Col } from 'react-bootstrap';
 const CardComponent = observer(
   class CardComponent extends Component {
     constructor(props) {
@@ -14,6 +15,9 @@ const CardComponent = observer(
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
       this.summaryListViewModel = this.viewModel ? this.viewModel.summaryListViewModel : null;
+      this.state = {
+        page_views: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+      };
     }
 
     componentDidMount() {
@@ -40,7 +44,7 @@ const CardComponent = observer(
       const { t } = this.props;
       return (
         <div className="row gx-24 mb-24">
-          <div className="col-lg-3">
+          <Col lg={3}>
             <ComponentCard
               title={t('txt_visitors')}
               icon={'/assets/images/visitor.svg'}
@@ -55,7 +59,59 @@ const CardComponent = observer(
               options={[{ label: 'All Users', value: 'all-user' }]}
               defaultValue={{ label: 'All Users', value: 'all-user' }}
             ></ComponentCard>
-          </div>
+          </Col>
+          <Col lg={3}>
+            <ComponentCard
+              title={t('txt_page_views')}
+              icon={'/assets/images/view.svg'}
+              iconColor={'#2E71B1'}
+              value={numberWithCommas(this.summaryListViewModel?.data[this.state.page_views])}
+              isIncrease={false}
+              // percent={'13%'}
+              // textPercent={'form June'}
+              options={[
+                { label: 'All', value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS },
+                {
+                  label: 'Unique',
+                  value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
+                },
+              ]}
+              loading={this.summaryListViewModel.status}
+              defaultValue={{
+                label: 'All',
+                value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+              }}
+              handleChange={this.handleChange}
+            ></ComponentCard>
+          </Col>
+          <Col lg={3}>
+            <ComponentCard
+              title={t('txt_acg_session_duration')}
+              icon={'/assets/images/duration.svg'}
+              iconColor={'#EF3737'}
+              value={numberWithCommas(
+                this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION]
+              )}
+              loading={this.summaryListViewModel.status}
+              isIncrease={false}
+              // percent={'11%'}
+              // textPercent={'form June'}
+            ></ComponentCard>
+          </Col>
+          <Col lg={3}>
+            <ComponentCard
+              title={t('txt_page_session')}
+              icon={'/assets/images/page.svg'}
+              iconColor={'#FFBE55'}
+              value={numberWithCommas(
+                this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION]
+              )}
+              loading={this.summaryListViewModel.status}
+              isIncrease={false}
+              // percent={'11%'}
+              // textPercent={'form June'}
+            ></ComponentCard>
+          </Col>
           {/* <div className="col-lg-3">
             <ComponentCard
               title={t('txt_total_revenue')}

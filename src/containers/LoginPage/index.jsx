@@ -74,6 +74,7 @@ class LoginPage extends React.Component {
               <h1 className="fs-2 text-primary fw-normal text-center mb-16 lh-base">
                 {t('txt_login_text_1')} <br /> {t('txt_login_text_2')}
               </h1>
+              <p className="fw-bold">Demo account: vcdemo / vcdemo</p>
               <form>
                 <label className="form-label mb-16">
                   Username <span>*</span>

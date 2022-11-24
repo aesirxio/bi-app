@@ -25,8 +25,18 @@ import SummaryStore from 'store/SummaryStore/SummaryStore';
 import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
 import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
+import { Col, Row } from 'react-bootstrap';
+import { VisitorStoreProvider } from 'store/VisitorStore/VisitorViewModelContextProvider';
+import VisitorViewModel from 'store/VisitorStore/VisitorViewModel';
+import VisitorStore from 'store/VisitorStore/VisitorStore';
+import OverviewComponent from '../AudiencePage/Component/Overview';
+
 const summaryStore = new SummaryStore();
 const summaryViewModel = new SummaryViewModel(summaryStore);
+
+const visitorStore = new VisitorStore();
+const visitorViewModel = new VisitorViewModel(visitorStore);
+
 const Dashboard = observer(
   class Dashboard extends Component {
     constructor(props) {
@@ -60,13 +70,23 @@ const Dashboard = observer(
             </div>
             <div className="position-relative">
               <DateRangePicker
-                viewModelArr={[summaryViewModel.summaryListViewModel]}
+                viewModelArr={[
+                  summaryViewModel.summaryListViewModel,
+                  visitorViewModel.visitorListViewModel,
+                ]}
               ></DateRangePicker>
             </div>
           </div>
           <SummaryStoreProvider viewModel={summaryViewModel}>
             <CardComponent></CardComponent>
           </SummaryStoreProvider>
+          <Row>
+            <Col lg={12}>
+              <VisitorStoreProvider viewModel={visitorViewModel}>
+                <OverviewComponent></OverviewComponent>
+              </VisitorStoreProvider>
+            </Col>
+          </Row>
           {/* <div className="row gx-24 mb-24">
             <div className="col-lg-7">
               <AreaChartComponent

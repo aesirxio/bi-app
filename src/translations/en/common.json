@@ -171,5 +171,7 @@
   "txt_description": "Description",
   "txt_search": "Search",
   "txt_date_range": "Date range",
-  "txt_devices": "Devices"
+  "txt_devices": "Devices",
+  "txt_choose_file": "Choose file",
+  "txt_select...": "Select..."
 }

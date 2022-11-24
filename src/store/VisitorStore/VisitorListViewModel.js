@@ -28,11 +28,11 @@ class VisitorListViewModel {
     this.visitorStore = visitorStore;
   }
 
-  getVisits = (dataFilter, dateFilter) => {
+  getVisitors = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     this.dateFilter = { ...this.dateFilter, ...dateFilter };
-    this.visitorStore.getVisits(
+    this.visitorStore.getVisitors(
       this.dataFilter,
       this.dateFilter,
       this.callbackOnDataSuccessHandler,
@@ -44,7 +44,7 @@ class VisitorListViewModel {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
 
-    this.visitorStore.getVisits(
+    this.visitorStore.getVisitors(
       this.dataFilter,
       this.dateFilter,
       this.callbackOnDataSuccessHandler,
@@ -58,7 +58,7 @@ class VisitorListViewModel {
       date_end: moment(endDate).endOf('day').format('YYYY-MM-DD'),
     };
     this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
-    this.visitorStore.getVisits(
+    this.visitorStore.getVisitors(
       this.dataFilter,
       this.dateFilter,
       this.callbackOnDataSuccessHandler,

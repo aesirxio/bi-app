@@ -17,7 +17,7 @@ const OverviewComponent = observer(
     }
     componentDidMount() {
       let fetchData = async () => {
-        await this.visitorListViewModel?.getVisits({
+        await this.visitorListViewModel?.getVisitors({
           'filter[domain]': this.props.parentStore.biListViewModel.activeDomain,
         });
       };
@@ -27,7 +27,7 @@ const OverviewComponent = observer(
     componentDidUpdate(prevProps) {
       if (prevProps.location !== this.props.location) {
         let fetchData = async () => {
-          await this.visitorListViewModel.getVisits({
+          await this.visitorListViewModel.getVisitors({
             'filter[domain]': this.props.parentStore.biListViewModel.activeDomain,
           });
         };
@@ -52,11 +52,8 @@ const OverviewComponent = observer(
             isDot
             hiddenGrid={{ vertical: false }}
             XAxisOptions={{ axisLine: true, padding: { left: 50, right: 50 } }}
-            defaultValue={{ label: 'Sessions', value: 'session' }}
-            options={[
-              { label: 'Sessions', value: 'session' },
-              { label: 'Localhost', value: 'localhost' },
-            ]}
+            defaultValue={{ label: 'Visitors', value: 'visitors' }}
+            options={[{ label: 'Visitors', value: 'visitors' }]}
             loading={this.visitorListViewModel.status}
             tooltipComponent={{
               header: t('txt_in_total'),

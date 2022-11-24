@@ -8,10 +8,10 @@ import VisitorUtils from './VisitorUtils';
 
 import AesirxBiApiService from 'aesirx-dma-lib/src/Bi/Bi';
 export default class VisitorStore {
-  getVisitor = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
+  getVisits = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
-      const responsedDataFromLibary = await biService.getVisitor(dataFilter, dateFilter);
+      const responsedDataFromLibary = await biService.getVisits(dataFilter, dateFilter);
       if (responsedDataFromLibary) {
         const homeDataModels =
           VisitorUtils.transformVisitorResponseIntoModel(responsedDataFromLibary);

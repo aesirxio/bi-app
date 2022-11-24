@@ -17,7 +17,7 @@ const OverviewComponent = observer(
     }
     componentDidMount() {
       let fetchData = async () => {
-        await this.visitorListViewModel?.getVisitor({
+        await this.visitorListViewModel?.getVisits({
           'filter[domain]': this.props.parentStore.biListViewModel.activeDomain,
         });
       };
@@ -27,7 +27,7 @@ const OverviewComponent = observer(
     componentDidUpdate(prevProps) {
       if (prevProps.location !== this.props.location) {
         let fetchData = async () => {
-          await this.visitorListViewModel.getVisitor({
+          await this.visitorListViewModel.getVisits({
             'filter[domain]': this.props.parentStore.biListViewModel.activeDomain,
           });
         };

@@ -1,6 +1,6 @@
 {
   "name": "aesirx-bi-app",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.1",
   "license": "GPL-3.0-only",
   "author": "AesirX",
   "repository": "https://github.com/aesirxio/bi-app",
@@ -10,8 +10,8 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
-    "aesirx-analytics": "^1.0.0",
-    "aesirx-dma-lib": "^1.6.0",
+    "aesirx-analytics": "aesirxio/analytics",
+    "aesirx-dma-lib": "aesirxio/dma-lib",
     "axios": "^0.21.0",
     "bootstrap": "5.2.2",
     "d3-fetch": "^3.0.1",

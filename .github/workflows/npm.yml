@@ -15,6 +15,7 @@ jobs:
           node-version: 16
       - run: npm i
       - run: npm run lint
+      - run: cp src/data-stream.json.dist src/data-stream.json
       - run: CI=false npm run build
       - uses: JS-DevTools/npm-publish@v1
         with:

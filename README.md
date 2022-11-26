@@ -20,7 +20,7 @@ Follow the instructions in: [https://github.com/aesirxio/analytics-1stparty/tree
 
 Follow the instructions in: [https://github.com/aesirxio/analytics/tree/master](https://github.com/aesirxio/analytics-1stparty)
 
-### Configure this project
+### Configure this project (for development)
 
 1. Get your `REACT_APP_CLIENT_SECRET` key from https://bi.aesirx.io by creating an account.
 1. Rename the `.env.dist` file to `.env`.

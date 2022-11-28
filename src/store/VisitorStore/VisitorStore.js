@@ -49,9 +49,9 @@ export default class VisitorStore {
           });
         } else {
           callbackOnError({
-            message:
-              error.response?.data?._messages[0]?.message ??
-              'Something went wrong from Server response',
+            message: error?.response.data?._messages
+              ? error.response?.data?._messages[0]?.message
+              : 'Something went wrong from Server response',
           });
         }
       });

@@ -51,7 +51,7 @@ export default class SummaryStore {
           });
         } else {
           callbackOnError({
-            message: error.response?.data
+            message: error?.response.data?._messages
               ? error.response?.data?._messages[0]?.message
               : 'Something went wrong from Server response',
           });

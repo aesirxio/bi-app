@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react-lite';
-import domains from '../../data-stream';
 
 const dataMenuSetup = [
   {
@@ -133,6 +132,7 @@ const Menu = observer((props) => {
   useEffect(() => {
     checkActiveMenu();
     let fetchData = async () => {
+      const domains = { result: JSON.parse(process.env.REACT_APP_DATA_STREAM) } ?? { result: [] };
       await biStore.biListViewModel.getListDomain('', domains);
       if (props.match.params.domain) {
         biStore.biListViewModel.setActiveDomain(props.match.params.domain);

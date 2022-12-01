@@ -18,7 +18,6 @@ import { BiStoreProvider } from 'store/BiStore/BiViewModelContextProvider';
 import BiViewModel from 'store/BiStore/BiViewModel';
 import BiStore from 'store/BiStore/BiStore';
 import history from '../../routes/history';
-import AnalyticsContainer from 'components/AnalyticsContainer';
 
 const biStore = new BiStore();
 const biViewModel = new BiViewModel(biStore);
@@ -51,7 +50,6 @@ const RouterLayout = () => {
       <Toast />
       <BrowserRouter>
         <Router history={history}>
-          <AnalyticsContainer />
           <Switch>
             <Route exact path={authPath}>
               <AuthLayout />

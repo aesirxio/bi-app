@@ -26,8 +26,7 @@ Follow the instructions in: [https://github.com/aesirxio/analytics/tree/master](
 1. Rename the `.env.dist` file to `.env`.
 1. Replace the `REACT_APP_CLIENT_SECRET` in the `.env` file with the one provided in your profile account.
 1. Replace the `REACT_APP_ENDPOINT_URL` in the `.env` file with the link to your `1st party server for AesirX Analytics`.
-1. Rename the `src/data-stream.json.dist` file to `src/data-stream.json`.
-1. Replace the `name` and `domain` to the your data-stream endpoint.
+1. Replace the `REACT_APP_DATA_STREAM` in the `.env` file with the `name` and `domain` to the your data-stream endpoint.
 
 #### `npm start`
 

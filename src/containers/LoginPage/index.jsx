@@ -10,9 +10,10 @@ import SimpleReactValidator from 'simple-react-validator';
 import './index.scss';
 
 import { login } from '../../auth';
-import InputPassword from '../../components/inputPassword';
+// import InputPassword from '../../components/inputPassword';
 // import ComponentImage from 'components/ComponentImage';
-
+import { SSOButton } from 'aesirx-sso';
+import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
@@ -57,6 +58,12 @@ class LoginPage extends React.Component {
 
   render() {
     const { t } = this.props;
+    const onGetData = async (response) => {
+      const authService = new AesirxAuthenticationApiService();
+      await authService.setTokenUser(response, false);
+      Storage.setItem('auth', true);
+      window.location.reload();
+    };
 
     return (
       <div className="vh-100 bg-blue-9">
@@ -74,7 +81,7 @@ class LoginPage extends React.Component {
               <h1 className="fs-2 text-primary fw-normal text-center mb-16 lh-base">
                 {t('txt_login_text_1')} <br /> {t('txt_login_text_2')}
               </h1>
-              <p className="fw-bold">Demo account: vcdemo / vcdemo</p>
+              {/* <p className="fw-bold">Demo account: vcdemo / vcdemo</p>
               <form>
                 <label className="form-label mb-16">
                   Username <span>*</span>
@@ -126,7 +133,12 @@ class LoginPage extends React.Component {
                     </div>
                   </div>
                 </button>
-              </form>
+              </form> */}
+              <SSOButton
+                className="btn w-100 fw-medium btn-success position-relative d-flex align-item-center justify-content-center mt-3"
+                text={t('txt_sign_in')}
+                onGetData={onGetData}
+              />
             </div>
           </div>
         </div>

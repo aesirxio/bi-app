@@ -12,6 +12,7 @@
     "@fortawesome/react-fontawesome": "^0.1.12",
     "aesirx-analytics": "aesirxio/analytics",
     "aesirx-dma-lib": "aesirxio/dma-lib",
+    "aesirx-sso": "^1.0.0",
     "axios": "^0.21.0",
     "bootstrap": "5.2.2",
     "d3-fetch": "^3.0.1",

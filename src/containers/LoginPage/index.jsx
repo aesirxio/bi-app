@@ -81,8 +81,18 @@ class LoginPage extends React.Component {
               <h1 className="fs-2 text-primary fw-normal text-center mb-16 lh-base">
                 {t('txt_login_text_1')} <br /> {t('txt_login_text_2')}
               </h1>
-              {/* <p className="fw-bold">Demo account: vcdemo / vcdemo</p>
+              <p className="fw-bold">Demo account: vcdemo / vcdemo</p>
               <form>
+                <SSOButton
+                  className="btn w-100 fw-medium btn-success position-relative d-flex align-item-center justify-content-center mt-3"
+                  text={t('txt_sign_in_with_sso')}
+                  onGetData={onGetData}
+                />
+                <div className="d-flex align-items-center flex-nowrap">
+                  <div className="border-bottom w-50"></div>
+                  <span className="px-2">or</span>
+                  <div className="border-bottom w-50"></div>
+                </div>
                 <label className="form-label mb-16">
                   Username <span>*</span>
                 </label>
@@ -133,12 +143,7 @@ class LoginPage extends React.Component {
                     </div>
                   </div>
                 </button>
-              </form> */}
-              <SSOButton
-                className="btn w-100 fw-medium btn-success position-relative d-flex align-item-center justify-content-center mt-3"
-                text={t('txt_sign_in')}
-                onGetData={onGetData}
-              />
+              </form>
             </div>
           </div>
         </div>

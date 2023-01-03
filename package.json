@@ -1,6 +1,6 @@
 {
   "name": "aesirx-bi-app",
-  "version": "1.0.1-alpha.1",
+  "version": "1.0.1",
   "license": "GPL-3.0-only",
   "author": "AesirX",
   "repository": "https://github.com/aesirxio/bi-app",
@@ -10,8 +10,8 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
-    "aesirx-analytics": "aesirxio/analytics",
-    "aesirx-dma-lib": "aesirxio/dma-lib",
+    "aesirx-analytics": "^1.0.1",
+    "aesirx-dma-lib": "^1.7.1",
     "aesirx-sso": "^1.0.0",
     "axios": "^0.21.0",
     "bootstrap": "5.2.2",
@@ -55,8 +55,7 @@
   },
   "scripts": {
     "start": "npm run build && serve -s build",
-    "build": "npm run build:lib && react-scripts build",
-    "build:lib": "cd node_modules/aesirx-dma-lib && npm i && npm run build && cd ../../",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "dev": "react-scripts start",
     "lint": "eslint --fix \"src/**/\"",

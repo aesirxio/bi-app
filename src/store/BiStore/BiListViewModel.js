@@ -21,7 +21,8 @@ class BiListViewModel {
   dataFilter = {};
   pageSize = 5;
   isList = false;
-  activeDomain = 'dam.aesirx.io';
+  activeDomain =
+    process.env.REACT_APP_DATA_STREAM && JSON.parse(process.env.REACT_APP_DATA_STREAM)[0].domain;
   isSearch = false;
   constructor(biStore) {
     makeAutoObservable(this);

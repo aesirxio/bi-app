@@ -12,7 +12,7 @@ import './index.scss';
 import { login } from '../../auth';
 import InputPassword from '../../components/inputPassword';
 // import ComponentImage from 'components/ComponentImage';
-import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
+// import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
@@ -57,12 +57,6 @@ class LoginPage extends React.Component {
 
   render() {
     const { t } = this.props;
-    const onGetData = async (response) => {
-      const authService = new AesirxAuthenticationApiService();
-      await authService.setTokenUser(response, false);
-      Storage.setItem('auth', true);
-      window.location.reload();
-    };
 
     return (
       <div className="vh-100 bg-blue-9">

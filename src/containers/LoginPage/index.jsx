@@ -12,8 +12,7 @@ import './index.scss';
 import { login } from '../../auth';
 import InputPassword from '../../components/inputPassword';
 // import ComponentImage from 'components/ComponentImage';
-import { SSOButton } from 'aesirx-sso';
-import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
+// import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
@@ -58,12 +57,6 @@ class LoginPage extends React.Component {
 
   render() {
     const { t } = this.props;
-    const onGetData = async (response) => {
-      const authService = new AesirxAuthenticationApiService();
-      await authService.setTokenUser(response, false);
-      Storage.setItem('auth', true);
-      window.location.reload();
-    };
 
     return (
       <div className="vh-100 bg-blue-9">
@@ -82,16 +75,6 @@ class LoginPage extends React.Component {
                 {t('txt_login_text_1')} <br /> {t('txt_login_text_2')}
               </h1>
               <form>
-                <SSOButton
-                  className="btn w-100 fw-medium btn-success position-relative d-flex align-item-center justify-content-center mt-3"
-                  text={t('txt_sign_in_with_sso')}
-                  onGetData={onGetData}
-                />
-                <div className="d-flex align-items-center flex-nowrap">
-                  <div className="border-bottom w-50"></div>
-                  <span className="px-2">or</span>
-                  <div className="border-bottom w-50"></div>
-                </div>
                 <label className="form-label mb-16">
                   Username <span>*</span>
                 </label>

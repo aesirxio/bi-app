@@ -14,18 +14,18 @@ import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react-lite';
 
 const dataMenuSetup = [
-  {
-    text: 'txt_menu_region',
-    link: '/region-country',
-    icons: '/assets/images/region-country.svg',
-    icons_color: '/assets/images/region-country.svg',
-  },
-  {
-    text: 'txt_menu_setting',
-    link: '/setting',
-    icons: '/assets/images/setting.svg',
-    icons_color: '/assets/images/setting.svg',
-  },
+  // {
+  //   text: 'txt_menu_region',
+  //   link: '/region-country',
+  //   icons: '/assets/images/region-country.svg',
+  //   icons_color: '/assets/images/region-country.svg',
+  // },
+  // {
+  //   text: 'txt_menu_setting',
+  //   link: '/setting',
+  //   icons: '/assets/images/setting.svg',
+  //   icons_color: '/assets/images/setting.svg',
+  // },
 ];
 const Menu = observer((props) => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
@@ -83,50 +83,50 @@ const Menu = observer((props) => {
         },
       ],
     },
-    {
-      text: 'txt_menu_behavior',
-      link: `/data-${dataStreamActive}/behavior`,
-      icons: '/assets/images/behavior.svg',
-      icons_color: '/assets/images/behavior.svg',
-      submenu: [
-        {
-          text: 'txt_menu_overview',
-          link: `/data-${dataStreamActive}/behavior/overview`,
-        },
-        {
-          text: 'txt_menu_click_anchor',
-          link: `/data-${dataStreamActive}/behavior/click-anchor`,
-        },
-        {
-          text: 'txt_menu_utm_tracking',
-          link: `/data-${dataStreamActive}/behavior/utm-tracking`,
-        },
-      ],
-    },
-    {
-      text: 'txt_menu_revenue',
-      link: `/data-${dataStreamActive}/revenue`,
-      icons: '/assets/images/revenue.svg',
-      icons_color: '/assets/images/revenue.svg',
-    },
-    {
-      text: 'txt_menu_subscription',
-      link: `/data-${dataStreamActive}/subscription`,
-      icons: '/assets/images/subscription.svg',
-      icons_color: '/assets/images/subscription.svg',
-    },
-    {
-      text: 'txt_menu_member_roles',
-      link: `/data-${dataStreamActive}/member-roles`,
-      icons: '/assets/images/member-roles.svg',
-      icons_color: '/assets/images/member-roles.svg',
-    },
-    {
-      text: 'txt_menu_data_stream',
-      link: `/data-${dataStreamActive}/data-stream`,
-      icons: '/assets/images/data-stream.svg',
-      icons_color: '/assets/images/data-stream.svg',
-    },
+    // {
+    //   text: 'txt_menu_behavior',
+    //   link: `/data-${dataStreamActive}/behavior`,
+    //   icons: '/assets/images/behavior.svg',
+    //   icons_color: '/assets/images/behavior.svg',
+    //   submenu: [
+    //     {
+    //       text: 'txt_menu_overview',
+    //       link: `/data-${dataStreamActive}/behavior/overview`,
+    //     },
+    //     {
+    //       text: 'txt_menu_click_anchor',
+    //       link: `/data-${dataStreamActive}/behavior/click-anchor`,
+    //     },
+    //     {
+    //       text: 'txt_menu_utm_tracking',
+    //       link: `/data-${dataStreamActive}/behavior/utm-tracking`,
+    //     },
+    //   ],
+    // },
+    // {
+    //   text: 'txt_menu_revenue',
+    //   link: `/data-${dataStreamActive}/revenue`,
+    //   icons: '/assets/images/revenue.svg',
+    //   icons_color: '/assets/images/revenue.svg',
+    // },
+    // {
+    //   text: 'txt_menu_subscription',
+    //   link: `/data-${dataStreamActive}/subscription`,
+    //   icons: '/assets/images/subscription.svg',
+    //   icons_color: '/assets/images/subscription.svg',
+    // },
+    // {
+    //   text: 'txt_menu_member_roles',
+    //   link: `/data-${dataStreamActive}/member-roles`,
+    //   icons: '/assets/images/member-roles.svg',
+    //   icons_color: '/assets/images/member-roles.svg',
+    // },
+    // {
+    //   text: 'txt_menu_data_stream',
+    //   link: `/data-${dataStreamActive}/data-stream`,
+    //   icons: '/assets/images/data-stream.svg',
+    //   icons_color: '/assets/images/data-stream.svg',
+    // },
   ];
 
   useEffect(() => {
@@ -307,8 +307,8 @@ const Menu = observer((props) => {
           })}
         </ul>
       </nav>
-      <nav className="border-top border-dark-blue py-2 mt-0 mb-auto">
-        <p className="menu_title text-dark-blue fs-14 mb-0 text-uppercase">{t('txt_set_up')}</p>
+      <nav className="border-dark-blue py-2 mt-0 mb-auto">
+        {/* <p className="menu_title text-dark-blue fs-14 mb-0 text-uppercase">{t('txt_set_up')}</p> */}
         <ul id="wr_list_menu" className="list-unstyled mb-0 pt-md-1">
           {dataMenuSetup.map((value, key) => {
             return (

@@ -10,7 +10,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import './index.scss';
 
 import { login } from '../../auth';
-// import InputPassword from '../../components/inputPassword';
+import InputPassword from '../../components/inputPassword';
 // import ComponentImage from 'components/ComponentImage';
 import { SSOButton } from 'aesirx-sso';
 import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
@@ -18,8 +18,8 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      username: process.env.REACT_APP_DEMO_USER ?? '',
+      password: process.env.REACT_APP_DEMO_PASSWORD ?? '',
       remember: false,
       isProcessing: false,
     };
@@ -81,7 +81,6 @@ class LoginPage extends React.Component {
               <h1 className="fs-2 text-primary fw-normal text-center mb-16 lh-base">
                 {t('txt_login_text_1')} <br /> {t('txt_login_text_2')}
               </h1>
-              <p className="fw-bold">Demo account: vcdemo / vcdemo</p>
               <form>
                 <SSOButton
                   className="btn w-100 fw-medium btn-success position-relative d-flex align-item-center justify-content-center mt-3"

@@ -27,7 +27,7 @@ const login = async ({ username, password }) => {
   document.body.classList.add('body_login_page');
   // const authService = new AesirxAuthenticationApiService();
   // const result = await authService.login(username, password);
-  if (username === 'vcdemo' && password === 'vcdemo') {
+  if (username === 'demo-bi@aesirx.io' && password === 'demo-bi') {
     Storage.setItem('auth', true);
     document.body.classList.remove('body_login_page');
 

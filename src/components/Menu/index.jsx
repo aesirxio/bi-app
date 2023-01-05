@@ -29,7 +29,9 @@ const dataMenuSetup = [
 ];
 const Menu = observer((props) => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
-  const [dataStreamActive, setDataStreamActive] = useState('dam.aesirx.io');
+  const [dataStreamActive, setDataStreamActive] = useState(
+    process.env.REACT_APP_DATA_STREAM && JSON.parse(process.env.REACT_APP_DATA_STREAM)[0].domain
+  );
   const biStore = useBiViewModel();
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {

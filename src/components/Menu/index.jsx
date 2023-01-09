@@ -158,7 +158,7 @@ const Menu = observer((props) => {
           aria-controls="wr_list_submenu"
           aria-expanded={isOpenCollapse === 'data-stream'}
         >
-          <div>
+          <div className="overflow-hidden">
             <div className="data-stream-text mb-sm text-start">{t('txt_menu_data_stream')}</div>
             <div className="data-stream-value fw-bold text-white mb-0 text-start">
               {

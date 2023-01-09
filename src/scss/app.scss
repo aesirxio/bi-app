@@ -458,3 +458,17 @@ textarea {
     border: 1px solid rgba(0, 0, 0, 0.15);
   }
 }
+
+.form-control {
+  background-color: var(--bs-white);
+  &::placeholder {
+    color: var(--input-placeholder-color);
+  }
+}
+.form {
+  .form-control {
+    padding: 10px 16px;
+    line-height: 18px;
+    font-size: 14px;
+  }
+}

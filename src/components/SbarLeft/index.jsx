@@ -9,7 +9,6 @@ import { withTranslation } from 'react-i18next';
 
 import './index.scss';
 import Menu from '../Menu';
-import SwitchThemes from 'components/SwitchThemes';
 // import { Dropdown } from 'react-bootstrap';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
@@ -40,7 +39,7 @@ const SbarLeft = observer(
       // });
       return (
         <aside
-          className={`sidebar w-248  mt-0 position-relative bg-dark mh-100 h-100 overflow-hidden overflow-y-auto d-flex flex-column z-index-100 justify-content-between`}
+          className={`sidebar w-248  mt-0 position-relative bg-dark mh-100 h-100 d-flex flex-column z-index-100 justify-content-between`}
         >
           {!settingPage ? (
             <>
@@ -92,9 +91,6 @@ const SbarLeft = observer(
               ></span>
               <span className="ms-16 text d-inline-block">{t('txt_menu_help_center')}</span>
             </NavLink> */}
-            <div className="me-0 ms-auto switch-theme-button col-auto py-2">
-              <SwitchThemes />
-            </div>
 
             {/* <a href="/" className="d-flex align-items-center py-2 px-3">
               <ComponentImage src="/assets/images/help-icon.svg" />

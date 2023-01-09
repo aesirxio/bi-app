@@ -39,6 +39,14 @@ const customStyles = (isBorder, plColor, arrowColor) => {
         borderBottom: '1px solid var(--border-color)',
       };
     },
+
+    menuList: (styles) => {
+      return {
+        ...styles,
+        paddingTop: 0,
+        paddingBottom: 0,
+      };
+    },
     option: (provided, state) => {
       return {
         ...provided,

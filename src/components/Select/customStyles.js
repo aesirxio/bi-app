@@ -40,6 +40,14 @@ const customStyles = (isBorder, plColor, arrowColor, isDisabled) => {
         zIndex: 10,
       };
     },
+
+    menuList: (styles) => {
+      return {
+        ...styles,
+        paddingTop: 0,
+        paddingBottom: 0,
+      };
+    },
     option: (provided, state) => {
       return {
         ...provided,

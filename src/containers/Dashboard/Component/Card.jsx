@@ -40,6 +40,12 @@ const CardComponent = observer(
       }
     }
 
+    handleChange = (data) => {
+      this.setState({
+        page_views: data.value,
+      });
+    };
+
     render() {
       const { t } = this.props;
       return (
@@ -89,9 +95,11 @@ const CardComponent = observer(
               title={t('txt_acg_session_duration')}
               icon={'/assets/images/duration.svg'}
               iconColor={'#EF3737'}
-              value={numberWithCommas(
-                this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION]
-              )}
+              value={
+                numberWithCommas(
+                  this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION]
+                ) + 's'
+              }
               loading={this.summaryListViewModel.status}
               isIncrease={false}
               // percent={'11%'}

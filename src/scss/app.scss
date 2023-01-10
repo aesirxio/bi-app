@@ -460,5 +460,15 @@ textarea {
 }
 
 .form-control {
-  padding: 11px 12px;
+  background-color: var(--bs-white);
+  &::placeholder {
+    color: var(--input-placeholder-color);
+  }
+}
+.form {
+  .form-control {
+    padding: 10px 16px;
+    line-height: 18px;
+    font-size: 14px;
+  }
 }

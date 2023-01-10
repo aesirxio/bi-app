@@ -92,16 +92,27 @@ body.mini_left {
     }
     .data-stream {
       .link_menu {
-        padding: 0 5px;
+        padding: 0 10px;
       }
       .data-stream-text {
         font-size: $h8-font-size;
       }
       .data-stream-value {
         font-size: $font-size-sm;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .data-stream-domain {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .item_menu {
         font-size: $font-size-sm;
+      }
+      .icon.arrow {
+        display: none !important;
       }
     }
     .icon-submenu {

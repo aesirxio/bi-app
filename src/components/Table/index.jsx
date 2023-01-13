@@ -24,6 +24,7 @@ const Table = ({
   onRightClickItem,
   canSort,
   sortAPI,
+  ...props
 }) => {
   const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
     const defaultRef = React.useRef();
@@ -95,7 +96,7 @@ const Table = ({
     await store.goToPage(pageIndex);
     setLoading(false);
   };
-
+  const { t } = props;
   return (
     <>
       <div className="bg-white fs-14 text-color position-relative h-100">
@@ -258,7 +259,11 @@ const Table = ({
 
         {rows.length === 0 ? (
           <div className="position-absolute top-50 start-50 translate-middle">
-            <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />
+            <ComponentNoData
+              icons="/assets/images/ic_project.svg"
+              title={t('txt_no_data')}
+              width="w-50"
+            />
           </div>
         ) : null}
       </div>

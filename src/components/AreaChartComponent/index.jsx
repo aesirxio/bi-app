@@ -28,7 +28,7 @@ const AreaChartComponent = ({
   YAxisOptions, // Line Doc
   loading,
   tooltipComponent,
-  // ...props
+  ...props
 }) => {
   const customizedTooltip = ({ payload }) => {
     return (
@@ -46,6 +46,7 @@ const AreaChartComponent = ({
       </div>
     );
   };
+  const { t } = props;
   return (
     <div className="bg-white rounded-3 p-24 shadow-sm h-100 ChartWrapper">
       <HeaderFilterComponent chartTitle={chartTitle} isSelection={true} filterButtons={true} />
@@ -118,7 +119,11 @@ const AreaChartComponent = ({
         </>
       ) : (
         <div className="position-absolute top-50 start-50 translate-middle">
-          <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />
+          <ComponentNoData
+            icons="/assets/images/ic_project.svg"
+            title={t('txt_no_data')}
+            width="w-50"
+          />
         </div>
       )}
     </div>

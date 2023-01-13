@@ -64,8 +64,8 @@ const CardComponent = observer(
                 isIncrease={true}
                 // percent={'11%'}
                 // textPercent={'form June'}
-                options={[{ label: 'All Users', value: 'all-user' }]}
-                defaultValue={{ label: 'All Users', value: 'all-user' }}
+                options={[{ label: t('txt_all_users'), value: 'all-user' }]}
+                defaultValue={{ label: t('txt_all_users'), value: 'all-user' }}
               ></ComponentCard>
             </Col>
             <Col lg={4}>
@@ -78,15 +78,15 @@ const CardComponent = observer(
                 // percent={'13%'}
                 // textPercent={'form June'}
                 options={[
-                  { label: 'All', value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS },
+                  { label: t('txt_all'), value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS },
                   {
-                    label: 'Unique',
+                    label: t('txt_unique'),
                     value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
                   },
                 ]}
                 loading={this.summaryListViewModel.status}
                 defaultValue={{
-                  label: 'All',
+                  label: t('txt_all'),
                   value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
                 }}
                 handleChange={this.handleChange}

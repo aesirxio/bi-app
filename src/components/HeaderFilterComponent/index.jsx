@@ -19,8 +19,8 @@ const HeaderFilterComponent = ({
         <h4 className="me-24 mb-0 text-blue-0">{chartTitle}</h4>
         {isSelection && (
           <SelectComponent
-            defaultValue={{ label: 'Visitors', value: 'visitors' }}
-            options={[{ label: 'Visitors', value: 'visitors' }]}
+            value={{ label: t('txt_visitors'), value: 'visitors' }}
+            options={[{ label: t('txt_visitors'), value: 'visitors' }]}
             className={`fs-sm`}
             isBorder={true}
             plColor={'#808495'}

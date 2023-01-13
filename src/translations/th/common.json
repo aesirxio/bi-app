@@ -174,5 +174,10 @@
   "txt_date_range": "ช่วงวันที่",
   "txt_devices": "อุปกรณ์",
   "txt_choose_file": "เลือกไฟล์",
-  "txt_select...": "เลือก..."
+  "txt_select...": "เลือก...",
+  "txt_all_users": "ผู้ใช้ทั้งหมด",
+  "txt_all": "ทั้งหมด",
+  "txt_unique": "มีเอกลักษณ์",
+  "txt_no_data": "ไม่มีข้อมูล",
+  "txt_something_went_wrong_from_server_response": "มีบางอย่างผิดพลาดจากการตอบสนองของเซิร์ฟเวอร์"
 }

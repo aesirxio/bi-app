@@ -40,7 +40,7 @@ const ComponentCard = ({
         </div>
         {options && (
           <SelectComponent
-            defaultValue={defaultValue}
+            value={defaultValue}
             options={options}
             className={`fs-sm`}
             isBorder={true}

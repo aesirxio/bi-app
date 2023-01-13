@@ -174,5 +174,10 @@
   "txt_date_range": "Phạm vi ngày",
   "txt_devices": "Thiết bị",
   "txt_choose_file": "Chọn tệp",
-  "txt_select...": "Lựa chọn..."
+  "txt_select...": "Lựa chọn...",
+  "txt_all_users": "Tất cả người dùng",
+  "txt_all": "Tất cả",
+  "txt_unique": "Duy nhất",
+  "txt_no_data": "Không có dữ liệu",
+  "txt_something_went_wrong_from_server_response": "Đã xảy ra sự cố từ phản hồi của Máy chủ"
 }

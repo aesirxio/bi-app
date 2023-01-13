@@ -174,5 +174,10 @@
   "txt_date_range": "Date range",
   "txt_devices": "Devices",
   "txt_choose_file": "Choose file",
-  "txt_select...": "Select..."
+  "txt_select...": "Select...",
+  "txt_all_users": "All Users",
+  "txt_all": "All",
+  "txt_unique": "Unique",
+  "txt_no_data": "No data",
+  "txt_something_went_wrong_from_server_response": "Something went wrong from Server response"
 }

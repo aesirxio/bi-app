@@ -174,5 +174,10 @@
   "txt_date_range": "Datointerval",
   "txt_devices": "Enheder",
   "txt_choose_file": "Vælg fil",
-  "txt_select...": "Vælg..."
+  "txt_select...": "Vælg...",
+  "txt_all_users": "Alle brugere",
+  "txt_all": "Alle",
+  "txt_unique": "Enestående",
+  "txt_no_data": "Ingen data",
+  "txt_something_went_wrong_from_server_response": "Noget gik galt fra serversvaret"
 }

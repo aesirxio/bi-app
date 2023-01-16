@@ -10,12 +10,14 @@ import de from 'date-fns/locale/de';
 import uk from 'date-fns/locale/uk';
 import es from 'date-fns/locale/es';
 import th from 'date-fns/locale/th';
+import hr from 'date-fns/locale/hr';
 import { enUS } from 'date-fns/locale';
 registerLocale('vi', vi);
 registerLocale('de', de);
 registerLocale('uk', uk);
 registerLocale('es', es);
 registerLocale('th', th);
+registerLocale('hr', hr);
 registerLocale('en-US', enUS);
 
 function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, isDays, ...props }) {

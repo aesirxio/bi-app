@@ -23,6 +23,7 @@ import Select from 'components/Select/index';
 import i18n from 'translations/i18n';
 import 'moment/locale/vi';
 import 'moment/locale/es';
+import 'moment/locale/hr';
 import 'moment/locale/uk';
 import 'moment/locale/de';
 import 'moment/locale/th';

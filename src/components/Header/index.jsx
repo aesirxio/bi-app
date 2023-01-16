@@ -21,7 +21,12 @@ import ComponentImage from '../ComponentImage';
 import SwitchThemes from 'components/SwitchThemes/index';
 import Select from 'components/Select/index';
 import i18n from 'translations/i18n';
-
+import 'moment/locale/vi';
+import 'moment/locale/es';
+import 'moment/locale/uk';
+import 'moment/locale/de';
+import 'moment/locale/th';
+import moment from 'moment';
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -54,6 +59,7 @@ class Header extends React.Component {
         return lang;
       }
     });
+    moment.locale(i18n.language);
     return (
       <div
         id="all_header"

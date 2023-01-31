@@ -267,4 +267,18 @@
     --dropdown-bg: #e8e9ec;
     --dropdown-item-color: #fff;
   }
+  .mini_left {
+    #wr_list_menu {
+      & > .item_menu {
+        &:hover {
+          #wr_list_submenu {
+            .item_menu {
+              border: 1px solid $white;
+              border-left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
 }

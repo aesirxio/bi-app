@@ -180,5 +180,8 @@
   "txt_title_set_information_name": "Establezca su nombre y otra información pública",
   "txt_cancel": "Cancelar",
   "txt_upload_file": "Subir archivo",
-  "txt_create_folder": "Crear carpeta"
+  "txt_create_folder": "Crear carpeta",
+  "txt_warning": "Advertencia",
+  "txt_successful": "Exitoso",
+  "txt_error": "Error"
 }

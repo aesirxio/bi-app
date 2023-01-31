@@ -86,8 +86,11 @@ const CardComponent = observer(
                 ]}
                 loading={this.summaryListViewModel.status}
                 defaultValue={{
-                  label: t('txt_all'),
-                  value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+                  label:
+                    this.state.page_views === BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
+                      ? t('txt_all')
+                      : t('txt_unique'),
+                  value: this.state.page_views,
                 }}
                 handleChange={this.handleChange}
               ></ComponentCard>

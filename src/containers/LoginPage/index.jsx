@@ -76,8 +76,8 @@ class LoginPage extends React.Component {
                 {t('txt_bi')}.
                 <br /> {t('txt_login_text_2')}
               </h1>
-              <form>
-                <label className="form-label mb-16 fw-semibold">
+              <form className="login-form">
+                <label className="form-label mb-1 fw-semibold text-black">
                   Email <span className="text-danger">*</span>
                 </label>
                 <input
@@ -94,7 +94,7 @@ class LoginPage extends React.Component {
                 {this.validator.message('Email or username', this.state.username, 'required', {
                   className: 'text-danger',
                 })}
-                <label className="form-label fw-semibold mt-2 mb-16" htmlFor="password">
+                <label className="form-label fw-semibold mt-24 mb-1 text-black" htmlFor="password">
                   Password <span className="text-danger">*</span>
                 </label>
                 <InputPassword
@@ -111,7 +111,7 @@ class LoginPage extends React.Component {
                 {this.validator.message('password', this.state.password, 'required', {
                   className: 'text-danger',
                 })}
-                <div className="d-flex justify-content-between pt-16">
+                <div className="d-flex justify-content-between mt-24">
                   <Checkbox text="Remember me" />
                   <a
                     href="https://bi.aesirx.io/auth/forgotpassword"
@@ -124,7 +124,7 @@ class LoginPage extends React.Component {
                 </div>
                 <button
                   type="button"
-                  className={`btn w-100 fw-medium btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login mt-3 text-uppercase`}
+                  className={`btn w-100 fw-bold btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login mt-24 text-uppercase`}
                   onClick={this.handleSubmit}
                 >
                   {t('txt_sign_in')}

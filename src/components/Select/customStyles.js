@@ -18,7 +18,7 @@ const customStyles = (isBorder, plColor, arrowColor, isDisabled) => {
           // borderRight: '1px solid var(input-border-color)',
         },
         // borderRight: '1px solid var(input-border-color)',
-        backgroundColor: isDisabled ? 'var(--input-border-color)' : 'var(--bs-white)',
+        backgroundColor: isDisabled ? 'var(--input-border-color)' : 'var(--input-backgound-color)',
         cursor: 'pointer',
         width: 'auto',
       };
@@ -54,7 +54,7 @@ const customStyles = (isBorder, plColor, arrowColor, isDisabled) => {
         color: state.isSelected ? 'var(--dropdown-item-hover-color)' : 'var(--dropdown-item-color)',
         backgroundColor: state.isSelected ? 'var(--dropdown-item-hover-bg)' : 'var(--dropdown-bg)',
         '&:hover': {
-          color: 'var(--dropdown-item-color)',
+          color: 'var(--dropdown-item-hover-color)',
           backgroundColor: 'var(--dropdown-item-hover-bg)',
         },
       };

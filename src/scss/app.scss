@@ -465,10 +465,38 @@ textarea {
     color: var(--input-placeholder-color);
   }
 }
-.form {
+form {
   .form-control {
     padding: 10px 16px;
     line-height: 18px;
     font-size: 14px;
+    background-color: var(--bs-white);
+    &::placeholder {
+      color: var(--input-placeholder-color);
+    }
+    &:focus {
+      box-shadow: none;
+      border: 1px solid $color-blue;
+      background-color: var(--bs-white);
+    }
+    &:-webkit-autofill:focus {
+      background-color: var(--bs-white) !important;
+      -webkit-box-shadow: 0 0 0px 1000px var(--bs-white) inset;
+    }
+  }
+}
+.react-datepicker-wrapper {
+  .form-control {
+    border: 0;
+    &:focus {
+      box-shadow: none;
+      border: 1px solid $color-blue;
+      background-color: var(--bs-white);
+    }
+  }
+}
+.login-form {
+  .form-control {
+    padding: 14px 16px;
   }
 }

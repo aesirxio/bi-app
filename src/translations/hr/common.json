@@ -131,7 +131,6 @@
   "txt_download_folder": "Mapa za preuzimanje",
   "txt_delete_folder": "Izbriši mapu",
   "txt_are_you_sure": "Da li ste sigurni?",
-  "txt_delete_popup_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing",
   "txt_cancle": "Otkaži",
   "txt_yes_delete": "Da, izbriši.",
   "txt_file": "DATOTEKE",
@@ -180,5 +179,8 @@
   "txt_all": "Svi",
   "txt_unique": "Jedinstvena",
   "txt_no_data": "Nema podataka",
-  "txt_something_went_wrong_from_server_response": "Nešto nije u redu s odgovorom poslužitelja"
+  "txt_something_went_wrong_from_server_response": "Nešto nije u redu s odgovorom poslužitelja",
+  "txt_warning": "Upozorenje",
+  "txt_successful": "Uspješno",
+  "txt_error": "Greška"
   }

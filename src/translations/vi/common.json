@@ -179,5 +179,8 @@
   "txt_all": "Tất cả",
   "txt_unique": "Duy nhất",
   "txt_no_data": "Không có dữ liệu",
-  "txt_something_went_wrong_from_server_response": "Đã xảy ra sự cố từ phản hồi của Máy chủ"
+  "txt_something_went_wrong_from_server_response": "Đã xảy ra sự cố từ phản hồi của Máy chủ",
+  "txt_warning": "Cảnh báo",
+  "txt_successful": "Thành công",
+  "txt_error": "Lỗi"
 }

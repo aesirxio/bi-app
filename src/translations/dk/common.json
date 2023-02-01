@@ -179,5 +179,8 @@
   "txt_all": "Alle",
   "txt_unique": "Enestående",
   "txt_no_data": "Ingen data",
-  "txt_something_went_wrong_from_server_response": "Noget gik galt fra serversvaret"
+  "txt_something_went_wrong_from_server_response": "Noget gik galt fra serversvaret",
+  "txt_warning": "Advarsel",
+  "txt_successful": "Vellykket",
+  "txt_error": "Fejl"
 }

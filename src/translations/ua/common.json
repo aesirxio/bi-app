@@ -179,5 +179,8 @@
   "txt_all": "все",
   "txt_unique": "Унікальний",
   "txt_no_data": "Немає даних",
-  "txt_something_went_wrong_from_server_response": "Щось пішло не так із відповіддю сервера"
+  "txt_something_went_wrong_from_server_response": "Щось пішло не так із відповіддю сервера",
+  "txt_warning": "УВАГА",
+  "txt_successful": "Успішний",
+  "txt_error": "Помилка"
 }

@@ -23,6 +23,7 @@ import Select from 'components/Select/index';
 import i18n from 'translations/i18n';
 import 'moment/locale/vi';
 import 'moment/locale/es';
+import 'moment/locale/hr';
 import 'moment/locale/uk';
 import 'moment/locale/de';
 import 'moment/locale/th';
@@ -67,15 +68,19 @@ class Header extends React.Component {
       >
         <ComponentHambuger handleAction={this.handleMenuLeft} />
         <div className="wrapper_header_logo bg-dark w-248 h-80 d-flex align-items-center">
-          <a href="/" className={`header_logo d-block ${isMini ? '' : 'mx-3'}`}>
+          <a href="/" className={`header_logo d-block ${isMini ? 'mx-auto' : 'mx-3'}`}>
             <ComponentImage
               className={`logo_white ${isMini ? 'pe-0' : 'pe-3 pe-lg-6'}`}
-              src="/assets/images/logo/logo-white.svg"
+              src={`${
+                isMini
+                  ? '/assets/images/logo/logo-white-mini.svg'
+                  : '/assets/images/logo/logo-white.svg'
+              }`}
               alt="R Digital"
             />
           </a>
         </div>
-        <div className="content_header h-80 border-start-1 flex-1 d-flex align-items-center ps-2 ps-lg-4 position-relative w-50 w-lg-100">
+        <div className="content_header h-80 border-start-1 border-gray-300 flex-1 d-flex align-items-center ps-2 ps-lg-4 position-relative w-50 w-lg-100">
           <span
             className="
               item_collap
@@ -103,7 +108,7 @@ class Header extends React.Component {
                 isBorder={false}
                 isShadow={false}
                 options={listLanguages}
-                className="shadow-none"
+                className="shadow-none select-bg-white"
                 onChange={(data) => {
                   i18n.changeLanguage(data.value);
                 }}

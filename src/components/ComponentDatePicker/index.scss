@@ -12,7 +12,9 @@
       outline: none;
     }
   }
-
+  .react-datepicker-popper {
+    z-index: 2;
+  }
   .react-datepicker-popper[data-placement^='bottom'] {
     margin-top: 5px;
   }

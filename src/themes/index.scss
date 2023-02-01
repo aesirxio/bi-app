@@ -82,10 +82,10 @@
     'theme': #0c1215,
     'gray-200': $gray-200,
     'gray-400': $gray-400,
-    'white': #000,
+    'white': $dark,
   );
 
-  $body-color: #eeeeee;
+  $body-color: #fff;
   $body-bg: #0f1314;
   color: $body-color;
   background-color: $body-bg;
@@ -259,12 +259,36 @@
   @import '../../node_modules/bootstrap/scss/utilities/api';
 
   // for react-select
-  :root {
-    --dropdown-item-hover-color: #1ab394;
-    --dropdown-item-hover-bg: #e8e9ec;
-    --view-active-bg: #e8e9ec;
-    --text-title-color: #fff;
-    --dropdown-bg: #e8e9ec;
-    --dropdown-item-color: #fff;
+  --dropdown-item-hover-color: #1ab394 !important;
+  --dropdown-item-hover-bg: #e8e9ec !important;
+  --view-active-bg: #e8e9ec !important;
+  --text-title-color: #fff !important;
+  --dropdown-bg: #1a2226 !important;
+  --dropdown-item-color: #e8e9ec !important;
+  --input-border-color: #3e545e !important;
+  --input-backgound-color: #000;
+  --input-placeholder-color: #c0c0c0 !important;
+  --dropdown-multi-bg: #0f1314;
+  --dropdown-indicator-color: #fff;
+  .react-datepicker-wrapper {
+    .form-control {
+      border: 1px solid var(--input-border-color);
+      &:focus {
+        border: 1px solid var(--input-border-color);
+      }
+    }
+  }
+  .form-control {
+    background-color: #000;
+  }
+  .select-bg-white {
+    --input-backgound-color: #1a2226;
+  }
+  .ChartWrapper {
+    .btn-group {
+      .active {
+        background-color: $success !important;
+      }
+    }
   }
 }

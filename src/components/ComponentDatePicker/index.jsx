@@ -114,7 +114,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
         isClearable={false}
         className={`${
           isDays ? 'fs-14 fw-semibold mw-120' : 'ps-16 pe-6'
-        } form-control border-0 rounded-1 text-color opacity-100 h-100`}
+        } form-control rounded-1 text-body opacity-100 h-100`}
         showPopperArrow={false}
         monthsShown={2}
         open={isOpen}

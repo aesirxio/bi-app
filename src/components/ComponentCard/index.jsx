@@ -44,7 +44,6 @@ const ComponentCard = ({
             options={options}
             className={`fs-sm`}
             isBorder={true}
-            arrowColor={'#222328'}
             onChange={handleChange}
           />
         )}

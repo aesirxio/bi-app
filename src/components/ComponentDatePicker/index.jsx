@@ -55,7 +55,10 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
   };
   const MyContainer = ({ className, children }) => {
     return (
-      <div ref={pickerRef} className="rounded-3 shadow overflow-hidden py-2 px-1 bg-white">
+      <div
+        ref={pickerRef}
+        className="rounded-3 shadow overflow-hidden py-2 px-1 react-datepicker-popper-wrapper"
+      >
         <div className={`${className}`}>{children}</div>
         {startDate && (
           <div className="d-flex align-items-center justify-content-end border-top-1 pt-2 px-2 text-color">

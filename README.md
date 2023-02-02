@@ -28,11 +28,18 @@ Follow the instructions in: [https://github.com/aesirxio/analytics/tree/master](
 1. Replace the `REACT_APP_ENDPOINT_URL` in the `.env` file with the link to your `1st party server for AesirX Analytics`.
 1. Replace the `REACT_APP_DATA_STREAM` in the `.env` file with the `name` and `domain` to the your data-stream endpoint.
 
-#### `npm start`
+#### `yarn dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-#### `npm build`
+#### `yarn build`
 
 Get a full build and install it in your favorite web server.
+
+## Dockerize
+#### Development
+`docker compose -f "docker-compose.dev.yml" up -d --build`
+
+#### Production
+`docker compose -f "docker-compose.pro.yml" up -d --build`

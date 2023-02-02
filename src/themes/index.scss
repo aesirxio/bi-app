@@ -270,6 +270,8 @@
   --input-placeholder-color: #c0c0c0 !important;
   --dropdown-multi-bg: #0f1314;
   --dropdown-indicator-color: #fff;
+  --datepicker-color: #fff;
+  --datepicker-range-bg-color: #717b80;
   .react-datepicker-wrapper {
     .form-control {
       border: 1px solid var(--input-border-color);
@@ -304,5 +306,20 @@
         }
       }
     }
+  }
+  .dropdown-menu {
+    --bs-dropdown-bg: #1a2226;
+  }
+  .react-datepicker {
+    background-color: $body-bg;
+    .react-datepicker__year-read-view--down-arrow,
+    .react-datepicker__month-read-view--down-arrow,
+    .react-datepicker__month-year-read-view--down-arrow,
+    .react-datepicker__navigation-icon::before {
+      border-color: $success;
+    }
+  }
+  .react-datepicker-popper-wrapper {
+    background-color: $body-bg;
   }
 }

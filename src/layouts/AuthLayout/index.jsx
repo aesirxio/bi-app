@@ -3,15 +3,20 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 
 import { Route, Redirect } from 'react-router-dom';
 import { authRoutes } from '../../routes/routes';
 import Spinner from '../../components/Spinner';
 
 import { isLogin } from '../../auth';
-
+import { useThemeContext } from 'themes/ThemeContextProvider';
 const AuthLayout = () => {
+  const { changeTheme } = useThemeContext();
+  useEffect(() => {
+    changeTheme();
+  }, []);
+
   return isLogin() ? (
     <Redirect to="/" />
   ) : (

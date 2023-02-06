@@ -27,7 +27,10 @@ const login = async ({ username, password }) => {
   document.body.classList.add('body_login_page');
   // const authService = new AesirxAuthenticationApiService();
   // const result = await authService.login(username, password);
-  if (username === 'demo-bi@aesirx.io' && password === 'demo-bi') {
+  if (
+    username === process.env.REACT_APP_DEMO_USER &&
+    password === process.env.REACT_APP_DEMO_PASSWORD
+  ) {
     Storage.setItem('auth', true);
     document.body.classList.remove('body_login_page');
 
@@ -42,9 +45,7 @@ const login = async ({ username, password }) => {
 
 // LOGOUT
 const logout = () => {
-  const currentTheme = localStorage.getItem('theme');
   localStorage.clear();
-  localStorage.setItem('theme', currentTheme);
 
   history.push('/login');
 };

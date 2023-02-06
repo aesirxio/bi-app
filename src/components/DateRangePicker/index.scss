@@ -27,5 +27,14 @@
   right: 16px;
 }
 .daterange-picker-wrapper {
-  width: calc(100% + 10px);
+  width: 100%;
+  .form-control {
+    min-width: 290px;
+    &.en {
+      min-width: 285px;
+    }
+    &.vi {
+      min-width: 325px;
+    }
+  }
 }

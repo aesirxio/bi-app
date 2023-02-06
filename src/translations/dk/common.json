@@ -166,7 +166,7 @@
   "txt_months": "Måneder",
   "txt_page_views": "Sidevisninger",
   "txt_acg_session_duration": "Gennemsnitlig sessionslængde",
-  "txt_bounce_rate": "Bounce Rate",
+  "txt_bounce_rate": "Afvisningsprocent",
   "txt_page_session": "Side/Session",
   "txt_in_total": "I alt",
   "txt_description": "Beskrivelse",
@@ -179,5 +179,8 @@
   "txt_all": "Alle",
   "txt_unique": "Enestående",
   "txt_no_data": "Ingen data",
-  "txt_something_went_wrong_from_server_response": "Noget gik galt fra serversvaret"
+  "txt_something_went_wrong_from_server_response": "Noget gik galt fra serversvaret",
+  "txt_warning": "Advarsel",
+  "txt_successful": "Vellykket",
+  "txt_error": "Fejl"
 }

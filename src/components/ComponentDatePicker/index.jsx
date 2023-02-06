@@ -9,11 +9,15 @@ import vi from 'date-fns/locale/vi';
 import de from 'date-fns/locale/de';
 import uk from 'date-fns/locale/uk';
 import es from 'date-fns/locale/es';
+import th from 'date-fns/locale/th';
+import hr from 'date-fns/locale/hr';
 import { enUS } from 'date-fns/locale';
 registerLocale('vi', vi);
 registerLocale('de', de);
 registerLocale('uk', uk);
 registerLocale('es', es);
+registerLocale('th', th);
+registerLocale('hr', hr);
 registerLocale('en-US', enUS);
 
 function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, isDays, ...props }) {
@@ -51,7 +55,10 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
   };
   const MyContainer = ({ className, children }) => {
     return (
-      <div ref={pickerRef} className="rounded-3 shadow overflow-hidden py-2 px-1 bg-white">
+      <div
+        ref={pickerRef}
+        className="rounded-3 shadow overflow-hidden py-2 px-1 react-datepicker-popper-wrapper"
+      >
         <div className={`${className}`}>{children}</div>
         {startDate && (
           <div className="d-flex align-items-center justify-content-end border-top-1 pt-2 px-2 text-color">
@@ -110,7 +117,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
         isClearable={false}
         className={`${
           isDays ? 'fs-14 fw-semibold mw-120' : 'ps-16 pe-6'
-        } form-control border-0 rounded-1 text-color opacity-100 h-100`}
+        } form-control rounded-1 text-body opacity-100 h-100 ${i18n?.language}`}
         showPopperArrow={false}
         monthsShown={2}
         open={isOpen}

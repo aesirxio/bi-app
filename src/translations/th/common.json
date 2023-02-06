@@ -166,7 +166,7 @@
   "txt_months": "เดือน",
   "txt_page_views": "เพจวิว",
   "txt_acg_session_duration": "เฉลี่ย ระยะเวลาเซสชัน",
-  "txt_bounce_rate": "Bounce Rate",
+  "txt_bounce_rate": "อัตราตีกลับ",
   "txt_page_session": "เพจ/เซสชั่น",
   "txt_in_total": "จากทั้งหมด",
   "txt_description": "คำอธิบาย",
@@ -179,5 +179,8 @@
   "txt_all": "ทั้งหมด",
   "txt_unique": "มีเอกลักษณ์",
   "txt_no_data": "ไม่มีข้อมูล",
-  "txt_something_went_wrong_from_server_response": "มีบางอย่างผิดพลาดจากการตอบสนองของเซิร์ฟเวอร์"
+  "txt_something_went_wrong_from_server_response": "มีบางอย่างผิดพลาดจากการตอบสนองของเซิร์ฟเวอร์",
+  "txt_warning": "คำเตือน",
+  "txt_successful": "ประสบความสำเร็จ",
+  "txt_error": "ข้อผิดพลาด"
 }

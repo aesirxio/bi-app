@@ -6,64 +6,18 @@ import { useTranslation } from 'react-i18next';
 import BehaviorTable from './Component/BehaviorTable';
 import { useBehaviorViewModel } from './BehaviorViewModels/BehaviorViewModelContextProvider';
 import { observer } from 'mobx-react';
+import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
 const UTMTrackingPage = observer(() => {
   const { t } = useTranslation('common');
   const { getVisitor, data } = useBehaviorViewModel().getBehaviorEventsViewModel();
-  // const dataAreaChart = [
-  //   {
-  //     name: 'Jan',
-  //     line1: 0,
-  //   },
-  //   {
-  //     name: 'Feb',
-  //     line1: 0,
-  //   },
-  //   {
-  //     name: 'Mar',
-  //     line1: 0,
-  //   },
-  //   {
-  //     name: 'Apr',
-  //     line1: 395,
-  //   },
-  //   {
-  //     name: 'May',
-  //     line1: 380,
-  //   },
-  //   {
-  //     name: 'Jun',
-  //     line1: 204,
-  //   },
-  //   {
-  //     name: 'Jul',
-  //     line1: 420,
-  //   },
-  //   {
-  //     name: 'Aug',
-  //     line1: 680,
-  //   },
-  //   {
-  //     name: 'Sep',
-  //     line1: 670,
-  //   },
-  //   {
-  //     name: 'Oct',
-  //     line1: 568,
-  //   },
-  //   {
-  //     name: 'Nov',
-  //     line1: 940,
-  //   },
-  //   {
-  //     name: 'Dec',
-  //     line1: 360,
-  //   },
-  // ];
+  const { activeDomain } = useBiViewModel().getBiListViewModel();
 
   useEffect(() => {
     const a = async () => {
-      await getVisitor();
+      await getVisitor({
+        'filter[domain]': activeDomain,
+      });
     };
     a();
     return () => {};
@@ -84,12 +38,12 @@ const UTMTrackingPage = observer(() => {
             <AreaChartComponent
               chartTitle={t('txt_menu_overview')}
               height={390}
-              data={data.toAreaChart() ?? []}
+              data={data.toAreaChartUTM() ?? []}
               colors={['#1AB394']}
               areaColors={['#1AB394']}
               lineColors={['#1AB394']}
               lines={['number']}
-              filterData={data.getFilterName()}
+              filterData={data.getFilterNameUTM()}
               tooltipComponent={{
                 header: t('txt_number'),
                 value: `txt_count`,
@@ -104,7 +58,7 @@ const UTMTrackingPage = observer(() => {
               height={390}
               bars={['number']}
               barColors={['#2C94EA']}
-              data={data.toBarChart()}
+              data={data.toBarChartUTM()}
               margin={{ left: 40 }}
               isFilterButtons={true}
               filterButtons={true}
@@ -113,7 +67,7 @@ const UTMTrackingPage = observer(() => {
         </div>
       </div>
       <div className="row gx-24 mb-24">
-        <div className="col-12 ">{data && <BehaviorTable data={data.toEventTable()} />}</div>
+        <div className="col-12 ">{data && <BehaviorTable data={data.toEventTableUTM()} />}</div>
       </div>
     </div>
   );

@@ -6,8 +6,9 @@ import { useTranslation } from 'react-i18next';
 import BehaviorTable from './Component/BehaviorTable';
 import { useBehaviorViewModel } from './BehaviorViewModels/BehaviorViewModelContextProvider';
 import { observer } from 'mobx-react';
+import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
-const UTMTrackingPage = observer(() => {
+const Events = observer(() => {
   const { t } = useTranslation('common');
   const { getVisitor, data } = useBehaviorViewModel().getBehaviorEventsViewModel();
   // const dataAreaChart = [
@@ -60,10 +61,12 @@ const UTMTrackingPage = observer(() => {
   //     line1: 360,
   //   },
   // ];
-
+  const { activeDomain } = useBiViewModel().getBiListViewModel();
   useEffect(() => {
     const a = async () => {
-      await getVisitor();
+      await getVisitor({
+        'filter[domain]': activeDomain,
+      });
     };
     a();
     return () => {};
@@ -119,4 +122,4 @@ const UTMTrackingPage = observer(() => {
   );
 });
 
-export default UTMTrackingPage;
+export default Events;

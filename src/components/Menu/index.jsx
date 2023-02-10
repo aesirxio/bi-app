@@ -83,26 +83,30 @@ const Menu = observer((props) => {
         },
       ],
     },
-    // {
-    //   text: 'txt_menu_behavior',
-    //   link: `/data-${dataStreamActive}/behavior`,
-    //   icons: '/assets/images/behavior.svg',
-    //   icons_color: '/assets/images/behavior.svg',
-    //   submenu: [
-    //     {
-    //       text: 'txt_menu_overview',
-    //       link: `/data-${dataStreamActive}/behavior/overview`,
-    //     },
-    //     {
-    //       text: 'txt_menu_click_anchor',
-    //       link: `/data-${dataStreamActive}/behavior/click-anchor`,
-    //     },
-    //     {
-    //       text: 'txt_menu_utm_tracking',
-    //       link: `/data-${dataStreamActive}/behavior/utm-tracking`,
-    //     },
-    //   ],
-    // },
+    {
+      text: 'txt_menu_behavior',
+      link: `/data-${dataStreamActive}/behavior`,
+      icons: '/assets/images/behavior.svg',
+      icons_color: '/assets/images/behavior.svg',
+      submenu: [
+        // {
+        //   text: 'txt_menu_overview',
+        //   link: `/data-${dataStreamActive}/behavior/overview`,
+        // },
+        // {
+        //   text: 'txt_menu_click_anchor',
+        //   link: `/data-${dataStreamActive}/behavior/click-anchor`,
+        // },
+        {
+          text: 'txt_menu_utm_tracking',
+          link: `/data-${dataStreamActive}/behavior/utm-tracking`,
+        },
+        {
+          text: 'events',
+          link: `/data-${dataStreamActive}/behavior/events`,
+        },
+      ],
+    },
     // {
     //   text: 'txt_menu_revenue',
     //   link: `/data-${dataStreamActive}/revenue`,

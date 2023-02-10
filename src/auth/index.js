@@ -5,9 +5,9 @@
 
 import history from '../routes/history';
 import { notify } from '../components/Toast';
-// import AesirxAuthenticationApiService from 'aesirx-dma-lib/src/Bi/Authentication';
-import Storage from 'aesirx-dma-lib/src/Utils/Storage';
-import { AXIOS_CONFIGS, GENERAL_CONFIG } from 'aesirx-dma-lib/src/Constant/Constant';
+
+import { Storage } from 'aesirx-dma-lib';
+import { AXIOS_CONFIGS, GENERAL_CONFIG } from 'aesirx-dma-lib';
 
 if (
   AXIOS_CONFIGS.CLIENT_ID === '' ||

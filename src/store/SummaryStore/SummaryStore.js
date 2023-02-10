@@ -5,13 +5,13 @@
 
 import { runInAction } from 'mobx';
 import SummaryUtils from './SummaryUtils';
-
-import AesirxBiApiService from 'aesirx-dma-lib/src/Bi/Bi';
+import { AesirxBiApiService } from 'aesirx-dma-lib';
 export default class SummaryStore {
   getSummary = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
       const responsedDataFromLibary = await biService.getSummary(dataFilter, dateFilter);
+
       if (responsedDataFromLibary) {
         const homeDataModels =
           SummaryUtils.transformPersonaResponseIntoModel(responsedDataFromLibary);
@@ -51,32 +51,12 @@ export default class SummaryStore {
           });
         } else {
           callbackOnError({
-            message: error?.response.data?._messages
+            message: error?.response?.data?._messages
               ? error.response?.data?._messages[0]?.message
               : 'Something went wrong from Server response',
           });
         }
       });
-    }
-  };
-
-  search = async (query) => {
-    try {
-      const biService = new AesirxBiApiService();
-      const responsedDataFromLibary = await biService.search({
-        'filter[search]': query,
-      });
-      if (responsedDataFromLibary?.assets || responsedDataFromLibary?.collections) {
-        const homeDataModels = SummaryUtils.transformResponseIntoSearchItems([
-          ...responsedDataFromLibary?.assets,
-          ...responsedDataFromLibary?.collections,
-        ]);
-
-        return homeDataModels;
-      }
-    } catch (error) {
-      console.log(error);
-      throw error;
     }
   };
 }

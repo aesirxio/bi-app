@@ -10,19 +10,13 @@ import moment from 'moment';
 
 class SummaryListViewModel {
   summaryStore = null;
-  paginationCollections = null;
   status = PAGE_STATUS.READY;
   data = [];
-  tableRowHeader = null;
   dateFilter = {
     date_start: moment().startOf('month').format('YYYY-MM-DD'),
     date_end: moment().endOf('day').format('YYYY-MM-DD'),
   };
-  dataFilter = {};
-  pageSize = 5;
-  isList = false;
   summaryIdsSelected = null;
-  isSearch = false;
   constructor(summaryStore) {
     makeAutoObservable(this);
     this.summaryStore = summaryStore;
@@ -36,7 +30,7 @@ class SummaryListViewModel {
       this.dataFilter,
       this.dateFilter,
       this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHandler
     );
   };
 
@@ -48,7 +42,7 @@ class SummaryListViewModel {
       this.dataFilter,
       this.dateFilter,
       this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHandler
     );
   };
   handleFilterDateRange = (startDate, endDate) => {
@@ -63,12 +57,12 @@ class SummaryListViewModel {
       this.dataFilter,
       this.dateFilter,
       this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHandler
     );
   };
   resetObservableProperties = () => {};
 
-  callbackOnErrorHander = (error) => {
+  callbackOnErrorHandler = (error) => {
     this.status = PAGE_STATUS.READY;
     notify(error.message, 'error');
   };

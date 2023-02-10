@@ -16,11 +16,7 @@ import CardComponent from './Component/Card';
 import DateRangePicker from 'components/DateRangePicker';
 // import AreaChartComponent from 'components/AreaChartComponent';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-// import {
-//   BI_DASHBOARD_FIELD_KEY,
-//   BI_NEW_USERS_KEY,
-//   BI_CONTINENTS_KEY,
-// } from 'aesirx-dma-lib/src/Constant/BiConstant';
+
 import SummaryStore from 'store/SummaryStore/SummaryStore';
 import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
 import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';

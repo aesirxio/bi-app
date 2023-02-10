@@ -10,19 +10,14 @@ import moment from 'moment';
 
 class VisitorListViewModel {
   visitorStore = null;
-  paginationCollections = null;
+
   status = PAGE_STATUS.READY;
   data = [];
-  tableRowHeader = null;
   dateFilter = {
     date_start: moment().startOf('month').format('YYYY-MM-DD'),
     date_end: moment().endOf('day').format('YYYY-MM-DD'),
   };
-  dataFilter = {};
-  pageSize = 5;
-  isList = false;
-  visitorIdsSelected = null;
-  isSearch = false;
+
   constructor(visitorStore) {
     makeAutoObservable(this);
     this.visitorStore = visitorStore;
@@ -36,7 +31,7 @@ class VisitorListViewModel {
       this.dataFilter,
       this.dateFilter,
       this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHandler
     );
   };
 
@@ -48,12 +43,13 @@ class VisitorListViewModel {
       this.dataFilter,
       this.dateFilter,
       this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHandler
     );
   };
+
   handleFilterDateRange = (startDate, endDate) => {
     this.status = PAGE_STATUS.LOADING;
-    let dateRangeFilter = {
+    const dateRangeFilter = {
       date_start: moment(startDate).format('YYYY-MM-DD'),
       date_end: moment(endDate).endOf('day').format('YYYY-MM-DD'),
     };
@@ -62,18 +58,20 @@ class VisitorListViewModel {
       this.dataFilter,
       this.dateFilter,
       this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHandler
     );
   };
+
   resetObservableProperties = () => {};
 
-  callbackOnErrorHander = (error) => {
+  callbackOnErrorHandler = (error) => {
     this.status = PAGE_STATUS.READY;
     notify(error.message, 'error');
   };
 
   callbackOnDataSuccessHandler = (data) => {
     if (data) {
+      console.log(data);
       this.status = PAGE_STATUS.READY;
       this.data = data;
     } else {

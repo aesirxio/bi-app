@@ -21,5 +21,3 @@ export const useBehaviorViewModel = () => React.useContext(BehaviorViewModelCont
 export const withBehaviorViewModel = (Component) => (props) => {
   return <Component {...props} viewModel={useBehaviorViewModel()} />;
 };
-
-export const AdsContext = React.createContext();

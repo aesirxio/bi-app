@@ -4,41 +4,21 @@
  */
 
 import { runInAction } from 'mobx';
-import VisitorUtils from './VisitorUtils';
 
 import { AesirxBiApiService } from 'aesirx-dma-lib';
 export default class VisitorStore {
   getVisitors = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
-      const responsedDataFromLibary = await biService.getVisitors(dataFilter, dateFilter);
-      if (responsedDataFromLibary) {
-        const homeDataModels =
-          VisitorUtils.transformVisitorResponseIntoModel(responsedDataFromLibary);
-
-        if (homeDataModels) {
-          runInAction(() => {
-            callbackOnSuccess(homeDataModels);
-          });
-        } else {
-          runInAction(() => {
-            callbackOnError({
-              message: 'No Result',
-            });
-          });
-        }
+      const responseDataFromLibrary = await biService.getVisitors(dataFilter, dateFilter);
+      if (responseDataFromLibrary) {
+        runInAction(() => {
+          callbackOnSuccess(responseDataFromLibrary);
+        });
       } else {
-        if (responsedDataFromLibary?.message === 'isCancle') {
-          runInAction(() => {
-            callbackOnError({
-              message: 'isCancle',
-            });
-          });
-        } else {
-          runInAction(() => {
-            callbackOnSuccess([]);
-          });
-        }
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
       }
     } catch (error) {
       console.log('errorrrr', error);
@@ -61,10 +41,10 @@ export default class VisitorStore {
   getVisitor = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
-      const responsedDataFromLibary = await biService.getVisitor(dataFilter, dateFilter);
-      if (responsedDataFromLibary) {
+      const responseDataFromLibrary = await biService.getVisitor(dataFilter, dateFilter);
+      if (responseDataFromLibrary) {
         runInAction(() => {
-          callbackOnSuccess(responsedDataFromLibary);
+          callbackOnSuccess(responseDataFromLibrary);
         });
       } else {
         callbackOnError({

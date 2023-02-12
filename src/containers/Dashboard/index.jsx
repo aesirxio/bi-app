@@ -9,29 +9,34 @@ import Spinner from '../../components/Spinner';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-// import Revenue from './Component/Revenue';
-// import RegisteredUser from './Component/RegisteredUser';
 import CardComponent from './Component/Card';
-// import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from 'components/DateRangePicker';
-// import AreaChartComponent from 'components/AreaChartComponent';
-import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
 import SummaryStore from 'store/SummaryStore/SummaryStore';
-import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
-import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
-import { Col, Row } from 'react-bootstrap';
-import { VisitorStoreProvider } from 'store/VisitorStore/VisitorViewModelContextProvider';
-import VisitorViewModel from 'store/VisitorStore/VisitorViewModel';
 import VisitorStore from 'store/VisitorStore/VisitorStore';
-import OverviewComponent from '../AudiencePage/Component/Overview';
+import OverviewComponent from './Component/Overview';
+import DashboardStore from './DashboardStore/DashboardStore';
+import DashboardViewModel from './DashboardViewModels/DashboardViewModel';
+import {
+  DashboardViewModelContext,
+  DashboardViewModelContextProvider,
+} from './DashboardViewModels/DashboardViewModelContextProvider';
+import BiStore from 'store/BiStore/BiStore';
+import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
 const summaryStore = new SummaryStore();
-const summaryViewModel = new SummaryViewModel(summaryStore);
 
 const visitorStore = new VisitorStore();
-const visitorViewModel = new VisitorViewModel(visitorStore);
+const dashboardStore = new DashboardStore();
+const biStore = new BiStore();
+
+const dashboardViewModel = new DashboardViewModel(
+  dashboardStore,
+  visitorStore,
+  summaryStore,
+  biStore
+);
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -39,7 +44,7 @@ const Dashboard = observer(
       super(props);
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
-      this.biListViewModel = this.viewModel ? this.viewModel.biListViewModel : null;
+      this.biListViewModel = this.viewModel ? this.viewModel.getBiListViewModel() : null;
     }
 
     componentDidMount() {
@@ -58,119 +63,33 @@ const Dashboard = observer(
       }
 
       return (
-        <div className="py-4 px-3 h-100 d-flex flex-column">
-          <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
-            <div className="position-relative">
-              <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_dashboard')}</h2>
-              <p className="mb-0 text-color">{t('txt_dashboard_below')}</p>
+        <DashboardViewModelContextProvider viewModel={dashboardViewModel}>
+          <div className="py-4 px-3 h-100 d-flex flex-column">
+            <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
+              <div className="position-relative">
+                <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_dashboard')}</h2>
+                <p className="mb-0 text-color">{t('txt_dashboard_below')}</p>
+              </div>
+              <div className="position-relative">
+                <DashboardViewModelContext.Consumer>
+                  {({ visitorListViewModel, summaryListViewModel }) => {
+                    return (
+                      <DateRangePicker
+                        viewModelArr={[visitorListViewModel, summaryListViewModel]}
+                      />
+                    );
+                  }}
+                </DashboardViewModelContext.Consumer>
+              </div>
             </div>
-            <div className="position-relative">
-              <DateRangePicker
-                viewModelArr={[
-                  summaryViewModel.summaryListViewModel,
-                  visitorViewModel.visitorListViewModel,
-                ]}
-              ></DateRangePicker>
-            </div>
-          </div>
-          <SummaryStoreProvider viewModel={summaryViewModel}>
-            <CardComponent></CardComponent>
-          </SummaryStoreProvider>
-          <Row>
-            <Col lg={12}>
-              <VisitorStoreProvider viewModel={visitorViewModel}>
-                <OverviewComponent></OverviewComponent>
-              </VisitorStoreProvider>
-            </Col>
-          </Row>
-          {/* <div className="row gx-24 mb-24">
-            <div className="col-lg-7">
-              <AreaChartComponent
-                chartTitle={t('txt_total_revenue')}
-                height={390}
-                data={[
-                  {
-                    name: 'Jan',
-                    line1: 400,
-                  },
-                  {
-                    name: 'Feb',
-                    line1: 530,
-                  },
-                  {
-                    name: 'Mar',
-                    line1: 410,
-                  },
-                  {
-                    name: 'Apr',
-                    line1: 395,
-                  },
-                  {
-                    name: 'May',
-                    line1: 380,
-                  },
-                  {
-                    name: 'Jun',
-                    line1: 204,
-                  },
-                  {
-                    name: 'Jul',
-                    line1: 420,
-                  },
-                  {
-                    name: 'Aug',
-                    line1: 680,
-                  },
-                  {
-                    name: 'Sep',
-                    line1: 670,
-                  },
-                  {
-                    name: 'Oct',
-                    line1: 568,
-                  },
-                  {
-                    name: 'Nov',
-                    line1: 940,
-                  },
-                  {
-                    name: 'Dec',
-                    line1: 360,
-                  },
-                ]}
-                colors={['#1AB394']}
-                lineType="monotone"
-                areaColors={['#3BB346', 'pink']}
-                lineColors={['#0FC6C2', 'red']}
-                lines={['line1']}
-                isDot
-                hiddenGrid={{ vertical: false }}
-                XAxisOptions={{ axisLine: true, padding: { left: 20, right: 10 } }}
-                 tooltipComponent={{
-                  header: t('txt_in_total'),
-                  value: `$`,
-                }}
-              />
-            </div>
-            <div className="col-lg-5">
-              <Revenue
-                data={this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.REVENUE_BY_SUBSCRIBERS]}
-              ></Revenue>
+            <CardComponent />
+            <div className="row">
+              <div className="col-12">
+                <OverviewComponent />
+              </div>
             </div>
           </div>
-          <div className="row gx-24 mb-24">
-            <div className="col-lg-6">
-              <RegisteredUser
-                data={this.biListViewModel.data[BI_NEW_USERS_KEY.NEW_USERS]}
-              ></RegisteredUser>
-            </div>
-            <div className="col-lg-6">
-              <ComponentContinent
-                data={this.biListViewModel.data[BI_CONTINENTS_KEY.CONTINENTS]}
-              ></ComponentContinent>
-            </div>
-          </div> */}
-        </div>
+        </DashboardViewModelContextProvider>
       );
     }
   }

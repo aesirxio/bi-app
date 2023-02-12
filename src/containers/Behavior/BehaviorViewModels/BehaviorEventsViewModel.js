@@ -39,6 +39,21 @@ class BehaviorEventsViewModel {
     );
   };
 
+  handleFilterDateRange = (startDate, endDate) => {
+    this.status = PAGE_STATUS.LOADING;
+    const dateRangeFilter = {
+      date_start: moment(startDate).format('YYYY-MM-DD'),
+      date_end: moment(endDate).endOf('day').format('YYYY-MM-DD'),
+    };
+    this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
+    this.visitorStore.getVisitor(
+      this.dataFilter,
+      this.dateFilter,
+      this.callbackOnDataSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   callbackOnErrorHandler = (error) => {
     this.status = PAGE_STATUS.READY;
     notify(error.message, 'error');

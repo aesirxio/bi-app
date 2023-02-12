@@ -7,12 +7,13 @@ import { notify } from 'components/Toast';
 import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
+import VisitorModel from './VisitorModel';
 
 class VisitorListViewModel {
   visitorStore = null;
 
   status = PAGE_STATUS.READY;
-  data = [];
+  data = null;
   dateFilter = {
     date_start: moment().startOf('month').format('YYYY-MM-DD'),
     date_end: moment().endOf('day').format('YYYY-MM-DD'),
@@ -73,7 +74,8 @@ class VisitorListViewModel {
     if (data) {
       console.log(data);
       this.status = PAGE_STATUS.READY;
-      this.data = data;
+      const transformData = new VisitorModel(data);
+      this.data = transformData;
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];

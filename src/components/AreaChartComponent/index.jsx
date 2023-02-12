@@ -1,7 +1,7 @@
 import ComponentNoData from 'components/ComponentNoData';
 import HeaderFilterComponent from 'components/HeaderFilterComponent';
 import PAGE_STATUS from 'constants/PageStatus';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
 import {
@@ -31,6 +31,11 @@ const AreaChartComponent = ({
   filterData = [],
 }) => {
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
+  useEffect(() => {
+    setCurrentSelection(filterData[0]);
+
+    return () => {};
+  }, [data]);
 
   const customizedTooltip = ({ payload }) => {
     return (

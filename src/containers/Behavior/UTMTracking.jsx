@@ -10,8 +10,9 @@ import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
 const UTMTrackingPage = observer(() => {
   const { t } = useTranslation('common');
-  const { getVisitor, data } = useBehaviorViewModel().getBehaviorEventsViewModel();
+  const behaviorViewModel = useBehaviorViewModel().getBehaviorEventsViewModel();
   const { activeDomain } = useBiViewModel().getBiListViewModel();
+  const { getVisitor, data } = behaviorViewModel;
 
   useEffect(() => {
     const a = async () => {
@@ -29,7 +30,7 @@ const UTMTrackingPage = observer(() => {
           <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_behavior')}</h2>
         </div>
         <div className="position-relative">
-          <DateRangePicker />
+          <DateRangePicker viewModelArr={[behaviorViewModel]} />
         </div>
       </div>
       <div className="row gx-24 mb-24">

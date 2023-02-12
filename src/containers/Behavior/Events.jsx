@@ -10,58 +10,9 @@ import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
 const Events = observer(() => {
   const { t } = useTranslation('common');
-  const { getVisitor, data } = useBehaviorViewModel().getBehaviorEventsViewModel();
-  // const dataAreaChart = [
-  //   {
-  //     name: 'Jan',
-  //     line1: 0,
-  //   },
-  //   {
-  //     name: 'Feb',
-  //     line1: 0,
-  //   },
-  //   {
-  //     name: 'Mar',
-  //     line1: 0,
-  //   },
-  //   {
-  //     name: 'Apr',
-  //     line1: 395,
-  //   },
-  //   {
-  //     name: 'May',
-  //     line1: 380,
-  //   },
-  //   {
-  //     name: 'Jun',
-  //     line1: 204,
-  //   },
-  //   {
-  //     name: 'Jul',
-  //     line1: 420,
-  //   },
-  //   {
-  //     name: 'Aug',
-  //     line1: 680,
-  //   },
-  //   {
-  //     name: 'Sep',
-  //     line1: 670,
-  //   },
-  //   {
-  //     name: 'Oct',
-  //     line1: 568,
-  //   },
-  //   {
-  //     name: 'Nov',
-  //     line1: 940,
-  //   },
-  //   {
-  //     name: 'Dec',
-  //     line1: 360,
-  //   },
-  // ];
+  const behaviorViewModel = useBehaviorViewModel().getBehaviorEventsViewModel();
   const { activeDomain } = useBiViewModel().getBiListViewModel();
+  const { getVisitor, data } = behaviorViewModel;
   useEffect(() => {
     const a = async () => {
       await getVisitor({
@@ -78,7 +29,7 @@ const Events = observer(() => {
           <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_behavior')}</h2>
         </div>
         <div className="position-relative">
-          <DateRangePicker />
+          <DateRangePicker viewModelArr={[behaviorViewModel]} />
         </div>
       </div>
       <div className="row gx-24 mb-24">

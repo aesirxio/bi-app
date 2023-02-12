@@ -4,21 +4,30 @@ import { Col, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import DateRangePicker from 'components/DateRangePicker';
-import { VisitorStoreProvider } from 'store/VisitorStore/VisitorViewModelContextProvider';
 import OverviewComponent from './Component/Overview';
 import CardComponent from './Component/Card';
-import VisitorViewModel from 'store/VisitorStore/VisitorViewModel';
 import VisitorStore from 'store/VisitorStore/VisitorStore';
-import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';
-import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
 import SummaryStore from 'store/SummaryStore/SummaryStore';
-
-const visitorStore = new VisitorStore();
-const visitorViewModel = new VisitorViewModel(visitorStore);
+import DashboardStore from 'containers/Dashboard/DashboardStore/DashboardStore';
+import BiStore from 'store/BiStore/BiStore';
+import DashboardViewModel from 'containers/Dashboard/DashboardViewModels/DashboardViewModel';
+import {
+  DashboardViewModelContext,
+  DashboardViewModelContextProvider,
+} from 'containers/Dashboard/DashboardViewModels/DashboardViewModelContextProvider';
 
 const summaryStore = new SummaryStore();
-const summaryViewModel = new SummaryViewModel(summaryStore);
 
+const visitorStore = new VisitorStore();
+const dashboardStore = new DashboardStore();
+const biStore = new BiStore();
+
+const dashboardViewModel = new DashboardViewModel(
+  dashboardStore,
+  visitorStore,
+  summaryStore,
+  biStore
+);
 const AudiencePage = observer(
   class AudiencePage extends Component {
     constructor(props) {
@@ -39,7 +48,7 @@ const AudiencePage = observer(
       //   { email: 'babila@gmail.com', status: 'Waiting' },
       // ];
       return (
-        <>
+        <DashboardViewModelContextProvider viewModel={dashboardViewModel}>
           <div className="p-3">
             <div className="d-flex align-items-center justify-content-between mb-3">
               <div>
@@ -47,20 +56,21 @@ const AudiencePage = observer(
                 <p className="mb-0 text-color">{t('txt_analytic_details')}</p>
               </div>
               <div className="position-relative">
-                <DateRangePicker
-                  viewModelArr={[
-                    summaryViewModel.summaryListViewModel,
-                    visitorViewModel.visitorListViewModel,
-                  ]}
-                ></DateRangePicker>
+                <DashboardViewModelContext.Consumer>
+                  {({ visitorListViewModel, summaryListViewModel }) => {
+                    return (
+                      <DateRangePicker
+                        viewModelArr={[visitorListViewModel, summaryListViewModel]}
+                      />
+                    );
+                  }}
+                </DashboardViewModelContext.Consumer>
               </div>
             </div>
 
             <Row className="mb-24">
               <Col lg={9}>
-                <VisitorStoreProvider viewModel={visitorViewModel}>
-                  <OverviewComponent></OverviewComponent>
-                </VisitorStoreProvider>
+                <OverviewComponent />
               </Col>
               {/* <Col lg={3}>
                 <div className="bg-white h-100 rounded-3 shadow-sm py-3 px-24">
@@ -89,9 +99,7 @@ const AudiencePage = observer(
             </Row>
             <Row>
               <Col lg={9}>
-                <SummaryStoreProvider viewModel={summaryViewModel}>
-                  <CardComponent></CardComponent>
-                </SummaryStoreProvider>
+                <CardComponent />
               </Col>
               {/* <Col lg={3}>
                 <PieChart
@@ -107,7 +115,7 @@ const AudiencePage = observer(
               </Col> */}
             </Row>
           </div>
-        </>
+        </DashboardViewModelContextProvider>
       );
     }
   }

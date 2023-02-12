@@ -1,44 +1,40 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import { withSummaryViewModel } from 'store/SummaryStore/SummaryViewModelContextProvider';
 import ComponentCard from 'components/ComponentCard';
 import { BI_SUMMARY_FIELD_KEY } from 'aesirx-dma-lib';
 import { observer } from 'mobx-react';
 import numberWithCommas from 'utils/formatNumber';
-import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
 import { Col } from 'react-bootstrap';
+import { withDashboardViewModel } from '../DashboardViewModels/DashboardViewModelContextProvider';
+import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 const CardComponent = observer(
-  class CardComponent extends Component {
+  class extends Component {
+    static contextType = BiViewModelContext;
+
     constructor(props) {
       super(props);
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
-      this.summaryListViewModel = this.viewModel ? this.viewModel.summaryListViewModel : null;
+      this.summaryListViewModel = this.viewModel ? this.viewModel.getSummaryListViewModel() : null;
       this.state = {
         page_views: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
       };
     }
 
-    componentDidMount() {
-      let fetchData = async () => {
-        await this.summaryListViewModel.getSummary({
-          'filter[domain]': this.props.parentStore.biListViewModel.activeDomain,
-        });
-      };
-      fetchData();
-    }
+    componentDidMount = async () => {
+      await this.summaryListViewModel.getSummary({
+        'filter[domain]': this.context.biListViewModel.activeDomain,
+      });
+    };
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate = async (prevProps) => {
       if (prevProps.location !== this.props.location) {
-        let fetchData = async () => {
-          await this.summaryListViewModel.getSummary({
-            'filter[domain]': this.props.parentStore.biListViewModel.activeDomain,
-          });
-        };
-        fetchData();
+        await this.summaryListViewModel.getSummary({
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        });
       }
-    }
+    };
 
     handleChange = (data) => {
       this.setState({
@@ -163,6 +159,4 @@ const CardComponent = observer(
     }
   }
 );
-export default withTranslation('common')(
-  withRouter(withBiViewModel(withSummaryViewModel(CardComponent)))
-);
+export default withTranslation('common')(withRouter(withDashboardViewModel(CardComponent)));

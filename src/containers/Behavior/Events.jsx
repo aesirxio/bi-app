@@ -21,7 +21,7 @@ const Events = observer(() => {
     };
     a();
     return () => {};
-  }, []);
+  }, [activeDomain]);
   return (
     <div className="py-4 px-3 h-100 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">

@@ -32,32 +32,8 @@ class BehaviorEventModel {
     return data;
   };
 
-  transformResponseUTM = () => {
-    let data = {};
-    this.data.forEach((item) => {
-      if (item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]) {
-        item[BI_VISITOR_FIELD_KEY.ATTRIBUTES].forEach((attributes) => {
-          if (attributes.name && attributes.name.includes('utm')) {
-            data = {
-              ...data,
-              [attributes.name]: data[attributes.name]
-                ? data[attributes.name].concat(item)
-                : [item],
-            };
-          }
-        });
-      }
-    });
-    return data;
-  };
-
   getFilterName = () => {
     const transform = this.transformResponse();
-    return Object.keys(transform).map((item) => ({ value: item, label: item }));
-  };
-
-  getFilterNameUTM = () => {
-    const transform = this.transformResponseUTM();
     return Object.keys(transform).map((item) => ({ value: item, label: item }));
   };
 
@@ -102,57 +78,8 @@ class BehaviorEventModel {
       .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
   };
 
-  toAreaChartUTM = () => {
-    const transform = this.transformResponseUTM();
-    const twelveMonth = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    return Object.keys(transform)
-      .map((item) => {
-        return {
-          [item]: twelveMonth.map((month, index) => {
-            const filterMonthDate = transform[item].filter(
-              (_item) => moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).month() === index
-            ).length;
-            if (filterMonthDate) {
-              return {
-                name: month,
-                number: filterMonthDate,
-              };
-            } else {
-              return {
-                name: month,
-                number: 0,
-              };
-            }
-          }),
-        };
-      })
-      .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
-  };
-
   toBarChart = () => {
     const transform = this.transformResponse();
-    return Object.keys(transform).map((item) => ({
-      name: item,
-      number: transform[item].length,
-    }));
-  };
-
-  toBarChartUTM = () => {
-    const transform = this.transformResponseUTM();
     return Object.keys(transform).map((item) => ({
       name: item,
       number: transform[item].length,
@@ -203,9 +130,88 @@ class BehaviorEventModel {
     }
   };
 
+  transformResponseUTM = () => {
+    let data = {};
+    this.data.forEach((item) => {
+      if (item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]) {
+        item[BI_VISITOR_FIELD_KEY.ATTRIBUTES].forEach((attributes) => {
+          if (attributes.value && attributes.name.includes('utm_source')) {
+            data = {
+              ...data,
+              [attributes.value]: data[attributes.value]
+                ? data[attributes.value].concat(item)
+                : [item],
+            };
+          }
+        });
+      }
+    });
+
+    return data;
+  };
+
+  getFilterNameUTM = () => {
+    const transform = this.transformResponseUTM();
+    return Object.keys(transform).map((item) => ({ value: item, label: item }));
+  };
+
+  toBarChartUTM = () => {
+    const transform = this.transformResponseUTM();
+    return Object.keys(transform).map((item) => ({
+      name: item,
+      number: transform[item].length,
+    }));
+  };
+
+  toAreaChartUTM = () => {
+    const transform = this.transformResponseUTM();
+    const twelveMonth = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    return Object.keys(transform)
+      .map((item) => {
+        return {
+          [item]: twelveMonth.map((month, index) => {
+            const filterMonthDate = transform[item].filter(
+              (_item) => moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).month() === index
+            ).length;
+            if (filterMonthDate) {
+              return {
+                name: month,
+                number: filterMonthDate,
+              };
+            } else {
+              return {
+                name: month,
+                number: 0,
+              };
+            }
+          }),
+        };
+      })
+      .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
+  };
+
   toEventTableUTM = () => {
     const accessor = [
-      'name',
+      'utm_id',
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_term',
+      'utm_content',
       BI_VISITOR_FIELD_KEY.URL,
       BI_VISITOR_FIELD_KEY.REFERER,
       BI_VISITOR_FIELD_KEY.START_DATE,
@@ -217,11 +223,20 @@ class BehaviorEventModel {
           accessor: key,
         };
       });
-      const transform = this.transformResponseUTM();
-      const toTable = Object.keys(transform)
-        .map((key) => transform[key].map((item) => ({ ...item, name: key })))
-        .reduce((accumulator, currentValue) => [...currentValue, ...accumulator], []);
-      const data = toTable.map((item) => {
+
+      // const transform = this.transformResponseUTM();
+      // const toTable = Object.keys(transform)
+      //   .map((key) => transform[key].map((item) => ({ ...item, name: key })))
+      //   .reduce((accumulator, currentValue) => [...currentValue, ...accumulator], []);
+      const data = this.data.map((item) => {
+        const utm = item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]
+          .map((attr) => {
+            if (accessor.includes(attr.name)) {
+              return { [attr.name]: attr.value };
+            }
+          })
+          .filter((i) => i)
+          .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
         return accessor
           .map((i) => {
             if (i === BI_VISITOR_FIELD_KEY.START_DATE) {
@@ -231,6 +246,7 @@ class BehaviorEventModel {
             } else {
               return {
                 [i]: item[i],
+                ...utm,
               };
             }
           })

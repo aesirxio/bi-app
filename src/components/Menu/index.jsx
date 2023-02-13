@@ -102,7 +102,7 @@ const Menu = observer((props) => {
           link: `/data-${dataStreamActive}/behavior/utm-tracking`,
         },
         {
-          text: 'events',
+          text: 'txt_menu_events',
           link: `/data-${dataStreamActive}/behavior/events`,
         },
       ],

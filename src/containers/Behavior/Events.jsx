@@ -46,7 +46,7 @@ const Events = observer(() => {
               filterData={data.getFilterName()}
               tooltipComponent={{
                 header: t('txt_number'),
-                value: `txt_count`,
+                value: ``,
               }}
             />
           )}

@@ -183,5 +183,6 @@
   "txt_something_went_wrong_from_server_response": "Nešto nije u redu s odgovorom poslužitelja",
   "txt_warning": "Upozorenje",
   "txt_successful": "Uspješno",
-  "txt_error": "Greška"
+  "txt_error": "Greška",
+  "txt_number": "Quantity"
 }

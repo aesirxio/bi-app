@@ -47,7 +47,7 @@ const UTMTrackingPage = observer(() => {
               filterData={data.getFilterNameUTM()}
               tooltipComponent={{
                 header: t('txt_number'),
-                value: `txt_count`,
+                value: ``,
               }}
             />
           )}

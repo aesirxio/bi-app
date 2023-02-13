@@ -183,5 +183,6 @@
   "txt_something_went_wrong_from_server_response": "Noget gik galt fra serversvaret",
   "txt_warning": "Advarsel",
   "txt_successful": "Vellykket",
-  "txt_error": "Fejl"
+  "txt_error": "Fejl",
+  "txt_number": "Quantity"
 }

@@ -183,5 +183,6 @@
   "txt_something_went_wrong_from_server_response": "Щось пішло не так із відповіддю сервера",
   "txt_warning": "УВАГА",
   "txt_successful": "Успішний",
-  "txt_error": "Помилка"
+  "txt_error": "Помилка",
+  "txt_number": "Quantity"
 }

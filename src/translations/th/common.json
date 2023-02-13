@@ -183,5 +183,6 @@
   "txt_something_went_wrong_from_server_response": "มีบางอย่างผิดพลาดจากการตอบสนองของเซิร์ฟเวอร์",
   "txt_warning": "คำเตือน",
   "txt_successful": "ประสบความสำเร็จ",
-  "txt_error": "ข้อผิดพลาด"
+  "txt_error": "ข้อผิดพลาด",
+  "txt_number": "Quantity"
 }

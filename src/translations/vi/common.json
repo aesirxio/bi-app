@@ -183,5 +183,6 @@
   "txt_something_went_wrong_from_server_response": "Đã xảy ra sự cố từ phản hồi của Máy chủ",
   "txt_warning": "Cảnh báo",
   "txt_successful": "Thành công",
-  "txt_error": "Lỗi"
+  "txt_error": "Lỗi",
+  "txt_number": "Quantity"
 }

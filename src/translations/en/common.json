@@ -183,5 +183,6 @@
   "txt_something_went_wrong_from_server_response": "Something went wrong from Server response",
   "txt_warning": "Warning",
   "txt_successful": "Successful",
-  "txt_error": "Error"
+  "txt_error": "Error",
+  "txt_number": "Quantity"
 }

@@ -87,17 +87,18 @@ class BehaviorEventModel {
   };
 
   toEventTable = () => {
+    const headerTable = ['Name', 'Type', 'Url', 'Referer', 'Start Date'];
     const accessor = [
       BI_VISITOR_FIELD_KEY.EVENT_NAME,
       BI_VISITOR_FIELD_KEY.EVENT_TYPE,
-      BI_VISITOR_FIELD_KEY.START_DATE,
       BI_VISITOR_FIELD_KEY.URL,
       BI_VISITOR_FIELD_KEY.REFERER,
+      BI_VISITOR_FIELD_KEY.START_DATE,
     ];
     if (this.data.length) {
-      const header = accessor.map((key) => {
+      const header = accessor.map((key, index) => {
         return {
-          Header: key.charAt(0).toUpperCase() + key.slice(1),
+          Header: headerTable[index],
           accessor: key,
         };
       });
@@ -205,6 +206,17 @@ class BehaviorEventModel {
   };
 
   toEventTableUTM = () => {
+    const headerTable = [
+      'Campaign ID',
+      'Campaign Source',
+      'Campaign Medium',
+      'Campaign Name',
+      'Campaign Term',
+      'Campaign Content',
+      'Url',
+      'Referer',
+      'Start Date',
+    ];
     const accessor = [
       'utm_id',
       'utm_source',
@@ -217,17 +229,13 @@ class BehaviorEventModel {
       BI_VISITOR_FIELD_KEY.START_DATE,
     ];
     if (this.data.length) {
-      const header = accessor.map((key) => {
+      const header = accessor.map((key, index) => {
         return {
-          Header: key.charAt(0).toUpperCase() + key.slice(1),
+          Header: headerTable[index],
           accessor: key,
         };
       });
 
-      // const transform = this.transformResponseUTM();
-      // const toTable = Object.keys(transform)
-      //   .map((key) => transform[key].map((item) => ({ ...item, name: key })))
-      //   .reduce((accumulator, currentValue) => [...currentValue, ...accumulator], []);
       const data = this.data.map((item) => {
         const utm = item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]
           .map((attr) => {

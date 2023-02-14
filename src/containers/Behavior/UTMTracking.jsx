@@ -18,6 +18,7 @@ const UTMTrackingPage = observer(() => {
     const a = async () => {
       await getVisitor({
         'filter[domain]': activeDomain,
+        page_size: 0,
       });
     };
     a();
@@ -68,7 +69,15 @@ const UTMTrackingPage = observer(() => {
         </div>
       </div>
       <div className="row gx-24 mb-24">
-        <div className="col-12 ">{data && <BehaviorTable data={data.toEventTableUTM()} />}</div>
+        <div className="col-12 ">
+          {' '}
+          <BehaviorTable
+            data={{
+              header: [],
+              data: [],
+            }}
+          />
+        </div>
       </div>
     </div>
   );

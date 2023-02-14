@@ -27,8 +27,8 @@ class ComponentNoData extends Component {
         }
       >
         <p
-          style={{ width: '48px', height: '48px' }}
-          className={`mb-2 d-inline-block position-relative rounded-circle ${iconBg}`}
+          style={{ width: '48px', height: '55px' }}
+          className={`my-2 d-inline-block position-relative rounded-circle ${iconBg}`}
         >
           <ComponentImage
             className={`position-absolute top-50 start-50 translate-middle ${iconColor}`}
@@ -36,8 +36,8 @@ class ComponentNoData extends Component {
             alt={icons}
           />
         </p>
-        <h5 className="mb-2">{title}</h5>
-        <p className={`mb-2 fs-14 text-black-50 w-100 mx-auto ${width}`}>{text}</p>
+        {title && <h5 className="mb-2">{title}</h5>}
+        {text && <p className={`mb-2 fs-14 text-black-50 w-100 mx-auto ${width}`}>{text}</p>}
         {isBtn && (
           <Link
             to={{ pathname: link, state: { openModal: true } }}

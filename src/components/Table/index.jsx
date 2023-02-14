@@ -251,7 +251,7 @@ const Table = ({
         ) : null}
 
         {rows.length === 0 ? (
-          <div className="position-absolute top-50 start-50 translate-middle">
+          <div className="">
             <ComponentNoData
               icons="/assets/images/ic_project.svg"
               title={t('txt_no_data')}

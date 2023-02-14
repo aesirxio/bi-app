@@ -2697,10 +2697,10 @@ adjust-sourcemap-loader@^4.0.0:
     loader-utils "^2.0.0"
     regex-parser "^2.2.11"
 
-aesirx-analytics@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/aesirx-analytics/-/aesirx-analytics-1.0.2.tgz#d6b9770c94c84dc55168123b9facbe0fa9fc9489"
-  integrity sha512-+OFvukxdr7v1hwEuKqVPQANvktA5LlqNBXv9wO8Zrzf7a3GOZ5+E+GG7KAVsv6ZH9JUL7qpWD0d32YFHD0s4gg==
+aesirx-analytics@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/aesirx-analytics/-/aesirx-analytics-1.0.4.tgz#e4bc9a32dba265e8180812daa8e95877fccb927f"
+  integrity sha512-C2Gi+psijeH88LIIBubfkeAwWAQqOhcrFO16zimz0cSayoL999GAeWKp82WZL/TtV1L/d+uR+AmHQ3CtmzwUdA==
   dependencies:
     axios "^0.21.0"
     babel-plugin-module-resolver "^4.1.0"
@@ -2711,10 +2711,10 @@ aesirx-analytics@^1.0.1:
     public-ip "^6.0.1"
     rimraf "^3.0.2"
 
-aesirx-dma-lib@^1.7.1:
-  version "1.7.6"
-  resolved "https://registry.yarnpkg.com/aesirx-dma-lib/-/aesirx-dma-lib-1.7.6.tgz#0b2273188b99eba5c597d6c80e49f693970a763e"
-  integrity sha512-uj+/lmm20yo+rucx7XIqOPLzklKJ/XNmUErXgLvk8h65m43sA0Vs6jiyh3tGKUTWn1UxkAH6X91o2SDh02u0Yw==
+aesirx-dma-lib@^1.7.10:
+  version "1.7.10"
+  resolved "https://registry.yarnpkg.com/aesirx-dma-lib/-/aesirx-dma-lib-1.7.10.tgz#000a6d253f8cb005e5378ae69ea643c9cabd8b65"
+  integrity sha512-18ttgK6RuPWlvUb9slGgMljuL1F2FWAHItiWelq2vWhf1HBchekE5Hum9jP9ECekEi6FKNrITB81dRJMuQnJ6A==
   dependencies:
     axios "^0.21.0"
     axios-auth-refresh "^3.0.0"

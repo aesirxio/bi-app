@@ -55,7 +55,7 @@ const UTMTrackingPage = observer(() => {
         <div className="col-lg-6 col-12">
           {data && (
             <BarChartComponent
-              chartTitle={'Event count'}
+              chartTitle={t('txt_menu_utm_tracking') + ' count'}
               height={390}
               bars={['number']}
               barColors={['#2C94EA']}

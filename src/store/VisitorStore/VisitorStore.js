@@ -4,41 +4,21 @@
  */
 
 import { runInAction } from 'mobx';
-import VisitorUtils from './VisitorUtils';
 
-import AesirxBiApiService from 'aesirx-dma-lib/src/Bi/Bi';
+import { AesirxBiApiService } from 'aesirx-dma-lib';
 export default class VisitorStore {
   getVisitors = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
-      const responsedDataFromLibary = await biService.getVisitors(dataFilter, dateFilter);
-      if (responsedDataFromLibary) {
-        const homeDataModels =
-          VisitorUtils.transformVisitorResponseIntoModel(responsedDataFromLibary);
-
-        if (homeDataModels) {
-          runInAction(() => {
-            callbackOnSuccess(homeDataModels);
-          });
-        } else {
-          runInAction(() => {
-            callbackOnError({
-              message: 'No Result',
-            });
-          });
-        }
+      const responseDataFromLibrary = await biService.getVisitors(dataFilter, dateFilter);
+      if (responseDataFromLibrary) {
+        runInAction(() => {
+          callbackOnSuccess(responseDataFromLibrary);
+        });
       } else {
-        if (responsedDataFromLibary?.message === 'isCancle') {
-          runInAction(() => {
-            callbackOnError({
-              message: 'isCancle',
-            });
-          });
-        } else {
-          runInAction(() => {
-            callbackOnSuccess([]);
-          });
-        }
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
       }
     } catch (error) {
       console.log('errorrrr', error);
@@ -49,7 +29,7 @@ export default class VisitorStore {
           });
         } else {
           callbackOnError({
-            message: error?.response.data?._messages
+            message: error?.response?.data?._messages
               ? error.response?.data?._messages[0]?.message
               : 'Something went wrong from Server response',
           });
@@ -58,23 +38,34 @@ export default class VisitorStore {
     }
   };
 
-  search = async (query) => {
+  getVisitor = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
-      const responsedDataFromLibary = await biService.search({
-        'filter[search]': query,
-      });
-      if (responsedDataFromLibary?.assets || responsedDataFromLibary?.collections) {
-        const homeDataModels = VisitorUtils.transformResponseIntoSearchItems([
-          ...responsedDataFromLibary?.assets,
-          ...responsedDataFromLibary?.collections,
-        ]);
-
-        return homeDataModels;
+      const responseDataFromLibrary = await biService.getVisitor(dataFilter, dateFilter);
+      if (responseDataFromLibrary) {
+        runInAction(() => {
+          callbackOnSuccess(responseDataFromLibrary);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
       }
     } catch (error) {
-      console.log(error);
-      throw error;
+      console.log('errorrrr', error);
+      runInAction(() => {
+        if (error.response?.data.message) {
+          callbackOnError({
+            message: error.response?.data?.message,
+          });
+        } else {
+          callbackOnError({
+            message: error?.response?.data?._messages
+              ? error.response?.data?._messages[0]?.message
+              : 'Something went wrong from Server response',
+          });
+        }
+      });
     }
   };
 }

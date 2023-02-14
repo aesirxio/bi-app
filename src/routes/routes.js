@@ -3,28 +3,24 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-// import { isLogin } from 'auth';
-
 import React, { lazy } from 'react';
-// import { Redirect } from 'react-router-dom';
 
-const LoginPage = lazy(() => import('../containers/LoginPage'));
+const LoginPage = lazy(() => import('containers/LoginPage'));
 
-const WelcomePage = lazy(() => import('../containers/WelcomePage'));
-const DashboardPage = lazy(() => import('../containers/Dashboard'));
-const AudiencePage = lazy(() => import('../containers/AudiencePage'));
-const RevenuePage = lazy(() => import('../containers/RevenuePage'));
-const BehaviorOverviewPage = lazy(() => import('../containers/Behavior/Overview'));
-const BehaviorClickAnchorPage = lazy(() => import('../containers/Behavior/ClickAnchor'));
-const UTMTrackingPage = lazy(() => import('../containers/Behavior/UTMTracking'));
-const SubscriptionPage = lazy(() => import('../containers/SubscriptionPage'));
-const MemberRolesPage = lazy(() => import('../containers/MemberRolesPage'));
-const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
-const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
+const WelcomePage = lazy(() => import('containers/WelcomePage'));
+const DashboardPage = lazy(() => import('containers/Dashboard'));
+const AudiencePage = lazy(() => import('containers/AudiencePage'));
+const RevenuePage = lazy(() => import('containers/RevenuePage'));
+const BehaviorPage = lazy(() => import('containers/Behavior'));
+
+const SubscriptionPage = lazy(() => import('containers/SubscriptionPage'));
+const MemberRolesPage = lazy(() => import('containers/MemberRolesPage'));
+const DataStreamPage = lazy(() => import('containers/DataStreamPage'));
+const RegionCountryPage = lazy(() => import('containers/RegionCountryPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
 
-const ProfilePage = lazy(() => import('../containers/ProfilePage'));
+const ProfilePage = lazy(() => import('containers/ProfilePage'));
 
 const authRoutes = [
   {
@@ -47,19 +43,14 @@ const mainRoutes = [
   },
   { path: '/data-:domain/revenue', exact: true, main: () => <RevenuePage /> },
   {
-    path: '/data-:domain/behavior/overview',
+    path: [
+      '/data-:domain/behavior/overview',
+      '/data-:domain/behavior/click-anchor',
+      '/data-:domain/behavior/utm-tracking',
+      '/data-:domain/behavior/events',
+    ],
     exact: true,
-    main: () => <BehaviorOverviewPage />,
-  },
-  {
-    path: '/data-:domain/behavior/click-anchor',
-    exact: true,
-    main: () => <BehaviorClickAnchorPage />,
-  },
-  {
-    path: '/data-:domain/behavior/utm-tracking',
-    exact: true,
-    main: () => <UTMTrackingPage />,
+    main: () => <BehaviorPage />,
   },
   {
     path: '/data-:domain/subscription',

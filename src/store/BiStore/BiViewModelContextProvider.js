@@ -4,14 +4,14 @@
  */
 
 import React from 'react';
-export const BiStore = React.createContext();
+export const BiViewModelContext = React.createContext();
 
 export const BiStoreProvider = ({ children, viewModel }) => {
-  return <BiStore.Provider value={viewModel}>{children}</BiStore.Provider>;
+  return <BiViewModelContext.Provider value={viewModel}>{children}</BiViewModelContext.Provider>;
 };
 
 /* Hook to use store in any functional component */
-export const useBiViewModel = () => React.useContext(BiStore);
+export const useBiViewModel = () => React.useContext(BiViewModelContext);
 
 /* HOC to inject store to any functional or class component */
 export const withBiViewModel = (Component) => (props) => {

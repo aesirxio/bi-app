@@ -9,6 +9,9 @@ const HeaderFilterComponent = ({
   isSelection,
   viewMoreLink,
   filterButtons,
+  currentSelection,
+  onSelectionChange,
+  selectionData,
   ...props
 }) => {
   const [view, setView] = useState('days');
@@ -19,10 +22,13 @@ const HeaderFilterComponent = ({
         <h4 className="me-24 mb-0 text-blue-0">{chartTitle}</h4>
         {isSelection && (
           <SelectComponent
-            value={{ label: t('txt_visitors'), value: 'visitors' }}
-            options={[{ label: t('txt_visitors'), value: 'visitors' }]}
+            value={currentSelection}
+            options={selectionData}
             className={`fs-sm`}
             isBorder={true}
+            onChange={(data) => {
+              onSelectionChange(data);
+            }}
             plColor={'#808495'}
           />
         )}

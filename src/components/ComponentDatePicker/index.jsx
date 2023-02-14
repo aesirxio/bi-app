@@ -23,8 +23,12 @@ registerLocale('en-US', enUS);
 function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, isDays, ...props }) {
   const { t, i18n, viewModelArr } = props;
   const [dateRange, setDateRange] = useState([
-    viewModelArr ? moment(viewModelArr[0]?.dateFilter['date_start'], 'YYYY-MM-DD').toDate() : null,
-    viewModelArr ? moment(viewModelArr[0]?.dateFilter['date_end'], 'YYYY-MM-DD').toDate() : null,
+    viewModelArr.length
+      ? moment(viewModelArr[0]?.dateFilter['date_start'], 'YYYY-MM-DD').toDate()
+      : null,
+    viewModelArr.length
+      ? moment(viewModelArr[0]?.dateFilter['date_end'], 'YYYY-MM-DD').toDate()
+      : null,
   ]);
 
   const [startDate, endDate] = dateRange;

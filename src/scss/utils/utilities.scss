@@ -202,6 +202,7 @@ $utilities: (
       100: 100%,
       80: 80%,
       120: 120px,
+      150: 150px,
     ),
   ),
   'max-height': (
@@ -211,6 +212,13 @@ $utilities: (
       100: 100%,
       80: 80%,
       80vh: 80vh,
+    ),
+  ),
+  'word-break': (
+    property: word-break,
+    class: wb,
+    values: (
+      all: break-all,
     ),
   ),
   'rounded-top-start': (

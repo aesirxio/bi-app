@@ -21,7 +21,6 @@ const Table = ({
   dataList,
   selection = true,
   classNameTable,
-  onRightClickItem,
   canSort,
   sortAPI,
   ...props
@@ -232,19 +231,13 @@ const Table = ({
                     : (newRowCells = row.cells);
 
                   return (
-                    <tr
-                      key={row.getRowProps().key}
-                      {...row.getRowProps()}
-                      onContextMenu={(e) => {
-                        onRightClickItem(e, row.original);
-                      }}
-                    >
+                    <tr key={row.getRowProps().key} {...row.getRowProps()}>
                       {newRowCells.map((cell, index) => {
                         return (
                           <td
                             key={index}
                             {...cell.getCellProps({ style: { width: cell.column.width } })}
-                            className="py-2"
+                            className="py-2 wb-all"
                           >
                             {cell.render('Cell')}
                           </td>

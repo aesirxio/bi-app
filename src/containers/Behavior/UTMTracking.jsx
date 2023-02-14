@@ -27,7 +27,7 @@ const UTMTrackingPage = observer(() => {
     <div className="py-4 px-3 h-100 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
         <div className="position-relative">
-          <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_behavior')}</h2>
+          <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_menu_utm_tracking')}</h2>
         </div>
         <div className="position-relative">
           <DateRangePicker viewModelArr={[behaviorViewModel]} />
@@ -55,7 +55,7 @@ const UTMTrackingPage = observer(() => {
         <div className="col-lg-6 col-12">
           {data && (
             <BarChartComponent
-              chartTitle={'Event count'}
+              chartTitle={t('txt_menu_utm_tracking') + ' count'}
               height={390}
               bars={['number']}
               barColors={['#2C94EA']}

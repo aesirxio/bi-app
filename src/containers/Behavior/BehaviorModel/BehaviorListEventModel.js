@@ -236,30 +236,36 @@ class BehaviorEventModel {
         };
       });
 
-      const data = this.data.map((item) => {
-        const utm = item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]
-          .map((attr) => {
-            if (accessor.includes(attr.name)) {
-              return { [attr.name]: attr.value };
-            }
-          })
-          .filter((i) => i)
-          .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
-        return accessor
-          .map((i) => {
-            if (i === BI_VISITOR_FIELD_KEY.START_DATE) {
-              return {
-                [i]: moment(item[i]).format('DD-MM-YYYY'),
-              };
-            } else {
-              return {
-                [i]: item[i],
-                ...utm,
-              };
-            }
-          })
-          .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
-      });
+      const data = this.data
+        .map((item) => {
+          const utm = item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]
+            .map((attr) => {
+              if (accessor.includes(attr.name)) {
+                return { [attr.name]: attr.value };
+              }
+            })
+            .filter((i) => i)
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
+          if (Object.keys(utm).length) {
+            return accessor
+              .map((i) => {
+                if (i === BI_VISITOR_FIELD_KEY.START_DATE) {
+                  return {
+                    [i]: moment(item[i]).format('DD-MM-YYYY'),
+                  };
+                } else {
+                  return {
+                    [i]: item[i],
+                    ...utm,
+                  };
+                }
+              })
+              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
+          } else {
+            return null;
+          }
+        })
+        .filter((i) => i);
 
       return {
         header,

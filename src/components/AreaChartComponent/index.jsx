@@ -55,7 +55,7 @@ const AreaChartComponent = ({
   };
   const { t } = useTranslation('common');
   return (
-    <div className="bg-white rounded-3 p-24 shadow-sm h-100 ChartWrapper">
+    <div className="bg-white rounded-3 p-24 shadow-sm h-100 ChartWrapper position-relative">
       <HeaderFilterComponent
         currentSelection={currentSelection}
         onSelectionChange={setCurrentSelection}

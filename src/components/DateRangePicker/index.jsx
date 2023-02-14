@@ -8,7 +8,7 @@ const DateRangePicker = (props) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const datePickerRef = useRef(null);
 
-  const { t, viewModelArr } = props;
+  const { t, viewModelArr = [] } = props;
 
   return (
     <div

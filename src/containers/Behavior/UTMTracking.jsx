@@ -18,6 +18,7 @@ const UTMTrackingPage = observer(() => {
     const a = async () => {
       await getVisitor({
         'filter[domain]': activeDomain,
+        page_size: 0,
       });
     };
     a();

@@ -69,15 +69,7 @@ const UTMTrackingPage = observer(() => {
         </div>
       </div>
       <div className="row gx-24 mb-24">
-        <div className="col-12 ">
-          {' '}
-          <BehaviorTable
-            data={{
-              header: [],
-              data: [],
-            }}
-          />
-        </div>
+        <div className="col-12 ">{data && <BehaviorTable data={data.toEventTableUTM()} />}</div>
       </div>
     </div>
   );

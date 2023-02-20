@@ -10,6 +10,7 @@ import './index.scss';
 import { Collapse, Button } from 'react-bootstrap';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react-lite';
+import { env } from 'env';
 
 const dataMenuSetup = [
   // {
@@ -28,7 +29,7 @@ const dataMenuSetup = [
 const Menu = observer((props) => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
   const [dataStreamActive, setDataStreamActive] = useState(
-    process.env.REACT_APP_DATA_STREAM && JSON.parse(process.env.REACT_APP_DATA_STREAM)[0].domain
+    env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain
   );
   const biStore = useBiViewModel();
   const handleOpen = (clickedIndex, parentIndex) => {
@@ -136,7 +137,7 @@ const Menu = observer((props) => {
   useEffect(() => {
     checkActiveMenu();
     let fetchData = async () => {
-      const domains = { result: JSON.parse(process.env.REACT_APP_DATA_STREAM) } ?? { result: [] };
+      const domains = { result: JSON.parse(env.REACT_APP_DATA_STREAM) } ?? { result: [] };
       await biStore.biListViewModel.getListDomain('', domains);
       if (props.match.params.domain) {
         biStore.biListViewModel.setActiveDomain(props.match.params.domain);

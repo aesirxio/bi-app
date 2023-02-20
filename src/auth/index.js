@@ -8,7 +8,7 @@ import { notify } from '../components/Toast';
 
 import { Storage } from 'aesirx-dma-lib';
 import { AXIOS_CONFIGS, GENERAL_CONFIG } from 'aesirx-dma-lib';
-
+import { env } from 'env';
 if (
   AXIOS_CONFIGS.CLIENT_ID === '' ||
   AXIOS_CONFIGS.CLIENT_SECRET === '' ||
@@ -27,10 +27,7 @@ const login = async ({ username, password }) => {
   document.body.classList.add('body_login_page');
   // const authService = new AesirxAuthenticationApiService();
   // const result = await authService.login(username, password);
-  if (
-    username === process.env.REACT_APP_DEMO_USER &&
-    password === process.env.REACT_APP_DEMO_PASSWORD
-  ) {
+  if (username === env.REACT_APP_DEMO_USER && password === env.REACT_APP_DEMO_PASSWORD) {
     Storage.setItem('auth', true);
     document.body.classList.remove('body_login_page');
 

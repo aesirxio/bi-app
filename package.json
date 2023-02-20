@@ -1,6 +1,6 @@
 {
   "name": "aesirx-bi-app",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "GPL-3.0-only",
   "author": "AesirX",
   "repository": "https://github.com/aesirxio/bi-app",
@@ -10,7 +10,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
-    "aesirx-analytics": "^1.0.1",
+    "aesirx-analytics": "^1.0.4",
     "aesirx-dma-lib": "^1.7.11",
     "axios": "^0.21.0",
     "bootstrap": "5.2.2",
@@ -59,7 +59,9 @@
     "dev": "craco start",
     "lint": "eslint --fix \"src/**/\"",
     "lint:check": "eslint \"src/**/\"",
-    "lint:nowarns": "eslint --quiet \"src/**/\""
+    "lint:nowarns": "eslint --quiet \"src/**/\"",
+    "format:check": "prettier --check 'src/**/*.{js,jsx,ts,tsx}'",
+    "format:write": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'"
   },
   "eslintConfig": {
     "extends": [
@@ -86,6 +88,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "eslint": "^8.17",
+    "prettier": "^2.8.4",
     "react-scripts": "^5.0.1",
     "sass": "^1.52",
     "craco": "^0.0.3",

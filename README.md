@@ -27,6 +27,8 @@ Follow the instructions in: [https://github.com/aesirxio/analytics/tree/master](
 1. Replace the `REACT_APP_CLIENT_SECRET` in the `.env` file with the one provided in your profile account.
 1. Replace the `REACT_APP_ENDPOINT_URL` in the `.env` file with the link to your `1st party server for AesirX Analytics`.
 1. Replace the `REACT_APP_DATA_STREAM` in the `.env` file with the `name` and `domain` to the your data-stream endpoint.
+1. Replace the `REACT_APP_DEMO_USER` in the `.env` file with the email you want to set for Login.
+1. Replace the `REACT_APP_DEMO_PASSWORD` in the `.env` file with the password you want to set for Login.
 
 #### `yarn dev`
 

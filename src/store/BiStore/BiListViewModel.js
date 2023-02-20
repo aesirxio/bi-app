@@ -5,6 +5,7 @@
 
 import { notify } from 'components/Toast';
 import PAGE_STATUS from 'constants/PageStatus';
+import { env } from 'env';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 
@@ -21,8 +22,7 @@ class BiListViewModel {
   dataFilter = {};
   pageSize = 5;
   isList = false;
-  activeDomain =
-    process.env.REACT_APP_DATA_STREAM && JSON.parse(process.env.REACT_APP_DATA_STREAM)[0].domain;
+  activeDomain = env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain;
   isSearch = false;
   constructor(biStore) {
     makeAutoObservable(this);

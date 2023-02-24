@@ -3,7 +3,7 @@ name: docker
 on:
   push:
     tags:
-      - '*.*.*'
+      - "*"
 
 jobs:
   docker:
@@ -45,3 +45,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Release note
+        uses: ncipollo/release-action@v1
+        with:
+          generateReleaseNotes: true

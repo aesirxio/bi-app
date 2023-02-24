@@ -16,5 +16,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Run Build
+        run: CI=false yarn run build
+
       - name: Run Prettier
         run: yarn run format:check

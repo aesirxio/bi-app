@@ -13,7 +13,7 @@
     "aesirx-analytics": "^1.0.4",
     "aesirx-dma-lib": "^1.7.11",
     "axios": "^0.21.0",
-    "bootstrap": "5.2.2",
+    "bootstrap": "5.2.3",
     "d3-fetch": "^3.0.1",
     "date-fns": "^2.16.1",
     "date-fns-tz": "^1.1.6",

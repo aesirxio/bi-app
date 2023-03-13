@@ -4,42 +4,29 @@ import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import AreaChartComponent from 'components/AreaChartComponent';
 import { withDashboardViewModel } from 'containers/Dashboard/DashboardViewModels/DashboardViewModelContextProvider';
-import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 
 const OverviewComponent = observer(
   class OverviewComponent extends Component {
-    static contextType = BiViewModelContext;
-
     constructor(props) {
       super(props);
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
       this.state = { loading: false };
-      this.visitorListViewModel = this.viewModel ? this.viewModel.getVisitorListViewModel() : null;
+      this.dashboardListViewModel = this.viewModel
+        ? this.viewModel.getDashboardListViewModel()
+        : null;
     }
-    componentDidMount = async () => {
-      await this.visitorListViewModel?.getVisitors({
-        'filter[domain]': this.context.biListViewModel.activeDomain,
-      });
-    };
-
-    componentDidUpdate = async (prevProps) => {
-      if (prevProps.location !== this.props.location) {
-        await this.visitorListViewModel.getVisitors({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        });
-      }
-    };
 
     render() {
       const { t } = this.props;
+      const { status } = this.dashboardListViewModel;
       return (
         <div className="position-relative h-100">
-          {this?.visitorListViewModel?.data && (
+          {this?.dashboardListViewModel?.visitorData && (
             <AreaChartComponent
               chartTitle={t('txt_menu_overview')}
               height={390}
-              data={this?.visitorListViewModel?.data.toAreaChart()}
+              data={this?.dashboardListViewModel?.visitorData.toAreaChart()}
               colors={['#1AB394']}
               lineType="monotone"
               areaColors={['#3BB346', 'pink']}
@@ -50,12 +37,13 @@ const OverviewComponent = observer(
               XAxisOptions={{ axisLine: true, padding: { left: 50, right: 50 } }}
               defaultValue={{ label: 'Visitors', value: 'visitors' }}
               options={[{ label: 'Visitors', value: 'visitors' }]}
-              loading={this.visitorListViewModel.status}
+              loading={this.dashboardListViewModel.status}
               tooltipComponent={{
                 header: t('txt_in_total'),
                 value: `visits:`,
               }}
-              filterData={this?.visitorListViewModel?.data.getFilterName()}
+              status={status}
+              filterData={this?.dashboardListViewModel?.visitorData.getFilterName()}
             />
           )}
         </div>

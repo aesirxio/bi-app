@@ -60,7 +60,7 @@ const Table = ({
       data,
       onSelect,
       initialState: {
-        pageSize: -1,
+        pageSize: 5,
       },
     },
     (hooks) => {

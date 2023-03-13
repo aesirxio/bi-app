@@ -1,21 +1,21 @@
 import React from 'react';
-import { useState } from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
 import SelectComponent from 'components/Select';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import CHART_TYPE from 'constants/ChartType';
 
 const HeaderFilterComponent = ({
   chartTitle,
   isSelection,
   viewMoreLink,
-  filterButtons,
+  isFilterButtons,
   currentSelection,
   onSelectionChange,
   selectionData,
-  ...props
+  view,
+  setView,
 }) => {
-  const [view, setView] = useState('days');
-  const { t } = props;
+  const { t } = useTranslation('common');
   return (
     <div className="d-flex justify-content-between mb-24">
       <div className="d-flex align-items-center">
@@ -48,42 +48,31 @@ const HeaderFilterComponent = ({
           ></span>
         </a>
       )}
-      {filterButtons && (
+      {isFilterButtons && (
         <ButtonGroup>
-          {/* <Button
-            onClick={() => setView('hours')}
-            className={`${view == 'hours' && 'text-white'} py-1 px-15 fs-12 lh-sm shadow-none bg-gray-900`}
-            variant={view == 'hours' ? 'dark' : 'outline-secondary'}
-          >
-            {t('txt_hours')}
-          </Button> */}
           <Button
-            onClick={() => setView('days')}
+            onClick={() => setView(CHART_TYPE.DAY)}
             className={`${
-              view == 'days' && 'text-white active'
+              view == CHART_TYPE.DAY && 'text-white active'
             } py-1 px-15 fs-12 lh-sm shadow-none bg-gray-900`}
             variant={view == 'days' ? 'dark' : 'outline-secondary'}
           >
             {t('txt_days')}
           </Button>
-          {/* <Button
-            onClick={() => setView('weeks')}
-            className={`${view == 'weeks' && 'text-white'} py-1 px-15 fs-12 lh-sm shadow-none bg-gray-900`}
-            variant={view == 'weeks' ? 'dark' : 'outline-secondary'}
-          >
-            {t('txt_weeks')}
-          </Button>
+
           <Button
-            onClick={() => setView('months')}
-            className={`${view == 'months' && 'text-white'} py-1 px-15 fs-12 lh-sm shadow-none bg-gray-900`}
+            onClick={() => setView(CHART_TYPE.MONTH)}
+            className={`${
+              view == CHART_TYPE.MONTH && 'text-white'
+            } py-1 px-15 fs-12 lh-sm shadow-none bg-gray-900`}
             variant={view == 'months' ? 'dark' : 'outline-secondary'}
           >
             {t('txt_months')}
-          </Button> */}
+          </Button>
         </ButtonGroup>
       )}
     </div>
   );
 };
 
-export default withTranslation('common')(HeaderFilterComponent);
+export default HeaderFilterComponent;

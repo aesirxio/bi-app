@@ -1,7 +1,7 @@
 import ComponentNoData from 'components/ComponentNoData';
 import HeaderFilterComponent from 'components/HeaderFilterComponent';
 import PAGE_STATUS from 'constants/PageStatus';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
 import {
@@ -12,10 +12,12 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  // Brush,
 } from 'recharts';
 import RingLoaderComponent from 'components/Spinner/ringLoader';
+import CHART_TYPE from 'constants/ChartType';
 const AreaChartComponent = ({
-  data,
+  data = [],
   height,
   lineType,
   areaColors,
@@ -24,36 +26,58 @@ const AreaChartComponent = ({
   lines,
   isDot,
   hiddenGrid,
-  XAxisOptions, // Line Ngang
-  YAxisOptions, // Line Doc
+  XAxisOptions,
+  YAxisOptions,
   loading,
   tooltipComponent,
   filterData = [],
 }) => {
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
+  const [currentData, setCurrentData] = useState(data[0]);
+  const [view, setView] = useState(CHART_TYPE.MONTH);
+
+  const { t } = useTranslation('common');
+
   useEffect(() => {
-    setCurrentSelection(filterData[0]);
+    const [month, date] = data;
+
+    if (view === CHART_TYPE.MONTH) {
+      setCurrentData(month);
+    }
+
+    if (view === CHART_TYPE.DAY) {
+      setCurrentData(date);
+    }
 
     return () => {};
-  }, [data]);
+  }, [view, data]);
 
-  const customizedTooltip = ({ payload }) => {
-    return (
-      <div className="areachart-tooltip p-15 text-white bg-blue-5 rounded-3">
-        <p className="text-uppercase fw-semibold fs-12 mb-sm">{tooltipComponent.header}</p>
-        {payload &&
-          payload.map((item, index) => {
-            return (
-              <p key={index} className="mb-0 fw-bold">
-                {payload.length > 1 && `${item.name}: `}
-                {tooltipComponent.value} {item.value}
-              </p>
-            );
-          })}
-      </div>
-    );
-  };
-  const { t } = useTranslation('common');
+  useEffect(() => {
+    setCurrentSelection(filterData[0]);
+    return () => {};
+  }, [filterData]);
+
+  const customizedTooltip = useMemo(
+    () =>
+      ({ payload }) => {
+        return (
+          <div className="areachart-tooltip p-15 text-white bg-blue-5 ">
+            <p className="text-uppercase fw-semibold fs-12 mb-sm">{tooltipComponent.header}</p>
+            {payload &&
+              payload.map((item, index) => {
+                return (
+                  <p key={index} className="mb-0 fw-bold">
+                    {payload.length > 1 && `${item.name}: `}
+                    {tooltipComponent.value} {item.value}
+                  </p>
+                );
+              })}
+          </div>
+        );
+      },
+    [tooltipComponent]
+  );
+
   return (
     <div className="bg-white rounded-3 p-24 shadow-sm h-100 ChartWrapper position-relative">
       <HeaderFilterComponent
@@ -62,13 +86,15 @@ const AreaChartComponent = ({
         selectionData={filterData}
         chartTitle={chartTitle}
         isSelection={true}
-        filterButtons={true}
+        isFilterButtons={true}
+        view={view}
+        setView={setView}
       />
       {loading === PAGE_STATUS.LOADING ? (
         <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white" />
       ) : currentSelection ? (
         <ResponsiveContainer width="100%" height={height ?? 500}>
-          <AreaChart data={data[currentSelection.value]}>
+          <AreaChart data={currentData?.[currentSelection.value]}>
             {lines && (
               <defs>
                 {lines.map((item, index) => {
@@ -120,6 +146,7 @@ const AreaChartComponent = ({
                   />
                 );
               })}
+            {/* <Brush startIndex={0} endIndex={11} dataKey="name" height={30} stroke="#8884d8" /> */}
           </AreaChart>
         </ResponsiveContainer>
       ) : (

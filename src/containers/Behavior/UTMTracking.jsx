@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import AreaChartComponent from 'components/AreaChartComponent';
 import BarChartComponent from 'components/BarChartComponent';
 import DateRangePicker from 'components/DateRangePicker';
@@ -10,18 +10,25 @@ import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
 const UTMTrackingPage = observer(() => {
   const { t } = useTranslation('common');
-  const behaviorViewModel = useBehaviorViewModel().getBehaviorEventsViewModel();
-  const { activeDomain } = useBiViewModel().getBiListViewModel();
-  const { getVisitor, data } = behaviorViewModel;
+  const {
+    behaviorEvents: { getVisitor, data, status, handleFilterDateRange },
+  } = useBehaviorViewModel();
+  const {
+    biListViewModel: { activeDomain },
+  } = useBiViewModel();
+
+  const handleDateRangeChange = useCallback((startDate, endDate) => {
+    handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
+  }, []);
 
   useEffect(() => {
-    const a = async () => {
+    const execute = async () => {
       await getVisitor({
         'filter[domain]': activeDomain,
         page_size: 0,
       });
     };
-    a();
+    execute();
     return () => {};
   }, [activeDomain]);
   return (
@@ -31,41 +38,38 @@ const UTMTrackingPage = observer(() => {
           <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_menu_utm_tracking')}</h2>
         </div>
         <div className="position-relative">
-          <DateRangePicker viewModelArr={[behaviorViewModel]} />
+          <DateRangePicker onChange={handleDateRangeChange} />
         </div>
       </div>
       <div className="row gx-24 mb-24">
         <div className="col-lg-6 col-12">
-          {data && (
-            <AreaChartComponent
-              chartTitle={t('txt_menu_overview')}
-              height={390}
-              data={data.toAreaChartUTM() ?? []}
-              colors={['#1AB394']}
-              areaColors={['#1AB394']}
-              lineColors={['#1AB394']}
-              lines={['number']}
-              filterData={data.getFilterNameUTM()}
-              tooltipComponent={{
-                header: t('txt_number'),
-                value: ``,
-              }}
-            />
-          )}
+          <AreaChartComponent
+            loading={status}
+            chartTitle={t('txt_menu_overview')}
+            height={390}
+            data={data?.toAreaChartUTM()}
+            colors={['#1AB394']}
+            areaColors={['#1AB394']}
+            lineColors={['#1AB394']}
+            lines={['number']}
+            filterData={data?.getFilterNameUTM()}
+            tooltipComponent={{
+              header: t('txt_number'),
+              value: ``,
+            }}
+          />
         </div>
         <div className="col-lg-6 col-12">
-          {data && (
-            <BarChartComponent
-              chartTitle={t('txt_menu_utm_tracking') + ' count'}
-              height={390}
-              bars={['number']}
-              barColors={['#2C94EA']}
-              data={data.toBarChartUTM()}
-              margin={{ left: 40 }}
-              isFilterButtons={true}
-              filterButtons={true}
-            />
-          )}
+          <BarChartComponent
+            chartTitle={t('txt_menu_utm_tracking') + ' count'}
+            height={390}
+            bars={['number']}
+            barColors={['#2C94EA']}
+            data={data?.toBarChartUTM()}
+            margin={{ left: 40 }}
+            isFilterButtons={false}
+            loading={status}
+          />
         </div>
       </div>
       <div className="row gx-24 mb-24">

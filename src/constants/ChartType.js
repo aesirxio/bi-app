@@ -3,5 +3,9 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-@import '../../scss/utils/bootstrap.scss';
-@import '~bootstrap/scss/accordion';
+const CHART_TYPE = {
+  MONTH: 1,
+  DAY: 2,
+};
+
+export default CHART_TYPE;

@@ -112,7 +112,7 @@ class BehaviorOverviewPage extends Component {
             <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_behavior')}</h2>
           </div>
           <div className="position-relative">
-            <DateRangePicker></DateRangePicker>
+            <DateRangePicker />
           </div>
         </div>
         <ComponentFilter isContinent />
@@ -141,8 +141,7 @@ class BehaviorOverviewPage extends Component {
               data={dataBarChart}
               margin={{ left: 40 }}
               isFilterButtons={true}
-              filterButtons={true}
-            ></BarChartComponent>
+            />
           </Col>
         </Row>
         <Row className="gx-24 mb-24">

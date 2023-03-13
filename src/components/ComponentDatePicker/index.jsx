@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import DatePicker, { registerLocale } from 'react-datepicker';
 import './index.scss';
 import moment from 'moment';
-
+import { observer } from 'mobx-react';
 import vi from 'date-fns/locale/vi';
 import de from 'date-fns/locale/de';
 import uk from 'date-fns/locale/uk';
@@ -12,6 +12,7 @@ import es from 'date-fns/locale/es';
 import th from 'date-fns/locale/th';
 import hr from 'date-fns/locale/hr';
 import { enUS } from 'date-fns/locale';
+import { BiViewModelContext, useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 registerLocale('vi', vi);
 registerLocale('de', de);
 registerLocale('uk', uk);
@@ -20,15 +21,18 @@ registerLocale('th', th);
 registerLocale('hr', hr);
 registerLocale('en-US', enUS);
 
-function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, isDays, ...props }) {
-  const { t, i18n, viewModelArr } = props;
+const ComponentDatePicker = observer(({ isOpen, setIsOpen, datePickerRef, isDays, onChange }) => {
+  const { t, i18n } = useTranslation('common');
+  const {
+    biListViewModel: {
+      dateFilter: { date_start, date_end },
+      setDateFilter,
+    },
+  } = useBiViewModel(BiViewModelContext);
+
   const [dateRange, setDateRange] = useState([
-    viewModelArr.length
-      ? moment(viewModelArr[0]?.dateFilter['date_start'], 'YYYY-MM-DD').toDate()
-      : null,
-    viewModelArr.length
-      ? moment(viewModelArr[0]?.dateFilter['date_end'], 'YYYY-MM-DD').toDate()
-      : null,
+    moment(date_start, 'YYYY-MM-DD').toDate(),
+    moment(date_end, 'YYYY-MM-DD').toDate(),
   ]);
 
   const [startDate, endDate] = dateRange;
@@ -41,22 +45,26 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
 
   const handleApply = async (e, startDate, endDate) => {
     e.stopPropagation();
-    viewModelArr.map(async (viewModel) => {
-      await viewModel?.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
-    });
+    setDateFilter(startDate, endDate);
+    // if (typeof onChange === 'function') {
+    onChange(startDate, endDate);
+    // }
     setIsOpen(false);
   };
+
   const handleClickOutSide = (event) => {
     let currentRef = datePickerRef ?? pickerRef;
     if (isOpen && !currentRef.current.contains(event.target)) {
       setIsOpen(false);
     }
   };
+
   const handleOpenDatePicker = (event) => {
     if (isOpen && pickerRef.current && !pickerRef.current.contains(event.target)) {
       setIsOpen(false);
     } else setIsOpen(true);
   };
+
   const MyContainer = ({ className, children }) => {
     return (
       <div
@@ -66,7 +74,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
         <div className={`${className}`}>{children}</div>
         {startDate && (
           <div className="d-flex align-items-center justify-content-end border-top-1 pt-2 px-2 text-color">
-            <p className="fs-14 color-bule-0 opacity-75 mb-0">
+            <p className="fs-14 color-blue-0 opacity-75 mb-0">
               {startDate ? moment(startDate).format('LL') : ''} -{' '}
               {endDate ? moment(endDate).format('LL') : ''}
             </p>
@@ -82,14 +90,16 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
       </div>
     );
   };
+
   const getDateDiff = (start, end) => {
     if (!start || !end) return 0;
     return moment(end).diff(moment(start), 'days') + 1;
   };
+
   const getDateDiffString = (start, end) => {
     let startDate = start ? moment(start).format('DD MMM, YYYY') : '';
     let endDate = end ? moment(end).format('DD MMM, YYYY') : '';
-    let result = placeholder;
+    let result = '';
     if (start || end) {
       result =
         getDateDiff(start, end) == 1
@@ -116,7 +126,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
             ? getDateDiffString(startDate, endDate)
             : getDateDiff(startDate, endDate)
             ? `${getDateDiff(startDate, endDate)} ${t('txt_days')}`
-            : placeholder
+            : ''
         }
         isClearable={false}
         className={`${
@@ -130,6 +140,6 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
       />
     </div>
   );
-}
+});
 
-export default withTranslation('common')(ComponentDatepicker);
+export default ComponentDatePicker;

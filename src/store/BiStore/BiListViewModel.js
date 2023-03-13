@@ -14,9 +14,10 @@ class BiListViewModel {
   paginationCollections = null;
   status = PAGE_STATUS.READY;
   data = [];
+  listDomain = JSON.parse(env.REACT_APP_DATA_STREAM) ?? [];
   tableRowHeader = null;
   dateFilter = {
-    date_start: moment().startOf('month').format('YYYY-MM-DD'),
+    date_start: moment().subtract(30, 'd').format('YYYY-MM-DD'),
     date_end: moment().endOf('day').format('YYYY-MM-DD'),
   };
   dataFilter = {};
@@ -29,58 +30,21 @@ class BiListViewModel {
     this.biStore = biStore;
   }
 
-  getDashboard = (dataFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, dataFilter };
-    this.biStore.getDashboard(
-      this.dataFilter,
-      this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
-    );
-  };
-
-  getListDomain = (dataFilter, listDomains) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
-    this.biStore.getListDomain(
-      this.dataFilter,
-      listDomains,
-      this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
-    );
-  };
-
   setActiveDomain = (domain) => {
     this.activeDomain = domain;
   };
 
-  handleFilter = (dataFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
-
-    this.biStore.getListDomain(
-      this.dataFilter,
-      this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
-    );
-  };
-  handleFilterDateRange = (startDate, endDate) => {
-    this.status = PAGE_STATUS.LOADING;
-    let dateRangeFilter = {
-      date_start: moment(startDate).format('YYYY-MM-DD'),
-      date_end: moment(endDate).format('YYYY-MM-DD'),
+  setDateFilter = (date_start, date_end) => {
+    this.dateFilter = {
+      ...this.dateFilter,
+      date_start: moment(date_start).format('YYYY-MM-DD'),
+      date_end: moment(date_end).format('YYYY-MM-DD'),
     };
-    this.dataFilter = { ...this.dataFilter, ...dateRangeFilter };
-
-    this.biStore.getDashboard(
-      this.dataFilter,
-      this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHander
-    );
   };
+
   resetObservableProperties = () => {};
 
-  callbackOnErrorHander = (error) => {
+  callbackOnErrorHandler = (error) => {
     if (error.message === 'isCancle') {
       this.status = PAGE_STATUS.READY;
     } else notify(error.message, 'error');

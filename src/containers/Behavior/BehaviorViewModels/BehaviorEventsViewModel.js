@@ -10,17 +10,13 @@ import moment from 'moment';
 import BehaviorEventModel from '../BehaviorModel/BehaviorListEventModel';
 class BehaviorEventsViewModel {
   behaviorStore = null;
-  visitorStore = null;
   status = PAGE_STATUS.READY;
-  dateFilter = {
-    date_start: moment().startOf('month').format('YYYY-MM-DD'),
-    date_end: moment().endOf('day').format('YYYY-MM-DD'),
-  };
+  globalStoreViewModel = null;
   data = null;
-  constructor(behaviorStore, visitorStore) {
+  constructor(behaviorStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.behaviorStore = behaviorStore;
-    this.visitorStore = visitorStore;
+    this.globalStoreViewModel = globalStoreViewModel;
   }
 
   transformDataToBehaviorEventModel = () => {
@@ -30,10 +26,11 @@ class BehaviorEventsViewModel {
   getVisitor = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
-    this.dateFilter = { ...this.dateFilter, ...dateFilter };
-    this.visitorStore.getVisitor(
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.behaviorStore.getVisitor(
       this.dataFilter,
-      this.dateFilter,
+      dateRangeFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -42,13 +39,15 @@ class BehaviorEventsViewModel {
   handleFilterDateRange = (startDate, endDate) => {
     this.status = PAGE_STATUS.LOADING;
     const dateRangeFilter = {
+      ...this.globalStoreViewModel.dateFilter,
       date_start: moment(startDate).format('YYYY-MM-DD'),
       date_end: moment(endDate).endOf('day').format('YYYY-MM-DD'),
     };
+
     this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
-    this.visitorStore.getVisitor(
+    this.behaviorStore.getVisitor(
       this.dataFilter,
-      this.dateFilter,
+      dateRangeFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -62,7 +61,7 @@ class BehaviorEventsViewModel {
   callbackOnDataSuccessHandler = (data) => {
     if (data) {
       this.status = PAGE_STATUS.READY;
-      const transformData = new BehaviorEventModel(data);
+      const transformData = new BehaviorEventModel(data, this.globalStoreViewModel);
       this.data = transformData;
     } else {
       this.status = PAGE_STATUS.ERROR;

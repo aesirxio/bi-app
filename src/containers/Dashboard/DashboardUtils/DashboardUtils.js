@@ -3,6 +3,14 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-class BehaviorUtils {}
+class DashBoardUtils {
+  transformPersonaResponseIntoModel = (response) => {
+    return response[0] ?? {};
+  };
 
-export default BehaviorUtils;
+  transformResponseIntoSearchItems = (response) => {
+    return response;
+  };
+}
+
+export default DashBoardUtils;

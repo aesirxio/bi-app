@@ -4775,7 +4775,7 @@ damerau-levenshtein@^1.0.8:
 
 data-urls@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.yarnpkg.com/data-urls/-/data-urls-2.0.0.tgz#156485a72963a970f5d5821aaf642bef2bf2db9b"
+  resolved "https://registry.yarnpkg.comurls/-urls-2.0.0.tgz#156485a72963a970f5d5821aaf642bef2bf2db9b"
   integrity sha512-X5eWTSXO/BJmpdIKCRuKUgSCgAN0OwliVK3yPKbwIWU1Tdw5BRajxlzMidvh+gwko9AfQ9zIj52pzF91Q3YAvQ==
   dependencies:
     abab "^2.0.3"

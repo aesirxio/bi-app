@@ -93,7 +93,7 @@
     "sass": "^1.52",
     "craco": "^0.0.3",
     "react-inject-env": "^2.1.0",
-    "serve": "^13.0.2"
+    "serve": "^14.2.0"
   },
   "overrides": {
     "autoprefixer": "10.4.5"

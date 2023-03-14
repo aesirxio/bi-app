@@ -3,8 +3,8 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React, { useEffect } from 'react';
-import { useExpanded, usePagination, useRowSelect, useSortBy, useTable } from 'react-table';
+import React from 'react';
+import { usePagination, useSortBy, useTable } from 'react-table';
 import { withTranslation } from 'react-i18next';
 import ComponentNoData from '../ComponentNoData';
 import './index.scss';
@@ -19,27 +19,11 @@ const Table = ({
   setLoading,
   onSelect,
   dataList,
-  selection = true,
   classNameTable,
   canSort,
   sortAPI,
   ...props
 }) => {
-  const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef();
-    const resolvedRef = ref || defaultRef;
-
-    useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate;
-    }, [resolvedRef, indeterminate]);
-
-    return (
-      <>
-        <input className="form-check-input p-0" type="checkbox" ref={resolvedRef} {...rest} />
-      </>
-    );
-  });
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -63,31 +47,8 @@ const Table = ({
         pageSize: 5,
       },
     },
-    (hooks) => {
-      !selection &&
-        hooks.visibleColumns.push((columns) => [
-          {
-            id: 'selection',
-            className: 'px-24 py-2 border-bottom-1 text-uppercase',
-            width: '50px',
-            Header: ({ getToggleAllPageRowsSelectedProps }) => (
-              <div>
-                <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
-              </div>
-            ),
-            Cell: ({ row }) => (
-              <div className="wrapper_checkbox px-24">
-                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-              </div>
-            ),
-          },
-          ...columns,
-        ]);
-    },
     useSortBy,
-    useExpanded,
-    usePagination,
-    useRowSelect
+    usePagination
   );
 
   const handlePagination = async (pageIndex) => {

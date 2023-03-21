@@ -10,6 +10,7 @@ class DashboardModel {
   data = {};
   globalViewModel = null;
   constructor(entity, globalViewModel) {
+    console.log(entity);
     if (entity) {
       this.data = entity;
       this.globalViewModel = globalViewModel;
@@ -36,8 +37,8 @@ class DashboardModel {
       'Dec',
     ];
     const dateRange = enumerateDaysBetweenDates(
-      this.globalViewModel.dateFilter.date_start,
-      this.globalViewModel.dateFilter.date_end
+      this.globalViewModel?.dateFilter?.date_start,
+      this.globalViewModel?.dateFilter?.date_end
     );
     const date = dateRange.map((date) => {
       const filterDate = this.data.find(

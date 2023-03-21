@@ -40,6 +40,7 @@ export class DashboardStore {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getVisitors(dataFilter, dateFilter);
       if (responseDataFromLibrary) {
+        console.log(responseDataFromLibrary);
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);
         });

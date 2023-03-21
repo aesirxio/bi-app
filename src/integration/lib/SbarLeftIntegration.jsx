@@ -4,14 +4,14 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
-import './index.scss';
-import { Collapse, Button } from 'react-bootstrap';
-import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-import { observer } from 'mobx-react-lite';
+
+import { observer } from 'mobx-react';
 import { env } from 'env';
 
+import '../index.scss';
+import { Collapse, Button } from 'react-bootstrap';
+import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 const dataMenuSetup = [
   // {
   //   text: 'txt_menu_region',
@@ -26,7 +26,7 @@ const dataMenuSetup = [
   //   icons_color: '/assets/images/setting.svg',
   // },
 ];
-const Menu = observer((props) => {
+const SbarLeftIntegration = observer((props) => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
   const [dataStreamActive, setDataStreamActive] = useState(
     env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain
@@ -48,11 +48,11 @@ const Menu = observer((props) => {
     }
   };
   const checkActiveMenu = () => {
-    if (window.location.pathname === '/') {
-      document.getElementById('wr_list_menu').classList.remove('wr_list_menu');
-    } else {
-      document.getElementById('wr_list_menu').classList.add('wr_list_menu');
-    }
+    // if (window.location.pathname === '/') {
+    //   document.getElementById('wr_list_menu').classList.remove('wr_list_menu');
+    // } else {
+    //   document.getElementById('wr_list_menu').classList.add('wr_list_menu');
+    // }
   };
 
   const handleCheckActive = () => {
@@ -137,18 +137,20 @@ const Menu = observer((props) => {
   useEffect(() => {
     checkActiveMenu();
     let fetchData = async () => {
-      if (props.match.params.domain) {
-        biStore.biListViewModel.setActiveDomain(props.match.params.domain);
-        setDataStreamActive(`${props.match.params.domain}`);
+      if (biStore.biListViewModel.activeDomain) {
+        biStore.biListViewModel.setActiveDomain(biStore.biListViewModel.activeDomain);
+        setDataStreamActive(`${biStore.biListViewModel.activeDomain}`);
       }
     };
 
     fetchData();
-  }, [biStore.biListViewModel, dataStreamActive]);
+  }, [biStore.biListViewModel.activeDomain, dataStreamActive]);
 
   const { t } = props;
   return (
-    <>
+    <aside
+      className={`sidebar w-248  mt-0 position-relative bg-dark mh-100 h-100 d-flex flex-column z-index-100 justify-content-between`}
+    >
       <nav className="data-stream item_menu">
         <Button
           variant=""
@@ -190,18 +192,18 @@ const Menu = observer((props) => {
                     className={`item_menu cursor-pointer`}
                     onClick={() => handleChangeDataStream(item.domain)}
                   >
-                    <NavLink
-                      exact={true}
-                      to={`${props.match.path.replace(':domain', item.domain)}`}
+                    <a
+                      href="#"
+                      // to={`${props.match.path.replace(':domain', item.domain)}`}
                       className={``}
-                      activeClassName={`active`}
+                      // activeClassName={`active`}
                     >
                       <span
                         className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
                       >
                         {item.name}
                       </span>
-                    </NavLink>
+                    </a>
                   </li>
                 )
               );
@@ -221,11 +223,12 @@ const Menu = observer((props) => {
                 {!menuList.submenu ? (
                   <>
                     {menuList.link && (
-                      <NavLink
-                        exact={true}
-                        to={menuList.link}
+                      <a
+                        href="#"
+                        // exact={true}
+                        // to={menuList.link}
                         className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
-                        activeClassName={`active`}
+                        // activeClassName={`active`}
                       >
                         <span
                           className="icon d-inline-block align-text-bottom"
@@ -236,7 +239,7 @@ const Menu = observer((props) => {
                           }}
                         ></span>
                         <span className="ms-16 text d-inline-block">{t(menuList.text)}</span>
-                      </NavLink>
+                      </a>
                     )}
                   </>
                 ) : (
@@ -289,14 +292,15 @@ const Menu = observer((props) => {
                               onClick={handleCheckActive}
                             >
                               {value.link && (
-                                <NavLink
-                                  exact={true}
-                                  to={value.link}
+                                <a
+                                  href="#"
+                                  // exact={true}
+                                  // to={value.link}
                                   className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
-                                  activeClassName={`active`}
+                                  // activeClassName={`active`}
                                 >
                                   <span className="text d-inline-block">{t(value.text)}</span>
-                                </NavLink>
+                                </a>
                               )}
                             </li>
                           );
@@ -316,11 +320,12 @@ const Menu = observer((props) => {
           {dataMenuSetup.map((value, key) => {
             return (
               <li key={key} className={`item_menu ${value.className ? value.className : ''}`}>
-                <NavLink
-                  exact={true}
-                  to={value.link}
+                <a
+                  href="#"
+                  // exact={true}
+                  // to={value.link}
                   className={`d-block px-24 py-16 link_menu text-white text-decoration-none `}
-                  activeClassName={`active`}
+                  // activeClassName={`active`}
                 >
                   <span
                     className="icon d-inline-block align-text-bottom"
@@ -331,14 +336,14 @@ const Menu = observer((props) => {
                     }}
                   ></span>
                   <span className="ms-16 text d-inline-block">{t(value.text)}</span>
-                </NavLink>
+                </a>
               </li>
             );
           })}
         </ul>
       </nav>
-    </>
+    </aside>
   );
 });
 
-export default withTranslation('common')(withRouter(Menu));
+export default withTranslation('common')(SbarLeftIntegration);

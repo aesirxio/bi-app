@@ -6,6 +6,7 @@
 import React from 'react';
 
 import './scss/app.scss';
+import './fonts/fontface.scss';
 
 import RouterLayout from './layouts/RouterLayout';
 import ErrorBoundary from './layouts/ErrorBoundary';

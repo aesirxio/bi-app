@@ -5,12 +5,15 @@
 
 import { BI_VISITOR_FIELD_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
+import { enumerateDaysBetweenDates } from 'utils/date';
 
 class BehaviorEventModel {
-  data = {};
-  constructor(entity) {
+  data = null;
+  globalViewModel = null;
+  constructor(entity, globalViewModel) {
     if (entity) {
       this.data = entity;
+      this.globalViewModel = globalViewModel;
     }
   }
 
@@ -54,7 +57,28 @@ class BehaviorEventModel {
       'Dec',
     ];
 
-    return Object.keys(transform)
+    const dateRange = enumerateDaysBetweenDates(
+      this.globalViewModel.dateFilter.date_start,
+      this.globalViewModel.dateFilter.date_end
+    );
+
+    const date = Object.keys(transform)
+      .map((item) => {
+        return {
+          [item]: dateRange.map((date) => {
+            const filterDate = transform[item].filter(
+              (_item) =>
+                moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).format('YYYY-MM-DD') === date
+            ).length;
+            return {
+              name: date,
+              number: filterDate ?? 0,
+            };
+          }),
+        };
+      })
+      .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
+    const month = Object.keys(transform)
       .map((item) => {
         return {
           [item]: twelveMonth.map((month, index) => {
@@ -76,6 +100,7 @@ class BehaviorEventModel {
         };
       })
       .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
+    return [month, date];
   };
 
   toBarChart = () => {
@@ -181,28 +206,43 @@ class BehaviorEventModel {
       'Dec',
     ];
 
-    return Object.keys(transform)
+    const dateRange = enumerateDaysBetweenDates(
+      this.globalViewModel.dateFilter.date_start,
+      this.globalViewModel.dateFilter.date_end
+    );
+
+    const date = Object.keys(transform)
+      .map((item) => {
+        return {
+          [item]: dateRange.map((date) => {
+            const filterDate = transform[item].filter(
+              (_item) =>
+                moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).format('YYYY-MM-DD') === date
+            ).length;
+            return {
+              name: date,
+              number: filterDate ?? 0,
+            };
+          }),
+        };
+      })
+      .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
+    const month = Object.keys(transform)
       .map((item) => {
         return {
           [item]: twelveMonth.map((month, index) => {
             const filterMonthDate = transform[item].filter(
               (_item) => moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).month() === index
             ).length;
-            if (filterMonthDate) {
-              return {
-                name: month,
-                number: filterMonthDate,
-              };
-            } else {
-              return {
-                name: month,
-                number: 0,
-              };
-            }
+            return {
+              name: month,
+              number: filterMonthDate ?? 0,
+            };
           }),
         };
       })
       .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
+    return [month, date];
   };
 
   toEventTableUTM = () => {

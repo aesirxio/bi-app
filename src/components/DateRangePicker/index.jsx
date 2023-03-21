@@ -1,15 +1,12 @@
 import ComponentDatePicker from 'components/ComponentDatePicker';
 import ComponentSVG from 'components/ComponentSVG';
 import React, { useRef, useState } from 'react';
-import { withTranslation } from 'react-i18next';
 import './index.scss';
 
 const DateRangePicker = (props) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const datePickerRef = useRef(null);
-
-  const { t, viewModelArr = [] } = props;
-
+  const { onChange } = props;
   return (
     <div
       style={{ minHeight: '50px' }}
@@ -20,8 +17,7 @@ const DateRangePicker = (props) => {
         isOpen={openDatePicker}
         setIsOpen={setOpenDatePicker}
         datePickerRef={datePickerRef}
-        placeholder={t('txt_select_date')}
-        viewModelArr={viewModelArr}
+        onChange={onChange}
       />
       <div className="calendar-icon position-absolute top-50 translate-middle-y">
         <ComponentSVG url="/assets/images/calendar.svg" color="#00B96D" />
@@ -30,4 +26,4 @@ const DateRangePicker = (props) => {
   );
 };
 
-export default withTranslation('common')(DateRangePicker);
+export default DateRangePicker;

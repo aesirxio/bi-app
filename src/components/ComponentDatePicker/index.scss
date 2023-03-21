@@ -16,7 +16,7 @@
     z-index: 2;
   }
   .react-datepicker-popper[data-placement^='bottom'] {
-    margin-top: 5px;
+    padding-top: 5px;
   }
 
   .react-datepicker {
@@ -32,10 +32,10 @@
   }
 
   .react-datepicker__month-container {
-    margin-right: 20px;
+    padding-right: 20px;
 
     &:last-child {
-      margin-right: 0;
+      padding-right: 0;
     }
   }
 

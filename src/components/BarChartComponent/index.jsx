@@ -1,17 +1,22 @@
+import ComponentNoData from 'components/ComponentNoData';
 import HeaderFilterComponent from 'components/HeaderFilterComponent';
-import Spinner from 'components/Spinner';
+import RingLoaderComponent from 'components/Spinner/ringLoader';
+import PAGE_STATUS from 'constants/PageStatus';
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation, withTranslation } from 'react-i18next';
 import { BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar } from 'recharts';
 const BarChartComponent = (props) => {
+  const { t } = useTranslation('common');
   return (
-    <div className="bg-white rounded-3 px-24 py-3 shadow-sm">
-      {props.data ? (
+    <div className="bg-white rounded-3 px-24 py-3 shadow-sm position-relative h-100">
+      {props.loading === PAGE_STATUS.LOADING ? (
+        <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white" />
+      ) : props.data ? (
         <>
           <HeaderFilterComponent
             chartTitle={props.chartTitle}
             viewMoreLink={props.viewMoreLink}
-            filterButtons={props.filterButtons}
+            isFilterButtons={props.isFilterButtons}
           />
           <ResponsiveContainer width="100%" height={props.height ?? 500}>
             <BarChart data={props.data} layout={'vertical'} margin={props.margin}>
@@ -44,7 +49,13 @@ const BarChartComponent = (props) => {
           </ResponsiveContainer>
         </>
       ) : (
-        <Spinner />
+        <div className="position-absolute top-50 start-50 translate-middle">
+          <ComponentNoData
+            icons="/assets/images/ic_project.svg"
+            title={t('txt_no_data')}
+            width="w-50"
+          />
+        </div>
       )}
     </div>
   );

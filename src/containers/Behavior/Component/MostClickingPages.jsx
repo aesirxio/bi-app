@@ -65,7 +65,7 @@ const MostClickingPages = (props) => {
   const { t } = props;
   return (
     <div className="bg-white rounded-3 shadow-sm h-100 py-3 px-24">
-      <HeaderFilterComponent chartTitle={t('txt_most_clingking_pages')} filterButtons={true} />
+      <HeaderFilterComponent chartTitle={t('txt_most_clingking_pages')} isFilterButtons={true} />
       <div className="fs-14">
         <Table columns={columnsTable} data={dataTable}></Table>
       </div>

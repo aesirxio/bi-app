@@ -15,6 +15,7 @@ import { DashboardViewModelContextProvider } from './DashboardViewModels/Dashboa
 import history from 'routes/history';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import Dashboard from './Dashboard';
+import queryString from 'query-string';
 
 const DashboardContainer = observer(
   class DashboardContainer extends Component {
@@ -30,8 +31,22 @@ const DashboardContainer = observer(
       console.log(this.biListViewModel);
       this.dashboardViewModel = new DashboardViewModel(this.dashboardStore, this.biListViewModel);
     }
+
     componentDidMount = () => {
-      history.push(`${this.biListViewModel.activeDomain}`);
+      const location = history.location;
+      // WP or Joomla
+      if (location.pathname === '/wp-admin/admin.php') {
+        const search = {
+          ...queryString.parse(location.search),
+          ...{ domain: this.biListViewModel.activeDomain },
+        };
+        history.push({
+          ...location,
+          ...{ search: queryString.stringify(search) },
+        });
+      } else {
+        history.push(`${this.biListViewModel.activeDomain}`);
+      }
     };
     render() {
       return (

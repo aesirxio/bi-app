@@ -34,6 +34,7 @@ const mainRoutes = [
   {
     path: ['/:domain', '/'],
     exact: true,
+    page: 'dashboard',
     main: () => <DashboardPage />,
   },
   {

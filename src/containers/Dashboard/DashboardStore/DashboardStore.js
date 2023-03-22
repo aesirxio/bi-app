@@ -5,7 +5,7 @@ export class DashboardStore {
     try {
       const biService = new AesirxBiApiService();
       const responsedDataFromLibary = await biService.getSummary(dataFilter, dateFilter);
-
+      console.log(responsedDataFromLibary);
       if (responsedDataFromLibary) {
         runInAction(() => {
           callbackOnSuccess(responsedDataFromLibary);

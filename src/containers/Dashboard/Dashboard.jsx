@@ -33,12 +33,18 @@ const Dashboard = observer(
         ? this.viewModel.getDashboardListViewModel()
         : null;
     }
-    componentDidUpdate = (prevProps) => {
-      if (this.props.location !== prevProps.location) {
-        this.dashboardListViewModel.initialize({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        });
-      }
+    // componentDidUpdate = (prevProps) => {
+    //   if (this.props.location !== prevProps.location) {
+    //     this.dashboardListViewModel.initialize({
+    //       'filter[domain]': this.context.biListViewModel.activeDomain,
+    //     });
+    //   }
+    // };
+
+    componentDidMount = () => {
+      this.dashboardListViewModel.initialize({
+        'filter[domain]': this.context.biListViewModel.activeDomain,
+      });
     };
 
     handleDateRangeChange = (startDate, endDate) => {

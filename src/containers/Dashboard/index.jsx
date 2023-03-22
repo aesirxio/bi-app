@@ -33,20 +33,20 @@ const DashboardContainer = observer(
     }
 
     componentDidMount = () => {
-      const location = history.location;
+      // const location = history.location;
       // WP or Joomla
-      if (location.pathname === '/wp-admin/admin.php') {
-        const search = {
-          ...queryString.parse(location.search),
-          ...{ domain: this.biListViewModel.activeDomain },
-        };
-        history.push({
-          ...location,
-          ...{ search: queryString.stringify(search) },
-        });
-      } else {
-        history.push(`${this.biListViewModel.activeDomain}`);
-      }
+      // if (location.pathname === '/wp-admin/admin.php') {
+      //   const search = {
+      //     ...queryString.parse(location.search),
+      //     ...{ domain: this.biListViewModel.activeDomain },
+      //   };
+      //   history.push({
+      //     ...location,
+      //     ...{ search: queryString.stringify(search) },
+      //   });
+      // } else {
+      //   history.push(`${this.biListViewModel.activeDomain}`);
+      // }
     };
     render() {
       return (

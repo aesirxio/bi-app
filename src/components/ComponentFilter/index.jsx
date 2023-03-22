@@ -7,6 +7,7 @@ import ComponentSVG from 'components/ComponentSVG';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import SelectComponent from 'components/Select';
+import { env } from 'env';
 
 const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
@@ -29,7 +30,7 @@ const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) 
       )}
       {isDate && (
         <div ref={datePickerRef} className="d-flex align-items-center px-24 border-end-1">
-          <ComponentSVG url="/assets/images/calendar.svg" />
+          <ComponentSVG url={env.PUBLIC_URL + '/assets/images/calendar.svg'} />
           <ComponentDatePicker
             isOpen={openDatePicker}
             setIsOpen={setOpenDatePicker}

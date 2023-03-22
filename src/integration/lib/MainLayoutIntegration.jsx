@@ -74,7 +74,7 @@ const App = observer((props) => {
     <div className="container-fluid">
       <div className="row">
         <main className="p-0">
-          <Header {...props} />
+          <Header {...props} noavatar={true} />
           <div className="main_content vh-100 main_content_dashboard pd-t-80 d-flex">
             <SbarLeft />
 

@@ -77,15 +77,15 @@ const SbarLeftIntegration = observer((props) => {
     {
       text: 'txt_menu_dashboard',
       link: `/${dataStreamActive}`,
-      icons: '/assets/images/dashboard.svg',
-      icons_color: '/assets/images/dashboard.svg',
+      icons: env.PUBLIC_URL + '/assets/images/dashboard.svg',
+      icons_color: env.PUBLIC_URL + '/assets/images/dashboard.svg',
       page: 'dashboard',
     },
     {
       text: 'txt_menu_audience',
       link: `/${dataStreamActive}/audience`,
-      icons: '/assets/images/audience.svg',
-      icons_color: '/assets/images/audience.svg',
+      icons: env.PUBLIC_URL + '/assets/images/audience.svg',
+      icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
       submenu: [
         {
           text: 'txt_menu_overview',
@@ -97,8 +97,8 @@ const SbarLeftIntegration = observer((props) => {
     {
       text: 'txt_menu_behavior',
       link: `/${dataStreamActive}/behavior`,
-      icons: '/assets/images/behavior.svg',
-      icons_color: '/assets/images/behavior.svg',
+      icons: env.PUBLIC_URL + '/assets/images/behavior.svg',
+      icons_color: env.PUBLIC_URL + '/assets/images/behavior.svg',
       submenu: [
         // {
         //   text: 'txt_menu_overview',
@@ -189,7 +189,7 @@ const SbarLeftIntegration = observer((props) => {
           <span
             className="icon arrow d-inline-block align-text-bottom ms-auto"
             style={{
-              WebkitMaskImage: `url(/assets/images/arrow-right.svg)`,
+              WebkitMaskImage: `url(${env.PUBLIC_URL}/assets/images/arrow-right.svg)`,
               WebkitMaskRepeat: 'no-repeat',
             }}
           ></span>
@@ -283,7 +283,7 @@ const SbarLeftIntegration = observer((props) => {
                       <span
                         className="icon arrow d-inline-block align-text-bottom ms-auto"
                         style={{
-                          WebkitMaskImage: `url(/assets/images/arrow-right.svg)`,
+                          WebkitMaskImage: `url(${env.PUBLIC_URL}/assets/images/arrow-right.svg)`,
                           WebkitMaskRepeat: 'no-repeat',
                           backgroundColor: '#fff',
                         }}

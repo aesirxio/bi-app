@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import './index.scss';
 import { Translation } from 'react-i18next';
+import { env } from 'env';
 
 const Toast = () => {
   return <ToastContainer hideProgressBar={true} />;
@@ -24,7 +25,7 @@ const notify = (msg, type = 'success') => {
         </div>,
         {
           className: 'bg-noti-bg-error fw-bold text-noti-error px-2 py-1',
-          icon: () => <img alt="error" src="/assets/images/error.png" />,
+          icon: () => <img alt="error" src={env.PUBLIC_URL + '/assets/images/error.png'} />,
         }
       );
       break;
@@ -36,7 +37,7 @@ const notify = (msg, type = 'success') => {
         </div>,
         {
           className: 'bg-noti-bg-warn fw-bold text-noti-warn px-2 py-1',
-          icon: () => <img alt="warn" src="/assets/images/warn.png" />,
+          icon: () => <img alt="warn" src={env.PUBLIC_URL + '/assets/images/warn.png'} />,
         }
       );
       break;
@@ -48,7 +49,7 @@ const notify = (msg, type = 'success') => {
         </div>,
         {
           className: 'bg-noti-bg-success text-green fw-bold px-2 py-1',
-          icon: () => <img alt="success" src="/assets/images/success.png" />,
+          icon: () => <img alt="success" src={env.PUBLIC_URL + '/assets/images/success.png'} />,
         }
       );
       break;

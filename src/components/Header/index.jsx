@@ -28,6 +28,8 @@ import 'moment/locale/uk';
 import 'moment/locale/de';
 import 'moment/locale/th';
 import moment from 'moment';
+import { env } from 'env';
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -49,7 +51,7 @@ class Header extends React.Component {
   };
 
   render() {
-    const { t, integration = false } = this.props;
+    const { t, integration = false, noavatar = false } = this.props;
     let { isMini } = this.state;
 
     const listLanguages = Object.keys(i18n.options.resources).map(function (key) {
@@ -60,6 +62,7 @@ class Header extends React.Component {
         return lang;
       }
     });
+
     moment.locale(i18n.language);
     return (
       <div
@@ -70,13 +73,16 @@ class Header extends React.Component {
       >
         <ComponentHambuger handleAction={this.handleMenuLeft} />
         <div className="wrapper_header_logo bg-dark w-248 h-80 d-flex align-items-center">
-          <a href="/" className={`header_logo d-block ${isMini ? 'mx-auto' : 'mx-3'}`}>
+          <a
+            href={window.location.href}
+            className={`header_logo d-block ${isMini ? 'mx-auto' : 'mx-3'}`}
+          >
             <ComponentImage
               className={`logo_white ${isMini ? 'pe-0' : 'pe-3 pe-lg-6'}`}
               src={`${
                 isMini
-                  ? '/assets/images/logo/logo-white-mini.svg'
-                  : '/assets/images/logo/logo-white.svg'
+                  ? env.PUBLIC_URL + '/assets/images/logo/logo-white-mini.svg'
+                  : env.PUBLIC_URL + '/assets/images/logo/logo-white.svg'
               }`}
               alt="R Digital"
             />
@@ -128,9 +134,11 @@ class Header extends React.Component {
                 </span>
               </div>
 
-              <div className="ps-3 pe-3">
-                <DropdownAvatar />
-              </div>
+              {!noavatar && (
+                <div className="ps-3 pe-3">
+                  <DropdownAvatar />
+                </div>
+              )}
             </div>
           </div>
         </div>

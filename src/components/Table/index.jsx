@@ -10,6 +10,7 @@ import ComponentNoData from '../ComponentNoData';
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { env } from 'env';
 
 const Table = ({
   columns,
@@ -214,7 +215,7 @@ const Table = ({
         {rows.length === 0 ? (
           <div className="">
             <ComponentNoData
-              icons="/assets/images/ic_project.svg"
+              icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
               title={t('txt_no_data')}
               width="w-50"
             />

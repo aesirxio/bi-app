@@ -3,6 +3,7 @@ import './index.scss';
 import SelectComponent from 'components/Select';
 import PulseLoaderComponent from 'components/Spinner/pulseLoader';
 import PAGE_STATUS from 'constants/PageStatus';
+import { env } from 'env';
 const ComponentCard = ({
   title,
   icon,
@@ -64,7 +65,7 @@ const ComponentCard = ({
                   isIncrease ? 'bg-green' : 'bg-red'
                 }`}
                 style={{
-                  WebkitMaskImage: `url(${
+                  WebkitMaskImage: `url(${env.PUBLIC_URL}${
                     isIncrease ? '/assets/images/grown-up.svg' : '/assets/images/grown-down.svg'
                   })`,
                   WebkitMaskRepeat: 'no-repeat',

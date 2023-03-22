@@ -18,7 +18,7 @@ class BiListViewModel {
   listDomain = JSON.parse(env.REACT_APP_DATA_STREAM) ?? [];
   tableRowHeader = null;
   dateFilter = {
-    date_start: moment().subtract(30, 'd').format('YYYY-MM-DD'),
+    date_start: moment().subtract(7, 'd').format('YYYY-MM-DD'),
     date_end: moment().endOf('day').format('YYYY-MM-DD'),
   };
   dataFilter = {};
@@ -33,10 +33,20 @@ class BiListViewModel {
   }
 
   setActiveDomain = (domain) => {
+    // const searchParams = new URLSearchParams(window.location.search);
+    // searchParams.set('domain', domain);
+    // window.location.search = searchParams.toString();
+    history.push({
+      pathname: '/dresses',
+      search: '?color=blue',
+    });
     this.activeDomain = domain;
   };
 
   setIntegrationLink = (link) => {
+    // const searchParams = new URLSearchParams(window.location.search);
+    // searchParams.set('menu', link);
+    // window.location.search = searchParams.toString();
     this.integrationLink = link;
   };
 

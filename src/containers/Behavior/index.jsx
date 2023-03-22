@@ -7,6 +7,7 @@ import UTMTracking from './UTMTracking';
 import Events from './Events';
 import { observer } from 'mobx-react';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+
 // const Events = lazy(() => import('./Events'));
 const Overview = lazy(() => import('./Overview'));
 // const UTMTracking = lazy(() => import('./UTMTracking'));
@@ -41,11 +42,11 @@ const Behavior = observer(
     }
     render() {
       const { integration = false } = this.props;
-      const { integrationLink } = this.biListViewModel;
+      const { integrationLink, activeDomain } = this.biListViewModel;
       return (
         <BehaviorViewModelContextProvider viewModel={this.behaviorViewModel}>
           {integration ? (
-            <RenderComponent link={integrationLink} {...this.props} />
+            <RenderComponent link={integrationLink} activeDomain={activeDomain} {...this.props} />
           ) : (
             <>
               <Route exact path={['/:domain/behavior/overview']}>

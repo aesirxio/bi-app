@@ -28,7 +28,6 @@ const DashboardContainer = observer(
       this.biListViewModel = this.viewModel ? this.viewModel.getBiListViewModel() : null;
 
       this.dashboardStore = new DashboardStore();
-      console.log(this.biListViewModel);
       this.dashboardViewModel = new DashboardViewModel(this.dashboardStore, this.biListViewModel);
     }
 
@@ -47,11 +46,12 @@ const DashboardContainer = observer(
       // } else {
       //   history.push(`${this.biListViewModel.activeDomain}`);
       // }
+      // history.push(`${this.biListViewModel.activeDomain}`);
     };
     render() {
       return (
         <DashboardViewModelContextProvider viewModel={this.dashboardViewModel}>
-          <Dashboard />
+          <Dashboard {...this.props} />
         </DashboardViewModelContextProvider>
       );
     }

@@ -34,7 +34,10 @@ const AudiencePage = observer(
       });
     };
     componentDidUpdate = (prevProps) => {
-      if (this.props.location !== prevProps.location) {
+      if (
+        this.props.location !== prevProps.location ||
+        this.props.activeDomain !== prevProps.activeDomain
+      ) {
         this.dashboardListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
         });

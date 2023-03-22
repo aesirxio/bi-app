@@ -210,7 +210,7 @@ const SbarLeftIntegration = observer((props) => {
                       // activeClassName={`active`}
                     >
                       <span
-                        className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
+                        className={`d-block px-24 py-16 link_menu text-white text-decoration-none `}
                       >
                         {item.name}
                       </span>
@@ -229,7 +229,7 @@ const SbarLeftIntegration = observer((props) => {
             return (
               <li
                 key={menuListkey}
-                className={`item_menu ${menuList.className ? menuList.className : ''}`}
+                className={`item_menu ${menuList.className ? menuList.className : ''} `}
               >
                 {!menuList.submenu ? (
                   <>
@@ -239,7 +239,9 @@ const SbarLeftIntegration = observer((props) => {
                         onClick={(e) => handleChangeLink(e, menuList.page)}
                         // exact={true}
                         // to={menuList.link}
-                        className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
+                        className={`d-block px-24 py-16 link_menu text-white text-decoration-none ${
+                          biStore.biListViewModel.integrationLink === menuList.page ? 'active' : ''
+                        }`}
                         // activeClassName={`active`}
                       >
                         <span
@@ -309,7 +311,11 @@ const SbarLeftIntegration = observer((props) => {
                                   onClick={(e) => handleChangeLink(e, value.page)}
                                   // exact={true}
                                   // to={value.link}
-                                  className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
+                                  className={`d-block px-24 py-16 link_menu text-white text-decoration-none ${
+                                    biStore.biListViewModel.integrationLink === value.page
+                                      ? 'active'
+                                      : ''
+                                  }`}
                                   // activeClassName={`active`}
                                 >
                                   <span className="text d-inline-block">{t(value.text)}</span>
@@ -337,7 +343,9 @@ const SbarLeftIntegration = observer((props) => {
                   href="#"
                   // exact={true}
                   // to={value.link}
-                  className={`d-block px-24 py-16 link_menu text-white text-decoration-none `}
+                  className={`d-block px-24 py-16 link_menu text-white text-decoration-none ${
+                    biStore.biListViewModel.integrationLink === value.page ? 'active' : ''
+                  }`}
                   // activeClassName={`active`}
                 >
                   <span

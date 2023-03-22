@@ -34,7 +34,9 @@ const MainLayoutIntegration = (props) => {
         <I18nextProvider i18n={i18n}>
           <Toast />
           <BiStoreProvider viewModel={biViewModel}>
-            <App {...props} />
+            <div className="bi-intergration_layout">
+              <App {...props} integration={true} />
+            </div>
           </BiStoreProvider>
         </I18nextProvider>
       </ErrorBoundary>
@@ -64,7 +66,7 @@ const App = observer((props) => {
   const location = history.location;
   const search = queryString.parse(location.search);
   const {
-    biListViewModel: { integrationLink },
+    biListViewModel: { integrationLink, activeDomain },
   } = useBiViewModel();
   // useEffect(() => {
   //   return () => {};
@@ -80,7 +82,7 @@ const App = observer((props) => {
 
             <div className="flex-1 bg-body mh-100 overflow-hidden overflow-y-auto position-relative main-content">
               <BrowserRouter>
-                <RenderComponent link={integrationLink} {...props} />
+                <RenderComponent link={integrationLink} activeDomain={activeDomain} {...props} />
               </BrowserRouter>
             </div>
           </div>

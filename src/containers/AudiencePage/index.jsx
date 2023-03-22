@@ -31,7 +31,7 @@ const AudienceContainer = observer(
     render() {
       return (
         <DashboardViewModelContextProvider viewModel={this.dashboardViewModel}>
-          <AudiencePage />
+          <AudiencePage {...this.props} />
         </DashboardViewModelContextProvider>
       );
     }

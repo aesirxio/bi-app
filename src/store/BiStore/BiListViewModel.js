@@ -8,6 +8,7 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { env } from 'env';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
+import history from 'routes/history';
 
 class BiListViewModel {
   biStore = null;
@@ -25,6 +26,7 @@ class BiListViewModel {
   isList = false;
   activeDomain = env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain;
   isSearch = false;
+  integrationLink = 'dashboard';
   constructor(biStore) {
     makeAutoObservable(this);
     this.biStore = biStore;
@@ -32,6 +34,10 @@ class BiListViewModel {
 
   setActiveDomain = (domain) => {
     this.activeDomain = domain;
+  };
+
+  setIntegrationLink = (link) => {
+    this.integrationLink = link;
   };
 
   setDateFilter = (date_start, date_end) => {

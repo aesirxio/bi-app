@@ -49,7 +49,7 @@ class Header extends React.Component {
   };
 
   render() {
-    const { t } = this.props;
+    const { t, integration = false } = this.props;
     let { isMini } = this.state;
 
     const listLanguages = Object.keys(i18n.options.resources).map(function (key) {
@@ -64,7 +64,9 @@ class Header extends React.Component {
     return (
       <div
         id="all_header"
-        className="wrapper_header d-flex position-fixed w-100 top-0 left-0 right-0 pr-3 align-items-center shadow-sm z-index-100 bg-white"
+        className={`wrapper_header d-flex position-fixed w-100 ${
+          integration ? 'top-30px' : 'top-0'
+        } left-0 right-0 pr-3 align-items-center shadow-sm z-index-100 bg-white`}
       >
         <ComponentHambuger handleAction={this.handleMenuLeft} />
         <div className="wrapper_header_logo bg-dark w-248 h-80 d-flex align-items-center">

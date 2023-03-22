@@ -65,12 +65,21 @@ const SbarLeftIntegration = observer((props) => {
     biStore.biListViewModel.setActiveDomain(value);
   };
 
+  const handleChangeLink = (e, link) => {
+    e.preventDefault();
+
+    if (link) {
+      biStore.biListViewModel.setIntegrationLink(link);
+    }
+  };
+
   const dataMenu = [
     {
       text: 'txt_menu_dashboard',
       link: `/${dataStreamActive}`,
       icons: '/assets/images/dashboard.svg',
       icons_color: '/assets/images/dashboard.svg',
+      page: 'dashboard',
     },
     {
       text: 'txt_menu_audience',
@@ -81,6 +90,7 @@ const SbarLeftIntegration = observer((props) => {
         {
           text: 'txt_menu_overview',
           link: `/${dataStreamActive}/audience/overview`,
+          page: 'audience-overview',
         },
       ],
     },
@@ -101,10 +111,12 @@ const SbarLeftIntegration = observer((props) => {
         {
           text: 'txt_menu_utm_tracking',
           link: `/${dataStreamActive}/behavior/utm-tracking`,
+          page: 'behavior-utm-tracking',
         },
         {
           text: 'txt_menu_events',
           link: `/${dataStreamActive}/behavior/events`,
+          page: 'behavior-events',
         },
       ],
     },
@@ -192,8 +204,7 @@ const SbarLeftIntegration = observer((props) => {
                     className={`item_menu cursor-pointer`}
                     onClick={() => handleChangeDataStream(item.domain)}
                   >
-                    <a
-                      href="#"
+                    <span
                       // to={`${props.match.path.replace(':domain', item.domain)}`}
                       className={``}
                       // activeClassName={`active`}
@@ -203,7 +214,7 @@ const SbarLeftIntegration = observer((props) => {
                       >
                         {item.name}
                       </span>
-                    </a>
+                    </span>
                   </li>
                 )
               );
@@ -225,6 +236,7 @@ const SbarLeftIntegration = observer((props) => {
                     {menuList.link && (
                       <a
                         href="#"
+                        onClick={(e) => handleChangeLink(e, menuList.page)}
                         // exact={true}
                         // to={menuList.link}
                         className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
@@ -294,6 +306,7 @@ const SbarLeftIntegration = observer((props) => {
                               {value.link && (
                                 <a
                                   href="#"
+                                  onClick={(e) => handleChangeLink(e, value.page)}
                                   // exact={true}
                                   // to={value.link}
                                   className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}

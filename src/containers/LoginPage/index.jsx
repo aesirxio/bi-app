@@ -72,7 +72,7 @@ class LoginPage extends React.Component {
                   className="px-1"
                   style={{ verticalAlign: 'inherit' }}
                   alt="aesirx"
-                  src="/assets/images/logo/welcome-logo.png"
+                  src={env.PUBLIC_URL + '/assets/images/logo/welcome-logo.png'}
                 />
                 {t('txt_bi')}.
                 <br /> {t('txt_login_text_2')}

@@ -1,5 +1,6 @@
 import ComponentDatePicker from 'components/ComponentDatePicker';
 import ComponentSVG from 'components/ComponentSVG';
+import { env } from 'env';
 import React, { useRef, useState } from 'react';
 
 function DatePicker() {
@@ -17,7 +18,7 @@ function DatePicker() {
         setIsOpen={setOpenDatePicker}
         datePickerRef={datePickerRef}
       />
-      <ComponentSVG url="/assets/images/calendar.svg" color="#00B96D" />
+      <ComponentSVG url={env.PUBLIC_URL + '/assets/images/calendar.svg'} color="#00B96D" />
     </div>
   );
 }

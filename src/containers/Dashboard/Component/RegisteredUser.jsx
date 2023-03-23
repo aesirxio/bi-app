@@ -1,4 +1,5 @@
 import Table from 'components/Table';
+import { env } from 'env';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 const RegisteredUser = ({ t }) => {
@@ -88,7 +89,7 @@ const RegisteredUser = ({ t }) => {
           <span
             className="icon arrow d-inline-block align-text-bottom ms-auto bg-success"
             style={{
-              WebkitMaskImage: `url(/assets/images/arrow-right.svg)`,
+              WebkitMaskImage: `url(${env.PUBLIC_URL}/assets/images/arrow-right.svg)`,
               WebkitMaskRepeat: 'no-repeat',
               WebkitMaskPosition: 'center',
               width: '10px',

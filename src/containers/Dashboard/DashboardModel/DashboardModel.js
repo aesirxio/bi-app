@@ -7,12 +7,11 @@ import moment from 'moment';
 import { enumerateDaysBetweenDates } from 'utils/date';
 
 class DashboardModel {
-  data = {};
+  data = [];
   globalViewModel = null;
   constructor(entity, globalViewModel) {
-    console.log(entity);
     if (entity) {
-      this.data = entity;
+      this.data = entity ?? [];
       this.globalViewModel = globalViewModel;
     }
   }

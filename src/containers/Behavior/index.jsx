@@ -3,12 +3,27 @@ import { Route } from 'react-router-dom';
 import BehaviorStore from './BehaviorStore/BehaviorStore';
 import { BehaviorViewModelContextProvider } from './BehaviorViewModels/BehaviorViewModelContextProvider';
 import BehaviorViewModel from './BehaviorViewModels/BehaviorViewModel';
+
 import { observer } from 'mobx-react';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+
 const Events = lazy(() => import('./Events'));
 const Overview = lazy(() => import('./Overview'));
 const UTMTracking = lazy(() => import('./UTMTracking'));
 const ClickAnchor = lazy(() => import('./ClickAnchor'));
+
+const RenderComponent = ({ link, ...props }) => {
+  switch (link) {
+    case 'behavior-utm-tracking':
+      return <UTMTracking {...props} />;
+
+    case 'behavior-events':
+      return <Events {...props} />;
+
+    default:
+      return <UTMTracking {...props} />;
+  }
+};
 
 const Behavior = observer(
   class Behavior extends Component {
@@ -25,20 +40,28 @@ const Behavior = observer(
       this.behaviorViewModel = new BehaviorViewModel(this.behaviorStore, this.biListViewModel);
     }
     render() {
+      const { integration = false } = this.props;
+      const { integrationLink, activeDomain } = this.biListViewModel;
       return (
         <BehaviorViewModelContextProvider viewModel={this.behaviorViewModel}>
-          <Route exact path={['/:domain/behavior/overview']}>
-            <Overview />
-          </Route>
-          <Route exact path={['/:domain/behavior/click-anchor']}>
-            <ClickAnchor />
-          </Route>
-          <Route exact path={['/:domain/behavior/utm-tracking']}>
-            <UTMTracking />
-          </Route>
-          <Route exact path={['/:domain/behavior/events']}>
-            <Events />
-          </Route>
+          {integration ? (
+            <RenderComponent link={integrationLink} activeDomain={activeDomain} {...this.props} />
+          ) : (
+            <>
+              <Route exact path={['/:domain/behavior/overview']}>
+                <Overview />
+              </Route>
+              <Route exact path={['/:domain/behavior/click-anchor']}>
+                <ClickAnchor />
+              </Route>
+              <Route exact path={['/:domain/behavior/utm-tracking']}>
+                <UTMTracking />
+              </Route>
+              <Route exact path={['/:domain/behavior/events']}>
+                <Events />
+              </Route>
+            </>
+          )}
         </BehaviorViewModelContextProvider>
       );
     }

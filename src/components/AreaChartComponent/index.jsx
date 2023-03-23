@@ -16,6 +16,7 @@ import {
 } from 'recharts';
 import RingLoaderComponent from 'components/Spinner/ringLoader';
 import CHART_TYPE from 'constants/ChartType';
+import { env } from 'env';
 const AreaChartComponent = ({
   data = [],
   height,
@@ -152,7 +153,7 @@ const AreaChartComponent = ({
       ) : (
         <div className="position-absolute top-50 start-50 translate-middle">
           <ComponentNoData
-            icons="/assets/images/ic_project.svg"
+            icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
             title={t('txt_no_data')}
             width="w-50"
           />

@@ -26,6 +26,7 @@ const UTMTrackingPage = observer(() => {
       await getVisitor({
         'filter[domain]': activeDomain,
         page_size: 0,
+        'filter[attribute_name]': 'utm_source',
       });
     };
     execute();

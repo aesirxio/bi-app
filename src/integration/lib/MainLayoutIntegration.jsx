@@ -5,8 +5,6 @@
 
 import React, { lazy, Suspense } from 'react';
 
-// import Header from 'components/Header';
-// import SbarLeft from './SbarLeftIntegration';
 import { ThemesContextProvider, useThemeContext } from 'themes/ThemeContextProvider';
 import ErrorBoundary from 'layouts/ErrorBoundary';
 import { I18nextProvider } from 'react-i18next';
@@ -16,8 +14,6 @@ import BiStore from 'store/BiStore/BiStore';
 import BiViewModel from 'store/BiStore/BiViewModel';
 import { Toast } from 'components/Toast';
 import { BrowserRouter } from 'react-router-dom';
-import history from 'routes/history';
-import queryString from 'query-string';
 import { observer } from 'mobx-react';
 import Spinner from 'components/Spinner';
 
@@ -66,8 +62,6 @@ const RenderComponent = ({ link, ...props }) => {
   }
 };
 const App = observer((props) => {
-  const location = history.location;
-  const search = queryString.parse(location.search);
   const {
     biListViewModel: { integrationLink, activeDomain },
   } = useBiViewModel();

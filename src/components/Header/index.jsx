@@ -115,7 +115,7 @@ class Header extends React.Component {
                 getOptionLabel={(options) => (
                   <div className="language-option d-flex align-items-center">
                     <img
-                      className="me-2 rounded-2"
+                      className="me-1 rounded-2"
                       width={20}
                       height={20}
                       src={options.icon}

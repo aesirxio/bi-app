@@ -43,6 +43,7 @@ i18n
       },
       es: {
         icon: '/assets/flag-icons/es.svg',
+        title: 'Español',
         common: common_es,
       },
       th: {
@@ -52,7 +53,7 @@ i18n
       },
       hr: {
         icon: '/assets/flag-icons/hr.svg',
-        title: 'Croatian',
+        title: 'Hrvatski',
         common: common_hr,
       },
     },

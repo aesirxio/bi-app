@@ -53,7 +53,7 @@ class Header extends React.Component {
     let { isMini } = this.state;
 
     const listLanguages = Object.keys(i18n.options.resources).map(function (key) {
-      return { value: key, label: i18n.options.resources[key].title };
+      return { value: key, label: i18n.options.resources[key].title , icon: i18n.options.resources[key].icon,};
     });
     const currentLanguage = listLanguages.filter((lang) => {
       if (lang.value == i18n.language) {
@@ -108,6 +108,18 @@ class Header extends React.Component {
                 isBorder={false}
                 isShadow={false}
                 options={listLanguages}
+                getOptionLabel={(options) => (
+                  <div className="language-option d-flex align-items-center">
+                    <img
+                      className="me-2 rounded-2"
+                      width={20}
+                      height={20}
+                      src={options.icon}
+                      alt={options.label}
+                    />
+                    <span>{options.label}</span>
+                  </div>
+                )}
                 className="shadow-none select-bg-white"
                 onChange={(data) => {
                   i18n.changeLanguage(data.value);

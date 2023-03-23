@@ -25,7 +25,7 @@ const Events = observer(() => {
     const execute = async () => {
       await getVisitor({
         'filter[domain]': activeDomain,
-        page_size: 5,
+        page_size: 0,
       });
     };
     execute();

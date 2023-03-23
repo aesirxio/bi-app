@@ -3,14 +3,13 @@ import { Route } from 'react-router-dom';
 import BehaviorStore from './BehaviorStore/BehaviorStore';
 import { BehaviorViewModelContextProvider } from './BehaviorViewModels/BehaviorViewModelContextProvider';
 import BehaviorViewModel from './BehaviorViewModels/BehaviorViewModel';
-import UTMTracking from './UTMTracking';
-import Events from './Events';
+
 import { observer } from 'mobx-react';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
-// const Events = lazy(() => import('./Events'));
+const Events = lazy(() => import('./Events'));
 const Overview = lazy(() => import('./Overview'));
-// const UTMTracking = lazy(() => import('./UTMTracking'));
+const UTMTracking = lazy(() => import('./UTMTracking'));
 const ClickAnchor = lazy(() => import('./ClickAnchor'));
 
 const RenderComponent = ({ link, ...props }) => {

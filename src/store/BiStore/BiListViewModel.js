@@ -35,7 +35,10 @@ class BiListViewModel {
   setActiveDomain = (domain) => {
     const location = history.location;
     // WP or Joomla
-    if (location.pathname === '/wp-admin/admin.php') {
+    if (
+      location.pathname === '/wp-admin/admin.php' ||
+      location.pathname === '/administrator/index.php'
+    ) {
       const search = {
         ...queryString.parse(location.search),
         ...{ domain: domain },
@@ -49,9 +52,19 @@ class BiListViewModel {
   };
 
   setIntegrationLink = (link) => {
-    // const searchParams = new URLSearchParams(window.location.search);
-    // searchParams.set('menu', link);
-    // window.location.search = searchParams.toString();
+    if (
+      location.pathname === '/wp-admin/admin.php' ||
+      location.pathname === '/administrator/index.php'
+    ) {
+      const search = {
+        ...queryString.parse(location.search),
+        ...{ menu: link },
+      };
+      history.push({
+        ...location,
+        ...{ search: queryString.stringify(search) },
+      });
+    }
     this.integrationLink = link;
   };
 

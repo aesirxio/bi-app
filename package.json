@@ -119,6 +119,7 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "public"
   ]
 }

@@ -13,6 +13,7 @@ class BehaviorEventsViewModel {
   status = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   data = null;
+  dataFilter = {};
   constructor(behaviorStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.behaviorStore = behaviorStore;

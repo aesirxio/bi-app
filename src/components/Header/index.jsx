@@ -40,7 +40,7 @@ class Header extends React.Component {
 
   handleCollap = () => {
     let { isMini } = this.state;
-    document.body.classList.toggle('mini_left');
+    document.querySelector('#biapp').classList.toggle('mini_left');
     this.setState({
       isMini: !isMini,
     });

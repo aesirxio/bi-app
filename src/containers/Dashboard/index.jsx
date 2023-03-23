@@ -12,10 +12,8 @@ import { withRouter } from 'react-router-dom';
 import DashboardStore from './DashboardStore/DashboardStore';
 import DashboardViewModel from './DashboardViewModels/DashboardViewModel';
 import { DashboardViewModelContextProvider } from './DashboardViewModels/DashboardViewModelContextProvider';
-import history from 'routes/history';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import Dashboard from './Dashboard';
-import queryString from 'query-string';
 
 const DashboardContainer = observer(
   class DashboardContainer extends Component {

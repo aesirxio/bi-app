@@ -32,6 +32,7 @@ const SbarLeftIntegration = observer((props) => {
     env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain
   );
   const biStore = useBiViewModel();
+
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {
       if (parentIndex) {

@@ -25,15 +25,19 @@ class BehaviorEventsViewModel {
 
   getVisitor = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    // this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.behaviorStore.getVisitor(
-      this.dataFilter,
+      dataFilter,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
     );
+  };
+
+  setDataFilter = (dataFilter) => {
+    this.dataFilter = dataFilter;
   };
 
   handleFilterDateRange = (startDate, endDate) => {

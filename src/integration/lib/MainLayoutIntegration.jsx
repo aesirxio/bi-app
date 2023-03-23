@@ -3,10 +3,10 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React, { lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
 
-import Header from 'components/Header';
-import SbarLeft from './SbarLeftIntegration';
+// import Header from 'components/Header';
+// import SbarLeft from './SbarLeftIntegration';
 import { ThemesContextProvider, useThemeContext } from 'themes/ThemeContextProvider';
 import ErrorBoundary from 'layouts/ErrorBoundary';
 import { I18nextProvider } from 'react-i18next';
@@ -19,12 +19,16 @@ import { BrowserRouter } from 'react-router-dom';
 import history from 'routes/history';
 import queryString from 'query-string';
 import { observer } from 'mobx-react';
-import AudiencePage from 'containers/AudiencePage';
-import Behavior from 'containers/Behavior';
+import Spinner from 'components/Spinner';
+
+const DashboardPage = lazy(() => import('containers/Dashboard'));
+const Behavior = lazy(() => import('containers/Behavior'));
+const AudiencePage = lazy(() => import('containers/AudiencePage'));
+const SbarLeft = lazy(() => import('./SbarLeftIntegration'));
+const Header = lazy(() => import('components/Header'));
 
 const biStore = new BiStore();
 const biViewModel = new BiViewModel(biStore);
-const DashboardPage = lazy(() => import('containers/Dashboard'));
 
 const MainLayoutIntegration = (props) => {
   return (
@@ -80,7 +84,9 @@ const App = observer((props) => {
 
             <div className="flex-1 bg-body mh-100 overflow-hidden overflow-y-auto position-relative main-content">
               <BrowserRouter>
-                <RenderComponent link={integrationLink} activeDomain={activeDomain} {...props} />
+                <Suspense fallback={<Spinner />}>
+                  <RenderComponent link={integrationLink} activeDomain={activeDomain} {...props} />
+                </Suspense>
               </BrowserRouter>
             </div>
           </div>

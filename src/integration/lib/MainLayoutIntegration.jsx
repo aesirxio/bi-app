@@ -3,11 +3,11 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React, { lazy, Suspense } from 'react';
+import React, { lazy } from 'react';
 
 import Header from 'components/Header';
 import SbarLeft from './SbarLeftIntegration';
-import { ThemesContextProvider } from 'themes/ThemeContextProvider';
+import { ThemesContextProvider, useThemeContext } from 'themes/ThemeContextProvider';
 import ErrorBoundary from 'layouts/ErrorBoundary';
 import { I18nextProvider } from 'react-i18next';
 import i18n from 'translations/i18n';
@@ -16,10 +16,8 @@ import BiStore from 'store/BiStore/BiStore';
 import BiViewModel from 'store/BiStore/BiViewModel';
 import { Toast } from 'components/Toast';
 import { BrowserRouter } from 'react-router-dom';
-import { mainRoutes } from 'routes/routes';
 import history from 'routes/history';
 import queryString from 'query-string';
-import { env } from 'env';
 import { observer } from 'mobx-react';
 import AudiencePage from 'containers/AudiencePage';
 import Behavior from 'containers/Behavior';
@@ -27,6 +25,7 @@ import Behavior from 'containers/Behavior';
 const biStore = new BiStore();
 const biViewModel = new BiViewModel(biStore);
 const DashboardPage = lazy(() => import('containers/Dashboard'));
+
 const MainLayoutIntegration = (props) => {
   return (
     <ThemesContextProvider>
@@ -68,12 +67,11 @@ const App = observer((props) => {
   const {
     biListViewModel: { integrationLink, activeDomain },
   } = useBiViewModel();
-  // useEffect(() => {
-  //   return () => {};
-  // }, [biStore]);
+
+  const { theme } = useThemeContext();
 
   return (
-    <div className="container-fluid">
+    <div className={`container-fluid ${theme.theme ?? 'light'}`}>
       <div className="row">
         <main className="p-0">
           <Header {...props} noavatar={true} />

@@ -9,7 +9,7 @@ import { env } from 'env';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import history from 'routes/history';
-
+import queryString from 'query-string';
 class BiListViewModel {
   biStore = null;
   paginationCollections = null;
@@ -33,13 +33,18 @@ class BiListViewModel {
   }
 
   setActiveDomain = (domain) => {
-    // const searchParams = new URLSearchParams(window.location.search);
-    // searchParams.set('domain', domain);
-    // window.location.search = searchParams.toString();
-    history.push({
-      pathname: '/dresses',
-      search: '?color=blue',
-    });
+    const location = history.location;
+    // WP or Joomla
+    if (location.pathname === '/wp-admin/admin.php') {
+      const search = {
+        ...queryString.parse(location.search),
+        ...{ domain: domain },
+      };
+      history.push({
+        ...location,
+        ...{ search: queryString.stringify(search) },
+      });
+    }
     this.activeDomain = domain;
   };
 

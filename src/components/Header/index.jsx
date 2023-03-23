@@ -53,7 +53,11 @@ class Header extends React.Component {
     let { isMini } = this.state;
 
     const listLanguages = Object.keys(i18n.options.resources).map(function (key) {
-      return { value: key, label: i18n.options.resources[key].title , icon: i18n.options.resources[key].icon,};
+      return {
+        value: key,
+        label: i18n.options.resources[key].title,
+        icon: i18n.options.resources[key].icon,
+      };
     });
     const currentLanguage = listLanguages.filter((lang) => {
       if (lang.value == i18n.language) {

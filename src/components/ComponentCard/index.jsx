@@ -18,7 +18,7 @@ const ComponentCard = ({
   loading,
 }) => {
   return (
-    <div className="bg-white p-24 shadow-sm rounded-3">
+    <div className="bg-white p-24 shadow-sm rounded-3 h-100">
       <div className="d-flex justify-content-between align-items-center mb-16">
         <div className="d-flex align-items-center position-relative">
           {icon && (

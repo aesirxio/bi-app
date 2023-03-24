@@ -11,7 +11,6 @@ import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { env } from 'env';
-import SelectComponent from 'components/Select';
 const Table = ({
   columns,
   data,
@@ -274,19 +273,6 @@ const Table = ({
               style={{ width: '100px' }}
             />
           </p>{' '}
-          {/* <SelectComponent
-            // value={currentSelection}
-            options={[5, 10, 20, 30, 40, 50].map((option) => ({
-              label: 'Show ' + option,
-              value: option,
-            }))}
-            className={`fs-sm`}
-            isBorder={true}
-            onChange={(data) => {
-              setPageSize(Number(data.value));
-            }}
-            plColor={'#808495'}
-          /> */}
           <select
             className="ms-1 form-select w-150px bg-white h-40px py-0"
             value={pageSize}

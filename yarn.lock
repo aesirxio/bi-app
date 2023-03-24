@@ -1342,9 +1342,9 @@
     eslint-visitor-keys "^3.3.0"
 
 "@eslint-community/regexpp@^4.4.0":
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/@eslint-community/regexpp/-/regexpp-4.4.0.tgz#3e61c564fcd6b921cb789838631c5ee44df09403"
-  integrity sha512-A9983Q0LnDGdLPjxyXQ00sbV+K+O+ko2Dr+CZigbHWtX9pNfxlaBkMR8X1CztI73zuEyEBXTVjx7CE+/VSwDiQ==
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/@eslint-community/regexpp/-/regexpp-4.4.1.tgz#087cb8d9d757bb22e9c9946c9c0c2bf8806830f1"
+  integrity sha512-BISJ6ZE4xQsuL/FmsyRaiffpq977bMlsKfGHTQrOGFErfByxIe6iZTxPf/00Zon9b9a7iUykfQwejN3s2ZW/Bw==
 
 "@eslint/eslintrc@^2.0.1":
   version "2.0.1"
@@ -2475,9 +2475,9 @@
   integrity sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==
 
 "@types/scheduler@*":
-  version "0.16.2"
-  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
-  integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.3.tgz#cef09e3ec9af1d63d2a6cc5b383a737e24e6dcf5"
+  integrity sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==
 
 "@types/semver@^7.3.12":
   version "7.3.13"
@@ -4664,9 +4664,9 @@ css-blank-pseudo@^3.0.3:
     postcss-selector-parser "^6.0.9"
 
 css-declaration-sorter@^6.3.1:
-  version "6.3.1"
-  resolved "https://registry.yarnpkg.com/css-declaration-sorter/-/css-declaration-sorter-6.3.1.tgz#be5e1d71b7a992433fb1c542c7a1b835e45682ec"
-  integrity sha512-fBffmak0bPAnyqc/HO8C3n2sHrp9wcqQz6ES9koRF2/mLOVAx9zIQ3Y7R29sYCteTPqMCwns4WYQoCX91Xl3+w==
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/css-declaration-sorter/-/css-declaration-sorter-6.4.0.tgz#630618adc21724484b3e9505bce812def44000ad"
+  integrity sha512-jDfsatwWMWN0MODAFuHszfjphEXfNw9JUAhmY4pLu3TyTU+ohUpsbVtbU+1MZn4a47D9kqh03i4eyOm+74+zew==
 
 css-has-pseudo@^3.0.4:
   version "3.0.4"
@@ -5513,9 +5513,9 @@ ejs@^3.1.6:
     jake "^10.8.5"
 
 electron-to-chromium@^1.4.284:
-  version "1.4.335"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.335.tgz#69c08baa608bbb58e290d83320190fa82c835efe"
-  integrity sha512-l/eowQqTnrq3gu+WSrdfkhfNHnPgYqlKAwxz7MTOj6mom19vpEDHNXl6dxDxyTiYuhemydprKr/HCrHfgk+OfQ==
+  version "1.4.337"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.337.tgz#710168240b2dc5fe5eb5f8e4ef9c16d70aedc0ba"
+  integrity sha512-W8gdzXG86mVPoc56eM8YA+QiLxaAxJ8cmDjxZgfhLLWVvZQxyA918w5tX2JEWApZta45T1/sYcmFHTsTOUE3nw==
 
 elliptic@^6.5.3:
   version "6.5.4"
@@ -10981,9 +10981,9 @@ react-number-format@^4.6.4:
     prop-types "^15.7.2"
 
 react-onclickoutside@^6.12.2:
-  version "6.12.2"
-  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.12.2.tgz#8e6cf80c7d17a79f2c908399918158a7b02dda01"
-  integrity sha512-NMXGa223OnsrGVp5dJHkuKxQ4czdLmXSp5jSV9OqiCky9LOpPATn3vLldc+q5fK3gKbEHvr7J1u0yhBh/xYkpA==
+  version "6.13.0"
+  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.13.0.tgz#e165ea4e5157f3da94f4376a3ab3e22a565f4ffc"
+  integrity sha512-ty8So6tcUpIb+ZE+1HAhbLROvAIJYyJe/1vRrrcmW+jLsaM+/powDRqxzo6hSh9CuRZGSL1Q8mvcF5WRD93a0A==
 
 react-overlays@^4.1.1:
   version "4.1.1"
@@ -11122,9 +11122,9 @@ react-scripts@^5.0.1:
     fsevents "^2.3.2"
 
 react-select@^5.4.0, react-select@^5.7.0:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.7.1.tgz#c85afa8a771d75c935ec698726a8fbfece662ed0"
-  integrity sha512-u/brzm3B6vgI+PtxNyE4/18kXgaf6bn5sOAjKhaQ54EItBfW41SRLH1AJC5fefPnGM4JmMcM51t/HAVCi5GrpQ==
+  version "5.7.2"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.7.2.tgz#ccd40071b9429277983bf15526e7a5773a060e09"
+  integrity sha512-cTlJkQ8YjV6T/js8wW0owTzht0hHGABh29vjLscY4HfZGkv7hc3FFTmRp9NzY/Ib1uQ36GieAKEjxpHdpCFpcA==
   dependencies:
     "@babel/runtime" "^7.12.0"
     "@emotion/cache" "^11.4.0"
@@ -13462,9 +13462,9 @@ webpack@^4.41.0:
     webpack-sources "^1.4.1"
 
 webpack@^5.64.4:
-  version "5.76.2"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.76.2.tgz#6f80d1c1d1e3bf704db571b2504a0461fac80230"
-  integrity sha512-Th05ggRm23rVzEOlX8y67NkYCHa9nTNcwHPBhdg+lKG+mtiW7XgggjAeeLnADAe7mLjJ6LUNfgHAuRRh+Z6J7w==
+  version "5.76.3"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.76.3.tgz#dffdc72c8950e5b032fddad9c4452e7787d2f489"
+  integrity sha512-18Qv7uGPU8b2vqGeEEObnfICyw2g39CHlDEK4I7NK13LOur1d0HGmGNKGT58Eluwddpn3oEejwvBPoP4M7/KSA==
   dependencies:
     "@types/eslint-scope" "^3.7.3"
     "@types/estree" "^0.0.51"

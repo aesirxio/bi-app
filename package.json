@@ -1,6 +1,6 @@
 {
   "name": "aesirx-bi-app",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "GPL-3.0-only",
   "author": "AesirX",
   "main": "dist/index.js",
@@ -119,7 +119,6 @@
   },
   "files": [
     "dist",
-    "src",
     "public"
   ]
 }

@@ -11,7 +11,7 @@ import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { env } from 'env';
-
+import SelectComponent from 'components/Select';
 const Table = ({
   columns,
   data,
@@ -31,14 +31,16 @@ const Table = ({
     headerGroups,
     prepareRow,
     rows,
+    page,
     pageOptions,
     previousPage,
     canPreviousPage,
     canNextPage,
+    pageCount,
     gotoPage,
+    setPageSize,
     nextPage,
-    state: { pageIndex },
-    state,
+    state: { pageIndex, pageSize },
   } = useTable(
     {
       columns,
@@ -46,21 +48,22 @@ const Table = ({
       onSelect,
       initialState: {
         pageSize: 5,
+        pageIndex: 1,
       },
     },
     useSortBy,
     usePagination
   );
 
-  const handlePagination = async (pageIndex) => {
-    setLoading(true);
-    await store.goToPage(pageIndex);
-    setLoading(false);
-  };
+  // const handlePagination = async (pageIndex) => {
+  //   setLoading(true);
+  //   await store.goToPage(pageIndex);
+  //   setLoading(false);
+  // };
   const { t } = props;
   return (
     <>
-      <div className="bg-white fs-14 text-color position-relative h-100">
+      <div className="bg-white fs-14 shadow-sm text-color rounded-3 position-relative">
         {rows.length ? (
           <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
             <thead>
@@ -181,8 +184,8 @@ const Table = ({
               })}
             </thead>
             <tbody {...getTableBodyProps()}>
-              {rows.length > 0 &&
-                rows.map((row) => {
+              {page.length > 0 &&
+                page.map((row) => {
                   prepareRow(row);
                   let newRowCells = '';
 
@@ -223,60 +226,80 @@ const Table = ({
         ) : null}
       </div>
       {pagination && pageOptions.length ? (
-        <div className="mt-2 text-center pagination">
+        <div className="mt-3 pb-3 text-center pagination d-flex justify-content-end align-items-center">
           <button
-            className="border-1 bg-white opacity-50 text-body btn"
-            onClick={async () => {
-              previousPage();
-              handlePagination(pageIndex);
-            }}
+            className="border-1 bg-white text-body btn p-0 w-40px h-40px"
+            onClick={() => gotoPage(0)}
             disabled={!canPreviousPage}
           >
-            <span className="material-icons fs-4 align-middle">arrow_back_ios</span>
-          </button>
-          {pageOptions.map((item, key) => {
-            return (
-              <button
-                key={key}
-                onClick={() => {
-                  gotoPage(item);
-                  handlePagination(item + 1);
-                }}
-                className={`btn border-1  ${
-                  item === state.pageIndex
-                    ? 'btn-primary text-white border-primary'
-                    : 'bg-white opacity-50 number'
-                } ${
-                  pageIndex === 0
-                    ? item < pageIndex + 5
-                      ? 'visible_number'
-                      : ''
-                    : pageIndex === 1
-                    ? item < pageIndex + 4
-                      ? 'visible_number'
-                      : ''
-                    : item === pageIndex - 2 ||
-                      item === pageIndex - 1 ||
-                      item === pageIndex + 1 ||
-                      item === pageIndex + 2
-                    ? 'visible_number'
-                    : ''
-                }`}
-              >
-                {item + 1}
-              </button>
-            );
-          })}
+            {'<<'}
+          </button>{' '}
           <button
-            className="border-1 bg-white opacity-50 text-body btn"
-            onClick={() => {
-              nextPage();
-              handlePagination(pageIndex + 2);
-            }}
+            className="border-1 bg-white text-body btn p-0 w-40px h-40px"
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          >
+            {'<'}
+          </button>{' '}
+          <button
+            className="border-1 bg-white text-body btn p-0 w-40px h-40px"
+            onClick={() => nextPage()}
             disabled={!canNextPage}
           >
-            <span className="material-icons fs-4 align-middle">arrow_forward_ios</span>
-          </button>
+            {'>'}
+          </button>{' '}
+          <button
+            className="border-1 bg-white text-body btn p-0 w-40px h-40px"
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}
+          >
+            {'>>'}
+          </button>{' '}
+          <span>
+            Page{' '}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>{' '}
+          </span>
+          <p className="d-flex m-0 align-items-center h-40px">
+            | Go to page:{' '}
+            <input
+              type="number"
+              className="form-control h-40px py-0"
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+              style={{ width: '100px' }}
+            />
+          </p>{' '}
+          {/* <SelectComponent
+            // value={currentSelection}
+            options={[5, 10, 20, 30, 40, 50].map((option) => ({
+              label: 'Show ' + option,
+              value: option,
+            }))}
+            className={`fs-sm`}
+            isBorder={true}
+            onChange={(data) => {
+              setPageSize(Number(data.value));
+            }}
+            plColor={'#808495'}
+          /> */}
+          <select
+            className="ms-1 form-select w-150px bg-white h-40px py-0"
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value));
+            }}
+          >
+            {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </select>
         </div>
       ) : null}
     </>

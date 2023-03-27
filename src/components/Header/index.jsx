@@ -20,7 +20,6 @@ import ComponentImage from '../ComponentImage';
 // import Search from 'components/Search';
 import SwitchThemes from 'components/SwitchThemes/index';
 import Select from 'components/Select/index';
-import i18n from 'translations/i18n';
 import 'moment/locale/vi';
 import 'moment/locale/es';
 import 'moment/locale/hr';
@@ -51,7 +50,7 @@ class Header extends React.Component {
   };
 
   render() {
-    const { t, integration = false, noavatar = false } = this.props;
+    const { t, integration = false, noavatar = false, i18n } = this.props;
     let { isMini } = this.state;
 
     const listLanguages = Object.keys(i18n.options.resources).map(function (key) {

@@ -6,6 +6,7 @@
 @import '../../scss/utils/bootstrap.scss';
 
 #biapp {
+  transition: 0.5s all ease-in-out;
   .wr_input_search {
     width: 656px !important;
   }
@@ -43,9 +44,9 @@
   // MINI SBAR LEFT
 
   &.mini_left {
-    // .wrapper_header_logo {
-    //   background-color: $gray-900;
-    // }
+    .wrapper_header_logo {
+      background-color: $gray-900;
+    }
 
     .w-248 {
       width: 80px;
@@ -137,6 +138,9 @@
       }
     }
   }
+  &.show_menu_left {
+    transition: 0.5s all ease-in-out;
+  }
 
   @include media-breakpoint-down(xl) {
     .sidebar {
@@ -167,7 +171,7 @@
       width: 300px !important;
     }
 
-    .show_menu_left {
+    &.show_menu_left {
       transform: translateX(260px);
 
       .wrapper_header {

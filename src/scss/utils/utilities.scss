@@ -163,6 +163,20 @@ $utilities: (
       fit: fit-content,
       max: max-content,
       auto: auto,
+      150px: 150px,
+      40px: 40px,
+    ),
+  ),
+  'height': (
+    property: height,
+    class: h,
+    values: (
+      25: 25%,
+      50: 50%,
+      75: 75%,
+      100: 100%,
+      auto: auto,
+      40px: 40px,
     ),
   ),
   'object-fit': (

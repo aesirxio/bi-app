@@ -30,6 +30,11 @@ class BiListViewModel {
   constructor(biStore) {
     makeAutoObservable(this);
     this.biStore = biStore;
+    const checkPage = queryString.parse(location.search);
+    this.activeDomain = checkPage?.domain
+      ? checkPage?.domain
+      : env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain;
+    this.integrationLink = checkPage?.menu ? checkPage?.menu : 'dashboard';
   }
 
   setActiveDomain = (domain) => {

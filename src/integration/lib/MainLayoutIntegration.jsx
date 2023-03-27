@@ -31,12 +31,14 @@ const MainLayoutIntegration = (props) => {
     <ThemesContextProvider>
       <ErrorBoundary>
         <I18nextProvider i18n={i18n}>
-          <Toast />
-          <BiStoreProvider viewModel={biViewModel}>
-            <div className="bi-intergration_layout">
-              <App {...props} integration={true} />
-            </div>
-          </BiStoreProvider>
+          <BrowserRouter>
+            <Toast />
+            <BiStoreProvider viewModel={biViewModel}>
+              <div className="bi-intergration_layout">
+                <App {...props} integration={true} />
+              </div>
+            </BiStoreProvider>
+          </BrowserRouter>
         </I18nextProvider>
       </ErrorBoundary>
     </ThemesContextProvider>
@@ -77,11 +79,9 @@ const App = observer((props) => {
             <SbarLeft />
 
             <div className="flex-1 bg-body mh-100 overflow-hidden overflow-y-auto position-relative main-content">
-              <BrowserRouter>
-                <Suspense fallback={<Spinner />}>
-                  <RenderComponent link={integrationLink} activeDomain={activeDomain} {...props} />
-                </Suspense>
-              </BrowserRouter>
+              <Suspense fallback={<Spinner />}>
+                <RenderComponent link={integrationLink} activeDomain={activeDomain} {...props} />
+              </Suspense>
             </div>
           </div>
         </main>

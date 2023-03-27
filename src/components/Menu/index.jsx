@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-import { useTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import './index.scss';
 import { Collapse, Button } from 'react-bootstrap';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';

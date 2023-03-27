@@ -60,12 +60,6 @@ const SbarLeftIntegration = observer(() => {
     checkActiveMenu();
   };
 
-  const handleChangeDataStream = (value) => {
-    handleOpen('');
-    setDataStreamActive(value);
-    biStore.biListViewModel.setActiveDomain(value);
-  };
-
   const handleChangeLink = (e, link) => {
     e.preventDefault();
 

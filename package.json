@@ -22,7 +22,7 @@
     "date-fns": "^2.16.1",
     "date-fns-tz": "^1.1.6",
     "file-saver": "^2.0.5",
-    "html-react-parser": "^1.2.7",
+    "html-react-parser": "^3.0.15",
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^7.0.1",
     "identity-obj-proxy": "3.0.0",

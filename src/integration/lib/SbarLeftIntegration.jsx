@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import { observer } from 'mobx-react';
 import { env } from 'env';
@@ -26,12 +26,13 @@ const dataMenuSetup = [
   //   icons_color: '/assets/images/setting.svg',
   // },
 ];
-const SbarLeftIntegration = observer((props) => {
+const SbarLeftIntegration = observer(() => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
   const [dataStreamActive, setDataStreamActive] = useState(
     env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain
   );
   const biStore = useBiViewModel();
+  const { t } = useTranslation('common');
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {
       if (parentIndex) {
@@ -59,36 +60,40 @@ const SbarLeftIntegration = observer((props) => {
     checkActiveMenu();
   };
 
-  const handleChangeDataStream = (value) => {
-    handleOpen('');
-    setDataStreamActive(value);
-    biStore.biListViewModel.setActiveDomain(value);
+  const handleChangeLink = (e, link) => {
+    e.preventDefault();
+
+    if (link) {
+      biStore.biListViewModel.setIntegrationLink(link);
+    }
   };
 
   const dataMenu = [
     {
       text: 'txt_menu_dashboard',
       link: `/${dataStreamActive}`,
-      icons: '/assets/images/dashboard.svg',
-      icons_color: '/assets/images/dashboard.svg',
+      icons: env.PUBLIC_URL + '/assets/images/dashboard.svg',
+      icons_color: env.PUBLIC_URL + '/assets/images/dashboard.svg',
+      page: 'dashboard',
     },
     {
       text: 'txt_menu_audience',
       link: `/${dataStreamActive}/audience`,
-      icons: '/assets/images/audience.svg',
-      icons_color: '/assets/images/audience.svg',
+      icons: env.PUBLIC_URL + '/assets/images/audience.svg',
+      icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
       submenu: [
         {
           text: 'txt_menu_overview',
           link: `/${dataStreamActive}/audience/overview`,
+          page: 'audience-overview',
         },
       ],
     },
     {
       text: 'txt_menu_behavior',
       link: `/${dataStreamActive}/behavior`,
-      icons: '/assets/images/behavior.svg',
-      icons_color: '/assets/images/behavior.svg',
+      icons: env.PUBLIC_URL + '/assets/images/behavior.svg',
+      icons_color: env.PUBLIC_URL + '/assets/images/behavior.svg',
       submenu: [
         // {
         //   text: 'txt_menu_overview',
@@ -101,10 +106,12 @@ const SbarLeftIntegration = observer((props) => {
         {
           text: 'txt_menu_utm_tracking',
           link: `/${dataStreamActive}/behavior/utm-tracking`,
+          page: 'behavior-utm-tracking',
         },
         {
           text: 'txt_menu_events',
           link: `/${dataStreamActive}/behavior/events`,
+          page: 'behavior-events',
         },
       ],
     },
@@ -146,71 +153,10 @@ const SbarLeftIntegration = observer((props) => {
     fetchData();
   }, [biStore.biListViewModel.activeDomain, dataStreamActive]);
 
-  const { t } = props;
   return (
     <aside
       className={`sidebar w-248  mt-0 position-relative bg-dark mh-100 h-100 d-flex flex-column z-index-100 justify-content-between`}
     >
-      <nav className="data-stream item_menu">
-        <Button
-          variant=""
-          onClick={() => handleOpen('data-stream')}
-          className={`d-flex align-items-center justify-content-start rounded-2 link_menu text-decoration-none text-break w-100 py-2 shadow-none ${
-            isOpenCollapse === 'data-stream' ? 'active' : ''
-          }`}
-          aria-controls="wr_list_submenu"
-          aria-expanded={isOpenCollapse === 'data-stream'}
-        >
-          <div className="overflow-hidden">
-            <div className="data-stream-text mb-sm text-start">{t('txt_menu_data_stream')}</div>
-            <div className="data-stream-value fw-bold text-white mb-0 text-start">
-              {
-                biStore.biListViewModel?.listDomain?.find(
-                  (x) => x.domain === biStore.biListViewModel?.activeDomain
-                )?.name
-              }
-            </div>
-            <div className="data-stream-domain text-white mb-0 text-start fs-14">
-              {biStore.biListViewModel?.activeDomain}
-            </div>
-          </div>
-          <span
-            className="icon arrow d-inline-block align-text-bottom ms-auto"
-            style={{
-              WebkitMaskImage: `url(/assets/images/arrow-right.svg)`,
-              WebkitMaskRepeat: 'no-repeat',
-            }}
-          ></span>
-        </Button>
-        <Collapse in={isOpenCollapse === 'data-stream'}>
-          <ul id="wr_list_submenu" className="list-unstyled mb-0">
-            {biStore.biListViewModel?.listDomain.map((item, index) => {
-              return (
-                item.domain !== dataStreamActive && (
-                  <li
-                    key={index}
-                    className={`item_menu cursor-pointer`}
-                    onClick={() => handleChangeDataStream(item.domain)}
-                  >
-                    <a
-                      href="#"
-                      // to={`${props.match.path.replace(':domain', item.domain)}`}
-                      className={``}
-                      // activeClassName={`active`}
-                    >
-                      <span
-                        className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
-                      >
-                        {item.name}
-                      </span>
-                    </a>
-                  </li>
-                )
-              );
-            })}
-          </ul>
-        </Collapse>
-      </nav>
       <nav className="main-menu py-24 mt-0">
         <p className="menu_title text-dark-blue fs-14 mb-0 text-uppercase">{t('txt_main_menu')}</p>
         <ul id="wr_list_menu" className="list-unstyled mb-0 pt-md-1">
@@ -218,16 +164,19 @@ const SbarLeftIntegration = observer((props) => {
             return (
               <li
                 key={menuListkey}
-                className={`item_menu ${menuList.className ? menuList.className : ''}`}
+                className={`item_menu ${menuList.className ? menuList.className : ''} `}
               >
                 {!menuList.submenu ? (
                   <>
                     {menuList.link && (
                       <a
                         href="#"
+                        onClick={(e) => handleChangeLink(e, menuList.page)}
                         // exact={true}
                         // to={menuList.link}
-                        className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
+                        className={`d-block px-24 py-16 link_menu text-white text-decoration-none ${
+                          biStore.biListViewModel.integrationLink === menuList.page ? 'active' : ''
+                        }`}
                         // activeClassName={`active`}
                       >
                         <span
@@ -271,7 +220,7 @@ const SbarLeftIntegration = observer((props) => {
                       <span
                         className="icon arrow d-inline-block align-text-bottom ms-auto"
                         style={{
-                          WebkitMaskImage: `url(/assets/images/arrow-right.svg)`,
+                          WebkitMaskImage: `url(${env.PUBLIC_URL}/assets/images/arrow-right.svg)`,
                           WebkitMaskRepeat: 'no-repeat',
                           backgroundColor: '#fff',
                         }}
@@ -294,9 +243,14 @@ const SbarLeftIntegration = observer((props) => {
                               {value.link && (
                                 <a
                                   href="#"
+                                  onClick={(e) => handleChangeLink(e, value.page)}
                                   // exact={true}
                                   // to={value.link}
-                                  className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
+                                  className={`d-block px-24 py-16 link_menu text-white text-decoration-none ${
+                                    biStore.biListViewModel.integrationLink === value.page
+                                      ? 'active'
+                                      : ''
+                                  }`}
                                   // activeClassName={`active`}
                                 >
                                   <span className="text d-inline-block">{t(value.text)}</span>
@@ -324,7 +278,9 @@ const SbarLeftIntegration = observer((props) => {
                   href="#"
                   // exact={true}
                   // to={value.link}
-                  className={`d-block px-24 py-16 link_menu text-white text-decoration-none `}
+                  className={`d-block px-24 py-16 link_menu text-white text-decoration-none ${
+                    biStore.biListViewModel.integrationLink === value.page ? 'active' : ''
+                  }`}
                   // activeClassName={`active`}
                 >
                   <span
@@ -346,4 +302,4 @@ const SbarLeftIntegration = observer((props) => {
   );
 });
 
-export default withTranslation('common')(SbarLeftIntegration);
+export default SbarLeftIntegration;

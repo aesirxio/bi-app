@@ -24,6 +24,7 @@ $utilities: (
         (
           'white': $white,
           'body': $body-color,
+          'color': $body-color,
           'muted': $text-muted,
           'black-50': rgba($black, 0.5),
           'white-50': rgba($white, 0.5),
@@ -162,6 +163,20 @@ $utilities: (
       fit: fit-content,
       max: max-content,
       auto: auto,
+      150px: 150px,
+      40px: 40px,
+    ),
+  ),
+  'height': (
+    property: height,
+    class: h,
+    values: (
+      25: 25%,
+      50: 50%,
+      75: 75%,
+      100: 100%,
+      auto: auto,
+      40px: 40px,
     ),
   ),
   'object-fit': (

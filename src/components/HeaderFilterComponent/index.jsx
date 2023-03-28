@@ -3,6 +3,7 @@ import { ButtonGroup, Button } from 'react-bootstrap';
 import SelectComponent from 'components/Select';
 import { useTranslation } from 'react-i18next';
 import CHART_TYPE from 'constants/ChartType';
+import { env } from 'env';
 
 const HeaderFilterComponent = ({
   chartTitle,
@@ -39,7 +40,7 @@ const HeaderFilterComponent = ({
           <span
             className="icon arrow d-inline-block align-text-bottom ms-auto bg-success"
             style={{
-              WebkitMaskImage: `url(/assets/images/arrow-right.svg)`,
+              WebkitMaskImage: `url(${env.PUBLIC_URL}/assets/images/arrow-right.svg)`,
               WebkitMaskRepeat: 'no-repeat',
               WebkitMaskPosition: 'center',
               width: '10px',

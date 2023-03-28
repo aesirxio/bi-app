@@ -16,6 +16,7 @@ import './index.scss';
 import { logout } from '../../auth';
 import Helper from '../../utils/helper';
 import ComponentImage from '../ComponentImage';
+import { env } from 'env';
 
 // const data = [
 // {
@@ -63,7 +64,7 @@ class DropdownAvatar extends React.Component {
         src={
           Helper.isValidUrl(Storage.getItem(AUTHORIZATION_KEY.AVATAR))
             ? Storage.getItem(AUTHORIZATION_KEY.AVATAR)
-            : '/assets/images/avatar.png'
+            : env.PUBLIC_URL + '/assets/images/avatar.png'
         }
         alt=""
         className="img-avatar rounded-circle object-fit-cover h-45"

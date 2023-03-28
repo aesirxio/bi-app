@@ -3,6 +3,7 @@ import './index.scss';
 import SelectComponent from 'components/Select';
 import PulseLoaderComponent from 'components/Spinner/pulseLoader';
 import PAGE_STATUS from 'constants/PageStatus';
+import { env } from 'env';
 const ComponentCard = ({
   title,
   icon,
@@ -17,12 +18,12 @@ const ComponentCard = ({
   loading,
 }) => {
   return (
-    <div className="bg-white p-24 shadow-sm rounded-3">
+    <div className="bg-white p-24 shadow-sm rounded-3 h-100">
       <div className="d-flex justify-content-between align-items-center mb-16">
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center position-relative">
           {icon && (
             <div
-              className={`icon-card rounded-circle me-16`}
+              className={`icon-card rounded-circle me-16 `}
               style={{ background: hexToRGB(iconColor, 0.15) }}
             >
               <span
@@ -64,7 +65,7 @@ const ComponentCard = ({
                   isIncrease ? 'bg-green' : 'bg-red'
                 }`}
                 style={{
-                  WebkitMaskImage: `url(${
+                  WebkitMaskImage: `url(${env.PUBLIC_URL}${
                     isIncrease ? '/assets/images/grown-up.svg' : '/assets/images/grown-down.svg'
                   })`,
                   WebkitMaskRepeat: 'no-repeat',

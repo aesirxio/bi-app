@@ -3,8 +3,8 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React from 'react';
-import { withTranslation } from 'react-i18next';
+import React, { useState } from 'react';
+import { useTranslation, withTranslation } from 'react-i18next';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons/faQuestionCircle';
@@ -20,7 +20,6 @@ import ComponentImage from '../ComponentImage';
 // import Search from 'components/Search';
 import SwitchThemes from 'components/SwitchThemes/index';
 import Select from 'components/Select/index';
-import i18n from 'translations/i18n';
 import 'moment/locale/vi';
 import 'moment/locale/es';
 import 'moment/locale/hr';
@@ -28,28 +27,133 @@ import 'moment/locale/uk';
 import 'moment/locale/de';
 import 'moment/locale/th';
 import moment from 'moment';
+import { env } from 'env';
+import { Collapse, Button } from 'react-bootstrap';
+import { NavLink, useRouteMatch } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+
+const DataStream = observer(() => {
+  const [isOpenCollapse, setIsOpenCollapse] = useState('default');
+  const [dataStreamActive, setDataStreamActive] = useState(
+    env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain
+  );
+  const { path } = useRouteMatch();
+  const { t } = useTranslation('common');
+  const biStore = useBiViewModel();
+  const handleChangeDataStream = (value) => {
+    handleOpen('');
+    setDataStreamActive(value);
+    biStore.biListViewModel.setActiveDomain(value);
+  };
+  const handleOpen = (clickedIndex, parentIndex) => {
+    if (isOpenCollapse === clickedIndex.toString()) {
+      if (parentIndex) {
+        setIsOpenCollapse(parentIndex.toString());
+      } else {
+        setIsOpenCollapse(null);
+      }
+    } else {
+      if (isOpenCollapse?.includes(clickedIndex.toString())) {
+        setIsOpenCollapse(null);
+      } else {
+        setIsOpenCollapse(clickedIndex.toString());
+      }
+    }
+  };
+
+  return (
+    <div className="data-stream position-relative item_menu m-0 h-100">
+      <Button
+        variant=""
+        onClick={() => handleOpen('data-stream')}
+        className={`d-flex align-items-center justify-content-start rounded-2 link_menu text-decoration-none text-break p-0 px-1 w-100 h-100 shadow-none ${
+          isOpenCollapse === 'data-stream' ? 'active' : ''
+        }`}
+        aria-controls="wr_list_submenu"
+        aria-expanded={isOpenCollapse === 'data-stream'}
+      >
+        <p className="overflow-hidden text-start m-0">
+          <span className="text-blue-0 mb-sm fs-sm">{t('txt_menu_data_stream')}</span>
+          <br />
+          <span className=" fw-bold text-blue-0  text-white mb-0 fs-4 text-start">
+            {' '}
+            {
+              biStore.biListViewModel?.listDomain?.find(
+                (x) => x.domain === biStore.biListViewModel?.activeDomain
+              )?.name
+            }{' '}
+            ({biStore.biListViewModel?.activeDomain})
+          </span>
+        </p>
+        <span
+          className="icon arrow d-inline-block align-text-bottom ms-auto"
+          style={{
+            WebkitMaskImage: `url(${env.PUBLIC_URL}/assets/images/arrow-right.svg)`,
+            WebkitMaskRepeat: 'no-repeat',
+          }}
+        ></span>
+      </Button>
+      <Collapse className="position-relative" in={isOpenCollapse === 'data-stream'}>
+        <ul className=" position-absolute bg-white shadow-sm top-100 start-0 list-unstyled mb-0">
+          {biStore.biListViewModel?.listDomain.map((item, index) => {
+            return (
+              item.domain !== dataStreamActive && (
+                <li
+                  key={index}
+                  className={`item_menu cursor-pointer`}
+                  onClick={() => handleChangeDataStream(item.domain)}
+                >
+                  <NavLink
+                    exact={true}
+                    to={`${path && path.replace(':domain', item.domain)}`}
+                    className={``}
+                    activeClassName={`active`}
+                  >
+                    <span
+                      className={`d-block px-24 py-16 link_menu text-blue-0 text-decoration-none`}
+                    >
+                      {item.name}
+                    </span>
+                  </NavLink>
+                </li>
+              )
+            );
+          })}
+        </ul>
+      </Collapse>
+    </div>
+  );
+});
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMini: false,
+      isMini: props?.integration ? true : false,
     };
   }
 
+  componentDidMount() {
+    if (this.state.isMini) {
+      document.querySelector('#biapp').classList.add('mini_left');
+    }
+  }
+
   handleCollap = () => {
-    let { isMini } = this.state;
-    document.body.classList.toggle('mini_left');
+    const { isMini } = this.state;
+    document.querySelector('#biapp').classList.toggle('mini_left');
     this.setState({
       isMini: !isMini,
     });
   };
 
   handleMenuLeft = () => {
-    document.body.classList.toggle('show_menu_left');
+    document.querySelector('#biapp').classList.toggle('show_menu_left');
   };
 
   render() {
-    const { t } = this.props;
+    const { t, integration = false, noavatar = false, i18n } = this.props;
     let { isMini } = this.state;
 
     const listLanguages = Object.keys(i18n.options.resources).map(function (key) {
@@ -64,21 +168,27 @@ class Header extends React.Component {
         return lang;
       }
     });
+
     moment.locale(i18n.language);
     return (
       <div
         id="all_header"
-        className="wrapper_header d-flex position-fixed w-100 top-0 left-0 right-0 pr-3 align-items-center shadow-sm z-index-100 bg-white"
+        className={`wrapper_header d-flex position-fixed w-100 ${
+          integration ? 'top-30px' : 'top-0'
+        } left-0 right-0 pr-3 align-items-center shadow-sm z-index-100 bg-white`}
       >
         <ComponentHambuger handleAction={this.handleMenuLeft} />
-        <div className="wrapper_header_logo bg-dark w-248 h-80 d-flex align-items-center">
-          <a href="/" className={`header_logo d-block ${isMini ? 'mx-auto' : 'mx-3'}`}>
+        <div className="wrapper_header_logo d-xl-flex d-none bg-dark w-248 h-80 align-items-center">
+          <a
+            href={window.location.href}
+            className={`header_logo d-block ${isMini ? 'mx-auto' : 'mx-3'}`}
+          >
             <ComponentImage
               className={`logo_white ${isMini ? 'pe-0' : 'pe-3 pe-lg-6'}`}
               src={`${
                 isMini
-                  ? '/assets/images/logo/logo-white-mini.svg'
-                  : '/assets/images/logo/logo-white.svg'
+                  ? env.PUBLIC_URL + '/assets/images/logo/logo-white-mini.svg'
+                  : env.PUBLIC_URL + '/assets/images/logo/logo-white.svg'
               }`}
               alt="R Digital"
             />
@@ -103,6 +213,8 @@ class Header extends React.Component {
             <FontAwesomeIcon icon={faChevronLeft} />
           </span>
           <div className="d-flex justify-content-end flex-1 align-items-center">
+            <DataStream />
+
             {/* <Search /> */}
             <div className="ms-auto d-flex align-items-center">
               <FontAwesomeIcon icon={faGlobe} className="text-body fs-4" />
@@ -142,9 +254,11 @@ class Header extends React.Component {
                 </span>
               </div>
 
-              <div className="ps-3 pe-3">
-                <DropdownAvatar />
-              </div>
+              {!noavatar && (
+                <div className="ps-3 pe-3">
+                  <DropdownAvatar />
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -12,9 +12,9 @@ import { withRouter } from 'react-router-dom';
 import DashboardStore from './DashboardStore/DashboardStore';
 import DashboardViewModel from './DashboardViewModels/DashboardViewModel';
 import { DashboardViewModelContextProvider } from './DashboardViewModels/DashboardViewModelContextProvider';
-import history from 'routes/history';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import Dashboard from './Dashboard';
+import history from 'routes/history';
 
 const DashboardContainer = observer(
   class DashboardContainer extends Component {
@@ -27,16 +27,18 @@ const DashboardContainer = observer(
       this.biListViewModel = this.viewModel ? this.viewModel.getBiListViewModel() : null;
 
       this.dashboardStore = new DashboardStore();
-      console.log(this.biListViewModel);
       this.dashboardViewModel = new DashboardViewModel(this.dashboardStore, this.biListViewModel);
     }
+
     componentDidMount = () => {
-      history.push(`${this.biListViewModel.activeDomain}`);
+      if (!this.props.integration) {
+        history.push(`${this.biListViewModel.activeDomain}`);
+      }
     };
     render() {
       return (
         <DashboardViewModelContextProvider viewModel={this.dashboardViewModel}>
-          <Dashboard />
+          <Dashboard {...this.props} />
         </DashboardViewModelContextProvider>
       );
     }

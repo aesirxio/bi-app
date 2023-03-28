@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
+import { env } from 'env';
 const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const RADIAN = Math.PI / 180;
@@ -123,7 +124,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
               <span
                 className="icon arrow d-inline-block align-text-bottom ms-auto bg-success"
                 style={{
-                  WebkitMaskImage: `url(/assets/images/arrow-right.svg)`,
+                  WebkitMaskImage: `url(${env.PUBLIC_URL}/assets/images/arrow-right.svg)`,
                   WebkitMaskRepeat: 'no-repeat',
                   WebkitMaskPosition: 'center',
                   width: '10px',

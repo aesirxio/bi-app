@@ -2,6 +2,7 @@ import ComponentNoData from 'components/ComponentNoData';
 import HeaderFilterComponent from 'components/HeaderFilterComponent';
 import RingLoaderComponent from 'components/Spinner/ringLoader';
 import PAGE_STATUS from 'constants/PageStatus';
+import { env } from 'env';
 import React from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar } from 'recharts';
@@ -51,7 +52,7 @@ const BarChartComponent = (props) => {
       ) : (
         <div className="position-absolute top-50 start-50 translate-middle">
           <ComponentNoData
-            icons="/assets/images/ic_project.svg"
+            icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
             title={t('txt_no_data')}
             width="w-50"
           />

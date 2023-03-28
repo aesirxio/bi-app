@@ -8,6 +8,7 @@ import numberWithCommas from 'utils/formatNumber';
 import { withRouter } from 'react-router-dom';
 import { withDashboardViewModel } from 'containers/Dashboard/DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
+import { env } from 'env';
 
 const CardComponent = observer(
   class CardComponent extends Component {
@@ -52,7 +53,7 @@ const CardComponent = observer(
             <Col lg={4}>
               <ComponentCard
                 title={t('txt_visitors')}
-                icon={'/assets/images/visitor.svg'}
+                icon={env.PUBLIC_URL + '/assets/images/visitor.svg'}
                 iconColor={'#1AB394'}
                 value={numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
@@ -68,7 +69,7 @@ const CardComponent = observer(
             <Col lg={4}>
               <ComponentCard
                 title={t('txt_page_views')}
-                icon={'/assets/images/view.svg'}
+                icon={env.PUBLIC_URL + '/assets/images/view.svg'}
                 iconColor={'#2E71B1'}
                 value={numberWithCommas(this.summaryListViewModel?.data[this.state.page_views])}
                 isIncrease={false}
@@ -95,7 +96,7 @@ const CardComponent = observer(
             <Col lg={4}>
               <ComponentCard
                 title={t('txt_acg_session_duration')}
-                icon={'/assets/images/duration.svg'}
+                icon={env.PUBLIC_URL + '/assets/images/duration.svg'}
                 iconColor={'#EF3737'}
                 value={numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION]
@@ -111,7 +112,7 @@ const CardComponent = observer(
             <Col lg={4}>
               <ComponentCard
                 title={t('txt_page_session')}
-                icon={'/assets/images/page.svg'}
+                icon={env.PUBLIC_URL + '/assets/images/page.svg'}
                 iconColor={'#FFBE55'}
                 value={numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION]
@@ -125,7 +126,7 @@ const CardComponent = observer(
             <Col lg={4}>
               <ComponentCard
                 title={t('txt_bounce_rate')}
-                icon={'/assets/images/rate.svg'}
+                icon={env.PUBLIC_URL + '/assets/images/rate.svg'}
                 iconColor={'#C8192E'}
                 value={numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.BOUNCE_RATE]

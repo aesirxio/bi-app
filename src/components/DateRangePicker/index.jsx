@@ -1,5 +1,6 @@
 import ComponentDatePicker from 'components/ComponentDatePicker';
 import ComponentSVG from 'components/ComponentSVG';
+import { env } from 'env';
 import React, { useRef, useState } from 'react';
 import './index.scss';
 
@@ -20,7 +21,7 @@ const DateRangePicker = (props) => {
         onChange={onChange}
       />
       <div className="calendar-icon position-absolute top-50 translate-middle-y">
-        <ComponentSVG url="/assets/images/calendar.svg" color="#00B96D" />
+        <ComponentSVG url={env.PUBLIC_URL + '/assets/images/calendar.svg'} color="#00B96D" />
       </div>
     </div>
   );

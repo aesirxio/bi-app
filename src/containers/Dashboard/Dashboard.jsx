@@ -19,6 +19,7 @@ import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 import numberWithCommas from 'utils/formatNumber';
 import { BI_SUMMARY_FIELD_KEY } from 'aesirx-dma-lib';
 import DateRangePicker from 'components/DateRangePicker';
+import { env } from 'env';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -33,12 +34,22 @@ const Dashboard = observer(
         ? this.viewModel.getDashboardListViewModel()
         : null;
     }
+
     componentDidUpdate = (prevProps) => {
-      if (this.props.location !== prevProps.location) {
+      if (
+        this.props.location !== prevProps.location ||
+        this.props.activeDomain !== prevProps.activeDomain
+      ) {
         this.dashboardListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
         });
       }
+    };
+
+    componentDidMount = () => {
+      this.dashboardListViewModel.initialize({
+        'filter[domain]': this.context.biListViewModel.activeDomain,
+      });
     };
 
     handleDateRangeChange = (startDate, endDate) => {
@@ -51,7 +62,7 @@ const Dashboard = observer(
         {
           className: 'col-3',
           title: t('txt_visitors'),
-          icon: '/assets/images/visitor.svg',
+          icon: env.PUBLIC_URL + '/assets/images/visitor.svg',
           iconColor: '#1AB394',
           value: numberWithCommas(
             this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
@@ -64,7 +75,7 @@ const Dashboard = observer(
         {
           className: 'col-3',
           title: t('txt_page_views'),
-          icon: '/assets/images/view.svg',
+          icon: env.PUBLIC_URL + '/assets/images/view.svg',
           iconColor: '#2E71B1',
           value: numberWithCommas(
             this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
@@ -83,7 +94,7 @@ const Dashboard = observer(
         {
           className: 'col-3',
           title: t('txt_acg_session_duration'),
-          icon: '/assets/images/duration.svg',
+          icon: env.PUBLIC_URL + '/assets/images/duration.svg',
           iconColor: '#EF3737',
           value:
             numberWithCommas(
@@ -97,7 +108,7 @@ const Dashboard = observer(
         {
           className: 'col-3',
           title: t('txt_page_session'),
-          icon: '/assets/images/page.svg',
+          icon: env.PUBLIC_URL + '/assets/images/page.svg',
           iconColor: '#FFBE55',
           value: numberWithCommas(
             this.dashboardListViewModel?.summaryData?.[

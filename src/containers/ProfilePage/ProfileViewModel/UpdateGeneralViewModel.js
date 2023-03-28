@@ -9,6 +9,7 @@ import { notify } from '../../../components/Toast';
 import { UPDATE_GENERAL_FIELD_KEY } from '../../../constants/ProfileModule';
 import { Storage } from 'aesirx-dma-lib';
 import { AUTHORIZATION_KEY } from 'aesirx-dma-lib';
+import { env } from 'env';
 
 class UpdateGeneralViewModel {
   profileStore = null;
@@ -72,7 +73,7 @@ class UpdateGeneralViewModel {
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS_2] =
         result.address_2;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM] =
-        result.avatar_dam ? result.avatar_dam : '/assets/images/avatar.png';
+        result.avatar_dam ? result.avatar_dam : env.PUBLIC_URL + '/assets/images/avatar.png';
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ZIPCODE] = result.zipcode;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.CITY] = result.city;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.STATE] = result.state;

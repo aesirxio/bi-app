@@ -10,6 +10,9 @@ jobs:
     environment: dashboard
     env:
       CI: false
+      REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
+      REACT_APP_CLIENT_SECRET: ${{ secrets.REACT_APP_CLIENT_SECRET }}
+      REACT_APP_ENCRYPT: ${{ secrets.REACT_APP_ENCRYPT }}
       REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
       REACT_APP_DATA_STREAM: ${{ secrets.REACT_APP_DATA_STREAM }}
       REACT_APP_DEFAULT_USER: ${{ secrets.REACT_APP_DEFAULT_USER }}

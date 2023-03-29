@@ -23,6 +23,7 @@ if (
 // LOGIN
 const login = async ({ username, password }) => {
   document.body.classList.add('body_login_page');
+
   // const authService = new AesirxAuthenticationApiService();
   // const result = await authService.login(username, password);
   if (username === env.REACT_APP_DEFAULT_USER && password === env.REACT_APP_DEFAULT_PASSWORD) {

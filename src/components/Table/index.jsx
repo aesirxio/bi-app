@@ -47,7 +47,7 @@ const Table = ({
       onSelect,
       initialState: {
         pageSize: 5,
-        pageIndex: 1,
+        pageIndex: 0,
       },
     },
     useSortBy,

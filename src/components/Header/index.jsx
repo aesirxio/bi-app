@@ -32,6 +32,7 @@ import { Collapse, Button } from 'react-bootstrap';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const DataStream = observer(() => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
@@ -86,16 +87,12 @@ const DataStream = observer(() => {
             ({biStore.biListViewModel?.activeDomain})
           </span>
         </p>
-        <span
-          className="icon arrow d-inline-block align-text-bottom ms-auto"
-          style={{
-            WebkitMaskImage: `url(${env.PUBLIC_URL}/assets/images/arrow-right.svg)`,
-            WebkitMaskRepeat: 'no-repeat',
-          }}
-        ></span>
+        <i className="ps-1 icons text-green">
+          <FontAwesomeIcon icon={faChevronDown} />
+        </i>
       </Button>
       <Collapse className="position-relative" in={isOpenCollapse === 'data-stream'}>
-        <ul className=" position-absolute bg-white shadow-sm top-100 start-0 list-unstyled mb-0">
+        <ul className="px-16 position-absolute bg-white shadow-lg rounded-1 w-100 top-100 start-0 list-unstyled mb-0">
           {biStore.biListViewModel?.listDomain.map((item, index) => {
             return (
               item.domain !== dataStreamActive && (
@@ -107,11 +104,15 @@ const DataStream = observer(() => {
                   <NavLink
                     exact={true}
                     to={`${path && path.replace(':domain', item.domain)}`}
-                    className={``}
+                    className={`text-decoration-none`}
                     activeClassName={`active`}
                   >
                     <span
-                      className={`d-block px-24 py-16 link_menu text-blue-0 text-decoration-none`}
+                      className={`d-block py-16 link_menu text-blue-0 text-decoration-none  ${
+                        biStore.biListViewModel?.listDomain.length - 1 === index
+                          ? ''
+                          : 'border-bottom-1 border-gray-800'
+                      }`}
                     >
                       {item.name}
                     </span>

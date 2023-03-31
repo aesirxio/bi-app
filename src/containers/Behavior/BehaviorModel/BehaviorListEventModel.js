@@ -137,7 +137,7 @@ class BehaviorEventModel {
                 {cell?.value}
               </NavLink>
             ) : (
-              cell?.value
+              cell?.value ?? null
             ),
         };
       });
@@ -300,7 +300,7 @@ class BehaviorEventModel {
                 {cell?.value}
               </NavLink>
             ) : (
-              cell?.value
+              cell?.value ?? null
             ),
         };
       });

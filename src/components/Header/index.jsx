@@ -215,7 +215,6 @@ class Header extends React.Component {
 
             {/* <Search /> */}
             <div className="ms-auto d-flex align-items-center">
-              <FontAwesomeIcon icon={faGlobe} className="text-body fs-4" />
               <Select
                 isClearable={false}
                 isSearchable={false}

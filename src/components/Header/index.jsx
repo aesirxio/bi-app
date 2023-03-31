@@ -88,7 +88,7 @@ const DataStream = observer(() => {
         </i>
       </Button>
       <Collapse className="position-relative" in={isOpenCollapse === 'data-stream'}>
-        <ul className="px-16 position-absolute bg-white shadow-lg rounded-1 w-100 top-100 start-0 list-unstyled mb-0">
+        <ul className="px-16 position-absolute bg-white shadow-lg rounded-1 w-100 top-100 start-0 list-unstyled mb-0 mh-80vh overflow-auto">
           {biStore.biListViewModel?.listDomain.map((item, index) => {
             return (
               item.domain !== biStore.biListViewModel?.activeDomain && (

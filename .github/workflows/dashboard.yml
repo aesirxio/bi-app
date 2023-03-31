@@ -1,13 +1,13 @@
-name: demo
+name: dashboard
 on:
   push:
-    tags:
-      - "*"
+    branches:
+      - master
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: demo
+    environment: dashboard
     env:
       CI: false
       REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}

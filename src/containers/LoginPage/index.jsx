@@ -20,8 +20,8 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: env.REACT_APP_DEMO_USER ?? '',
-      password: env.REACT_APP_DEMO_PASSWORD ?? '',
+      username: env.REACT_APP_DEFAULT_USER ?? '',
+      password: env.REACT_APP_DEFAULT_PASSWORD ?? '',
       remember: false,
       isProcessing: false,
     };

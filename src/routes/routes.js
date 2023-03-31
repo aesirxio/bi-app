@@ -7,7 +7,6 @@ import React, { lazy } from 'react';
 
 const LoginPage = lazy(() => import('containers/LoginPage'));
 
-const WelcomePage = lazy(() => import('containers/WelcomePage'));
 const DashboardPage = lazy(() => import('containers/Dashboard'));
 const AudiencePage = lazy(() => import('containers/AudiencePage'));
 const RevenuePage = lazy(() => import('containers/RevenuePage'));
@@ -98,11 +97,6 @@ const settingRoutes = [
     path: '/profile',
     exact: false,
     main: ({ match, location }) => <ProfilePage match={match} location={location} />,
-  },
-  {
-    path: '/welcome',
-    exact: true,
-    main: () => <WelcomePage />,
   },
 ];
 

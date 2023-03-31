@@ -2,7 +2,6 @@ import { hexToRGB } from 'components/ComponentCard';
 import PulseLoaderComponent from 'components/Spinner/pulseLoader';
 import PAGE_STATUS from 'constants/PageStatus';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 const Card = ({ data = [], loading = PAGE_STATUS.LOADING }) => {
   return (

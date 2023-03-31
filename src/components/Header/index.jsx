@@ -36,15 +36,12 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const DataStream = observer(() => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
-  const [dataStreamActive, setDataStreamActive] = useState(
-    env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain
-  );
+
   const { path } = useRouteMatch();
   const { t } = useTranslation('common');
   const biStore = useBiViewModel();
   const handleChangeDataStream = (value) => {
     handleOpen('');
-    setDataStreamActive(value);
     biStore.biListViewModel.setActiveDomain(value);
   };
   const handleOpen = (clickedIndex, parentIndex) => {
@@ -95,7 +92,7 @@ const DataStream = observer(() => {
         <ul className="px-16 position-absolute bg-white shadow-lg rounded-1 w-100 top-100 start-0 list-unstyled mb-0">
           {biStore.biListViewModel?.listDomain.map((item, index) => {
             return (
-              item.domain !== dataStreamActive && (
+              item.domain !== biStore.biListViewModel?.activeDomain && (
                 <li
                   key={index}
                   className={`item_menu cursor-pointer`}

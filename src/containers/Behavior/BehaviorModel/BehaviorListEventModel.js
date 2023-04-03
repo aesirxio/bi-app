@@ -113,7 +113,7 @@ class BehaviorEventModel {
   };
 
   toEventTable = () => {
-    const headerTable = ['Name', 'Type', 'Url', 'Referer', 'Start Date'];
+    const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Start Date'];
     const accessor = [
       BI_VISITOR_FIELD_KEY.EVENT_NAME,
       BI_VISITOR_FIELD_KEY.EVENT_TYPE,
@@ -133,11 +133,12 @@ class BehaviorEventModel {
                 to={`/${this.globalViewModel.activeDomain}/flow/${
                   row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]
                 }`}
+                className={'px-3'}
               >
                 {cell?.value}
               </NavLink>
             ) : (
-              cell?.value ?? null
+              <div className={'px-3'}>{cell?.value ?? null}</div>
             ),
         };
       });
@@ -269,7 +270,7 @@ class BehaviorEventModel {
       'Campaign Name',
       'Campaign Term',
       'Campaign Content',
-      'Url',
+      'URL',
       'Referer',
       'Start Date',
     ];
@@ -296,11 +297,12 @@ class BehaviorEventModel {
                 to={`/${this.globalViewModel.activeDomain}/flow/${
                   row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]
                 }`}
+                className={'px-3'}
               >
                 {cell?.value}
               </NavLink>
             ) : (
-              cell?.value ?? null
+              <div className={'px-3'}>{cell?.value ?? null}</div>
             ),
         };
       });

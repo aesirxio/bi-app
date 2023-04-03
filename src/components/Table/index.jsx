@@ -11,6 +11,7 @@ import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { env } from 'env';
+import Select from 'components/Select';
 const Table = ({
   columns,
   data,
@@ -60,6 +61,7 @@ const Table = ({
   //   setLoading(false);
   // };
   const { t } = props;
+
   return (
     <>
       <div className="bg-white fs-14 shadow-sm text-color rounded-3 position-relative">
@@ -225,67 +227,125 @@ const Table = ({
         ) : null}
       </div>
       {pagination && pageOptions.length ? (
-        <div className="mt-3 pb-3 text-center pagination d-flex justify-content-end align-items-center">
-          <button
-            className="border-1 bg-white text-body btn p-0 w-40px h-40px"
-            onClick={() => gotoPage(0)}
-            disabled={!canPreviousPage}
-          >
-            {'<<'}
-          </button>{' '}
-          <button
-            className="border-1 bg-white text-body btn p-0 w-40px h-40px"
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          >
-            {'<'}
-          </button>{' '}
-          <button
-            className="border-1 bg-white text-body btn p-0 w-40px h-40px"
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-          >
-            {'>'}
-          </button>{' '}
-          <button
-            className="border-1 bg-white text-body btn p-0 w-40px h-40px"
-            onClick={() => gotoPage(pageCount - 1)}
-            disabled={!canNextPage}
-          >
-            {'>>'}
-          </button>{' '}
-          <span>
-            Page{' '}
-            <strong>
-              {pageIndex + 1} of {pageOptions.length}
-            </strong>{' '}
-          </span>
-          <p className="d-flex m-0 align-items-center h-40px">
-            | Go to page:{' '}
-            <input
-              type="number"
-              className="form-control h-40px py-0"
-              defaultValue={pageIndex + 1}
-              onChange={(e) => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                gotoPage(page);
+        <div className="d-flex align-items-center justify-content-between">
+          <div className="d-flex align-items-center">
+            <span className="text-gray-600 me-16">Showing</span>
+            <Select
+              isClearable={false}
+              isSearchable={false}
+              isBorder={false}
+              isShadow={false}
+              options={[
+                { label: 5, value: 5 },
+                { label: 10, value: 10 },
+                { label: 20, value: 20 },
+                { label: 30, value: 30 },
+                { label: 40, value: 40 },
+                { label: 50, value: 50 },
+              ]}
+              getOptionLabel={(options) => (
+                <div className="showing-option d-flex align-items-center">
+                  <span>{options.label} items</span>
+                </div>
+              )}
+              className="shadow-none select-bg-white"
+              onChange={(data) => {
+                setPageSize(Number(data.value));
               }}
-              style={{ width: '100px' }}
+              defaultValue={{ label: pageSize, value: pageSize }}
             />
-          </p>{' '}
-          <select
-            className="ms-1 form-select w-150px bg-white h-40px py-0"
-            value={pageSize}
-            onChange={(e) => {
-              setPageSize(Number(e.target.value));
-            }}
-          >
-            {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
-              </option>
-            ))}
-          </select>
+          </div>
+
+          <div className="mt-3 pb-3 text-center pagination d-flex justify-content-end align-items-center">
+            <button
+              className="border-1 border-gray-800 bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-start rounded-bottom-start"
+              onClick={() => previousPage()}
+              disabled={!canPreviousPage}
+            >
+              {'<'}
+            </button>{' '}
+            <button
+              onClick={() => gotoPage(0)}
+              className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
+                pageIndex + 1 === 1 ? 'bg-gray-900 text-white' : 'bg-white text-body'
+              }`}
+              style={{
+                width: '38px',
+                height: '38px',
+              }}
+            >
+              {1}
+            </button>
+            {pageIndex > 3 && (
+              <button
+                className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
+                style={{
+                  width: '38px',
+                  height: '38px',
+                }}
+              >
+                <img alt="..." src={env.PUBLIC_URL + '/assets/images/three-dots.png'} />
+              </button>
+            )}
+            {[...Array(pageOptions.length)].map((x, index) => {
+              return (
+                <>
+                  {index !== 0 &&
+                    index !== pageOptions.length - 1 &&
+                    index < pageIndex + 3 &&
+                    index > pageIndex - 3 && (
+                      <button
+                        onClick={() => gotoPage(index)}
+                        key={index}
+                        className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
+                          pageIndex + 1 === index + 1
+                            ? 'bg-gray-900 text-white'
+                            : 'bg-white text-body'
+                        }`}
+                        style={{
+                          width: '38px',
+                          height: '38px',
+                        }}
+                      >
+                        {index + 1}
+                      </button>
+                    )}
+                </>
+              );
+            })}
+            {pageIndex < pageOptions.length - 4 && (
+              <button
+                className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
+                style={{
+                  width: '38px',
+                  height: '38px',
+                }}
+              >
+                <img alt="..." src={env.PUBLIC_URL + '/assets/images/three-dots.png'} />
+              </button>
+            )}
+            <button
+              onClick={() => gotoPage(pageCount - 1)}
+              className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
+                pageIndex + 1 === pageOptions.length
+                  ? 'bg-gray-900 text-white'
+                  : 'bg-white text-body'
+              }`}
+              style={{
+                width: '38px',
+                height: '38px',
+              }}
+            >
+              {pageOptions.length}
+            </button>
+            <button
+              className="border-1 border-gray-800 bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-end rounded-bottom-end"
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
+            >
+              {'>'}
+            </button>{' '}
+          </div>
         </div>
       ) : null}
     </>

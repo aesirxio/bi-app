@@ -38,7 +38,14 @@ class BehaviorEventModel {
 
   getFilterName = () => {
     const transform = this.transformResponse();
-    return Object.keys(transform).map((item) => ({ value: item, label: item }));
+    const filter = Object.keys(transform).map((item) => ({ value: item, label: item }));
+    filter?.unshift({ value: 'all', label: 'All' });
+    return filter;
+  };
+
+  getListLine = () => {
+    const transform = this.transformResponse();
+    return Object.keys(transform).map((item) => item);
   };
 
   toAreaChart = () => {
@@ -62,45 +69,76 @@ class BehaviorEventModel {
       this.globalViewModel.dateFilter.date_start,
       this.globalViewModel.dateFilter.date_end
     );
+    const date = {
+      all: dateRange.map((date) => {
+        return {
+          name: date,
+          ...Object.keys(transform)
+            .map((item) => {
+              const filterDate = transform[item]?.filter(
+                (_item) =>
+                  moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).format('YYYY-MM-DD') === date
+              ).length;
+              return { [item]: filterDate ?? 0 };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      }),
+      ...Object.keys(transform)
+        .map((item) => {
+          return {
+            [item]: dateRange.map((date) => {
+              const filterDate = transform[item].filter(
+                (_item) =>
+                  moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).format('YYYY-MM-DD') === date
+              ).length;
+              return {
+                name: date,
+                [item]: filterDate ?? 0,
+              };
+            }),
+          };
+        })
+        .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+    };
+    const month = {
+      all: twelveMonth.map((month, index) => {
+        return {
+          name: month,
+          ...Object.keys(transform)
+            .map((item) => {
+              const filterMonthDate = transform[item].filter(
+                (_item) => moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).month() === index
+              ).length;
+              return { [item]: filterMonthDate ?? 0 };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      }),
+      ...Object.keys(transform)
+        .map((item) => {
+          return {
+            [item]: twelveMonth.map((month, index) => {
+              const filterMonthDate = transform[item].filter(
+                (_item) => moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).month() === index
+              ).length;
+              if (filterMonthDate) {
+                return {
+                  name: month,
+                  [item]: filterMonthDate,
+                };
+              } else {
+                return {
+                  name: month,
+                  [item]: 0,
+                };
+              }
+            }),
+          };
+        })
+        .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+    };
 
-    const date = Object.keys(transform)
-      .map((item) => {
-        return {
-          [item]: dateRange.map((date) => {
-            const filterDate = transform[item].filter(
-              (_item) =>
-                moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).format('YYYY-MM-DD') === date
-            ).length;
-            return {
-              name: date,
-              number: filterDate ?? 0,
-            };
-          }),
-        };
-      })
-      .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
-    const month = Object.keys(transform)
-      .map((item) => {
-        return {
-          [item]: twelveMonth.map((month, index) => {
-            const filterMonthDate = transform[item].filter(
-              (_item) => moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).month() === index
-            ).length;
-            if (filterMonthDate) {
-              return {
-                name: month,
-                number: filterMonthDate,
-              };
-            } else {
-              return {
-                name: month,
-                number: 0,
-              };
-            }
-          }),
-        };
-      })
-      .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
     return [month, date];
   };
 
@@ -195,7 +233,14 @@ class BehaviorEventModel {
 
   getFilterNameUTM = () => {
     const transform = this.transformResponseUTM();
-    return Object.keys(transform).map((item) => ({ value: item, label: item }));
+    const filter = Object.keys(transform).map((item) => ({ value: item, label: item }));
+    filter?.unshift({ value: 'all', label: 'All' });
+    return filter;
+  };
+
+  getListLineUTM = () => {
+    const transform = this.transformResponseUTM();
+    return Object.keys(transform).map((item) => item);
   };
 
   toBarChartUTM = () => {
@@ -228,37 +273,68 @@ class BehaviorEventModel {
       this.globalViewModel.dateFilter.date_end
     );
 
-    const date = Object.keys(transform)
-      .map((item) => {
+    const date = {
+      all: dateRange.map((date) => {
         return {
-          [item]: dateRange.map((date) => {
-            const filterDate = transform[item].filter(
-              (_item) =>
-                moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).format('YYYY-MM-DD') === date
-            ).length;
-            return {
-              name: date,
-              number: filterDate ?? 0,
-            };
-          }),
+          name: date,
+          ...Object.keys(transform)
+            .map((item) => {
+              const filterDate = transform[item]?.filter(
+                (_item) =>
+                  moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).format('YYYY-MM-DD') === date
+              ).length;
+              return { [item]: filterDate ?? 0 };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
-      })
-      .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
-    const month = Object.keys(transform)
-      .map((item) => {
+      }),
+      ...Object.keys(transform)
+        .map((item) => {
+          return {
+            [item]: dateRange.map((date) => {
+              const filterDate = transform[item].filter(
+                (_item) =>
+                  moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).format('YYYY-MM-DD') === date
+              ).length;
+              return {
+                name: date,
+                [item]: filterDate ?? 0,
+              };
+            }),
+          };
+        })
+        .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+    };
+    const month = {
+      all: twelveMonth.map((month, index) => {
         return {
-          [item]: twelveMonth.map((month, index) => {
-            const filterMonthDate = transform[item].filter(
-              (_item) => moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).month() === index
-            ).length;
-            return {
-              name: month,
-              number: filterMonthDate ?? 0,
-            };
-          }),
+          name: month,
+          ...Object.keys(transform)
+            .map((item) => {
+              const filterMonthDate = transform[item].filter(
+                (_item) => moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).month() === index
+              ).length;
+              return { [item]: filterMonthDate ?? 0 };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
-      })
-      .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
+      }),
+      ...Object.keys(transform)
+        .map((item) => {
+          return {
+            [item]: twelveMonth.map((month, index) => {
+              const filterMonthDate = transform[item].filter(
+                (_item) => moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).month() === index
+              ).length;
+              return {
+                name: month,
+                [item]: filterMonthDate ?? 0,
+              };
+            }),
+          };
+        })
+        .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+    };
     return [month, date];
   };
 

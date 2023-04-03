@@ -49,15 +49,16 @@ const Events = observer(() => {
             chartTitle={t('txt_menu_overview')}
             height={390}
             data={data?.toAreaChart() ?? []}
-            colors={['#1AB394']}
-            areaColors={['#1AB394']}
-            lineColors={['#1AB394']}
-            lines={['number']}
+            colors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            lineColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            lines={data?.getListLine()}
             filterData={data?.getFilterName()}
             tooltipComponent={{
               header: t('txt_number'),
               value: ``,
             }}
+            isLegend={true}
           />
         </div>
         <div className="col-lg-6 col-12">

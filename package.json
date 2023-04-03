@@ -4,9 +4,7 @@
   "license": "GPL-3.0-only",
   "author": "AesirX",
   "main": "dist/index.js",
-  "module": "dist/index.modern.js",
-  "unpkg": "dist/index.umd.js",
-  "source": "src/integration/index.js",
+  "module": "dist/index.js",
   "repository": "https://github.com/aesirxio/bi-app",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",

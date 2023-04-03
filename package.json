@@ -66,10 +66,8 @@
     "lint:nowarns": "eslint --quiet \"src/**/\"",
     "format:check": "prettier --check 'src/**/*.{js,jsx,ts,tsx}'",
     "format:write": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
-    "microbundle": "microbundle --globals react=React,react-dom=ReactDOM --no-sourcemap --jsx React.createElement --jsxFragment React.Fragment --generateTypes true --format modern,cjs,esm",
-    "microbundle:watch": "microbundle --globals react=React,react-dom=ReactDOM --jsx React.createElement --jsxFragment React.Fragment --generateTypes true --no-compress --format modern,cjs,esm -w",
-    "build:css": "sass  --no-source-map --style=compressed ./src/integration/index.scss ./dist/app.css",
-    "prepublishOnly": "npm run microbundle && npm run build:css"
+    "build:lib": "NODE_ENV=production tsup",
+    "prepublishOnly": "yarn build:lib"
   },
   "eslintConfig": {
     "extends": [
@@ -98,20 +96,18 @@
     "@babel/preset-env": "^7.19.4",
     "@babel/preset-react": "^7.18.6",
     "@craco/craco": "^7.0.0",
-    "@testing-library/jest-dom": "^5.16.3",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^14.4.3",
     "babel-plugin-inline-react-svg": "^2.0.1",
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-react-css-modules": "^5.2.6",
     "craco": "^0.0.3",
+    "esbuild-sass-plugin": "^2.8.0",
     "eslint": "^8.17",
-    "microbundle": "^0.15.1",
     "prettier": "^2.8.4",
     "react-inject-env": "^2.1.0",
     "react-scripts": "^5.0.1",
     "sass": "^1.60",
-    "serve": "^14.2.0"
+    "serve": "^14.2.0",
+    "tsup": "^6.7.0"
   },
   "overrides": {
     "autoprefixer": "10.4.5"

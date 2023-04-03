@@ -5,6 +5,7 @@
 
 import { BI_VISITOR_FIELD_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
+import { NavLink } from 'react-router-dom';
 import { enumerateDaysBetweenDates } from 'utils/date';
 
 class BehaviorEventModel {
@@ -125,23 +126,38 @@ class BehaviorEventModel {
         return {
           Header: headerTable[index],
           accessor: key,
+          Cell: ({ cell, column, row }) =>
+            column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value ? (
+              // eslint-disable-next-line react/react-in-jsx-scope
+              <NavLink
+                to={`/${this.globalViewModel.activeDomain}/flow/${
+                  row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]
+                }`}
+              >
+                {cell?.value}
+              </NavLink>
+            ) : (
+              cell?.value ?? null
+            ),
         };
       });
-
       const data = this.data.map((item) => {
-        return accessor
-          .map((i) => {
-            if (i === BI_VISITOR_FIELD_KEY.START_DATE) {
-              return {
-                [i]: moment(item[i]).format('DD-MM-YYYY'),
-              };
-            } else {
-              return {
-                [i]: item[i],
-              };
-            }
-          })
-          .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {});
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              if (i === BI_VISITOR_FIELD_KEY.START_DATE) {
+                return {
+                  [i]: moment(item[i]).format('DD-MM-YYYY'),
+                };
+              } else {
+                return {
+                  [i]: item[i],
+                };
+              }
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
       });
 
       return {
@@ -273,6 +289,19 @@ class BehaviorEventModel {
         return {
           Header: headerTable[index],
           accessor: key,
+          Cell: ({ cell, column, row }) =>
+            column.id === 'utm_id' && cell?.value ? (
+              // eslint-disable-next-line react/react-in-jsx-scope
+              <NavLink
+                to={`/${this.globalViewModel.activeDomain}/flow/${
+                  row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]
+                }`}
+              >
+                {cell?.value}
+              </NavLink>
+            ) : (
+              cell?.value ?? null
+            ),
         };
       });
 
@@ -281,7 +310,7 @@ class BehaviorEventModel {
           const utm = item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]
             .map((attr) => {
               if (accessor.includes(attr.name)) {
-                return { [attr.name]: attr.value };
+                return { ...item, [attr.name]: attr.value };
               }
             })
             .filter((i) => i)

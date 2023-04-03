@@ -36,10 +36,14 @@ const Dashboard = observer(
     }
 
     componentDidUpdate = (prevProps) => {
-      if (
-        this.props.location !== prevProps.location ||
-        this.props.activeDomain !== prevProps.activeDomain
-      ) {
+      console.log(this.props.location !== prevProps.location);
+      if (this.props.location !== prevProps.location && !this.props.integration) {
+        this.dashboardListViewModel.initialize({
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        });
+      }
+
+      if (this.props.activeDomain !== prevProps.activeDomain && this.props.integration) {
         this.dashboardListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
         });

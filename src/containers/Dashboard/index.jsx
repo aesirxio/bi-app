@@ -31,7 +31,7 @@ const DashboardContainer = observer(
     }
 
     componentDidMount = () => {
-      if (!this.props.integration) {
+      if (!this.props.integration && history.location.pathname === '/') {
         history.push(`${this.biListViewModel.activeDomain}`);
       }
     };

@@ -14,6 +14,8 @@ class BehaviorEventsViewModel {
   globalStoreViewModel = null;
   data = null;
   dataFilter = {};
+  attributeData = null;
+
   constructor(behaviorStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.behaviorStore = behaviorStore;
@@ -33,6 +35,19 @@ class BehaviorEventsViewModel {
       dataFilter,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getAttribute = (dataFilter, dateFilter) => {
+    this.status = PAGE_STATUS.LOADING;
+    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel?.dateFilter, ...dateFilter };
+
+    this.behaviorStore.getAttribute(
+      dataFilter,
+      dateRangeFilter,
+      this.callbackOnDataAttributeSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -71,6 +86,17 @@ class BehaviorEventsViewModel {
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];
+    }
+  };
+
+  callbackOnDataAttributeSuccessHandler = (data) => {
+    if (data) {
+      this.status = PAGE_STATUS.READY;
+
+      this.attributeData = data;
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.attributeData = {};
     }
   };
 }

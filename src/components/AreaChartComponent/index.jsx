@@ -35,7 +35,7 @@ const AreaChartComponent = ({
 }) => {
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
   const [currentData, setCurrentData] = useState(data[0]);
-  const [view, setView] = useState(CHART_TYPE.MONTH);
+  const [view, setView] = useState(CHART_TYPE.DAY);
 
   const { t } = useTranslation('common');
 

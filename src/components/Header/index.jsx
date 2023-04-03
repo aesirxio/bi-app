@@ -9,7 +9,6 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons/faQuestionCircle';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
 
 import './index.scss';
 
@@ -32,18 +31,16 @@ import { Collapse, Button } from 'react-bootstrap';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const DataStream = observer(() => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
-  const [dataStreamActive, setDataStreamActive] = useState(
-    env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain
-  );
+
   const { path } = useRouteMatch();
   const { t } = useTranslation('common');
   const biStore = useBiViewModel();
   const handleChangeDataStream = (value) => {
     handleOpen('');
-    setDataStreamActive(value);
     biStore.biListViewModel.setActiveDomain(value);
   };
   const handleOpen = (clickedIndex, parentIndex) => {
@@ -86,19 +83,15 @@ const DataStream = observer(() => {
             ({biStore.biListViewModel?.activeDomain})
           </span>
         </p>
-        <span
-          className="icon arrow d-inline-block align-text-bottom ms-auto"
-          style={{
-            WebkitMaskImage: `url(${env.PUBLIC_URL}/assets/images/arrow-right.svg)`,
-            WebkitMaskRepeat: 'no-repeat',
-          }}
-        ></span>
+        <i className="ps-1 icons text-green">
+          <FontAwesomeIcon icon={faChevronDown} />
+        </i>
       </Button>
       <Collapse className="position-relative" in={isOpenCollapse === 'data-stream'}>
-        <ul className=" position-absolute bg-white shadow-sm top-100 start-0 list-unstyled mb-0">
+        <ul className="px-16 position-absolute bg-white shadow-lg rounded-1 w-100 top-100 start-0 list-unstyled mb-0 mh-80vh overflow-auto">
           {biStore.biListViewModel?.listDomain.map((item, index) => {
             return (
-              item.domain !== dataStreamActive && (
+              item.domain !== biStore.biListViewModel?.activeDomain && (
                 <li
                   key={index}
                   className={`item_menu cursor-pointer`}
@@ -107,11 +100,15 @@ const DataStream = observer(() => {
                   <NavLink
                     exact={true}
                     to={`${path && path.replace(':domain', item.domain)}`}
-                    className={``}
+                    className={`text-decoration-none`}
                     activeClassName={`active`}
                   >
                     <span
-                      className={`d-block px-24 py-16 link_menu text-blue-0 text-decoration-none`}
+                      className={`d-block py-16 link_menu text-blue-0 text-decoration-none  ${
+                        biStore.biListViewModel?.listDomain.length - 1 === index
+                          ? ''
+                          : 'border-bottom-1 border-gray-800'
+                      }`}
                     >
                       {item.name}
                     </span>
@@ -217,7 +214,6 @@ class Header extends React.Component {
 
             {/* <Search /> */}
             <div className="ms-auto d-flex align-items-center">
-              <FontAwesomeIcon icon={faGlobe} className="text-body fs-4" />
               <Select
                 isClearable={false}
                 isSearchable={false}

@@ -217,7 +217,12 @@ class Header extends React.Component {
 
             {/* <Search /> */}
             <div className="ms-auto d-flex align-items-center">
-              <FontAwesomeIcon icon={faGlobe} className="text-body fs-4" />
+              <img
+                width={24}
+                height={24}
+                alt="language"
+                src={env.PUBLIC_URL + '/assets/images/language-icon.png'}
+              />
               <Select
                 isClearable={false}
                 isSearchable={false}
@@ -243,7 +248,7 @@ class Header extends React.Component {
                 defaultValue={currentLanguage}
               />
             </div>
-            <div className="switch-theme-button col-auto py-2 px-3">
+            <div className="switch-theme-button col-auto py-2 ps-16">
               <SwitchThemes />
             </div>
             <div className="d-flex align-items-center">
@@ -255,7 +260,7 @@ class Header extends React.Component {
               </div>
 
               {!noavatar && (
-                <div className="ps-3 pe-3">
+                <div className="ps-24 pe-3">
                   <DropdownAvatar />
                 </div>
               )}

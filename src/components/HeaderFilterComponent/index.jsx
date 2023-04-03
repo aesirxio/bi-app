@@ -54,8 +54,8 @@ const HeaderFilterComponent = ({
           <Button
             onClick={() => setView(CHART_TYPE.DAY)}
             className={`${
-              view == CHART_TYPE.DAY && 'text-white active'
-            } py-1 px-15 fs-12 lh-sm shadow-none bg-gray-900`}
+              view == CHART_TYPE.DAY && 'text-white active bg-gray-900'
+            } py-1 px-15 fs-12 lh-sm shadow-none border`}
             variant={view == 'days' ? 'dark' : 'outline-secondary'}
           >
             {t('txt_days')}
@@ -64,8 +64,8 @@ const HeaderFilterComponent = ({
           <Button
             onClick={() => setView(CHART_TYPE.MONTH)}
             className={`${
-              view == CHART_TYPE.MONTH && 'text-white'
-            } py-1 px-15 fs-12 lh-sm shadow-none bg-gray-900`}
+              view == CHART_TYPE.MONTH && 'text-white bg-gray-900'
+            } py-1 px-15 fs-12 lh-sm shadow-none border`}
             variant={view == 'months' ? 'dark' : 'outline-secondary'}
           >
             {t('txt_months')}

@@ -69,21 +69,21 @@ $rt-color-success: $green !default;
       // mask-image: url('../../../public/assets/images/toast_bg.svg');
       z-index: 0;
     }
-    &.Toastify__toast--success {
-      &:before {
-        background-color: $success;
-      }
-    }
-    &.Toastify__toast--warning {
-      &:before {
-        background-color: $noti-warn;
-      }
-    }
-    &.Toastify__toast--error {
-      &:before {
-        background-color: $noti-error;
-      }
-    }
+    // &.Toastify__toast--success {
+    //   &:before {
+    //     background-color: $success;
+    //   }
+    // }
+    // &.Toastify__toast--warning {
+    //   &:before {
+    //     background-color: $noti-warn;
+    //   }
+    // }
+    // &.Toastify__toast--error {
+    //   &:before {
+    //     background-color: $noti-error;
+    //   }
+    // }
   }
 }
 

@@ -184,5 +184,12 @@
   "txt_warning": "Warning",
   "txt_successful": "Successful",
   "txt_error": "Error",
-  "txt_number": "Quantity"
+  "txt_number": "Quantity",
+  "txt_visitor_flow": "Visitor Flow",
+  "txt_domain": "Domain",
+  "txt_location": "Location",
+  "txt_duration": "Duration",
+  "txt_ip": "IP",
+  "txt_device": "Device",
+  "txt_browser": "Browser"
 }

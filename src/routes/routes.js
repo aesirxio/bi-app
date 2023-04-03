@@ -20,6 +20,7 @@ const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
 
 const ProfilePage = lazy(() => import('containers/ProfilePage'));
+const FlowPage = lazy(() => import('containers/FlowDetailPage'));
 
 const authRoutes = [
   {
@@ -53,6 +54,11 @@ const mainRoutes = [
     page: ['behavior-overview', 'behavior-click-anchor', 'behavior-utm-tracking', 'behavior-event'],
     exact: true,
     main: () => <BehaviorPage />,
+  },
+  {
+    path: ['/:domain/flow/:uuid'],
+    exact: true,
+    main: () => <FlowPage />,
   },
   {
     path: '/:domain/subscription',

@@ -19,12 +19,12 @@
     }
     &.active,
     &:hover {
-      background-color: $blue;
-      color: $white;
+      // background-color: $blue;
+      color: $success !important;
 
       i,
       span {
-        color: $white;
+        color: $success !important;
       }
     }
     &.active {

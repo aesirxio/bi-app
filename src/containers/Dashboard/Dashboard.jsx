@@ -127,11 +127,6 @@ const Dashboard = observer(
 
     render() {
       const { t } = this.props;
-      const { status } = this.dashboardListViewModel;
-
-      if (status === PAGE_STATUS.LOADING) {
-        return <Spinner />;
-      }
       const card = this.generateCard();
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">

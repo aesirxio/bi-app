@@ -14,9 +14,9 @@ const BehaviorTable = ({ data: { header = [], data = [] } }) => {
   );
   const dataTable = React.useMemo(() => data, [data]);
   return (
-    <div className="  h-100">
+    <div className="h-100">
       <Table
-        classNameTable={'text-center mb-0'}
+        classNameTable={'mb-0'}
         columns={columnsTable}
         data={dataTable}
         canSort={true}

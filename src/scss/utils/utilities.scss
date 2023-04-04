@@ -264,4 +264,30 @@ $utilities: (
       pill: $border-radius-pill,
     ),
   ),
+  'rounded-bottom-start': (
+    property: border-bottom-left-radius,
+    class: rounded-bottom-start,
+    values: (
+      null: $border-radius,
+      0: 0,
+      1: $border-radius-sm,
+      2: $border-radius,
+      3: $border-radius-lg,
+      circle: 50%,
+      pill: $border-radius-pill,
+    ),
+  ),
+  'rounded-bottom-end': (
+    property: border-bottom-right-radius,
+    class: rounded-bottom-end,
+    values: (
+      null: $border-radius,
+      0: 0,
+      1: $border-radius-sm,
+      2: $border-radius,
+      3: $border-radius-lg,
+      circle: 50%,
+      pill: $border-radius-pill,
+    ),
+  ),
 );

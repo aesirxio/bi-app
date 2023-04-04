@@ -5,9 +5,36 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { env } from 'env';
 import React from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
-import { BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar } from 'recharts';
+import {
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Bar,
+  Text,
+} from 'recharts';
 const BarChartComponent = (props) => {
   const { t } = useTranslation('common');
+  const CustomXAxisTick = ({ x, y, payload }) => {
+    if (payload && payload.value) {
+      return (
+        <Text
+          fontSize={'12px'}
+          width={50}
+          x={x}
+          y={y}
+          textAnchor="end"
+          verticalAnchor="middle"
+          maxLines="2"
+        >
+          {payload?.value?.replaceAll('_', ' ')}
+        </Text>
+      );
+    }
+    return null;
+  };
   return (
     <div className="bg-white rounded-3 px-24 py-3 shadow-sm position-relative h-100">
       {props.loading === PAGE_STATUS.LOADING ? (
@@ -34,6 +61,7 @@ const BarChartComponent = (props) => {
                 type="category"
                 axisLine={props.YAxisOptions?.axisLine ?? false}
                 tickLine={false}
+                tick={<CustomXAxisTick />}
                 dataKey="name"
                 style={{
                   fontSize: '12px',

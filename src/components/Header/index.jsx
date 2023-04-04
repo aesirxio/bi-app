@@ -214,6 +214,12 @@ class Header extends React.Component {
 
             {/* <Search /> */}
             <div className="ms-auto d-flex align-items-center">
+              <img
+                width={24}
+                height={24}
+                alt="language"
+                src={env.PUBLIC_URL + '/assets/images/language-icon.png'}
+              />
               <Select
                 isClearable={false}
                 isSearchable={false}
@@ -222,13 +228,13 @@ class Header extends React.Component {
                 options={listLanguages}
                 getOptionLabel={(options) => (
                   <div className="language-option d-flex align-items-center">
-                    <img
+                    {/* <img
                       className="me-1 rounded-2"
                       width={20}
                       height={20}
                       src={options.icon}
                       alt={options.label}
-                    />
+                    /> */}
                     <span>{options.label}</span>
                   </div>
                 )}
@@ -239,7 +245,7 @@ class Header extends React.Component {
                 defaultValue={currentLanguage}
               />
             </div>
-            <div className="switch-theme-button col-auto py-2 px-3">
+            <div className="switch-theme-button col-auto py-2 ps-16">
               <SwitchThemes />
             </div>
             <div className="d-flex align-items-center">
@@ -251,7 +257,7 @@ class Header extends React.Component {
               </div>
 
               {!noavatar && (
-                <div className="ps-3 pe-3">
+                <div className="ps-24 pe-3">
                   <DropdownAvatar />
                 </div>
               )}

@@ -176,6 +176,7 @@ class BehaviorEventModel {
                 {cell?.value}
               </NavLink>
             ) : (
+              // eslint-disable-next-line react/react-in-jsx-scope
               <div className={'px-3'}>{cell?.value ?? null}</div>
             ),
         };
@@ -378,6 +379,7 @@ class BehaviorEventModel {
                 {cell?.value}
               </NavLink>
             ) : (
+              // eslint-disable-next-line react/react-in-jsx-scope
               <div className={'px-3'}>{cell?.value ?? null}</div>
             ),
         };

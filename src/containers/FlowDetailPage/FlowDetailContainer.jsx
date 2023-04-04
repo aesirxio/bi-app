@@ -8,7 +8,7 @@ import { useFlowViewModel } from './FlowViewModels/FlowViewModelContextProvider'
 import { useParams } from 'react-router-dom';
 import Card from './Components/Card';
 import { env } from 'env';
-import { BI_FLOW_DETAIL_KEY } from 'aesirx-dma-lib';
+import { BI_FLOW_DETAIL_KEY } from 'aesirx-dma-lib/dist/Constant/BiConstant';
 import moment from 'moment';
 import BehaviorTable from 'containers/Behavior/Component/BehaviorTable';
 

@@ -1,4 +1,5 @@
 #biapp {
   @import '../scss/app.scss';
+  --bs-link-color: #3b7ab5;
   @include menu-css();
 }

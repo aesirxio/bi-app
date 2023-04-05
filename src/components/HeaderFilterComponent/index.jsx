@@ -31,6 +31,7 @@ const HeaderFilterComponent = ({
               onSelectionChange(data);
             }}
             plColor={'#808495'}
+            isSearchable={false}
           />
         )}
       </div>

@@ -199,7 +199,8 @@ class BehaviorEventModel {
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
       });
-
+      data?.length &&
+        data?.sort((a, b) => moment(b.start, 'DD-MM-YYYY') - moment(a.start, 'DD-MM-YYYY'));
       return {
         header,
         data: data,
@@ -390,7 +391,7 @@ class BehaviorEventModel {
           const utm = item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]
             .map((attr) => {
               if (accessor.includes(attr.name)) {
-                return { ...item, [attr.name]: attr.value };
+                return { [attr.name]: attr.value };
               }
             })
             .filter((i) => i)
@@ -415,7 +416,8 @@ class BehaviorEventModel {
           }
         })
         .filter((i) => i);
-
+      data?.length &&
+        data?.sort((a, b) => moment(b.start, 'DD-MM-YYYY') - moment(a.start, 'DD-MM-YYYY'));
       return {
         header,
         data: data,

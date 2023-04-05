@@ -15,7 +15,7 @@ import BehaviorTable from 'containers/Behavior/Component/BehaviorTable';
 const FlowDetailContainer = observer(() => {
   const { t } = useTranslation('common');
   const {
-    flowDetailViewModel: { data = [], relatedVisitorData, getFlowDetail, status, getVisitor },
+    flowDetailViewModel: { data = [], relatedVisitorData, getFlowDetail, status },
   } = useFlowViewModel();
   const {
     biListViewModel: { activeDomain },

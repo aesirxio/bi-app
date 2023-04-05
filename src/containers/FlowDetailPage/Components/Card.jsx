@@ -20,7 +20,7 @@ const Card = ({ data = [], loading = PAGE_STATUS.LOADING }) => {
                     <>
                       <div className="overflow-hidden">
                         <p className="m-0 text-gray fs-16">{item.title}</p>
-                        <h3 className="mb-0 fw-semibold fs-1 text-color">{item?.value}</h3>
+                        <h3 className="mb-0 fw-semibold fs-24 text-color">{item?.value}</h3>
                       </div>
                       <div className="d-flex flex-wrap align-item-center">
                         <div

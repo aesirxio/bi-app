@@ -38,3 +38,129 @@
   background-size: cover;
   background-position: center;
 }
+
+@mixin menu-css {
+  .item_menu {
+    margin-bottom: 8px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .link_menu {
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      border-color: transparent;
+      &:focus {
+        outline: 0;
+      }
+      &.active,
+      &:hover {
+        background-color: $blue;
+        color: $white;
+
+        i,
+        span {
+          color: $white;
+        }
+      }
+      &.active {
+        .icon.arrow {
+          transform: rotate(90deg);
+        }
+      }
+
+      i,
+      span {
+        transition: all 0.3s ease;
+      }
+
+      .icon {
+        width: 24px;
+        height: 24px;
+        background-color: var(--sidebar-menu-item-color);
+        &.arrow {
+          width: 16px;
+          height: 17px;
+        }
+      }
+    }
+  }
+  #wr_list_submenu {
+    background-color: var(--sidebar-submenu-bg);
+    .item_menu {
+      margin-bottom: 8px;
+      &:first-child {
+        padding-top: 8px;
+      }
+      &:last-child {
+        padding-bottom: 8px;
+        margin-bottom: 0;
+      }
+      .link_menu {
+        &:hover,
+        &.active {
+          background-color: transparent;
+          color: $color-blue-1;
+          i,
+          span {
+            color: $color-blue-1;
+          }
+        }
+      }
+    }
+  }
+  .section_menu_title,
+  .header_logo {
+    transition: all 0.3s ease;
+  }
+  .show {
+    .btn-success.dropdown-toggle {
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .sidebar {
+    overflow-y: auto;
+    .menu_title {
+      padding: 0 24px;
+    }
+    .data-stream {
+      background-color: var(--sidebar-submenu-bg);
+      &-text {
+        color: $dark-blue;
+      }
+      .link_menu {
+        padding: 0 24px;
+        .data-stream-text {
+          font-size: $font-size-sm;
+        }
+        .data-stream-value {
+          font-size: $h5-font-size;
+        }
+        &.active,
+        &:hover {
+          .data-stream-text {
+            color: $white;
+          }
+        }
+      }
+    }
+    .button-language {
+      padding-right: 24px;
+    }
+  }
+  .data-stream {
+    &.item_menu {
+      .link_menu:hover,
+      .link_menu.active {
+        color: $success;
+        background-color: transparent;
+        i,
+        span {
+          color: $success !important;
+        }
+      }
+    }
+  }
+}

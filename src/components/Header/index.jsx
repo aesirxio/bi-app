@@ -245,7 +245,7 @@ class Header extends React.Component {
                 defaultValue={currentLanguage}
               />
             </div>
-            <div className="switch-theme-button col-auto py-2 ps-16">
+            <div className="switch-theme-button col-auto py-2 ps-16 pe-24">
               <SwitchThemes />
             </div>
             <div className="d-flex align-items-center">
@@ -257,7 +257,7 @@ class Header extends React.Component {
               </div>
 
               {!noavatar && (
-                <div className="ps-24 pe-3">
+                <div className="pe-3">
                   <DropdownAvatar />
                 </div>
               )}

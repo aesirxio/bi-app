@@ -2,10 +2,10 @@ import { runInAction } from 'mobx';
 
 import { AesirxBiApiService } from 'aesirx-dma-lib';
 export class FlowStore {
-  getFlowDetail = async (flowId, callbackOnSuccess, callbackOnError) => {
+  getFlowDetail = async (flowId, dataFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
-      const responseDataFromLibrary = await biService.getFlowDetail(flowId);
+      const responseDataFromLibrary = await biService.getFlowDetail(flowId, dataFilter);
       if (responseDataFromLibrary) {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);

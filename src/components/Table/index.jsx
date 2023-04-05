@@ -324,27 +324,29 @@ const Table = ({
                 <img alt="..." src={env.PUBLIC_URL + '/assets/images/three-dots.png'} />
               </button>
             )}
-            <button
-              onClick={() => gotoPage(pageCount - 1)}
-              className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
-                pageIndex + 1 === pageOptions.length
-                  ? 'bg-gray-900 text-white'
-                  : 'bg-white text-body'
-              }`}
-              style={{
-                width: '38px',
-                height: '38px',
-              }}
-            >
-              {pageOptions.length}
-            </button>
+            {pageOptions.length > 1 && (
+              <button
+                onClick={() => gotoPage(pageCount - 1)}
+                className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
+                  pageIndex + 1 === pageOptions.length
+                    ? 'bg-gray-900 text-white'
+                    : 'bg-white text-body'
+                }`}
+                style={{
+                  width: '38px',
+                  height: '38px',
+                }}
+              >
+                {pageOptions.length}
+              </button>
+            )}
             <button
               className="border-1 border-gray-800 bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-end rounded-bottom-end"
               onClick={() => nextPage()}
               disabled={!canNextPage}
             >
               {'>'}
-            </button>{' '}
+            </button>
           </div>
         </div>
       ) : null}

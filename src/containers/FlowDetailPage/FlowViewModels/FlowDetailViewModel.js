@@ -28,20 +28,8 @@ class FlowDetailViewModel {
 
     this.flowStore.getFlowDetail(
       flowId,
-      this.callbackOnDataSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-  };
-
-  getVisitor = (dataFilter, dateFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
-    const dateRangeFilter = { ...this.globalStoreViewModel?.dateFilter, ...dateFilter };
-
-    this.behaviorStore.getVisitor(
       dataFilter,
-      dateRangeFilter,
-      this.callbackOnVisitorDataSuccessHandler,
+      this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -55,23 +43,18 @@ class FlowDetailViewModel {
     notify(error.message, 'error');
   };
 
-  callbackOnVisitorDataSuccessHandler = (data) => {
-    if (data) {
-      console.log(data);
-      this.status = PAGE_STATUS.READY;
-      const transformData = new BehaviorEventModel(data, this.globalStoreViewModel);
-      this.relatedVisitorData = transformData;
-    } else {
-      this.status = PAGE_STATUS.ERROR;
-      this.relatedVisitorData = null;
-    }
-  };
-
   callbackOnDataSuccessHandler = (data) => {
     if (data) {
       this.status = PAGE_STATUS.READY;
 
       this.data = data;
+      if (data?.events) {
+        const transformData = new BehaviorEventModel(data?.events, this.globalStoreViewModel);
+        this.relatedVisitorData = transformData;
+      } else {
+        this.status = PAGE_STATUS.ERROR;
+        this.relatedVisitorData = null;
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = {};

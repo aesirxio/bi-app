@@ -25,12 +25,9 @@ const FlowDetailContainer = observer(() => {
 
   useEffect(() => {
     const execute = async () => {
-      await getVisitor({
-        'filter[domain]': activeDomain,
-        page_size: 0,
-        'filter[flow_uuid]': uuid,
+      await getFlowDetail(uuid, {
+        'with[]': 'events',
       });
-      await getFlowDetail(uuid);
     };
     execute();
     return () => {};

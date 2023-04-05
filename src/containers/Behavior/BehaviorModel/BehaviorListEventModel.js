@@ -2,7 +2,7 @@
  * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
  * @license     GNU General Public License version 3, see LICENSE.
  */
-
+import React from 'react';
 import { BI_VISITOR_FIELD_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';

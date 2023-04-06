@@ -10510,10 +10510,10 @@ react-big-calendar@^0.33.5:
     react-overlays "^4.1.1"
     uncontrollable "^7.0.0"
 
-react-bootstrap-typeahead@^6.0.0:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/react-bootstrap-typeahead/-/react-bootstrap-typeahead-6.0.2.tgz#bad250f5912eb951db2d8e7a29286c5f044bd333"
-  integrity sha512-795YNvGZGi6VLfzZPgEbtmnLRxNkJlMYGDnegWO+OH5aBXvDDVxWwQN1XJdnIGrosJIOsB2ibwsRVe8fmqV0EQ==
+react-bootstrap-typeahead@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-typeahead/-/react-bootstrap-typeahead-6.1.1.tgz#a59da523b702b3bc30316bba0de6385e62bdd4c6"
+  integrity sha512-iSEyLv5BU7kimHBKUSW1e6/rponly6sIfpxEVSyC/MTfjpOEi40kcuDA8MQsPxthqYm7imPY3ipVx7RxjgTYCA==
   dependencies:
     "@babel/runtime" "^7.14.6"
     "@popperjs/core" "^2.10.2"

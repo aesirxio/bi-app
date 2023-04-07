@@ -149,8 +149,14 @@ class BehaviorEventModel {
       number: transform[item].length,
     }));
   };
-
-  toEventTable = () => {
+  handleChangeLink = (e, link) => {
+    e.preventDefault();
+    console.log('link', link);
+    if (link) {
+      this.globalViewModel.setIntegrationLink(link);
+    }
+  };
+  toEventTable = (integration) => {
     const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Start Date'];
     const accessor = [
       BI_VISITOR_FIELD_KEY.EVENT_NAME,
@@ -166,17 +172,32 @@ class BehaviorEventModel {
           accessor: key,
           Cell: ({ cell, column, row }) =>
             column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value ? (
-              // eslint-disable-next-line react/react-in-jsx-scope
-              <NavLink
-                to={`/${this.globalViewModel.activeDomain}/flow/${
-                  row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]
-                }`}
-                className={'px-3'}
-              >
-                {cell?.value}
-              </NavLink>
+              <>
+                {integration ? (
+                  <a
+                    href="#"
+                    onClick={(e) =>
+                      this.handleChangeLink(
+                        e,
+                        `flow/${row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]}`
+                      )
+                    }
+                    className={`px-3`}
+                  >
+                    <span>{cell?.value}</span>
+                  </a>
+                ) : (
+                  <NavLink
+                    to={`/${this.globalViewModel.activeDomain}/flow/${
+                      row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]
+                    }`}
+                    className={'px-3'}
+                  >
+                    {cell?.value}
+                  </NavLink>
+                )}
+              </>
             ) : (
-              // eslint-disable-next-line react/react-in-jsx-scope
               <div className={'px-3'}>{cell?.value ?? null}</div>
             ),
         };
@@ -340,7 +361,7 @@ class BehaviorEventModel {
     return [month, date];
   };
 
-  toEventTableUTM = () => {
+  toEventTableUTM = (integration) => {
     const headerTable = [
       'Campaign ID',
       'Campaign Source',
@@ -353,7 +374,7 @@ class BehaviorEventModel {
       'Start Date',
     ];
     const accessor = [
-      'utm_id',
+      BI_VISITOR_FIELD_KEY.FLOW_ID,
       'utm_source',
       'utm_medium',
       'utm_campaign',
@@ -368,21 +389,45 @@ class BehaviorEventModel {
         return {
           Header: headerTable[index],
           accessor: key,
-          Cell: ({ cell, column, row }) =>
-            column.id === 'utm_id' && cell?.value ? (
-              // eslint-disable-next-line react/react-in-jsx-scope
-              <NavLink
-                to={`/${this.globalViewModel.activeDomain}/flow/${
-                  row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]
-                }`}
-                className={'px-3'}
-              >
-                {cell?.value}
-              </NavLink>
-            ) : (
-              // eslint-disable-next-line react/react-in-jsx-scope
-              <div className={'px-3'}>{cell?.value ?? null}</div>
-            ),
+          Cell: ({ cell, column }) => {
+            if (column.id === BI_VISITOR_FIELD_KEY.FLOW_ID && cell?.value) {
+              const findUUID = this.data.find((obj) => {
+                return obj?.[BI_VISITOR_FIELD_KEY.FLOW_ID] === cell?.value;
+              });
+              return (
+                <>
+                  {integration ? (
+                    <a
+                      href="#"
+                      onClick={(e) => this.handleChangeLink(e, `flow/${cell?.value}`)}
+                      className={`px-3`}
+                    >
+                      <span>
+                        {
+                          findUUID?.[BI_VISITOR_FIELD_KEY.ATTRIBUTES].find((obj) => {
+                            return obj?.name === 'utm_id';
+                          })?.value
+                        }
+                      </span>
+                    </a>
+                  ) : (
+                    <NavLink
+                      to={`/${this.globalViewModel.activeDomain}/flow/${cell?.value}`}
+                      className={'px-3'}
+                    >
+                      {
+                        findUUID?.[BI_VISITOR_FIELD_KEY.ATTRIBUTES].find((obj) => {
+                          return obj?.name === 'utm_id';
+                        })?.value
+                      }
+                    </NavLink>
+                  )}
+                </>
+              );
+            } else {
+              return <div className={'px-3'}>{cell?.value ?? null}</div>;
+            }
+          },
         };
       });
 

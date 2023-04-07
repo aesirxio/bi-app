@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 import SelectComponent from 'components/Select';
 import PulseLoaderComponent from 'components/Spinner/pulseLoader';
@@ -17,8 +17,15 @@ const ComponentCard = ({
   loading,
 }) => {
   const [defaultFilter, setDefaultFilter] = useState(defaultValue ?? null);
+  const [selectedValue, setSelectedValue] = useState(value);
+
+  useEffect(() => {
+    setSelectedValue(value);
+  }, [value]);
+
   const handleChange = (data) => {
     setDefaultFilter(data);
+    data?.actualValue && setSelectedValue(data?.actualValue);
   };
   return (
     <div className="bg-white p-24 shadow-sm rounded-3 h-100">
@@ -60,7 +67,7 @@ const ComponentCard = ({
             size="10px"
           />
         )}
-        <h3 className="mb-0 fw-semibold fs-24 text-color">{value}</h3>
+        <h3 className="mb-0 fw-semibold fs-24 text-color">{selectedValue}</h3>
         <div className="d-flex flex-wrap align-item-center">
           {percent && (
             <div className="d-flex w-100 mb-sm justify-content-end">

@@ -8,7 +8,7 @@ import { useBehaviorViewModel } from './BehaviorViewModels/BehaviorViewModelCont
 import { observer } from 'mobx-react';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
-const UTMTrackingPage = observer(() => {
+const UTMTrackingPage = observer((props) => {
   const { t } = useTranslation('common');
   const {
     behaviorEvents: {
@@ -146,7 +146,9 @@ const UTMTrackingPage = observer(() => {
         </div>
       </div>
       <div className="row gx-24 mb-24">
-        <div className="col-12 ">{data && <BehaviorTable data={data.toEventTableUTM()} />}</div>
+        <div className="col-12 ">
+          {data && <BehaviorTable data={data.toEventTableUTM(props.integration)} />}
+        </div>
       </div>
     </div>
   );

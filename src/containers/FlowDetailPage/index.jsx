@@ -30,8 +30,6 @@ const FlowPage = observer(
       );
     }
     render() {
-      // const { integration = false } = this.props;
-      // const { integrationLink, activeDomain } = this.biListViewModel;
       return (
         <FlowViewModelContextProvider viewModel={this.flowViewModel}>
           <FlowDetailContainer {...this.props} />

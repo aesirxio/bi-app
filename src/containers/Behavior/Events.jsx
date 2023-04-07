@@ -8,7 +8,7 @@ import { useBehaviorViewModel } from './BehaviorViewModels/BehaviorViewModelCont
 import { observer } from 'mobx-react';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
-const Events = observer(() => {
+const Events = observer((props) => {
   const { t } = useTranslation('common');
   const {
     behaviorEvents: { getVisitor, data, status, handleFilterDateRange },
@@ -75,7 +75,9 @@ const Events = observer(() => {
         </div>
       </div>
       <div className="row gx-24 mb-24">
-        <div className="col-12 ">{data && <BehaviorTable data={data.toEventTable()} />}</div>
+        <div className="col-12 ">
+          {data && <BehaviorTable data={data.toEventTable(props.integration)} />}
+        </div>
       </div>
     </div>
   );

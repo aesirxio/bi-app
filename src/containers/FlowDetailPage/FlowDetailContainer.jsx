@@ -12,20 +12,19 @@ import { BI_FLOW_DETAIL_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
 import BehaviorTable from 'containers/Behavior/Component/BehaviorTable';
 
-const FlowDetailContainer = observer(() => {
+const FlowDetailContainer = observer((props) => {
   const { t } = useTranslation('common');
   const {
     flowDetailViewModel: { data = [], relatedVisitorData, getFlowDetail, status },
   } = useFlowViewModel();
   const {
-    biListViewModel: { activeDomain },
+    biListViewModel: { activeDomain, integrationLink },
   } = useBiViewModel();
-
   const { uuid } = useParams();
-
+  const uuidDetail = props.integration ? integrationLink.split('/')[1] : uuid;
   useEffect(() => {
     const execute = async () => {
-      await getFlowDetail(uuid, {
+      await getFlowDetail(uuidDetail, {
         'with[]': 'events',
       });
     };
@@ -110,7 +109,9 @@ const FlowDetailContainer = observer(() => {
   return (
     <div className="py-4 px-3 h-100 d-flex flex-column">
       <div className="position-relative">
-        <h2 className="text-blue-0 fw-bold mb-8px mb-3">{t('txt_visitor_flow') + ' ' + uuid}</h2>
+        <h2 className="text-blue-0 fw-bold mb-8px mb-3">
+          {t('txt_visitor_flow') + ' ' + uuidDetail}
+        </h2>
       </div>
       <Card loading={status} data={CardData} />
       <div className="row gx-24 ">
@@ -132,7 +133,9 @@ const FlowDetailContainer = observer(() => {
           </div>
         </div>
         <div className="col-9">
-          {relatedVisitorData ? <BehaviorTable data={relatedVisitorData?.toEventTable()} /> : null}
+          {relatedVisitorData ? (
+            <BehaviorTable data={relatedVisitorData?.toEventTable(props.integration)} />
+          ) : null}
         </div>
       </div>
     </div>

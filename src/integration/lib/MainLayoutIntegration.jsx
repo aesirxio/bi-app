@@ -20,6 +20,7 @@ import Spinner from 'components/Spinner';
 const DashboardPage = lazy(() => import('containers/Dashboard'));
 const Behavior = lazy(() => import('containers/Behavior'));
 const AudiencePage = lazy(() => import('containers/AudiencePage'));
+const FlowPage = lazy(() => import('containers/FlowDetailPage'));
 const SbarLeft = lazy(() => import('./SbarLeftIntegration'));
 const Header = lazy(() => import('components/Header'));
 
@@ -44,7 +45,9 @@ const MainLayoutIntegration = (props) => {
     </ThemesContextProvider>
   );
 };
-
+String.prototype.startsWith = function (str) {
+  return this.indexOf(str) === 0;
+};
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
     case 'dashboard':
@@ -58,7 +61,8 @@ const RenderComponent = ({ link, ...props }) => {
 
     case 'behavior-events':
       return <Behavior {...props} />;
-
+    case link.startsWith('flow') ? link : '':
+      return <FlowPage {...props} />;
     default:
       return <DashboardPage {...props} />;
   }

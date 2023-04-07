@@ -51,7 +51,7 @@ const mainRoutes = [
       '/:domain/behavior/utm-tracking',
       '/:domain/behavior/events',
     ],
-    // page: ['behavior-overview', 'behavior-click-anchor', 'behavior-utm-tracking', 'behavior-event'],
+    page: ['behavior-overview', 'behavior-click-anchor', 'behavior-utm-tracking', 'behavior-event'],
     exact: true,
     main: () => <BehaviorPage />,
   },

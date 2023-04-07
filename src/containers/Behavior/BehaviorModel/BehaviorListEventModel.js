@@ -151,7 +151,6 @@ class BehaviorEventModel {
   };
   handleChangeLink = (e, link) => {
     e.preventDefault();
-    console.log('link', link);
     if (link) {
       this.globalViewModel.setIntegrationLink(link);
     }

@@ -1,6 +1,6 @@
 import { runInAction } from 'mobx';
 
-import { AesirxBiApiService } from 'aesirx-dma-lib';
+import { AesirxBiApiService } from 'aesirx-lib';
 export class BehaviorStore {
   getVisitor = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {

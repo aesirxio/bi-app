@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Col, Row } from 'react-bootstrap';
 import ComponentCard from 'components/ComponentCard';
-import { BI_SUMMARY_FIELD_KEY } from 'aesirx-dma-lib';
+import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 import { observer } from 'mobx-react';
 import numberWithCommas from 'utils/formatNumber';
 import { withRouter } from 'react-router-dom';

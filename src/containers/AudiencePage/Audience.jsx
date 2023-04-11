@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import DateRangePicker from 'components/DateRangePicker';
 import OverviewComponent from 'containers/Dashboard/Component/Overview';
 import CardComponent from 'containers/Dashboard/Component/Card';
-import { BI_SUMMARY_FIELD_KEY } from 'aesirx-dma-lib';
+import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 import numberWithCommas from 'utils/formatNumber';
 import PAGE_STATUS from 'constants/PageStatus';
 import Spinner from 'components/Spinner';

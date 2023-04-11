@@ -15,7 +15,7 @@ import OverviewComponent from './Component/Overview';
 import { withDashboardViewModel } from './DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 import numberWithCommas from 'utils/formatNumber';
-import { BI_SUMMARY_FIELD_KEY } from 'aesirx-dma-lib';
+import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 import DateRangePicker from 'components/DateRangePicker';
 import { env } from 'env';
 

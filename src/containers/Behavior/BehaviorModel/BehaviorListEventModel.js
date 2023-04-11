@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import { BI_VISITOR_FIELD_KEY } from 'aesirx-dma-lib';
+import { BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 import { enumerateDaysBetweenDates } from 'utils/date';

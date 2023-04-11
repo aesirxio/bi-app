@@ -1,5 +1,5 @@
 import { runInAction } from 'mobx';
-import { AesirxBiApiService } from 'aesirx-dma-lib';
+import { AesirxBiApiService } from 'aesirx-lib';
 export class DashboardStore {
   getMetrics = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {

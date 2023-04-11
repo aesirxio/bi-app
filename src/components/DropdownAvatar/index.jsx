@@ -6,8 +6,8 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Dropdown } from 'react-bootstrap';
-import { Storage } from 'aesirx-dma-lib';
-import { AUTHORIZATION_KEY } from 'aesirx-dma-lib';
+import { Storage } from 'aesirx-lib';
+import { AUTHORIZATION_KEY } from 'aesirx-lib';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 

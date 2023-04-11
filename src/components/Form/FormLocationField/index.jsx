@@ -7,8 +7,8 @@ import React, { lazy, useEffect, useState } from 'react';
 
 import _ from 'lodash';
 
-import { AesirxFacebookDataApiService } from 'aesirx-dma-lib';
-import { AesirxGoogleDataApiService } from 'aesirx-dma-lib';
+import { AesirxFacebookDataApiService } from 'aesirx-lib';
+import { AesirxGoogleDataApiService } from 'aesirx-lib';
 
 const FormRadio = lazy(() => import('../FormRadio'));
 const SelectComponent = lazy(() => import('../../Select'));

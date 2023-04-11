@@ -12,7 +12,7 @@ import './index.scss';
 import { login } from '../../auth';
 import InputPassword from '../../components/inputPassword';
 // import ComponentImage from 'components/ComponentImage';
-// import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
+// import { AesirxAuthenticationApiService, Storage } from 'aesirx-lib';
 import Checkbox from 'components/Checkbox';
 import { env } from 'env';
 

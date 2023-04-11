@@ -21,22 +21,25 @@ class CountryModel {
   };
 
   toCountries = () => {
-    return this.data
-      ?.map((item) => {
-        return {
-          country: item[BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME],
-          country_code: item[BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE],
-          views: item[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
-          flag: `/assets/images/flags/flag-${item[
-            BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME
-          ]?.toLowerCase()}.png`,
-        };
-      })
-      ?.filter((item) => {
-        return item[BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE];
-      })
-      ?.sort((a, b) => b.views - a.views)
-      .slice(0, 10);
+    return (
+      this?.data?.length &&
+      this.data
+        .map((item) => {
+          return {
+            country: item[BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME],
+            country_code: item[BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE],
+            views: item[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
+            flag: `/assets/images/flags/flag-${item[
+              BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME
+            ]?.toLowerCase()}.png`,
+          };
+        })
+        ?.filter((item) => {
+          return item[BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE];
+        })
+        ?.sort((a, b) => b.views - a.views)
+        .slice(0, 10)
+    );
   };
 
   toCountriesTable = () => {

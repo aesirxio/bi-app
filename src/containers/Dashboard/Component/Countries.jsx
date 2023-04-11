@@ -36,7 +36,7 @@ const Countries = observer(
               <div className="d-flex align-items-center justify-content-between mb-24">
                 <h4 className="me-24 mb-0 text-blue-0 fw-semibold">{t('txt_Countries')}</h4>
                 <a
-                  className="fs-14 text-body"
+                  className="fs-14 text-body cursor-pointer"
                   onClick={() => {
                     this.props.history.push(
                       `${this.context.biListViewModel.activeDomain}/region-country`

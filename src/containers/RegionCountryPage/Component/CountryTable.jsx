@@ -1,7 +1,7 @@
 import Table from 'components/Table';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-const BehaviorTable = ({ data: { header = [], data = [] } }) => {
+const CountryTable = ({ data: { header = [], data = [] } }) => {
   const columnsTable = React.useMemo(
     () =>
       header.map((item, index) => ({
@@ -26,4 +26,4 @@ const BehaviorTable = ({ data: { header = [], data = [] } }) => {
     </div>
   );
 };
-export default withTranslation('common')(BehaviorTable);
+export default withTranslation('common')(CountryTable);

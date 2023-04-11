@@ -156,7 +156,7 @@ class BehaviorEventModel {
     }
   };
   toEventTable = (integration) => {
-    const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Start Date'];
+    const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Date'];
     const accessor = [
       BI_VISITOR_FIELD_KEY.EVENT_NAME,
       BI_VISITOR_FIELD_KEY.EVENT_TYPE,
@@ -208,7 +208,7 @@ class BehaviorEventModel {
             .map((i) => {
               if (i === BI_VISITOR_FIELD_KEY.START_DATE) {
                 return {
-                  [i]: moment(item[i]).format('DD-MM-YYYY'),
+                  [i]: moment(item[i]).format('DD-MM-YYYY HH:mm:ss'),
                 };
               } else {
                 return {
@@ -220,7 +220,9 @@ class BehaviorEventModel {
         };
       });
       data?.length &&
-        data?.sort((a, b) => moment(b.start, 'DD-MM-YYYY') - moment(a.start, 'DD-MM-YYYY'));
+        data?.sort(
+          (a, b) => moment(b.start, 'DD-MM-YYYY HH:mm:ss') - moment(a.start, 'DD-MM-YYYY HH:mm:ss')
+        );
       return {
         header,
         data: data,
@@ -370,7 +372,7 @@ class BehaviorEventModel {
       'Campaign Content',
       'URL',
       'Referer',
-      'Start Date',
+      'Date',
     ];
     const accessor = [
       BI_VISITOR_FIELD_KEY.FLOW_ID,
@@ -445,7 +447,7 @@ class BehaviorEventModel {
               .map((i) => {
                 if (i === BI_VISITOR_FIELD_KEY.START_DATE) {
                   return {
-                    [i]: moment(item[i]).format('DD-MM-YYYY'),
+                    [i]: moment(item[i]).format('DD-MM-YYYY HH:mm:ss'),
                   };
                 } else {
                   return {
@@ -461,7 +463,9 @@ class BehaviorEventModel {
         })
         .filter((i) => i);
       data?.length &&
-        data?.sort((a, b) => moment(b.start, 'DD-MM-YYYY') - moment(a.start, 'DD-MM-YYYY'));
+        data?.sort(
+          (a, b) => moment(b.start, 'DD-MM-YYYY HH:mm:ss') - moment(a.start, 'DD-MM-YYYY HH:mm:ss')
+        );
       return {
         header,
         data: data,

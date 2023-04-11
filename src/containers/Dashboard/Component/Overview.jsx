@@ -22,30 +22,29 @@ const OverviewComponent = observer(
       const { status } = this.dashboardListViewModel;
       return (
         <div className="position-relative h-100">
-          {this?.dashboardListViewModel?.visitorData && (
-            <AreaChartComponent
-              chartTitle={t('txt_menu_overview')}
-              height={390}
-              data={this?.dashboardListViewModel?.visitorData.toAreaChart()}
-              colors={['#1AB394']}
-              lineType="monotone"
-              areaColors={['#3BB346', 'pink']}
-              lineColors={['#0FC6C2', 'red']}
-              lines={['line']}
-              isDot
-              hiddenGrid={{ vertical: false }}
-              XAxisOptions={{ axisLine: true, padding: { left: 50, right: 50 } }}
-              defaultValue={{ label: 'Visitors', value: 'visitors' }}
-              options={[{ label: 'Visitors', value: 'visitors' }]}
-              loading={this.dashboardListViewModel.status}
-              tooltipComponent={{
-                header: t('txt_in_total'),
-                value: `visits:`,
-              }}
-              status={status}
-              filterData={this?.dashboardListViewModel?.visitorData.getFilterName()}
-            />
-          )}
+          <AreaChartComponent
+            chartTitle={t('txt_menu_overview')}
+            height={390}
+            data={this?.dashboardListViewModel?.visitorData?.toAreaChart()}
+            colors={['#1AB394']}
+            lineType="monotone"
+            areaColors={['#3BB346', 'pink']}
+            lineColors={['#0FC6C2', 'red']}
+            lines={['line']}
+            isDot
+            hiddenGrid={{ vertical: false }}
+            XAxisOptions={{ axisLine: true, padding: { left: 50, right: 50 } }}
+            defaultValue={{ label: 'Visitors', value: 'visitors' }}
+            options={[{ label: 'Visitors', value: 'visitors' }]}
+            loading={this.dashboardListViewModel.status}
+            tooltipComponent={{
+              header: t('txt_in_total'),
+              value: `visits:`,
+            }}
+            status={status}
+            filterData={this?.dashboardListViewModel?.visitorData?.getFilterName()}
+            isSelection={this.props.isSelection}
+          />
         </div>
       );
     }

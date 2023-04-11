@@ -289,28 +289,24 @@ const Table = ({
             )}
             {[...Array(pageOptions.length)].map((x, index) => {
               return (
-                <>
-                  {index !== 0 &&
-                    index !== pageOptions.length - 1 &&
-                    index < pageIndex + 3 &&
-                    index > pageIndex - 3 && (
-                      <button
-                        onClick={() => gotoPage(index)}
-                        key={index}
-                        className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
-                          pageIndex + 1 === index + 1
-                            ? 'bg-gray-900 text-white'
-                            : 'bg-white text-body'
-                        }`}
-                        style={{
-                          width: '38px',
-                          height: '38px',
-                        }}
-                      >
-                        {index + 1}
-                      </button>
-                    )}
-                </>
+                index !== 0 &&
+                index !== pageOptions.length - 1 &&
+                index < pageIndex + 3 &&
+                index > pageIndex - 3 && (
+                  <button
+                    onClick={() => gotoPage(index)}
+                    key={index}
+                    className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
+                      pageIndex + 1 === index + 1 ? 'bg-gray-900 text-white' : 'bg-white text-body'
+                    }`}
+                    style={{
+                      width: '38px',
+                      height: '38px',
+                    }}
+                  >
+                    {index + 1}
+                  </button>
+                )
               );
             })}
             {pageIndex < pageOptions.length - 4 && (

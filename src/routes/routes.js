@@ -58,6 +58,7 @@ const mainRoutes = [
   {
     path: ['/:domain/flow/:uuid'],
     exact: true,
+    page: ['flow/:uuid'],
     main: () => <FlowPage />,
   },
   {

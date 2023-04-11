@@ -85,13 +85,30 @@ const Dashboard = observer(
           isIncrease: false,
           loading: this.dashboardListViewModel.status,
           options: [
-            { label: t('txt_all'), value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS },
+            {
+              label: t('txt_all'),
+              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+              actualValue: numberWithCommas(
+                this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+              ),
+            },
             {
               label: t('txt_unique'),
               value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
+              actualValue: numberWithCommas(
+                this.dashboardListViewModel.summaryData?.[
+                  BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+                ]
+              ),
             },
           ],
-          defaultValue: { label: t('txt_all'), value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS },
+          defaultValue: {
+            label: t('txt_all'),
+            value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+            actualValue: numberWithCommas(
+              this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+            ),
+          },
         },
         {
           className: 'col-3',

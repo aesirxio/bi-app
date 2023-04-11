@@ -1,10 +1,10 @@
 import { runInAction } from 'mobx';
 import { AesirxBiApiService } from 'aesirx-dma-lib';
 export class DashboardStore {
-  getSummary = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
+  getMetrics = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
-      const responsedDataFromLibary = await biService.getSummary(dataFilter, dateFilter);
+      const responsedDataFromLibary = await biService.getMetrics(dataFilter, dateFilter);
       if (responsedDataFromLibary) {
         runInAction(() => {
           callbackOnSuccess(responsedDataFromLibary);

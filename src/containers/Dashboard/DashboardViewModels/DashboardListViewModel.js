@@ -21,15 +21,15 @@ class DashboardListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
-    this.getSummary(dataFilter, dateFilter);
+    this.getMetrics(dataFilter, dateFilter);
     this.getVisitors(dataFilter, dateFilter);
   };
 
-  getSummary = (dataFilter, dateFilter) => {
+  getMetrics = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
-    this.dashboardStore.getSummary(
+    this.dashboardStore.getMetrics(
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnSummaryDataSuccessHandler,
@@ -54,7 +54,7 @@ class DashboardListViewModel {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    this.dashboardStore.getSummary(
+    this.dashboardStore.getMetrics(
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
@@ -79,7 +79,7 @@ class DashboardListViewModel {
   callbackOnSummaryDataSuccessHandler = (data) => {
     if (data) {
       this.status = PAGE_STATUS.READY;
-      this.summaryData = data.list?.[0] ?? [];
+      this.summaryData = data;
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];

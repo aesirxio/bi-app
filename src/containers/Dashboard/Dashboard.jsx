@@ -71,8 +71,8 @@ const Dashboard = observer(
           ),
           isIncrease: true,
           loading: this.dashboardListViewModel.status,
-          options: [{ label: t('txt_all_users'), value: 'all-user' }],
-          defaultValue: { label: t('txt_all_users'), value: 'all-user' },
+          // options: [{ label: t('txt_all_users'), value: 'all-user' }],
+          // defaultValue: { label: t('txt_all_users'), value: 'all-user' },
         },
         {
           className: 'col-3',

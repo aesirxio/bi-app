@@ -60,27 +60,6 @@ const AudiencePage = observer(
           ),
           isIncrease: true,
           loading: this.dashboardListViewModel.status,
-          options: [{ label: t('txt_all_users'), value: 'all-user' }],
-          defaultValue: { label: t('txt_all_users'), value: 'all-user' },
-        },
-        {
-          className: 'col-3',
-          title: t('txt_page_views'),
-          icon: env.PUBLIC_URL + '/assets/images/view.svg',
-          iconColor: '#2E71B1',
-          value: numberWithCommas(
-            this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-          ),
-          isIncrease: false,
-          loading: this.dashboardListViewModel.status,
-          options: [
-            { label: t('txt_all'), value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS },
-            {
-              label: t('txt_unique'),
-              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
-            },
-          ],
-          defaultValue: { label: t('txt_all'), value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS },
         },
         {
           className: 'col-3',
@@ -135,7 +114,7 @@ const AudiencePage = observer(
 
           <Row className="mb-24">
             <Col lg={9}>
-              <OverviewComponent />
+              <OverviewComponent isSelection={false} />
             </Col>
           </Row>
           <Row>

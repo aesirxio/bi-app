@@ -36,6 +36,7 @@ const AreaChartComponent = ({
   tooltipComponent,
   filterData = [],
   isLegend,
+  isSelection = true,
 }) => {
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
   const [currentData, setCurrentData] = useState(data[0]);
@@ -107,7 +108,7 @@ const AreaChartComponent = ({
         onSelectionChange={setCurrentSelection}
         selectionData={filterData}
         chartTitle={chartTitle}
-        isSelection={true}
+        isSelection={isSelection}
         isFilterButtons={true}
         view={view}
         setView={setView}

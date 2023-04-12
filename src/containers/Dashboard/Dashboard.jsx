@@ -18,6 +18,8 @@ import numberWithCommas from 'utils/formatNumber';
 import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 import DateRangePicker from 'components/DateRangePicker';
 import { env } from 'env';
+import { Col, Row } from 'react-bootstrap';
+import Countries from './Component/Countries';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -160,6 +162,13 @@ const Dashboard = observer(
               <OverviewComponent />
             </div>
           </div>
+          <Row className="my-24 pb-24">
+            <Col lg={6}>
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <Countries />
+              </div>
+            </Col>
+          </Row>
         </div>
       );
     }

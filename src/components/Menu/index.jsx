@@ -15,12 +15,6 @@ import ComponentImage from 'components/ComponentImage';
 
 const dataMenuSetup = [
   // {
-  //   text: 'txt_menu_region',
-  //   link: '/region-country',
-  //   icons: '/assets/images/region-country.svg',
-  //   icons_color: '/assets/images/region-country.svg',
-  // },
-  // {
   //   text: 'txt_menu_setting',
   //   link: '/setting',
   //   icons: '/assets/images/setting.svg',
@@ -103,6 +97,12 @@ const Menu = observer((props) => {
           link: `/${dataStreamActive}/behavior/events`,
         },
       ],
+    },
+    {
+      text: 'txt_menu_region',
+      link: `/${dataStreamActive}/region-country`,
+      icons: '/assets/images/region-country.svg',
+      icons_color: '/assets/images/region-country.svg',
     },
     // {
     //   text: 'txt_menu_revenue',

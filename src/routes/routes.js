@@ -82,7 +82,7 @@ const mainRoutes = [
     main: () => <SettingPage />,
   },
   {
-    path: '/region-country',
+    path: '/:domain/region-country',
     exact: true,
     main: () => <RegionCountryPage />,
   },

@@ -1,11 +1,15 @@
 import { csv } from 'd3-fetch';
 import React, { useEffect, useState } from 'react';
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
+import { Tooltip } from 'react-tooltip';
+import './index.scss';
 
 const GeoChart = (props) => {
-  const geoUrl =
-    `/assets/data/continents/${props.continent}.json` ?? '/assets/data/continents/world.json';
+  const geoUrl = props.continent
+    ? `/assets/data/continents/${props.continent}.json`
+    : '/assets/data/continents/world.json';
   const [markers, setMarkers] = useState([]);
+  const [tooltipContent, setTooltipContent] = useState('');
   const configContinent = {
     asia: {
       center: [90, 25],
@@ -31,11 +35,18 @@ const GeoChart = (props) => {
       center: [150, -30],
       scale: 600,
     },
+    world: {
+      center: [20, 0],
+      scale: 0,
+    },
   };
+  const { markerSize = { dot: 8, circle: 40 } } = props;
   useEffect(() => {
     csv('/assets/data/countries.csv').then((cities) => {
-      const markerList = props.data.map((item) => {
+      const markerList = props.data?.map((item) => {
         return {
+          country: item.country,
+          views: item.views,
           country_code: item.country_code,
           coordinates: [
             cities?.find((x) => x.country === item.country_code)?.longitude,
@@ -52,21 +63,36 @@ const GeoChart = (props) => {
       <ComposableMap
         projection="geoEqualEarth"
         projectionConfig={props.continent && configContinent[props.continent]}
+        width={800}
+        height={500}
       >
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
-            geographies.map((geo) => (
+            geographies?.map((geo) => (
               <Geography key={geo.rsmKey} geography={geo} fill="#EAEAEC" stroke="#D6D6DA" />
             ))
           }
         </Geographies>
-        {markers.map(({ country_code, coordinates }) => (
-          <Marker key={country_code} coordinates={coordinates}>
-            <circle r={8} fill="#1AB394" />
-            <circle r={40} fill="#1AB39433" stroke="#1AB394" strokeWidth={1} />
+        {markers?.map(({ country_code, views, country, coordinates }) => (
+          <Marker
+            key={country_code}
+            coordinates={coordinates}
+            onMouseEnter={() => {
+              setTooltipContent(`${country}: ${views}`);
+            }}
+            onMouseLeave={() => {
+              setTooltipContent('');
+            }}
+            data-tooltip-id="markerTooltip"
+            data-tooltip-content={tooltipContent}
+            data-tooltip-place="top"
+          >
+            <circle r={markerSize.dot} fill="#1AB394" />
+            <circle r={markerSize.circle} fill="#1AB39433" stroke="#1AB394" strokeWidth={1} />\
           </Marker>
         ))}
       </ComposableMap>
+      <Tooltip id="markerTooltip" />
     </>
   );
 };

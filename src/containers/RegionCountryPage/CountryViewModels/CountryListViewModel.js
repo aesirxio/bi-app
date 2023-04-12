@@ -7,15 +7,13 @@ import { notify } from 'components/Toast';
 import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
-import DashboardModel from '../DashboardModel/DashboardModel';
-import CountryModel from 'containers/RegionCountryPage/CountryModel/CountryModel';
-class DashboardListViewModel {
+import CountryModel from '../CountryModel/CountryModel';
+class CountryListViewModel {
   dashboardStore = null;
   status = PAGE_STATUS.READY;
   globalStoreViewModel = null;
-  summaryData = null;
-  visitorData = null;
   countriesData = null;
+  countriesTableData = null;
   constructor(dashboardStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.dashboardStore = dashboardStore;
@@ -23,34 +21,7 @@ class DashboardListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
-    this.getMetrics(dataFilter, dateFilter);
-    this.getVisitors(dataFilter, dateFilter);
     this.getCountries(dataFilter, dateFilter);
-  };
-
-  getMetrics = (dataFilter, dateFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
-    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
-    this.dashboardStore.getMetrics(
-      this.dataFilter,
-      dateRangeFilter,
-      this.callbackOnSummaryDataSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-  };
-
-  getVisitors = (dataFilter, dateFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
-    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
-
-    this.dashboardStore.getVisitors(
-      this.dataFilter,
-      dateRangeFilter,
-      this.callbackOnVisitorSuccessHandler,
-      this.callbackOnErrorHandler
-    );
   };
 
   getCountries = (dataFilter, dateFilter) => {
@@ -92,31 +63,12 @@ class DashboardListViewModel {
     notify(error.message, 'error');
   };
 
-  callbackOnSummaryDataSuccessHandler = (data) => {
-    if (data) {
-      this.status = PAGE_STATUS.READY;
-      this.summaryData = data;
-    } else {
-      this.status = PAGE_STATUS.ERROR;
-      this.data = [];
-    }
-  };
-  callbackOnVisitorSuccessHandler = (data) => {
-    if (data) {
-      this.status = PAGE_STATUS.READY;
-      const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
-      this.visitorData = transformData;
-    } else {
-      this.status = PAGE_STATUS.ERROR;
-      this.data = [];
-    }
-  };
-
   callbackOnCountriesSuccessHandler = (data) => {
     if (data) {
       this.status = PAGE_STATUS.READY;
       const transformData = new CountryModel(data, this.globalStoreViewModel);
       this.countriesData = transformData.toCountries();
+      this.countriesTableData = transformData.toCountriesTable();
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];
@@ -124,4 +76,4 @@ class DashboardListViewModel {
   };
 }
 
-export default DashboardListViewModel;
+export default CountryListViewModel;

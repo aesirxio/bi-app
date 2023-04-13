@@ -21,6 +21,7 @@ const DashboardPage = lazy(() => import('containers/Dashboard'));
 const Behavior = lazy(() => import('containers/Behavior'));
 const AudiencePage = lazy(() => import('containers/AudiencePage'));
 const FlowPage = lazy(() => import('containers/FlowDetailPage'));
+const RegionCountryPage = lazy(() => import('containers/RegionCountryPage'));
 const SbarLeft = lazy(() => import('./SbarLeftIntegration'));
 const Header = lazy(() => import('components/Header'));
 
@@ -61,6 +62,10 @@ const RenderComponent = ({ link, ...props }) => {
 
     case 'behavior-events':
       return <Behavior {...props} />;
+
+    case 'region-country':
+      return <RegionCountryPage {...props} />;
+
     case link.startsWith('flow') ? link : '':
       return <FlowPage {...props} />;
     default:

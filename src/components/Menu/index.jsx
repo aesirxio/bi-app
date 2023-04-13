@@ -101,8 +101,8 @@ const Menu = observer((props) => {
     {
       text: 'txt_menu_region',
       link: `/${dataStreamActive}/region-country`,
-      icons: '/assets/images/region-country.svg',
-      icons_color: '/assets/images/region-country.svg',
+      icons: env.PUBLIC_URL + '/assets/images/region-country.svg',
+      icons_color: env.PUBLIC_URL + '/assets/images/region-country.svg',
     },
     // {
     //   text: 'txt_menu_revenue',

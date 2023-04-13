@@ -115,6 +115,13 @@ const SbarLeftIntegration = observer(() => {
         },
       ],
     },
+    {
+      text: 'txt_menu_region',
+      link: `/${dataStreamActive}/region-country`,
+      icons: env.PUBLIC_URL + '/assets/images/region-country.svg',
+      icons_color: env.PUBLIC_URL + '/assets/images/region-country.svg',
+      page: 'region-country',
+    },
     // {
     //   text: 'txt_menu_revenue',
     //   link: `${dataStreamActive}/revenue`,

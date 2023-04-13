@@ -114,9 +114,9 @@ class DashboardListViewModel {
 
   callbackOnCountriesSuccessHandler = (data) => {
     if (data) {
-      this.status = PAGE_STATUS.READY;
       const transformData = new CountryModel(data, this.globalStoreViewModel);
       this.countriesData = transformData.toCountries();
+      this.status = PAGE_STATUS.READY;
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];

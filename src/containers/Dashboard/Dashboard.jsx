@@ -64,7 +64,7 @@ const Dashboard = observer(
       const { t } = this.props;
       return [
         {
-          className: 'col-3',
+          className: 'col-lg-3 mb-2 mb-lg-0',
           title: t('txt_visitors'),
           icon: env.PUBLIC_URL + '/assets/images/visitor.svg',
           iconColor: '#1AB394',
@@ -77,7 +77,7 @@ const Dashboard = observer(
           // defaultValue: { label: t('txt_all_users'), value: 'all-user' },
         },
         {
-          className: 'col-3',
+          className: 'col-lg-3 mb-2 mb-lg-0',
           title: t('txt_page_views'),
           icon: env.PUBLIC_URL + '/assets/images/view.svg',
           iconColor: '#2E71B1',
@@ -113,7 +113,7 @@ const Dashboard = observer(
           },
         },
         {
-          className: 'col-3',
+          className: 'col-lg-3 mb-2 mb-lg-0',
           title: t('txt_acg_session_duration'),
           icon: env.PUBLIC_URL + '/assets/images/duration.svg',
           iconColor: '#EF3737',
@@ -127,7 +127,7 @@ const Dashboard = observer(
           loading: this.dashboardListViewModel.status,
         },
         {
-          className: 'col-3',
+          className: 'col-lg-3 mb-2 mb-lg-0',
           title: t('txt_page_session'),
           icon: env.PUBLIC_URL + '/assets/images/page.svg',
           iconColor: '#FFBE55',
@@ -165,7 +165,7 @@ const Dashboard = observer(
           <Row className="my-24 pb-24">
             <Col lg={6}>
               <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
-                <Countries />
+                <Countries {...this.props} />
               </div>
             </Col>
           </Row>

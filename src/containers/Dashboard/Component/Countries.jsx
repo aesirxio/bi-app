@@ -38,9 +38,13 @@ const Countries = observer(
                 <a
                   className="fs-14 text-body cursor-pointer"
                   onClick={() => {
-                    this.props.history.push(
-                      `${this.context.biListViewModel.activeDomain}/region-country`
-                    );
+                    if (this.props.integration) {
+                      this.context.biListViewModel.setIntegrationLink(`region-country`);
+                    } else {
+                      this.props.history.push(
+                        `${this.context.biListViewModel.activeDomain}/region-country`
+                      );
+                    }
                   }}
                 >
                   <span className="pe-1 text-color">{t('txt_view_more')}</span>

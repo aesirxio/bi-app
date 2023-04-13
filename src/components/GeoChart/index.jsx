@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
 import { Tooltip } from 'react-tooltip';
 import './index.scss';
+import { env } from 'env';
 
 const GeoChart = (props) => {
   const geoUrl = props.continent
-    ? `/assets/data/continents/${props.continent}.json`
-    : '/assets/data/continents/world.json';
+    ? env.PUBLIC_URL + `/assets/data/continents/${props.continent}.json`
+    : env.PUBLIC_URL + '/assets/data/continents/world.json';
   const [markers, setMarkers] = useState([]);
   const [tooltipContent, setTooltipContent] = useState('');
   const configContinent = {
@@ -42,7 +43,7 @@ const GeoChart = (props) => {
   };
   const { markerSize = { dot: 8, circle: 40 } } = props;
   useEffect(() => {
-    csv('/assets/data/countries.csv').then((cities) => {
+    csv(env.PUBLIC_URL + '/assets/data/countries.csv').then((cities) => {
       const markerList = props.data?.map((item) => {
         return {
           country: item.country,

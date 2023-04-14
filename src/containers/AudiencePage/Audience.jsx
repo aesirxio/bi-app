@@ -14,6 +14,7 @@ import { withRouter } from 'react-router-dom';
 import { withDashboardViewModel } from 'containers/Dashboard/DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 import { env } from 'env';
+import moment from 'moment';
 
 const AudiencePage = observer(
   class AudiencePage extends Component {
@@ -51,7 +52,7 @@ const AudiencePage = observer(
       const { t } = this.props;
       return [
         {
-          className: 'col-3',
+          className: 'col-12 mb-24',
           title: t('txt_visitors'),
           icon: env.PUBLIC_URL + '/assets/images/visitor.svg',
           iconColor: '#1AB394',
@@ -62,21 +63,27 @@ const AudiencePage = observer(
           loading: this.dashboardListViewModel.status,
         },
         {
-          className: 'col-3',
+          className: 'col-12 mb-24',
           title: t('txt_acg_session_duration'),
           icon: env.PUBLIC_URL + '/assets/images/duration.svg',
           iconColor: '#EF3737',
           value:
-            numberWithCommas(
-              this.dashboardListViewModel?.summaryData?.[
-                BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
-              ]
-            ) + 's',
+            (this.dashboardListViewModel?.summaryData?.[
+              BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+            ]
+              ? moment
+                  .utc(
+                    this.dashboardListViewModel?.summaryData?.[
+                      BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+                    ] * 1000
+                  )
+                  .format('HH:mm:ss')
+              : '00:00:00') + 's',
           isIncrease: false,
           loading: this.dashboardListViewModel.status,
         },
         {
-          className: 'col-3',
+          className: 'col-12',
           title: t('txt_page_session'),
           icon: env.PUBLIC_URL + '/assets/images/page.svg',
           iconColor: '#FFBE55',
@@ -116,9 +123,7 @@ const AudiencePage = observer(
             <Col lg={9}>
               <OverviewComponent isSelection={false} />
             </Col>
-          </Row>
-          <Row>
-            <Col lg={9}>
+            <Col lg={3}>
               <CardComponent data={card ?? []} />
             </Col>
           </Row>

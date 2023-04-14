@@ -12,7 +12,7 @@ const CardComponent = observer(
 
     render() {
       return (
-        <div className="row gx-24 mb-24">
+        <div className="row gx-24">
           {this.props.data.length > 0
             ? this.props.data.map((item, index) => (
                 <div className={item.className} key={index}>

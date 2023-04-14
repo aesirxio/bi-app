@@ -157,7 +157,7 @@ const Dashboard = observer(
             </div>
           </div>
           <CardComponent data={card ?? []} />
-          <div className="row">
+          <div className="row mt-24">
             <div className="col-12">
               <OverviewComponent />
             </div>

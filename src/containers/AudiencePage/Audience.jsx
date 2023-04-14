@@ -51,7 +51,7 @@ const AudiencePage = observer(
       const { t } = this.props;
       return [
         {
-          className: 'col-3',
+          className: 'col-12 mb-24',
           title: t('txt_visitors'),
           icon: env.PUBLIC_URL + '/assets/images/visitor.svg',
           iconColor: '#1AB394',
@@ -62,7 +62,7 @@ const AudiencePage = observer(
           loading: this.dashboardListViewModel.status,
         },
         {
-          className: 'col-3',
+          className: 'col-12 mb-24',
           title: t('txt_acg_session_duration'),
           icon: env.PUBLIC_URL + '/assets/images/duration.svg',
           iconColor: '#EF3737',
@@ -76,7 +76,7 @@ const AudiencePage = observer(
           loading: this.dashboardListViewModel.status,
         },
         {
-          className: 'col-3',
+          className: 'col-12',
           title: t('txt_page_session'),
           icon: env.PUBLIC_URL + '/assets/images/page.svg',
           iconColor: '#FFBE55',
@@ -116,9 +116,7 @@ const AudiencePage = observer(
             <Col lg={9}>
               <OverviewComponent isSelection={false} />
             </Col>
-          </Row>
-          <Row>
-            <Col lg={9}>
+            <Col lg={3}>
               <CardComponent data={card ?? []} />
             </Col>
           </Row>

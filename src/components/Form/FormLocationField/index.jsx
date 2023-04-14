@@ -7,9 +7,6 @@ import React, { lazy, useEffect, useState } from 'react';
 
 import _ from 'lodash';
 
-import { AesirxFacebookDataApiService } from 'aesirx-lib';
-import { AesirxGoogleDataApiService } from 'aesirx-lib';
-
 const FormRadio = lazy(() => import('../FormRadio'));
 const SelectComponent = lazy(() => import('../../Select'));
 
@@ -35,29 +32,6 @@ const FormLocationField = ({ field, validator }) => {
     },
   });
 
-  // GET DATA FACEBOOKADS
-  const fetchSearchLocationFromFacebookData = async (inputValue) => {
-    if (inputValue.length > 3) {
-      const facebookDataAPIService = new AesirxFacebookDataApiService();
-      let response = await facebookDataAPIService.getLocationsFromFacebookData(inputValue);
-
-      return filterLocation(inputValue, response?.data);
-    }
-
-    return [];
-  };
-
-  // GET DATA GOOGLEADS
-  const fetchSearchLocationFromGoggleData = async (inputValue) => {
-    if (inputValue.length > 3) {
-      const googleDataAPIService = new AesirxGoogleDataApiService();
-      let response = await googleDataAPIService.getSearchLocationFromGoogleData(inputValue);
-      return filterLocation(inputValue, response?.google_ad_user_locations);
-    }
-
-    return [];
-  };
-
   useEffect(() => {
     return () => {};
   }, []);
@@ -72,13 +46,6 @@ const FormLocationField = ({ field, validator }) => {
           }))
       : [];
   };
-
-  const debouncedChangeHandler = _.throttle(
-    field.name === 'googleads'
-      ? fetchSearchLocationFromGoggleData
-      : fetchSearchLocationFromFacebookData,
-    500
-  );
 
   if (!locations) {
     return null;
@@ -98,7 +65,6 @@ const FormLocationField = ({ field, validator }) => {
             plColor="rgba(8, 18, 64, 0.8)"
             isMulti={field.isMulti ?? false}
             async={true}
-            loadOptions={debouncedChangeHandler}
             cacheOptions
           />
           {field.validation &&

@@ -185,5 +185,12 @@
   "txt_warning": "คำเตือน",
   "txt_successful": "ประสบความสำเร็จ",
   "txt_error": "ข้อผิดพลาด",
-  "txt_number": "Quantity"
+  "txt_number": "ปริมาณ",
+  "txt_visitor_flow": "การไหลของผู้เข้าชม",
+  "txt_domain": "โดเมน",
+  "txt_location": "ที่ตั้ง",
+  "txt_duration": "ระยะเวลา",
+  "txt_ip": "IP",
+  "txt_device": "อุปกรณ์",
+  "txt_browser": "เบราว์เซอร์"
 }

@@ -14,6 +14,7 @@ import { withRouter } from 'react-router-dom';
 import { withDashboardViewModel } from 'containers/Dashboard/DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 import { env } from 'env';
+import moment from 'moment';
 
 const AudiencePage = observer(
   class AudiencePage extends Component {
@@ -67,11 +68,17 @@ const AudiencePage = observer(
           icon: env.PUBLIC_URL + '/assets/images/duration.svg',
           iconColor: '#EF3737',
           value:
-            numberWithCommas(
-              this.dashboardListViewModel?.summaryData?.[
-                BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
-              ]
-            ) + 's',
+            (this.dashboardListViewModel?.summaryData?.[
+              BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+            ]
+              ? moment
+                  .utc(
+                    this.dashboardListViewModel?.summaryData?.[
+                      BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+                    ] * 1000
+                  )
+                  .format('HH:mm:ss')
+              : '00:00:00') + 's',
           isIncrease: false,
           loading: this.dashboardListViewModel.status,
         },

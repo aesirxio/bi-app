@@ -10,10 +10,9 @@ import SimpleReactValidator from 'simple-react-validator';
 import './index.scss';
 
 import { login } from '../../auth';
-import InputPassword from '../../components/inputPassword';
-// import ComponentImage from 'components/ComponentImage';
-// import { AesirxAuthenticationApiService, Storage } from 'aesirx-lib';
-import Checkbox from 'components/Checkbox';
+import { InputPassword } from 'aesirx-uikit';
+
+import { Checkbox } from 'aesirx-uikit';
 import { env } from 'env';
 
 class LoginPage extends React.Component {

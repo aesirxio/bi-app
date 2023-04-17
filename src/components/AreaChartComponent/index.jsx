@@ -15,7 +15,7 @@ import {
   Legend,
   // Brush,
 } from 'recharts';
-import RingLoaderComponent from 'components/Spinner/ringLoader';
+import { RingLoaderComponent } from 'aesirx-uikit';
 import CHART_TYPE from 'constants/ChartType';
 import { env } from 'env';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';

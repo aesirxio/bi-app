@@ -11,7 +11,7 @@ import { Collapse, Button } from 'react-bootstrap';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react-lite';
 import { env } from 'env';
-import ComponentImage from 'components/ComponentImage';
+import { Image } from 'aesirx-uikit';
 
 const dataMenuSetup = [
   // {
@@ -146,7 +146,7 @@ const Menu = observer((props) => {
     <>
       <div className="wrapper_header_logo d-xl-none d-flex bg-dark w-248 h-80 align-items-center">
         <a href={window.location.href} className={`header_logo d-block mx-auto`}>
-          <ComponentImage
+          <Image
             className={`logo_white pe-0 `}
             src={`${env.PUBLIC_URL + '/assets/images/logo/logo-white-mini.svg'}`}
             alt="R Digital"

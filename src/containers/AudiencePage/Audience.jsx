@@ -8,7 +8,7 @@ import OverviewComponent from 'containers/Dashboard/Component/Overview';
 import CardComponent from 'containers/Dashboard/Component/Card';
 import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import PAGE_STATUS from 'constants/PageStatus';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import { withRouter } from 'react-router-dom';
 import { withDashboardViewModel } from 'containers/Dashboard/DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';

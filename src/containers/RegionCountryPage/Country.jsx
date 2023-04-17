@@ -8,7 +8,7 @@ import GeoChart from 'components/GeoChart';
 import { Col, Row } from 'react-bootstrap';
 import DateRangePicker from 'components/DateRangePicker';
 import PAGE_STATUS from 'constants/PageStatus';
-import RingLoaderComponent from 'components/Spinner/ringLoader';
+import { RingLoaderComponent } from 'aesirx-uikit';
 import CountryTable from './Component/CountryTable';
 import ComponentNoData from 'components/ComponentNoData';
 import { env } from 'env';

@@ -1,5 +1,5 @@
 import { hexToRGB } from 'components/ComponentCard';
-import PulseLoaderComponent from 'components/Spinner/pulseLoader';
+import { PulseLoaderComponent } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import React from 'react';
 

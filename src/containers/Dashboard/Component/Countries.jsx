@@ -6,7 +6,7 @@ import { withDashboardViewModel } from 'containers/Dashboard/DashboardViewModels
 import GeoChart from 'components/GeoChart';
 import { Col, Row } from 'react-bootstrap';
 import PAGE_STATUS from 'constants/PageStatus';
-import RingLoaderComponent from 'components/Spinner/ringLoader';
+import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from 'components/ComponentNoData';
 import { env } from 'env';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';

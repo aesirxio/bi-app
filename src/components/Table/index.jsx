@@ -11,7 +11,8 @@ import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { env } from 'env';
-import Select from 'components/Select';
+import { AesirXSelect } from 'aesirx-uikit';
+
 const Table = ({
   columns,
   data,
@@ -230,7 +231,7 @@ const Table = ({
         <div className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
             <span className="text-gray-600 me-16">Showing</span>
-            <Select
+            <AesirXSelect
               isClearable={false}
               isSearchable={false}
               isBorder={false}

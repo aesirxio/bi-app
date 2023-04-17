@@ -6,7 +6,7 @@ import ComponentDatePicker from 'components/ComponentDatePicker';
 import ComponentSVG from 'components/ComponentSVG';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
-import SelectComponent from 'components/Select';
+import { AesirXSelect } from 'aesirx-uikit';
 import { env } from 'env';
 
 const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) => {
@@ -18,7 +18,7 @@ const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) 
       {isSearch && <SearchComponent />}
       {isAction && (
         <div className="border-end-1">
-          <SelectComponent
+          <AesirXSelect
             defaultValue={[{ label: 'Select an action', value: 'all' }]}
             options={[{ label: 'Select an action', value: 'all' }]}
             className={`fs-14 fw-semibold h-100 py-sm`}
@@ -43,7 +43,7 @@ const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) 
       )}
       {isContinent && (
         <div className="border-end-1">
-          <SelectComponent
+          <AesirXSelect
             options={[{ label: 'Select an action', value: 'all' }]}
             className={`fs-14 fw-semibold h-100 py-sm`}
             isBorder={false}
@@ -54,7 +54,7 @@ const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) 
       )}
       {isContinent && (
         <div className="border-end-1">
-          <SelectComponent
+          <AesirXSelect
             options={[{ label: 'Select an action', value: 'all' }]}
             className={`fs-14 fw-semibold h-100 py-sm`}
             isBorder={false}
@@ -65,7 +65,7 @@ const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) 
       )}
       {isContinent && (
         <div className="border-end-1">
-          <SelectComponent
+          <AesirXSelect
             options={[{ label: 'Select an action', value: 'all' }]}
             className={`fs-14 fw-semibold h-100 py-sm`}
             isBorder={false}
@@ -76,7 +76,7 @@ const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) 
       )}
       {isContinent && (
         <div className="border-end-1">
-          <SelectComponent
+          <AesirXSelect
             options={[{ label: 'Select an action', value: 'all' }]}
             className={`fs-14 fw-semibold h-100 py-sm`}
             isBorder={false}

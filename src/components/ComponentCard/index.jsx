@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
-import SelectComponent from 'components/Select';
-import PulseLoaderComponent from 'components/Spinner/pulseLoader';
+import { AesirXSelect } from 'aesirx-uikit';
+import { PulseLoaderComponent } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { env } from 'env';
 const ComponentCard = ({
@@ -50,7 +50,7 @@ const ComponentCard = ({
           <h6 className="mb-0 fw-semibold text-blue-0">{title}</h6>
         </div>
         {options && (
-          <SelectComponent
+          <AesirXSelect
             value={defaultFilter}
             options={options}
             className={`fs-sm`}

@@ -2978,9 +2978,9 @@ aesirx-analytics@^1.0.4:
     bowser "^2.11.0"
     query-string "^7.1.1"
 
-aesirx-lib@^1.9.1, "aesirx-lib@https://gitpkg.now.sh/aesirxio/aesirx-lib?develop&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
+aesirx-lib@^1.9.1, "aesirx-lib@https://gitpkg.now.sh/aesirxio/aesirx-lib?7a2423821e354d517f8aebb9055ba34f15563368&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
   version "1.9.1"
-  resolved "https://gitpkg.now.sh/aesirxio/aesirx-lib?develop&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#b931a09f0ebd4033173f7c13084eb8801ac11e427d7963a663543c00a88835431530056d2a60978fef14c201d6299f1fe3d9387b6147452817cfd9e65d53182a"
+  resolved "https://gitpkg.now.sh/aesirxio/aesirx-lib?7a2423821e354d517f8aebb9055ba34f15563368&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#41f95d30045cf05249c8ce3179b098b89410a773"
   dependencies:
     axios "^1.3.4"
     axios-auth-refresh "^3.0.0"
@@ -2990,9 +2990,9 @@ aesirx-lib@^1.9.1, "aesirx-lib@https://gitpkg.now.sh/aesirxio/aesirx-lib?develop
     moment "^2.29.4"
     query-string "^8.1.0"
 
-"aesirx-uikit@https://gitpkg.now.sh/aesirxio/aesirx-uikit?develop&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
+"aesirx-uikit@https://gitpkg.now.sh/aesirxio/aesirx-uikit?35c0404af62c7043dc30d23e3d0c7a8431d3e108&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
   version "1.0.0"
-  resolved "https://gitpkg.now.sh/aesirxio/aesirx-uikit?develop&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#fb5eb4544faf4e40b60aed0ded3baabd7e1772f01060c634adbb3c541e99d2645273f4ddd872ee12271b88fa6db0599e0349dff21bb7e4eeac8d8b520b0db109"
+  resolved "https://gitpkg.now.sh/aesirxio/aesirx-uikit?35c0404af62c7043dc30d23e3d0c7a8431d3e108&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#ac74dda75d6e3f13078c86c2a23e1c6dc871f4d3"
   dependencies:
     "@fortawesome/free-solid-svg-icons" "^6.4.0"
     "@fortawesome/react-fontawesome" "^0.2.0"

@@ -1,4 +1,4 @@
-name: Format
+name: Test
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ jobs:
           node-version: 16.x
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Run Build
         run: CI=false yarn run build

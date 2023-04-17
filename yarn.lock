@@ -2978,7 +2978,7 @@ aesirx-analytics@^1.0.4:
     bowser "^2.11.0"
     query-string "^7.1.1"
 
-aesirx-lib@^1.9.1, "aesirx-lib@https://gitpkg.now.sh/aesirxio/aesirx-lib?b6a00b1cdd83eed9c66afded6b80bbfc3ffca0f7&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
+"aesirx-lib@https://gitpkg.now.sh/aesirxio/aesirx-lib?b6a00b1cdd83eed9c66afded6b80bbfc3ffca0f7&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
   version "1.9.1"
   resolved "https://gitpkg.now.sh/aesirxio/aesirx-lib?b6a00b1cdd83eed9c66afded6b80bbfc3ffca0f7&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#0ea1d72a53c59e56cc5d84e475dd4f86eefd3a70"
   dependencies:
@@ -2990,14 +2990,14 @@ aesirx-lib@^1.9.1, "aesirx-lib@https://gitpkg.now.sh/aesirxio/aesirx-lib?b6a00b1
     moment "^2.29.4"
     query-string "7"
 
-"aesirx-uikit@https://gitpkg.now.sh/aesirxio/aesirx-uikit?7ea39565891628cef9adab92b4a7af37ead66da0&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
+"aesirx-uikit@https://gitpkg.now.sh/aesirxio/aesirx-uikit?342a7eee58c373ec976c51756035381b9f4e2b80&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
   version "1.0.0"
-  resolved "https://gitpkg.now.sh/aesirxio/aesirx-uikit?7ea39565891628cef9adab92b4a7af37ead66da0&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#2ad38fb859177f23b8a0470329f1c4c8c390e31b"
+  resolved "https://gitpkg.now.sh/aesirxio/aesirx-uikit?342a7eee58c373ec976c51756035381b9f4e2b80&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#a73732ef0efe29a2cf8ed6e3706af509c875ad58"
   dependencies:
     "@fortawesome/free-regular-svg-icons" "^6.4.0"
     "@fortawesome/free-solid-svg-icons" "^6.4.0"
     "@fortawesome/react-fontawesome" "^0.2.0"
-    aesirx-lib "^1.9.1"
+    aesirx-lib "https://gitpkg.now.sh/aesirxio/aesirx-lib?b6a00b1cdd83eed9c66afded6b80bbfc3ffca0f7&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build"
     bootstrap "^5.2.3"
     moment "^2.29.4"
     react "^18.2.0"

@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { env } from 'env';
 import { AesirXSelect } from 'aesirx-uikit';
-
+import ComponentSVG from 'components/ComponentSVG';
 const Table = ({
   columns,
   data,
@@ -24,6 +24,7 @@ const Table = ({
   classNameTable,
   canSort,
   sortAPI,
+  limit,
   ...props
 }) => {
   const {
@@ -48,7 +49,7 @@ const Table = ({
       data,
       onSelect,
       initialState: {
-        pageSize: 5,
+        pageSize: limit ?? 5,
         pageIndex: 0,
       },
     },
@@ -138,7 +139,10 @@ const Table = ({
                                     />
                                   )
                                 ) : (
-                                  ''
+                                  <ComponentSVG
+                                    url={env.PUBLIC_URL + '/assets/images/sort.svg'}
+                                    color="#5F5E70"
+                                  />
                                 )
                               ) : !column.rowSpan ? (
                                 column.isSorted &&
@@ -156,7 +160,10 @@ const Table = ({
                                     />
                                   )
                                 ) : (
-                                  ''
+                                  <ComponentSVG
+                                    url={env.PUBLIC_URL + '/assets/images/sort.svg'}
+                                    color="#5F5E70"
+                                  />
                                 )
                               ) : columnInside.isSorted &&
                                 // Column have rowSpan

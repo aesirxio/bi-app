@@ -15,7 +15,6 @@ class CountryModel {
       this.globalViewModel = globalViewModel;
     }
   }
-
   toRaw = () => {
     return this.data;
   };
@@ -85,6 +84,56 @@ class CountryModel {
         ?.filter((item) => {
           return item[BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE];
         });
+
+      return {
+        header,
+        data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toCountriesTableTop = () => {
+    const headerTable = ['txt_Country', 'txt_views'];
+    const accessor = [BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          Cell: ({ cell, column }) =>
+            column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
+              <div className={'px-15'}>{cell?.value ?? null}</div>
+            ) : (
+              <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
+            ),
+        };
+      });
+      const data = this.data
+        ?.map((item) => {
+          return {
+            ...item,
+            ...accessor
+              .map((i) => {
+                return {
+                  [i]: item[i],
+                };
+              })
+              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+          };
+        })
+        ?.filter((item) => {
+          return item[BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE];
+        })
+        .sort(
+          (a, b) =>
+            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
+        )
+        .slice(0, 10);
 
       return {
         header,

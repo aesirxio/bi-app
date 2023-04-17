@@ -185,5 +185,12 @@
   "txt_warning": "Upozorenje",
   "txt_successful": "Uspješno",
   "txt_error": "Greška",
-  "txt_number": "Quantity"
+  "txt_number": "Količina",
+  "txt_visitor_flow": "Tijek posjetitelja",
+  "txt_domain": "Domena",
+  "txt_location": "Mjesto",
+  "txt_duration": "Trajanje",
+  "txt_ip": "IP",
+  "txt_device": "Uređaj",
+  "txt_browser": "preglednik"
 }

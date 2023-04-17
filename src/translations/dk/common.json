@@ -185,5 +185,12 @@
   "txt_warning": "Advarsel",
   "txt_successful": "Vellykket",
   "txt_error": "Fejl",
-  "txt_number": "Quantity"
+  "txt_number": "Antal",
+  "txt_visitor_flow": "Besøgende flow",
+  "txt_domain": "Domæne",
+  "txt_location": "Beliggenhed",
+  "txt_duration": "Varighed",
+  "txt_ip": "IP",
+  "txt_device": "Enhed",
+  "txt_browser": "Browser"
 }

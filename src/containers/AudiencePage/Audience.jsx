@@ -6,14 +6,14 @@ import { observer } from 'mobx-react';
 import DateRangePicker from 'components/DateRangePicker';
 import OverviewComponent from 'containers/Dashboard/Component/Overview';
 import CardComponent from 'containers/Dashboard/Component/Card';
-import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
-import PAGE_STATUS from 'constants/PageStatus';
-import { Spinner } from 'aesirx-uikit';
+import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
+import numberWithCommas from 'utils/formatNumber';
 import { withRouter } from 'react-router-dom';
-import { withDashboardViewModel } from 'containers/Dashboard/DashboardViewModels/DashboardViewModelContextProvider';
+import { withAudienceViewModel } from 'containers/AudiencePage/AudienceViewModels/AudienceViewModelContextProvider';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 import { env } from 'env';
 import moment from 'moment';
+import TopTabs from './Component/TopTabs';
 
 const AudiencePage = observer(
   class AudiencePage extends Component {
@@ -24,12 +24,12 @@ const AudiencePage = observer(
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
 
-      this.dashboardListViewModel = this.viewModel
-        ? this.viewModel.getDashboardListViewModel()
+      this.audienceListViewModel = this.viewModel
+        ? this.viewModel.getAudienceListViewModel()
         : null;
     }
     componentDidMount = () => {
-      this.dashboardListViewModel.initialize({
+      this.audienceListViewModel.initialize({
         'filter[domain]': this.context.biListViewModel.activeDomain,
       });
     };
@@ -38,13 +38,13 @@ const AudiencePage = observer(
         this.props.location !== prevProps.location ||
         this.props.activeDomain !== prevProps.activeDomain
       ) {
-        this.dashboardListViewModel.initialize({
+        this.audienceListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
         });
       }
     };
     handleDateRangeChange = (startDate, endDate) => {
-      this.dashboardListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
+      this.audienceListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
     };
 
     generateCard = () => {
@@ -55,11 +55,11 @@ const AudiencePage = observer(
           title: t('txt_visitors'),
           icon: env.PUBLIC_URL + '/assets/images/visitor.svg',
           iconColor: '#1AB394',
-          value: Helper.numberWithCommas(
-            this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
+          value: numberWithCommas(
+            this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
           ),
           isIncrease: true,
-          loading: this.dashboardListViewModel.status,
+          loading: this.audienceListViewModel.statusMetrics,
         },
         {
           className: 'col-12 mb-24',
@@ -67,45 +67,45 @@ const AudiencePage = observer(
           icon: env.PUBLIC_URL + '/assets/images/duration.svg',
           iconColor: '#EF3737',
           value:
-            (this.dashboardListViewModel?.summaryData?.[
+            (this.audienceListViewModel?.metricsData?.[
               BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
             ]
               ? moment
                   .utc(
-                    this.dashboardListViewModel?.summaryData?.[
+                    this.audienceListViewModel?.metricsData?.[
                       BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
                     ] * 1000
                   )
                   .format('HH:mm:ss')
               : '00:00:00') + 's',
           isIncrease: false,
-          loading: this.dashboardListViewModel.status,
+          loading: this.audienceListViewModel.statusMetrics,
         },
         {
           className: 'col-12',
           title: t('txt_page_session'),
           icon: env.PUBLIC_URL + '/assets/images/page.svg',
           iconColor: '#FFBE55',
-          value: Helper.numberWithCommas(
-            this.dashboardListViewModel?.summaryData?.[
+          value: numberWithCommas(
+            this.audienceListViewModel?.metricsData?.[
               BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION
             ]
           ),
           isIncrease: false,
-          loading: this.dashboardListViewModel.status,
+          loading: this.audienceListViewModel.statusMetrics,
         },
       ];
     };
 
     render() {
       const { t } = this.props;
-      const { status } = this.dashboardListViewModel;
+      // const { status } = this.audienceListViewModel;
 
-      if (status === PAGE_STATUS.LOADING) {
-        return <Spinner />;
-      }
+      // if (status === PAGE_STATUS.LOADING) {
+      //   return <Spinner />;
+      // }
       const card = this.generateCard();
-
+      console.log('this.audienceListViewModel', this.audienceListViewModel);
       return (
         <div className="p-3">
           <div className="d-flex align-items-center justify-content-between mb-3">
@@ -120,15 +120,20 @@ const AudiencePage = observer(
 
           <Row className="mb-24">
             <Col lg={9}>
-              <OverviewComponent isSelection={false} />
+              <OverviewComponent
+                isSelection={false}
+                listViewModel={this.audienceListViewModel}
+                status={this.audienceListViewModel?.statusOverview}
+              />
             </Col>
             <Col lg={3}>
               <CardComponent data={card ?? []} />
             </Col>
           </Row>
+          <TopTabs listViewModel={this.audienceListViewModel} />
         </div>
       );
     }
   }
 );
-export default withTranslation('common')(withRouter(withDashboardViewModel(AudiencePage)));
+export default withTranslation('common')(withRouter(withAudienceViewModel(AudiencePage)));

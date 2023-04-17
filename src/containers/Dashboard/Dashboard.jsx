@@ -165,7 +165,10 @@ const Dashboard = observer(
           <CardComponent data={card ?? []} />
           <div className="row mt-24">
             <div className="col-12">
-              <OverviewComponent />
+              <OverviewComponent
+                listViewModel={this.dashboardListViewModel}
+                status={this.dashboardListViewModel?.status}
+              />
             </div>
           </div>
           <Row className="my-24 pb-24">

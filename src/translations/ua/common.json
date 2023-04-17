@@ -185,5 +185,12 @@
   "txt_warning": "УВАГА",
   "txt_successful": "Успішний",
   "txt_error": "Помилка",
-  "txt_number": "Quantity"
+  "txt_number": "Кількість",
+  "txt_visitor_flow": "Потік відвідувачів",
+  "txt_domain": "Домен",
+  "txt_location": "Місцезнаходження",
+  "txt_duration": "Тривалість",
+  "txt_ip": "IP",
+  "txt_device": "Device",
+  "txt_browser": "Браузер"
 }

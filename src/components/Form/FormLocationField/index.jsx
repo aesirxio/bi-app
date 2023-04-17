@@ -5,8 +5,6 @@
 
 import React, { lazy, useEffect, useState } from 'react';
 
-import _ from 'lodash';
-
 const FormRadio = lazy(() => import('../FormRadio'));
 const SelectComponent = lazy(() => import('../../Select'));
 
@@ -36,16 +34,16 @@ const FormLocationField = ({ field, validator }) => {
     return () => {};
   }, []);
 
-  const filterLocation = (value, dataLocation) => {
-    return Array.isArray(dataLocation)
-      ? dataLocation
-          // .filter((i) => i.name.toLowerCase().includes(value.toLowerCase()))
-          .map((location) => ({
-            label: location.name,
-            value: field.name === 'googleads' ? location.id : location.key,
-          }))
-      : [];
-  };
+  // const filterLocation = (value, dataLocation) => {
+  //   return Array.isArray(dataLocation)
+  //     ? dataLocation
+  //         // .filter((i) => i.name.toLowerCase().includes(value.toLowerCase()))
+  //         .map((location) => ({
+  //           label: location.name,
+  //           value: field.name === 'googleads' ? location.id : location.key,
+  //         }))
+  //     : [];
+  // };
 
   if (!locations) {
     return null;

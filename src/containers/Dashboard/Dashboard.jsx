@@ -14,8 +14,7 @@ import OverviewComponent from './Component/Overview';
 
 import { withDashboardViewModel } from './DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
-import numberWithCommas from 'utils/formatNumber';
-import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
+import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import DateRangePicker from 'components/DateRangePicker';
 import { env } from 'env';
 import { Col, Row } from 'react-bootstrap';
@@ -69,7 +68,7 @@ const Dashboard = observer(
           title: t('txt_visitors'),
           icon: env.PUBLIC_URL + '/assets/images/visitor.svg',
           iconColor: '#1AB394',
-          value: numberWithCommas(
+          value: Helper.numberWithCommas(
             this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
           ),
           isIncrease: true,
@@ -82,7 +81,7 @@ const Dashboard = observer(
           title: t('txt_page_views'),
           icon: env.PUBLIC_URL + '/assets/images/view.svg',
           iconColor: '#2E71B1',
-          value: numberWithCommas(
+          value: Helper.numberWithCommas(
             this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
           ),
           isIncrease: false,
@@ -91,14 +90,14 @@ const Dashboard = observer(
             {
               label: t('txt_all'),
               value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
-              actualValue: numberWithCommas(
+              actualValue: Helper.numberWithCommas(
                 this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
               ),
             },
             {
               label: t('txt_unique'),
               value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
-              actualValue: numberWithCommas(
+              actualValue: Helper.numberWithCommas(
                 this.dashboardListViewModel.summaryData?.[
                   BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
                 ]
@@ -108,7 +107,7 @@ const Dashboard = observer(
           defaultValue: {
             label: t('txt_all'),
             value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
-            actualValue: numberWithCommas(
+            actualValue: Helper.numberWithCommas(
               this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
             ),
           },
@@ -138,7 +137,7 @@ const Dashboard = observer(
           title: t('txt_page_session'),
           icon: env.PUBLIC_URL + '/assets/images/page.svg',
           iconColor: '#FFBE55',
-          value: numberWithCommas(
+          value: Helper.numberWithCommas(
             this.dashboardListViewModel?.summaryData?.[
               BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION
             ]

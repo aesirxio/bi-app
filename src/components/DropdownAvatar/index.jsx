@@ -6,15 +6,13 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Dropdown } from 'react-bootstrap';
-import { Storage } from 'aesirx-lib';
-import { AUTHORIZATION_KEY } from 'aesirx-lib';
+import { Storage, Helper, AUTHORIZATION_KEY } from 'aesirx-lib';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 
 import './index.scss';
 
 import { logout } from '../../auth';
-import Helper from '../../utils/helper';
 import ComponentImage from '../ComponentImage';
 import { env } from 'env';
 

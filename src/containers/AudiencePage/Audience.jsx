@@ -6,8 +6,7 @@ import { observer } from 'mobx-react';
 import DateRangePicker from 'components/DateRangePicker';
 import OverviewComponent from 'containers/Dashboard/Component/Overview';
 import CardComponent from 'containers/Dashboard/Component/Card';
-import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
-import numberWithCommas from 'utils/formatNumber';
+import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import PAGE_STATUS from 'constants/PageStatus';
 import Spinner from 'components/Spinner';
 import { withRouter } from 'react-router-dom';
@@ -56,7 +55,7 @@ const AudiencePage = observer(
           title: t('txt_visitors'),
           icon: env.PUBLIC_URL + '/assets/images/visitor.svg',
           iconColor: '#1AB394',
-          value: numberWithCommas(
+          value: Helper.numberWithCommas(
             this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
           ),
           isIncrease: true,
@@ -87,7 +86,7 @@ const AudiencePage = observer(
           title: t('txt_page_session'),
           icon: env.PUBLIC_URL + '/assets/images/page.svg',
           iconColor: '#FFBE55',
-          value: numberWithCommas(
+          value: Helper.numberWithCommas(
             this.dashboardListViewModel?.summaryData?.[
               BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION
             ]

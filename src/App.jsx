@@ -5,11 +5,10 @@
 
 import React from 'react';
 
-import './scss/app.scss';
-import './fonts/fontface.scss';
+import 'aesirx-uikit/dist/index.css';
 
 import RouterLayout from './layouts/RouterLayout';
-import ErrorBoundary from './layouts/ErrorBoundary';
+import { ErrorBoundary } from 'aesirx-uikit';
 import i18n from 'translations/i18n';
 import { I18nextProvider } from 'react-i18next';
 import { ThemesContext, ThemesContextProvider } from 'themes/ThemeContextProvider';

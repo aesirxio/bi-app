@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Col, Row } from 'react-bootstrap';
 import ComponentCard from 'components/ComponentCard';
-import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
+import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import { observer } from 'mobx-react';
-import numberWithCommas from 'utils/formatNumber';
 import { withRouter } from 'react-router-dom';
 import { withDashboardViewModel } from 'containers/Dashboard/DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
@@ -55,7 +54,7 @@ const CardComponent = observer(
                 title={t('txt_visitors')}
                 icon={env.PUBLIC_URL + '/assets/images/visitor.svg'}
                 iconColor={'#1AB394'}
-                value={numberWithCommas(
+                value={Helper.numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
                 )}
                 loading={this.summaryListViewModel?.status}
@@ -71,7 +70,9 @@ const CardComponent = observer(
                 title={t('txt_page_views')}
                 icon={env.PUBLIC_URL + '/assets/images/view.svg'}
                 iconColor={'#2E71B1'}
-                value={numberWithCommas(this.summaryListViewModel?.data[this.state.page_views])}
+                value={Helper.numberWithCommas(
+                  this.summaryListViewModel?.data[this.state.page_views]
+                )}
                 isIncrease={false}
                 // percent={'13%'}
                 // textPercent={'form June'}
@@ -98,7 +99,7 @@ const CardComponent = observer(
                 title={t('txt_acg_session_duration')}
                 icon={env.PUBLIC_URL + '/assets/images/duration.svg'}
                 iconColor={'#EF3737'}
-                value={numberWithCommas(
+                value={Helper.numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION]
                 )}
                 loading={this.summaryListViewModel?.status}
@@ -114,7 +115,7 @@ const CardComponent = observer(
                 title={t('txt_page_session')}
                 icon={env.PUBLIC_URL + '/assets/images/page.svg'}
                 iconColor={'#FFBE55'}
-                value={numberWithCommas(
+                value={Helper.numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION]
                 )}
                 loading={this.summaryListViewModel?.status}
@@ -128,7 +129,7 @@ const CardComponent = observer(
                 title={t('txt_bounce_rate')}
                 icon={env.PUBLIC_URL + '/assets/images/rate.svg'}
                 iconColor={'#C8192E'}
-                value={numberWithCommas(
+                value={Helper.numberWithCommas(
                   this.summaryListViewModel?.data[BI_SUMMARY_FIELD_KEY.BOUNCE_RATE]
                 )}
                 loading={this.summaryListViewModel?.status}

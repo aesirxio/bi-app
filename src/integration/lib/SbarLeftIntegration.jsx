@@ -178,7 +178,10 @@ const SbarLeftIntegration = observer(() => {
                     {menuList.link && (
                       <a
                         href="#"
-                        onClick={(e) => handleChangeLink(e, menuList.page)}
+                        onClick={(e) => {
+                          setIsOpenCollapse(null);
+                          handleChangeLink(e, menuList.page);
+                        }}
                         // exact={true}
                         // to={menuList.link}
                         className={`d-block px-24 py-16 link_menu text-white text-decoration-none ${

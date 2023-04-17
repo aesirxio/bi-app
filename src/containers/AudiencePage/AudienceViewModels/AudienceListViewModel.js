@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { notify } from 'components/Toast';
+import { notify } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import DashboardModel from 'containers/Dashboard/DashboardModel/DashboardModel';
 import CountryModel from 'containers/RegionCountryPage/CountryModel/CountryModel';

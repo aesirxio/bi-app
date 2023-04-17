@@ -502,3 +502,24 @@ form {
 .ChartWrapper {
   min-height: 300px;
 }
+.nav-pills {
+  .nav-link {
+    color: $body-color;
+    &.active {
+      background: transparent;
+      color: $success;
+      font-weight: 600;
+    }
+  }
+}
+
+.table {
+  & > :not(caption) {
+    & > * {
+      & > * {
+        border-bottom: 0;
+        padding: 0;
+      }
+    }
+  }
+}

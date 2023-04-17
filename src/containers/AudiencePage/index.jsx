@@ -9,30 +9,30 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 
 import { withRouter } from 'react-router-dom';
-import DashboardStore from 'containers/Dashboard/DashboardStore/DashboardStore';
-import DashboardViewModel from 'containers/Dashboard/DashboardViewModels/DashboardViewModel';
-import { DashboardViewModelContextProvider } from 'containers/Dashboard/DashboardViewModels/DashboardViewModelContextProvider';
+import AudienceStore from 'containers/AudiencePage/AudienceStore/AudienceStore';
+import AudienceViewModel from 'containers/AudiencePage/AudienceViewModels/AudienceViewModel';
+import { AudienceViewModelContextProvider } from 'containers/AudiencePage/AudienceViewModels/AudienceViewModelContextProvider';
 import AudiencePage from './Audience';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
 const AudienceContainer = observer(
   class AudienceContainer extends Component {
-    dashboardStore = null;
-    dashboardViewModel = null;
+    audienceStore = null;
+    audienceViewModel = null;
     constructor(props) {
       super(props);
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
       this.biListViewModel = this.viewModel ? this.viewModel.getBiListViewModel() : null;
-      this.dashboardStore = new DashboardStore();
-      this.dashboardViewModel = new DashboardViewModel(this.dashboardStore, this.biListViewModel);
+      this.audienceStore = new AudienceStore();
+      this.audienceViewModel = new AudienceViewModel(this.audienceStore, this.biListViewModel);
     }
 
     render() {
       return (
-        <DashboardViewModelContextProvider viewModel={this.dashboardViewModel}>
+        <AudienceViewModelContextProvider viewModel={this.audienceViewModel}>
           <AudiencePage {...this.props} />
-        </DashboardViewModelContextProvider>
+        </AudienceViewModelContextProvider>
       );
     }
   }

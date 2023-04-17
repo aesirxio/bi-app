@@ -2978,32 +2978,38 @@ aesirx-analytics@^1.0.4:
     bowser "^2.11.0"
     query-string "^7.1.1"
 
-aesirx-lib@^1.9.1, "aesirx-lib@https://gitpkg.now.sh/aesirxio/aesirx-lib?7a2423821e354d517f8aebb9055ba34f15563368&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
+aesirx-lib@^1.9.1, "aesirx-lib@https://gitpkg.now.sh/aesirxio/aesirx-lib?b6a00b1cdd83eed9c66afded6b80bbfc3ffca0f7&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
   version "1.9.1"
-  resolved "https://gitpkg.now.sh/aesirxio/aesirx-lib?7a2423821e354d517f8aebb9055ba34f15563368&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#41f95d30045cf05249c8ce3179b098b89410a773"
+  resolved "https://gitpkg.now.sh/aesirxio/aesirx-lib?b6a00b1cdd83eed9c66afded6b80bbfc3ffca0f7&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#0ea1d72a53c59e56cc5d84e475dd4f86eefd3a70"
   dependencies:
     axios "^1.3.4"
-    axios-auth-refresh "^3.0.0"
+    axios-auth-refresh "^3.3.6"
     crypto-js "^4.1.1"
     date-fns "^2.29.3"
     date-fns-tz "^2.0.0"
     moment "^2.29.4"
-    query-string "^8.1.0"
+    query-string "7"
 
-"aesirx-uikit@https://gitpkg.now.sh/aesirxio/aesirx-uikit?35c0404af62c7043dc30d23e3d0c7a8431d3e108&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
+"aesirx-uikit@https://gitpkg.now.sh/aesirxio/aesirx-uikit?7ea39565891628cef9adab92b4a7af37ead66da0&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
   version "1.0.0"
-  resolved "https://gitpkg.now.sh/aesirxio/aesirx-uikit?35c0404af62c7043dc30d23e3d0c7a8431d3e108&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#ac74dda75d6e3f13078c86c2a23e1c6dc871f4d3"
+  resolved "https://gitpkg.now.sh/aesirxio/aesirx-uikit?7ea39565891628cef9adab92b4a7af37ead66da0&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#2ad38fb859177f23b8a0470329f1c4c8c390e31b"
   dependencies:
+    "@fortawesome/free-regular-svg-icons" "^6.4.0"
     "@fortawesome/free-solid-svg-icons" "^6.4.0"
     "@fortawesome/react-fontawesome" "^0.2.0"
     aesirx-lib "^1.9.1"
     bootstrap "^5.2.3"
-    i18next "^22.4.14"
+    moment "^2.29.4"
     react "^18.2.0"
+    react-bootstrap "^2.7.4"
+    react-datepicker "^4.11.0"
+    react-dropzone "^11.2.4"
     react-i18next "^12.2.0"
     react-lazy-load-image-component "^1.5.6"
-    react-router-dom "5"
     react-select "^5.7.2"
+    react-spinners "^0.13.8"
+    react-toastify "^9.1.2"
+    simple-react-validator "^1.6.2"
 
 agent-base@6:
   version "6.0.2"
@@ -3370,10 +3376,10 @@ axe-core@^4.6.2:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.6.3.tgz#fc0db6fdb65cc7a80ccf85286d91d64ababa3ece"
   integrity "sha1-/A22/bZcx6gMz4UobZHWSrq6Ps4= sha512-/BQzOX780JhsxDnPpH4ZiyrJAzcd8AfzFPkv+89veFSr1rcMjuq2JDCwypKaPeB6ljHp9KjXhPpjgCvQlWYuqg=="
 
-axios-auth-refresh@^3.0.0:
+axios-auth-refresh@^3.3.6:
   version "3.3.6"
   resolved "https://registry.yarnpkg.com/axios-auth-refresh/-/axios-auth-refresh-3.3.6.tgz#a879f6296a889d6616e51069c2a8135b697966e7"
-  integrity "sha1-qHn2KWqInWYW5RBpwqgTW2l5Zuc= sha512-2CeBUce/SxIfFxow5/n8vApJ97yYF6qoV4gh1UrswT7aEOnlOdBLxxyhOI4IaxGs6BY0l8YujU2jlc4aCmK17Q=="
+  integrity sha512-2CeBUce/SxIfFxow5/n8vApJ97yYF6qoV4gh1UrswT7aEOnlOdBLxxyhOI4IaxGs6BY0l8YujU2jlc4aCmK17Q==
 
 axios@^1.3.4:
   version "1.3.5"
@@ -4973,11 +4979,6 @@ decode-uri-component@^0.2.0, decode-uri-component@^0.2.2:
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
   integrity "sha1-5p2+JdN5QRcd1UDgJMREzVGI4ek= sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ=="
 
-decode-uri-component@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.4.1.tgz#2ac4859663c704be22bf7db760a1494a49ab2cc5"
-  integrity "sha1-KsSFlmPHBL4iv323YKFJSkmrLMU= sha512-+8VxcR21HhTy8nOt6jf20w0c9CADrw1O8d+VZ/YzzCt4bJ3uBjw+D1q2osAB8RnpwwaeYBxy0HyKQxD5JBMuuQ=="
-
 dedent@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/dedent/-/dedent-0.7.0.tgz#2495ddbaf6eb874abb0e1be9df22d2e5a544326c"
@@ -6140,11 +6141,6 @@ filter-obj@^1.1.0:
   resolved "https://registry.yarnpkg.com/filter-obj/-/filter-obj-1.1.0.tgz#9b311112bc6c6127a16e016c6c5d7f19e0805c5b"
   integrity "sha1-mzERErxsYSehbgFsbF1/GeCAXFs= sha512-8rXg1ZnX7xzy2NGDVkBVaAy+lSlPNwad13BtgSlLuxfIslyt5Vg64U7tFcCt4WS1R0hvtnQybT/IyCkGZ3DpXQ=="
 
-filter-obj@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/filter-obj/-/filter-obj-5.1.0.tgz#5bd89676000a713d7db2e197f660274428e524ed"
-  integrity "sha1-W9iWdgAKcT19suGX9mAnRCjlJO0= sha512-qWeTREPoT7I0bifpPUXtxkZJ1XJzxWtfoWWkdVGqa+eCr3SHW/Ocp89o8vLvbUuQnadybJpjOKu4V+RwO6sGng=="
-
 finalhandler@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.2.0.tgz#7d23fe5731b207b4640e4fcd00aec1f9207a7b32"
@@ -6906,13 +6902,6 @@ i18next@^19.8.4:
   integrity "sha1-6loSRBbjxauF/dyiyOPDZpqNo5c= sha512-0i6cuo6ER6usEOtKajUUDj92zlG+KArFia0857xxiEHAQcUwh/RtOQocui1LPJwunSYT574Pk64aNva1kwtxZg=="
   dependencies:
     "@babel/runtime" "^7.12.0"
-
-i18next@^22.4.14:
-  version "22.4.14"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.4.14.tgz#18dd94e9adc2618497c7de101a206e1ca3a18727"
-  integrity "sha1-GN2U6a3CYYSXx94QGiBuHKOhhyc= sha512-VtLPtbdwGn0+DAeE00YkiKKXadkwg+rBUV+0v8v0ikEjwdiJ0gmYChVE4GIa9HXymY6wKapkL93vGT7xpq6aTw=="
-  dependencies:
-    "@babel/runtime" "^7.20.6"
 
 iconv-lite@0.4.24:
   version "0.4.24"
@@ -10138,15 +10127,6 @@ query-string@7, query-string@^7.1.1:
     split-on-first "^1.0.0"
     strict-uri-encode "^2.0.0"
 
-query-string@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-8.1.0.tgz#e7f95367737219544cd360a11a4f4ca03836e115"
-  integrity "sha1-5/lTZ3NyGVRM02ChGk9MoDg24RU= sha512-BFQeWxJOZxZGix7y+SByG3F36dA0AbTy9o6pSmKFcFz7DAj0re9Frkty3saBn3nHo3D0oZJ/+rx3r8H8r8Jbpw=="
-  dependencies:
-    decode-uri-component "^0.4.1"
-    filter-obj "^5.1.0"
-    split-on-first "^3.0.0"
-
 querystring-es3@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
@@ -10271,10 +10251,10 @@ react-bootstrap-typeahead@^6.1.1:
     scroll-into-view-if-needed "^2.2.20"
     warning "^4.0.1"
 
-react-bootstrap@^2.5.0:
+react-bootstrap@^2.5.0, react-bootstrap@^2.7.4:
   version "2.7.4"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-2.7.4.tgz#db95ecdcdfae9619de14511b5e9923bf95daf73d"
-  integrity "sha1-25Xs3N+ulhneFFEbXpkjv5Xa9z0= sha512-EPKPwhfbxsKsNBhJBitJwqul9fvmlYWSft6jWE2EpqhEyjhqIqNihvQo2onE5XtS+QHOavUSNmA+8Lnv5YeAyg=="
+  integrity sha512-EPKPwhfbxsKsNBhJBitJwqul9fvmlYWSft6jWE2EpqhEyjhqIqNihvQo2onE5XtS+QHOavUSNmA+8Lnv5YeAyg==
   dependencies:
     "@babel/runtime" "^7.21.0"
     "@restart/hooks" "^0.4.9"
@@ -10289,10 +10269,10 @@ react-bootstrap@^2.5.0:
     uncontrollable "^7.2.1"
     warning "^4.0.3"
 
-react-datepicker@^4.8.0:
+react-datepicker@^4.11.0, react-datepicker@^4.8.0:
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-4.11.0.tgz#40e73b4729a284ed206fdb322b8e84eb566e11a3"
-  integrity "sha1-QOc7RymihO0gb9syK46E61ZuEaM= sha512-50n93o7mQwBEhg05tbopjFKgs8qgi8VBCAOMC4VqrKut72eAjESc/wXS/k5hRtnP0oe2FCGw7MJuIwh37wuXOw=="
+  integrity sha512-50n93o7mQwBEhg05tbopjFKgs8qgi8VBCAOMC4VqrKut72eAjESc/wXS/k5hRtnP0oe2FCGw7MJuIwh37wuXOw==
   dependencies:
     "@popperjs/core" "^2.9.2"
     classnames "^2.2.6"
@@ -10498,7 +10478,7 @@ react-resize-detector@^8.0.4:
   dependencies:
     lodash "^4.17.21"
 
-react-router-dom@5, react-router-dom@^5.2.0:
+react-router-dom@^5.2.0:
   version "5.3.4"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-5.3.4.tgz#2ed62ffd88cae6db134445f4a0c0ae8b91d2e5e6"
   integrity "sha1-LtYv/YjK5tsTREX0oMCui5HS5eY= sha512-m4EqFMHv/Ih4kpcBCONHbkT68KoAeHN4p3lAGoNryfHi0dMy0kCzEZakiKRsvg5wHZ/JLrLW8o8KomWiz/qbYQ=="
@@ -10614,10 +10594,10 @@ react-smooth@^2.0.2:
     fast-equals "^4.0.3"
     react-transition-group "2.9.0"
 
-react-spinners@^0.13.6:
+react-spinners@^0.13.6, react-spinners@^0.13.8:
   version "0.13.8"
   resolved "https://registry.yarnpkg.com/react-spinners/-/react-spinners-0.13.8.tgz#5262571be0f745d86bbd49a1e6b49f9f9cb19acc"
-  integrity "sha1-UmJXG+D3RdhrvUmh5rSfn5yxmsw= sha512-3e+k56lUkPj0vb5NDXPVFAOkPC//XyhKPJjvcGjyMNPWsBKpplfeyialP74G7H7+It7KzhtET+MvGqbKgAqpZA=="
+  integrity sha512-3e+k56lUkPj0vb5NDXPVFAOkPC//XyhKPJjvcGjyMNPWsBKpplfeyialP74G7H7+It7KzhtET+MvGqbKgAqpZA==
 
 react-table@^7.6.2:
   version "7.8.0"
@@ -10633,10 +10613,10 @@ react-timezone-select@^1.0.7:
     spacetime "^7.4.1"
     timezone-soft "^1.4.1"
 
-react-toastify@^9.0.8:
+react-toastify@^9.0.8, react-toastify@^9.1.2:
   version "9.1.2"
   resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-9.1.2.tgz#293aa1f952240129fe485ae5cb2f8d09c652cf3f"
-  integrity "sha1-KTqh+VIkASn+SFrlyy+NCcZSzz8= sha512-PBfzXO5jMGEtdYR5jxrORlNZZe/EuOkwvwKijMatsZZm8IZwLj01YvobeJYNjFcA6uy6CVrx2fzL9GWbhWPTDA=="
+  integrity sha512-PBfzXO5jMGEtdYR5jxrORlNZZe/EuOkwvwKijMatsZZm8IZwLj01YvobeJYNjFcA6uy6CVrx2fzL9GWbhWPTDA==
   dependencies:
     clsx "^1.1.1"
 
@@ -11375,10 +11355,10 @@ signal-exit@^3.0.2, signal-exit@^3.0.3:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity "sha1-qaF2f4r4QVURTqq9c/mSc8j1mtk= sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ=="
 
-simple-react-validator@^1.6.0:
+simple-react-validator@^1.6.0, simple-react-validator@^1.6.2:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/simple-react-validator/-/simple-react-validator-1.6.2.tgz#dfc157f5c19592dc6f38e91c9f30311dda34495b"
-  integrity "sha1-38FX9cGVktxvOOkcnzAxHdo0SVs= sha512-49KhaVh7wXTANXKuvLtRebK1RKTBi3Cu/7jf8ssBdL+9ShZOfW74nkPWK+AFj4NApSYpYozMQ27ZybE630SNVA=="
+  integrity sha512-49KhaVh7wXTANXKuvLtRebK1RKTBi3Cu/7jf8ssBdL+9ShZOfW74nkPWK+AFj4NApSYpYozMQ27ZybE630SNVA==
 
 sisteransi@^1.0.5:
   version "1.0.5"
@@ -11536,11 +11516,6 @@ split-on-first@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/split-on-first/-/split-on-first-1.1.0.tgz#f610afeee3b12bce1d0c30425e76398b78249a5f"
   integrity "sha1-9hCv7uOxK84dDDBCXnY5i3gkml8= sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw=="
-
-split-on-first@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/split-on-first/-/split-on-first-3.0.0.tgz#f04959c9ea8101b9b0bbf35a61b9ebea784a23e7"
-  integrity "sha1-8ElZyeqBAbmwu/NaYbnr6nhKI+c= sha512-qxQJTx2ryR0Dw0ITYyekNQWpz6f8dGd7vffGNflQQ3Iqj9NJ6qiZ7ELpZsJ/QBhIVAiDfXdag3+Gp8RvWa62AA=="
 
 split-string@^3.0.1, split-string@^3.0.2:
   version "3.1.0"

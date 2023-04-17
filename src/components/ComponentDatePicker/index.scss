@@ -72,13 +72,13 @@
   .react-datepicker__month-text--keyboard-selected,
   .react-datepicker__quarter-text--keyboard-selected,
   .react-datepicker__year-text--keyboard-selected {
-    background-color: $success;
-    color: $white;
+    background-color: inherit;
     outline: none;
-    border-radius: 100%;
   }
   .react-datepicker__day--range-start,
-  .react-datepicker__day--range-end {
+  .react-datepicker__day--range-end,
+  .react-datepicker__day--selecting-range-start,
+  .react-datepicker__day--selecting-range-end {
     background-color: $success;
     color: $white;
     border-radius: 100%;

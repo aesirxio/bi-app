@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import DatePicker, { registerLocale } from 'react-datepicker';
-import './index.scss';
+
 import moment from 'moment';
 import { observer } from 'mobx-react';
 import vi from 'date-fns/locale/vi';

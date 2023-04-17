@@ -4,10 +4,9 @@
  */
 
 import history from '../routes/history';
-import { notify } from '../components/Toast';
+import { notify } from 'aesirx-uikit';
+import { Storage, AXIOS_CONFIGS } from 'aesirx-lib';
 
-import { Storage } from 'aesirx-lib';
-import { AXIOS_CONFIGS } from 'aesirx-lib';
 import { env } from 'env';
 if (
   AXIOS_CONFIGS.CLIENT_ID === '' ||

@@ -2,7 +2,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import Table from 'components/Table';
-import RingLoaderComponent from 'components/Spinner/ringLoader';
+import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from 'components/ComponentNoData';
 import { env } from 'env';
 import PAGE_STATUS from 'constants/PageStatus';

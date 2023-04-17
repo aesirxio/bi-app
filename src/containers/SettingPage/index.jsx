@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-// import Spinner from '../../components/Spinner';
 
 import SettingStore from './SettingStore/SettingStore';
 

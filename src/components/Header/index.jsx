@@ -13,12 +13,9 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import './index.scss';
 
 import DropdownAvatar from '../DropdownAvatar';
-
-import ComponentHambuger from '../ComponentHambuger';
-import ComponentImage from '../ComponentImage';
 // import Search from 'components/Search';
 import SwitchThemes from 'components/SwitchThemes/index';
-import Select from 'components/Select/index';
+
 import 'moment/locale/vi';
 import 'moment/locale/es';
 import 'moment/locale/hr';
@@ -32,6 +29,7 @@ import { NavLink, useRouteMatch } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { Hambuger, Logo, AesirXSelect } from 'aesirx-uikit';
 
 const DataStream = observer(() => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
@@ -174,23 +172,8 @@ class Header extends React.Component {
           integration ? 'top-30px' : 'top-0'
         } left-0 right-0 pr-3 align-items-center shadow-sm z-index-100 bg-white`}
       >
-        <ComponentHambuger handleAction={this.handleMenuLeft} />
-        <div className="wrapper_header_logo d-xl-flex d-none bg-dark w-248 h-80 align-items-center">
-          <a
-            href={window.location.href}
-            className={`header_logo d-block ${isMini ? 'mx-auto' : 'mx-3'}`}
-          >
-            <ComponentImage
-              className={`logo_white ${isMini ? 'pe-0' : 'pe-3 pe-lg-6'}`}
-              src={`${
-                isMini
-                  ? env.PUBLIC_URL + '/assets/images/logo/logo-white-mini.svg'
-                  : env.PUBLIC_URL + '/assets/images/logo/logo-white.svg'
-              }`}
-              alt="R Digital"
-            />
-          </a>
-        </div>
+        <Hambuger handleAction={this.handleMenuLeft} />
+        <Logo isMini={isMini} />
         <div className="content_header h-80 border-start-1 border-gray-300 flex-1 d-flex align-items-center ps-2 ps-lg-4 position-relative w-50 w-lg-100">
           <span
             className="
@@ -220,7 +203,7 @@ class Header extends React.Component {
                 alt="language"
                 src={env.PUBLIC_URL + '/assets/images/language-icon.png'}
               />
-              <Select
+              <AesirXSelect
                 isClearable={false}
                 isSearchable={false}
                 isBorder={false}

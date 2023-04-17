@@ -15,7 +15,7 @@ import BiViewModel from 'store/BiStore/BiViewModel';
 import { Toast } from 'components/Toast';
 import { BrowserRouter } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 const DashboardPage = lazy(() => import('containers/Dashboard'));
 const Behavior = lazy(() => import('containers/Behavior'));

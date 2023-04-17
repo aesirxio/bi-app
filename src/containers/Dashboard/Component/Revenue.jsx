@@ -2,7 +2,7 @@ import Table from 'components/Table';
 import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import numberWithCommas from 'utils/formatNumber';
+import { Helper } from 'aesirx-lib';
 const Revenue = ({ t }) => {
   const columnsTable = React.useMemo(
     () => [
@@ -36,7 +36,7 @@ const Revenue = ({ t }) => {
         accessor: 'value',
         className: 'px-24 py-2 fs-12 opacity-50 border-bottom-1 text-end',
         Cell: ({ value }) => {
-          return <div className="text-end px-24">${numberWithCommas(value)}</div>;
+          return <div className="text-end px-24">${Helper.numberWithCommas(value)}</div>;
         },
       },
     ],

@@ -4,7 +4,7 @@
  */
 
 import moment from 'moment';
-import { enumerateDaysBetweenDates } from 'utils/date';
+import { enumerateDaysBetweenDates } from 'aesirx-lib';
 
 class DashboardModel {
   data = [];

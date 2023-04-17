@@ -1,6 +1,6 @@
 import ComponentNoData from 'components/ComponentNoData';
 import HeaderFilterComponent from 'components/HeaderFilterComponent';
-import RingLoaderComponent from 'components/Spinner/ringLoader';
+import { RingLoaderComponent } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { env } from 'env';
 import React from 'react';

@@ -20,4 +20,5 @@ export const tsup: Options = {
     '.js': 'jsx',
   },
   target: 'es2020',
+  platform: 'browser',
 };

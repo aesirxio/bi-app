@@ -12,7 +12,7 @@ import AuthLayout from '../AuthLayout';
 import MainLayout from '../MainLayout';
 import SettingLayout from '../SettingLayout';
 
-import { Toast } from '../../components/Toast';
+import { Toast } from 'aesirx-uikit';
 import NotFound from '../../containers/NotFound';
 import { BiStoreProvider } from 'store/BiStore/BiViewModelContextProvider';
 import BiViewModel from 'store/BiStore/BiViewModel';

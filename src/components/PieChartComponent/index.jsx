@@ -1,4 +1,4 @@
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import React from 'react';
 import { useState } from 'react';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';

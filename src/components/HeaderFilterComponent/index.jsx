@@ -1,9 +1,10 @@
 import React from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
-import SelectComponent from 'components/Select';
+
 import { useTranslation } from 'react-i18next';
 import CHART_TYPE from 'constants/ChartType';
 import { env } from 'env';
+import { AesirXSelect } from 'aesirx-uikit';
 
 const HeaderFilterComponent = ({
   chartTitle,
@@ -22,7 +23,7 @@ const HeaderFilterComponent = ({
       <div className="d-flex align-items-center">
         <h4 className="me-24 mb-0 text-blue-0">{chartTitle}</h4>
         {isSelection && (
-          <SelectComponent
+          <AesirXSelect
             value={currentSelection}
             options={selectionData}
             className={`fs-sm`}

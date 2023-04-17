@@ -6,7 +6,7 @@ import React from 'react';
 import { Component } from 'react';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
-import ComponentImage from 'components/ComponentImage';
+import { Image } from 'aesirx-uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -30,7 +30,7 @@ class ComponentNoData extends Component {
           style={{ width: '48px', height: '55px' }}
           className={`my-2 d-inline-block position-relative rounded-circle ${iconBg}`}
         >
-          <ComponentImage
+          <Image
             className={`position-absolute top-50 start-50 translate-middle ${iconColor}`}
             src={icons}
             alt={icons}

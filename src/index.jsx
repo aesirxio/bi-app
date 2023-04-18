@@ -4,13 +4,16 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
+import App from 'App';
+import reportWebVitals from 'reportWebVitals';
 
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-ReactDOM.render(<App />, document.getElementById('biapp'));
+const container = document.getElementById('biapp');
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Create a root.
+const root = ReactDOMClient.createRoot(container);
+
+// Initial render: Render an element to the root.
+root.render(<App />);
+
 reportWebVitals();

@@ -2959,9 +2959,9 @@ aesirx-analytics@^1.0.4:
     moment "^2.29.4"
     query-string "7"
 
-"aesirx-uikit@https://gitpkg.now.sh/aesirxio/aesirx-uikit?ca580ad5a373476d32eab2c50bdd7d2323138545&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
+"aesirx-uikit@https://gitpkg.now.sh/aesirxio/aesirx-uikit?5aecc2e8f62230821d5b32d09ceb34cb5d9ecc76&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
   version "1.0.0"
-  resolved "https://gitpkg.now.sh/aesirxio/aesirx-uikit?ca580ad5a373476d32eab2c50bdd7d2323138545&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#f74a9b1fcb3748a5d46334de3fb26c38cc765929"
+  resolved "https://gitpkg.now.sh/aesirxio/aesirx-uikit?5aecc2e8f62230821d5b32d09ceb34cb5d9ecc76&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#f92f7932f29f921cf215b565b7222c4b8391324f"
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.4.0"
     "@fortawesome/free-regular-svg-icons" "^6.4.0"

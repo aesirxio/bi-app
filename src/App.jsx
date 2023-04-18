@@ -6,7 +6,7 @@
 import React from 'react';
 
 import 'aesirx-uikit/dist/index.css';
-
+import 'scss/app.scss';
 import { AppProvider } from 'aesirx-uikit';
 import { authRoutes, mainRoutes } from 'routes/routes';
 import { isLogin } from 'auth';

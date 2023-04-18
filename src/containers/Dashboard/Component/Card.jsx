@@ -36,4 +36,4 @@ const CardComponent = observer(
     }
   }
 );
-export default withTranslation('common')(withRouter(withDashboardViewModel(CardComponent)));
+export default withTranslation()(withRouter(withDashboardViewModel(CardComponent)));

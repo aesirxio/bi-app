@@ -9,7 +9,7 @@ import { observer } from 'mobx-react';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
 const UTMTrackingPage = observer((props) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const {
     behaviorEvents: {
       getVisitor,

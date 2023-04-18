@@ -14,7 +14,7 @@ import DashboardViewModel from './DashboardViewModels/DashboardViewModel';
 import { DashboardViewModelContextProvider } from './DashboardViewModels/DashboardViewModelContextProvider';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import Dashboard from './Dashboard';
-import history from 'routes/history';
+import { history } from 'aesirx-uikit';
 
 const DashboardContainer = observer(
   class DashboardContainer extends Component {
@@ -45,4 +45,4 @@ const DashboardContainer = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withBiViewModel(DashboardContainer)));
+export default withTranslation()(withRouter(withBiViewModel(DashboardContainer)));

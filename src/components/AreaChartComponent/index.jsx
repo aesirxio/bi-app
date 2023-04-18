@@ -17,7 +17,7 @@ import {
 } from 'recharts';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import CHART_TYPE from 'constants/ChartType';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const AreaChartComponent = ({
@@ -41,7 +41,7 @@ const AreaChartComponent = ({
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
   const [currentData, setCurrentData] = useState(data[0]);
   const [view, setView] = useState(CHART_TYPE.DAY);
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
 
   useEffect(() => {
     const [month, date] = data;

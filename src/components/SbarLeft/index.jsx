@@ -6,13 +6,12 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 
-import './index.scss';
 import Menu from '../Menu';
 
-import Menu2 from 'components/Menu2';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react';
-// import { NavLink } from 'react-router-dom';
+import { SbarLeft as AesirXSbarLeft } from 'aesirx-uikit';
+
 const SbarLeft = observer(
   class SbarLeft extends React.Component {
     constructor(props) {
@@ -20,23 +19,13 @@ const SbarLeft = observer(
     }
 
     render() {
-      let { settingPage } = this.props;
-
       return (
-        <aside
-          className={`sidebar w-248  mt-0 position-relative bg-dark mh-100 h-100 d-flex flex-column z-index-100 justify-content-between`}
-        >
-          {!settingPage ? (
-            <>
-              <Menu />
-            </>
-          ) : (
-            <Menu2 />
-          )}
-        </aside>
+        <AesirXSbarLeft>
+          <Menu />
+        </AesirXSbarLeft>
       );
     }
   }
 );
 
-export default withTranslation('common')(withBiViewModel(SbarLeft));
+export default withTranslation()(withBiViewModel(SbarLeft));

@@ -7,28 +7,34 @@ import React from 'react';
 
 import 'aesirx-uikit/dist/index.css';
 
-import RouterLayout from './layouts/RouterLayout';
-import { ErrorBoundary } from 'aesirx-uikit';
-import i18n from 'translations/i18n';
-import { I18nextProvider } from 'react-i18next';
-import { ThemesContext, ThemesContextProvider } from 'themes/ThemeContextProvider';
+import { AppProvider } from 'aesirx-uikit';
+import { authRoutes, mainRoutes } from 'routes/routes';
+import { isLogin } from 'auth';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+import { BiStoreProvider } from 'store/BiStore/BiViewModelContextProvider';
+import BiViewModel from 'store/BiStore/BiViewModel';
+import BiStore from 'store/BiStore/BiStore';
+import DataStream from 'components/DataStream';
+import appLanguages from 'translations';
+import SbarLeft from 'components/SbarLeft';
 
-  render() {
-    return (
-      <ThemesContextProvider>
-        <ErrorBoundary>
-          <I18nextProvider i18n={i18n}>
-            <RouterLayout />
-          </I18nextProvider>
-        </ErrorBoundary>
-      </ThemesContextProvider>
-    );
-  }
-}
-App.contextType = ThemesContext;
+const biStore = new BiStore();
+const biViewModel = new BiViewModel(biStore);
+
+const App = () => {
+  return (
+    <BiStoreProvider viewModel={biViewModel}>
+      <AppProvider
+        appLanguages={appLanguages}
+        authRoutes={authRoutes}
+        mainRoutes={mainRoutes}
+        isLogin={isLogin}
+        componentHeader={<DataStream />}
+        rootId="#biapp"
+        leftMenu={<SbarLeft />}
+      />
+    </BiStoreProvider>
+  );
+};
+
 export default App;

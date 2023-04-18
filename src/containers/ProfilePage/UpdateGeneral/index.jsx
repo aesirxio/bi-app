@@ -197,4 +197,4 @@ const UpdateGeneral = observer(
   }
 );
 
-export default withTranslation('common')(witheProfileViewModel(UpdateGeneral));
+export default withTranslation()(witheProfileViewModel(UpdateGeneral));

@@ -22,7 +22,7 @@ registerLocale('hr', hr);
 registerLocale('en-US', enUS);
 
 const ComponentDatePicker = observer(({ isOpen, setIsOpen, datePickerRef, isDays, onChange }) => {
-  const { t, i18n } = useTranslation('common');
+  const { t, i18n } = useTranslation();
   const {
     biListViewModel: {
       dateFilter: { date_start, date_end },

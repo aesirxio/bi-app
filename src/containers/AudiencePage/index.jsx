@@ -38,4 +38,4 @@ const AudienceContainer = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withBiViewModel(AudienceContainer)));
+export default withTranslation()(withRouter(withBiViewModel(AudienceContainer)));

@@ -3,13 +3,14 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { notify } from 'aesirx-uikit';
+import { notify, history } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
-import history from 'routes/history';
+
 import queryString from 'query-string';
+
 class BiListViewModel {
   biStore = null;
   paginationCollections = null;

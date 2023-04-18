@@ -10,7 +10,7 @@ import { observer } from 'mobx-react';
 
 const Search = observer(() => {
   const biListViewModel = useBiViewModel();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
 
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);

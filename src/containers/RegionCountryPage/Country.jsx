@@ -11,7 +11,7 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import CountryTable from './Component/CountryTable';
 import ComponentNoData from 'components/ComponentNoData';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 
 const Country = observer(
   class Country extends Component {
@@ -113,4 +113,4 @@ const Country = observer(
     }
   }
 );
-export default withTranslation('common')(withRouter(withCountryViewModel(Country)));
+export default withTranslation()(withRouter(withCountryViewModel(Country)));

@@ -7,13 +7,13 @@ import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { useFlowViewModel } from './FlowViewModels/FlowViewModelContextProvider';
 import { useParams } from 'react-router-dom';
 import Card from './Components/Card';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import { BI_FLOW_DETAIL_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import BehaviorTable from 'containers/Behavior/Component/BehaviorTable';
 
 const FlowDetailContainer = observer((props) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const {
     flowDetailViewModel: { data = [], relatedVisitorData, getFlowDetail, status },
   } = useFlowViewModel();

@@ -72,4 +72,4 @@ const TopTabs = observer(
     }
   }
 );
-export default withTranslation('common')(withRouter(TopTabs));
+export default withTranslation()(withRouter(TopTabs));

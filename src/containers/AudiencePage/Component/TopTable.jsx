@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Table from 'components/Table';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from 'components/ComponentNoData';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import PAGE_STATUS from 'constants/PageStatus';
 const TopTableComponent = ({ data, status, t }) => {
   const columnsTable = React.useMemo(
@@ -48,4 +48,4 @@ const TopTableComponent = ({ data, status, t }) => {
     </>
   );
 };
-export default withTranslation('common')(withRouter(TopTableComponent));
+export default withTranslation()(withRouter(TopTableComponent));

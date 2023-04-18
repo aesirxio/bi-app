@@ -2,7 +2,7 @@ import ComponentNoData from 'components/ComponentNoData';
 import HeaderFilterComponent from 'components/HeaderFilterComponent';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import React from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import {
@@ -16,7 +16,7 @@ import {
   Text,
 } from 'recharts';
 const BarChartComponent = (props) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const CustomXAxisTick = ({ x, y, payload }) => {
     if (payload && payload.value) {
       return (
@@ -89,4 +89,4 @@ const BarChartComponent = (props) => {
     </div>
   );
 };
-export default withTranslation('common')(BarChartComponent);
+export default withTranslation()(BarChartComponent);

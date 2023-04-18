@@ -10,7 +10,7 @@ import './index.scss';
 import { Collapse, Button } from 'react-bootstrap';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react-lite';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import { Image } from 'aesirx-uikit';
 
 const dataMenuSetup = [
@@ -26,7 +26,7 @@ const Menu = observer((props) => {
   const [dataStreamActive, setDataStreamActive] = useState(
     env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain
   );
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const biStore = useBiViewModel();
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {

@@ -18,4 +18,4 @@ class MemberRolesPage extends Component {
     );
   }
 }
-export default withTranslation('common')(MemberRolesPage);
+export default withTranslation()(MemberRolesPage);

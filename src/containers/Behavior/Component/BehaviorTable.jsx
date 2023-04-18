@@ -26,4 +26,4 @@ const BehaviorTable = ({ data: { header = [], data = [] } }) => {
     </div>
   );
 };
-export default withTranslation('common')(BehaviorTable);
+export default withTranslation()(BehaviorTable);

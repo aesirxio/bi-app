@@ -3,7 +3,7 @@ import { ButtonGroup, Button } from 'react-bootstrap';
 
 import { useTranslation } from 'react-i18next';
 import CHART_TYPE from 'constants/ChartType';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import { AesirXSelect } from 'aesirx-uikit';
 
 const HeaderFilterComponent = ({
@@ -17,7 +17,7 @@ const HeaderFilterComponent = ({
   view,
   setView,
 }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   return (
     <div className="d-flex justify-content-between mb-24">
       <div className="d-flex align-items-center">

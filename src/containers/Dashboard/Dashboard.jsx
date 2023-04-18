@@ -16,7 +16,7 @@ import { withDashboardViewModel } from './DashboardViewModels/DashboardViewModel
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import DateRangePicker from 'components/DateRangePicker';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import { Col, Row } from 'react-bootstrap';
 import Countries from './Component/Countries';
 import moment from 'moment';
@@ -184,4 +184,4 @@ const Dashboard = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withDashboardViewModel(Dashboard)));
+export default withTranslation()(withRouter(withDashboardViewModel(Dashboard)));

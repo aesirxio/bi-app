@@ -245,4 +245,4 @@ const SettingList = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withBiViewModel(SettingList)));
+export default withTranslation()(withRouter(withBiViewModel(SettingList)));

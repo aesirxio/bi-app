@@ -10,10 +10,9 @@ import SimpleReactValidator from 'simple-react-validator';
 import './index.scss';
 
 import { login } from '../../auth';
-import { InputPassword } from 'aesirx-uikit';
+import { InputPassword, Checkbox } from 'aesirx-uikit';
 
-import { Checkbox } from 'aesirx-uikit';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -147,4 +146,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default withTranslation('common')(LoginPage);
+export default withTranslation()(LoginPage);

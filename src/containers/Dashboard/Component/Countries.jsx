@@ -8,7 +8,7 @@ import { Col, Row } from 'react-bootstrap';
 import PAGE_STATUS from 'constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from 'components/ComponentNoData';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 
 const Countries = observer(
@@ -105,4 +105,4 @@ const Countries = observer(
     }
   }
 );
-export default withTranslation('common')(withRouter(withDashboardViewModel(Countries)));
+export default withTranslation()(withRouter(withDashboardViewModel(Countries)));

@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import 'aesirx-uikit/dist/index.css';
 

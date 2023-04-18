@@ -7,7 +7,7 @@ import ComponentSVG from 'components/ComponentSVG';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { AesirXSelect } from 'aesirx-uikit';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 
 const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
@@ -89,4 +89,4 @@ const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) 
   );
 };
 
-export default withTranslation('common')(ComponentFilter);
+export default withTranslation()(ComponentFilter);

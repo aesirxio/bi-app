@@ -10,7 +10,7 @@ import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import { withRouter } from 'react-router-dom';
 import { withAudienceViewModel } from 'containers/AudiencePage/AudienceViewModels/AudienceViewModelContextProvider';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import moment from 'moment';
 import TopTabs from './Component/TopTabs';
 
@@ -135,4 +135,4 @@ const AudiencePage = observer(
     }
   }
 );
-export default withTranslation('common')(withRouter(withAudienceViewModel(AudiencePage)));
+export default withTranslation()(withRouter(withAudienceViewModel(AudiencePage)));

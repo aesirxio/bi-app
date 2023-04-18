@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const RADIAN = Math.PI / 180;
@@ -167,4 +167,4 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
   );
 };
 
-export default withTranslation('common')(PieChartComponent);
+export default withTranslation()(PieChartComponent);

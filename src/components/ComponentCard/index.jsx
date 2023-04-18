@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
-import { AesirXSelect } from 'aesirx-uikit';
-import { PulseLoaderComponent } from 'aesirx-uikit';
+import { AesirXSelect, PulseLoaderComponent } from 'aesirx-uikit';
+
 import PAGE_STATUS from 'constants/PageStatus';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 const ComponentCard = ({
   title,
   icon,

@@ -1,5 +1,5 @@
 import Table from 'components/Table';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 const RegisteredUser = ({ t }) => {
@@ -104,4 +104,4 @@ const RegisteredUser = ({ t }) => {
     </div>
   );
 };
-export default withTranslation('common')(RegisteredUser);
+export default withTranslation()(RegisteredUser);

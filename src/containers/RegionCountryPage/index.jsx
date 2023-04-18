@@ -7,7 +7,8 @@ import { withRouter } from 'react-router-dom';
 import CountryStore from './CountryStore/CountryStore';
 import CountryViewModel from './CountryViewModels/CountryViewModel';
 import { CountryViewModelContextProvider } from './CountryViewModels/CountryViewModelContextProvider';
-import history from 'routes/history';
+import { history } from 'aesirx-uikit';
+
 const CountryContainer = observer(
   class CountryContainer extends Component {
     countryStore = null;
@@ -37,4 +38,4 @@ const CountryContainer = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withBiViewModel(CountryContainer)));
+export default withTranslation()(withRouter(withBiViewModel(CountryContainer)));

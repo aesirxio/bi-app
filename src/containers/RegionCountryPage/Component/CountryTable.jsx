@@ -26,4 +26,4 @@ const CountryTable = ({ data: { header = [], data = [] } }) => {
     </div>
   );
 };
-export default withTranslation('common')(CountryTable);
+export default withTranslation()(CountryTable);

@@ -1,6 +1,6 @@
 import ComponentDatePicker from 'components/ComponentDatePicker';
 import ComponentSVG from 'components/ComponentSVG';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import React, { useRef, useState } from 'react';
 import './index.scss';
 

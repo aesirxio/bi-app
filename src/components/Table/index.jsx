@@ -10,7 +10,7 @@ import ComponentNoData from '../ComponentNoData';
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 import { AesirXSelect } from 'aesirx-uikit';
 import ComponentSVG from 'components/ComponentSVG';
 const Table = ({
@@ -358,4 +358,4 @@ const Table = ({
   );
 };
 
-export default withTranslation('common')(Table);
+export default withTranslation()(Table);

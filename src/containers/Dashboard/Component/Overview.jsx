@@ -45,4 +45,4 @@ const OverviewComponent = observer(
     }
   }
 );
-export default withTranslation('common')(withRouter(OverviewComponent));
+export default withTranslation()(withRouter(OverviewComponent));

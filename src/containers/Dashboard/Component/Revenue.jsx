@@ -64,4 +64,4 @@ const Revenue = ({ t }) => {
     </div>
   );
 };
-export default withTranslation('common')(Revenue);
+export default withTranslation()(Revenue);

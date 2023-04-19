@@ -38,7 +38,7 @@
     "react-datepicker": "^4.8.0",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.4",
-    "react-google-charts": "^3.0.15",
+    "react-google-charts": "^4.0.0",
     "react-i18next": "^11.7.3",
     "react-iframe": "^1.8.0",
     "react-lazy-load-image-component": "^1.5.1",

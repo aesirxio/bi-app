@@ -2960,10 +2960,10 @@ aesirx-lib@^1.9.2:
     moment "^2.29.4"
     query-string "7"
 
-aesirx-uikit@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.0.tgz#7abd655bf56c319d77c1b8f71492cca465d0da56"
-  integrity sha512-efNrCovQyvQbjtVDW+Z0vuyl6FA2Rrb++SSf17q3Pwy6fUtBuZTfTv3FZHg5Du+VT0Wgj7Ok7qz3cpJy3vkNkQ==
+aesirx-uikit@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.1.tgz#b8f7a2f95e5203cd10438032d9e1de31ae0923fa"
+  integrity sha512-tdQYpdhn9/x1KP+eieFamph/wIpg0ukyRvNdeRMfxSOCkzMsTtq55ZcvminIA8Un0/LNFEiwjW9ROYWkWTr9FQ==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.4.0"
     "@fortawesome/free-regular-svg-icons" "^6.4.0"

@@ -9,6 +9,7 @@ import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react-lite';
 import { env } from 'aesirx-lib';
 import { Menu as AesirXMenu } from 'aesirx-uikit';
+import { getMenu } from 'routes/menu';
 
 const Menu = observer((props) => {
   const [dataStreamActive, setDataStreamActive] = useState(
@@ -16,92 +17,17 @@ const Menu = observer((props) => {
   );
 
   const biStore = useBiViewModel();
+  const dataMenu = getMenu(dataStreamActive);
 
-  const checkActiveMenu = () => {
-    if (window.location.pathname === '/') {
-      document.getElementById('wr_list_menu').classList.remove('wr_list_menu');
-    } else {
-      document.getElementById('wr_list_menu').classList.add('wr_list_menu');
+  const handleChangeLink = (e, link) => {
+    e.preventDefault();
+
+    if (link) {
+      biStore.biListViewModel.setIntegrationLink(link);
     }
   };
 
-  const dataMenu = [
-    {
-      text: 'txt_menu_dashboard',
-      link: `/${dataStreamActive}`,
-      icons: env.PUBLIC_URL + '/assets/images/dashboard.svg',
-      icons_color: env.PUBLIC_URL + '/assets/images/dashboard.svg',
-    },
-    {
-      text: 'txt_menu_audience',
-      link: `/${dataStreamActive}/audience`,
-      icons: env.PUBLIC_URL + '/assets/images/audience.svg',
-      icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
-      submenu: [
-        {
-          text: 'txt_menu_overview',
-          link: `/${dataStreamActive}/audience/overview`,
-        },
-      ],
-    },
-    {
-      text: 'txt_menu_behavior',
-      link: `/${dataStreamActive}/behavior`,
-      icons: env.PUBLIC_URL + '/assets/images/behavior.svg',
-      icons_color: env.PUBLIC_URL + '/assets/images/behavior.svg',
-      submenu: [
-        // {
-        //   text: 'txt_menu_overview',
-        //   link: `${dataStreamActive}/behavior/overview`,
-        // },
-        // {
-        //   text: 'txt_menu_click_anchor',
-        //   link: `${dataStreamActive}/behavior/click-anchor`,
-        // },
-        {
-          text: 'txt_menu_utm_tracking',
-          link: `/${dataStreamActive}/behavior/utm-tracking`,
-        },
-        {
-          text: 'txt_menu_events',
-          link: `/${dataStreamActive}/behavior/events`,
-        },
-      ],
-    },
-    {
-      text: 'txt_menu_region',
-      link: `/${dataStreamActive}/region-country`,
-      icons: env.PUBLIC_URL + '/assets/images/region-country.svg',
-      icons_color: env.PUBLIC_URL + '/assets/images/region-country.svg',
-    },
-    // {
-    //   text: 'txt_menu_revenue',
-    //   link: `${dataStreamActive}/revenue`,
-    //   icons: '/assets/images/revenue.svg',
-    //   icons_color: '/assets/images/revenue.svg',
-    // },
-    // {
-    //   text: 'txt_menu_subscription',
-    //   link: `${dataStreamActive}/subscription`,
-    //   icons: '/assets/images/subscription.svg',
-    //   icons_color: '/assets/images/subscription.svg',
-    // },
-    // {
-    //   text: 'txt_menu_member_roles',
-    //   link: `${dataStreamActive}/member-roles`,
-    //   icons: '/assets/images/member-roles.svg',
-    //   icons_color: '/assets/images/member-roles.svg',
-    // },
-    // {
-    //   text: 'txt_menu_data_stream',
-    //   link: `${dataStreamActive}/data-stream`,
-    //   icons: '/assets/images/data-stream.svg',
-    //   icons_color: '/assets/images/data-stream.svg',
-    // },
-  ];
-
   useEffect(() => {
-    checkActiveMenu();
     let fetchData = async () => {
       if (props.match.params.domain) {
         biStore.biListViewModel.setActiveDomain(props.match.params.domain);
@@ -112,7 +38,7 @@ const Menu = observer((props) => {
     fetchData();
   }, [biStore.biListViewModel, dataStreamActive, props.match.params.domain]);
 
-  return <AesirXMenu dataMenu={dataMenu} />;
+  return <AesirXMenu dataMenu={dataMenu} handleChangeLink={handleChangeLink} />;
 });
 
 export default withRouter(Menu);

@@ -16,7 +16,7 @@ import BiViewModel from 'store/BiStore/BiViewModel';
 import BiStore from 'store/BiStore/BiStore';
 import DataStream from 'components/DataStream';
 import appLanguages from 'translations';
-import SbarLeft from 'components/SbarLeft';
+import Menu from 'components/Menu';
 
 const biStore = new BiStore();
 const biViewModel = new BiViewModel(biStore);
@@ -31,7 +31,7 @@ const App = () => {
         isLogin={isLogin}
         componentHeader={<DataStream />}
         rootId="#biapp"
-        leftMenu={<SbarLeft />}
+        leftMenu={<Menu />}
       />
     </BiStoreProvider>
   );

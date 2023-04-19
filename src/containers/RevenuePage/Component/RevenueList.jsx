@@ -132,4 +132,4 @@ const RevenueList = ({ ...props }) => {
   );
 };
 
-export default withTranslation('common')(RevenueList);
+export default withTranslation()(RevenueList);

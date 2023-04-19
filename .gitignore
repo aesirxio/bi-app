@@ -28,6 +28,9 @@ data-stream.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.yarn
 
 #dist
 dist
+.yalc
+yalc.lock

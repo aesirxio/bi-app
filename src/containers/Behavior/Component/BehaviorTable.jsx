@@ -9,14 +9,15 @@ const BehaviorTable = ({ data: { header = [], data = [] } }) => {
         className: `px-3 py-16 fs-sm fw-semibold bg-gray-700 ${
           index + 1 === header.length ? 'rounded-top-end-3' : ''
         } ${index === 0 ? 'rounded-top-start-3' : ''}`,
+        width: 100,
       })),
     [header]
   );
   const dataTable = React.useMemo(() => data, [data]);
   return (
-    <div className="  h-100">
+    <div className="h-100">
       <Table
-        classNameTable={'text-center mb-0'}
+        classNameTable={'mb-0'}
         columns={columnsTable}
         data={dataTable}
         canSort={true}
@@ -25,4 +26,4 @@ const BehaviorTable = ({ data: { header = [], data = [] } }) => {
     </div>
   );
 };
-export default withTranslation('common')(BehaviorTable);
+export default withTranslation()(BehaviorTable);

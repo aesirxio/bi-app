@@ -12,11 +12,14 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Legend,
   // Brush,
 } from 'recharts';
-import RingLoaderComponent from 'components/Spinner/ringLoader';
+import { RingLoaderComponent } from 'aesirx-uikit';
 import CHART_TYPE from 'constants/ChartType';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const AreaChartComponent = ({
   data = [],
   height,
@@ -32,12 +35,13 @@ const AreaChartComponent = ({
   loading,
   tooltipComponent,
   filterData = [],
+  isLegend,
+  isSelection = true,
 }) => {
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
   const [currentData, setCurrentData] = useState(data[0]);
-  const [view, setView] = useState(CHART_TYPE.MONTH);
-
-  const { t } = useTranslation('common');
+  const [view, setView] = useState(CHART_TYPE.DAY);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const [month, date] = data;
@@ -79,6 +83,24 @@ const AreaChartComponent = ({
     [tooltipComponent]
   );
 
+  const renderLegend = (props) => {
+    const { payload } = props;
+    return (
+      <ul className="ms-3 mt-2 d-flex align-items-center">
+        {payload.map((entry, index) => (
+          <li key={`item-${index}`} className="me-24 fs-14 d-flex align-items-center">
+            <div
+              className="rounded-2 me-8px d-flex align-items-center justify-content-center"
+              style={{ backgroundColor: entry?.color, width: 16, height: 16 }}
+            >
+              <FontAwesomeIcon className="text-white" icon={faCheck} style={{ fontSize: 10 }} />
+            </div>
+            {entry.value}
+          </li>
+        ))}
+      </ul>
+    );
+  };
   return (
     <div className="bg-white rounded-3 p-24 shadow-sm h-100 ChartWrapper position-relative">
       <HeaderFilterComponent
@@ -86,7 +108,7 @@ const AreaChartComponent = ({
         onSelectionChange={setCurrentSelection}
         selectionData={filterData}
         chartTitle={chartTitle}
-        isSelection={true}
+        isSelection={isSelection}
         isFilterButtons={true}
         view={view}
         setView={setView}
@@ -148,6 +170,7 @@ const AreaChartComponent = ({
                 );
               })}
             {/* <Brush startIndex={0} endIndex={11} dataKey="name" height={30} stroke="#8884d8" /> */}
+            {isLegend && <Legend content={renderLegend} />}
           </AreaChart>
         </ResponsiveContainer>
       ) : (

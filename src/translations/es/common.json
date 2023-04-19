@@ -32,6 +32,7 @@
   "txt_Address_2": "Dirección 2",
   "txt_State": "Estado",
   "txt_Country": "País",
+  "txt_Countries": "Países",
   "txt_Zipcode": "Código postal",
   "txt_Fullname": "Nombre completo",
   "txt_City": "Ciudad",
@@ -184,5 +185,12 @@
   "txt_warning": "Advertencia",
   "txt_successful": "Exitoso",
   "txt_error": "Error",
-  "txt_number": "Quantity"
+  "txt_number": "Cantidad",
+  "txt_visitor_flow": "Flujo de visitantes",
+  "txt_domain": "Dominio",
+  "txt_location": "Ubicación",
+  "txt_duration": "Duración",
+  "txt_ip": "IP",
+  "txt_device": "Dispositivo",
+  "txt_browser": "Navegador"
 }

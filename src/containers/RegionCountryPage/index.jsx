@@ -1,21 +1,41 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
+import Country from './Country';
+import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+import { observer } from 'mobx-react';
+import { withRouter } from 'react-router-dom';
+import CountryStore from './CountryStore/CountryStore';
+import CountryViewModel from './CountryViewModels/CountryViewModel';
+import { CountryViewModelContextProvider } from './CountryViewModels/CountryViewModelContextProvider';
+import { history } from 'aesirx-uikit';
 
-class RegionCountryPage extends Component {
-  render() {
-    const { t } = this.props;
+const CountryContainer = observer(
+  class CountryContainer extends Component {
+    countryStore = null;
+    countryViewModel = null;
+    constructor(props) {
+      super(props);
+      const { viewModel } = props;
+      this.viewModel = viewModel ? viewModel : null;
+      this.biListViewModel = this.viewModel ? this.viewModel.getBiListViewModel() : null;
 
-    return (
-      <>
-        <div className="py-4 px-3 h-100 d-flex flex-column">
-          <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
-            <div className="position-relative">
-              <h1 className="text-blue-0 fw-bold mb-8px fs-2">{t('txt_menu_region')}</h1>
-            </div>
-          </div>
-        </div>
-      </>
-    );
+      this.countryStore = new CountryStore();
+      this.countryViewModel = new CountryViewModel(this.countryStore, this.biListViewModel);
+    }
+
+    componentDidMount = () => {
+      if (!this.props.integration && history.location.pathname === '/') {
+        history.push(`${this.biListViewModel.activeDomain}`);
+      }
+    };
+    render() {
+      return (
+        <CountryViewModelContextProvider viewModel={this.countryViewModel}>
+          <Country {...this.props} />
+        </CountryViewModelContextProvider>
+      );
+    }
   }
-}
-export default withTranslation('common')(RegionCountryPage);
+);
+
+export default withTranslation()(withRouter(withBiViewModel(CountryContainer)));

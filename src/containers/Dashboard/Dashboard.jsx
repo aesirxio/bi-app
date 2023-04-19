@@ -4,11 +4,9 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../components/Spinner';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import PAGE_STATUS from 'constants/PageStatus';
 import CardComponent from './Component/Card';
 
 import { withRouter } from 'react-router-dom';
@@ -16,10 +14,12 @@ import OverviewComponent from './Component/Overview';
 
 import { withDashboardViewModel } from './DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
-import numberWithCommas from 'utils/formatNumber';
-import { BI_SUMMARY_FIELD_KEY } from 'aesirx-dma-lib';
+import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import DateRangePicker from 'components/DateRangePicker';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
+import { Col, Row } from 'react-bootstrap';
+import Countries from './Component/Countries';
+import moment from 'moment';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -36,10 +36,14 @@ const Dashboard = observer(
     }
 
     componentDidUpdate = (prevProps) => {
-      if (
-        this.props.location !== prevProps.location ||
-        this.props.activeDomain !== prevProps.activeDomain
-      ) {
+      console.log(this.props.location !== prevProps.location);
+      if (this.props.location !== prevProps.location && !this.props.integration) {
+        this.dashboardListViewModel.initialize({
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        });
+      }
+
+      if (this.props.activeDomain !== prevProps.activeDomain && this.props.integration) {
         this.dashboardListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
         });
@@ -60,57 +64,80 @@ const Dashboard = observer(
       const { t } = this.props;
       return [
         {
-          className: 'col-3',
+          className: 'col-lg-3 mb-2 mb-lg-0',
           title: t('txt_visitors'),
           icon: env.PUBLIC_URL + '/assets/images/visitor.svg',
           iconColor: '#1AB394',
-          value: numberWithCommas(
+          value: Helper.numberWithCommas(
             this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
           ),
           isIncrease: true,
           loading: this.dashboardListViewModel.status,
-          options: [{ label: t('txt_all_users'), value: 'all-user' }],
-          defaultValue: { label: t('txt_all_users'), value: 'all-user' },
+          // options: [{ label: t('txt_all_users'), value: 'all-user' }],
+          // defaultValue: { label: t('txt_all_users'), value: 'all-user' },
         },
         {
-          className: 'col-3',
+          className: 'col-lg-3 mb-2 mb-lg-0',
           title: t('txt_page_views'),
           icon: env.PUBLIC_URL + '/assets/images/view.svg',
           iconColor: '#2E71B1',
-          value: numberWithCommas(
+          value: Helper.numberWithCommas(
             this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
           ),
           isIncrease: false,
           loading: this.dashboardListViewModel.status,
           options: [
-            { label: t('txt_all'), value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS },
+            {
+              label: t('txt_all'),
+              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+              actualValue: Helper.numberWithCommas(
+                this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+              ),
+            },
             {
               label: t('txt_unique'),
               value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
+              actualValue: Helper.numberWithCommas(
+                this.dashboardListViewModel.summaryData?.[
+                  BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+                ]
+              ),
             },
           ],
-          defaultValue: { label: t('txt_all'), value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS },
+          defaultValue: {
+            label: t('txt_all'),
+            value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+            actualValue: Helper.numberWithCommas(
+              this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+            ),
+          },
         },
         {
-          className: 'col-3',
+          className: 'col-lg-3 mb-2 mb-lg-0',
           title: t('txt_acg_session_duration'),
           icon: env.PUBLIC_URL + '/assets/images/duration.svg',
           iconColor: '#EF3737',
           value:
-            numberWithCommas(
-              this.dashboardListViewModel?.summaryData?.[
-                BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
-              ]
-            ) + 's',
+            (this.dashboardListViewModel?.summaryData?.[
+              BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+            ]
+              ? moment
+                  .utc(
+                    this.dashboardListViewModel?.summaryData?.[
+                      BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+                    ] * 1000
+                  )
+                  .format('HH:mm:ss')
+              : '00:00:00') + 's',
           isIncrease: false,
           loading: this.dashboardListViewModel.status,
         },
         {
-          className: 'col-3',
+          className: 'col-lg-3 mb-2 mb-lg-0',
           title: t('txt_page_session'),
           icon: env.PUBLIC_URL + '/assets/images/page.svg',
           iconColor: '#FFBE55',
-          value: numberWithCommas(
+          value: Helper.numberWithCommas(
             this.dashboardListViewModel?.summaryData?.[
               BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION
             ]
@@ -123,11 +150,6 @@ const Dashboard = observer(
 
     render() {
       const { t } = this.props;
-      const { status } = this.dashboardListViewModel;
-
-      if (status === PAGE_STATUS.LOADING) {
-        return <Spinner />;
-      }
       const card = this.generateCard();
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
@@ -141,15 +163,25 @@ const Dashboard = observer(
             </div>
           </div>
           <CardComponent data={card ?? []} />
-          <div className="row">
+          <div className="row mt-24">
             <div className="col-12">
-              <OverviewComponent />
+              <OverviewComponent
+                listViewModel={this.dashboardListViewModel}
+                status={this.dashboardListViewModel?.status}
+              />
             </div>
           </div>
+          <Row className="my-24 pb-24">
+            <Col lg={6}>
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <Countries {...this.props} />
+              </div>
+            </Col>
+          </Row>
         </div>
       );
     }
   }
 );
 
-export default withTranslation('common')(withRouter(withDashboardViewModel(Dashboard)));
+export default withTranslation()(withRouter(withDashboardViewModel(Dashboard)));

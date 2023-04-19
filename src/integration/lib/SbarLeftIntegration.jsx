@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { observer } from 'mobx-react';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 
 import '../index.scss';
 import { Collapse, Button } from 'react-bootstrap';
@@ -32,7 +32,7 @@ const SbarLeftIntegration = observer(() => {
     env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain
   );
   const biStore = useBiViewModel();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {
       if (parentIndex) {
@@ -115,6 +115,13 @@ const SbarLeftIntegration = observer(() => {
         },
       ],
     },
+    {
+      text: 'txt_menu_region',
+      link: `/${dataStreamActive}/region-country`,
+      icons: env.PUBLIC_URL + '/assets/images/region-country.svg',
+      icons_color: env.PUBLIC_URL + '/assets/images/region-country.svg',
+      page: 'region-country',
+    },
     // {
     //   text: 'txt_menu_revenue',
     //   link: `${dataStreamActive}/revenue`,
@@ -171,7 +178,10 @@ const SbarLeftIntegration = observer(() => {
                     {menuList.link && (
                       <a
                         href="#"
-                        onClick={(e) => handleChangeLink(e, menuList.page)}
+                        onClick={(e) => {
+                          setIsOpenCollapse(null);
+                          handleChangeLink(e, menuList.page);
+                        }}
                         // exact={true}
                         // to={menuList.link}
                         className={`d-block px-24 py-16 link_menu text-white text-decoration-none ${

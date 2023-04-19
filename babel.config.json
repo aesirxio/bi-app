@@ -1,25 +1,14 @@
 {
-    "presets": [
-        "@babel/preset-react",
-        "@babel/preset-env",
-    ],
-    "plugins": [
-      ["@babel/plugin-proposal-class-properties", { "loose": true }],
-      "@babel/plugin-syntax-dynamic-import",
-      [
-        "module-resolver", {
+  "presets": ["@babel/preset-react", "@babel/preset-env", "@babel/preset-typescript"],
+  "plugins": [
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    "@babel/plugin-syntax-dynamic-import",
+    [
+      "module-resolver",
+      {
         "root": ["./src"]
-      }],
-      [
-        "inline-react-svg"
-      ]
-      // ["react-css-modules", {
-      //   "exclude": "node_modules",
-      //   "filetypes": {
-      //     ".scss": {
-      //       "syntax": "postcss-scss"
-      //     }
-      //   }
-      // }]
-      ]
+      }
+    ],
+    ["inline-react-svg"]
+  ]
 }

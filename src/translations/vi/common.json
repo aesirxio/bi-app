@@ -32,6 +32,7 @@
   "txt_Address_2": "Địa chỉ 2",
   "txt_State": "Tiểu bang",
   "txt_Country": "Quốc gia",
+  "txt_Countries": "Quốc gia",
   "txt_Zipcode": "Zipcode",
   "txt_Fullname": "Tên đầy đủ",
   "txt_City": "Thành phố",
@@ -184,5 +185,12 @@
   "txt_warning": "Cảnh báo",
   "txt_successful": "Thành công",
   "txt_error": "Lỗi",
-  "txt_number": "Quantity"
+  "txt_number": "Số lượng",
+  "txt_visitor_flow": "Luồng khách truy cập",
+  "txt_domain": "Tên miền",
+  "txt_location": "Vị trí",
+  "txt_duration": "Thời gian",
+  "txt_ip": "IP",
+  "txt_device": "Thiết bị",
+  "txt_browser": "Trình duyệt"
 }

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
-import SelectComponent from 'components/Select';
-import PulseLoaderComponent from 'components/Spinner/pulseLoader';
+import { AesirXSelect, PulseLoaderComponent } from 'aesirx-uikit';
+
 import PAGE_STATUS from 'constants/PageStatus';
-import { env } from 'env';
+import { env } from 'aesirx-lib';
 const ComponentCard = ({
   title,
   icon,
@@ -14,9 +14,19 @@ const ComponentCard = ({
   textPercent,
   options,
   defaultValue,
-  handleChange,
   loading,
 }) => {
+  const [defaultFilter, setDefaultFilter] = useState(defaultValue ?? null);
+  const [selectedValue, setSelectedValue] = useState(value);
+
+  useEffect(() => {
+    setSelectedValue(value);
+  }, [value]);
+
+  const handleChange = (data) => {
+    setDefaultFilter(data);
+    data?.actualValue && setSelectedValue(data?.actualValue);
+  };
   return (
     <div className="bg-white p-24 shadow-sm rounded-3 h-100">
       <div className="d-flex justify-content-between align-items-center mb-16">
@@ -40,12 +50,13 @@ const ComponentCard = ({
           <h6 className="mb-0 fw-semibold text-blue-0">{title}</h6>
         </div>
         {options && (
-          <SelectComponent
-            value={defaultValue}
+          <AesirXSelect
+            value={defaultFilter}
             options={options}
             className={`fs-sm`}
             isBorder={true}
             onChange={handleChange}
+            isSearchable={false}
           />
         )}
       </div>
@@ -56,7 +67,7 @@ const ComponentCard = ({
             size="10px"
           />
         )}
-        <h3 className="mb-0 fw-semibold fs-1 text-color">{value}</h3>
+        <h3 className="mb-0 fw-semibold fs-24 text-color">{selectedValue}</h3>
         <div className="d-flex flex-wrap align-item-center">
           {percent && (
             <div className="d-flex w-100 mb-sm justify-content-end">
@@ -84,7 +95,7 @@ const ComponentCard = ({
     </div>
   );
 };
-function hexToRGB(hex, alpha) {
+export function hexToRGB(hex, alpha) {
   var r = parseInt(hex.slice(1, 3), 16),
     g = parseInt(hex.slice(3, 5), 16),
     b = parseInt(hex.slice(5, 7), 16);

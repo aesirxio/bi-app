@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-// import Spinner from '../../components/Spinner';
 
 import SettingStore from './SettingStore/SettingStore';
 
@@ -37,4 +36,4 @@ const HomePage = (props) => {
   );
 };
 
-export default withTranslation('common')(HomePage);
+export default withTranslation()(HomePage);

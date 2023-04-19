@@ -13,8 +13,8 @@ import { withTranslation } from 'react-i18next';
 import ProfileStore from './ProfileStore/ProfileStore';
 import ProfileViewModel from './ProfileViewModel/ProfileViewModel';
 import { ProfileViewModelContextProvider } from './ProfileViewModel/ProfileViewModelContextProvider';
-import { Storage } from 'aesirx-dma-lib';
-import { AUTHORIZATION_KEY } from 'aesirx-dma-lib';
+import { Storage } from 'aesirx-lib';
+import { AUTHORIZATION_KEY } from 'aesirx-lib';
 
 const profileStore = new ProfileStore();
 const profileViewModel = new ProfileViewModel(profileStore);
@@ -101,4 +101,4 @@ const ProfilePage = observer(
   }
 );
 
-export default withTranslation('common')(ProfilePage);
+export default withTranslation()(ProfilePage);

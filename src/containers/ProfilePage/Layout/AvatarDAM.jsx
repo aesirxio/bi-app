@@ -7,7 +7,7 @@ import React from 'react';
 import { withTranslation, useTranslation } from 'react-i18next';
 
 const AvatarDAM = ({ children }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
 
   return (
     <div className="col-3">
@@ -19,4 +19,4 @@ const AvatarDAM = ({ children }) => {
   );
 };
 
-export default withTranslation('common')(AvatarDAM);
+export default withTranslation()(AvatarDAM);

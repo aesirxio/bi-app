@@ -5,11 +5,10 @@
 
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
-import { notify } from '../../../components/Toast';
+import { notify } from 'aesirx-uikit';
 import { UPDATE_GENERAL_FIELD_KEY } from '../../../constants/ProfileModule';
-import { Storage } from 'aesirx-dma-lib';
-import { AUTHORIZATION_KEY } from 'aesirx-dma-lib';
-import { env } from 'env';
+import {} from 'aesirx-lib';
+import { Storage, AUTHORIZATION_KEY, env } from 'aesirx-lib';
 
 class UpdateGeneralViewModel {
   profileStore = null;

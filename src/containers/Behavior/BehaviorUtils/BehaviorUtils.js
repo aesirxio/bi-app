@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { BI_VISITOR_FIELD_KEY } from 'aesirx-dma-lib';
+import { BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
 import BehaviorEventModel from '../BehaviorModel/BehaviorListEventModel';
 
 class BehaviorUtils {

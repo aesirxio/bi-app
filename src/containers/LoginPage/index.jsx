@@ -10,18 +10,16 @@ import SimpleReactValidator from 'simple-react-validator';
 import './index.scss';
 
 import { login } from '../../auth';
-import InputPassword from '../../components/inputPassword';
-// import ComponentImage from 'components/ComponentImage';
-// import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
-import Checkbox from 'components/Checkbox';
-import { env } from 'env';
+import { InputPassword, Checkbox } from 'aesirx-uikit';
+
+import { env } from 'aesirx-lib';
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: env.REACT_APP_DEFAULT_USER ?? '',
-      password: env.REACT_APP_DEFAULT_PASSWORD ?? '',
+      username: env.REACT_APP_DEMO_USER ?? '',
+      password: env.REACT_APP_DEMO_PASSWORD ?? '',
       remember: false,
       isProcessing: false,
     };
@@ -148,4 +146,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default withTranslation('common')(LoginPage);
+export default withTranslation()(LoginPage);

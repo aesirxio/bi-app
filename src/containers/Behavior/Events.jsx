@@ -8,8 +8,8 @@ import { useBehaviorViewModel } from './BehaviorViewModels/BehaviorViewModelCont
 import { observer } from 'mobx-react';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
-const Events = observer(() => {
-  const { t } = useTranslation('common');
+const Events = observer((props) => {
+  const { t } = useTranslation();
   const {
     behaviorEvents: { getVisitor, data, status, handleFilterDateRange },
   } = useBehaviorViewModel();
@@ -49,15 +49,16 @@ const Events = observer(() => {
             chartTitle={t('txt_menu_overview')}
             height={390}
             data={data?.toAreaChart() ?? []}
-            colors={['#1AB394']}
-            areaColors={['#1AB394']}
-            lineColors={['#1AB394']}
-            lines={['number']}
+            colors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            lineColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            lines={data?.getListLine()}
             filterData={data?.getFilterName()}
             tooltipComponent={{
               header: t('txt_number'),
               value: ``,
             }}
+            isLegend={true}
           />
         </div>
         <div className="col-lg-6 col-12">
@@ -74,7 +75,9 @@ const Events = observer(() => {
         </div>
       </div>
       <div className="row gx-24 mb-24">
-        <div className="col-12 ">{data && <BehaviorTable data={data.toEventTable()} />}</div>
+        <div className="col-12 ">
+          {data && <BehaviorTable data={data.toEventTable(props.integration)} />}
+        </div>
       </div>
     </div>
   );

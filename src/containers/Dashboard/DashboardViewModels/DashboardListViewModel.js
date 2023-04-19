@@ -3,17 +3,19 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { notify } from 'components/Toast';
+import { notify } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import DashboardModel from '../DashboardModel/DashboardModel';
+import CountryModel from 'containers/RegionCountryPage/CountryModel/CountryModel';
 class DashboardListViewModel {
   dashboardStore = null;
   status = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   summaryData = null;
   visitorData = null;
+  countriesData = null;
   constructor(dashboardStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.dashboardStore = dashboardStore;
@@ -21,15 +23,16 @@ class DashboardListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
-    this.getSummary(dataFilter, dateFilter);
+    this.getMetrics(dataFilter, dateFilter);
     this.getVisitors(dataFilter, dateFilter);
+    this.getCountries(dataFilter, dateFilter);
   };
 
-  getSummary = (dataFilter, dateFilter) => {
+  getMetrics = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
-    this.dashboardStore.getSummary(
+    this.dashboardStore.getMetrics(
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnSummaryDataSuccessHandler,
@@ -50,11 +53,24 @@ class DashboardListViewModel {
     );
   };
 
+  getCountries = (dataFilter, dateFilter) => {
+    this.status = PAGE_STATUS.LOADING;
+    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.dashboardStore.getCountries(
+      this.dataFilter,
+      dateRangeFilter,
+      this.callbackOnCountriesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   handleFilter = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    this.dashboardStore.getSummary(
+    this.dashboardStore.getMetrics(
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
@@ -79,7 +95,7 @@ class DashboardListViewModel {
   callbackOnSummaryDataSuccessHandler = (data) => {
     if (data) {
       this.status = PAGE_STATUS.READY;
-      this.summaryData = data.list?.[0] ?? [];
+      this.summaryData = data;
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];
@@ -90,6 +106,17 @@ class DashboardListViewModel {
       this.status = PAGE_STATUS.READY;
       const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
       this.visitorData = transformData;
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnCountriesSuccessHandler = (data) => {
+    if (data) {
+      const transformData = new CountryModel(data, this.globalStoreViewModel);
+      this.countriesData = transformData.toCountries();
+      this.status = PAGE_STATUS.READY;
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];

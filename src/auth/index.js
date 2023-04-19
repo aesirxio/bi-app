@@ -3,12 +3,9 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import history from '../routes/history';
-import { notify } from '../components/Toast';
+import { notify, history } from 'aesirx-uikit';
+import { Storage, AXIOS_CONFIGS, env } from 'aesirx-lib';
 
-import { Storage } from 'aesirx-dma-lib';
-import { AXIOS_CONFIGS } from 'aesirx-dma-lib';
-import { env } from 'env';
 if (
   AXIOS_CONFIGS.CLIENT_ID === '' ||
   AXIOS_CONFIGS.CLIENT_SECRET === '' ||

@@ -4,18 +4,7 @@
  */
 
 import { notify, history } from 'aesirx-uikit';
-import { Storage, AXIOS_CONFIGS, env } from 'aesirx-lib';
-
-if (
-  AXIOS_CONFIGS.CLIENT_ID === '' ||
-  AXIOS_CONFIGS.CLIENT_SECRET === '' ||
-  AXIOS_CONFIGS.BASE_ENDPOINT_URL === ''
-) {
-  notify(
-    'The app has not been fully configured and you will not be able to login.  Go to https://dma.aesirx.io/install-guide/npm for instructions on how to configure your .env file',
-    'error'
-  );
-}
+import { Storage, env } from 'aesirx-lib';
 
 // LOGIN
 const login = async ({ username, password }) => {

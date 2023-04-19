@@ -2947,9 +2947,10 @@ aesirx-analytics@^1.0.4:
     bowser "^2.11.0"
     query-string "^7.1.1"
 
-"aesirx-lib@https://gitpkg.now.sh/aesirxio/aesirx-lib?5199acbe0d1cdcc201b61105fba8f4bd0980d459&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
-  version "1.9.1"
-  resolved "https://gitpkg.now.sh/aesirxio/aesirx-lib?5199acbe0d1cdcc201b61105fba8f4bd0980d459&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#c9db2f0f6ecbd35c277eba0481a2ef940d369b4b"
+aesirx-lib@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/aesirx-lib/-/aesirx-lib-1.9.2.tgz#6432021f39b4a040c9756dd26d4511213b840e4c"
+  integrity sha512-znObP0dcNow1Ap4onAg3SLaLKtPB/8p7X4PBIYkJfTeZqtzKBFLnnkNzxqendHyJH/WwtDNriAwA45urnlTjdA==
   dependencies:
     axios "^1.3.4"
     axios-auth-refresh "^3.3.6"
@@ -2959,15 +2960,16 @@ aesirx-analytics@^1.0.4:
     moment "^2.29.4"
     query-string "7"
 
-"aesirx-uikit@https://gitpkg.now.sh/aesirxio/aesirx-uikit?5aecc2e8f62230821d5b32d09ceb34cb5d9ecc76&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
+aesirx-uikit@^1.0.0:
   version "1.0.0"
-  resolved "https://gitpkg.now.sh/aesirxio/aesirx-uikit?5aecc2e8f62230821d5b32d09ceb34cb5d9ecc76&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#f92f7932f29f921cf215b565b7222c4b8391324f"
+  resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.0.tgz#7abd655bf56c319d77c1b8f71492cca465d0da56"
+  integrity sha512-efNrCovQyvQbjtVDW+Z0vuyl6FA2Rrb++SSf17q3Pwy6fUtBuZTfTv3FZHg5Du+VT0Wgj7Ok7qz3cpJy3vkNkQ==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.4.0"
     "@fortawesome/free-regular-svg-icons" "^6.4.0"
     "@fortawesome/free-solid-svg-icons" "^6.4.0"
     "@fortawesome/react-fontawesome" "^0.2.0"
-    aesirx-lib "https://gitpkg.now.sh/aesirxio/aesirx-lib?5199acbe0d1cdcc201b61105fba8f4bd0980d459&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build"
+    aesirx-lib "^1.9.2"
     bootstrap "^5.2.3"
     i18next "^22.4.14"
     i18next-browser-languagedetector "^7.0.1"
@@ -3654,7 +3656,7 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==
 
-bootstrap@5.2.3, bootstrap@^5.2.3:
+bootstrap@^5.2.3:
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.2.3.tgz#54739f4414de121b9785c5da3c87b37ff008322b"
   integrity sha512-cEKPM+fwb3cT8NzQZYEu4HilJ3anCrWqh3CHAok1p9jXqMPsPTBhU25fBckEJHJ/p+tTxTFTsFQGM+gaHpi3QQ==

@@ -13,9 +13,9 @@ import { observer } from 'mobx-react';
 import { Spinner } from 'aesirx-uikit';
 import { AppProvider } from 'aesirx-uikit';
 import { authRoutes, mainRoutes } from 'routes/routes';
-import { isLogin } from 'auth';
 import DataStream from 'components/DataStream';
 import appLanguages from 'translations';
+import SbarLeftIntegration from './SbarLeftIntegration';
 
 const DashboardPage = lazy(() => import('containers/Dashboard'));
 const Behavior = lazy(() => import('containers/Behavior'));
@@ -33,8 +33,11 @@ const MainLayoutIntegration = (props) => {
         appLanguages={appLanguages}
         authRoutes={authRoutes}
         mainRoutes={mainRoutes}
-        isLogin={isLogin}
+        isLogin={() => true}
         componentHeader={<DataStream />}
+        integration={true}
+        leftMenu={<SbarLeftIntegration />}
+        rootId="#biapp"
       >
         <div className="bi-intergration_layout">
           <App {...props} integration={true} />
@@ -50,9 +53,6 @@ String.prototype.startsWith = function (str) {
 
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
-    case 'dashboard':
-      return <DashboardPage {...props} />;
-
     case 'audience-overview':
       return <AudiencePage {...props} />;
 

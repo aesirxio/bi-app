@@ -48,6 +48,7 @@
     "format:check": "prettier --check 'src/**/*.{js,jsx,ts,tsx}'",
     "format:write": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "build:lib": "NODE_ENV=production tsup",
+    "dev:lib": "NODE_ENV=development tsup --watch --onSuccess 'yalc push --no-scripts'",
     "prepublishOnly": "yarn build:lib"
   },
   "eslintConfig": {

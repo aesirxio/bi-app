@@ -2939,20 +2939,12 @@ adjust-sourcemap-loader@^4.0.0:
     loader-utils "^2.0.0"
     regex-parser "^2.2.11"
 
-aesirx-analytics@^1.0.4:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/aesirx-analytics/-/aesirx-analytics-1.1.1.tgz#85adf481888f5637543764e3fde07a26b37f7eec"
-  integrity sha512-M6jNe1LVQPrdnGnwsPMVtv0hjwITK/nd5asURLhS9mxDkERF4OxyZLwp6Y908ZX+XuWvDVzCtHOVOyy2+3T+jQ==
+aesirx-lib@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/aesirx-lib/-/aesirx-lib-1.9.3.tgz#07416089d84531fd51a4f167b73e823ffc2fa969"
+  integrity sha512-mAYkpxiCHGhN1VciUeeErIxwc0t1rfxbB//eqcGwykZ/Cqdt5URcxiVw4k+Sr67WWAmXtOQomVLkphgBrAZE8Q==
   dependencies:
-    bowser "^2.11.0"
-    query-string "^7.1.1"
-
-aesirx-lib@^1.9.2:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/aesirx-lib/-/aesirx-lib-1.9.2.tgz#6432021f39b4a040c9756dd26d4511213b840e4c"
-  integrity sha512-znObP0dcNow1Ap4onAg3SLaLKtPB/8p7X4PBIYkJfTeZqtzKBFLnnkNzxqendHyJH/WwtDNriAwA45urnlTjdA==
-  dependencies:
-    axios "^1.3.4"
+    axios "^1.3.5"
     axios-auth-refresh "^3.3.6"
     crypto-js "^4.1.1"
     date-fns "^2.29.3"
@@ -2960,16 +2952,27 @@ aesirx-lib@^1.9.2:
     moment "^2.29.4"
     query-string "7"
 
-aesirx-uikit@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.1.tgz#b8f7a2f95e5203cd10438032d9e1de31ae0923fa"
-  integrity sha512-tdQYpdhn9/x1KP+eieFamph/wIpg0ukyRvNdeRMfxSOCkzMsTtq55ZcvminIA8Un0/LNFEiwjW9ROYWkWTr9FQ==
+aesirx-sso@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/aesirx-sso/-/aesirx-sso-1.0.8.tgz#641c67a815437267feb703457720ab8ac8131fee"
+  integrity sha512-SlPSgJb4tAB7Q/ftKk20gSwWF5fv3utKz7gupFi6mkwzqw2WhgoGiU0uBkh782ozSHa6oxL1ihFmO7u3U7z4lQ==
+  dependencies:
+    cross-env "^7.0.3"
+    dotenv "^16.0.3"
+    react "^18.2.0"
+    react-spinners "^0.13.6"
+
+aesirx-uikit@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.2.tgz#c1af96124a6349017eea92f4ae2b93da54d94d59"
+  integrity sha512-kpqucjILAtb8QSpkSJ6xaxZldKcJams/mCKUajgQJxW5fVylRuTnEE8cVYg6qsLwgamS8XSkAcABBf2n5aOGVg==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.4.0"
     "@fortawesome/free-regular-svg-icons" "^6.4.0"
     "@fortawesome/free-solid-svg-icons" "^6.4.0"
     "@fortawesome/react-fontawesome" "^0.2.0"
-    aesirx-lib "^1.9.2"
+    aesirx-lib "^1.9.3"
+    aesirx-sso "^1.0.8"
     bootstrap "^5.2.3"
     i18next "^22.4.14"
     i18next-browser-languagedetector "^7.0.1"
@@ -3365,6 +3368,15 @@ axios@^1.3.4:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
+axios@^1.3.5:
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.3.6.tgz#1ace9a9fb994314b5f6327960918406fa92c6646"
+  integrity sha512-PEcdkk7JcdPiMDkvM4K6ZBRYq9keuVJsToxm2zQIM70Qqo2WHTdJZMXcG9X+RmRp2VPNUQC8W1RAGbgt6b1yMg==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
 axobject-query@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/axobject-query/-/axobject-query-3.1.1.tgz#3b6e5c6d4e43ca7ba51c5babf99d22a9c68485e1"
@@ -3660,11 +3672,6 @@ bootstrap@^5.2.3:
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.2.3.tgz#54739f4414de121b9785c5da3c87b37ff008322b"
   integrity sha512-cEKPM+fwb3cT8NzQZYEu4HilJ3anCrWqh3CHAok1p9jXqMPsPTBhU25fBckEJHJ/p+tTxTFTsFQGM+gaHpi3QQ==
-
-bowser@^2.11.0:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/bowser/-/bowser-2.11.0.tgz#5ca3c35757a7aa5771500c70a73a9f91ef420a8f"
-  integrity sha512-AlcaJBi/pqqJBIQ8U9Mcpc9i8Aqxn88Skv5d+xBX006BY5u8N3mGLHa5Lgppa7L/HfwgwLgZ6NYs+Ag6uUmJRA==
 
 boxen@7.0.0:
   version "7.0.0"
@@ -4465,7 +4472,14 @@ create-require@^1.1.0:
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
-cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
+cross-env@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.3.tgz#865264b29677dc015ba8418918965dd232fc54cf"
+  integrity sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==
+  dependencies:
+    cross-spawn "^7.0.1"
+
+cross-spawn@^7.0.0, cross-spawn@^7.0.1, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
   integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
@@ -5254,6 +5268,11 @@ dotenv@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
+
+dotenv@^16.0.3:
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
+  integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
 
 dotenv@^8.2.0:
   version "8.6.0"
@@ -10019,7 +10038,7 @@ qs@6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
-query-string@7, query-string@^7.1.1:
+query-string@7:
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-7.1.3.tgz#a1cf90e994abb113a325804a972d98276fe02328"
   integrity sha512-hh2WYhq4fi8+b+/2Kg9CEge4fDPvHS534aOOvOZeQ3+Vf2mCFsaFBYj0i+iXcAq6I9Vzp5fjMFBlONvayDC1qg==
@@ -10434,7 +10453,7 @@ react-smooth@^2.0.2:
     fast-equals "^4.0.3"
     react-transition-group "2.9.0"
 
-react-spinners@^0.13.8:
+react-spinners@^0.13.6, react-spinners@^0.13.8:
   version "0.13.8"
   resolved "https://registry.yarnpkg.com/react-spinners/-/react-spinners-0.13.8.tgz#5262571be0f745d86bbd49a1e6b49f9f9cb19acc"
   integrity sha512-3e+k56lUkPj0vb5NDXPVFAOkPC//XyhKPJjvcGjyMNPWsBKpplfeyialP74G7H7+It7KzhtET+MvGqbKgAqpZA==

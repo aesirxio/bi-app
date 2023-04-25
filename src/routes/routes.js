@@ -18,8 +18,6 @@ const DataStreamPage = lazy(() => import('containers/DataStreamPage'));
 const RegionCountryPage = lazy(() => import('containers/RegionCountryPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
-
-const ProfilePage = lazy(() => import('containers/ProfilePage'));
 const FlowPage = lazy(() => import('containers/FlowDetailPage'));
 
 const authRoutes = [
@@ -93,12 +91,6 @@ const mainRoutes = [
   },
 ];
 
-const settingRoutes = [
-  {
-    path: '/profile',
-    exact: false,
-    main: ({ match, location }) => <ProfilePage match={match} location={location} />,
-  },
-];
+const settingRoutes = [];
 
 export { authRoutes, mainRoutes, settingRoutes };

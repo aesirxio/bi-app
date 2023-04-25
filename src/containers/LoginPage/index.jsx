@@ -72,7 +72,7 @@ class LoginPage extends React.Component {
                   alt="aesirx"
                   src={env.PUBLIC_URL + '/assets/images/logo/welcome-logo.png'}
                 />
-                {t('txt_bi')}.
+                BI.
                 <br /> {t('txt_login_text_2')}
               </h1>
               <form className="login-form">

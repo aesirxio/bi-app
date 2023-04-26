@@ -39,6 +39,7 @@ class DashboardModel {
       this.globalViewModel?.dateFilter?.date_start,
       this.globalViewModel?.dateFilter?.date_end
     );
+
     const date = dateRange.map((date) => {
       const filterDate = this.data.find(
         (_item) => moment(_item.date).format('YYYY-MM-DD') === date

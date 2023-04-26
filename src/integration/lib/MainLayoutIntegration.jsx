@@ -38,6 +38,7 @@ const MainLayoutIntegration = (props) => {
         integration={true}
         leftMenu={<SbarLeftIntegration />}
         rootId="#biapp"
+        noavatar={true}
       >
         <div className="bi-intergration_layout">
           <App {...props} integration={true} />

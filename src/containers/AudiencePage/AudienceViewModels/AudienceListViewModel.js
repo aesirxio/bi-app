@@ -68,7 +68,12 @@ class AudienceListViewModel {
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     await this.audienceStore.getCountries(
-      this.dataFilter,
+      {
+        ...this.dataFilter,
+        page_size: '0',
+        'sort[]': 'number_of_page_views',
+        'sort_direction[]': 'desc',
+      },
       dateRangeFilter,
       this.callbackOnCountriesSuccessHandler,
       this.callbackOnErrorHandler
@@ -81,7 +86,12 @@ class AudienceListViewModel {
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     await this.audienceStore.getCities(
-      this.dataFilter,
+      {
+        ...this.dataFilter,
+        page_size: '0',
+        'sort[]': 'number_of_page_views',
+        'sort_direction[]': 'desc',
+      },
       dateRangeFilter,
       this.callbackOnCitiesSuccessHandler,
       this.callbackOnErrorHandler
@@ -94,7 +104,12 @@ class AudienceListViewModel {
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     await this.audienceStore.getBrowsers(
-      this.dataFilter,
+      {
+        ...this.dataFilter,
+        page_size: '0',
+        'sort[]': 'number_of_page_views',
+        'sort_direction[]': 'desc',
+      },
       dateRangeFilter,
       this.callbackOnBrowsersSuccessHandler,
       this.callbackOnErrorHandler

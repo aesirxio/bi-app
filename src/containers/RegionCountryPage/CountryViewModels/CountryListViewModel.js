@@ -30,7 +30,12 @@ class CountryListViewModel {
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.dashboardStore.getCountries(
-      this.dataFilter,
+      {
+        ...this.dataFilter,
+        page_size: '0',
+        'sort[]': 'number_of_page_views',
+        'sort_direction[]': 'desc',
+      },
       dateRangeFilter,
       this.callbackOnCountriesSuccessHandler,
       this.callbackOnErrorHandler

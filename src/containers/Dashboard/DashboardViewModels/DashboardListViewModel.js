@@ -46,7 +46,10 @@ class DashboardListViewModel {
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.dashboardStore.getVisitors(
-      this.dataFilter,
+      {
+        ...this.dataFilter,
+        page_size: '0',
+      },
       dateRangeFilter,
       this.callbackOnVisitorSuccessHandler,
       this.callbackOnErrorHandler

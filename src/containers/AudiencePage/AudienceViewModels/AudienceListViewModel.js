@@ -55,7 +55,10 @@ class AudienceListViewModel {
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.audienceStore.getVisitors(
-      this.dataFilter,
+      {
+        ...this.dataFilter,
+        page_size: '0',
+      },
       dateRangeFilter,
       this.callbackOnVisitorSuccessHandler,
       this.callbackOnErrorHandler

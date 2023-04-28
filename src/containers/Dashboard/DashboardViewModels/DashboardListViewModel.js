@@ -61,7 +61,7 @@ class DashboardListViewModel {
     this.dashboardStore.getCountries(
       {
         ...this.dataFilter,
-        page_size: '0',
+        page_size: '10',
         'sort[]': 'number_of_page_views',
         'sort_direction[]': 'desc',
       },

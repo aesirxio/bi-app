@@ -29,7 +29,7 @@ class BrowserModel {
           accessor: key,
           Cell: ({ cell, column }) =>
             column.id === BI_BROWSERS_FIELD_KEY.BROWSER_NAME ? (
-              <div className={'px-15'}>{cell?.value ?? null}</div>
+              <div className={'px-15'}>{cell?.value === '' ? 'Unknown' : cell?.value}</div>
             ) : (
               <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
             ),
@@ -48,14 +48,10 @@ class BrowserModel {
               .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
           };
         })
-        ?.filter((item) => {
-          return item[BI_BROWSERS_FIELD_KEY.BROWSER_NAME];
-        })
-        .sort(
+        ?.sort(
           (a, b) =>
             b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-        )
-        .slice(0, 10);
+        );
 
       return {
         header,

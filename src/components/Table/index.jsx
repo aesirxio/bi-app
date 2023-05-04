@@ -18,13 +18,17 @@ const Table = ({
   data,
   pagination,
   store,
-  setLoading,
   onSelect,
   dataList,
   classNameTable,
   canSort,
   sortAPI,
   limit,
+  paginationClass,
+  isPaginationAPI,
+  paginationResponse,
+  selectPage,
+  selectPageSize,
   ...props
 }) => {
   const {
@@ -49,7 +53,7 @@ const Table = ({
       data,
       onSelect,
       initialState: {
-        pageSize: limit ?? 5,
+        pageSize: (isPaginationAPI ? paginationResponse?.page_size : limit) ?? 5,
         pageIndex: 0,
       },
     },
@@ -57,12 +61,17 @@ const Table = ({
     usePagination
   );
 
-  // const handlePagination = async (pageIndex) => {
-  //   setLoading(true);
-  //   await store.goToPage(pageIndex);
-  //   setLoading(false);
-  // };
+  const handlePagination = async (pageIndex) => {
+    await selectPage(pageIndex);
+  };
+  const handlePageSize = async (pageSize) => {
+    await selectPageSize(pageSize);
+  };
+
   const { t } = props;
+  let totalPage = isPaginationAPI
+    ? [...Array(paginationResponse?.total_pages)]
+    : [...Array(pageOptions.length)];
 
   return (
     <>
@@ -106,7 +115,6 @@ const Table = ({
                             sortParams !== 'number' &&
                             sortParams !== 'selection' && {
                               onClick: async () => {
-                                setLoading(true);
                                 if (store.sortBy.id === sortParams && store.sortBy.desc) {
                                   store.sortBy = { desc: true };
                                 } else if (store.sortBy.id !== sortParams) {
@@ -115,7 +123,6 @@ const Table = ({
                                   store.sortBy = { id: sortParams, desc: !store.sortBy.desc };
                                 }
                                 await store.getItems();
-                                setLoading(false);
                               },
                             })}
                           rowSpan={`${column.rowSpan ?? 1}`}
@@ -235,7 +242,7 @@ const Table = ({
         ) : null}
       </div>
       {pagination && pageOptions.length ? (
-        <div className="d-flex align-items-center justify-content-between">
+        <div className={`d-flex align-items-center justify-content-between ${paginationClass}`}>
           <div className="d-flex align-items-center">
             <span className="text-gray-600 me-16">Showing</span>
             <AesirXSelect
@@ -258,24 +265,33 @@ const Table = ({
               )}
               className="shadow-none select-bg-white"
               onChange={(data) => {
-                setPageSize(Number(data.value));
+                isPaginationAPI
+                  ? handlePageSize(Number(data.value))
+                  : setPageSize(Number(data.value));
               }}
-              defaultValue={{ label: pageSize, value: pageSize }}
+              defaultValue={{
+                label: isPaginationAPI ? paginationResponse?.page_size : pageSize,
+                value: isPaginationAPI ? paginationResponse?.page_size : pageSize,
+              }}
             />
           </div>
 
           <div className="mt-3 pb-3 text-center pagination d-flex justify-content-end align-items-center">
             <button
               className="border-1 border-gray-800 bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-start rounded-bottom-start"
-              onClick={() => previousPage()}
-              disabled={!canPreviousPage}
+              onClick={() =>
+                isPaginationAPI ? handlePagination(paginationResponse?.page - 1) : previousPage()
+              }
+              disabled={isPaginationAPI ? paginationResponse?.page === 1 : !canPreviousPage}
             >
               {'<'}
             </button>{' '}
             <button
-              onClick={() => gotoPage(0)}
+              onClick={() => (isPaginationAPI ? handlePagination(1) : gotoPage(0))}
               className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
-                pageIndex + 1 === 1 ? 'bg-gray-900 text-white' : 'bg-white text-body'
+                (isPaginationAPI ? paginationResponse?.page === 1 : pageIndex + 1 === 1)
+                  ? 'bg-gray-900 text-white'
+                  : 'bg-white text-body'
               }`}
               style={{
                 width: '38px',
@@ -284,7 +300,7 @@ const Table = ({
             >
               {1}
             </button>
-            {pageIndex > 3 && (
+            {(isPaginationAPI ? paginationResponse?.page > 3 : pageIndex > 3) && (
               <button
                 className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
                 style={{
@@ -295,17 +311,28 @@ const Table = ({
                 <img alt="..." src={env.PUBLIC_URL + '/assets/images/three-dots.png'} />
               </button>
             )}
-            {[...Array(pageOptions.length)].map((x, index) => {
+            {totalPage.map((x, index) => {
+              let activePage = isPaginationAPI
+                ? paginationResponse?.page === index + 1
+                : pageIndex + 1 === index + 1;
+              let conditionShowNumber = isPaginationAPI
+                ? index !== 0 &&
+                  index !== paginationResponse?.total_pages - 1 &&
+                  index < paginationResponse?.page - 1 + 3 &&
+                  index > paginationResponse?.page - 1 - 3
+                : index !== 0 &&
+                  index !== pageOptions.length - 1 &&
+                  index < pageIndex + 3 &&
+                  index > pageIndex - 3;
               return (
-                index !== 0 &&
-                index !== pageOptions.length - 1 &&
-                index < pageIndex + 3 &&
-                index > pageIndex - 3 && (
+                conditionShowNumber && (
                   <button
-                    onClick={() => gotoPage(index)}
+                    onClick={() =>
+                      isPaginationAPI ? handlePagination(index + 1) : gotoPage(index)
+                    }
                     key={index}
                     className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
-                      pageIndex + 1 === index + 1 ? 'bg-gray-900 text-white' : 'bg-white text-body'
+                      activePage ? 'bg-gray-900 text-white' : 'bg-white text-body'
                     }`}
                     style={{
                       width: '38px',
@@ -317,7 +344,9 @@ const Table = ({
                 )
               );
             })}
-            {pageIndex < pageOptions.length - 4 && (
+            {(isPaginationAPI
+              ? paginationResponse?.page < paginationResponse?.total_pages - 3
+              : pageIndex < pageOptions.length - 4) && (
               <button
                 className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
                 style={{
@@ -328,11 +357,19 @@ const Table = ({
                 <img alt="..." src={env.PUBLIC_URL + '/assets/images/three-dots.png'} />
               </button>
             )}
-            {pageOptions.length > 1 && (
+            {(isPaginationAPI ? paginationResponse?.total_pages > 1 : pageOptions.length > 1) && (
               <button
-                onClick={() => gotoPage(pageCount - 1)}
+                onClick={() =>
+                  isPaginationAPI
+                    ? handlePagination(paginationResponse?.total_pages)
+                    : gotoPage(pageCount - 1)
+                }
                 className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
-                  pageIndex + 1 === pageOptions.length
+                  (
+                    isPaginationAPI
+                      ? paginationResponse?.page === paginationResponse?.total_pages
+                      : pageIndex + 1 === pageOptions.length
+                  )
                     ? 'bg-gray-900 text-white'
                     : 'bg-white text-body'
                 }`}
@@ -341,13 +378,19 @@ const Table = ({
                   height: '38px',
                 }}
               >
-                {pageOptions.length}
+                {isPaginationAPI ? paginationResponse?.total_pages : pageOptions.length}
               </button>
             )}
             <button
               className="border-1 border-gray-800 bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-end rounded-bottom-end"
-              onClick={() => nextPage()}
-              disabled={!canNextPage}
+              onClick={() =>
+                isPaginationAPI ? handlePagination(paginationResponse?.page + 1) : nextPage()
+              }
+              disabled={
+                isPaginationAPI
+                  ? paginationResponse?.page === paginationResponse?.total_pages
+                  : !canNextPage
+              }
             >
               {'>'}
             </button>

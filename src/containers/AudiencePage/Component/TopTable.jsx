@@ -6,7 +6,9 @@ import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from 'components/ComponentNoData';
 import { env } from 'aesirx-lib';
 import PAGE_STATUS from 'constants/PageStatus';
-const TopTableComponent = ({ data, status, t }) => {
+const TopTableComponent = (props) => {
+  const { data, pagination, selectPage, selectPageSize, status, t } = props;
+
   const columnsTable = React.useMemo(
     () =>
       data?.header?.map((item, index) => ({
@@ -19,8 +21,8 @@ const TopTableComponent = ({ data, status, t }) => {
       })),
     [data?.header]
   );
-  console.log('columnsTable', columnsTable);
   const dataTable = React.useMemo(() => data?.data, [data?.data]);
+
   return (
     <>
       {status === PAGE_STATUS.LOADING ? (
@@ -31,8 +33,12 @@ const TopTableComponent = ({ data, status, t }) => {
           columns={columnsTable}
           data={dataTable}
           canSort={true}
-          pagination={false}
-          limit={10}
+          pagination={true}
+          paginationClass={'fs-14 px-4'}
+          isPaginationAPI={true}
+          paginationResponse={pagination}
+          selectPage={selectPage}
+          selectPageSize={selectPageSize}
         />
       ) : (
         <div className="position-relative ChartWrapper bg-white rounded-3 shadow-sm">

@@ -29,7 +29,7 @@ class CityModel {
           accessor: key,
           Cell: ({ cell, column }) =>
             column.id === BI_CITIES_FIELD_KEY.CITY ? (
-              <div className={'px-15'}>{cell?.value ?? null}</div>
+              <div className={'px-15'}>{cell?.value === '' ? 'Unknown' : cell?.value}</div>
             ) : (
               <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
             ),
@@ -48,14 +48,10 @@ class CityModel {
               .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
           };
         })
-        ?.filter((item) => {
-          return item[BI_CITIES_FIELD_KEY.CITY];
-        })
-        .sort(
+        ?.sort(
           (a, b) =>
             b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-        )
-        .slice(0, 10);
+        );
 
       return {
         header,

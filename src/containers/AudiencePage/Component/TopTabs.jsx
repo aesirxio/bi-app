@@ -15,7 +15,10 @@ const TopTabs = observer(
     render() {
       const { t } = this.props;
       const { statusTopTable } = this.listViewModel;
-
+      console.log(
+        'this.listViewModel?.citiesTableData?.pagination',
+        this.listViewModel?.citiesTableData?.pagination
+      );
       return (
         <div className="position-relative h-100">
           <Tab.Container id="left-tabs-example" defaultActiveKey="country">
@@ -42,24 +45,57 @@ const TopTabs = observer(
                 </div>
               </Col>
               <Col sm={9}>
-                <div className="bg-white rounded-3 shadow-sm h-100">
+                <div className="bg-white rounded-3 shadow-sm h-100 position-relative">
                   <Tab.Content>
                     <Tab.Pane eventKey="country">
                       <TopTable
-                        data={this.listViewModel?.countriesTableData}
+                        data={this.listViewModel?.countriesTableData?.list}
+                        pagination={this.listViewModel?.countriesTableData?.pagination}
+                        selectPage={async (value) => {
+                          await this.listViewModel.handleFilterCountries({ page: value });
+                        }}
+                        selectPageSize={async (value) => {
+                          await this.listViewModel.handleFilterCountries({
+                            page: 1,
+                            page_size: value,
+                          });
+                        }}
                         status={statusTopTable}
+                        {...this.props}
                       />
                     </Tab.Pane>
                     <Tab.Pane eventKey="city">
                       <TopTable
-                        data={this.listViewModel?.citiesTableData}
+                        data={this.listViewModel?.citiesTableData?.list}
+                        pagination={this.listViewModel?.citiesTableData?.pagination}
+                        selectPage={async (value) => {
+                          await this.listViewModel.handleFilterCities({ page: value });
+                        }}
+                        selectPageSize={async (value) => {
+                          await this.listViewModel.handleFilterCountries({
+                            page: 1,
+                            page_size: value,
+                          });
+                        }}
                         status={statusTopTable}
+                        {...this.props}
                       />
                     </Tab.Pane>
                     <Tab.Pane eventKey="browser">
                       <TopTable
-                        data={this.listViewModel?.browsersTableData}
+                        data={this.listViewModel?.browsersTableData?.list}
+                        pagination={this.listViewModel?.browsersTableData?.pagination}
+                        selectPage={async (value) => {
+                          await this.listViewModel.handleFilterBrowsers({ page: value });
+                        }}
+                        selectPageSize={async (value) => {
+                          await this.listViewModel.handleFilterCountries({
+                            page: 1,
+                            page_size: value,
+                          });
+                        }}
                         status={statusTopTable}
+                        {...this.props}
                       />
                     </Tab.Pane>
                   </Tab.Content>

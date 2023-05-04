@@ -9,14 +9,14 @@ import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import CountryModel from '../CountryModel/CountryModel';
 class CountryListViewModel {
-  dashboardStore = null;
+  countriesStore = null;
   status = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   countriesData = null;
   countriesTableData = null;
-  constructor(dashboardStore, globalStoreViewModel) {
+  constructor(countriesStore, globalStoreViewModel) {
     makeAutoObservable(this);
-    this.dashboardStore = dashboardStore;
+    this.countriesStore = countriesStore;
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
@@ -26,16 +26,17 @@ class CountryListViewModel {
 
   getCountries = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    this.dataFilter = {
+      page_size: '0',
+      'sort[]': 'number_of_page_views',
+      'sort_direction[]': 'desc',
+      ...this.dataFilter,
+      ...dataFilter,
+    };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.dashboardStore.getCountries(
-      {
-        ...this.dataFilter,
-        page_size: '0',
-        'sort[]': 'number_of_page_views',
-        'sort_direction[]': 'desc',
-      },
+    this.countriesStore.getCountries(
+      this.dataFilter,
       dateRangeFilter,
       this.callbackOnCountriesSuccessHandler,
       this.callbackOnErrorHandler
@@ -46,10 +47,10 @@ class CountryListViewModel {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    this.dashboardStore.getMetrics(
+    this.countriesStore.getCountries(
       this.dataFilter,
       dateRangeFilter,
-      this.callbackOnDataSuccessHandler,
+      this.callbackOnCountriesSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -71,9 +72,12 @@ class CountryListViewModel {
   callbackOnCountriesSuccessHandler = (data) => {
     if (data) {
       this.status = PAGE_STATUS.READY;
-      const transformData = new CountryModel(data, this.globalStoreViewModel);
+      const transformData = new CountryModel(data.list, this.globalStoreViewModel);
       this.countriesData = transformData.toCountries();
-      this.countriesTableData = transformData.toCountriesTable();
+      this.countriesTableData = {
+        list: transformData.toCountriesTable(),
+        pagination: data.pagination,
+      };
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];

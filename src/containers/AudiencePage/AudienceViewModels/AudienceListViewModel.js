@@ -67,16 +67,17 @@ class AudienceListViewModel {
 
   getCountries = async (dataFilter, dateFilter) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    this.dataFilterCountries = {
+      page_size: '5',
+      'sort[]': 'number_of_page_views',
+      'sort_direction[]': 'desc',
+      ...this.dataFilterCountries,
+      ...dataFilter,
+    };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     await this.audienceStore.getCountries(
-      {
-        ...this.dataFilter,
-        page_size: '0',
-        'sort[]': 'number_of_page_views',
-        'sort_direction[]': 'desc',
-      },
+      this.dataFilterCountries,
       dateRangeFilter,
       this.callbackOnCountriesSuccessHandler,
       this.callbackOnErrorHandler
@@ -85,16 +86,17 @@ class AudienceListViewModel {
 
   getCities = async (dataFilter, dateFilter) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    this.dataFilterCities = {
+      page_size: '5',
+      'sort[]': 'number_of_page_views',
+      'sort_direction[]': 'desc',
+      ...this.dataFilterCities,
+      ...dataFilter,
+    };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     await this.audienceStore.getCities(
-      {
-        ...this.dataFilter,
-        page_size: '0',
-        'sort[]': 'number_of_page_views',
-        'sort_direction[]': 'desc',
-      },
+      this.dataFilterCities,
       dateRangeFilter,
       this.callbackOnCitiesSuccessHandler,
       this.callbackOnErrorHandler
@@ -103,16 +105,17 @@ class AudienceListViewModel {
 
   getBrowsers = async (dataFilter, dateFilter) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    this.dataFilterBrowsers = {
+      page_size: '5',
+      'sort[]': 'number_of_page_views',
+      'sort_direction[]': 'desc',
+      ...this.dataFilterBrowsers,
+      ...dataFilter,
+    };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     await this.audienceStore.getBrowsers(
-      {
-        ...this.dataFilter,
-        page_size: '0',
-        'sort[]': 'number_of_page_views',
-        'sort_direction[]': 'desc',
-      },
+      this.dataFilterBrowsers,
       dateRangeFilter,
       this.callbackOnBrowsersSuccessHandler,
       this.callbackOnErrorHandler
@@ -127,6 +130,42 @@ class AudienceListViewModel {
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterCountries = async (dataFilter) => {
+    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.dataFilterCountries = { ...this.dataFilterCountries, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.audienceStore.getCountries(
+      this.dataFilterCountries,
+      dateRangeFilter,
+      this.callbackOnCountriesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterCities = async (dataFilter) => {
+    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.dataFilterCities = { ...this.dataFilterCities, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.audienceStore.getCities(
+      this.dataFilterCities,
+      dateRangeFilter,
+      this.callbackOnCitiesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterBrowsers = async (dataFilter) => {
+    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.dataFilterBrowsers = { ...this.dataFilterBrowsers, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.audienceStore.getBrowsers(
+      this.dataFilterBrowsers,
+      dateRangeFilter,
+      this.callbackOnBrowsersSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -170,8 +209,11 @@ class AudienceListViewModel {
   callbackOnCountriesSuccessHandler = (data) => {
     if (data) {
       this.statusTopTable = PAGE_STATUS.READY;
-      const transformData = new CountryModel(data, this.globalStoreViewModel);
-      this.countriesTableData = transformData.toCountriesTableTop();
+      const transformData = new CountryModel(data.list, this.globalStoreViewModel);
+      this.countriesTableData = {
+        list: transformData.toCountriesTableTop(),
+        pagination: data.pagination,
+      };
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusTopTable = PAGE_STATUS.ERROR;
@@ -182,8 +224,11 @@ class AudienceListViewModel {
   callbackOnCitiesSuccessHandler = (data) => {
     if (data) {
       this.statusTopTable = PAGE_STATUS.READY;
-      const transformData = new CityModel(data, this.globalStoreViewModel);
-      this.citiesTableData = transformData.toCitiesTableTop();
+      const transformData = new CityModel(data.list, this.globalStoreViewModel);
+      this.citiesTableData = {
+        list: transformData.toCitiesTableTop(),
+        pagination: data.pagination,
+      };
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusTopTable = PAGE_STATUS.ERROR;
@@ -194,8 +239,11 @@ class AudienceListViewModel {
   callbackOnBrowsersSuccessHandler = (data) => {
     if (data) {
       this.statusTopTable = PAGE_STATUS.READY;
-      const transformData = new BrowserModel(data, this.globalStoreViewModel);
-      this.browsersTableData = transformData.toBrowsersTableTop();
+      const transformData = new BrowserModel(data.list, this.globalStoreViewModel);
+      this.browsersTableData = {
+        list: transformData.toBrowsersTableTop(),
+        pagination: data.pagination,
+      };
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusTopTable = PAGE_STATUS.ERROR;

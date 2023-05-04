@@ -37,7 +37,6 @@ class CountryModel {
           return item[BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE];
         })
         ?.sort((a, b) => b.views - a.views)
-        .slice(0, 10)
     );
   };
 
@@ -56,7 +55,9 @@ class CountryModel {
           accessor: key,
           Cell: ({ cell, column, row }) =>
             column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
-              <div className={'px-3'}>{`${row.index + 1}. ${cell?.value ?? null}`}</div>
+              <div className={'px-3'}>{`${row.index + 1}. ${
+                cell?.value === '' ? 'Unknown' : cell?.value
+              }`}</div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (
               <div className={'px-3'}>{cell?.value + '%' ?? null}</div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (
@@ -68,22 +69,18 @@ class CountryModel {
             ),
         };
       });
-      const data = this.data
-        ?.map((item) => {
-          return {
-            ...item,
-            ...accessor
-              .map((i) => {
-                return {
-                  [i]: item[i],
-                };
-              })
-              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
-          };
-        })
-        ?.filter((item) => {
-          return item[BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE];
-        });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
 
       return {
         header,
@@ -107,7 +104,7 @@ class CountryModel {
           accessor: key,
           Cell: ({ cell, column }) =>
             column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
-              <div className={'px-15'}>{cell?.value ?? null}</div>
+              <div className={'px-15'}>{cell?.value === '' ? 'Unknown' : cell?.value}</div>
             ) : (
               <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
             ),
@@ -126,14 +123,10 @@ class CountryModel {
               .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
           };
         })
-        ?.filter((item) => {
-          return item[BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE];
-        })
-        .sort(
+        ?.sort(
           (a, b) =>
             b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-        )
-        .slice(0, 10);
+        );
 
       return {
         header,

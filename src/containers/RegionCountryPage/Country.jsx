@@ -93,8 +93,21 @@ const Country = observer(
             <div className="position-relative ChartWrapper">
               {status === PAGE_STATUS.LOADING ? (
                 <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
-              ) : this.countryListViewModel?.countriesTableData ? (
-                <CountryTable data={this.countryListViewModel?.countriesTableData} />
+              ) : this.countryListViewModel?.countriesTableData?.list ? (
+                <CountryTable
+                  data={this.countryListViewModel?.countriesTableData?.list}
+                  // pagination={this.countryListViewModel?.countriesTableData?.pagination}
+                  // selectPage={async (value) => {
+                  //   await this.countryListViewModel.handleFilter({ page: value });
+                  // }}
+                  // selectPageSize={async (value) => {
+                  //   await this.countryListViewModel.handleFilter({
+                  //     page: 1,
+                  //     page_size: value,
+                  //   });
+                  // }}
+                  {...this.props}
+                />
               ) : (
                 <div className="position-relative ChartWrapper bg-white rounded-3 shadow-sm">
                   <div className="position-absolute top-50 start-50 translate-middle">

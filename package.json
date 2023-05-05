@@ -10,7 +10,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "aesirx-lib": "^1.9.4",
+    "aesirx-lib": "https://gitpkg.now.sh/aesirxio/aesirx-lib?f5be618851474267a52835e45986757d3fc64a4d&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build",
     "aesirx-uikit": "^1.0.4",
     "axios": "^1.4.0",
     "d3-fetch": "^3.0.1",

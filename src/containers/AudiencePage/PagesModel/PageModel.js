@@ -34,7 +34,6 @@ class PageModel {
           accessor: key,
           Cell: ({ cell, column }) => {
             const urlParams = column.id === BI_PAGES_FIELD_KEY.URL && new URL(cell?.value);
-            console.log(urlParams);
             return column.id === BI_PAGES_FIELD_KEY.URL ? (
               <div className={'px-15'}>
                 {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}

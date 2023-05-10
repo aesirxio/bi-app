@@ -14,9 +14,9 @@ const TopTableComponent = (props) => {
       data?.header?.map((item, index) => ({
         ...item,
         className: `px-15 py-16 fs-sm fw-semibold border-bottom border-gray-800 ${
-          index + 1 === data?.header?.length ? 'rounded-top-end-3 text-end' : ''
+          index !== 0 ? 'rounded-top-end-3 text-end' : ''
         } ${index === 0 ? 'rounded-top-start-3' : ''}`,
-        width: 100,
+        width: index === 0 ? 'auto' : 200,
         Header: t(item.Header),
       })),
     [data?.header]

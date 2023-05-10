@@ -192,5 +192,9 @@
   "txt_duration": "Тривалість",
   "txt_ip": "IP",
   "txt_device": "Device",
-  "txt_browser": "Браузер"
+  "txt_browser": "Браузер",
+  "txt_language": "Мова",
+  "txt_page": "Сторінка",
+  "txt_page_title": "Назва сторінки",
+  "txt_time_on_page": "Час на сторінці"
 }

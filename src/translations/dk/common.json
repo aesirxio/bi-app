@@ -120,5 +120,9 @@
   "txt_duration": "Varighed",
   "txt_ip": "IP",
   "txt_device": "Enhed",
-  "txt_browser": "Browser"
+  "txt_browser": "Browser",
+  "txt_language": "Sprog",
+  "txt_page": "Side",
+  "txt_page_title": "Sidetitel",
+  "txt_time_on_page": "Tid på side"
 }

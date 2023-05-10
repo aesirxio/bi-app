@@ -4,7 +4,6 @@ import { Col, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import DateRangePicker from 'components/DateRangePicker';
-import OverviewComponent from 'containers/Dashboard/Component/Overview';
 import CardComponent from 'containers/Dashboard/Component/Card';
 import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import { withRouter } from 'react-router-dom';
@@ -12,10 +11,10 @@ import { withAudienceViewModel } from 'containers/AudiencePage/AudienceViewModel
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 import { env } from 'aesirx-lib';
 import moment from 'moment';
-import TopTabs from './Component/TopTabs';
+import TopTabsBehavior from './Component/TopTabsBehavior';
 
-const AudiencePage = observer(
-  class AudiencePage extends Component {
+const AudienceBehaviorPage = observer(
+  class AudienceBehaviorPage extends Component {
     static contextType = BiViewModelContext;
 
     constructor(props) {
@@ -28,7 +27,7 @@ const AudiencePage = observer(
         : null;
     }
     componentDidMount = () => {
-      this.audienceListViewModel.initialize({
+      this.audienceListViewModel.initializeBehavior({
         'filter[domain]': this.context.biListViewModel.activeDomain,
       });
     };
@@ -37,7 +36,7 @@ const AudiencePage = observer(
         this.props.location !== prevProps.location ||
         this.props.activeDomain !== prevProps.activeDomain
       ) {
-        this.audienceListViewModel.initialize({
+        this.audienceListViewModel.initializeBehavior({
           'filter[domain]': this.context.biListViewModel.activeDomain,
         });
       }
@@ -50,18 +49,43 @@ const AudiencePage = observer(
       const { t } = this.props;
       return [
         {
-          className: 'col-12 mb-24',
-          title: t('txt_visitors'),
-          icon: env.PUBLIC_URL + '/assets/images/visitor.svg',
-          iconColor: '#1AB394',
+          className: 'col-4 mb-24',
+          title: t('txt_page_views'),
+          icon: env.PUBLIC_URL + '/assets/images/view.svg',
+          iconColor: '#2E71B1',
           value: Helper.numberWithCommas(
-            this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
+            this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
           ),
-          isIncrease: true,
+          isIncrease: false,
           loading: this.audienceListViewModel.statusMetrics,
+          options: [
+            {
+              label: t('txt_all'),
+              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+              actualValue: Helper.numberWithCommas(
+                this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+              ),
+            },
+            {
+              label: t('txt_unique'),
+              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
+              actualValue: Helper.numberWithCommas(
+                this.audienceListViewModel.metricsData?.[
+                  BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+                ]
+              ),
+            },
+          ],
+          defaultValue: {
+            label: t('txt_all'),
+            value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+            actualValue: Helper.numberWithCommas(
+              this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+            ),
+          },
         },
         {
-          className: 'col-12 mb-24',
+          className: 'col-4 mb-24',
           title: t('txt_acg_session_duration'),
           icon: env.PUBLIC_URL + '/assets/images/duration.svg',
           iconColor: '#EF3737',
@@ -81,7 +105,7 @@ const AudiencePage = observer(
           loading: this.audienceListViewModel.statusMetrics,
         },
         {
-          className: 'col-12',
+          className: 'col-4 mb-24',
           title: t('txt_page_session'),
           icon: env.PUBLIC_URL + '/assets/images/page.svg',
           iconColor: '#FFBE55',
@@ -91,7 +115,7 @@ const AudiencePage = observer(
             ]
           ),
           isIncrease: false,
-          loading: this.audienceListViewModel.statusMetrics,
+          loading: this.audienceListViewModel?.statusMetrics,
         },
       ];
     };
@@ -103,7 +127,7 @@ const AudiencePage = observer(
         <div className="p-3">
           <div className="d-flex align-items-center justify-content-between mb-3">
             <div>
-              <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_audience')}</h2>
+              <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_behavior')}</h2>
               <p className="mb-0 text-color">{t('txt_analytic_details')}</p>
             </div>
             <div className="position-relative">
@@ -112,21 +136,14 @@ const AudiencePage = observer(
           </div>
 
           <Row className="mb-24">
-            <Col lg={9}>
-              <OverviewComponent
-                isSelection={false}
-                listViewModel={this.audienceListViewModel}
-                status={this.audienceListViewModel?.statusOverview}
-              />
-            </Col>
-            <Col lg={3}>
+            <Col lg={12}>
               <CardComponent data={card ?? []} />
             </Col>
           </Row>
-          <TopTabs listViewModel={this.audienceListViewModel} />
+          <TopTabsBehavior listViewModel={this.audienceListViewModel} />
         </div>
       );
     }
   }
 );
-export default withTranslation()(withRouter(withAudienceViewModel(AudiencePage)));
+export default withTranslation()(withRouter(withAudienceViewModel(AudienceBehaviorPage)));

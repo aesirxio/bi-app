@@ -192,5 +192,9 @@
   "txt_duration": "Trajanje",
   "txt_ip": "IP",
   "txt_device": "Uređaj",
-  "txt_browser": "preglednik"
+  "txt_browser": "preglednik",
+  "txt_language": "Jezik",
+  "txt_page": "Stranica",
+  "txt_page_title": "Naslov stranice",
+  "txt_time_on_page": "Vrijeme na stranici"
 }

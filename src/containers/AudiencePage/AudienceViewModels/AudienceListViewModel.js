@@ -11,6 +11,8 @@ import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import CityModel from '../CityModel/CityModel';
 import BrowserModel from '../BrowserModel/BrowserModel';
+import LanguageModel from '../LanguagesModel/LanguageModel';
+import PageModel from '../PagesModel/PageModel';
 class AudienceListViewModel {
   audienceStore = null;
   status = PAGE_STATUS.READY;
@@ -23,6 +25,8 @@ class AudienceListViewModel {
   countriesTableData = null;
   citiesTableData = null;
   browsersTableData = null;
+  languagesTableData = null;
+  pagesTableData = null;
   constructor(audienceStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.audienceStore = audienceStore;
@@ -35,6 +39,12 @@ class AudienceListViewModel {
     this.getCountries(dataFilter, dateFilter);
     this.getCities(dataFilter, dateFilter);
     this.getBrowsers(dataFilter, dateFilter);
+    this.getLanguages(dataFilter, dateFilter);
+  };
+
+  initializeBehavior = (dataFilter, dateFilter) => {
+    this.getMetrics(dataFilter, dateFilter);
+    this.getPages(dataFilter, dateFilter);
   };
 
   getMetrics = (dataFilter, dateFilter) => {
@@ -122,6 +132,44 @@ class AudienceListViewModel {
     );
   };
 
+  getLanguages = async (dataFilter, dateFilter) => {
+    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.dataFilterLanguages = {
+      page_size: '5',
+      'sort[]': 'number_of_page_views',
+      'sort_direction[]': 'desc',
+      ...this.dataFilterLanguages,
+      ...dataFilter,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.audienceStore.getLanguages(
+      this.dataFilterLanguages,
+      dateRangeFilter,
+      this.callbackOnLanguagesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getPages = async (dataFilter, dateFilter) => {
+    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.dataFilterPages = {
+      page_size: '5',
+      'sort[]': 'number_of_page_views',
+      'sort_direction[]': 'desc',
+      ...this.dataFilterPages,
+      ...dataFilter,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.audienceStore.getPages(
+      this.dataFilterPages,
+      dateRangeFilter,
+      this.callbackOnPagesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   handleFilter = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
@@ -166,6 +214,30 @@ class AudienceListViewModel {
       this.dataFilterBrowsers,
       dateRangeFilter,
       this.callbackOnBrowsersSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterLanguages = async (dataFilter) => {
+    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.dataFilterLanguages = { ...this.dataFilterLanguages, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.audienceStore.getLanguages(
+      this.dataFilterLanguages,
+      dateRangeFilter,
+      this.callbackOnLanguagesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterPages = async (dataFilter) => {
+    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.dataFilterPages = { ...this.dataFilterPages, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.audienceStore.getPages(
+      this.dataFilterPages,
+      dateRangeFilter,
+      this.callbackOnPagesSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -242,6 +314,36 @@ class AudienceListViewModel {
       const transformData = new BrowserModel(data.list, this.globalStoreViewModel);
       this.browsersTableData = {
         list: transformData.toBrowsersTableTop(),
+        pagination: data.pagination,
+      };
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.statusTopTable = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnLanguagesSuccessHandler = (data) => {
+    if (data) {
+      this.statusTopTable = PAGE_STATUS.READY;
+      const transformData = new LanguageModel(data.list, this.globalStoreViewModel);
+      this.languagesTableData = {
+        list: transformData.toLanguagesTableTop(),
+        pagination: data.pagination,
+      };
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.statusTopTable = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnPagesSuccessHandler = (data) => {
+    if (data) {
+      this.statusTopTable = PAGE_STATUS.READY;
+      const transformData = new PageModel(data.list, this.globalStoreViewModel);
+      this.pagesTableData = {
+        list: transformData.toPagesTableTop(),
         pagination: data.pagination,
       };
     } else {

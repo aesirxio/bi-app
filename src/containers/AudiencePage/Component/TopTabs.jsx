@@ -15,10 +15,6 @@ const TopTabs = observer(
     render() {
       const { t } = this.props;
       const { statusTopTable } = this.listViewModel;
-      console.log(
-        'this.listViewModel?.citiesTableData?.pagination',
-        this.listViewModel?.citiesTableData?.pagination
-      );
       return (
         <div className="position-relative h-100">
           <Tab.Container id="left-tabs-example" defaultActiveKey="country">
@@ -39,6 +35,11 @@ const TopTabs = observer(
                     <Nav.Item>
                       <Nav.Link eventKey="browser" className="ps-0">
                         {t('txt_browser')}
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="language" className="ps-0">
+                        {t('txt_language')}
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>
@@ -90,6 +91,23 @@ const TopTabs = observer(
                         }}
                         selectPageSize={async (value) => {
                           await this.listViewModel.handleFilterCountries({
+                            page: 1,
+                            page_size: value,
+                          });
+                        }}
+                        status={statusTopTable}
+                        {...this.props}
+                      />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="language">
+                      <TopTable
+                        data={this.listViewModel?.languagesTableData?.list}
+                        pagination={this.listViewModel?.languagesTableData?.pagination}
+                        selectPage={async (value) => {
+                          await this.listViewModel.handleFilterLanguages({ page: value });
+                        }}
+                        selectPageSize={async (value) => {
+                          await this.listViewModel.handleFilterLanguages({
                             page: 1,
                             page_size: value,
                           });

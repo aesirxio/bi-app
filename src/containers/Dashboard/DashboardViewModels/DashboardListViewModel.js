@@ -51,7 +51,7 @@ class DashboardListViewModel {
     this.dashboardStore.getVisitors(
       {
         ...this.dataFilter,
-        page_size: '0',
+        page_size: '1000',
       },
       dateRangeFilter,
       this.callbackOnVisitorSuccessHandler,

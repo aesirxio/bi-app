@@ -76,7 +76,7 @@
     "babel-plugin-react-css-modules": "^5.2.6",
     "craco": "^0.0.3",
     "esbuild-sass-plugin": "^2.8.0",
-    "eslint": "^8.17",
+    "eslint": "^8.40",
     "prettier": "^2.8.8",
     "react-inject-env": "^2.1.0",
     "react-scripts": "^5.0.1",

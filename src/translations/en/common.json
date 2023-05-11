@@ -120,5 +120,9 @@
   "txt_duration": "Duration",
   "txt_ip": "IP",
   "txt_device": "Device",
-  "txt_browser": "Browser"
+  "txt_browser": "Browser",
+  "txt_language": "Language",
+  "txt_page": "Page",
+  "txt_page_title": "Page Title",
+  "txt_time_on_page": "Time On Page"
 }

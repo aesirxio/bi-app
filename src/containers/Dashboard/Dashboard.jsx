@@ -20,6 +20,7 @@ import { env } from 'aesirx-lib';
 import { Col, Row } from 'react-bootstrap';
 import Countries from './Component/Countries';
 import moment from 'moment';
+import Browsers from './Component/Browsers';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -175,6 +176,11 @@ const Dashboard = observer(
             <Col lg={6}>
               <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
                 <Countries {...this.props} />
+              </div>
+            </Col>
+            <Col lg={6}>
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <Browsers {...this.props} />
               </div>
             </Col>
           </Row>

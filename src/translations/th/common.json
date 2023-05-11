@@ -192,5 +192,9 @@
   "txt_duration": "ระยะเวลา",
   "txt_ip": "IP",
   "txt_device": "อุปกรณ์",
-  "txt_browser": "เบราว์เซอร์"
+  "txt_browser": "เบราว์เซอร์",
+  "txt_language": "ภาษา",
+  "txt_page": "หน้าหนังสือ",
+  "txt_page_title": "ชื่อหน้า",
+  "txt_time_on_page": "เวลาบนหน้า"
 }

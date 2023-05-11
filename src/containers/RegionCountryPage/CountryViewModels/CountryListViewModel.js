@@ -27,7 +27,7 @@ class CountryListViewModel {
   getCountries = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = {
-      page_size: '0',
+      page_size: '1000',
       'sort[]': 'number_of_page_views',
       'sort_direction[]': 'desc',
       ...this.dataFilter,

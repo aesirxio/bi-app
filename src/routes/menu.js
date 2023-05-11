@@ -20,6 +20,11 @@ const getMenu = (dataStreamActive) => {
           link: `/${dataStreamActive}/audience/overview`,
           page: 'audience-overview',
         },
+        {
+          text: 'txt_menu_behavior',
+          link: `/${dataStreamActive}/audience/behavior`,
+          page: 'audience-behavior',
+        },
       ],
     },
     {

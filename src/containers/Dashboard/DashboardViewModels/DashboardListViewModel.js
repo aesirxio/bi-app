@@ -9,6 +9,7 @@ import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import DashboardModel from '../DashboardModel/DashboardModel';
 import CountryModel from 'containers/RegionCountryPage/CountryModel/CountryModel';
+import BrowserModel from 'containers/AudiencePage/BrowserModel/BrowserModel';
 class DashboardListViewModel {
   dashboardStore = null;
   status = PAGE_STATUS.READY;
@@ -16,6 +17,7 @@ class DashboardListViewModel {
   summaryData = null;
   visitorData = null;
   countriesData = null;
+  browsersData = null;
   constructor(dashboardStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.dashboardStore = dashboardStore;
@@ -26,6 +28,7 @@ class DashboardListViewModel {
     this.getMetrics(dataFilter, dateFilter);
     this.getVisitors(dataFilter, dateFilter);
     this.getCountries(dataFilter, dateFilter);
+    this.getBrowsers(dataFilter, dateFilter);
   };
 
   getMetrics = (dataFilter, dateFilter) => {
@@ -48,7 +51,7 @@ class DashboardListViewModel {
     this.dashboardStore.getVisitors(
       {
         ...this.dataFilter,
-        page_size: '0',
+        page_size: '1000',
       },
       dateRangeFilter,
       this.callbackOnVisitorSuccessHandler,
@@ -70,6 +73,24 @@ class DashboardListViewModel {
       },
       dateRangeFilter,
       this.callbackOnCountriesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getBrowsers = (dataFilter, dateFilter) => {
+    this.status = PAGE_STATUS.LOADING;
+    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.dashboardStore.getBrowsers(
+      {
+        ...this.dataFilter,
+        page_size: '10',
+        'sort[]': 'number_of_page_views',
+        'sort_direction[]': 'desc',
+      },
+      dateRangeFilter,
+      this.callbackOnBrowsersSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -124,6 +145,17 @@ class DashboardListViewModel {
     if (data) {
       const transformData = new CountryModel(data.list, this.globalStoreViewModel);
       this.countriesData = transformData.toCountries();
+      this.status = PAGE_STATUS.READY;
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnBrowsersSuccessHandler = (data) => {
+    if (data) {
+      const transformData = new BrowserModel(data.list, this.globalStoreViewModel);
+      this.browsersData = transformData.toBrowsersTableTop();
       this.status = PAGE_STATUS.READY;
     } else {
       this.status = PAGE_STATUS.ERROR;

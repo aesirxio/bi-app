@@ -36,9 +36,9 @@ const mainRoutes = [
     main: () => <DashboardPage />,
   },
   {
-    path: '/:domain/audience/overview',
+    path: ['/:domain/audience/overview', '/:domain/audience/behavior'],
     exact: true,
-    page: ['audience-overview'],
+    page: ['audience-overview', 'audience-behavior'],
     main: () => <AudiencePage />,
   },
   { path: '/:domain/revenue', exact: true, main: () => <RevenuePage /> },

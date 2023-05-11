@@ -59,14 +59,14 @@ const UTMTrackingPage = observer((props) => {
       if (!attributeData) {
         await getAttribute({
           // 'filter[domain]': activeDomain,
-          page_size: 0,
+          page_size: 1000,
           'filter[attribute_name]': 'utm_source',
         });
       }
       if (attributeData?.[0]?.values?.length) {
         await getVisitor({
           'filter[domain]': activeDomain,
-          page_size: 0,
+          page_size: 1000,
           'filter[attribute_name]': 'utm_source',
           //Todo: filter with list value
           // 'filter[attribute_value]': attributeData?.[0]?.values?.[0]?.value,

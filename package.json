@@ -11,7 +11,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "aesirx-lib": "^1.9.6",
-    "aesirx-uikit": "^1.0.5",
+    "aesirx-uikit": "^1.0.6",
     "axios": "^1.4.0",
     "d3-fetch": "^3.0.1",
     "mobx": "^6.0.4",
@@ -87,5 +87,11 @@
   "files": [
     "dist",
     "public"
-  ]
+  ],
+  "resolutions": {
+    "react": "^18",
+    "react-dom": "^18",
+    "aesirx-uikit": "^1.0.6",
+    "aesirx-lib": "^1.9.6"
+  }
 }

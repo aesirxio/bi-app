@@ -2967,7 +2967,7 @@ adjust-sourcemap-loader@^4.0.0:
     loader-utils "^2.0.0"
     regex-parser "^2.2.11"
 
-aesirx-dam-app@^1.2.9:
+aesirx-dam-app@^1.2.10:
   version "1.2.10"
   resolved "https://registry.yarnpkg.com/aesirx-dam-app/-/aesirx-dam-app-1.2.10.tgz#06f79f79d1867a1c3689488d6463352c9f87ddd3"
   integrity sha512-0Qz2uwJZJJ3zVmKdwC3DWAqsLjj0Y/uMjghbUlvrO4CgsHFI/Nuka+C24LHsNJK5gYZq9w6IpWbzvnKpMpsofA==
@@ -2995,20 +2995,7 @@ aesirx-dam-app@^1.2.9:
     simple-react-validator "^1.6.2"
     web-vitals "^3.3.1"
 
-aesirx-lib@^1.9.5:
-  version "1.9.5"
-  resolved "https://registry.yarnpkg.com/aesirx-lib/-/aesirx-lib-1.9.5.tgz#98f25f13299c7e7bd5a4ac4dcf6b57367ec84840"
-  integrity sha512-WzHsPVTgZVUH66a79qdeq3KiCiCiw001HhhP3xE1KY65rFaxPqQuwOcRvMRyPe7xaW2Z+YqLl6rc7imF7BlcHg==
-  dependencies:
-    axios "^1.3.5"
-    axios-auth-refresh "^3.3.6"
-    crypto-js "^4.1.1"
-    date-fns "^2.30.0"
-    date-fns-tz "^2.0.0"
-    moment "^2.29.4"
-    query-string "7"
-
-aesirx-lib@^1.9.6:
+aesirx-lib@^1.9.5, aesirx-lib@^1.9.6:
   version "1.9.6"
   resolved "https://registry.yarnpkg.com/aesirx-lib/-/aesirx-lib-1.9.6.tgz#76a380e93fcd0b326ef5c252315871707a35e26f"
   integrity sha512-cZCmaAm8ZVjxWVDSt6R8LcZhh6+b7soyMMkP6ImMNUEvhmANCFC385AGqWI8Y1OsOBIowjj0E9nL2+NDtHn6Ag==
@@ -3021,28 +3008,28 @@ aesirx-lib@^1.9.6:
     query-string "7"
     react-secure-storage "^1.2.2"
 
-aesirx-sso@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/aesirx-sso/-/aesirx-sso-1.0.9.tgz#7903ae4873a6e3b1573c85523280635c188593d3"
-  integrity sha512-KjTB9Ox2v0suOs1YwSnovdu2RuJOX8YMGjhU+4WDjXdlxXLo8dfucMOS+wny4B8YP7T/XWufUO/YCfyKlKlp2A==
+aesirx-sso@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/aesirx-sso/-/aesirx-sso-1.0.10.tgz#288d41be5a936169e26587545e7e9bdab42df5ff"
+  integrity sha512-B5dUeW3fBpwuHXca73vO4k1osyQs0Ap5DJZyKlnxa4lNofVJwLLrRLqL9Pef2pPcr4cgyF07RaFN/ejSdORMHA==
   dependencies:
     cross-env "^7.0.3"
     dotenv "^16.0.3"
     react "^18.2.0"
     react-spinners "^0.13.6"
 
-aesirx-uikit@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.5.tgz#303b36b0d1bcca1dcd0e75b82e342b9910f63ba7"
-  integrity sha512-xvDc/Z92ZjjNEZnn0QoNp/QtEzUjZ6WrcoAxpm+lSNQkoO7R1qYuuA9qV2XxtgDD+bWs/5dOWOmUsZyP6eQJyw==
+aesirx-uikit@^1.0.5, aesirx-uikit@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.6.tgz#f10d9a59d9197f14909171da15d7a12a9642de93"
+  integrity sha512-AyFtOO20KvFeYc/NBSeNqXzyjnlMx5N55Jw3UWIyIBtBXVu6njUTBlx5948dRh28FF7xay2pftYkWaFLL15Q3g==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.4.0"
     "@fortawesome/free-regular-svg-icons" "^6.4.0"
     "@fortawesome/free-solid-svg-icons" "^6.4.0"
     "@fortawesome/react-fontawesome" "^0.2.0"
-    aesirx-dam-app "^1.2.9"
-    aesirx-lib "^1.9.5"
-    aesirx-sso "^1.0.9"
+    aesirx-dam-app "^1.2.10"
+    aesirx-lib "^1.9.6"
+    aesirx-sso "^1.0.10"
     bootstrap "^5.2.3"
     i18next "^22.4.15"
     i18next-browser-languagedetector "^7.0.1"
@@ -10337,7 +10324,7 @@ react-dnd@^16.0.1:
     fast-deep-equal "^3.1.3"
     hoist-non-react-statics "^3.3.2"
 
-react-dom@^18.2.0:
+react-dom@^18, react-dom@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
   integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
@@ -10619,7 +10606,7 @@ react-transition-group@^4.3.0, react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^18.2.0:
+react@^18, react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==

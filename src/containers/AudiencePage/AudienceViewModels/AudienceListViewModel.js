@@ -43,6 +43,7 @@ class AudienceListViewModel {
   };
 
   initializeBehavior = (dataFilter, dateFilter) => {
+    this.getVisitors(dataFilter, dateFilter);
     this.getMetrics(dataFilter, dateFilter);
     this.getPages(dataFilter, dateFilter);
   };

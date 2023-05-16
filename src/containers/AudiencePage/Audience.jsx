@@ -114,6 +114,9 @@ const AudiencePage = observer(
           <Row className="mb-24">
             <Col lg={9}>
               <OverviewComponent
+                lines={['visits']}
+                areaColors={['#3BB346']}
+                lineColors={['#0FC6C2']}
                 isSelection={false}
                 listViewModel={this.audienceListViewModel}
                 status={this.audienceListViewModel?.statusOverview}

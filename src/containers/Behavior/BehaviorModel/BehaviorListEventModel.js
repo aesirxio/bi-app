@@ -169,36 +169,50 @@ class BehaviorEventModel {
         return {
           Header: headerTable[index],
           accessor: key,
-          Cell: ({ cell, column, row }) =>
-            column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value ? (
-              <>
-                {integration ? (
-                  <a
-                    href="#"
-                    onClick={(e) =>
-                      this.handleChangeLink(
-                        e,
-                        `flow/${row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]}`
-                      )
-                    }
-                    className={`px-3`}
-                  >
-                    <span>{cell?.value}</span>
-                  </a>
-                ) : (
-                  <NavLink
-                    to={`/${this.globalViewModel.activeDomain}/flow/${
-                      row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]
-                    }`}
-                    className={'px-3'}
-                  >
-                    {cell?.value}
-                  </NavLink>
-                )}
-              </>
-            ) : (
-              <div className={'px-3'}>{cell?.value ?? null}</div>
-            ),
+          Cell: ({ cell, column, row }) => {
+            if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
+              return (
+                <>
+                  {integration ? (
+                    <a
+                      href="#"
+                      onClick={(e) =>
+                        this.handleChangeLink(
+                          e,
+                          `flow/${row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]}`
+                        )
+                      }
+                      className={`px-3`}
+                    >
+                      <span>{cell?.value}</span>
+                    </a>
+                  ) : (
+                    <NavLink
+                      to={`/${this.globalViewModel.activeDomain}/flow/${
+                        row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]
+                      }`}
+                      className={'px-3'}
+                    >
+                      {cell?.value}
+                    </NavLink>
+                  )}
+                </>
+              );
+            } else if (
+              (column.id === BI_VISITOR_FIELD_KEY.REFERER ||
+                column.id === BI_VISITOR_FIELD_KEY.URL) &&
+              cell?.value
+            ) {
+              const urlParams = new URL(cell?.value);
+              return (
+                <div className={'px-3'}>
+                  {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                </div>
+              );
+            } else {
+              return <div className={'px-3'}>{cell?.value ?? null}</div>;
+            }
+          },
         };
       });
       const data = this.data.map((item) => {
@@ -424,6 +438,17 @@ class BehaviorEventModel {
                     </NavLink>
                   )}
                 </>
+              );
+            } else if (
+              (column.id === BI_VISITOR_FIELD_KEY.REFERER ||
+                column.id === BI_VISITOR_FIELD_KEY.URL) &&
+              cell?.value
+            ) {
+              const urlParams = new URL(cell?.value);
+              return (
+                <div className={'px-3'}>
+                  {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                </div>
               );
             } else {
               return <div className={'px-3'}>{cell?.value ?? null}</div>;

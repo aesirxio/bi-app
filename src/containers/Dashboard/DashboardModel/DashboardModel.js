@@ -4,7 +4,7 @@
  */
 
 import moment from 'moment';
-import { enumerateDaysBetweenDates } from 'aesirx-lib';
+import { BI_VISITORS_FIELD_KEY, enumerateDaysBetweenDates } from 'aesirx-lib';
 
 class DashboardModel {
   data = [];
@@ -44,22 +44,32 @@ class DashboardModel {
       const filterDate = this.data.find(
         (_item) => moment(_item.date).format('YYYY-MM-DD') === date
       );
-
       return {
         name: date,
-        line: filterDate?.visits ?? 0,
+        visits: filterDate?.[BI_VISITORS_FIELD_KEY.VISITS] ?? 0,
+        page_views: filterDate?.[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS] ?? 0,
       };
     });
 
     const month = twelveMonth.map((month, index) => {
       const filterMonthDate = this.data.filter((_item) => moment(_item?.date).month() === index);
       let totalVisitorCount = 0;
+      let totalPageViewCount = 0;
       if (filterMonthDate) {
-        totalVisitorCount = filterMonthDate.reduce((acc, item) => acc + item.visits, 0);
+        totalVisitorCount = filterMonthDate.reduce(
+          (acc, item) => acc + item[BI_VISITORS_FIELD_KEY.VISITS],
+          0
+        );
+        totalPageViewCount = filterMonthDate.reduce(
+          (acc, item) => acc + item[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS],
+          0
+        );
       }
+
       return {
         name: month,
-        line: totalVisitorCount,
+        visits: totalVisitorCount,
+        page_views: totalPageViewCount,
       };
     });
     return [{ visitors: month }, { visitors: date }];

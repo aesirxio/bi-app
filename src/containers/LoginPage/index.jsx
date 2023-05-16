@@ -10,7 +10,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import './index.scss';
 
 import { login } from '../../auth';
-import { InputPassword, Checkbox } from 'aesirx-uikit';
+import { InputPassword } from 'aesirx-uikit';
 
 import { env } from 'aesirx-lib';
 

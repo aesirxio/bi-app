@@ -110,17 +110,7 @@ class LoginPage extends React.Component {
                 {this.validator.message('password', this.state.password, 'required', {
                   className: 'text-danger',
                 })}
-                <div className="d-flex justify-content-between mt-24">
-                  <Checkbox text="Remember me" />
-                  <a
-                    href="https://bi.aesirx.io/auth/forgotpassword"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="d-flex fw-semibold fs-6"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
+
                 <button
                   type="button"
                   className={`btn w-100 fw-bold btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login mt-24 text-uppercase`}

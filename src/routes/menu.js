@@ -41,7 +41,7 @@ const getMenu = (dataStreamActive) => {
         {
           text: 'txt_menu_generator',
           link: `/${dataStreamActive}/utm-tracking/generator`,
-          page: 'utm-tracking-genegator',
+          page: 'utm-tracking-generator',
         },
       ],
     },
@@ -59,7 +59,7 @@ const getMenu = (dataStreamActive) => {
         {
           text: 'txt_menu_generator',
           link: `/${dataStreamActive}/events/generator`,
-          page: 'events-genegator',
+          page: 'events-generator',
         },
       ],
     },

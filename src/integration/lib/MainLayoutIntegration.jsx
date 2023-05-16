@@ -64,7 +64,13 @@ const RenderComponent = ({ link, ...props }) => {
     case 'utm-tracking':
       return <UTMTrackingPage {...props} />;
 
+    case 'utm-tracking-generator':
+      return <UTMTrackingPage {...props} />;
+
     case 'events':
+      return <EventsPage {...props} />;
+
+    case 'events-generator':
       return <EventsPage {...props} />;
 
     case 'region-country':

@@ -6,13 +6,13 @@ import { FlowViewModelContextProvider } from './FlowViewModels/FlowViewModelCont
 import FlowStore from './FlowStore/FlowStore';
 import FlowViewModel from './FlowViewModels/FlowViewModel';
 import FlowDetailContainer from './FlowDetailContainer';
-import BehaviorStore from 'containers/Behavior/BehaviorStore/BehaviorStore';
+import EventsStore from 'containers/EventsPage/EventsStore/EventsStore';
 
 const FlowPage = observer(
   class FlowPage extends Component {
     flowStore = null;
     flowViewModel = null;
-    behaviorStore = null;
+    eventsStore = null;
 
     constructor(props) {
       super(props);
@@ -21,11 +21,11 @@ const FlowPage = observer(
       this.biListViewModel = this.viewModel ? this.viewModel.getBiListViewModel() : null;
 
       this.flowStore = new FlowStore({});
-      this.behaviorStore = new BehaviorStore({});
+      this.eventsStore = new EventsStore({});
 
       this.flowViewModel = new FlowViewModel(
         this.flowStore,
-        this.behaviorStore,
+        this.eventsStore,
         this.biListViewModel
       );
     }

@@ -10,7 +10,8 @@ const LoginPage = lazy(() => import('containers/LoginPage'));
 const DashboardPage = lazy(() => import('containers/Dashboard'));
 const AudiencePage = lazy(() => import('containers/AudiencePage'));
 const RevenuePage = lazy(() => import('containers/RevenuePage'));
-const BehaviorPage = lazy(() => import('containers/Behavior'));
+const UTMTrackingPage = lazy(() => import('containers/UTMTrackingPage'));
+const EventsPage = lazy(() => import('containers/EventsPage'));
 
 const SubscriptionPage = lazy(() => import('containers/SubscriptionPage'));
 const MemberRolesPage = lazy(() => import('containers/MemberRolesPage'));
@@ -43,15 +44,16 @@ const mainRoutes = [
   },
   { path: '/:domain/revenue', exact: true, main: () => <RevenuePage /> },
   {
-    path: [
-      '/:domain/behavior/overview',
-      '/:domain/behavior/click-anchor',
-      '/:domain/behavior/utm-tracking',
-      '/:domain/behavior/events',
-    ],
-    page: ['behavior-overview', 'behavior-click-anchor', 'behavior-utm-tracking', 'behavior-event'],
+    path: ['/:domain/utm-tracking', '/:domain/utm-tracking/generator'],
+    page: ['utm-tracking', 'utm-tracking-generator'],
     exact: true,
-    main: () => <BehaviorPage />,
+    main: () => <UTMTrackingPage />,
+  },
+  {
+    path: ['/:domain/events', '/:domain/events/generator'],
+    page: ['events', 'events-generator'],
+    exact: true,
+    main: () => <EventsPage />,
   },
   {
     path: ['/:domain/flow/:uuid'],

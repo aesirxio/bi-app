@@ -196,5 +196,8 @@
   "txt_language": "Jezik",
   "txt_page": "Stranica",
   "txt_page_title": "Naslov stranice",
-  "txt_time_on_page": "Vrijeme na stranici"
+  "txt_time_on_page": "Vrijeme na stranici",
+  "txt_menu_generator": "Generador",
+  "txt_utm_tracking_generator": "UTM generator praćenja",
+  "txt_events_generator": "Generator događaja"
 }

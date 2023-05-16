@@ -60,10 +60,10 @@ const RenderComponent = ({ link, ...props }) => {
     case 'audience-behavior':
       return <AudiencePage {...props} />;
 
-    case 'behavior-utm-tracking':
+    case 'utm-tracking':
       return <Behavior {...props} />;
 
-    case 'behavior-events':
+    case 'events':
       return <Behavior {...props} />;
 
     case 'region-country':

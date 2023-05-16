@@ -5,7 +5,7 @@
 
 import { notify } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
-import BehaviorEventModel from 'containers/Behavior/BehaviorModel/BehaviorListEventModel';
+import EventsListModel from 'containers/EventsPage/EventsModel/EventsListEventModel';
 import { makeAutoObservable } from 'mobx';
 class FlowDetailViewModel {
   flowStore = null;
@@ -49,7 +49,7 @@ class FlowDetailViewModel {
 
       this.data = data;
       if (data?.events) {
-        const transformData = new BehaviorEventModel(data?.events, this.globalStoreViewModel);
+        const transformData = new EventsListModel(data?.events, this.globalStoreViewModel);
         this.relatedVisitorData = transformData;
       } else {
         this.status = PAGE_STATUS.ERROR;

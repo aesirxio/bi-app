@@ -196,5 +196,8 @@
   "txt_language": "Linguagem",
   "txt_page": "Página",
   "txt_page_title": "Título da página",
-  "txt_time_on_page": "Tempo na página"
+  "txt_time_on_page": "Tempo na página",
+  "txt_menu_generator": "Generador",
+  "txt_utm_tracking_generator": "Generador de seguimiento UTM",
+  "txt_events_generator": "Generador de eventos"
 }

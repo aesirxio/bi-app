@@ -3,15 +3,15 @@ import AreaChartComponent from 'components/AreaChartComponent';
 import BarChartComponent from 'components/BarChartComponent';
 import DateRangePicker from 'components/DateRangePicker';
 import { useTranslation } from 'react-i18next';
-import BehaviorTable from './Component/BehaviorTable';
-import { useBehaviorViewModel } from './BehaviorViewModels/BehaviorViewModelContextProvider';
+import BehaviorTable from 'components/BehaviorTable';
+import { useUTMTrackingViewModel } from './UTMTrackingViewModels/UTMTrackingViewModelContextProvider';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
 const UTMTrackingPage = observer((props) => {
   const { t } = useTranslation();
   const {
-    behaviorEvents: {
+    utmTrackingEvents: {
       getVisitor,
       data,
       status,
@@ -19,7 +19,7 @@ const UTMTrackingPage = observer((props) => {
       getAttribute,
       attributeData,
     },
-  } = useBehaviorViewModel();
+  } = useUTMTrackingViewModel();
   const {
     biListViewModel: { activeDomain },
   } = useBiViewModel();

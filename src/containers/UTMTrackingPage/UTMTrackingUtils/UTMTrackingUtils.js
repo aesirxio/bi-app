@@ -4,9 +4,9 @@
  */
 
 import { BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
-import BehaviorEventModel from '../BehaviorModel/BehaviorListEventModel';
+import UTMTrackingEventModel from '../UTMTrackingModel/UTMTrackingListEventModel';
 
-class BehaviorUtils {
+class UTMTrackingUtils {
   transformResponseIntoAreaChart = (response) => {
     let data = {};
     response.forEach((item) => {
@@ -18,8 +18,8 @@ class BehaviorUtils {
         [item[BI_VISITOR_FIELD_KEY.EVENT_NAME]]: dataFilterEventName,
       };
     });
-    return new BehaviorEventModel(data);
+    return new UTMTrackingEventModel(data);
   };
 }
 
-export default BehaviorUtils;
+export default UTMTrackingUtils;

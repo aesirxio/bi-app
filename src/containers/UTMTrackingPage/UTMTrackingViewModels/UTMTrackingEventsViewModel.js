@@ -7,23 +7,23 @@ import { notify } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
-import BehaviorEventModel from '../BehaviorModel/BehaviorListEventModel';
-class BehaviorEventsViewModel {
-  behaviorStore = null;
+import UTMTrackingEventModel from '../UTMTrackingModel/UTMTrackingListEventModel';
+class UTMTrackingEventsViewModel {
+  utmTrackingStore = null;
   status = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   data = null;
   dataFilter = {};
   attributeData = null;
 
-  constructor(behaviorStore, globalStoreViewModel) {
+  constructor(utmTrackingStore, globalStoreViewModel) {
     makeAutoObservable(this);
-    this.behaviorStore = behaviorStore;
+    this.utmTrackingStore = utmTrackingStore;
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
-  transformDataToBehaviorEventModel = () => {
-    return new BehaviorEventModel(this.data);
+  transformDataToUTMTrackingEventModel = () => {
+    return new UTMTrackingEventModel(this.data);
   };
 
   getVisitor = (dataFilter, dateFilter) => {
@@ -31,7 +31,7 @@ class BehaviorEventsViewModel {
     // this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.behaviorStore.getVisitor(
+    this.utmTrackingStore.getVisitor(
       dataFilter,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
@@ -44,7 +44,7 @@ class BehaviorEventsViewModel {
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel?.dateFilter, ...dateFilter };
 
-    this.behaviorStore.getAttribute(
+    this.utmTrackingStore.getAttribute(
       dataFilter,
       dateRangeFilter,
       this.callbackOnDataAttributeSuccessHandler,
@@ -65,7 +65,7 @@ class BehaviorEventsViewModel {
     };
 
     this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
-    this.behaviorStore.getVisitor(
+    this.utmTrackingStore.getVisitor(
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
@@ -81,7 +81,7 @@ class BehaviorEventsViewModel {
   callbackOnDataSuccessHandler = (data) => {
     if (data) {
       this.status = PAGE_STATUS.READY;
-      const transformData = new BehaviorEventModel(data, this.globalStoreViewModel);
+      const transformData = new UTMTrackingEventModel(data, this.globalStoreViewModel);
       this.data = transformData;
     } else {
       this.status = PAGE_STATUS.ERROR;
@@ -101,4 +101,4 @@ class BehaviorEventsViewModel {
   };
 }
 
-export default BehaviorEventsViewModel;
+export default UTMTrackingEventsViewModel;

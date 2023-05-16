@@ -3,16 +3,16 @@ import AreaChartComponent from 'components/AreaChartComponent';
 import BarChartComponent from 'components/BarChartComponent';
 import DateRangePicker from 'components/DateRangePicker';
 import { useTranslation } from 'react-i18next';
-import BehaviorTable from './Component/BehaviorTable';
-import { useBehaviorViewModel } from './BehaviorViewModels/BehaviorViewModelContextProvider';
+import { useEventsViewModel } from './EventsViewModels/EventsViewModelContextProvider';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
+import BehaviorTable from 'components/BehaviorTable';
 
 const Events = observer((props) => {
   const { t } = useTranslation();
   const {
-    behaviorEvents: { getVisitor, data, status, handleFilterDateRange },
-  } = useBehaviorViewModel();
+    eventsList: { getVisitor, data, status, handleFilterDateRange },
+  } = useEventsViewModel();
   const {
     biListViewModel: { activeDomain },
   } = useBiViewModel();

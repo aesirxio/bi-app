@@ -1,7 +1,7 @@
 import { runInAction } from 'mobx';
 
 import { AesirxBiApiService } from 'aesirx-lib';
-export class BehaviorStore {
+export class UTMTrackingStore {
   getVisitor = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
@@ -66,4 +66,4 @@ export class BehaviorStore {
   };
 }
 
-export default BehaviorStore;
+export default UTMTrackingStore;

@@ -196,5 +196,8 @@
   "txt_language": "Ngôn ngữ",
   "txt_page": "Trang",
   "txt_page_title": "Tiêu đề trang",
-  "txt_time_on_page": "Thời gian trên trang"
+  "txt_time_on_page": "Thời gian trên trang",
+  "txt_menu_generator": "Trình tạo mã",
+  "txt_utm_tracking_generator": "Trình tạo UTM Tracking",
+  "txt_events_generator": "Trình tạo sự kiện"
 }

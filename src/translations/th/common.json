@@ -196,5 +196,8 @@
   "txt_language": "ภาษา",
   "txt_page": "หน้าหนังสือ",
   "txt_page_title": "ชื่อหน้า",
-  "txt_time_on_page": "เวลาบนหน้า"
+  "txt_time_on_page": "เวลาบนหน้า",
+  "txt_menu_generator": "เครื่องกำเนิดรหัส",
+  "txt_utm_tracking_generator": "เครื่องมือสร้างการติดตาม UTM",
+  "txt_events_generator": "ตัวสร้างเหตุการณ์"
 }

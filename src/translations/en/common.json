@@ -124,5 +124,8 @@
   "txt_language": "Language",
   "txt_page": "Page",
   "txt_page_title": "Page Title",
-  "txt_time_on_page": "Time On Page"
+  "txt_time_on_page": "Time On Page",
+  "txt_menu_generator": "Generator",
+  "txt_utm_tracking_generator": "UTM Tracking Generator",
+  "txt_events_generator": "Events Generator"
 }

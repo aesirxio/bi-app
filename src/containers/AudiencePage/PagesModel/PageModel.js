@@ -24,7 +24,7 @@ class PageModel {
     const headerTable = ['txt_page', 'txt_page_views', 'txt_time_on_page'];
     const accessor = [
       BI_PAGES_FIELD_KEY.URL,
-      BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION,
     ];
     if (this.data?.length) {
@@ -63,7 +63,8 @@ class PageModel {
         })
         ?.sort(
           (a, b) =>
-            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
+            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS] -
+            a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS]
         );
 
       return {

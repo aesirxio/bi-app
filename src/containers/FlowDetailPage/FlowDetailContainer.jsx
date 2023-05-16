@@ -10,7 +10,7 @@ import Card from './Components/Card';
 import { env } from 'aesirx-lib';
 import { BI_FLOW_DETAIL_KEY } from 'aesirx-lib';
 import moment from 'moment';
-import BehaviorTable from 'containers/Behavior/Component/BehaviorTable';
+import BehaviorTable from 'components/BehaviorTable';
 
 const FlowDetailContainer = observer((props) => {
   const { t } = useTranslation();

@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 // import MostClickingPages from './Component/MostClickingPages';
 
-class BehaviorClickAnchorPage extends Component {
+class UTMTrackingClickAnchorPage extends Component {
   render() {
     const { t } = this.props;
     // const dataAreaChart = [
@@ -165,4 +165,4 @@ class BehaviorClickAnchorPage extends Component {
     );
   }
 }
-export default withTranslation()(BehaviorClickAnchorPage);
+export default withTranslation()(UTMTrackingClickAnchorPage);

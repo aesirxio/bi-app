@@ -5,10 +5,10 @@ import PieChartComponent from 'components/PieChartComponent';
 import React, { Component } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import BehaviorTable from './Component/BehaviorTable';
+import BehaviorTable from 'components/BehaviorTable';
 import ComponentFilter from 'components/ComponentFilter';
 
-class BehaviorOverviewPage extends Component {
+class UTMTrackingOverviewPage extends Component {
   render() {
     const { t } = this.props;
     const dataAreaChart = [
@@ -164,4 +164,4 @@ class BehaviorOverviewPage extends Component {
     );
   }
 }
-export default withTranslation()(BehaviorOverviewPage);
+export default withTranslation()(UTMTrackingOverviewPage);

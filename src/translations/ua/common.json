@@ -196,5 +196,8 @@
   "txt_language": "Мова",
   "txt_page": "Сторінка",
   "txt_page_title": "Назва сторінки",
-  "txt_time_on_page": "Час на сторінці"
+  "txt_time_on_page": "Час на сторінці",
+  "txt_menu_generator": "Генератор коду",
+  "txt_utm_tracking_generator": "Генератор відстеження UTM",
+  "txt_events_generator": "Генератор подій"
 }

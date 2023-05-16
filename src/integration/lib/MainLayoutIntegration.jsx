@@ -18,7 +18,8 @@ import appLanguages from 'translations';
 import SbarLeftIntegration from './SbarLeftIntegration';
 
 const DashboardPage = lazy(() => import('containers/Dashboard'));
-const Behavior = lazy(() => import('containers/Behavior'));
+const UTMTrackingPage = lazy(() => import('containers/UTMTrackingPage'));
+const EventsPage = lazy(() => import('containers/EventsPage'));
 const AudiencePage = lazy(() => import('containers/AudiencePage'));
 const FlowPage = lazy(() => import('containers/FlowDetailPage'));
 const RegionCountryPage = lazy(() => import('containers/RegionCountryPage'));
@@ -60,11 +61,17 @@ const RenderComponent = ({ link, ...props }) => {
     case 'audience-behavior':
       return <AudiencePage {...props} />;
 
-    case 'behavior-utm-tracking':
-      return <Behavior {...props} />;
+    case 'utm-tracking':
+      return <UTMTrackingPage {...props} />;
 
-    case 'behavior-events':
-      return <Behavior {...props} />;
+    case 'utm-tracking-generator':
+      return <UTMTrackingPage {...props} />;
+
+    case 'events':
+      return <EventsPage {...props} />;
+
+    case 'events-generator':
+      return <EventsPage {...props} />;
 
     case 'region-country':
       return <RegionCountryPage {...props} />;

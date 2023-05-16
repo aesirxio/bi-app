@@ -28,23 +28,42 @@ const getMenu = (dataStreamActive) => {
       ],
     },
     {
-      text: 'txt_menu_behavior',
-      link: `/${dataStreamActive}/behavior`,
+      text: 'txt_menu_utm_tracking',
+      link: `/${dataStreamActive}/utm-tracking`,
       icons: env.PUBLIC_URL + '/assets/images/behavior.svg',
       icons_color: env.PUBLIC_URL + '/assets/images/behavior.svg',
       submenu: [
         {
-          text: 'txt_menu_utm_tracking',
-          link: `/${dataStreamActive}/behavior/utm-tracking`,
-          page: 'behavior-utm-tracking',
+          text: 'txt_menu_overview',
+          link: `/${dataStreamActive}/utm-tracking`,
+          page: 'utm-tracking',
         },
         {
-          text: 'txt_menu_events',
-          link: `/${dataStreamActive}/behavior/events`,
-          page: 'behavior-events',
+          text: 'txt_menu_generator',
+          link: `/${dataStreamActive}/utm-tracking/generator`,
+          page: 'utm-tracking-generator',
         },
       ],
     },
+    {
+      text: 'txt_menu_events',
+      link: `/${dataStreamActive}/behavior/events`,
+      icons: env.PUBLIC_URL + '/assets/images/calendar-line.svg',
+      icons_color: env.PUBLIC_URL + '/assets/images/calendar-line.svg',
+      submenu: [
+        {
+          text: 'txt_menu_overview',
+          link: `/${dataStreamActive}/events`,
+          page: 'events',
+        },
+        {
+          text: 'txt_menu_generator',
+          link: `/${dataStreamActive}/events/generator`,
+          page: 'events-generator',
+        },
+      ],
+    },
+
     {
       text: 'txt_menu_region',
       link: `/${dataStreamActive}/region-country`,

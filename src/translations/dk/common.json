@@ -124,5 +124,8 @@
   "txt_language": "Sprog",
   "txt_page": "Side",
   "txt_page_title": "Sidetitel",
-  "txt_time_on_page": "Tid på side"
+  "txt_time_on_page": "Tid på side",
+  "txt_menu_generator": "Generator",
+  "txt_utm_tracking_generator": "UTM Tracking Generator",
+  "txt_events_generator": "Events Generator"
 }

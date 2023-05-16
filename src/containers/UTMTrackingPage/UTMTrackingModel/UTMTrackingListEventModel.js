@@ -28,8 +28,6 @@ class UTMTrackingEventModel {
       this.globalViewModel.setIntegrationLink(link);
     }
   };
-<<<<<<< HEAD:src/containers/UTMTrackingPage/UTMTrackingModel/UTMTrackingListEventModel.js
-=======
   toEventTable = (integration) => {
     const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Date'];
     const accessor = [
@@ -123,7 +121,6 @@ class UTMTrackingEventModel {
       };
     }
   };
->>>>>>> origin/develop:src/containers/Behavior/BehaviorModel/BehaviorListEventModel.js
 
   transformResponseUTM = () => {
     let data = {};

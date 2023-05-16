@@ -75,7 +75,7 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-react-css-modules": "^5.2.6",
     "craco": "^0.0.3",
-    "esbuild-sass-plugin": "^2.8.0",
+    "esbuild-sass-plugin": "^2.9.0",
     "eslint": "^8.40",
     "prettier": "^2.8.8",
     "react-inject-env": "^2.1.0",

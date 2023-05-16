@@ -308,7 +308,7 @@ const Table = ({
                   height: '38px',
                 }}
               >
-                <img alt="..." src={env.PUBLIC_URL + '/assets/images/three-dots.png'} />
+                ...
               </button>
             )}
             {totalPage.map((x, index) => {
@@ -354,7 +354,7 @@ const Table = ({
                   height: '38px',
                 }}
               >
-                <img alt="..." src={env.PUBLIC_URL + '/assets/images/three-dots.png'} />
+                ...
               </button>
             )}
             {(isPaginationAPI ? paginationResponse?.total_pages > 1 : pageOptions.length > 1) && (

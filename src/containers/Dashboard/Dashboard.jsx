@@ -21,6 +21,7 @@ import { Col, Row } from 'react-bootstrap';
 import Countries from './Component/Countries';
 import moment from 'moment';
 import Browsers from './Component/Browsers';
+import TopTable from 'containers/AudiencePage/Component/TopTable';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -83,35 +84,12 @@ const Dashboard = observer(
           icon: env.PUBLIC_URL + '/assets/images/view.svg',
           iconColor: '#2E71B1',
           value: Helper.numberWithCommas(
-            this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+            this.dashboardListViewModel.summaryData?.[
+              BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+            ]
           ),
           isIncrease: false,
           loading: this.dashboardListViewModel.status,
-          options: [
-            {
-              label: t('txt_all'),
-              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
-              actualValue: Helper.numberWithCommas(
-                this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-              ),
-            },
-            {
-              label: t('txt_unique'),
-              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
-              actualValue: Helper.numberWithCommas(
-                this.dashboardListViewModel.summaryData?.[
-                  BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
-                ]
-              ),
-            },
-          ],
-          defaultValue: {
-            label: t('txt_all'),
-            value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
-            actualValue: Helper.numberWithCommas(
-              this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-            ),
-          },
         },
         {
           className: 'col-lg-3 mb-2 mb-lg-0',
@@ -165,11 +143,34 @@ const Dashboard = observer(
           </div>
           <CardComponent data={card ?? []} />
           <div className="row mt-24">
-            <div className="col-12">
+            <div className="col-lg-6">
               <OverviewComponent
+                lines={['visits', 'page_views']}
+                areaColors={['#3BB346', '#9747FF']}
+                lineColors={['#0FC6C2', '#9747FF']}
                 listViewModel={this.dashboardListViewModel}
                 status={this.dashboardListViewModel?.status}
               />
+            </div>
+            <div className="col-lg-6">
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <TopTable
+                  data={this.dashboardListViewModel?.pagesTableData?.list}
+                  pagination={this.dashboardListViewModel?.pagesTableData?.pagination}
+                  isPagination={false}
+                  selectPage={async (value) => {
+                    await this.dashboardListViewModel.handleFilterPages({ page: value });
+                  }}
+                  selectPageSize={async (value) => {
+                    await this.dashboardListViewModel.handleFilterPages({
+                      page: 1,
+                      page_size: value,
+                    });
+                  }}
+                  status={this.dashboardListViewModel?.status}
+                  {...this.props}
+                />
+              </div>
             </div>
           </div>
           <Row className="my-24 pb-24">

@@ -10,6 +10,7 @@ import moment from 'moment';
 import DashboardModel from '../DashboardModel/DashboardModel';
 import CountryModel from 'containers/RegionCountryPage/CountryModel/CountryModel';
 import BrowserModel from 'containers/AudiencePage/BrowserModel/BrowserModel';
+import PageModel from 'containers/AudiencePage/PagesModel/PageModel';
 class DashboardListViewModel {
   dashboardStore = null;
   status = PAGE_STATUS.READY;
@@ -18,6 +19,7 @@ class DashboardListViewModel {
   visitorData = null;
   countriesData = null;
   browsersData = null;
+  pagesTableData = null;
   constructor(dashboardStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.dashboardStore = dashboardStore;
@@ -29,6 +31,7 @@ class DashboardListViewModel {
     this.getVisitors(dataFilter, dateFilter);
     this.getCountries(dataFilter, dateFilter);
     this.getBrowsers(dataFilter, dateFilter);
+    this.getPages(dataFilter, dateFilter);
   };
 
   getMetrics = (dataFilter, dateFilter) => {
@@ -95,6 +98,25 @@ class DashboardListViewModel {
     );
   };
 
+  getPages = async (dataFilter, dateFilter) => {
+    this.status = PAGE_STATUS.LOADING;
+    this.dataFilterPages = {
+      page_size: '10',
+      'sort[]': 'number_of_page_views',
+      'sort_direction[]': 'desc',
+      ...this.dataFilterPages,
+      ...dataFilter,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.dashboardStore.getPages(
+      this.dataFilterPages,
+      dateRangeFilter,
+      this.callbackOnPagesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   handleFilter = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
@@ -114,6 +136,18 @@ class DashboardListViewModel {
       date_end: moment(endDate).endOf('day').format('YYYY-MM-DD'),
     };
     this.initialize(this.dataFilter, dateRangeFilter);
+  };
+
+  handleFilterPages = async (dataFilter) => {
+    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.dataFilterPages = { ...this.dataFilterPages, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.dashboardStore.getPages(
+      this.dataFilterPages,
+      dateRangeFilter,
+      this.callbackOnPagesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
   };
 
   callbackOnErrorHandler = (error) => {
@@ -157,6 +191,20 @@ class DashboardListViewModel {
       const transformData = new BrowserModel(data.list, this.globalStoreViewModel);
       this.browsersData = transformData.toBrowsersTableTop();
       this.status = PAGE_STATUS.READY;
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnPagesSuccessHandler = (data) => {
+    if (data) {
+      this.status = PAGE_STATUS.READY;
+      const transformData = new PageModel(data.list, this.globalStoreViewModel);
+      this.pagesTableData = {
+        list: transformData.toPagesTableTop(),
+        pagination: data.pagination,
+      };
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];

@@ -28,6 +28,102 @@ class UTMTrackingEventModel {
       this.globalViewModel.setIntegrationLink(link);
     }
   };
+<<<<<<< HEAD:src/containers/UTMTrackingPage/UTMTrackingModel/UTMTrackingListEventModel.js
+=======
+  toEventTable = (integration) => {
+    const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Date'];
+    const accessor = [
+      BI_VISITOR_FIELD_KEY.EVENT_NAME,
+      BI_VISITOR_FIELD_KEY.EVENT_TYPE,
+      BI_VISITOR_FIELD_KEY.URL,
+      BI_VISITOR_FIELD_KEY.REFERER,
+      BI_VISITOR_FIELD_KEY.START_DATE,
+    ];
+    if (this.data.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          Cell: ({ cell, column, row }) => {
+            if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
+              return (
+                <>
+                  {integration ? (
+                    <a
+                      href="#"
+                      onClick={(e) =>
+                        this.handleChangeLink(
+                          e,
+                          `flow/${row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]}`
+                        )
+                      }
+                      className={`px-3`}
+                    >
+                      <span>{cell?.value}</span>
+                    </a>
+                  ) : (
+                    <NavLink
+                      to={`/${this.globalViewModel.activeDomain}/flow/${
+                        row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]
+                      }`}
+                      className={'px-3'}
+                    >
+                      {cell?.value}
+                    </NavLink>
+                  )}
+                </>
+              );
+            } else if (
+              (column.id === BI_VISITOR_FIELD_KEY.REFERER ||
+                column.id === BI_VISITOR_FIELD_KEY.URL) &&
+              cell?.value
+            ) {
+              const urlParams = new URL(cell?.value);
+              return (
+                <div className={'px-3'}>
+                  {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                </div>
+              );
+            } else {
+              return <div className={'px-3'}>{cell?.value ?? null}</div>;
+            }
+          },
+        };
+      });
+      const data = this.data.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              if (i === BI_VISITOR_FIELD_KEY.START_DATE) {
+                return {
+                  [i]: moment(item[i]).format('DD-MM-YYYY HH:mm:ss'),
+                };
+              } else {
+                return {
+                  [i]: item[i],
+                };
+              }
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+      data?.length &&
+        data?.sort(
+          (a, b) => moment(b.start, 'DD-MM-YYYY HH:mm:ss') - moment(a.start, 'DD-MM-YYYY HH:mm:ss')
+        );
+      return {
+        header,
+        data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+>>>>>>> origin/develop:src/containers/Behavior/BehaviorModel/BehaviorListEventModel.js
 
   transformResponseUTM = () => {
     let data = {};
@@ -218,6 +314,17 @@ class UTMTrackingEventModel {
                     </NavLink>
                   )}
                 </>
+              );
+            } else if (
+              (column.id === BI_VISITOR_FIELD_KEY.REFERER ||
+                column.id === BI_VISITOR_FIELD_KEY.URL) &&
+              cell?.value
+            ) {
+              const urlParams = new URL(cell?.value);
+              return (
+                <div className={'px-3'}>
+                  {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                </div>
               );
             } else {
               return <div className={'px-3'}>{cell?.value ?? null}</div>;

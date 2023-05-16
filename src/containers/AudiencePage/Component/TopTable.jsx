@@ -7,7 +7,7 @@ import ComponentNoData from 'components/ComponentNoData';
 import { env } from 'aesirx-lib';
 import PAGE_STATUS from 'constants/PageStatus';
 const TopTableComponent = (props) => {
-  const { data, pagination, selectPage, selectPageSize, status, t } = props;
+  const { data, isPagination = true, pagination, selectPage, selectPageSize, status, t } = props;
 
   const columnsTable = React.useMemo(
     () =>
@@ -33,7 +33,7 @@ const TopTableComponent = (props) => {
           columns={columnsTable}
           data={dataTable}
           canSort={true}
-          pagination={true}
+          pagination={isPagination}
           paginationClass={'fs-14 px-4'}
           isPaginationAPI={true}
           paginationResponse={pagination}

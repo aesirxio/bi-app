@@ -14,7 +14,7 @@ const OverviewComponent = observer(
     }
 
     render() {
-      const { t, status } = this.props;
+      const { t, status, lines, lineColors, areaColors } = this.props;
       return (
         <div className="position-relative h-100">
           <AreaChartComponent
@@ -23,9 +23,9 @@ const OverviewComponent = observer(
             data={this?.listViewModel?.visitorData?.toAreaChart()}
             colors={['#1AB394']}
             lineType="monotone"
-            areaColors={['#3BB346', 'pink']}
-            lineColors={['#0FC6C2', 'red']}
-            lines={['line']}
+            areaColors={areaColors}
+            lineColors={lineColors}
+            lines={lines}
             isDot
             hiddenGrid={{ vertical: false }}
             XAxisOptions={{ axisLine: true, padding: { left: 50, right: 50 } }}
@@ -34,11 +34,11 @@ const OverviewComponent = observer(
             loading={status}
             tooltipComponent={{
               header: t('txt_in_total'),
-              value: `visits:`,
+              value: lines?.length === 1 && lines[0] + ':',
             }}
             status={status}
             filterData={this?.listViewModel?.visitorData?.getFilterName()}
-            isSelection={this.props.isSelection}
+            isSelection={false}
           />
         </div>
       );

@@ -12,6 +12,7 @@ import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 import { env } from 'aesirx-lib';
 import moment from 'moment';
 import TopTabsBehavior from './Component/TopTabsBehavior';
+import OverviewComponent from 'containers/Dashboard/Component/Overview';
 
 const AudienceBehaviorPage = observer(
   class AudienceBehaviorPage extends Component {
@@ -49,43 +50,20 @@ const AudienceBehaviorPage = observer(
       const { t } = this.props;
       return [
         {
-          className: 'col-4 mb-24',
+          className: 'col-12 mb-24',
           title: t('txt_page_views'),
           icon: env.PUBLIC_URL + '/assets/images/view.svg',
           iconColor: '#2E71B1',
           value: Helper.numberWithCommas(
-            this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+            this.audienceListViewModel.metricsData?.[
+              BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+            ]
           ),
           isIncrease: false,
           loading: this.audienceListViewModel.statusMetrics,
-          options: [
-            {
-              label: t('txt_all'),
-              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
-              actualValue: Helper.numberWithCommas(
-                this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-              ),
-            },
-            {
-              label: t('txt_unique'),
-              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
-              actualValue: Helper.numberWithCommas(
-                this.audienceListViewModel.metricsData?.[
-                  BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
-                ]
-              ),
-            },
-          ],
-          defaultValue: {
-            label: t('txt_all'),
-            value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
-            actualValue: Helper.numberWithCommas(
-              this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-            ),
-          },
         },
         {
-          className: 'col-4 mb-24',
+          className: 'col-12 mb-24',
           title: t('txt_acg_session_duration'),
           icon: env.PUBLIC_URL + '/assets/images/duration.svg',
           iconColor: '#EF3737',
@@ -105,7 +83,7 @@ const AudienceBehaviorPage = observer(
           loading: this.audienceListViewModel.statusMetrics,
         },
         {
-          className: 'col-4 mb-24',
+          className: 'col-12',
           title: t('txt_page_session'),
           icon: env.PUBLIC_URL + '/assets/images/page.svg',
           iconColor: '#FFBE55',
@@ -136,7 +114,17 @@ const AudienceBehaviorPage = observer(
           </div>
 
           <Row className="mb-24">
-            <Col lg={12}>
+            <Col lg={9}>
+              <OverviewComponent
+                lines={['page_views']}
+                areaColors={['#9747FF']}
+                lineColors={['#9747FF']}
+                isSelection={false}
+                listViewModel={this.audienceListViewModel}
+                status={this.audienceListViewModel?.statusOverview}
+              />
+            </Col>
+            <Col lg={3}>
               <CardComponent data={card ?? []} />
             </Col>
           </Row>

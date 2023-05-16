@@ -26,7 +26,7 @@
     "react-simple-maps": "^3.0.0",
     "react-table": "^7.6.2",
     "react-tooltip": "^5.11.2",
-    "recharts": "^2.1.14",
+    "recharts": "^2.6.2",
     "simple-react-validator": "^1.6.0",
     "web-vitals": "^3.3.1"
   },
@@ -75,7 +75,7 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-react-css-modules": "^5.2.6",
     "craco": "^0.0.3",
-    "esbuild-sass-plugin": "^2.8.0",
+    "esbuild-sass-plugin": "^2.9.0",
     "eslint": "^8.40",
     "prettier": "^2.8.8",
     "react-inject-env": "^2.1.0",

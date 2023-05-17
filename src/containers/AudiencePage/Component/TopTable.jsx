@@ -16,7 +16,7 @@ const TopTableComponent = (props) => {
         className: `px-15 py-16 fs-sm fw-semibold border-bottom border-gray-800 ${
           index !== 0 ? 'rounded-top-end-3 text-end' : ''
         } ${index === 0 ? 'rounded-top-start-3' : ''}`,
-        width: index === 0 ? 'auto' : 200,
+        width: index === 0 ? 'auto' : 150,
         Header: t(item.Header),
       })),
     [data?.header]

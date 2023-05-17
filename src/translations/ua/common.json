@@ -199,5 +199,6 @@
   "txt_time_on_page": "Час на сторінці",
   "txt_menu_generator": "Генератор коду",
   "txt_utm_tracking_generator": "Генератор відстеження UTM",
-  "txt_events_generator": "Генератор подій"
+  "txt_events_generator": "Генератор подій",
+  "txt_export_pdf": "Експорт PDF"
 }

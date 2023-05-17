@@ -8,6 +8,7 @@ import CountryStore from './CountryStore/CountryStore';
 import CountryViewModel from './CountryViewModels/CountryViewModel';
 import { CountryViewModelContextProvider } from './CountryViewModels/CountryViewModelContextProvider';
 import { history } from 'aesirx-uikit';
+import ReactToPrint from 'react-to-print';
 
 const CountryContainer = observer(
   class CountryContainer extends Component {
@@ -31,11 +32,34 @@ const CountryContainer = observer(
     render() {
       return (
         <CountryViewModelContextProvider viewModel={this.countryViewModel}>
-          <Country {...this.props} />
+          <ReactToPrint
+            trigger={() => {
+              return (
+                <a
+                  className={`btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm printButton ${this.props?.i18n?.language}`}
+                  href="#"
+                >
+                  {this.props.t('txt_export_pdf')}
+                </a>
+              );
+            }}
+            content={() => this.componentRef}
+          />
+          <ComponentToPrint ref={(el) => (this.componentRef = el)} />
         </CountryViewModelContextProvider>
       );
     }
   }
 );
+const ComponentToPrint = observer(
+  class extends Component {
+    constructor(props) {
+      super(props);
+    }
 
+    render() {
+      return <Country {...this.props} />;
+    }
+  }
+);
 export default withTranslation()(withRouter(withBiViewModel(CountryContainer)));

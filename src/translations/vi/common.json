@@ -199,5 +199,6 @@
   "txt_time_on_page": "Thời gian trên trang",
   "txt_menu_generator": "Trình tạo mã",
   "txt_utm_tracking_generator": "Trình tạo UTM Tracking",
-  "txt_events_generator": "Trình tạo sự kiện"
+  "txt_events_generator": "Trình tạo sự kiện",
+  "txt_export_pdf": "Xuất file PDF"
 }

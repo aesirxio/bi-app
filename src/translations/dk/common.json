@@ -127,5 +127,6 @@
   "txt_time_on_page": "Tid på side",
   "txt_menu_generator": "Generator",
   "txt_utm_tracking_generator": "UTM Tracking Generator",
-  "txt_events_generator": "Events Generator"
+  "txt_events_generator": "Events Generator",
+  "txt_export_pdf": "Eksporter PDF"
 }

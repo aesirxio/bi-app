@@ -14,6 +14,7 @@ import AudienceViewModel from 'containers/AudiencePage/AudienceViewModels/Audien
 import { AudienceViewModelContextProvider } from 'containers/AudiencePage/AudienceViewModels/AudienceViewModelContextProvider';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { Route } from 'react-router-dom';
+import ReactToPrint from 'react-to-print';
 
 const AudiencePage = lazy(() => import('./Audience'));
 const AudienceBehaviorPage = lazy(() => import('./AudienceBehavior'));
@@ -46,8 +47,46 @@ const AudienceContainer = observer(
       const { integrationLink, activeDomain } = this.biListViewModel;
       return (
         <AudienceViewModelContextProvider viewModel={this.audienceViewModel}>
-          {integration ? (
-            <RenderComponent link={integrationLink} activeDomain={activeDomain} {...this.props} />
+          <ReactToPrint
+            trigger={() => {
+              return (
+                <a
+                  className={`btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm printButton ${this.props?.i18n?.language}`}
+                  href="#"
+                >
+                  {this.props.t('txt_export_pdf')}
+                </a>
+              );
+            }}
+            content={() => this.componentRef}
+          />
+          <ComponentToPrint
+            integration={integration}
+            integrationLink={integrationLink}
+            activeDomain={activeDomain}
+            ref={(el) => (this.componentRef = el)}
+          />
+        </AudienceViewModelContextProvider>
+      );
+    }
+  }
+);
+
+const ComponentToPrint = observer(
+  class extends Component {
+    constructor(props) {
+      super(props);
+    }
+
+    render() {
+      return (
+        <>
+          {this.props.integration ? (
+            <RenderComponent
+              link={this.props.integrationLink}
+              activeDomain={this.props.activeDomain}
+              {...this.props}
+            />
           ) : (
             <>
               <Route exact path={['/:domain/audience/overview']}>
@@ -58,10 +97,9 @@ const AudienceContainer = observer(
               </Route>
             </>
           )}
-        </AudienceViewModelContextProvider>
+        </>
       );
     }
   }
 );
-
 export default withTranslation()(withRouter(withBiViewModel(AudienceContainer)));

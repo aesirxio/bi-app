@@ -3,8 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import SimpleReactValidator from 'simple-react-validator';
 import { observer } from 'mobx-react';
+import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 
 const Generator = observer(() => {
+  const { biListViewModel } = useBiViewModel();
+  const url = 'https://' + biListViewModel?.activeDomain;
   const [, forceUpdate] = useState();
   const [generateUrl, setGenerateUrl] = useState();
   const [submitted, setSubmitted] = useState(false);
@@ -16,6 +19,9 @@ const Generator = observer(() => {
     attributeValueA: '',
     attributeNameB: '',
     attributeValueB: '',
+    generatorType: 'htmlButton',
+    visitorUUID: '',
+    referer: '',
   });
 
   const handleChange = (name) => (event) => {
@@ -29,30 +35,72 @@ const Generator = observer(() => {
       simpleValidator.current.showMessages();
       forceUpdate(1);
     } else {
-      setGenerateUrl(`<button
-                          class="button"
-                          data-aesirx-event-name="${values.eventName}"
-                          data-aesirx-event-type="${values.eventType}"
-                          ${
-                            values.attributeNameA &&
-                            values.attributeValueA &&
-                            'data-aesirx-event-attribute-' +
-                              values.attributeNameA +
-                              '="' +
-                              values.attributeValueA +
-                              '"'
-                          }
-                          ${
-                            values.attributeNameB &&
-                            values.attributeValueB &&
-                            'data-aesirx-event-attribute-' +
-                              values.attributeNameB +
-                              '="' +
-                              values.attributeValueB +
-                              '"'
-                          }
-                          
-                      >${values.buttonName}</button>`);
+      let tagHtml =
+        values.generatorType === 'htmlButton'
+          ? 'button'
+          : values.generatorType === 'htmlA'
+          ? 'a'
+          : '';
+      let generateContent = tagHtml
+        ? `<${tagHtml}
+              data-aesirx-event-name="${values.eventName}"
+              data-aesirx-event-type="${values.eventType}"
+              ${
+                values.attributeNameA &&
+                values.attributeValueA &&
+                'data-aesirx-event-attribute-' +
+                  values.attributeNameA +
+                  '="' +
+                  values.attributeValueA +
+                  '"'
+              }
+              ${
+                values.attributeNameB &&
+                values.attributeValueB &&
+                'data-aesirx-event-attribute-' +
+                  values.attributeNameB +
+                  '="' +
+                  values.attributeValueB +
+                  '"'
+              }
+          >${values.buttonName}</${tagHtml}>`
+        : `trackEvent(
+            "${url}",
+            "${values.visitorUUID}",
+            "${values.referer}",
+            {
+              event_name: "${values.eventName}",
+              event_type: "${values.eventType}",
+              attributes: [
+                ${
+                  values.attributeNameA &&
+                  values.attributeValueA &&
+                  '{ name: "' +
+                    values.attributeNameA +
+                    '", value: "' +
+                    values.attributeValueA +
+                    '"}'
+                }
+                ${
+                  values.attributeNameA &&
+                  values.attributeValueA &&
+                  values.attributeNameB &&
+                  values.attributeValueB &&
+                  ','
+                }
+                ${
+                  values.attributeNameB &&
+                  values.attributeValueB &&
+                  '{ name: "' +
+                    values.attributeNameB +
+                    '", value: "' +
+                    values.attributeValueB +
+                    '"}'
+                }
+              ]
+            }
+          )`;
+      setGenerateUrl(generateContent);
       setSubmitted(true);
     }
   };
@@ -170,6 +218,67 @@ const Generator = observer(() => {
                 </Form.Group>
               </Col>
             </Row>
+            <Form.Group className="mb-3" controlId="formGeneratorType">
+              <Form.Label className="fw-semibold">Generator Type</Form.Label>
+              <div className="mb-3">
+                <Form.Check
+                  inline
+                  label="HTML button tag"
+                  defaultChecked={values.generatorType === 'htmlButton' && true}
+                  onChange={handleChange('generatorType')}
+                  value="htmlButton"
+                  name="group1"
+                  type="radio"
+                  id={`inline-radio-1`}
+                />
+                <Form.Check
+                  inline
+                  label="HTML a tag"
+                  onChange={handleChange('generatorType')}
+                  value="htmlA"
+                  name="group1"
+                  type="radio"
+                  id={`inline-radio-2`}
+                />
+                <Form.Check
+                  inline
+                  label="Event"
+                  onChange={handleChange('generatorType')}
+                  value="event"
+                  name="group1"
+                  type="radio"
+                  id={`inline-radio-3`}
+                />
+              </div>
+            </Form.Group>
+            {values.generatorType === 'event' && (
+              <>
+                <Form.Group className="mb-3" controlId="formvisitorUUID">
+                  <Form.Label className="fw-semibold">Visitor UUID</Form.Label>
+                  <Form.Control
+                    as="input"
+                    placeholder="Visitor UUID"
+                    name="visitorUUID"
+                    defaultValue={values.visitorUUID}
+                    onChange={handleChange('visitorUUID')}
+                  />
+                  <p className="fs-sm ps-1 fst-italic">
+                    (visitor_uuid is the params get from url - it will auto generated)
+                  </p>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formreferer">
+                  <Form.Label className="fw-semibold">Referer</Form.Label>
+                  <Form.Control
+                    as="input"
+                    placeholder="Referer"
+                    name="referer"
+                    defaultValue={values.referer}
+                    onChange={handleChange('referer')}
+                  />
+                  <p className="fs-sm ps-1 fst-italic">(referer is the referer domain)</p>
+                </Form.Group>
+              </>
+            )}
             <Button variant="primary" onClick={submitForm} className="py-2 px-3">
               Generate Button
             </Button>

@@ -82,6 +82,7 @@ const UTMTrackingPage = observer((props) => {
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
         <div className="position-relative">
           <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_menu_utm_tracking')}</h2>
+          <p className="mb-0 text-color">{t('txt_analytic_details')}</p>
         </div>
         <div className="position-relative">
           <DateRangePicker onChange={handleDateRangeChange} />

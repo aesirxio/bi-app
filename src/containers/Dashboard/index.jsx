@@ -15,6 +15,7 @@ import { DashboardViewModelContextProvider } from './DashboardViewModels/Dashboa
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import Dashboard from './Dashboard';
 import { history } from 'aesirx-uikit';
+import ReactToPrint from 'react-to-print';
 
 const DashboardContainer = observer(
   class DashboardContainer extends Component {
@@ -38,9 +39,34 @@ const DashboardContainer = observer(
     render() {
       return (
         <DashboardViewModelContextProvider viewModel={this.dashboardViewModel}>
-          <Dashboard {...this.props} />
+          <ReactToPrint
+            trigger={() => {
+              return (
+                <a
+                  className={`btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm printButton ${this.props?.i18n?.language}`}
+                  href="#"
+                >
+                  {this.props.t('txt_export_pdf')}
+                </a>
+              );
+            }}
+            content={() => this.componentRef}
+          />
+          <ComponentToPrint ref={(el) => (this.componentRef = el)} />
         </DashboardViewModelContextProvider>
       );
+    }
+  }
+);
+
+const ComponentToPrint = observer(
+  class extends Component {
+    constructor(props) {
+      super(props);
+    }
+
+    render() {
+      return <Dashboard {...this.props} />;
     }
   }
 );

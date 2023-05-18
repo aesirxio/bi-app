@@ -8,6 +8,7 @@ import React, { lazy, Suspense } from 'react';
 import { BiStoreProvider, useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import BiStore from 'store/BiStore/BiStore';
 import BiViewModel from 'store/BiStore/BiViewModel';
+import 'scss/app.scss';
 
 import { observer } from 'mobx-react';
 import { Spinner } from 'aesirx-uikit';

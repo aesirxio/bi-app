@@ -102,7 +102,7 @@ const AudienceBehaviorPage = observer(
       const { t } = this.props;
       const card = this.generateCard();
       return (
-        <div className="p-3">
+        <div className="py-4 px-3">
           <div className="d-flex align-items-center justify-content-between mb-3">
             <div>
               <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_behavior')}</h2>

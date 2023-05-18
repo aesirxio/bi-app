@@ -2,3 +2,19 @@
  * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
  * @license     GNU General Public License version 3, see LICENSE.
  */
+@media print {
+  @page {
+    size: 400mm 400mm;
+  }
+}
+.printButton {
+  position: absolute;
+  top: 31px;
+  right: 315px;
+  &.vi {
+    right: 350px;
+  }
+}
+.daterange-picker-wrapper .form-control {
+  width: 285px;
+}

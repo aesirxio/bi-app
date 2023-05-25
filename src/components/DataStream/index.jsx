@@ -52,7 +52,6 @@ const DataStream = observer(() => {
           <span className="text-blue-0 mb-sm fs-sm">{t('txt_menu_data_stream')}</span>
           <br />
           <span className=" fw-bold text-blue-0  text-white mb-0 fs-4 text-start">
-            {' '}
             {
               biStore.biListViewModel?.listDomain?.find(
                 (x) => x.domain === biStore.biListViewModel?.activeDomain
@@ -61,9 +60,11 @@ const DataStream = observer(() => {
             ({biStore.biListViewModel?.activeDomain})
           </span>
         </p>
-        <i className="ps-1 icons text-green">
-          <FontAwesomeIcon icon={faChevronDown} />
-        </i>
+        {biStore.biListViewModel?.listDomain.length > 1 && (
+          <i className="ps-1 icons text-green">
+            <FontAwesomeIcon icon={faChevronDown} />
+          </i>
+        )}
       </Button>
       <Collapse className="position-relative" in={isOpenCollapse === 'data-stream'}>
         <ul className="px-16 position-absolute bg-white shadow-lg rounded-1 w-100 top-100 start-0 list-unstyled mb-0 mh-80vh overflow-auto">

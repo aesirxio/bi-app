@@ -3011,10 +3011,10 @@ aesirx-sso@^1.0.10:
     react "^18.2.0"
     react-spinners "^0.13.6"
 
-aesirx-uikit@^1.0.5, aesirx-uikit@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.6.tgz#f10d9a59d9197f14909171da15d7a12a9642de93"
-  integrity sha512-AyFtOO20KvFeYc/NBSeNqXzyjnlMx5N55Jw3UWIyIBtBXVu6njUTBlx5948dRh28FF7xay2pftYkWaFLL15Q3g==
+aesirx-uikit@^1.0.5, aesirx-uikit@^1.0.6, aesirx-uikit@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.8.tgz#c5eb9a3b94348c5bfb52089e4769c5111981be50"
+  integrity sha512-x1h5hgmNBH/Qu/9+yzVYpvwqWLDxx344yTjKcedriPhn8pwfPq+8KeQfR6P0FlZfj2nEmNm9x/VKujN3j56Q1A==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.4.0"
     "@fortawesome/free-regular-svg-icons" "^6.4.0"

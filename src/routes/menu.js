@@ -17,6 +17,7 @@ const getMenu = (dataStreamActive) => {
       submenu: [
         {
           text: 'txt_menu_overview',
+          mini_text: 'txt_menu_audience',
           link: `/${dataStreamActive}/audience/overview`,
           page: 'audience-overview',
         },
@@ -35,6 +36,7 @@ const getMenu = (dataStreamActive) => {
       submenu: [
         {
           text: 'txt_menu_overview',
+          mini_text: 'txt_menu_utm_tracking',
           link: `/${dataStreamActive}/utm-tracking`,
           page: 'utm-tracking',
         },
@@ -53,6 +55,7 @@ const getMenu = (dataStreamActive) => {
       submenu: [
         {
           text: 'txt_menu_overview',
+          mini_text: 'txt_menu_events',
           link: `/${dataStreamActive}/events`,
           page: 'events',
         },

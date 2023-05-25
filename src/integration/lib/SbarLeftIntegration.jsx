@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { env } from 'aesirx-lib';
 
-import { Collapse, Button } from 'react-bootstrap';
+import { Collapse } from 'react-bootstrap';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { getMenu } from 'routes/menu';
 
@@ -97,9 +97,12 @@ const SbarLeftIntegration = observer(() => {
                   </>
                 ) : (
                   <>
-                    <Button
-                      variant=""
-                      onClick={() => handleOpen(menuListkey)}
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        handleOpen(menuListkey);
+                        handleChangeLink(e, menuList.submenu[0]?.page);
+                      }}
                       className={`d-flex align-items-center justify-content-center rounded-0 link_menu text-decoration-none text-break w-100 px-24 py-16 shadow-none text-white ${
                         isOpenCollapse === menuListkey.toString() ||
                         isOpenCollapse?.includes(menuListkey + '-')
@@ -129,7 +132,7 @@ const SbarLeftIntegration = observer(() => {
                           backgroundColor: '#fff',
                         }}
                       ></span>
-                    </Button>
+                    </a>
                     <Collapse
                       in={
                         isOpenCollapse === menuListkey.toString() ||
@@ -150,7 +153,14 @@ const SbarLeftIntegration = observer(() => {
                                       : ''
                                   }`}
                                 >
-                                  <span className="text d-inline-block">{t(value.text)}</span>
+                                  {value?.mini_text ? (
+                                    <span className="mini-text-wrapper">
+                                      <span className="mini-text">{t(value?.mini_text)}</span>
+                                      <span className="text">{t(value.text)}</span>
+                                    </span>
+                                  ) : (
+                                    <span className="text d-inline-block">{t(value.text)}</span>
+                                  )}
                                 </a>
                               )}
                             </li>

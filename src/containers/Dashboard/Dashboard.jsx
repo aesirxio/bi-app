@@ -84,12 +84,35 @@ const Dashboard = observer(
           icon: env.PUBLIC_URL + '/assets/images/view.svg',
           iconColor: '#2E71B1',
           value: Helper.numberWithCommas(
-            this.dashboardListViewModel.summaryData?.[
-              BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
-            ]
+            this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
           ),
           isIncrease: false,
           loading: this.dashboardListViewModel.status,
+          options: [
+            {
+              label: t('txt_all'),
+              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+              actualValue: Helper.numberWithCommas(
+                this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+              ),
+            },
+            {
+              label: t('txt_unique'),
+              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
+              actualValue: Helper.numberWithCommas(
+                this.dashboardListViewModel.summaryData?.[
+                  BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+                ]
+              ),
+            },
+          ],
+          defaultValue: {
+            label: t('txt_all'),
+            value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+            actualValue: Helper.numberWithCommas(
+              this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+            ),
+          },
         },
         {
           className: 'col-lg-3 mb-2 mb-lg-0',

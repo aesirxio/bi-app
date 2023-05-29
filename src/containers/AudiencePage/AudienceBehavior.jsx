@@ -55,12 +55,35 @@ const AudienceBehaviorPage = observer(
           icon: env.PUBLIC_URL + '/assets/images/view.svg',
           iconColor: '#2E71B1',
           value: Helper.numberWithCommas(
-            this.audienceListViewModel.metricsData?.[
-              BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
-            ]
+            this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
           ),
           isIncrease: false,
           loading: this.audienceListViewModel.statusMetrics,
+          options: [
+            {
+              label: t('txt_all'),
+              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+              actualValue: Helper.numberWithCommas(
+                this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+              ),
+            },
+            {
+              label: t('txt_unique'),
+              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
+              actualValue: Helper.numberWithCommas(
+                this.audienceListViewModel.metricsData?.[
+                  BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+                ]
+              ),
+            },
+          ],
+          defaultValue: {
+            label: t('txt_all'),
+            value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+            actualValue: Helper.numberWithCommas(
+              this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+            ),
+          },
         },
         {
           className: 'col-12 mb-24',
@@ -101,6 +124,7 @@ const AudienceBehaviorPage = observer(
     render() {
       const { t } = this.props;
       const card = this.generateCard();
+      console.log('this.audienceListViewModel', this.audienceListViewModel);
       return (
         <div className="py-4 px-3">
           <div className="d-flex align-items-center justify-content-between mb-3">

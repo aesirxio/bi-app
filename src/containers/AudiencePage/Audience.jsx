@@ -13,7 +13,7 @@ import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 import { env } from 'aesirx-lib';
 import moment from 'moment';
 import TopTabs from './Component/TopTabs';
-import './index.scss';
+import 'flag-icons/sass/flag-icons.scss';
 
 const AudiencePage = observer(
   class AudiencePage extends Component {

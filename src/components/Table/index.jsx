@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { env } from 'aesirx-lib';
 import { AesirXSelect } from 'aesirx-uikit';
-import ComponentSVG from 'components/ComponentSVG';
+// import ComponentSVG from 'components/ComponentSVG';
 const Table = ({
   columns,
   data,

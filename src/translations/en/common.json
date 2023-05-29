@@ -129,5 +129,11 @@
   "txt_menu_generator": "Generator",
   "txt_utm_tracking_generator": "UTM Tracking Generator",
   "txt_events_generator": "Events Generator",
-  "txt_export_pdf": "Export PDF"
+  "txt_export_pdf": "Export PDF",
+  "txt_tooltip_visitors": "Number of visitors",
+  "txt_tooltip_page_views": "Pageviews is the total number of pages viewed. Repeated views of a single page are counted.",
+  "txt_tooltip_unique_page_views": "Unique Pageviews is the number of sessions during which the specified page was viewed at least once. A unique pageview is counted for each page URL + page Title combination.",
+  "txt_tooltip_bounce_rate": "The percentage of single-page sessions in which there was no interaction with the page. A bounced session has a duration of 0 seconds.",
+  "txt_tooltip_page_session": "The average number of pages viewed during a session. Repeated views of a single page are counted.",
+  "txt_tooltip_avg_session_duration": "The average length of a Session."
 }

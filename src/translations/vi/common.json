@@ -166,7 +166,7 @@
   "txt_days": "Ngày",
   "txt_weeks": "Tuần",
   "txt_months": "Tháng",
-  "txt_page_views": "Số lượng xem trang",
+  "txt_page_views": "Lượt xem trang",
   "txt_unique_page_views": "Lượt xem trang duy nhất",
   "txt_acg_session_duration": "Trung bình thời lượng phiên",
   "txt_bounce_rate": "Tỷ lệ thoát trang",
@@ -201,5 +201,11 @@
   "txt_menu_generator": "Trình tạo mã",
   "txt_utm_tracking_generator": "Trình tạo UTM Tracking",
   "txt_events_generator": "Trình tạo sự kiện",
-  "txt_export_pdf": "Xuất file PDF"
+  "txt_export_pdf": "Xuất file PDF",
+  "txt_tooltip_visitors": "Số lượng người xem trang",
+  "txt_tooltip_page_views": "Lượt xem trang là tổng số trang được xem. Các lượt xem lặp lại của một trang được tính.",
+  "txt_tooltip_unique_page_views": "Lượt xem trang duy nhất là số phiên trong đó trang được chỉ định được xem ít nhất một lần. Một lần xem trang duy nhất được tính cho mỗi tổ hợp URL trang + Tiêu đề trang.",
+  "txt_tooltip_bounce_rate": "Tỷ lệ phần trăm phiên trang đơn trong đó không có tương tác với trang. Phiên bị trả lại có thời lượng là 0 giây.",
+  "txt_tooltip_page_session": "Số trang trung bình được xem trong một phiên. Các lượt xem lặp lại của một trang được tính.",
+  "txt_tooltip_avg_session_duration": "Độ dài trung bình của một phiên."
 }

@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import { BI_COUNTRIES_FIELD_KEY, BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
+import { BI_COUNTRIES_FIELD_KEY, BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import moment from 'moment';
 
 class CountryModel {
@@ -43,6 +43,7 @@ class CountryModel {
   toCountriesTable = () => {
     const headerTable = [
       'txt_Country',
+      'txt_views',
       'txt_page_views',
       'txt_unique_page_views',
       'txt_bounce_rate',
@@ -52,6 +53,7 @@ class CountryModel {
     const accessor = [
       BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.BOUNCE_RATE,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION,
@@ -64,10 +66,10 @@ class CountryModel {
           accessor: key,
           width:
             key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME
-              ? 'auto'
+              ? 250
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
-              : 150,
+              : 170,
           Cell: ({ cell, column, row }) => {
             return column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
               <div className={'px-3'}>
@@ -85,7 +87,7 @@ class CountryModel {
                 {cell?.value ? moment.utc(cell?.value * 1000).format('HH:mm:ss') : '00:00:00'}
               </div>
             ) : (
-              <div className={'px-3'}>{cell?.value ?? null}</div>
+              <div className={'px-3'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
             );
           },
         };
@@ -118,6 +120,7 @@ class CountryModel {
   toCountriesTableTop = () => {
     const headerTable = [
       'txt_Country',
+      'txt_views',
       'txt_page_views',
       'txt_unique_page_views',
       'txt_bounce_rate',
@@ -127,6 +130,7 @@ class CountryModel {
     const accessor = [
       BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.BOUNCE_RATE,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION,
@@ -138,10 +142,10 @@ class CountryModel {
           Header: headerTable[index],
           width:
             key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME
-              ? 'auto'
+              ? 250
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
-              : 150,
+              : 170,
           accessor: key,
           Cell: ({ cell, row, column }) =>
             column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
@@ -160,7 +164,7 @@ class CountryModel {
                 {cell?.value ? moment.utc(cell?.value * 1000).format('HH:mm:ss') : '00:00:00'}
               </div>
             ) : (
-              <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
+              <div className={'px-15 text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
             ),
         };
       });

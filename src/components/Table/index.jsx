@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { env } from 'aesirx-lib';
 import { AesirXSelect } from 'aesirx-uikit';
-import ComponentSVG from 'components/ComponentSVG';
+// import ComponentSVG from 'components/ComponentSVG';
 const Table = ({
   columns,
   data,
@@ -129,7 +129,7 @@ const Table = ({
                         >
                           {column.render('Header')}
                           {canSort && (
-                            <span className="position-relative">
+                            <span className="position-relative align-middle">
                               {sortAPI ? (
                                 store?.sortBy?.id === sortParams &&
                                 sortParams !== 'number' &&
@@ -146,10 +146,11 @@ const Table = ({
                                     />
                                   )
                                 ) : (
-                                  <ComponentSVG
-                                    url={env.PUBLIC_URL + '/assets/images/sort.svg'}
-                                    color="#5F5E70"
-                                  />
+                                  // <ComponentSVG
+                                  //   url={env.PUBLIC_URL + '/assets/images/sort.svg'}
+                                  //   color="#5F5E70"
+                                  // />
+                                  <></>
                                 )
                               ) : !column.rowSpan ? (
                                 column.isSorted &&
@@ -167,10 +168,11 @@ const Table = ({
                                     />
                                   )
                                 ) : (
-                                  <ComponentSVG
-                                    url={env.PUBLIC_URL + '/assets/images/sort.svg'}
-                                    color="#5F5E70"
-                                  />
+                                  <></>
+                                  // <ComponentSVG
+                                  //   url={env.PUBLIC_URL + '/assets/images/sort.svg'}
+                                  //   color="#5F5E70"
+                                  // />
                                 )
                               ) : columnInside.isSorted &&
                                 // Column have rowSpan

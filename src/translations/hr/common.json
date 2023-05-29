@@ -201,5 +201,11 @@
   "txt_menu_generator": "Generador",
   "txt_utm_tracking_generator": "UTM generator praćenja",
   "txt_events_generator": "Generator događaja",
-  "txt_export_pdf": "Izvezi PDF"
+  "txt_export_pdf": "Izvezi PDF",
+  "txt_tooltip_visitors": "Broj posjetitelja",
+  "txt_tooltip_page_views": "Pageviews je ukupan broj pregledanih stranica. Broje se ponovljeni prikazi jedne stranice.",
+  "txt_tooltip_unique_page_views": "Jedinstveni prikazi stranice broj su sesija tijekom kojih je određena stranica pogledana barem jednom. Jedinstveni prikaz stranice broji se za svaku kombinaciju URL stranice + naslov stranice.",
+  "txt_tooltip_bounce_rate": "Postotak sesija s jednom stranicom u kojima nije bilo interakcije sa stranicom. Odskočna sesija traje 0 sekundi.",
+  "txt_tooltip_page_session": "Prosječan broj pregledanih stranica tijekom sesije. Broje se ponovljeni prikazi jedne stranice.",
+  "txt_tooltip_avg_session_duration": "Prosječna duljina sesije."
 }

@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import { BI_CITIES_FIELD_KEY, BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
+import { BI_CITIES_FIELD_KEY, BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import moment from 'moment';
 
 class CityModel {
@@ -23,6 +23,7 @@ class CityModel {
   toCitiesTableTop = () => {
     const headerTable = [
       'txt_City',
+      'txt_views',
       'txt_page_views',
       'txt_unique_page_views',
       'txt_bounce_rate',
@@ -32,6 +33,7 @@ class CityModel {
     const accessor = [
       BI_CITIES_FIELD_KEY.CITY,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.BOUNCE_RATE,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION,
@@ -44,10 +46,10 @@ class CityModel {
           accessor: key,
           width:
             key === BI_CITIES_FIELD_KEY.CITY
-              ? 'auto'
+              ? 250
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
-              : 150,
+              : 170,
           Cell: ({ cell, column }) =>
             column.id === BI_CITIES_FIELD_KEY.CITY ? (
               <div className={'px-15'}>{cell?.value === '' ? 'Unknown' : cell?.value}</div>
@@ -58,7 +60,7 @@ class CityModel {
                 {cell?.value ? moment.utc(cell?.value * 1000).format('HH:mm:ss') : '00:00:00'}
               </div>
             ) : (
-              <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
+              <div className={'px-15 text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
             ),
         };
       });

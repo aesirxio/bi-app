@@ -95,16 +95,42 @@ class CountryModel {
   };
 
   toCountriesTableTop = () => {
-    const headerTable = ['txt_Country', 'txt_views'];
-    const accessor = [BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    const headerTable = [
+      'txt_Country',
+      'txt_page_views',
+      'txt_unique_page_views',
+      'txt_bounce_rate',
+      'txt_page_session',
+      'txt_time_on_page',
+    ];
+    const accessor = [
+      BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
+      BI_SUMMARY_FIELD_KEY.BOUNCE_RATE,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION,
+      BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION,
+    ];
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
           Header: headerTable[index],
+          width:
+            key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME
+              ? 'auto'
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+              ? 220
+              : 150,
           accessor: key,
           Cell: ({ cell, column }) =>
             column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
               <div className={'px-15'}>{cell?.value === '' ? 'Unknown' : cell?.value}</div>
+            ) : column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (
+              <div className={'px-3 text-end'}>{cell?.value + '%' ?? null}</div>
+            ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (
+              <div className={'px-3 text-end'}>
+                {cell?.value ? moment.utc(cell?.value * 1000).format('HH:mm:ss') : '00:00:00'}
+              </div>
             ) : (
               <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
             ),

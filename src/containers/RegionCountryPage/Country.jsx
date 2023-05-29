@@ -12,6 +12,7 @@ import { RingLoaderComponent } from 'aesirx-uikit';
 import CountryTable from './Component/CountryTable';
 import ComponentNoData from 'components/ComponentNoData';
 import { env } from 'aesirx-lib';
+import './index.scss';
 
 const Country = observer(
   class Country extends Component {

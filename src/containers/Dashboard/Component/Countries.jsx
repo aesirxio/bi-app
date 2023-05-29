@@ -8,7 +8,7 @@ import { Col, Row } from 'react-bootstrap';
 import PAGE_STATUS from 'constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from 'components/ComponentNoData';
-import { env } from 'aesirx-lib';
+import { BI_COUNTRIES_FIELD_KEY, env } from 'aesirx-lib';
 import { BiViewModelContext } from 'store/BiStore/BiViewModelContextProvider';
 
 const Countries = observer(
@@ -83,7 +83,14 @@ const Countries = observer(
                             {/* <span>
                         <ComponentImage className={``} src={item.flag} alt={item.flag} />
                       </span> */}
-                            <span>{item.country}</span>
+                            <span>
+                              <span
+                                className={`me-1 fi fi-${item[
+                                  BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE
+                                ]?.toLowerCase()}`}
+                              ></span>
+                              {item.country}
+                            </span>
                           </div>
                           <div>{item.views}</div>
                         </div>

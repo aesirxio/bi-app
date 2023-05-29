@@ -68,11 +68,16 @@ class CountryModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 150,
-          Cell: ({ cell, column, row }) =>
-            column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
-              <div className={'px-3'}>{`${row.index + 1}. ${
-                cell?.value === '' ? 'Unknown' : cell?.value
-              }`}</div>
+          Cell: ({ cell, column, row }) => {
+            return column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
+              <div className={'px-3'}>
+                <span
+                  className={`me-1 fi fi-${this.data[row.index][
+                    BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE
+                  ]?.toLowerCase()}`}
+                ></span>
+                {`${row.index + 1}. ${cell?.value === '' ? 'Unknown' : cell?.value}`}
+              </div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (
               <div className={'px-3'}>{cell?.value + '%' ?? null}</div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (
@@ -81,7 +86,8 @@ class CountryModel {
               </div>
             ) : (
               <div className={'px-3'}>{cell?.value ?? null}</div>
-            ),
+            );
+          },
         };
       });
       const data = this.data?.map((item) => {
@@ -137,9 +143,16 @@ class CountryModel {
               ? 220
               : 150,
           accessor: key,
-          Cell: ({ cell, column }) =>
+          Cell: ({ cell, row, column }) =>
             column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
-              <div className={'px-15'}>{cell?.value === '' ? 'Unknown' : cell?.value}</div>
+              <div className={'px-15'}>
+                <span
+                  className={`me-1 fi fi-${this.data[row.index][
+                    BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE
+                  ]?.toLowerCase()}`}
+                ></span>
+                {cell?.value === '' ? 'Unknown' : cell?.value}
+              </div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (
               <div className={'px-3 text-end'}>{cell?.value + '%' ?? null}</div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (

@@ -124,7 +124,6 @@ const AudienceBehaviorPage = observer(
     render() {
       const { t } = this.props;
       const card = this.generateCard();
-      console.log('this.audienceListViewModel', this.audienceListViewModel);
       return (
         <div className="py-4 px-3">
           <div className="d-flex align-items-center justify-content-between mb-3">

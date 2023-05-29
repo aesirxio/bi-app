@@ -12,6 +12,7 @@ import { RingLoaderComponent } from 'aesirx-uikit';
 import CountryTable from './Component/CountryTable';
 import ComponentNoData from 'components/ComponentNoData';
 import { env } from 'aesirx-lib';
+import 'flag-icons/sass/flag-icons.scss';
 
 const Country = observer(
   class Country extends Component {
@@ -77,7 +78,7 @@ const Country = observer(
                         <GeoChart
                           data={this.countryListViewModel?.countriesData}
                           continent={'world'}
-                          markerSize={{ dot: 4, circle: 20 }}
+                          markerSize={{ dot: 4, circle: 80 }}
                         />
                       ) : (
                         <ComponentNoData

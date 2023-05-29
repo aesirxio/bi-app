@@ -41,9 +41,18 @@ class CountryModel {
   };
 
   toCountriesTable = () => {
-    const headerTable = ['Country', 'Bounce Rate', 'Pages/Session', 'Avg. Session Duration'];
+    const headerTable = [
+      'txt_Country',
+      'txt_page_views',
+      'txt_unique_page_views',
+      'txt_bounce_rate',
+      'txt_page_session',
+      'txt_time_on_page',
+    ];
     const accessor = [
       BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.BOUNCE_RATE,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION,
       BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION,
@@ -53,6 +62,12 @@ class CountryModel {
         return {
           Header: headerTable[index],
           accessor: key,
+          width:
+            key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME
+              ? 'auto'
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+              ? 220
+              : 150,
           Cell: ({ cell, column, row }) =>
             column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
               <div className={'px-3'}>{`${row.index + 1}. ${

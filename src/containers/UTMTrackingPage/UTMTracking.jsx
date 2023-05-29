@@ -120,12 +120,12 @@ const UTMTrackingPage = observer((props) => {
             loading={status}
             chartTitle={t('txt_menu_overview')}
             height={390}
-            data={data?.toAreaChartUTM()}
+            data={data?.list?.toAreaChartUTM()}
             colors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
             areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
             lineColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            lines={data?.getListLineUTM()}
-            filterData={data?.getFilterNameUTM()}
+            lines={data?.list?.getListLineUTM()}
+            filterData={data?.list?.getFilterNameUTM()}
             tooltipComponent={{
               header: t('txt_number'),
               value: ``,
@@ -139,7 +139,7 @@ const UTMTrackingPage = observer((props) => {
             height={390}
             bars={['number']}
             barColors={['#2C94EA']}
-            data={data?.toBarChartUTM()}
+            data={data?.list?.toBarChartUTM()}
             margin={{ left: 40 }}
             isFilterButtons={false}
             loading={status}
@@ -148,7 +148,7 @@ const UTMTrackingPage = observer((props) => {
       </div>
       <div className="row gx-24 mb-24">
         <div className="col-12 ">
-          {data && <BehaviorTable data={data.toEventTableUTM(props.integration)} />}
+          {data?.list && <BehaviorTable data={data?.list?.toEventTableUTM(props.integration)} />}
         </div>
       </div>
     </div>

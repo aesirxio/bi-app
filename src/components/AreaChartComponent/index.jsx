@@ -122,7 +122,14 @@ const AreaChartComponent = ({
               <defs>
                 {lines.map((item, index) => {
                   return (
-                    <linearGradient key={index} id={`${item}_${index}`} x1="0" y1="0" x2="0" y2="1">
+                    <linearGradient
+                      key={index}
+                      id={`${item?.replace(/\s/g, '')}_${index}`}
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
                       <stop offset="5%" stopColor={areaColors[index]} stopOpacity={0.2} />
                       <stop offset="95%" stopColor={areaColors[index]} stopOpacity={0} />
                     </linearGradient>
@@ -164,7 +171,7 @@ const AreaChartComponent = ({
                     dataKey={item}
                     stroke={lineColors[index]}
                     fillOpacity={1}
-                    fill={`url(#${item}_${index})`}
+                    fill={`url(#${item?.replace(/\s/g, '')}_${index})`}
                     strokeWidth={2}
                   />
                 );

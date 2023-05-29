@@ -77,7 +77,7 @@ const Country = observer(
                         <GeoChart
                           data={this.countryListViewModel?.countriesData}
                           continent={'world'}
-                          markerSize={{ dot: 4, circle: 20 }}
+                          markerSize={{ dot: 4, circle: 80 }}
                         />
                       ) : (
                         <ComponentNoData

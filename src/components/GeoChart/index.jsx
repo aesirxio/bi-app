@@ -41,7 +41,7 @@ const GeoChart = (props) => {
       scale: 0,
     },
   };
-  const { markerSize = { dot: 8, circle: 40 } } = props;
+  const { markerSize = { dot: 8, circle: 80 } } = props;
   useEffect(() => {
     csv(env.PUBLIC_URL + '/assets/data/countries.csv').then((cities) => {
       const markerList = props.data?.map((item) => {
@@ -58,7 +58,8 @@ const GeoChart = (props) => {
       setMarkers(markerList);
     });
   }, [props.data]);
-
+  let maximumViews = markers?.length ? Math.max(...markers?.map((o) => o.views)) : 0;
+  let smallestCircle = markerSize?.dot > 5 ? 12 : 7;
   return (
     <>
       <ComposableMap
@@ -74,24 +75,32 @@ const GeoChart = (props) => {
             ))
           }
         </Geographies>
-        {markers?.map(({ country_code, views, country, coordinates }) => (
-          <Marker
-            key={country_code}
-            coordinates={coordinates}
-            onMouseEnter={() => {
-              setTooltipContent(`${country}: ${views}`);
-            }}
-            onMouseLeave={() => {
-              setTooltipContent('');
-            }}
-            data-tooltip-id="markerTooltip"
-            data-tooltip-content={tooltipContent}
-            data-tooltip-place="top"
-          >
-            <circle r={markerSize.dot} fill="#1AB394" />
-            <circle r={markerSize.circle} fill="#1AB39433" stroke="#1AB394" strokeWidth={1} />\
-          </Marker>
-        ))}
+        {markers?.map(({ country_code, views, country, coordinates }) => {
+          let circleSize = (views / maximumViews) * markerSize.circle;
+          return (
+            <Marker
+              key={country_code}
+              coordinates={coordinates}
+              onMouseEnter={() => {
+                setTooltipContent(`${country}: ${views}`);
+              }}
+              onMouseLeave={() => {
+                setTooltipContent('');
+              }}
+              data-tooltip-id="markerTooltip"
+              data-tooltip-content={tooltipContent}
+              data-tooltip-place="top"
+            >
+              <circle r={markerSize.dot} fill="#1AB394" />
+              <circle
+                r={circleSize > smallestCircle ? circleSize : smallestCircle}
+                fill="#1AB39433"
+                stroke="#1AB394"
+                strokeWidth={1}
+              />
+            </Marker>
+          );
+        })}
       </ComposableMap>
       <Tooltip id="markerTooltip" />
     </>

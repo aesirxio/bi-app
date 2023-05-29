@@ -2,7 +2,7 @@ import Table from 'components/Table';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 const CountryTable = (props) => {
-  const { data } = props;
+  const { data, t } = props;
   const columnsTable = React.useMemo(
     () =>
       data?.header.map((item, index) => ({
@@ -10,7 +10,8 @@ const CountryTable = (props) => {
         className: `px-3 py-16 fs-sm fw-semibold bg-gray-700 ${
           index + 1 === data?.header.length ? 'rounded-top-end-3' : ''
         } ${index === 0 ? 'rounded-top-start-3' : ''}`,
-        width: 100,
+        width: item.width ? item.width : index === 0 ? 'auto' : 150,
+        Header: t(item.Header),
       })),
     [data?.header]
   );

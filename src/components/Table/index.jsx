@@ -141,7 +141,7 @@ const Table = ({
                                     />
                                   ) : (
                                     <FontAwesomeIcon
-                                      className="sort-icon sort-icon-up ms-sm mb-nsm"
+                                      className="sort-icon sort-icon-up ms-sm mb-n8px"
                                       icon={faSortUp}
                                     />
                                   )
@@ -163,7 +163,7 @@ const Table = ({
                                     />
                                   ) : (
                                     <FontAwesomeIcon
-                                      className="sort-icon sort-icon-up ms-sm mb-nsm"
+                                      className="sort-icon sort-icon-up ms-sm mb-n8px"
                                       icon={faSortUp}
                                     />
                                   )
@@ -185,7 +185,7 @@ const Table = ({
                                   />
                                 ) : (
                                   <FontAwesomeIcon
-                                    className="sort-icon sort-icon-up ms-sm mb-nsm"
+                                    className="sort-icon sort-icon-up ms-sm mb-n8px"
                                     icon={faSortUp}
                                   />
                                 )

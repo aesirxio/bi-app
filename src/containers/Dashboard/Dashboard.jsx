@@ -38,8 +38,11 @@ const Dashboard = observer(
     }
 
     componentDidUpdate = (prevProps) => {
-      console.log(this.props.location !== prevProps.location);
-      if (this.props.location !== prevProps.location && !this.props.integration) {
+      if (
+        this.props.location !== prevProps.location &&
+        prevProps.location?.pathname !== '/' &&
+        !this.props.integration
+      ) {
         this.dashboardListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
         });

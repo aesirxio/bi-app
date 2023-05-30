@@ -79,10 +79,13 @@ class UTMTrackingEventsViewModel {
   };
 
   callbackOnDataSuccessHandler = (data) => {
-    if (data) {
+    if (data?.list) {
       this.status = PAGE_STATUS.READY;
-      const transformData = new UTMTrackingEventModel(data, this.globalStoreViewModel);
-      this.data = transformData;
+      const transformData = new UTMTrackingEventModel(data?.list, this.globalStoreViewModel);
+      this.data = {
+        list: transformData,
+        pagination: data.pagination,
+      };
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];

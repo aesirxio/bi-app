@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import { BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
+import { BI_EVENTS_FIELD_KEY, BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 import { enumerateDaysBetweenDates } from 'aesirx-lib';
@@ -36,6 +36,20 @@ class EventsListModel {
     return data;
   };
 
+  transformEventsResponse = () => {
+    let data = {};
+    this.data.forEach((item) => {
+      const dataFilterEventName = this.data.filter(
+        (_item) => _item[BI_EVENTS_FIELD_KEY.EVENT_NAME] === item[BI_EVENTS_FIELD_KEY.EVENT_NAME]
+      );
+      data = {
+        ...data,
+        [item[BI_EVENTS_FIELD_KEY.EVENT_NAME]]: dataFilterEventName,
+      };
+    });
+    return data;
+  };
+
   getFilterName = () => {
     const transform = this.transformResponse();
     const filter = Object.keys(transform).map((item) => ({ value: item, label: item }));
@@ -49,7 +63,7 @@ class EventsListModel {
   };
 
   toAreaChart = () => {
-    const transform = this.transformResponse();
+    const transform = this.transformEventsResponse();
     const twelveMonth = [
       'Jan',
       'Feb',
@@ -75,11 +89,12 @@ class EventsListModel {
           name: date,
           ...Object.keys(transform)
             .map((item) => {
-              const filterDate = transform[item]?.filter(
-                (_item) =>
-                  moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).format('YYYY-MM-DD') === date
-              ).length;
-              return { [item]: filterDate ?? 0 };
+              const filterDate = transform[item].filter((_item) => {
+                return _item[BI_EVENTS_FIELD_KEY.DATE] === date;
+              });
+              return {
+                [item]: filterDate?.length ? filterDate[0][BI_EVENTS_FIELD_KEY.TOTAL_VISITOR] : 0,
+              };
             })
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
@@ -88,13 +103,12 @@ class EventsListModel {
         .map((item) => {
           return {
             [item]: dateRange.map((date) => {
-              const filterDate = transform[item].filter(
-                (_item) =>
-                  moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).format('YYYY-MM-DD') === date
-              ).length;
+              const filterDate = transform[item].filter((_item) => {
+                return _item[BI_EVENTS_FIELD_KEY.DATE] === date;
+              });
               return {
                 name: date,
-                [item]: filterDate ?? 0,
+                [item]: filterDate?.length ? filterDate[0][BI_EVENTS_FIELD_KEY.TOTAL_VISITOR] : 0,
               };
             }),
           };
@@ -107,9 +121,11 @@ class EventsListModel {
           name: month,
           ...Object.keys(transform)
             .map((item) => {
-              const filterMonthDate = transform[item].filter(
-                (_item) => moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).month() === index
-              ).length;
+              const filterMonthDate = this.data
+                ?.filter(
+                  (_item) => moment(_item[BI_EVENTS_FIELD_KEY.DATE], 'YYYY-MM-DD').month() === index
+                )
+                ?.reduce((a, b) => a + b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR], 0);
               return { [item]: filterMonthDate ?? 0 };
             })
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
@@ -119,9 +135,11 @@ class EventsListModel {
         .map((item) => {
           return {
             [item]: twelveMonth.map((month, index) => {
-              const filterMonthDate = transform[item].filter(
-                (_item) => moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).month() === index
-              ).length;
+              const filterMonthDate = this.data
+                ?.filter(
+                  (_item) => moment(_item[BI_EVENTS_FIELD_KEY.DATE], 'YYYY-MM-DD').month() === index
+                )
+                ?.reduce((a, b) => a + b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR], 0);
               if (filterMonthDate) {
                 return {
                   name: month,
@@ -143,10 +161,10 @@ class EventsListModel {
   };
 
   toBarChart = () => {
-    const transform = this.transformResponse();
+    const transform = this.transformEventsResponse();
     return Object.keys(transform).map((item) => ({
       name: item,
-      number: transform[item].length,
+      number: transform[item]?.reduce((a, b) => a + b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR], 0),
     }));
   };
   handleChangeLink = (e, link) => {

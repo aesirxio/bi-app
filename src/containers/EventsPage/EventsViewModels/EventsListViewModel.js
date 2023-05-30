@@ -11,8 +11,10 @@ import EventsListModel from '../EventsModel/EventsListEventModel';
 class EventsListViewModel {
   eventsStore = null;
   status = PAGE_STATUS.READY;
+  statusTable = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   data = null;
+  dataEvents = null;
   dataFilter = {};
   attributeData = null;
 
@@ -27,14 +29,37 @@ class EventsListViewModel {
   };
 
   getVisitor = (dataFilter, dateFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    // this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    this.statusTable = PAGE_STATUS.LOADING;
+    this.dataFilterTable = {
+      page_size: '5',
+      'sort[]': 'number_of_page_views',
+      'sort_direction[]': 'desc',
+      ...this.dataFilterTable,
+      ...dataFilter,
+    };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.eventsStore.getVisitor(
-      dataFilter,
+      this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getEvents = (dataFilter, dateFilter) => {
+    this.status = PAGE_STATUS.LOADING;
+    this.dataFilterEvents = {
+      page_size: '1000',
+      ...this.dataFilterEvents,
+      ...dataFilter,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.eventsStore.getEvents(
+      this.dataFilterEvents,
+      dateRangeFilter,
+      this.callbackOnDataEventsSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -58,6 +83,7 @@ class EventsListViewModel {
 
   handleFilterDateRange = (startDate, endDate) => {
     this.status = PAGE_STATUS.LOADING;
+    this.statusTable = PAGE_STATUS.LOADING;
     const dateRangeFilter = {
       ...this.globalStoreViewModel.dateFilter,
       date_start: moment(startDate).format('YYYY-MM-DD'),
@@ -66,7 +92,25 @@ class EventsListViewModel {
 
     this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
     this.eventsStore.getVisitor(
-      this.dataFilter,
+      this.dataFilterTable,
+      dateRangeFilter,
+      this.callbackOnDataSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+    this.eventsStore.getEvents(
+      this.dataFilterEvents,
+      dateRangeFilter,
+      this.callbackOnDataEventsSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterTable = async (dataFilter) => {
+    this.statusTable = PAGE_STATUS.LOADING;
+    this.dataFilterTable = { ...this.dataFilterTable, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.eventsStore.getVisitor(
+      this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
@@ -79,10 +123,24 @@ class EventsListViewModel {
   };
 
   callbackOnDataSuccessHandler = (data) => {
+    if (data?.list) {
+      this.statusTable = PAGE_STATUS.READY;
+      const transformData = new EventsListModel(data?.list, this.globalStoreViewModel);
+      this.data = {
+        list: transformData,
+        pagination: data.pagination,
+      };
+    } else {
+      this.statusTable = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnDataEventsSuccessHandler = (data) => {
     if (data) {
       this.status = PAGE_STATUS.READY;
       const transformData = new EventsListModel(data, this.globalStoreViewModel);
-      this.data = transformData;
+      this.dataEvents = transformData;
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];

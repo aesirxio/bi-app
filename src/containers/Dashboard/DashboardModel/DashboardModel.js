@@ -72,7 +72,6 @@ class DashboardModel {
         page_views: totalPageViewCount,
       };
     });
-    console.log('datedatedate', date);
     return [{ visitors: month }, { visitors: date }];
   };
 

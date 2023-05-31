@@ -187,7 +187,7 @@ class UTMTrackingEventModel {
     const date = {
       all: dateRange.map((date) => {
         return {
-          name: date,
+          name: date && moment(date, 'YYYY-MM-DD').format('MM-DD'),
           ...Object.keys(transform)
             .map((item) => {
               const filterDate = transform[item]?.filter(
@@ -208,7 +208,7 @@ class UTMTrackingEventModel {
                   moment(_item[BI_VISITOR_FIELD_KEY.START_DATE]).format('YYYY-MM-DD') === date
               ).length;
               return {
-                name: date,
+                name: date && moment(date, 'YYYY-MM-DD').format('MM-DD'),
                 [item]: filterDate ?? 0,
               };
             }),

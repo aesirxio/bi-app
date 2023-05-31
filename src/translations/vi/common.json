@@ -203,9 +203,9 @@
   "txt_events_generator": "Trình tạo sự kiện",
   "txt_export_pdf": "Xuất file PDF",
   "txt_tooltip_visitors": "Số lượng người xem trang",
-  "txt_tooltip_page_views": "Lượt xem trang là tổng số trang được xem. Các lượt xem lặp lại của một trang được tính.",
-  "txt_tooltip_unique_page_views": "Lượt xem trang duy nhất là số phiên trong đó trang được chỉ định được xem ít nhất một lần. Một lần xem trang duy nhất được tính cho mỗi tổ hợp URL trang + Tiêu đề trang.",
-  "txt_tooltip_bounce_rate": "Tỷ lệ phần trăm phiên trang đơn trong đó không có tương tác với trang. Phiên bị trả lại có thời lượng là 0 giây.",
-  "txt_tooltip_page_session": "Số trang trung bình được xem trong một phiên. Các lượt xem lặp lại của một trang được tính.",
-  "txt_tooltip_avg_session_duration": "Độ dài trung bình của một phiên."
+  "txt_tooltip_page_views": "Lượt xem trang là tổng số trang đã được xem. Số lần xem lặp lại của một trang vẫn sẽ được tính.",
+  "txt_tooltip_unique_page_views": "Lượt xem trang duy nhất là tổng hợp số lần xem trang được tạo bởi cùng một người dùng trong cùng một phiên (tức là số phiên trong đó trang web được xem một hoặc nhiều lần). Số lượt xem trang duy nhất được tính dựa trên sự kết hợp của hai yếu tố URL trang + Tiêu đề trang",
+  "txt_tooltip_bounce_rate": "Tỷ lệ phần trăm số phiên truy cập người dùng chỉ vào một trang duy nhất và sau đó rời đi ngay mà không có thêm bất kỳ tương tác nào trên trang. Một phiên bị thoát có thời lượng là 0 giây.",
+  "txt_tooltip_page_session": "số trang trung bình được xem trong một phiên. Số lần xem lặp lại của một trang vẫn sẽ được tính.",
+  "txt_tooltip_avg_session_duration": "Tham số đo lường thời gian trung bình của một phiên."
 }

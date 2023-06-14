@@ -90,7 +90,8 @@
   },
   "files": [
     "dist",
-    "public"
+    "public/assets/images",
+    "public/assets/data"
   ],
   "resolutions": {
     "react": "^18",

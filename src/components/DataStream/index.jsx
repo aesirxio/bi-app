@@ -40,7 +40,7 @@ const DataStream = observer(() => {
   };
 
   return (
-    <div className="data-stream position-relative item_menu m-0 h-100">
+    <div className="data-stream position-relative item_menu m-0 h-100 z-index-100">
       <Button
         variant=""
         onClick={() => handleOpen('data-stream')}

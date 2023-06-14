@@ -43,7 +43,7 @@ const EventsPage = observer(
       const { integration = false } = this.props;
       const { integrationLink, activeDomain } = this.biListViewModel;
       const match = matchPath(history.location.pathname, {
-        path: '/:domain/events',
+        path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/events',
         exact: true,
         strict: false,
       });
@@ -98,10 +98,10 @@ const ComponentToPrint = observer(
             />
           ) : (
             <>
-              <Route exact path={['/:domain/events']}>
+              <Route exact path={['/events', '/bi/events']}>
                 <Events />
               </Route>
-              <Route exact path={['/:domain/events/generator']}>
+              <Route exact path={['/events/generator']}>
                 <Generator />
               </Route>
             </>

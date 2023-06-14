@@ -22,6 +22,7 @@ import Countries from './Component/Countries';
 import moment from 'moment';
 import Browsers from './Component/Browsers';
 import TopTable from 'containers/AudiencePage/Component/TopTable';
+import queryString from 'query-string';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -38,17 +39,10 @@ const Dashboard = observer(
     }
 
     componentDidUpdate = (prevProps) => {
-      if (
-        this.props.location !== prevProps.location &&
-        prevProps.location?.pathname !== '/' &&
-        !this.props.integration
-      ) {
-        this.dashboardListViewModel.initialize({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        });
-      }
+      const preSearch = queryString.parse(prevProps.location.search);
+      const currentSearch = queryString.parse(this.props.location.search);
 
-      if (this.props.activeDomain !== prevProps.activeDomain && this.props.integration) {
+      if (preSearch?.domain !== currentSearch?.domain) {
         this.dashboardListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
         });

@@ -17,10 +17,12 @@ const DataStream = observer(() => {
   const { path } = useRouteMatch();
   const { t } = useTranslation();
   const biStore = useBiViewModel();
+
   const handleChangeDataStream = (value) => {
     handleOpen('');
     biStore.biListViewModel.setActiveDomain(value);
   };
+
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {
       if (parentIndex) {
@@ -102,4 +104,4 @@ const DataStream = observer(() => {
   );
 });
 
-export default DataStream;
+export { DataStream };

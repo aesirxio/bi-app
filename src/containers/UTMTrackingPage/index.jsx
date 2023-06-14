@@ -46,7 +46,7 @@ const UTMTrackingPage = observer(
       const { integrationLink, activeDomain } = this.biListViewModel;
 
       const match = matchPath(history.location.pathname, {
-        path: '/:domain/utm-tracking',
+        path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/utm-tracking',
         exact: true,
         strict: false,
       });
@@ -101,10 +101,10 @@ const ComponentToPrint = observer(
             />
           ) : (
             <>
-              <Route exact path={['/:domain/utm-tracking']}>
+              <Route exact path={['/utm-tracking', '/bi/utm-tracking']}>
                 <UTMTracking />
               </Route>
-              <Route exact path={['/:domain/utm-tracking/generator']}>
+              <Route exact path={['/utm-tracking/generator', '/bi/utm-tracking']}>
                 <Generator />
               </Route>
             </>

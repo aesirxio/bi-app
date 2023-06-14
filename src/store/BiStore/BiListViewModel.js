@@ -12,7 +12,6 @@ import moment from 'moment';
 import queryString from 'query-string';
 
 class BiListViewModel {
-  biStore = null;
   paginationCollections = null;
   status = PAGE_STATUS.READY;
   data = [];
@@ -28,9 +27,9 @@ class BiListViewModel {
   activeDomain = env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain;
   isSearch = false;
   integrationLink = 'dashboard';
-  constructor(biStore) {
+  constructor() {
     makeAutoObservable(this);
-    this.biStore = biStore;
+
     const checkPage = queryString.parse(location.search);
     this.activeDomain = checkPage?.domain
       ? checkPage?.domain

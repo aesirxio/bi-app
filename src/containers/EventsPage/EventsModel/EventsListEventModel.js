@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 import { enumerateDaysBetweenDates } from 'aesirx-lib';
 
 class EventsListModel {
-  data = null;
+  data = [];
   globalViewModel = null;
   constructor(entity, globalViewModel) {
     if (entity) {
@@ -24,29 +24,38 @@ class EventsListModel {
 
   transformResponse = () => {
     let data = {};
-    this.data.forEach((item) => {
-      const dataFilterEventName = this.data.filter(
-        (_item) => _item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === item[BI_VISITOR_FIELD_KEY.EVENT_NAME]
-      );
-      data = {
-        ...data,
-        [item[BI_VISITOR_FIELD_KEY.EVENT_NAME]]: dataFilterEventName,
-      };
-    });
+
+    if (this.data?.length > 0) {
+      this.data?.forEach((item) => {
+        const dataFilterEventName = this.data.filter(
+          (_item) =>
+            _item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === item[BI_VISITOR_FIELD_KEY.EVENT_NAME]
+        );
+        data = {
+          ...data,
+          [item[BI_VISITOR_FIELD_KEY.EVENT_NAME]]: dataFilterEventName,
+        };
+      });
+    }
+
     return data;
   };
 
   transformEventsResponse = () => {
     let data = {};
-    this.data.forEach((item) => {
-      const dataFilterEventName = this.data.filter(
-        (_item) => _item[BI_EVENTS_FIELD_KEY.EVENT_NAME] === item[BI_EVENTS_FIELD_KEY.EVENT_NAME]
-      );
-      data = {
-        ...data,
-        [item[BI_EVENTS_FIELD_KEY.EVENT_NAME]]: dataFilterEventName,
-      };
-    });
+
+    if (this.data?.length > 0) {
+      this.data?.forEach((item) => {
+        const dataFilterEventName = this.data.filter(
+          (_item) => _item[BI_EVENTS_FIELD_KEY.EVENT_NAME] === item[BI_EVENTS_FIELD_KEY.EVENT_NAME]
+        );
+        data = {
+          ...data,
+          [item[BI_EVENTS_FIELD_KEY.EVENT_NAME]]: dataFilterEventName,
+        };
+      });
+    }
+
     return data;
   };
 

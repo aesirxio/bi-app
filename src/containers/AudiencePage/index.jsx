@@ -89,10 +89,10 @@ const ComponentToPrint = observer(
             />
           ) : (
             <>
-              <Route exact path={['/:domain/audience/overview']}>
+              <Route exact path={['/audience/overview', '/bi/audience/overview']}>
                 <AudiencePage {...this.props} />
               </Route>
-              <Route exact path={['/:domain/audience/behavior']}>
+              <Route exact path={['/audience/behavior', '/bi/audience/behavior']}>
                 <AudienceBehaviorPage {...this.props} />
               </Route>
             </>

@@ -14,7 +14,7 @@ import DashboardViewModel from './DashboardViewModels/DashboardViewModel';
 import { DashboardViewModelContextProvider } from './DashboardViewModels/DashboardViewModelContextProvider';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import Dashboard from './Dashboard';
-import { history } from 'aesirx-uikit';
+
 import ReactToPrint from 'react-to-print';
 import 'flag-icons/sass/flag-icons.scss';
 
@@ -32,11 +32,6 @@ const DashboardContainer = observer(
       this.dashboardViewModel = new DashboardViewModel(this.dashboardStore, this.biListViewModel);
     }
 
-    componentDidMount = () => {
-      if (!this.props.integration && history.location.pathname === '/') {
-        history.push(`${this.biListViewModel.activeDomain}`);
-      }
-    };
     render() {
       return (
         <DashboardViewModelContextProvider viewModel={this.dashboardViewModel}>

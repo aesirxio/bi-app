@@ -17,10 +17,12 @@ const DataStream = observer(() => {
   const { path } = useRouteMatch();
   const { t } = useTranslation();
   const biStore = useBiViewModel();
+
   const handleChangeDataStream = (value) => {
     handleOpen('');
     biStore.biListViewModel.setActiveDomain(value);
   };
+
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {
       if (parentIndex) {
@@ -38,7 +40,7 @@ const DataStream = observer(() => {
   };
 
   return (
-    <div className="data-stream position-relative item_menu m-0 h-100">
+    <div className="data-stream position-relative item_menu m-0 h-100 z-index-100">
       <Button
         variant=""
         onClick={() => handleOpen('data-stream')}
@@ -102,4 +104,4 @@ const DataStream = observer(() => {
   );
 });
 
-export default DataStream;
+export { DataStream };

@@ -10,8 +10,8 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "aesirx-lib": "^1.9.7",
-    "aesirx-uikit": "^1.0.8",
+    "aesirx-lib": "^1.10.0",
+    "aesirx-uikit": "^1.1.1",
     "axios": "^1.4.0",
     "d3-fetch": "^3.0.1",
     "flag-icons": "^6.7.0",
@@ -34,8 +34,8 @@
   },
   "scripts": {
     "start": "yarn run build && serve -s build",
-    "build": "react-scripts build && react-inject-env set",
-    "test": "react-scripts test",
+    "build": "craco build && react-inject-env set",
+    "test": "craco test",
     "dev": "craco start",
     "lint": "eslint --fix \"src/**/\"",
     "lint:check": "eslint \"src/**/\"",
@@ -76,9 +76,11 @@
     "babel-plugin-inline-react-svg": "^2.0.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-react-css-modules": "^5.2.6",
-    "craco": "^0.0.3",
+    "esbuild-plugin-inline-image": "^0.0.9",
     "esbuild-sass-plugin": "^2.9.0",
+    "esbuild-scss-modules-plugin": "^1.1.1",
     "eslint": "^8.40",
+    "git-revision-webpack-plugin": "^5.0.0",
     "prettier": "^2.8.8",
     "react-inject-env": "^2.1.0",
     "react-scripts": "^5.0.1",
@@ -88,7 +90,8 @@
   },
   "files": [
     "dist",
-    "public"
+    "public/assets/images",
+    "public/assets/data"
   ],
   "resolutions": {
     "react": "^18",

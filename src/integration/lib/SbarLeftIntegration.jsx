@@ -11,7 +11,7 @@ import { env } from 'aesirx-lib';
 
 import { Collapse } from 'react-bootstrap';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-import { getMenu } from 'routes/menu';
+import { mainMenu } from 'routes/menu';
 
 const SbarLeftIntegration = observer(() => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
@@ -44,8 +44,6 @@ const SbarLeftIntegration = observer(() => {
     }
   };
 
-  const dataMenu = getMenu();
-
   useEffect(() => {
     let fetchData = async () => {
       if (biStore.biListViewModel.activeDomain) {
@@ -64,7 +62,7 @@ const SbarLeftIntegration = observer(() => {
       <nav className="main-menu py-24 mt-0">
         <p className="menu_title text-dark-blue fs-14 mb-0 text-uppercase">{t('txt_main_menu')}</p>
         <ul id="wr_list_menu" className="list-unstyled mb-0 pt-md-1">
-          {dataMenu.map((menuList, menuListkey) => {
+          {mainMenu.map((menuList, menuListkey) => {
             return (
               <li
                 key={menuListkey}

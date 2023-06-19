@@ -6,16 +6,15 @@
 import React, { lazy, Suspense } from 'react';
 
 import { BiStoreProvider, useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-import BiStore from 'store/BiStore/BiStore';
-import BiViewModel from 'store/BiStore/BiViewModel';
+import { BiViewModel } from 'store/BiStore/BiViewModel';
 import 'scss/app.scss';
 
 import { observer } from 'mobx-react';
 import { Spinner } from 'aesirx-uikit';
 import { AppProvider } from 'aesirx-uikit';
 import { authRoutes, mainRoutes } from 'routes/routes';
-import DataStream from 'components/DataStream';
-import appLanguages from 'translations';
+import { DataStream } from 'components/DataStream';
+import { appLanguages } from 'translations';
 import SbarLeftIntegration from './SbarLeftIntegration';
 
 const DashboardPage = lazy(() => import('containers/Dashboard'));
@@ -25,8 +24,7 @@ const AudiencePage = lazy(() => import('containers/AudiencePage'));
 const FlowPage = lazy(() => import('containers/FlowDetailPage'));
 const RegionCountryPage = lazy(() => import('containers/RegionCountryPage'));
 
-const biStore = new BiStore();
-const biViewModel = new BiViewModel(biStore);
+const biViewModel = new BiViewModel();
 
 const MainLayoutIntegration = (props) => {
   return (

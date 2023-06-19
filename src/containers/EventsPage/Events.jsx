@@ -11,7 +11,16 @@ import BehaviorTable from 'components/BehaviorTable';
 const Events = observer((props) => {
   const { t } = useTranslation();
   const {
-    eventsList: { getVisitor, data, status, handleFilterDateRange },
+    eventsList: {
+      getVisitor,
+      getEvents,
+      data,
+      dataEvents,
+      status,
+      statusTable,
+      handleFilterDateRange,
+      handleFilterTable,
+    },
   } = useEventsViewModel();
   const {
     biListViewModel: { activeDomain },
@@ -23,9 +32,11 @@ const Events = observer((props) => {
 
   useEffect(() => {
     const execute = async () => {
-      await getVisitor({
+      getVisitor({
         'filter[domain]': activeDomain,
-        page_size: 5,
+      });
+      getEvents({
+        'filter[domain]': activeDomain,
       });
     };
     execute();
@@ -49,12 +60,12 @@ const Events = observer((props) => {
             loading={status}
             chartTitle={t('txt_menu_overview')}
             height={390}
-            data={data?.toAreaChart() ?? []}
+            data={dataEvents?.toAreaChart() ?? []}
             colors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
             areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
             lineColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            lines={data?.getListLine()}
-            filterData={data?.getFilterName()}
+            lines={dataEvents?.getListLine()}
+            filterData={dataEvents?.getFilterName()}
             tooltipComponent={{
               header: t('txt_number'),
               value: ``,
@@ -69,7 +80,7 @@ const Events = observer((props) => {
             height={390}
             bars={['number']}
             barColors={['#2C94EA']}
-            data={data?.toBarChart()}
+            data={dataEvents?.toBarChart()}
             margin={{ left: 40 }}
             isFilterButtons={false}
           />
@@ -77,7 +88,16 @@ const Events = observer((props) => {
       </div>
       <div className="row gx-24 mb-24">
         <div className="col-12 ">
-          {data && <BehaviorTable data={data.toEventTable(props.integration)} />}
+          {data?.list && (
+            <BehaviorTable
+              data={data?.list?.toEventTable(props.integration)}
+              pagination={data.pagination}
+              handleFilterTable={handleFilterTable}
+              statusTable={statusTable}
+              isPaginationAPI={true}
+              {...props}
+            />
+          )}
         </div>
       </div>
     </div>

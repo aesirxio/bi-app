@@ -4,15 +4,14 @@
  */
 
 import BiListViewModel from './BiListViewModel';
+
 class BiViewModel {
   biListViewModel = null;
-  constructor(biStore) {
-    if (biStore) {
-      this.biListViewModel = new BiListViewModel(biStore);
-    }
+  constructor() {
+    this.biListViewModel = new BiListViewModel();
   }
 
   getBiListViewModel = () => this.biListViewModel;
 }
 
-export default BiViewModel;
+export { BiViewModel };

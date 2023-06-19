@@ -12,14 +12,13 @@ import { authRoutes, mainRoutes } from 'routes/routes';
 import { isLogin } from 'auth';
 
 import { BiStoreProvider } from 'store/BiStore/BiViewModelContextProvider';
-import BiViewModel from 'store/BiStore/BiViewModel';
-import BiStore from 'store/BiStore/BiStore';
-import DataStream from 'components/DataStream';
-import appLanguages from 'translations';
+import { BiViewModel } from 'store/BiStore/BiViewModel';
+import { appLanguages } from 'translations';
+import { DataStream } from 'components/DataStream';
+
 import Menu from 'components/Menu';
 
-const biStore = new BiStore();
-const biViewModel = new BiViewModel(biStore);
+const biViewModel = new BiViewModel();
 
 const App = () => {
   return (

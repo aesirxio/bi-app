@@ -19,7 +19,7 @@ const OverviewComponent = observer(
         <div className="position-relative h-100">
           <AreaChartComponent
             chartTitle={t('txt_menu_overview')}
-            height={390}
+            height={420}
             data={this?.listViewModel?.visitorData?.toAreaChart()}
             colors={['#1AB394']}
             lineType="monotone"
@@ -39,6 +39,7 @@ const OverviewComponent = observer(
             status={status}
             filterData={this?.listViewModel?.visitorData?.getFilterName()}
             isSelection={false}
+            isLegend={true}
           />
         </div>
       );

@@ -12,7 +12,6 @@ import moment from 'moment';
 import queryString from 'query-string';
 
 class BiListViewModel {
-  biStore = null;
   paginationCollections = null;
   status = PAGE_STATUS.READY;
   data = [];
@@ -28,9 +27,9 @@ class BiListViewModel {
   activeDomain = env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain;
   isSearch = false;
   integrationLink = 'dashboard';
-  constructor(biStore) {
+  constructor() {
     makeAutoObservable(this);
-    this.biStore = biStore;
+
     const checkPage = queryString.parse(location.search);
     this.activeDomain = checkPage?.domain
       ? checkPage?.domain
@@ -41,36 +40,26 @@ class BiListViewModel {
   setActiveDomain = (domain) => {
     const location = history.location;
     // WP or Joomla
-    if (
-      location.pathname === '/wp-admin/admin.php' ||
-      location.pathname === '/administrator/index.php'
-    ) {
-      const search = {
-        ...queryString.parse(location.search),
-        ...{ domain: domain },
-      };
-      history.push({
-        ...location,
-        ...{ search: queryString.stringify(search) },
-      });
-    }
+    const search = {
+      ...queryString.parse(location.search),
+      ...{ domain: domain },
+    };
+    history.push({
+      ...location,
+      ...{ search: queryString.stringify(search) },
+    });
     this.activeDomain = domain;
   };
 
   setIntegrationLink = (link) => {
-    if (
-      location.pathname === '/wp-admin/admin.php' ||
-      location.pathname === '/administrator/index.php'
-    ) {
-      const search = {
-        ...queryString.parse(location.search),
-        ...{ menu: link },
-      };
-      history.push({
-        ...location,
-        ...{ search: queryString.stringify(search) },
-      });
-    }
+    const search = {
+      ...queryString.parse(location.search),
+      ...{ menu: link },
+    };
+    history.push({
+      ...location,
+      ...{ search: queryString.stringify(search) },
+    });
     this.integrationLink = link;
   };
 

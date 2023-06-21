@@ -4,25 +4,12 @@
  */
 
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-import { observer } from 'mobx-react-lite';
 
 import { Menu as AesirXMenu } from 'aesirx-uikit';
 import { mainMenu } from 'routes/menu';
 
-const Menu = observer(() => {
-  const biStore = useBiViewModel();
+const Menu = () => {
+  return <AesirXMenu dataMenu={mainMenu} />;
+};
 
-  const handleChangeLink = (e, link) => {
-    e.preventDefault();
-
-    if (link) {
-      biStore.biListViewModel.setIntegrationLink(link);
-    }
-  };
-
-  return <AesirXMenu dataMenu={mainMenu} handleChangeLink={handleChangeLink} />;
-});
-
-export default withRouter(Menu);
+export default Menu;

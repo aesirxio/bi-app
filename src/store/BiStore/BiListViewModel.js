@@ -40,26 +40,36 @@ class BiListViewModel {
   setActiveDomain = (domain) => {
     const location = history.location;
     // WP or Joomla
-    const search = {
-      ...queryString.parse(location.search),
-      ...{ domain: domain },
-    };
-    history.push({
-      ...location,
-      ...{ search: queryString.stringify(search) },
-    });
+    if (
+      location.pathname === '/wp-admin/admin.php' ||
+      location.pathname === '/administrator/index.php'
+    ) {
+      const search = {
+        ...queryString.parse(location.search),
+        ...{ domain: domain },
+      };
+      history.push({
+        ...location,
+        ...{ search: queryString.stringify(search) },
+      });
+    }
     this.activeDomain = domain;
   };
 
   setIntegrationLink = (link) => {
-    const search = {
-      ...queryString.parse(location.search),
-      ...{ menu: link },
-    };
-    history.push({
-      ...location,
-      ...{ search: queryString.stringify(search) },
-    });
+    if (
+      location.pathname === '/wp-admin/admin.php' ||
+      location.pathname === '/administrator/index.php'
+    ) {
+      const search = {
+        ...queryString.parse(location.search),
+        ...{ menu: link },
+      };
+      history.push({
+        ...location,
+        ...{ search: queryString.stringify(search) },
+      });
+    }
     this.integrationLink = link;
   };
 

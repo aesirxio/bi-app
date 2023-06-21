@@ -4,7 +4,7 @@
  */
 import React, { useState } from 'react';
 import { Collapse, Button } from 'react-bootstrap';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { useTranslation } from 'react-i18next';
@@ -13,10 +13,10 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const DataStream = observer(() => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
-
-  const { path } = useRouteMatch();
   const { t } = useTranslation();
   const biStore = useBiViewModel();
+
+  const { pathname } = useLocation();
 
   const handleChangeDataStream = (value) => {
     handleOpen('');
@@ -80,7 +80,7 @@ const DataStream = observer(() => {
                 >
                   <NavLink
                     exact={true}
-                    to={`${path && path.replace(':domain', item.domain)}`}
+                    to={`${pathname}`}
                     className={`text-decoration-none`}
                     activeClassName={`active`}
                   >

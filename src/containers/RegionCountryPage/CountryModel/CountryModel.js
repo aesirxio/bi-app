@@ -66,7 +66,7 @@ class CountryModel {
           accessor: key,
           width:
             key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME
-              ? 250
+              ? 270
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
@@ -74,11 +74,17 @@ class CountryModel {
             return column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
               <div className={'px-3'}>
                 <span
-                  className={`me-1 fi fi-${this.data[row.index][
-                    BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE
-                  ]?.toLowerCase()}`}
+                  className={`me-1 fi fi-${this.data
+                    .find(
+                      (o) =>
+                        o[BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME] ===
+                        row?.values[BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME]
+                    )
+                    ?.[BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE]?.toLowerCase()}`}
                 ></span>
-                {`${row.index + 1}. ${cell?.value === '' ? 'Unknown' : cell?.value}`}
+                <span className="text-nowrap">{`${row.index + 1}. ${
+                  cell?.value === '' ? 'Unknown' : cell?.value
+                }`}</span>
               </div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (
               <div className={'px-3'}>{cell?.value + '%' ?? null}</div>
@@ -142,20 +148,24 @@ class CountryModel {
           Header: headerTable[index],
           width:
             key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME
-              ? 250
+              ? 270
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
           accessor: key,
-          Cell: ({ cell, row, column }) =>
-            column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
+          Cell: ({ cell, row, column }) => {
+            return column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
               <div className={'px-15'}>
                 <span
-                  className={`me-1 fi fi-${this.data[row.index][
-                    BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE
-                  ]?.toLowerCase()}`}
+                  className={`me-1 fi fi-${this.data
+                    .find(
+                      (o) =>
+                        o[BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME] ===
+                        row?.values[BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME]
+                    )
+                    ?.[BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE]?.toLowerCase()}`}
                 ></span>
-                {cell?.value === '' ? 'Unknown' : cell?.value}
+                <span className="text-nowrap">{cell?.value === '' ? 'Unknown' : cell?.value}</span>
               </div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (
               <div className={'px-3 text-end'}>{cell?.value + '%' ?? null}</div>
@@ -165,7 +175,8 @@ class CountryModel {
               </div>
             ) : (
               <div className={'px-15 text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
-            ),
+            );
+          },
         };
       });
       const data = this.data

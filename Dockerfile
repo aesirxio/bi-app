@@ -16,14 +16,20 @@ WORKDIR /app
 COPY --from=deps ./app/node_modules ./node_modules
 
 # Copy app files
+COPY ./.git ./
 COPY ./package.json ./
 COPY ./jsconfig.json ./
 COPY ./.eslintrc ./
+COPY ./babel.config.json ./
+COPY ./craco.config.js ./
 COPY ./public ./public/
 COPY ./src ./src/
 
+ENV GENERATE_SOURCEMAP=false
+RUN apk add --no-cache git
+
 # Build the app
-RUN npx react-scripts build
+RUN npx craco build
 
 # Bundle static assets
 FROM node:16-alpine AS production

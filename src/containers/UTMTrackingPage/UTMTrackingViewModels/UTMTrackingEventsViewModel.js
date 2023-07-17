@@ -10,11 +10,13 @@ import moment from 'moment';
 import UTMTrackingEventModel from '../UTMTrackingModel/UTMTrackingListEventModel';
 class UTMTrackingEventsViewModel {
   utmTrackingStore = null;
-  status = PAGE_STATUS.READY;
+  statusAttribute = PAGE_STATUS.READY;
+  statusTable = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   data = null;
   dataFilter = {};
   attributeData = null;
+  dataAttribute = null;
 
   constructor(utmTrackingStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -27,25 +29,32 @@ class UTMTrackingEventsViewModel {
   };
 
   getVisitor = (dataFilter, dateFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    // this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    this.statusTable = PAGE_STATUS.LOADING;
+    this.dataFilterTable = {
+      page_size: '5',
+      ...this.dataFilterTable,
+      ...dataFilter,
+    };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.utmTrackingStore.getVisitor(
-      dataFilter,
+      this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
 
-  getAttribute = (dataFilter, dateFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+  getAttributeDate = (dataFilter, dateFilter) => {
+    this.statusAttribute = PAGE_STATUS.LOADING;
+    this.dataFilterAttribute = {
+      page_size: '1000',
+      ...this.dataFilterAttribute,
+      ...dataFilter,
+    };
     const dateRangeFilter = { ...this.globalStoreViewModel?.dateFilter, ...dateFilter };
-
-    this.utmTrackingStore.getAttribute(
-      dataFilter,
+    this.utmTrackingStore.getAttributeDate(
+      this.dataFilterAttribute,
       dateRangeFilter,
       this.callbackOnDataAttributeSuccessHandler,
       this.callbackOnErrorHandler
@@ -57,7 +66,8 @@ class UTMTrackingEventsViewModel {
   };
 
   handleFilterDateRange = (startDate, endDate) => {
-    this.status = PAGE_STATUS.LOADING;
+    this.statusAttribute = PAGE_STATUS.LOADING;
+    this.statusTable = PAGE_STATUS.LOADING;
     const dateRangeFilter = {
       ...this.globalStoreViewModel.dateFilter,
       date_start: moment(startDate).format('YYYY-MM-DD'),
@@ -66,7 +76,25 @@ class UTMTrackingEventsViewModel {
 
     this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
     this.utmTrackingStore.getVisitor(
-      this.dataFilter,
+      this.dataFilterTable,
+      dateRangeFilter,
+      this.callbackOnDataSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+    this.utmTrackingStore.getAttributeDate(
+      this.dataFilterAttribute,
+      dateRangeFilter,
+      this.callbackOnDataAttributeSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterTable = async (dataFilter) => {
+    this.statusTable = PAGE_STATUS.LOADING;
+    this.dataFilterTable = { ...this.dataFilterTable, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.utmTrackingStore.getVisitor(
+      this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
@@ -74,32 +102,33 @@ class UTMTrackingEventsViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
-    this.status = PAGE_STATUS.READY;
+    this.statusAttribute = PAGE_STATUS.READY;
+    this.statusTable = PAGE_STATUS.READY;
     notify(error.message, 'error');
   };
 
   callbackOnDataSuccessHandler = (data) => {
     if (data?.list) {
-      this.status = PAGE_STATUS.READY;
+      this.statusTable = PAGE_STATUS.READY;
       const transformData = new UTMTrackingEventModel(data?.list, this.globalStoreViewModel);
       this.data = {
         list: transformData,
         pagination: data.pagination,
       };
     } else {
-      this.status = PAGE_STATUS.ERROR;
+      this.statusTable = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };
 
   callbackOnDataAttributeSuccessHandler = (data) => {
     if (data) {
-      this.status = PAGE_STATUS.READY;
-
-      this.attributeData = data;
+      this.statusAttribute = PAGE_STATUS.READY;
+      const transformData = new UTMTrackingEventModel(data, this.globalStoreViewModel);
+      this.dataAttribute = transformData;
     } else {
-      this.status = PAGE_STATUS.ERROR;
-      this.attributeData = {};
+      this.statusAttribute = PAGE_STATUS.ERROR;
+      this.data = [];
     }
   };
 }

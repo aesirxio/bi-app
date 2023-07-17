@@ -14,10 +14,12 @@ const UTMTrackingPage = observer((props) => {
     utmTrackingEvents: {
       getVisitor,
       data,
-      status,
+      statusAttribute,
       handleFilterDateRange,
-      getAttribute,
-      attributeData,
+      handleFilterTable,
+      getAttributeDate,
+      dataAttribute,
+      statusTable,
     },
   } = useUTMTrackingViewModel();
   const {
@@ -56,26 +58,20 @@ const UTMTrackingPage = observer((props) => {
   }, []);
   useEffect(() => {
     const execute = async () => {
-      if (!attributeData) {
-        await getAttribute({
-          // 'filter[domain]': activeDomain,
-          page_size: 1000,
-          'filter[attribute_name]': 'utm_source',
-        });
-      }
-      if (attributeData?.[0]?.values?.length) {
-        await getVisitor({
-          'filter[domain]': activeDomain,
-          page_size: 1000,
-          'filter[attribute_name]': 'utm_source',
-          //Todo: filter with list value
-          // 'filter[attribute_value]': attributeData?.[0]?.values?.[0]?.value,
-        });
-      }
+      await getAttributeDate({
+        'filter[domain]': activeDomain,
+        page_size: 5,
+        'filter[attribute_name]': 'utm_source',
+      });
+      await getVisitor({
+        'filter[domain]': activeDomain,
+        page_size: 5,
+        'filter[attribute_name]': 'utm_source',
+      });
     };
     execute();
     return () => {};
-  }, [activeDomain, attributeData?.[0]?.values?.length]);
+  }, [activeDomain]);
 
   return (
     <div className="py-4 px-3 h-100">
@@ -117,15 +113,15 @@ const UTMTrackingPage = observer((props) => {
       <div className="row gx-24 mb-24">
         <div className="col-lg-6 col-12">
           <AreaChartComponent
-            loading={status}
+            loading={statusAttribute}
             chartTitle={t('txt_menu_overview')}
             height={390}
-            data={data?.list?.toAreaChartUTM()}
+            data={dataAttribute?.toAreaChartUTM()}
             colors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
             areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
             lineColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            lines={data?.list?.getListLineUTM()}
-            filterData={data?.list?.getFilterNameUTM()}
+            lines={dataAttribute?.getListLineUTM()}
+            filterData={dataAttribute?.getFilterNameUTM()}
             tooltipComponent={{
               header: t('txt_number'),
               value: ``,
@@ -139,16 +135,25 @@ const UTMTrackingPage = observer((props) => {
             height={390}
             bars={['number']}
             barColors={['#2C94EA']}
-            data={data?.list?.toBarChartUTM()}
+            data={dataAttribute?.toBarChartUTM()}
             margin={{ left: 40 }}
             isFilterButtons={false}
-            loading={status}
+            loading={statusAttribute}
           />
         </div>
       </div>
       <div className="row gx-24 mb-24">
         <div className="col-12 ">
-          {data?.list && <BehaviorTable data={data?.list?.toEventTableUTM(props.integration)} />}
+          {data?.list && (
+            <BehaviorTable
+              data={data?.list?.toEventTableUTM(props.integration)}
+              statusTable={statusTable}
+              isPaginationAPI={true}
+              pagination={data.pagination}
+              handleFilterTable={handleFilterTable}
+              {...props}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -247,35 +247,37 @@ const Table = ({
         <div className={`d-flex align-items-center justify-content-between ${paginationClass}`}>
           <div className="d-flex align-items-center">
             <span className="text-gray-600 me-16">Showing</span>
-            <AesirXSelect
-              isClearable={false}
-              isSearchable={false}
-              isBorder={false}
-              isShadow={false}
-              options={[
-                { label: 5, value: 5 },
-                { label: 10, value: 10 },
-                { label: 20, value: 20 },
-                { label: 30, value: 30 },
-                { label: 40, value: 40 },
-                { label: 50, value: 50 },
-              ]}
-              getOptionLabel={(options) => (
-                <div className="showing-option d-flex align-items-center">
-                  <span>{options.label} items</span>
-                </div>
-              )}
-              className="shadow-none select-bg-white"
-              onChange={(data) => {
-                isPaginationAPI
-                  ? handlePageSize(Number(data.value))
-                  : setPageSize(Number(data.value));
-              }}
-              defaultValue={{
-                label: isPaginationAPI ? paginationResponse?.page_size : pageSize,
-                value: isPaginationAPI ? paginationResponse?.page_size : pageSize,
-              }}
-            />
+            <div className="bg-white">
+              <AesirXSelect
+                isClearable={false}
+                isSearchable={false}
+                isBorder={false}
+                isShadow={false}
+                options={[
+                  { label: 5, value: 5 },
+                  { label: 10, value: 10 },
+                  { label: 20, value: 20 },
+                  { label: 30, value: 30 },
+                  { label: 40, value: 40 },
+                  { label: 50, value: 50 },
+                ]}
+                getOptionLabel={(options) => (
+                  <div className="showing-option d-flex align-items-center">
+                    <span>{options.label} items</span>
+                  </div>
+                )}
+                className="shadow-none select-bg-white"
+                onChange={(data) => {
+                  isPaginationAPI
+                    ? handlePageSize(Number(data.value))
+                    : setPageSize(Number(data.value));
+                }}
+                defaultValue={{
+                  label: isPaginationAPI ? paginationResponse?.page_size : pageSize,
+                  value: isPaginationAPI ? paginationResponse?.page_size : pageSize,
+                }}
+              />
+            </div>
           </div>
 
           <div className="mt-3 pb-3 text-center pagination d-flex justify-content-end align-items-center">

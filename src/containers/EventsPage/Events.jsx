@@ -34,9 +34,11 @@ const Events = observer((props) => {
     const execute = async () => {
       getVisitor({
         'filter[domain]': activeDomain,
+        'filter_not[event_name]': 'visit',
       });
       getEvents({
         'filter[domain]': activeDomain,
+        'filter_not[event_name]': 'visit',
       });
     };
     execute();

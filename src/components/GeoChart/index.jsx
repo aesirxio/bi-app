@@ -2,7 +2,6 @@ import { csv } from 'd3-fetch';
 import React, { useEffect, useState } from 'react';
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
 import { Tooltip } from 'react-tooltip';
-import './index.scss';
 import { env } from 'aesirx-lib';
 
 const GeoChart = (props) => {

@@ -12,7 +12,7 @@ export const tsup: Options = {
   entry: ['src/integration/index.js'],
   target: 'es2020',
   platform: 'browser',
-  esbuildPlugins: [inlineImage({ limit: -1 }), sassPlugin({ type: 'css', cssImports: true })],
+  esbuildPlugins: [inlineImage({ limit: -1 }), sassPlugin({ type: 'style' })],
   esbuildOptions(options) {
     options.drop = ['console'];
   },

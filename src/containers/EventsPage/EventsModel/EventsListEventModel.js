@@ -215,9 +215,7 @@ class EventsListModel {
                     </a>
                   ) : (
                     <NavLink
-                      to={`/${this.globalViewModel.activeDomain}/flow/${
-                        row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]
-                      }`}
+                      to={`/flow/${row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]}`}
                       className={'px-3'}
                     >
                       {cell?.value}

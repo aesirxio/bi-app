@@ -20,23 +20,24 @@ Follow the instructions in: [https://github.com/aesirxio/analytics-1stparty/tree
 
 Follow the instructions in: [https://github.com/aesirxio/analytics/tree/master](https://github.com/aesirxio/analytics-1stparty)
 
-### Configure this project (for development)
+### Configure this project
 
+1. Run `yarn install` to install the dependencies.
 1. Rename the `.env.dist` file to `.env`.
 1. Replace the `REACT_APP_BI_ENDPOINT_URL` in the `.env` file with the link to your `1st party server for AesirX Analytics`.
 1. Replace the `REACT_APP_DATA_STREAM` in the `.env` file with the `name` and `domain` to the your data-stream endpoint.
 1. Replace the `REACT_APP_DEFAULT_USER` in the `.env` file with the user that you want to set for Login.
 1. Replace the `REACT_APP_DEFAULT_PASSWORD` in the `.env` file with the password that you want to set for Login.
 
-#### `yarn dev`
+### Development
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Run  `yarn dev`
+1. Open [http://localhost:3000](http://localhost:3000) - 3000 is `PORT` to view it in the browser.
 
-#### `yarn build`
+### Production
+##### Run on a webserver
+1. Run `yarn build` after changed `.env` file.
+2. Upload `build` folder to webserver.
 
-Get a full build and install it in your favorite web server.
-
-## Dockerize
-#### Production
-`docker compose -f "docker-compose.yml" up -d --build`
+##### Dockerize
+Run `docker compose -f "docker-compose.yml" up -d --build` after changed `.env` file.

@@ -19,8 +19,8 @@ const TopTabs = observer(
         <div className="position-relative h-100">
           <Tab.Container id="left-tabs-example" defaultActiveKey="page">
             <Row className="gx-24">
-              <Col sm={3}>
-                <div className="bg-white rounded-3 p-24 shadow-sm">
+              <Col sm={2}>
+                <div className="bg-white rounded-3 px-15 py-2 shadow-sm">
                   <Nav variant="pills" className="flex-column">
                     <Nav.Item>
                       <Nav.Link eventKey="page" className="ps-0">
@@ -30,7 +30,7 @@ const TopTabs = observer(
                   </Nav>
                 </div>
               </Col>
-              <Col sm={9}>
+              <Col sm={10}>
                 <div className="bg-white rounded-3 shadow-sm h-100 position-relative">
                   <Tab.Content>
                     <Tab.Pane eventKey="page">

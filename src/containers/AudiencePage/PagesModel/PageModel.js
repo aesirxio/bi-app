@@ -103,7 +103,7 @@ class PageModel {
           accessor: key,
           width:
             key === BI_PAGES_FIELD_KEY.URL
-              ? 'auto'
+              ? 300
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,

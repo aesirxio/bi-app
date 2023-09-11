@@ -12,6 +12,7 @@ const AudiencePage = lazy(() => import('containers/AudiencePage'));
 const RevenuePage = lazy(() => import('containers/RevenuePage'));
 const UTMTrackingPage = lazy(() => import('containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('containers/EventsPage'));
+const WoocommercePage = lazy(() => import('containers/WoocommercePage'));
 
 const RegionCountryPage = lazy(() => import('containers/RegionCountryPage'));
 const FlowPage = lazy(() => import('containers/FlowDetailPage'));
@@ -49,6 +50,12 @@ const mainRoutes = [
     page: ['events', 'events-generator'],
     exact: true,
     main: () => <EventsPage />,
+  },
+  {
+    path: ['/woocommerce'],
+    page: ['woocommerce'],
+    exact: true,
+    main: () => <WoocommercePage />,
   },
   {
     path: ['/flow/:uuid'],

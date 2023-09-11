@@ -135,5 +135,9 @@
   "txt_tooltip_unique_page_views": "Unique Pageviews is the number of sessions during which the specified page was viewed at least once. A unique pageview is counted for each page URL + page Title combination.",
   "txt_tooltip_bounce_rate": "The percentage of single-page sessions in which there was no interaction with the page. A bounced session has a duration of 0 seconds.",
   "txt_tooltip_page_session": "The average number of pages viewed during a session. Repeated views of a single page are counted.",
-  "txt_tooltip_avg_session_duration": "The average length of a Session."
+  "txt_tooltip_avg_session_duration": "The average length of a Session.",
+  "txt_menu_woocommerce": "Woocommerce",
+  "txt_add_to_cart": "Add To Cart",
+  "txt_search_product": "Search Product",
+  "txt_order": "Order"
 }

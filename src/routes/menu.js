@@ -65,6 +65,12 @@ const mainMenu = [
       },
     ],
   },
+  {
+    text: 'txt_menu_woocommerce',
+    link: `/woocommerce`,
+    icons: env.PUBLIC_URL + '/assets/images/calendar-line.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/calendar-line.svg',
+  },
 
   {
     text: 'txt_menu_region',

@@ -139,5 +139,9 @@
   "txt_menu_woocommerce": "Woocommerce",
   "txt_add_to_cart": "Add To Cart",
   "txt_search_product": "Search Product",
-  "txt_order": "Order"
+  "txt_order": "Order",
+  "txt_product_name": "Product Name",
+  "txt_keywords": "Keywords",
+  "txt_count": "Count",
+  "txt_total": "Total"
 }

@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
-// import TopTable from './TopTable';
+import TopTable from './TopTable';
 const TopTabs = observer(
   class TopTabs extends Component {
     constructor(props) {
@@ -46,25 +46,25 @@ const TopTabs = observer(
                     <div className="bg-white rounded-3 shadow-sm h-100 position-relative">
                       <Tab.Content>
                         <Tab.Pane eventKey="addToCart">
-                          {/* <TopTable
+                          <TopTable
                             data={this.listViewModel?.dataAddToCart}
                             status={this.listViewModel}
                             {...this.props}
-                          /> */}
+                          />
                         </Tab.Pane>
                         <Tab.Pane eventKey="searchProduct">
-                          {/* <TopTable
+                          <TopTable
                             data={this.listViewModel?.dataSearchProduct}
                             status={this.listViewModel}
                             {...this.props}
-                          /> */}
+                          />
                         </Tab.Pane>
                         <Tab.Pane eventKey="checkout">
-                          {/* <TopTable
+                          <TopTable
                             data={this.listViewModel?.dataCheckout}
                             status={this.listViewModel}
                             {...this.props}
-                          /> */}
+                          />
                         </Tab.Pane>
                       </Tab.Content>
                     </div>

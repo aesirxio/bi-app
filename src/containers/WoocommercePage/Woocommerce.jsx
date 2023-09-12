@@ -66,7 +66,7 @@ const Woocommerce = observer((props) => {
           {
             'filter[domain]': activeDomain,
             page_size: 5,
-            'filter[attribute_name]': 'order-total',
+            'filter[attribute_name]': 'product-0-name',
           },
           {},
           'checkout'

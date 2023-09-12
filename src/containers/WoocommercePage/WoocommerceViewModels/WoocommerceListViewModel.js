@@ -8,6 +8,7 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import WoocommerceListModel from '../WoocommerceModel/WoocommerceListEventModel';
+import WoocoomerceTableModel from '../WoocommerceModel/WoocommerceTableModel';
 class WoocommerceListViewModel {
   woocommerceStore = null;
   status = PAGE_STATUS.READY;
@@ -151,11 +152,20 @@ class WoocommerceListViewModel {
     if (data) {
       this.status = PAGE_STATUS.READY;
       if (attr === 'cart') {
-        this.dataAddToCart = data?.values;
+        const transformData = new WoocoomerceTableModel(data[0]?.values, this.globalStoreViewModel);
+        this.dataAddToCart = transformData?.toWoocoomerceTableTop([
+          'txt_product_name',
+          'txt_count',
+        ]);
       } else if (attr === 'search') {
-        this.dataSearchProduct = data?.values;
+        const transformData = new WoocoomerceTableModel(data[0]?.values, this.globalStoreViewModel);
+        this.dataSearchProduct = transformData?.toWoocoomerceTableTop([
+          'txt_keywords',
+          'txt_count',
+        ]);
       } else if (attr === 'checkout') {
-        this.dataCheckout = data?.values;
+        const transformData = new WoocoomerceTableModel(data[0]?.values, this.globalStoreViewModel);
+        this.dataCheckout = transformData?.toWoocoomerceTableCheckoutTop();
       } else {
         this.attributeData = data;
       }

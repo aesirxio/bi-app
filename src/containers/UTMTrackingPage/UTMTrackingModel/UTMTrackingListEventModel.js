@@ -68,18 +68,18 @@ class UTMTrackingEventModel {
       console.log(
         'transform[item]',
         transform[item]?.map((e) => {
-          return e?.values?.map((sub_item) => {
-            return sub_item?.count;
-          });
+          return e?.values?.find((sub_item) => {
+            return sub_item?.value === item;
+          })?.count;
         })
       );
       return {
         name: item,
         number: transform[item]
           ?.map((e) => {
-            return e?.values?.map((sub_item) => {
-              return sub_item?.count;
-            });
+            return e?.values?.find((sub_item) => {
+              return sub_item?.value === item;
+            })?.count;
           })
           ?.reduce((partialSum, a) => parseInt(partialSum) + parseInt(a), 0),
       };

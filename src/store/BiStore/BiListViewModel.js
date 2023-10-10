@@ -35,6 +35,15 @@ class BiListViewModel {
       ? checkPage?.domain
       : env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain;
     this.integrationLink = checkPage?.menu ? checkPage?.menu : 'dashboard';
+
+    const date_start = checkPage?.date_start;
+    const date_end = checkPage?.date_end;
+    if (date_start || date_end) {
+      this.dateFilter = {
+        date_start: date_start,
+        date_end: date_end,
+      };
+    }
   }
 
   setActiveDomain = (domain) => {
@@ -77,8 +86,24 @@ class BiListViewModel {
     this.dateFilter = {
       ...this.dateFilter,
       date_start: moment(date_start).format('YYYY-MM-DD'),
-      date_end: moment(date_end).format('YYYY-MM-DD'),
+      date_end: date_end
+        ? moment(date_end).format('YYYY-MM-DD')
+        : moment(date_start).format('YYYY-MM-DD'),
     };
+
+    const search = {
+      ...queryString.parse(location.search),
+      ...{
+        date_start: moment(date_start).format('YYYY-MM-DD'),
+        date_end: date_end
+          ? moment(date_end).format('YYYY-MM-DD')
+          : moment(date_start).format('YYYY-MM-DD'),
+      },
+    };
+    history.push({
+      ...location,
+      ...{ search: queryString.stringify(search) },
+    });
   };
 
   resetObservableProperties = () => {};

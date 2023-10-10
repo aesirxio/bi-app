@@ -20,7 +20,12 @@ const ComponentCard = ({
   const [selectedValue, setSelectedValue] = useState(value);
 
   useEffect(() => {
-    setSelectedValue(value);
+    let defaultOption = options?.find((item) => item?.value === defaultFilter?.value);
+    if (defaultOption) {
+      setSelectedValue(defaultOption?.actualValue);
+    } else {
+      setSelectedValue(value);
+    }
   }, [value]);
 
   const handleChange = (data) => {

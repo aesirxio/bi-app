@@ -4,7 +4,6 @@
  */
 import React, { useState } from 'react';
 import { Collapse, Button } from 'react-bootstrap';
-import { NavLink, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { useTranslation } from 'react-i18next';
@@ -78,7 +77,7 @@ const DataStream = observer(() => {
                   className={`item_menu cursor-pointer`}
                   onClick={() => handleChangeDataStream(item.domain)}
                 >
-                  <div className={`text-decoration-none`} activeClassName={`active`}>
+                  <div className={`text-decoration-none`}>
                     <span
                       className={`d-block py-16 link_menu text-decoration-none  ${
                         biStore.biListViewModel?.listDomain.length - 1 === index

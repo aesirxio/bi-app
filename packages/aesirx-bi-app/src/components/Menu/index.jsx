@@ -5,7 +5,7 @@
 
 import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Menu as AesirXMenu, history } from 'aesirx-uikit';
+import { Menu as AesirXMenu } from 'aesirx-uikit';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { mainMenu } from '../../routes/menu';
 import { observer } from 'mobx-react';

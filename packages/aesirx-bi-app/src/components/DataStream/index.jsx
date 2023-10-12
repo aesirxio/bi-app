@@ -16,7 +16,7 @@ const DataStream = observer(() => {
   const { t } = useTranslation();
   const biStore = useBiViewModel();
 
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
 
   const handleChangeDataStream = (value) => {
     handleOpen('');
@@ -78,12 +78,7 @@ const DataStream = observer(() => {
                   className={`item_menu cursor-pointer`}
                   onClick={() => handleChangeDataStream(item.domain)}
                 >
-                  <NavLink
-                    exact={true}
-                    to={`${pathname}`}
-                    className={`text-decoration-none`}
-                    activeClassName={`active`}
-                  >
+                  <div className={`text-decoration-none`} activeClassName={`active`}>
                     <span
                       className={`d-block py-16 link_menu text-decoration-none  ${
                         biStore.biListViewModel?.listDomain.length - 1 === index
@@ -93,7 +88,7 @@ const DataStream = observer(() => {
                     >
                       {item.name}
                     </span>
-                  </NavLink>
+                  </div>
                 </li>
               )
             );

@@ -44,6 +44,7 @@ class BiListViewModel {
         date_end: date_end,
       };
     }
+    console.log('hehehehe');
   }
 
   setActiveDomain = (domain) => {
@@ -53,6 +54,15 @@ class BiListViewModel {
       location.pathname === '/wp-admin/admin.php' ||
       location.pathname === '/administrator/index.php'
     ) {
+      const search = {
+        ...queryString.parse(location.search),
+        ...{ domain: domain },
+      };
+      history.push({
+        ...location,
+        ...{ search: queryString.stringify(search) },
+      });
+    } else {
       const search = {
         ...queryString.parse(location.search),
         ...{ domain: domain },

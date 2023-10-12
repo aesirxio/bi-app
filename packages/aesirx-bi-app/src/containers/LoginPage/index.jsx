@@ -64,7 +64,7 @@ class LoginPage extends React.Component {
         <div className="row justify-content-center align-items-center h-100 bg-white">
           <div className="col-lg-7 col-xxl-4">
             <div className="d-block bg-white p-2 p-lg-5">
-              <h1 className="fs-2 text-blue fw-semibold text-center mb-16 lh-base">
+              <h1 className="fs-2 fw-semibold text-center mb-16 lh-base">
                 {t('txt_login_text_1')}
                 <img
                   className="px-1"

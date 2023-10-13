@@ -94,7 +94,7 @@
   "txt_days": "Days",
   "txt_weeks": "Weeks",
   "txt_months": "Months",
-  "txt_page_views": "Page Views",
+  "txt_page_views": "Pageviews",
   "txt_unique_page_views": "Unique Page Views",
   "txt_acg_session_duration": "Avg. Session Duration",
   "txt_bounce_rate": "Bounce Rate",
@@ -143,5 +143,9 @@
   "txt_product_name": "Product Name",
   "txt_keywords": "Keywords",
   "txt_count": "Count",
-  "txt_total": "Total"
+  "txt_total": "Total",
+  "txt_current_visitors": "Current visitors",
+  "txt_unique_visitors": "Unique visitors",
+  "txt_locations": "Locations",
+  "txt_top_pages": "Top Pages"
 }

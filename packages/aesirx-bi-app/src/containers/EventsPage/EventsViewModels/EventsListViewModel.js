@@ -124,12 +124,14 @@ class EventsListViewModel {
 
   callbackOnDataSuccessHandler = (data) => {
     if (data?.list) {
-      this.statusTable = PAGE_STATUS.READY;
-      const transformData = new EventsListModel(data?.list, this.globalStoreViewModel);
-      this.data = {
-        list: transformData,
-        pagination: data.pagination,
-      };
+      if (data?.message !== 'canceled') {
+        this.statusTable = PAGE_STATUS.READY;
+        const transformData = new EventsListModel(data?.list, this.globalStoreViewModel);
+        this.data = {
+          list: transformData,
+          pagination: data.pagination,
+        };
+      }
     } else {
       this.statusTable = PAGE_STATUS.ERROR;
       this.data = [];
@@ -138,9 +140,11 @@ class EventsListViewModel {
 
   callbackOnDataEventsSuccessHandler = (data) => {
     if (data) {
-      this.status = PAGE_STATUS.READY;
-      const transformData = new EventsListModel(data, this.globalStoreViewModel);
-      this.dataEvents = transformData;
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        const transformData = new EventsListModel(data, this.globalStoreViewModel);
+        this.dataEvents = transformData;
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];
@@ -149,9 +153,10 @@ class EventsListViewModel {
 
   callbackOnDataAttributeSuccessHandler = (data) => {
     if (data) {
-      this.status = PAGE_STATUS.READY;
-
-      this.attributeData = data;
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        this.attributeData = data;
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.attributeData = {};

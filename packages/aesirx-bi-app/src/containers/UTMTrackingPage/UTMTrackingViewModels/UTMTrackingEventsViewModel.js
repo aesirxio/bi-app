@@ -109,12 +109,14 @@ class UTMTrackingEventsViewModel {
 
   callbackOnDataSuccessHandler = (data) => {
     if (data?.list) {
-      this.statusTable = PAGE_STATUS.READY;
-      const transformData = new UTMTrackingEventModel(data?.list, this.globalStoreViewModel);
-      this.data = {
-        list: transformData,
-        pagination: data.pagination,
-      };
+      if (data?.message !== 'canceled') {
+        this.statusTable = PAGE_STATUS.READY;
+        const transformData = new UTMTrackingEventModel(data?.list, this.globalStoreViewModel);
+        this.data = {
+          list: transformData,
+          pagination: data.pagination,
+        };
+      }
     } else {
       this.statusTable = PAGE_STATUS.ERROR;
       this.data = [];
@@ -123,9 +125,11 @@ class UTMTrackingEventsViewModel {
 
   callbackOnDataAttributeSuccessHandler = (data) => {
     if (data) {
-      this.statusAttribute = PAGE_STATUS.READY;
-      const transformData = new UTMTrackingEventModel(data, this.globalStoreViewModel);
-      this.dataAttribute = transformData;
+      if (data?.message !== 'canceled') {
+        this.statusAttribute = PAGE_STATUS.READY;
+        const transformData = new UTMTrackingEventModel(data, this.globalStoreViewModel);
+        this.dataAttribute = transformData;
+      }
     } else {
       this.statusAttribute = PAGE_STATUS.ERROR;
       this.data = [];

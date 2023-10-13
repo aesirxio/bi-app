@@ -22,6 +22,7 @@ const mainMenu = [
       },
       {
         text: 'txt_menu_behavior',
+        mini_text: 'txt_menu_behavior',
         link: `/audience/behavior`,
         page: 'audience-behavior',
       },
@@ -41,6 +42,7 @@ const mainMenu = [
       },
       {
         text: 'txt_menu_generator',
+        mini_text: 'txt_menu_generator',
         link: `/utm-tracking/generator`,
         page: 'utm-tracking-generator',
       },
@@ -60,6 +62,7 @@ const mainMenu = [
       },
       {
         text: 'txt_menu_generator',
+        mini_text: 'txt_menu_generator',
         link: `/events/generator`,
         page: 'events-generator',
       },

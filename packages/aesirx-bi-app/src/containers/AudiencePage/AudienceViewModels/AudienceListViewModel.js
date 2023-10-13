@@ -259,8 +259,10 @@ class AudienceListViewModel {
 
   callbackOnMetricsDataSuccessHandler = (data) => {
     if (data) {
-      this.statusMetrics = PAGE_STATUS.READY;
-      this.metricsData = data;
+      if (data?.message !== 'canceled') {
+        this.statusMetrics = PAGE_STATUS.READY;
+        this.metricsData = data;
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusMetrics = PAGE_STATUS.ERROR;
@@ -269,9 +271,11 @@ class AudienceListViewModel {
   };
   callbackOnVisitorSuccessHandler = (data) => {
     if (data) {
-      this.statusOverview = PAGE_STATUS.READY;
-      const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
-      this.visitorData = transformData;
+      if (data?.message !== 'canceled') {
+        this.statusOverview = PAGE_STATUS.READY;
+        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        this.visitorData = transformData;
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusOverview = PAGE_STATUS.ERROR;
@@ -281,12 +285,14 @@ class AudienceListViewModel {
 
   callbackOnCountriesSuccessHandler = (data) => {
     if (data) {
-      this.statusTopTable = PAGE_STATUS.READY;
-      const transformData = new CountryModel(data.list, this.globalStoreViewModel);
-      this.countriesTableData = {
-        list: transformData.toCountriesTableTop(),
-        pagination: data.pagination,
-      };
+      if (data?.message !== 'canceled') {
+        this.statusTopTable = PAGE_STATUS.READY;
+        const transformData = new CountryModel(data.list, this.globalStoreViewModel);
+        this.countriesTableData = {
+          list: transformData.toCountriesTableTop(),
+          pagination: data.pagination,
+        };
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusTopTable = PAGE_STATUS.ERROR;
@@ -296,12 +302,14 @@ class AudienceListViewModel {
 
   callbackOnCitiesSuccessHandler = (data) => {
     if (data) {
-      this.statusTopTable = PAGE_STATUS.READY;
-      const transformData = new CityModel(data.list, this.globalStoreViewModel);
-      this.citiesTableData = {
-        list: transformData.toCitiesTableTop(),
-        pagination: data.pagination,
-      };
+      if (data?.message !== 'canceled') {
+        this.statusTopTable = PAGE_STATUS.READY;
+        const transformData = new CityModel(data.list, this.globalStoreViewModel);
+        this.citiesTableData = {
+          list: transformData.toCitiesTableTop(),
+          pagination: data.pagination,
+        };
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusTopTable = PAGE_STATUS.ERROR;
@@ -311,12 +319,14 @@ class AudienceListViewModel {
 
   callbackOnBrowsersSuccessHandler = (data) => {
     if (data) {
-      this.statusTopTable = PAGE_STATUS.READY;
-      const transformData = new BrowserModel(data.list, this.globalStoreViewModel);
-      this.browsersTableData = {
-        list: transformData.toBrowsersTableTop(),
-        pagination: data.pagination,
-      };
+      if (data?.message !== 'canceled') {
+        this.statusTopTable = PAGE_STATUS.READY;
+        const transformData = new BrowserModel(data.list, this.globalStoreViewModel);
+        this.browsersTableData = {
+          list: transformData.toBrowsersTableTop(),
+          pagination: data.pagination,
+        };
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusTopTable = PAGE_STATUS.ERROR;
@@ -326,12 +336,14 @@ class AudienceListViewModel {
 
   callbackOnLanguagesSuccessHandler = (data) => {
     if (data) {
-      this.statusTopTable = PAGE_STATUS.READY;
-      const transformData = new LanguageModel(data.list, this.globalStoreViewModel);
-      this.languagesTableData = {
-        list: transformData.toLanguagesTableTop(),
-        pagination: data.pagination,
-      };
+      if (data?.message !== 'canceled') {
+        this.statusTopTable = PAGE_STATUS.READY;
+        const transformData = new LanguageModel(data.list, this.globalStoreViewModel);
+        this.languagesTableData = {
+          list: transformData.toLanguagesTableTop(),
+          pagination: data.pagination,
+        };
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusTopTable = PAGE_STATUS.ERROR;
@@ -341,12 +353,14 @@ class AudienceListViewModel {
 
   callbackOnPagesSuccessHandler = (data) => {
     if (data) {
-      this.statusTopTable = PAGE_STATUS.READY;
-      const transformData = new PageModel(data.list, this.globalStoreViewModel);
-      this.pagesTableData = {
-        list: transformData.toPagesTableTop(),
-        pagination: data.pagination,
-      };
+      if (data?.message !== 'canceled') {
+        this.statusTopTable = PAGE_STATUS.READY;
+        const transformData = new PageModel(data.list, this.globalStoreViewModel);
+        this.pagesTableData = {
+          list: transformData.toPagesTableTop(),
+          pagination: data.pagination,
+        };
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusTopTable = PAGE_STATUS.ERROR;

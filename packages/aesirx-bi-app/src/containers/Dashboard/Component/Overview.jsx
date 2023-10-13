@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
-import AreaChartComponent from '../../../components/AreaChartComponent';
+import BarChartComponent from 'components/BarChartComponent';
 
 const OverviewComponent = observer(
   class OverviewComponent extends Component {
@@ -14,19 +14,16 @@ const OverviewComponent = observer(
     }
 
     render() {
-      const { t, status, lines, lineColors, areaColors } = this.props;
+      const { t, status, bars, barColors } = this.props;
       return (
         <div className="position-relative h-100">
-          <AreaChartComponent
-            chartTitle={t('txt_menu_overview')}
-            height={420}
+          <BarChartComponent
+            height={500}
             data={this?.listViewModel?.visitorData?.toAreaChart()}
             colors={['#1AB394']}
-            lineType="monotone"
-            areaColors={areaColors}
-            lineColors={lineColors}
-            lines={lines}
-            isDot
+            layout="horizontal"
+            barColors={barColors}
+            bars={bars}
             hiddenGrid={{ vertical: false }}
             XAxisOptions={{ axisLine: true, padding: { left: 50, right: 50 } }}
             defaultValue={{ label: 'Visitors', value: 'visitors' }}
@@ -34,7 +31,7 @@ const OverviewComponent = observer(
             loading={status}
             tooltipComponent={{
               header: t('txt_in_total'),
-              value: lines?.length === 1 && lines[0] + ':',
+              value: bars?.length === 1 && bars[0] + ':',
             }}
             status={status}
             filterData={this?.listViewModel?.visitorData?.getFilterName()}

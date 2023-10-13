@@ -107,7 +107,7 @@ const FlowDetailContainer = observer((props) => {
   );
 
   return (
-    <div className="py-4 px-3 h-100 d-flex flex-column">
+    <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="position-relative">
         <h2 className="fw-bold mb-8px mb-3">{t('txt_visitor_flow') + ' ' + uuidDetail}</h2>
       </div>

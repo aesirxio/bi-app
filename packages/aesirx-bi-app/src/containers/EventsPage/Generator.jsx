@@ -108,7 +108,7 @@ const Generator = observer(() => {
   const { t } = useTranslation();
 
   return (
-    <div className="py-4 px-3 h-100">
+    <div className="py-4 px-4 h-100">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
         <div className="position-relative">
           <h2 className="fw-bold mb-8px">{t('txt_events_generator')}</h2>

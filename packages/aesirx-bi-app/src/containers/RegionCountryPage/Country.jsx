@@ -54,7 +54,7 @@ const Country = observer(
       const { status } = this.countryListViewModel;
       return (
         <>
-          <div className="py-4 px-3 d-flex flex-column">
+          <div className="py-4 px-4 d-flex flex-column">
             <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
               <div className="position-relative">
                 <h2 className="fw-bold mb-8px">{t('txt_menu_region')}</h2>

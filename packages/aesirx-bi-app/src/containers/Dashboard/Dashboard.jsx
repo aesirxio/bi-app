@@ -7,14 +7,13 @@ import React, { Component } from 'react';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import CardComponent from './Component/Card';
 
 import { withRouter } from 'react-router-dom';
 import OverviewComponent from './Component/Overview';
 
 import { withDashboardViewModel } from './DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from '../../store/BiStore/BiViewModelContextProvider';
-import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
+import { BI_DEVICES_FIELD_KEY, BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import DateRangePicker from '../../components/DateRangePicker';
 import { env } from 'aesirx-lib';
 import { Col, Row } from 'react-bootstrap';
@@ -22,6 +21,7 @@ import Countries from './Component/Countries';
 import moment from 'moment';
 import Browsers from './Component/Browsers';
 import TopTable from '../AudiencePage/Component/TopTable';
+import { Image } from 'aesirx-uikit';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -57,100 +57,32 @@ const Dashboard = observer(
     handleDateRangeChange = (startDate, endDate) => {
       this.dashboardListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
     };
-
-    generateCard = () => {
-      const { t } = this.props;
-      return [
-        {
-          className: 'col-lg-3 mb-2 mb-lg-0',
-          title: t('txt_visitors'),
-          icon: env.PUBLIC_URL + '/assets/images/visitor.svg',
-          iconColor: '#1AB394',
-          value: Helper.numberWithCommas(
-            this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-          ),
-          isIncrease: true,
-          loading: this.dashboardListViewModel.status,
-          // options: [{ label: t('txt_all_users'), value: 'all-user' }],
-          // defaultValue: { label: t('txt_all_users'), value: 'all-user' },
-        },
-        {
-          className: 'col-lg-3 mb-2 mb-lg-0',
-          title: t('txt_page_views'),
-          icon: env.PUBLIC_URL + '/assets/images/view.svg',
-          iconColor: '#2E71B1',
-          value: Helper.numberWithCommas(
-            this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-          ),
-          isIncrease: false,
-          loading: this.dashboardListViewModel.status,
-          options: [
-            {
-              label: t('txt_all'),
-              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
-              actualValue: Helper.numberWithCommas(
-                this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-              ),
-            },
-            {
-              label: t('txt_unique'),
-              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
-              actualValue: Helper.numberWithCommas(
-                this.dashboardListViewModel.summaryData?.[
-                  BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
-                ]
-              ),
-            },
-          ],
-          defaultValue: {
-            label: t('txt_all'),
-            value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
-            actualValue: Helper.numberWithCommas(
-              this.dashboardListViewModel.summaryData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-            ),
-          },
-        },
-        {
-          className: 'col-lg-3 mb-2 mb-lg-0',
-          title: t('txt_acg_session_duration'),
-          icon: env.PUBLIC_URL + '/assets/images/duration.svg',
-          iconColor: '#EF3737',
-          value:
-            (this.dashboardListViewModel?.summaryData?.[
-              BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
-            ]
-              ? moment
-                  .utc(
-                    this.dashboardListViewModel?.summaryData?.[
-                      BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
-                    ] * 1000
-                  )
-                  .format('HH:mm:ss')
-              : '00:00:00') + 's',
-          isIncrease: false,
-          loading: this.dashboardListViewModel.status,
-        },
-        {
-          className: 'col-lg-3 mb-2 mb-lg-0',
-          title: t('txt_page_session'),
-          icon: env.PUBLIC_URL + '/assets/images/page.svg',
-          iconColor: '#FFBE55',
-          value: Helper.numberWithCommas(
-            this.dashboardListViewModel?.summaryData?.[
-              BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION
-            ]
-          ),
-          isIncrease: false,
-          loading: this.dashboardListViewModel.status,
-        },
-      ];
-    };
-
     render() {
       const { t } = this.props;
-      const card = this.generateCard();
+
+      let maxDevices =
+        this.dashboardListViewModel.devicesData?.length &&
+        this.dashboardListViewModel.devicesData.reduce(function (prev, current) {
+          if (
+            +current[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] >
+            +prev[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
+          ) {
+            return current;
+          } else {
+            return prev;
+          }
+        });
+      const maxDevicePercent =
+        this.dashboardListViewModel.devicesData?.length &&
+        (maxDevices[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] /
+          this.dashboardListViewModel.devicesData.reduce(
+            (a, b) => +a + +b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
+            0
+          )) *
+          100;
+
       return (
-        <div className="py-4 px-3 h-100 d-flex flex-column">
+        <div className="py-4 px-4 h-100 d-flex flex-column">
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
             <div className="position-relative">
               <h2 className="fw-bold mb-8px">{t('txt_dashboard')}</h2>
@@ -160,19 +92,105 @@ const Dashboard = observer(
               <DateRangePicker onChange={this.handleDateRangeChange} />
             </div>
           </div>
-          <CardComponent data={card ?? []} />
-          <div className="row mt-24">
-            <div className="col-lg-6">
+          <Row className="mt-24">
+            <Col lg="3">
+              <div className="bg-white shadow-sm rounded-3">
+                <div className="bg-white border-bottom">
+                  <div className="bg-dark-blue text-white p-24 rounded-3 rounded-bottom-0 fw-medium">
+                    <h5 className="fs-6 mb-12px fw-medium">
+                      {t('txt_visitors')} <span className="text-success ms-1">•</span>
+                    </h5>
+                    <div className="fs-24">
+                      {Helper.numberWithCommas(
+                        this.dashboardListViewModel.summaryData?.[
+                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+                        ]
+                      )}
+                    </div>
+                  </div>
+                  <div className="bg-white p-24 pb-18px rounded-3 rounded-bottom-0 fw-medium">
+                    <h5 className="fs-6 mb-12px text-gray-900 fw-medium">
+                      {t('txt_unique_visitors')}
+                    </h5>
+                    <div className="fs-24">
+                      {Helper.numberWithCommas(
+                        this.dashboardListViewModel.summaryData?.[
+                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+                        ]
+                      )}
+                    </div>
+                  </div>
+                  <div className="bg-white p-24 pt-0 rounded-3 rounded-bottom-0 fw-medium">
+                    <h5 className="fs-6 mb-12px text-gray-900 fw-medium">{t('txt_page_views')}</h5>
+                    <div className="fs-24">
+                      {Helper.numberWithCommas(
+                        this.dashboardListViewModel.summaryData?.[
+                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
+                        ]
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white p-24 rounded-3 rounded-top-0">
+                  {this.dashboardListViewModel.devicesData?.map((device, index) => {
+                    let imgIcon = `${env.PUBLIC_URL}/assets/images/device_mobile.png`;
+                    switch (device[BI_DEVICES_FIELD_KEY?.DEVICE]) {
+                      case 'desktop':
+                        imgIcon = `${env.PUBLIC_URL}/assets/images/device_desktop.png`;
+                        break;
+                      case 'iPad':
+                        imgIcon = `${env.PUBLIC_URL}/assets/images/device_tablet.png`;
+                        break;
+                      case 'tablet':
+                        imgIcon = `${env.PUBLIC_URL}/assets/images/device_tablet.png`;
+                        break;
+                    }
+                    return (
+                      <div
+                        className="d-flex align-items-center justify-content-between w-100 mb-12px"
+                        key={index}
+                      >
+                        <div className="d-flex align-items-center">
+                          <Image
+                            className={`me-12px`}
+                            style={{ width: 44, height: 44 }}
+                            src={imgIcon}
+                            alt={'icons'}
+                          />
+                          <div className="fw-medium text-capitalize">
+                            {device[BI_DEVICES_FIELD_KEY?.DEVICE]}
+                          </div>
+                        </div>
+                        <div className="d-flex align-items-center">
+                          {maxDevices[BI_DEVICES_FIELD_KEY?.DEVICE] ===
+                            device[BI_DEVICES_FIELD_KEY?.DEVICE] && (
+                            <div className="fs-sm me-12px text-gray-900">
+                              {maxDevicePercent?.toFixed(2)}%
+                            </div>
+                          )}
+                          <div className="fw-medium fs-18px">
+                            {device[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS]}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </Col>
+            <Col lg="9">
               <OverviewComponent
-                lines={['visits', 'page_views']}
-                areaColors={['#3BB346', '#9747FF']}
-                lineColors={['#0FC6C2', '#9747FF']}
+                bars={['visits', 'page_views']}
+                barColors={['#0066FF', '#96C0FF']}
                 listViewModel={this.dashboardListViewModel}
                 status={this.dashboardListViewModel?.status}
               />
-            </div>
-            <div className="col-lg-6">
+            </Col>
+          </Row>
+          <Row className="my-24 pb-24">
+            <Col lg={6} className="mb-24">
               <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_pages')}</h4>
                 <TopTable
                   data={this.dashboardListViewModel?.pagesTableData?.list}
                   pagination={this.dashboardListViewModel?.pagesTableData?.pagination}
@@ -190,15 +208,13 @@ const Dashboard = observer(
                   {...this.props}
                 />
               </div>
-            </div>
-          </div>
-          <Row className="my-24 pb-24">
-            <Col lg={6}>
+            </Col>
+            <Col lg={6} className="mb-24">
               <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
                 <Countries {...this.props} />
               </div>
             </Col>
-            <Col lg={6}>
+            <Col lg={6} className="mb-24">
               <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
                 <Browsers {...this.props} />
               </div>

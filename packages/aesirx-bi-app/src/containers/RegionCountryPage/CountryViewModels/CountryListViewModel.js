@@ -71,13 +71,15 @@ class CountryListViewModel {
 
   callbackOnCountriesSuccessHandler = (data) => {
     if (data) {
-      this.status = PAGE_STATUS.READY;
-      const transformData = new CountryModel(data.list, this.globalStoreViewModel);
-      this.countriesData = transformData.toCountries();
-      this.countriesTableData = {
-        list: transformData.toCountriesTable(),
-        pagination: data.pagination,
-      };
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        const transformData = new CountryModel(data.list, this.globalStoreViewModel);
+        this.countriesData = transformData.toCountries();
+        this.countriesTableData = {
+          list: transformData.toCountriesTable(),
+          pagination: data.pagination,
+        };
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];

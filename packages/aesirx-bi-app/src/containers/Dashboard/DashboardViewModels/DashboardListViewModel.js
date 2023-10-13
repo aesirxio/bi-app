@@ -5,7 +5,7 @@
 
 import { notify } from 'aesirx-uikit';
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import moment from 'moment';
 import DashboardModel from '../DashboardModel/DashboardModel';
 import CountryModel from '../../RegionCountryPage/CountryModel/CountryModel';
@@ -19,6 +19,7 @@ class DashboardListViewModel {
   visitorData = null;
   countriesData = null;
   browsersData = null;
+  devicesData = null;
   pagesTableData = null;
   constructor(dashboardStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -31,6 +32,7 @@ class DashboardListViewModel {
     this.getVisitors(dataFilter, dateFilter);
     this.getCountries(dataFilter, dateFilter);
     this.getBrowsers(dataFilter, dateFilter);
+    this.getDevices(dataFilter, dateFilter);
     this.getPages(dataFilter, dateFilter);
   };
 
@@ -98,6 +100,24 @@ class DashboardListViewModel {
     );
   };
 
+  getDevices = (dataFilter, dateFilter) => {
+    this.status = PAGE_STATUS.LOADING;
+    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.dashboardStore.getDevices(
+      {
+        ...this.dataFilter,
+        page_size: '10',
+        'sort[]': 'number_of_visitors',
+        'sort_direction[]': 'desc',
+      },
+      dateRangeFilter,
+      this.callbackOnDevicesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   getPages = async (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilterPages = {
@@ -157,8 +177,10 @@ class DashboardListViewModel {
 
   callbackOnSummaryDataSuccessHandler = (data) => {
     if (data) {
-      this.status = PAGE_STATUS.READY;
-      this.summaryData = data;
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        this.summaryData = data;
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];
@@ -166,9 +188,12 @@ class DashboardListViewModel {
   };
   callbackOnVisitorSuccessHandler = (data) => {
     if (data) {
-      this.status = PAGE_STATUS.READY;
-      const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
-      this.visitorData = transformData;
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        console.log('this.status', data);
+        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        this.visitorData = transformData;
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];
@@ -177,9 +202,11 @@ class DashboardListViewModel {
 
   callbackOnCountriesSuccessHandler = (data) => {
     if (data) {
-      const transformData = new CountryModel(data.list, this.globalStoreViewModel);
-      this.countriesData = transformData.toCountries();
-      this.status = PAGE_STATUS.READY;
+      if (data?.message !== 'canceled') {
+        const transformData = new CountryModel(data.list, this.globalStoreViewModel);
+        this.countriesData = transformData.toCountries();
+        this.status = PAGE_STATUS.READY;
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];
@@ -188,9 +215,23 @@ class DashboardListViewModel {
 
   callbackOnBrowsersSuccessHandler = (data) => {
     if (data) {
-      const transformData = new BrowserModel(data.list, this.globalStoreViewModel);
-      this.browsersData = transformData.toBrowsersTableTop();
-      this.status = PAGE_STATUS.READY;
+      if (data?.message !== 'canceled') {
+        const transformData = new BrowserModel(data.list, this.globalStoreViewModel);
+        this.browsersData = transformData.toBrowsersTableTop();
+        this.status = PAGE_STATUS.READY;
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnDevicesSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.devicesData = data?.list;
+        this.status = PAGE_STATUS.READY;
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];
@@ -199,12 +240,14 @@ class DashboardListViewModel {
 
   callbackOnPagesSuccessHandler = (data) => {
     if (data) {
-      this.status = PAGE_STATUS.READY;
-      const transformData = new PageModel(data.list, this.globalStoreViewModel);
-      this.pagesTableData = {
-        list: transformData.toPagesTableTopDashboard(),
-        pagination: data.pagination,
-      };
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        const transformData = new PageModel(data.list, this.globalStoreViewModel);
+        this.pagesTableData = {
+          list: transformData.toPagesTableTopDashboard(),
+          pagination: data.pagination,
+        };
+      }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];

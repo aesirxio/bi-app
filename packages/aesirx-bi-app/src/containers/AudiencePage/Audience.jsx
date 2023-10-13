@@ -101,7 +101,7 @@ const AudiencePage = observer(
       const { t } = this.props;
       const card = this.generateCard();
       return (
-        <div className="py-4 px-3">
+        <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-3">
             <div>
               <h2 className="fw-bold mb-8px">{t('txt_audience')}</h2>
@@ -115,9 +115,8 @@ const AudiencePage = observer(
           <Row className="mb-24">
             <Col lg={9}>
               <OverviewComponent
-                lines={['visits']}
-                areaColors={['#3BB346']}
-                lineColors={['#0FC6C2']}
+                bars={['visits']}
+                barColors={['#0066FF']}
                 isSelection={false}
                 listViewModel={this.audienceListViewModel}
                 status={this.audienceListViewModel?.statusOverview}

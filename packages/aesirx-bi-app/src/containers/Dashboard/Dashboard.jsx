@@ -18,7 +18,6 @@ import DateRangePicker from '../../components/DateRangePicker';
 import { env } from 'aesirx-lib';
 import { Col, Row } from 'react-bootstrap';
 import Countries from './Component/Countries';
-import moment from 'moment';
 import Browsers from './Component/Browsers';
 import TopTable from '../AudiencePage/Component/TopTable';
 import { Image } from 'aesirx-uikit';

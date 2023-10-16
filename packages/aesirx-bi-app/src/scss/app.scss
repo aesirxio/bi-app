@@ -1,0 +1,26 @@
+/*
+ * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
+ * @license     GNU General Public License version 3, see LICENSE.
+ */
+
+@import 'aesirx-uikit/dist/utils/bootstrap.scss';
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+
+@media print {
+  @page {
+    size: 400mm 400mm;
+  }
+}
+.printButton {
+  position: absolute;
+  top: 31px;
+  right: 355px;
+}
+.daterange-picker-wrapper .form-control {
+  width: 285px;
+}
+#tooltipTable {
+  max-width: 400px;
+  text-align: center;
+}

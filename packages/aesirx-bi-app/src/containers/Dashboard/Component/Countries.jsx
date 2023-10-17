@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { withDashboardViewModel } from '../DashboardViewModels/DashboardViewModelContextProvider';
 import GeoChart from '../../../components/GeoChart';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from '../../../components/ComponentNoData';
@@ -33,9 +33,7 @@ const Countries = observer(
             <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white" />
           ) : (
             <>
-              <div className="d-flex align-items-center justify-content-between mb-24">
-                <h4 className="me-24 mb-0 fw-semibold fs-5">{t('txt_locations')}</h4>
-                <a
+              {/* <a
                   className="fs-14 text-body cursor-pointer"
                   onClick={() => {
                     if (this.props.integration) {
@@ -58,46 +56,64 @@ const Countries = observer(
                       height: '16px',
                     }}
                   ></span>
-                </a>
-              </div>
+                </a> */}
               {this.dashboardListViewModel?.countriesData?.length ? (
-                <Row className="align-items-center">
-                  <Col lg={7}>
-                    <GeoChart
-                      data={this.dashboardListViewModel?.countriesData}
-                      continent={'world'}
-                    />
-                  </Col>
-                  <Col lg={5}>
-                    <div className="d-flex align-items-center justify-content-between text-gray fw-semibold pb-1 mb-15 text-uppercase border-bottom">
-                      <div>{t('txt_Country')}</div>
-                      <div>{t('txt_views')}</div>
+                <>
+                  <Tab.Container id="countries-tab" defaultActiveKey="map">
+                    <div className="d-flex justify-content-between align-items-center mb-24">
+                      <h4 className="me-24 mb-0 fw-semibold fs-5">{t('txt_locations')}</h4>
+                      <Nav variant="pills" className="nav-custom">
+                        <Nav.Item>
+                          <Nav.Link eventKey="map" className="ps-0">
+                            {t('txt_map')}
+                          </Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                          <Nav.Link eventKey="countries" className="ps-0">
+                            {t('txt_countries')}
+                          </Nav.Link>
+                        </Nav.Item>
+                      </Nav>
                     </div>
-                    {this.dashboardListViewModel?.countriesData?.map((item, key) => {
-                      return (
-                        <div
-                          key={key}
-                          className="d-flex align-items-center justify-content-between mb-15 fs-14 text-gray-900"
-                        >
-                          <div className="d-flex align-items-center">
-                            {/* <span>
+                    <Tab.Content className="h-100">
+                      <Tab.Pane eventKey="map">
+                        <GeoChart
+                          data={this.dashboardListViewModel?.countriesData}
+                          continent={'world'}
+                        />
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="countries">
+                        <div className="d-flex align-items-center justify-content-between text-gray fw-semibold pb-1 mb-15 text-uppercase border-bottom">
+                          <div>{t('txt_Country')}</div>
+                          <div>{t('txt_views')}</div>
+                        </div>
+                        {this.dashboardListViewModel?.countriesData?.map((item, key) => {
+                          return (
+                            <div
+                              key={key}
+                              className="d-flex align-items-center justify-content-between mb-15 fs-14 text-gray-900"
+                            >
+                              <div className="d-flex align-items-center">
+                                {/* <span>
                         <ComponentImage className={``} src={item.flag} alt={item.flag} />
                       </span> */}
-                            <span>
-                              <span
-                                className={`me-1 fi fi-${item[
-                                  BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE
-                                ]?.toLowerCase()}`}
-                              ></span>
-                              {item.country}
-                            </span>
-                          </div>
-                          <div>{item.views}</div>
-                        </div>
-                      );
-                    })}
-                  </Col>
-                </Row>
+                                <span>
+                                  <span
+                                    className={`me-1 fi fi-${item[
+                                      BI_COUNTRIES_FIELD_KEY.COUNTRY_CODE
+                                    ]?.toLowerCase()}`}
+                                  ></span>
+                                  {item.country}
+                                </span>
+                              </div>
+                              <div>{item.views}</div>
+                            </div>
+                          );
+                        })}
+                      </Tab.Pane>
+                    </Tab.Content>
+                  </Tab.Container>
+                </>
               ) : (
                 <ComponentNoData
                   icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}

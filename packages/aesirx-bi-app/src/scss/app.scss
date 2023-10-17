@@ -24,3 +24,19 @@
   max-width: 400px;
   text-align: center;
 }
+.aesirxui {
+  .nav-pills.nav-custom {
+    .nav-link {
+      &.active {
+        color: #0f674c;
+      }
+    }
+  }
+}
+@include color-mode(dark) {
+  .aesirxui {
+    .text-gray-900 {
+      color: #fff;
+    }
+  }
+}

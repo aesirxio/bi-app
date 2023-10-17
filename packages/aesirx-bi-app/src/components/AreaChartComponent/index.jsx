@@ -66,7 +66,7 @@ const AreaChartComponent = ({
     () =>
       ({ payload }) => {
         return (
-          <div className="areachart-tooltip p-15 text-white bg-blue-5 ">
+          <div className="areachart-tooltip p-15 text-white bg-primary">
             <p className="text-uppercase fw-semibold fs-12 mb-sm">{tooltipComponent.header}</p>
             {payload &&
               payload.map((item, index) => {

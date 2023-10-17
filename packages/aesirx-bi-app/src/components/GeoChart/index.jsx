@@ -1,9 +1,9 @@
 import { csv } from 'd3-fetch';
 import React, { useEffect, useState } from 'react';
-import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
+import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { Tooltip } from 'react-tooltip';
 import { env } from 'aesirx-lib';
-
+import { scaleLinear } from 'd3-scale';
 const GeoChart = (props) => {
   const geoUrl = props.continent
     ? env.PUBLIC_URL + `/assets/data/continents/${props.continent}.json`
@@ -40,7 +40,7 @@ const GeoChart = (props) => {
       scale: 0,
     },
   };
-  const { markerSize = { dot: 8, circle: 80 } } = props;
+  // const { markerSize = { dot: 8, circle: 80 } } = props;
   useEffect(() => {
     csv(env.PUBLIC_URL + '/assets/data/countries.csv').then((cities) => {
       const markerList = props.data?.map((item) => {
@@ -58,7 +58,8 @@ const GeoChart = (props) => {
     });
   }, [props.data]);
   let maximumViews = markers?.length ? Math.max(...markers?.map((o) => o.views)) : 0;
-  let smallestCircle = markerSize?.dot > 5 ? 12 : 7;
+  // let smallestCircle = markerSize?.dot > 5 ? 12 : 7;
+  const colorScale = scaleLinear().domain([1, maximumViews]).range(['#8CAAD7', '#1D55A9']);
   return (
     <>
       <ComposableMap
@@ -69,39 +70,37 @@ const GeoChart = (props) => {
       >
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
-            geographies?.map((geo) => (
-              <Geography key={geo.rsmKey} geography={geo} fill="#EAEAEC" stroke="#D6D6DA" />
-            ))
+            geographies?.map((geo) => {
+              const d = props.data?.find((s) => s?.country === geo.properties?.name);
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill={d ? colorScale(d['views']) : '#D4DEEF'}
+                  stroke="#D6D6DA"
+                  onMouseEnter={() => {
+                    setTooltipContent(
+                      `<div>
+                        <div class="fw-semibold">${geo.properties.name}</div>
+                        <div>
+                          <span class="text-success fw-semibold">${d?.views ?? 0}</span> visitors
+                        </div>
+                      </div>`
+                    );
+                  }}
+                  onMouseLeave={() => {
+                    setTooltipContent('');
+                  }}
+                  data-tooltip-id="markerTooltip"
+                  data-tooltip-html={tooltipContent}
+                  data-tooltip-place="top"
+                />
+              );
+            })
           }
         </Geographies>
-        {markers?.map(({ country_code, views, country, coordinates }) => {
-          let circleSize = (views / maximumViews) * markerSize.circle;
-          return (
-            <Marker
-              key={country_code}
-              coordinates={coordinates}
-              onMouseEnter={() => {
-                setTooltipContent(`${country}: ${views}`);
-              }}
-              onMouseLeave={() => {
-                setTooltipContent('');
-              }}
-              data-tooltip-id="markerTooltip"
-              data-tooltip-content={tooltipContent}
-              data-tooltip-place="top"
-            >
-              <circle r={markerSize.dot} fill="#1AB394" />
-              <circle
-                r={circleSize > smallestCircle ? circleSize : smallestCircle}
-                fill="#1AB39433"
-                stroke="#1AB394"
-                strokeWidth={1}
-              />
-            </Marker>
-          );
-        })}
       </ComposableMap>
-      <Tooltip id="markerTooltip" />
+      <Tooltip id="markerTooltip" float={true} />
     </>
   );
 };

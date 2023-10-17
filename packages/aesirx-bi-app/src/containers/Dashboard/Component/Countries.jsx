@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { withDashboardViewModel } from '../DashboardViewModels/DashboardViewModelContextProvider';
 import GeoChart from '../../../components/GeoChart';
-import { Col, Nav, Row, Tab } from 'react-bootstrap';
+import { Nav, Tab } from 'react-bootstrap';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from '../../../components/ComponentNoData';

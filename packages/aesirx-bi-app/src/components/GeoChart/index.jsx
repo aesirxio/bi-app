@@ -1,6 +1,6 @@
 import { csv } from 'd3-fetch';
 import React, { useEffect, useState } from 'react';
-import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
+import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { Tooltip } from 'react-tooltip';
 import { env } from 'aesirx-lib';
 import { scaleLinear } from 'd3-scale';

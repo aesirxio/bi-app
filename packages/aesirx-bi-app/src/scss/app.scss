@@ -6,7 +6,6 @@
 @import 'aesirx-uikit/dist/utils/bootstrap.scss';
 @import 'bootstrap/scss/root';
 @import 'bootstrap/scss/reboot';
-@import 'bootstrap/scss/mixins/_color-mode.scss';
 
 @media print {
   @page {
@@ -34,7 +33,7 @@
     }
   }
 }
-@include color-mode(dark) {
+[data-bs-theme='dark'] {
   .aesirxui {
     .text-gray-900 {
       color: #fff;

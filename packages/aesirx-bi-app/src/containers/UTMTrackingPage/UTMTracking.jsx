@@ -60,12 +60,10 @@ const UTMTrackingPage = observer((props) => {
     const execute = async () => {
       await getAttributeDate({
         'filter[domain]': activeDomain,
-        page_size: 5,
         'filter[attribute_name]': 'utm_source',
       });
       await getVisitor({
         'filter[domain]': activeDomain,
-        page_size: 5,
         'filter[attribute_name]': 'utm_source',
       });
     };

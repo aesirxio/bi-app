@@ -3,12 +3,13 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { withDashboardViewModel } from '../DashboardViewModels/DashboardViewModelContextProvider';
-import { Col, Row } from 'react-bootstrap';
+import { Nav, Tab } from 'react-bootstrap';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from '../../../components/ComponentNoData';
-import { BI_BROWSERS_FIELD_KEY, BI_SUMMARY_FIELD_KEY, env } from 'aesirx-lib';
+import { env } from 'aesirx-lib';
 import { BiViewModelContext } from '../../../store/BiStore/BiViewModelContextProvider';
+import TopTable from 'containers/AudiencePage/Component/TopTable';
 
 const Browsers = observer(
   class Browsers extends Component {
@@ -32,37 +33,75 @@ const Browsers = observer(
             <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white" />
           ) : (
             <>
-              <div className="d-flex align-items-center justify-content-between mb-24">
-                <h4 className="me-24 mb-0 fw-semibold">{t('txt_browser')}</h4>
-              </div>
-              {this.dashboardListViewModel?.browsersData?.data?.length ? (
-                <Row className="align-items-center">
-                  <Col lg={12}>
-                    <div className="d-flex align-items-center justify-content-between text-gray fw-semibold pb-1 mb-15 text-uppercase border-bottom">
-                      <div>{t('txt_browser')}</div>
-                      <div>{t('txt_views')}</div>
+              {this.dashboardListViewModel?.browsersData?.list?.data?.length ? (
+                <>
+                  <Tab.Container id="countries-tab" defaultActiveKey="browser">
+                    <div className="d-flex justify-content-between align-items-center mb-2">
+                      <h4 className="me-24 mb-0 fw-semibold fs-5">{t('txt_devices')}</h4>
+                      <Nav variant="pills" className="nav-custom">
+                        <Nav.Item>
+                          <Nav.Link eventKey="browser" className="ps-0">
+                            {t('txt_browser')}
+                          </Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                          <Nav.Link eventKey="types" className="ps-0">
+                            {t('txt_types')}
+                          </Nav.Link>
+                        </Nav.Item>
+                      </Nav>
                     </div>
-                    {this.dashboardListViewModel?.browsersData?.data?.map((item, key) => {
-                      return (
-                        <div
-                          key={key}
-                          className="d-flex align-items-center justify-content-between mb-15 fs-14 text-gray-900"
-                        >
-                          <div className="d-flex align-items-center">
-                            <span>{item[BI_BROWSERS_FIELD_KEY.BROWSER_NAME]}</span>
-                          </div>
-                          <div>{item[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]}</div>
-                        </div>
-                      );
-                    })}
-                  </Col>
-                </Row>
+                    <Tab.Content className="h-100">
+                      <Tab.Pane eventKey="browser">
+                        <TopTable
+                          data={this.dashboardListViewModel?.browsersData?.list}
+                          pagination={this.dashboardListViewModel?.browsersData?.pagination}
+                          isPagination={false}
+                          selectPage={async (value) => {
+                            await this.dashboardListViewModel.handleFilterPages({ page: value });
+                          }}
+                          selectPageSize={async (value) => {
+                            await this.dashboardListViewModel.handleFilterPages({
+                              page: 1,
+                              page_size: value,
+                            });
+                          }}
+                          status={this.dashboardListViewModel?.status}
+                          {...this.props}
+                        />
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="types">
+                        <TopTable
+                          data={this.dashboardListViewModel?.devicesTableData?.list}
+                          pagination={this.dashboardListViewModel?.devicesTableData?.pagination}
+                          isPagination={false}
+                          selectPage={async (value) => {
+                            await this.dashboardListViewModel.handleFilterPages({ page: value });
+                          }}
+                          selectPageSize={async (value) => {
+                            await this.dashboardListViewModel.handleFilterPages({
+                              page: 1,
+                              page_size: value,
+                            });
+                          }}
+                          status={this.dashboardListViewModel?.status}
+                          {...this.props}
+                        />
+                      </Tab.Pane>
+                    </Tab.Content>
+                  </Tab.Container>
+                </>
               ) : (
-                <ComponentNoData
-                  icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
-                  title={t('txt_no_data')}
-                  width="w-50"
-                />
+                <>
+                  <div className="d-flex align-items-center justify-content-between mb-2">
+                    <h4 className="me-24 mb-0 fw-semibold">{t('txt_devices')}</h4>
+                  </div>
+                  <ComponentNoData
+                    icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
+                    title={t('txt_no_data')}
+                    width="w-50"
+                  />
+                </>
               )}
             </>
           )}

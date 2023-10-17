@@ -32,6 +32,14 @@
       }
     }
   }
+  #biapp {
+    .table {
+      --aesirxui-table-bg: #fff;
+      td {
+        border: 0;
+      }
+    }
+  }
 }
 [data-bs-theme='dark'] {
   .aesirxui {

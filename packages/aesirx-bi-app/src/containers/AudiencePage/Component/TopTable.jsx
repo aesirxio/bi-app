@@ -46,7 +46,7 @@ const TopTableComponent = (props) => {
           } ${index === 0 ? 'rounded-top-start-3' : ''}`,
           width: item.width ? item.width : index === 0 ? 'auto' : 170,
           Header: (
-            <span className="align-middle">
+            <span className="align-middle text-gray-900 fw-medium">
               {t(item.Header)}
               {tooltip && (
                 <>
@@ -73,7 +73,7 @@ const TopTableComponent = (props) => {
         <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
       ) : data ? (
         <Table
-          classNameTable={'mb-0 table table-striped'}
+          classNameTable={'mb-0 table'}
           columns={columnsTable}
           data={dataTable}
           canSort={true}

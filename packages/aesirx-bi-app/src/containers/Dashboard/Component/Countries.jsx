@@ -115,11 +115,16 @@ const Countries = observer(
                   </Tab.Container>
                 </>
               ) : (
-                <ComponentNoData
-                  icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
-                  title={t('txt_no_data')}
-                  width="w-50"
-                />
+                <>
+                  <div className="d-flex align-items-center justify-content-between mb-24">
+                    <h4 className="me-24 mb-0 fw-semibold">{t('txt_locations')}</h4>
+                  </div>
+                  <ComponentNoData
+                    icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
+                    title={t('txt_no_data')}
+                    width="w-50"
+                  />
+                </>
               )}
             </>
           )}

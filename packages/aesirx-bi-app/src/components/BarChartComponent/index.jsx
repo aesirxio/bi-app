@@ -34,6 +34,7 @@ const BarChartComponent = ({
   margin,
   layout,
   isLegend = false,
+  isFilterButtons = true,
 }) => {
   const { t } = useTranslation();
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
@@ -107,7 +108,7 @@ const BarChartComponent = ({
             selectionData={filterData}
             chartTitle={chartTitle}
             isSelection={isSelection}
-            isFilterButtons={true}
+            isFilterButtons={isFilterButtons}
             view={view}
             setView={setView}
           />

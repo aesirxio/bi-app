@@ -139,6 +139,7 @@ const UTMTrackingPage = observer((props) => {
             margin={{ left: 40 }}
             isFilterButtons={false}
             loading={statusAttribute}
+            isSelection={false}
           />
         </div>
       </div>

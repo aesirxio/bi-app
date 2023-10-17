@@ -85,6 +85,7 @@ const Events = observer((props) => {
             data={dataEvents?.toBarChart()}
             margin={{ left: 40 }}
             isFilterButtons={false}
+            isSelection={false}
           />
         </div>
       </div>

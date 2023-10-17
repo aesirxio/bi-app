@@ -141,6 +141,7 @@ class UTMTrackingOverviewPage extends Component {
               data={dataBarChart}
               margin={{ left: 40 }}
               isFilterButtons={true}
+              isSelection={false}
             />
           </Col>
         </Row>

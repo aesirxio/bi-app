@@ -21,7 +21,9 @@ const HeaderFilterComponent = ({
   return (
     <div className="d-flex justify-content-between mb-24">
       <div className="d-flex align-items-center">
-        <h4 className="me-24 mb-0">{chartTitle}</h4>
+        <h4 className={`me-24 mb-0 ${!isFilterButtons && !isSelection ? 'mt-20' : ''}`}>
+          {chartTitle}
+        </h4>
         {isSelection && (
           <AesirXSelect
             value={currentSelection}
@@ -58,11 +60,7 @@ const HeaderFilterComponent = ({
             className={`${
               view == CHART_TYPE.DAY && 'text-white bg-gray-900'
             } py-2 px-15 fs-12 lh-sm shadow-none border`}
-            variant={
-              view == 'days'
-                ? 'dark'
-                : `${view == CHART_TYPE.DAY ? 'gray-900' : 'outline-secondary'}`
-            }
+            variant={view == 'days' ? 'dark' : `${view == CHART_TYPE.DAY ? 'gray-900' : 'outline'}`}
           >
             {t('txt_days')}
           </Button>
@@ -73,9 +71,7 @@ const HeaderFilterComponent = ({
               view == CHART_TYPE.MONTH && 'text-white bg-gray-900'
             } py-2 px-15 fs-12 lh-sm shadow-none border`}
             variant={
-              view == 'months'
-                ? 'dark'
-                : `${view == CHART_TYPE.MONTH ? 'gray-900' : 'outline-secondary'}`
+              view == 'months' ? 'dark' : `${view == CHART_TYPE.MONTH ? 'gray-900' : 'outline'}`
             }
           >
             {t('txt_months')}

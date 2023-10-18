@@ -149,5 +149,7 @@
   "txt_locations": "Locations",
   "txt_top_pages": "Top Pages",
   "txt_map": "Map",
-  "txt_countries": "Countries"
+  "txt_countries": "Countries",
+  "txt_os": "OS",
+  "txt_types": "Types"
 }

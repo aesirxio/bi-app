@@ -8,6 +8,7 @@ import EventsListModel from '../EventsModel/EventsListEventModel';
 
 class EventsUtils {
   transformResponseIntoAreaChart = (response) => {
+    console.log("check 3");
     let data = {};
     response.forEach((item) => {
       const dataFilterEventName = response.filter(

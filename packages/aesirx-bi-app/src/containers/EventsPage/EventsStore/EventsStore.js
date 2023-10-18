@@ -3,9 +3,11 @@ import { runInAction } from 'mobx';
 import { AesirxBiApiService } from 'aesirx-lib';
 export class EventsStore {
   getVisitor = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
+    console.log("check 0");
     try {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getVisitor(dataFilter, dateFilter);
+      console.log("check responseDataFromLibrary",responseDataFromLibrary);
       if (responseDataFromLibrary) {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);
@@ -66,7 +68,9 @@ export class EventsStore {
   };
 
   getEvents = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
+    console.log("check 2");
     try {
+    
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getEvents(dataFilter, dateFilter);
       if (responseDataFromLibrary) {

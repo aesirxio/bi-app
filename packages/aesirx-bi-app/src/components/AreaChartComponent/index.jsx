@@ -13,6 +13,8 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
+  BarChart,
+  Bar,
   // Brush,
 } from 'recharts';
 import { RingLoaderComponent } from 'aesirx-uikit';
@@ -45,15 +47,15 @@ const AreaChartComponent = ({
 
   useEffect(() => {
     const [month, date] = data;
-
+    console.log('check data useEffect', data);
     if (view === CHART_TYPE.MONTH) {
       setCurrentData(month);
     }
-
+    console.log('check data month', month);
     if (view === CHART_TYPE.DAY) {
       setCurrentData(date);
     }
-
+    console.log('check data date', date);
     return () => {};
   }, [view, data]);
 
@@ -67,14 +69,23 @@ const AreaChartComponent = ({
       ({ payload }) => {
         return (
           <div className="areachart-tooltip p-15 text-white bg-primary">
-            <p className="text-uppercase fw-semibold fs-12 mb-sm">{tooltipComponent.header}</p>
+            <p className="text-uppercase fw-semibold fs-14 mb-sm">{tooltipComponent.header}</p>
             {payload &&
               payload.map((item, index) => {
                 return (
-                  <p key={index} className="mb-0 fw-bold">
-                    {payload.length > 1 && `${item.name}: `}
-                    {tooltipComponent.value} {item.value}
-                  </p>
+                  // <p key={index} className="mb-0 fs-12">
+                  //   {payload.length > 1 && `${item.name}: `}
+                  //   {tooltipComponent.value} {item.value}
+                  // </p>
+                  <div key={index} className="mb-0 fs-12 row">
+                    {payload.length > 1 && <div className="col-10 fw-bold">{item.name}:</div>}
+                    <div className="col-2">
+                      <p className="mb-0">
+                        <span className="mr-2">{tooltipComponent.value}</span>
+                        <span>{item.value}</span>
+                      </p>
+                    </div>
+                  </div>
                 );
               })}
           </div>
@@ -85,15 +96,16 @@ const AreaChartComponent = ({
 
   const renderLegend = (props) => {
     const { payload } = props;
+
     return (
       <ul className="ms-3 mt-2 d-flex align-items-center">
         {payload.map((entry, index) => (
           <li key={`item-${index}`} className="me-24 fs-14 d-flex align-items-center">
             <div
-              className="rounded-2 me-8px d-flex align-items-center justify-content-center"
-              style={{ backgroundColor: entry?.color, width: 16, height: 16 }}
+              className="rounded-circle me-8px d-flex align-items-center justify-content-center"
+              style={{ backgroundColor: entry?.color, width: 14, height: 14 }}
             >
-              <FontAwesomeIcon className="text-white" icon={faCheck} style={{ fontSize: 10 }} />
+              {/* <FontAwesomeIcon className="text-white" icon={faCheck} style={{ fontSize: 10 }} /> */}
             </div>
             {entry.value}
           </li>
@@ -116,8 +128,73 @@ const AreaChartComponent = ({
       {loading === PAGE_STATUS.LOADING ? (
         <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white" />
       ) : currentSelection ? (
+        // <ResponsiveContainer width="100%" height={height ?? 500}>
+        //   <AreaChart data={currentData?.[currentSelection.value]}>
+        //     {lines && (
+        //       <defs>
+        //         {lines.map((item, index) => {
+        //           return (
+        //             <linearGradient
+        //               key={index}
+        //               id={`${item?.replace(/\s/g, '')}_${index}`}
+        //               x1="0"
+        //               y1="0"
+        //               x2="0"
+        //               y2="1"
+        //             >
+        //               <stop offset="5%" stopColor={areaColors[index]} stopOpacity={0.2} />
+        //               <stop offset="95%" stopColor={areaColors[index]} stopOpacity={0} />
+        //             </linearGradient>
+        //           );
+        //         })}
+        //       </defs>
+        //     )}
+        //     <CartesianGrid
+        //       strokeDasharray="7 7"
+        //       vertical={hiddenGrid?.vertical ?? true}
+        //       horizontal={hiddenGrid?.horizontal ?? true}
+        //     />
+        //     <XAxis
+        //       dataKey="name"
+        //       tickLine={false}
+        //       axisLine={XAxisOptions?.axisLine ?? false}
+        //       padding={XAxisOptions?.padding}
+        //       style={{
+        //         fontSize: '14px',
+        //       }}
+        //     />
+        //     <YAxis
+        //       tickLine={false}
+        //       axisLine={YAxisOptions?.axisLine ?? false}
+        //       padding={YAxisOptions?.padding}
+        //       style={{
+        //         fontSize: '14px',
+        //       }}
+        //     />
+        //     <Tooltip content={customizedTooltip} />
+        //     {lines &&
+        //       lines.map((item, index) => {
+        //         return (
+        //           <Area
+        //             key={index}
+        //             dot={isDot && { strokeWidth: 4 }}
+        //             activeDot={{ strokeWidth: 2, r: 7 }}
+        //             type={lineType ?? 'temperature'}
+        //             dataKey={item}
+        //             stroke={lineColors[index]}
+        //             fillOpacity={1}
+        //             fill={`url(#${item?.replace(/\s/g, '')}_${index})`}
+        //             strokeWidth={2}
+        //           />
+        //         );
+        //       })}
+        //     {/* <Brush startIndex={0} endIndex={11} dataKey="name" height={30} stroke="#8884d8" /> */}
+        //     {isLegend && <Legend content={renderLegend} />}
+        //   </AreaChart>
+        // </ResponsiveContainer>
+
         <ResponsiveContainer width="100%" height={height ?? 500}>
-          <AreaChart data={currentData?.[currentSelection.value]}>
+          <BarChart data={currentData?.[currentSelection.value]} >
             {lines && (
               <defs>
                 {lines.map((item, index) => {
@@ -137,15 +214,10 @@ const AreaChartComponent = ({
                 })}
               </defs>
             )}
-            <CartesianGrid
-              strokeDasharray="7 7"
-              vertical={hiddenGrid?.vertical ?? true}
-              horizontal={hiddenGrid?.horizontal ?? true}
-            />
+            <CartesianGrid strokeDasharray="7 7" horizontal={true} vertical={false} />
             <XAxis
               dataKey="name"
               tickLine={false}
-              axisLine={XAxisOptions?.axisLine ?? false}
               padding={XAxisOptions?.padding}
               style={{
                 fontSize: '14px',
@@ -160,25 +232,13 @@ const AreaChartComponent = ({
               }}
             />
             <Tooltip content={customizedTooltip} />
+            {/* <Legend iconType="circle" textColor="red"/> */}
+            {isLegend && <Legend content={renderLegend} />}
             {lines &&
               lines.map((item, index) => {
-                return (
-                  <Area
-                    key={index}
-                    dot={isDot && { strokeWidth: 4 }}
-                    activeDot={{ strokeWidth: 2, r: 7 }}
-                    type={lineType ?? 'temperature'}
-                    dataKey={item}
-                    stroke={lineColors[index]}
-                    fillOpacity={1}
-                    fill={`url(#${item?.replace(/\s/g, '')}_${index})`}
-                    strokeWidth={2}
-                  />
-                );
+                return <Bar key={index} dataKey={item} stackId="a" fill={areaColors[index]} barSize={28} maxBarSize={76}/>;
               })}
-            {/* <Brush startIndex={0} endIndex={11} dataKey="name" height={30} stroke="#8884d8" /> */}
-            {isLegend && <Legend content={renderLegend} />}
-          </AreaChart>
+          </BarChart>
         </ResponsiveContainer>
       ) : (
         <div className="position-absolute top-50 start-50 translate-middle">

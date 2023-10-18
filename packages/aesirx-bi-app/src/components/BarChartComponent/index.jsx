@@ -118,7 +118,7 @@ const BarChartComponent = ({
               layout={layout ? layout : 'vertical'}
               margin={margin}
             >
-              <CartesianGrid strokeDasharray="3 3" vertical={layout ? false : true} />
+              <CartesianGrid strokeDasharray="7 7" vertical={layout ? true : false} />
               {layout ? (
                 <>
                   <XAxis

@@ -48,6 +48,9 @@ class EventsListViewModel {
   };
 
   getEvents = (dataFilter, dateFilter) => {
+    console.log("Check 1");
+    console.log("Check dataFilter",dataFilter);
+    console.log("Check dateFilter",dateFilter);
     this.status = PAGE_STATUS.LOADING;
     this.dataFilterEvents = {
       page_size: '1000',
@@ -139,6 +142,7 @@ class EventsListViewModel {
   };
 
   callbackOnDataEventsSuccessHandler = (data) => {
+    console.log("check call back 3", data);
     if (data) {
       if (data?.message !== 'canceled') {
         this.status = PAGE_STATUS.READY;

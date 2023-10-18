@@ -95,7 +95,7 @@ class EventsListModel {
     const date = {
       all: dateRange.map((date) => {
         return {
-          name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'), 
+          name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'),
           ...Object.keys(transform)
             .map((item) => {
               const filterDate = transform[item].filter((_item) => {
@@ -116,7 +116,7 @@ class EventsListModel {
                 return _item[BI_EVENTS_FIELD_KEY.DATE] === date;
               });
               return {
-                name: date && moment(date, 'YYYY-MM-DD').format('MMM-DD'),
+                name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'),
                 [item]: filterDate?.length ? filterDate[0][BI_EVENTS_FIELD_KEY.TOTAL_VISITOR] : 0,
               };
             }),

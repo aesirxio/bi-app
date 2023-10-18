@@ -47,15 +47,15 @@ const AreaChartComponent = ({
 
   useEffect(() => {
     const [month, date] = data;
-    console.log('check data useEffect', data);
+
     if (view === CHART_TYPE.MONTH) {
       setCurrentData(month);
     }
-    console.log('check data month', month);
+
     if (view === CHART_TYPE.DAY) {
       setCurrentData(date);
     }
-    console.log('check data date', date);
+
     return () => {};
   }, [view, data]);
 
@@ -73,10 +73,6 @@ const AreaChartComponent = ({
             {payload &&
               payload.map((item, index) => {
                 return (
-                  // <p key={index} className="mb-0 fs-12">
-                  //   {payload.length > 1 && `${item.name}: `}
-                  //   {tooltipComponent.value} {item.value}
-                  // </p>
                   <div key={index} className="mb-0 fs-12 row">
                     {payload.length > 1 && <div className="col-10 fw-bold">{item.name}:</div>}
                     <div className="col-2">
@@ -104,9 +100,7 @@ const AreaChartComponent = ({
             <div
               className="rounded-circle me-8px d-flex align-items-center justify-content-center"
               style={{ backgroundColor: entry?.color, width: 14, height: 14 }}
-            >
-              {/* <FontAwesomeIcon className="text-white" icon={faCheck} style={{ fontSize: 10 }} /> */}
-            </div>
+            ></div>
             {entry.value}
           </li>
         ))}
@@ -128,73 +122,8 @@ const AreaChartComponent = ({
       {loading === PAGE_STATUS.LOADING ? (
         <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white" />
       ) : currentSelection ? (
-        // <ResponsiveContainer width="100%" height={height ?? 500}>
-        //   <AreaChart data={currentData?.[currentSelection.value]}>
-        //     {lines && (
-        //       <defs>
-        //         {lines.map((item, index) => {
-        //           return (
-        //             <linearGradient
-        //               key={index}
-        //               id={`${item?.replace(/\s/g, '')}_${index}`}
-        //               x1="0"
-        //               y1="0"
-        //               x2="0"
-        //               y2="1"
-        //             >
-        //               <stop offset="5%" stopColor={areaColors[index]} stopOpacity={0.2} />
-        //               <stop offset="95%" stopColor={areaColors[index]} stopOpacity={0} />
-        //             </linearGradient>
-        //           );
-        //         })}
-        //       </defs>
-        //     )}
-        //     <CartesianGrid
-        //       strokeDasharray="7 7"
-        //       vertical={hiddenGrid?.vertical ?? true}
-        //       horizontal={hiddenGrid?.horizontal ?? true}
-        //     />
-        //     <XAxis
-        //       dataKey="name"
-        //       tickLine={false}
-        //       axisLine={XAxisOptions?.axisLine ?? false}
-        //       padding={XAxisOptions?.padding}
-        //       style={{
-        //         fontSize: '14px',
-        //       }}
-        //     />
-        //     <YAxis
-        //       tickLine={false}
-        //       axisLine={YAxisOptions?.axisLine ?? false}
-        //       padding={YAxisOptions?.padding}
-        //       style={{
-        //         fontSize: '14px',
-        //       }}
-        //     />
-        //     <Tooltip content={customizedTooltip} />
-        //     {lines &&
-        //       lines.map((item, index) => {
-        //         return (
-        //           <Area
-        //             key={index}
-        //             dot={isDot && { strokeWidth: 4 }}
-        //             activeDot={{ strokeWidth: 2, r: 7 }}
-        //             type={lineType ?? 'temperature'}
-        //             dataKey={item}
-        //             stroke={lineColors[index]}
-        //             fillOpacity={1}
-        //             fill={`url(#${item?.replace(/\s/g, '')}_${index})`}
-        //             strokeWidth={2}
-        //           />
-        //         );
-        //       })}
-        //     {/* <Brush startIndex={0} endIndex={11} dataKey="name" height={30} stroke="#8884d8" /> */}
-        //     {isLegend && <Legend content={renderLegend} />}
-        //   </AreaChart>
-        // </ResponsiveContainer>
-
         <ResponsiveContainer width="100%" height={height ?? 500}>
-          <BarChart data={currentData?.[currentSelection.value]} >
+          <BarChart data={currentData?.[currentSelection.value]}>
             {lines && (
               <defs>
                 {lines.map((item, index) => {
@@ -232,11 +161,20 @@ const AreaChartComponent = ({
               }}
             />
             <Tooltip content={customizedTooltip} />
-            {/* <Legend iconType="circle" textColor="red"/> */}
+
             {isLegend && <Legend content={renderLegend} />}
             {lines &&
               lines.map((item, index) => {
-                return <Bar key={index} dataKey={item} stackId="a" fill={areaColors[index]} barSize={28} maxBarSize={76}/>;
+                return (
+                  <Bar
+                    key={index}
+                    dataKey={item}
+                    stackId="a"
+                    fill={areaColors[index]}
+                    barSize={28}
+                    maxBarSize={76}
+                  />
+                );
               })}
           </BarChart>
         </ResponsiveContainer>

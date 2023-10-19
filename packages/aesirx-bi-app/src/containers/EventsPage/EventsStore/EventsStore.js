@@ -6,6 +6,7 @@ export class EventsStore {
     try {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getVisitor(dataFilter, dateFilter);
+      console.log(' check responseDataFromLibrary', responseDataFromLibrary);
       if (responseDataFromLibrary) {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);

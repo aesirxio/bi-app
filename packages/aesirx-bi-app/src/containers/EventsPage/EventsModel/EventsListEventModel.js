@@ -92,6 +92,8 @@ class EventsListModel {
       this.globalViewModel.dateFilter.date_start,
       this.globalViewModel.dateFilter.date_end
     );
+
+    const weeklyData = {};
     const date = {
       all: dateRange.map((date) => {
         return {
@@ -124,6 +126,7 @@ class EventsListModel {
         })
         .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
     };
+
     const month = {
       all: twelveMonth.map((month, index) => {
         return {
@@ -166,7 +169,39 @@ class EventsListModel {
         .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
     };
 
-    return [month, date];
+    dateRange.forEach((date) => {
+      const weekStart = moment(date).startOf('isoWeek').format('YYYY-MM-DD');
+      const weekEnd = moment(date).endOf('isoWeek').format('YYYY-MM-DD');
+      const weekName = `${moment(weekStart).format('DD MMM')} - ${moment(weekEnd).format(
+        'DD MMM'
+      )}`;
+      if (!weeklyData[weekName]) {
+        weeklyData[weekName] = {};
+        Object.keys(transform).forEach((item) => {
+          weeklyData[weekName][item] = 0;
+        });
+      }
+
+      Object.keys(transform).forEach((item) => {
+        const filterDate = transform[item].filter(
+          (_item) => _item[BI_EVENTS_FIELD_KEY.DATE] === date
+        );
+        weeklyData[weekName][item] += filterDate?.length
+          ? filterDate[0][BI_EVENTS_FIELD_KEY.TOTAL_VISITOR]
+          : 0;
+      });
+    });
+
+    const formattedWeeklyData = Object.keys(weeklyData).map((weekName) => ({
+      name: weekName,
+      ...weeklyData[weekName],
+    }));
+
+    const week = {
+      all: formattedWeeklyData,
+    };
+
+    return [month, date, week];
   };
 
   toBarChart = () => {

@@ -73,7 +73,6 @@ const Table = ({
   let totalPage = isPaginationAPI
     ? [...Array(paginationResponse?.total_pages)]
     : [...Array(pageOptions.length)];
-  console.log('simplePagination', paginationResponse);
   return (
     <>
       <div className="bg-white fs-14 rounded-3 position-relative">

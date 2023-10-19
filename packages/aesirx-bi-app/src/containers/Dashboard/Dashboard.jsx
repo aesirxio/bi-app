@@ -193,7 +193,8 @@ const Dashboard = observer(
                 <TopTable
                   data={this.dashboardListViewModel?.pagesTableData?.list}
                   pagination={this.dashboardListViewModel?.pagesTableData?.pagination}
-                  isPagination={false}
+                  isPagination={true}
+                  simplePagination={true}
                   selectPage={async (value) => {
                     await this.dashboardListViewModel.handleFilterPages({ page: value });
                   }}
@@ -203,7 +204,7 @@ const Dashboard = observer(
                       page_size: value,
                     });
                   }}
-                  status={this.dashboardListViewModel?.status}
+                  status={this.dashboardListViewModel?.statusTopPageTable}
                   {...this.props}
                 />
               </div>

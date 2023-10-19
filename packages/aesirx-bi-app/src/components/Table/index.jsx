@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { env } from 'aesirx-lib';
 import { AesirXSelect } from 'aesirx-uikit';
-// import ComponentSVG from 'components/ComponentSVG';
+import ComponentSVG from 'components/ComponentSVG';
 const Table = ({
   columns,
   data,
@@ -29,6 +29,7 @@ const Table = ({
   paginationResponse,
   selectPage,
   selectPageSize,
+  simplePagination = false,
   ...props
 }) => {
   const {
@@ -72,7 +73,7 @@ const Table = ({
   let totalPage = isPaginationAPI
     ? [...Array(paginationResponse?.total_pages)]
     : [...Array(pageOptions.length)];
-
+  console.log('simplePagination', paginationResponse);
   return (
     <>
       <div className="bg-white fs-14 rounded-3 position-relative">
@@ -245,148 +246,181 @@ const Table = ({
       </div>
       {pagination && pageOptions.length ? (
         <div className={`d-flex align-items-center justify-content-between ${paginationClass}`}>
-          <div className="d-flex align-items-center">
-            <span className="text-gray-600 me-16">Showing</span>
-            <div className="bg-white">
-              <AesirXSelect
-                isClearable={false}
-                isSearchable={false}
-                isBorder={false}
-                isShadow={false}
-                options={[
-                  { label: 5, value: 5 },
-                  { label: 10, value: 10 },
-                  { label: 20, value: 20 },
-                  { label: 30, value: 30 },
-                  { label: 40, value: 40 },
-                  { label: 50, value: 50 },
-                ]}
-                getOptionLabel={(options) => (
-                  <div className="showing-option d-flex align-items-center">
-                    <span>{options.label} items</span>
-                  </div>
-                )}
-                className="shadow-none select-bg-white"
-                onChange={(data) => {
-                  isPaginationAPI
-                    ? handlePageSize(Number(data.value))
-                    : setPageSize(Number(data.value));
-                }}
-                defaultValue={{
-                  label: isPaginationAPI ? paginationResponse?.page_size : pageSize,
-                  value: isPaginationAPI ? paginationResponse?.page_size : pageSize,
-                }}
-              />
+          {!simplePagination ? (
+            <div className="d-flex align-items-center">
+              <span className="text-gray-600 me-16">Showing</span>
+              <div className="bg-white">
+                <AesirXSelect
+                  isClearable={false}
+                  isSearchable={false}
+                  isBorder={false}
+                  isShadow={false}
+                  options={[
+                    { label: 5, value: 5 },
+                    { label: 10, value: 10 },
+                    { label: 20, value: 20 },
+                    { label: 30, value: 30 },
+                    { label: 40, value: 40 },
+                    { label: 50, value: 50 },
+                  ]}
+                  getOptionLabel={(options) => (
+                    <div className="showing-option d-flex align-items-center">
+                      <span>{options.label} items</span>
+                    </div>
+                  )}
+                  className="shadow-none select-bg-white"
+                  onChange={(data) => {
+                    isPaginationAPI
+                      ? handlePageSize(Number(data.value))
+                      : setPageSize(Number(data.value));
+                  }}
+                  defaultValue={{
+                    label: isPaginationAPI ? paginationResponse?.page_size : pageSize,
+                    value: isPaginationAPI ? paginationResponse?.page_size : pageSize,
+                  }}
+                />
+              </div>
             </div>
-          </div>
-
-          <div className="mt-3 pb-3 text-center pagination d-flex justify-content-end align-items-center">
+          ) : (
+            <div className="text-gray-900 fw-light">
+              {paginationResponse?.page === 1
+                ? 1
+                : paginationResponse?.page_size * (paginationResponse?.page - 1)}
+              -
+              {paginationResponse?.total_elements <= paginationResponse?.page_size
+                ? paginationResponse?.total_elements
+                : paginationResponse?.page_size * paginationResponse?.page}{' '}
+              to {paginationResponse?.total_elements}
+            </div>
+          )}
+          <div className="mt-2 pb-2 text-center pagination d-flex justify-content-end align-items-center">
             <button
-              className="border-1 border-gray-800 bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-start rounded-bottom-start"
+              className={`${
+                !simplePagination ? 'border-1 border-gray-800' : 'border-0'
+              } bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-start rounded-bottom-start`}
               onClick={() =>
                 isPaginationAPI ? handlePagination(paginationResponse?.page - 1) : previousPage()
               }
               disabled={isPaginationAPI ? paginationResponse?.page === 1 : !canPreviousPage}
             >
-              {'<'}
+              <ComponentSVG
+                url={env.PUBLIC_URL + '/assets/images/chevron_left.svg'}
+                color={
+                  isPaginationAPI
+                    ? paginationResponse?.page === 1
+                      ? '#5F5E70'
+                      : '#1ab394'
+                    : !canPreviousPage
+                    ? '#5F5E70'
+                    : '#1ab394'
+                }
+              />
             </button>{' '}
-            <button
-              onClick={() => (isPaginationAPI ? handlePagination(1) : gotoPage(0))}
-              className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
-                (isPaginationAPI ? paginationResponse?.page === 1 : pageIndex + 1 === 1)
-                  ? 'bg-gray-900 text-white'
-                  : 'bg-white text-body'
-              }`}
-              style={{
-                width: '38px',
-                height: '38px',
-              }}
-            >
-              {1}
-            </button>
-            {(isPaginationAPI ? paginationResponse?.page > 3 : pageIndex > 3) && (
-              <button
-                className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
-                style={{
-                  width: '38px',
-                  height: '38px',
-                }}
-              >
-                ...
-              </button>
-            )}
-            {totalPage.map((x, index) => {
-              let activePage = isPaginationAPI
-                ? paginationResponse?.page === index + 1
-                : pageIndex + 1 === index + 1;
-              let conditionShowNumber = isPaginationAPI
-                ? index !== 0 &&
-                  index !== paginationResponse?.total_pages - 1 &&
-                  index < paginationResponse?.page - 1 + 3 &&
-                  index > paginationResponse?.page - 1 - 3
-                : index !== 0 &&
-                  index !== pageOptions.length - 1 &&
-                  index < pageIndex + 3 &&
-                  index > pageIndex - 3;
-              return (
-                conditionShowNumber && (
+            {!simplePagination && (
+              <>
+                <button
+                  onClick={() => (isPaginationAPI ? handlePagination(1) : gotoPage(0))}
+                  className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
+                    (isPaginationAPI ? paginationResponse?.page === 1 : pageIndex + 1 === 1)
+                      ? 'bg-gray-900 text-white'
+                      : 'bg-white text-body'
+                  }`}
+                  style={{
+                    width: '38px',
+                    height: '38px',
+                  }}
+                >
+                  {1}
+                </button>
+                {(isPaginationAPI ? paginationResponse?.page > 3 : pageIndex > 3) && (
+                  <button
+                    className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
+                    style={{
+                      width: '38px',
+                      height: '38px',
+                    }}
+                  >
+                    ...
+                  </button>
+                )}
+                {totalPage.map((x, index) => {
+                  let activePage = isPaginationAPI
+                    ? paginationResponse?.page === index + 1
+                    : pageIndex + 1 === index + 1;
+                  let conditionShowNumber = isPaginationAPI
+                    ? index !== 0 &&
+                      index !== paginationResponse?.total_pages - 1 &&
+                      index < paginationResponse?.page - 1 + 3 &&
+                      index > paginationResponse?.page - 1 - 3
+                    : index !== 0 &&
+                      index !== pageOptions.length - 1 &&
+                      index < pageIndex + 3 &&
+                      index > pageIndex - 3;
+                  return (
+                    conditionShowNumber && (
+                      <button
+                        onClick={() =>
+                          isPaginationAPI ? handlePagination(index + 1) : gotoPage(index)
+                        }
+                        key={index}
+                        className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
+                          activePage ? 'bg-gray-900 text-white' : 'bg-white text-body'
+                        }`}
+                        style={{
+                          width: '38px',
+                          height: '38px',
+                        }}
+                      >
+                        {index + 1}
+                      </button>
+                    )
+                  );
+                })}
+                {(isPaginationAPI
+                  ? paginationResponse?.page < paginationResponse?.total_pages - 3
+                  : pageIndex < pageOptions.length - 4) && (
+                  <button
+                    className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
+                    style={{
+                      width: '38px',
+                      height: '38px',
+                    }}
+                  >
+                    ...
+                  </button>
+                )}
+                {(isPaginationAPI
+                  ? paginationResponse?.total_pages > 1
+                  : pageOptions.length > 1) && (
                   <button
                     onClick={() =>
-                      isPaginationAPI ? handlePagination(index + 1) : gotoPage(index)
+                      isPaginationAPI
+                        ? handlePagination(paginationResponse?.total_pages)
+                        : gotoPage(pageCount - 1)
                     }
-                    key={index}
                     className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
-                      activePage ? 'bg-gray-900 text-white' : 'bg-white text-body'
+                      (
+                        isPaginationAPI
+                          ? paginationResponse?.page === paginationResponse?.total_pages
+                          : pageIndex + 1 === pageOptions.length
+                      )
+                        ? 'bg-gray-900 text-white'
+                        : 'bg-white text-body'
                     }`}
                     style={{
                       width: '38px',
                       height: '38px',
                     }}
                   >
-                    {index + 1}
+                    {isPaginationAPI ? paginationResponse?.total_pages : pageOptions.length}
                   </button>
-                )
-              );
-            })}
-            {(isPaginationAPI
-              ? paginationResponse?.page < paginationResponse?.total_pages - 3
-              : pageIndex < pageOptions.length - 4) && (
-              <button
-                className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
-                style={{
-                  width: '38px',
-                  height: '38px',
-                }}
-              >
-                ...
-              </button>
-            )}
-            {(isPaginationAPI ? paginationResponse?.total_pages > 1 : pageOptions.length > 1) && (
-              <button
-                onClick={() =>
-                  isPaginationAPI
-                    ? handlePagination(paginationResponse?.total_pages)
-                    : gotoPage(pageCount - 1)
-                }
-                className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
-                  (
-                    isPaginationAPI
-                      ? paginationResponse?.page === paginationResponse?.total_pages
-                      : pageIndex + 1 === pageOptions.length
-                  )
-                    ? 'bg-gray-900 text-white'
-                    : 'bg-white text-body'
-                }`}
-                style={{
-                  width: '38px',
-                  height: '38px',
-                }}
-              >
-                {isPaginationAPI ? paginationResponse?.total_pages : pageOptions.length}
-              </button>
+                )}
+              </>
             )}
             <button
-              className="border-1 border-gray-800 bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-end rounded-bottom-end"
+              className={` ${
+                !simplePagination ? 'border-1 border-gray-800' : 'border-0'
+              } bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-end rounded-bottom-end`}
               onClick={() =>
                 isPaginationAPI ? handlePagination(paginationResponse?.page + 1) : nextPage()
               }
@@ -396,7 +430,18 @@ const Table = ({
                   : !canNextPage
               }
             >
-              {'>'}
+              <ComponentSVG
+                url={env.PUBLIC_URL + '/assets/images/chevron_right.svg'}
+                color={
+                  isPaginationAPI
+                    ? paginationResponse?.page === paginationResponse?.total_pages
+                      ? '#5F5E70'
+                      : '#1ab394'
+                    : !canNextPage
+                    ? '#5F5E70'
+                    : '#1ab394'
+                }
+              />
             </button>
           </div>
         </div>

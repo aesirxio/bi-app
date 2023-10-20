@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import TopTabs from './Component/TopTabs';
 
-const Woocommerce = observer((props) => {
+const Woocommerce = observer(() => {
   const { t } = useTranslation();
   const {
     woocommerceList: {

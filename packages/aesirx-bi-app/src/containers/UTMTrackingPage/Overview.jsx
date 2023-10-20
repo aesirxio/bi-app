@@ -1,4 +1,4 @@
-import AreaChartComponent from '../../components/AreaChartComponent';
+import StackedBarChartComponent from '../../components/StackedBarChartComponent';
 import BarChartComponent from '../../components/BarChartComponent';
 import DateRangePicker from '../../components/DateRangePicker';
 import PieChartComponent from '../../components/PieChartComponent';
@@ -118,7 +118,7 @@ class UTMTrackingOverviewPage extends Component {
         <ComponentFilter isContinent />
         <Row className="gx-24 mb-24">
           <Col lg={6}>
-            <AreaChartComponent
+            <StackedBarChartComponent
               chartTitle={t('txt_menu_overview')}
               height={390}
               data={dataAreaChart}

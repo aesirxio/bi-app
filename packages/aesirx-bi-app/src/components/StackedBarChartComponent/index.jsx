@@ -22,7 +22,7 @@ import CHART_TYPE from '../../constants/ChartType';
 import { env } from 'aesirx-lib';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-const AreaChartComponent = ({
+const StackedBarChartComponent = ({
   data = [],
   height,
   lineType,
@@ -59,7 +59,6 @@ const AreaChartComponent = ({
     if (view === CHART_TYPE.WEEK) {
       setCurrentData(week);
     }
-    console.log('check data 10', data);
     return () => {};
   }, [view, data]);
 
@@ -68,42 +67,10 @@ const AreaChartComponent = ({
     return () => {};
   }, [filterData]);
 
-  // const customizedTooltip = useMemo(
-  //   () =>
-  //     ({ payload }) => {
-
-  //       console.log("check tooltipComponent",tooltipComponent);
-  //       return (
-  //         <div className="areachart-tooltip p-15 text-white bg-primary">
-  //           <p className="text-uppercase fw-semibold fs-14 mb-sm">{tooltipComponent.header}</p>
-  //           {payload &&
-  //             payload.map((item, index) => {
-  //               return (
-  //                 <div key={index} className="mb-0 fs-12 row">
-  //                   {payload.length > 1 && <div className="col-10 fw-bold">{item.name}:</div>}
-  //                   <div className="col-2">
-  //                     <p className="mb-0">
-  //                       <span className="mr-2">{tooltipComponent.value}</span>
-  //                       <span>{item.value}</span>
-  //                     </p>
-  //                   </div>
-  //                 </div>
-  //               );
-  //             })}
-  //         </div>
-  //       );
-  //     },
-  //   [tooltipComponent]
-  // );
-
   const customizedTooltip = useMemo(
     () =>
       ({ payload }) => {
-        payload.forEach((item, index) => {
-          console.log(`Payload item ${index}:`, item); // Log each item in payload
-        });
-
-        console.log('check tooltipComponent', tooltipComponent);
+   
         return (
           <div className="areachart-tooltip p-15 text-white bg-primary">
             <p className="text-uppercase fw-semibold fs-14 mb-sm">
@@ -200,7 +167,6 @@ const AreaChartComponent = ({
               }}
             />
             <Tooltip content={customizedTooltip} />
-            {/* <Tooltip/> */}
 
             {isLegend && <Legend content={renderLegend} />}
             {lines &&
@@ -230,4 +196,4 @@ const AreaChartComponent = ({
     </div>
   );
 };
-export default AreaChartComponent;
+export default StackedBarChartComponent;

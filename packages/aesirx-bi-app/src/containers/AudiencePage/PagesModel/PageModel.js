@@ -35,11 +35,11 @@ class PageModel {
           Cell: ({ cell, column }) => {
             const urlParams = column.id === BI_PAGES_FIELD_KEY.URL && new URL(cell?.value);
             return column.id === BI_PAGES_FIELD_KEY.URL ? (
-              <div className={'px-15'}>
+              <div className={''}>
                 {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
               </div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (
-              <div className={'px-15 text-end'}>
+              <div className={'text-end'}>
                 {cell?.value ? moment.utc(cell?.value * 1000).format('HH:mm:ss') : '00:00:00'}
               </div>
             ) : (

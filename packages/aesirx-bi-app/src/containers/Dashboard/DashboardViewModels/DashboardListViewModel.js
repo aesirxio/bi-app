@@ -13,6 +13,7 @@ import PageModel from '../../AudiencePage/PagesModel/PageModel';
 class DashboardListViewModel {
   dashboardStore = null;
   status = PAGE_STATUS.READY;
+  statusTopPageTable = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   summaryData = null;
   visitorData = null;
@@ -90,7 +91,7 @@ class DashboardListViewModel {
     this.dashboardStore.getBrowsers(
       {
         ...this.dataFilter,
-        page_size: '10',
+        page_size: '8',
         'sort[]': 'number_of_page_views',
         'sort_direction[]': 'desc',
       },
@@ -108,7 +109,7 @@ class DashboardListViewModel {
     this.dashboardStore.getDevices(
       {
         ...this.dataFilter,
-        page_size: '10',
+        page_size: '8',
         'sort[]': 'number_of_visitors',
         'sort_direction[]': 'desc',
       },
@@ -119,9 +120,9 @@ class DashboardListViewModel {
   };
 
   getPages = async (dataFilter, dateFilter) => {
-    this.status = PAGE_STATUS.LOADING;
+    this.statusTopPageTable = PAGE_STATUS.LOADING;
     this.dataFilterPages = {
-      page_size: '10',
+      page_size: '8',
       'sort[]': 'number_of_page_views',
       'sort_direction[]': 'desc',
       ...this.dataFilterPages,
@@ -159,7 +160,7 @@ class DashboardListViewModel {
   };
 
   handleFilterPages = async (dataFilter) => {
-    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.statusTopPageTable = PAGE_STATUS.LOADING;
     this.dataFilterPages = { ...this.dataFilterPages, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
     await this.dashboardStore.getPages(
@@ -250,6 +251,7 @@ class DashboardListViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.status = PAGE_STATUS.READY;
+        this.statusTopPageTable = PAGE_STATUS.READY;
         const transformData = new PageModel(data.list, this.globalStoreViewModel);
         this.pagesTableData = {
           list: transformData.toPagesTableTopDashboard(),
@@ -258,6 +260,7 @@ class DashboardListViewModel {
       }
     } else {
       this.status = PAGE_STATUS.ERROR;
+      this.statusTopPageTable = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

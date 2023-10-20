@@ -11,7 +11,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons/faCircleInfo';
 
 const TopTableComponent = (props) => {
-  const { data, isPagination = true, pagination, selectPage, selectPageSize, status, t } = props;
+  const {
+    data,
+    isPagination = true,
+    simplePagination = false,
+    pagination,
+    selectPage,
+    selectPageSize,
+    status,
+    t,
+  } = props;
   const columnsTable = React.useMemo(
     () =>
       data?.header?.map((item, index) => {
@@ -78,11 +87,12 @@ const TopTableComponent = (props) => {
           data={dataTable}
           canSort={true}
           pagination={isPagination}
-          paginationClass={'fs-14 px-4'}
+          paginationClass={'fs-14 border-top mt-2'}
           isPaginationAPI={true}
           paginationResponse={pagination}
           selectPage={selectPage}
           selectPageSize={selectPageSize}
+          simplePagination={simplePagination}
         />
       ) : (
         <div className="position-relative ChartWrapper bg-white rounded-3 shadow-sm">

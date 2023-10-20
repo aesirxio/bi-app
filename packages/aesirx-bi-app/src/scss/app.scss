@@ -46,5 +46,17 @@
     .text-gray-900 {
       color: #fff;
     }
+    #biapp {
+      .table {
+        --aesirxui-table-bg: var(--aesirxui-color-blue-6);
+      }
+    }
+    .nav-pills {
+      .nav-link {
+        &.active {
+          background-color: transparent;
+        }
+      }
+    }
   }
 }

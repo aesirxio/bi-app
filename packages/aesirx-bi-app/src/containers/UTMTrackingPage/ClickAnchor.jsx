@@ -1,4 +1,4 @@
-// import AreaChartComponent from 'components/AreaChartComponent';
+// import StackedBarChartComponent from 'components/StackedBarChartComponent';
 // import BarChartComponent from 'components/BarChartComponent';
 // import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from '../../components/DateRangePicker';
@@ -117,7 +117,7 @@ class UTMTrackingClickAnchorPage extends Component {
         </div>
         {/* <Row className="gx-24 mb-24">
             <Col lg={6}>
-              <AreaChartComponent
+              <StackedBarChartComponent
                 chartTitle={t('txt_menu_overview')}
                 height={390}
                 data={dataAreaChart}

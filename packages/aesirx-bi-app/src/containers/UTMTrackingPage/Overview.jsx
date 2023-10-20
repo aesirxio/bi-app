@@ -140,7 +140,7 @@ class UTMTrackingOverviewPage extends Component {
               barColors={['#2C94EA']}
               data={dataBarChart}
               margin={{ left: 40 }}
-              isFilterButtons={true}
+              filterButtons={['days', 'months']}
               isSelection={false}
             />
           </Col>

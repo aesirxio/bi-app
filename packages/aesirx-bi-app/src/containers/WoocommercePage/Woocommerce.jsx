@@ -8,8 +8,7 @@ import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import TopTabs from './Component/TopTabs';
 
-const Woocommerce = observer((props) => {
-  console.log('props', props);
+const Woocommerce = observer(() => {
   const { t } = useTranslation();
   const {
     woocommerceList: {
@@ -115,7 +114,7 @@ const Woocommerce = observer((props) => {
             barColors={['#2C94EA']}
             data={dataWoocommerce?.toBarChart()}
             margin={{ left: 40 }}
-            isFilterButtons={false}
+            filterButtons={[]}
           />
         </div>
       </div>

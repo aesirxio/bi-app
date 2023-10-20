@@ -125,6 +125,7 @@ const UTMTrackingPage = observer((props) => {
               value: ``,
             }}
             isLegend={true}
+            filterButtons={['days', 'months']}
           />
         </div>
         <div className="col-lg-6 col-12">
@@ -135,7 +136,7 @@ const UTMTrackingPage = observer((props) => {
             barColors={['#2C94EA']}
             data={dataAttribute?.toBarChartUTM()}
             margin={{ left: 40 }}
-            isFilterButtons={false}
+            filterButtons={[]}
             loading={statusAttribute}
             isSelection={false}
           />

@@ -74,6 +74,7 @@ const Events = observer((props) => {
               value: ``,
             }}
             isLegend={true}
+            filterButtons={['days', 'weeks', 'months']}
           />
         </div>
         <div className="col-lg-6 col-12">
@@ -85,7 +86,7 @@ const Events = observer((props) => {
             barColors={['#0066FF']}
             data={dataEvents?.toBarChart()}
             margin={{ left: 40 }}
-            isFilterButtons={false}
+            filterButtons={[]}
             isSelection={false}
           />
         </div>

@@ -6,6 +6,7 @@
 const CHART_TYPE = {
   MONTH: 1,
   DAY: 2,
+  WEEK: 3,
 };
 
 export default CHART_TYPE;

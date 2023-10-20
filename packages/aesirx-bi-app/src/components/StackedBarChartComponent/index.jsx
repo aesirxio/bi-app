@@ -5,31 +5,25 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
 import {
-  AreaChart,
-  Area,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
   Legend,
+  BarChart,
+  Bar,
   // Brush,
 } from 'recharts';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import CHART_TYPE from '../../constants/ChartType';
 import { env } from 'aesirx-lib';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-const AreaChartComponent = ({
+const StackedBarChartComponent = ({
   data = [],
   height,
-  lineType,
   areaColors,
-  lineColors,
   chartTitle,
   lines,
-  isDot,
-  hiddenGrid,
   XAxisOptions,
   YAxisOptions,
   loading,
@@ -44,7 +38,7 @@ const AreaChartComponent = ({
   const { t } = useTranslation();
 
   useEffect(() => {
-    const [month, date] = data;
+    const [month, date, week] = data;
 
     if (view === CHART_TYPE.MONTH) {
       setCurrentData(month);
@@ -54,6 +48,9 @@ const AreaChartComponent = ({
       setCurrentData(date);
     }
 
+    if (view === CHART_TYPE.WEEK) {
+      setCurrentData(week);
+    }
     return () => {};
   }, [view, data]);
 
@@ -67,14 +64,21 @@ const AreaChartComponent = ({
       ({ payload }) => {
         return (
           <div className="areachart-tooltip p-15 text-white bg-primary">
-            <p className="text-uppercase fw-semibold fs-12 mb-sm">{tooltipComponent.header}</p>
+            <p className="text-uppercase fw-semibold fs-14 mb-sm">
+              {payload.length > 0 ? payload[0].payload.name : ''}
+            </p>
             {payload &&
               payload.map((item, index) => {
                 return (
-                  <p key={index} className="mb-0 fw-bold">
-                    {payload.length > 1 && `${item.name}: `}
-                    {tooltipComponent.value} {item.value}
-                  </p>
+                  <div key={index} className="mb-0 fs-12 row">
+                    {payload.length > 1 && <div className="col-10 fw-bold">{item.name}:</div>}
+                    <div className="col-2">
+                      <p className="mb-0">
+                        <span className="mr-2">{tooltipComponent.value}</span>
+                        <span>{item.value}</span>
+                      </p>
+                    </div>
+                  </div>
                 );
               })}
           </div>
@@ -85,16 +89,15 @@ const AreaChartComponent = ({
 
   const renderLegend = (props) => {
     const { payload } = props;
+
     return (
       <ul className="ms-3 mt-2 d-flex align-items-center">
         {payload.map((entry, index) => (
           <li key={`item-${index}`} className="me-24 fs-14 d-flex align-items-center">
             <div
-              className="rounded-2 me-8px d-flex align-items-center justify-content-center"
-              style={{ backgroundColor: entry?.color, width: 16, height: 16 }}
-            >
-              <FontAwesomeIcon className="text-white" icon={faCheck} style={{ fontSize: 10 }} />
-            </div>
+              className="rounded-circle me-8px d-flex align-items-center justify-content-center"
+              style={{ backgroundColor: entry?.color, width: 14, height: 14 }}
+            ></div>
             {entry.value}
           </li>
         ))}
@@ -117,7 +120,7 @@ const AreaChartComponent = ({
         <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white" />
       ) : currentSelection ? (
         <ResponsiveContainer width="100%" height={height ?? 500}>
-          <AreaChart data={currentData?.[currentSelection.value]}>
+          <BarChart data={currentData?.[currentSelection.value]}>
             {lines && (
               <defs>
                 {lines.map((item, index) => {
@@ -137,15 +140,10 @@ const AreaChartComponent = ({
                 })}
               </defs>
             )}
-            <CartesianGrid
-              strokeDasharray="7 7"
-              vertical={hiddenGrid?.vertical ?? true}
-              horizontal={hiddenGrid?.horizontal ?? true}
-            />
+            <CartesianGrid strokeDasharray="7 7" horizontal={true} vertical={false} />
             <XAxis
               dataKey="name"
               tickLine={false}
-              axisLine={XAxisOptions?.axisLine ?? false}
               padding={XAxisOptions?.padding}
               style={{
                 fontSize: '14px',
@@ -160,25 +158,22 @@ const AreaChartComponent = ({
               }}
             />
             <Tooltip content={customizedTooltip} />
+
+            {isLegend && <Legend content={renderLegend} />}
             {lines &&
               lines.map((item, index) => {
                 return (
-                  <Area
+                  <Bar
                     key={index}
-                    dot={isDot && { strokeWidth: 4 }}
-                    activeDot={{ strokeWidth: 2, r: 7 }}
-                    type={lineType ?? 'temperature'}
                     dataKey={item}
-                    stroke={lineColors[index]}
-                    fillOpacity={1}
-                    fill={`url(#${item?.replace(/\s/g, '')}_${index})`}
-                    strokeWidth={2}
+                    stackId="a"
+                    fill={areaColors[index]}
+                    barSize={28}
+                    maxBarSize={76}
                   />
                 );
               })}
-            {/* <Brush startIndex={0} endIndex={11} dataKey="name" height={30} stroke="#8884d8" /> */}
-            {isLegend && <Legend content={renderLegend} />}
-          </AreaChart>
+          </BarChart>
         </ResponsiveContainer>
       ) : (
         <div className="position-absolute top-50 start-50 translate-middle">
@@ -192,4 +187,4 @@ const AreaChartComponent = ({
     </div>
   );
 };
-export default AreaChartComponent;
+export default StackedBarChartComponent;

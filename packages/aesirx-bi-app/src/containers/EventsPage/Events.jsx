@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import AreaChartComponent from '../../components/AreaChartComponent';
+import StackedBarChartComponent from '../../components/StackedBarChartComponent';
 import BarChartComponent from '../../components/BarChartComponent';
 import DateRangePicker from '../../components/DateRangePicker';
 import { useTranslation } from 'react-i18next';
@@ -58,13 +58,14 @@ const Events = observer((props) => {
       </div>
       <div className="row gx-24 mb-24">
         <div className="col-lg-6 col-12">
-          <AreaChartComponent
+          <StackedBarChartComponent
             loading={status}
             chartTitle={t('txt_menu_overview')}
             height={390}
             data={dataEvents?.toAreaChart() ?? []}
             colors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            // areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            areaColors={['#0066FF', '#1AB394', '#4747EB', '#96C0FF', '#D5EEFF']}
             lineColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
             lines={dataEvents?.getListLine()}
             filterData={dataEvents?.getFilterName()}
@@ -81,7 +82,7 @@ const Events = observer((props) => {
             chartTitle={'Event count'}
             height={390}
             bars={['number']}
-            barColors={['#2C94EA']}
+            barColors={['#0066FF']}
             data={dataEvents?.toBarChart()}
             margin={{ left: 40 }}
             isFilterButtons={false}

@@ -5,8 +5,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
 import {
-  AreaChart,
-  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -20,18 +18,12 @@ import {
 import { RingLoaderComponent } from 'aesirx-uikit';
 import CHART_TYPE from '../../constants/ChartType';
 import { env } from 'aesirx-lib';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const StackedBarChartComponent = ({
   data = [],
   height,
-  lineType,
   areaColors,
-  lineColors,
   chartTitle,
   lines,
-  isDot,
-  hiddenGrid,
   XAxisOptions,
   YAxisOptions,
   loading,

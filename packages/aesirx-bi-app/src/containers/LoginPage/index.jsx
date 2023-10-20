@@ -76,7 +76,7 @@ class LoginPage extends React.Component {
                 <br /> {t('txt_login_text_2')}
               </h1>
               <form className="login-form">
-                <label className="form-label mb-1 fw-semibold text-black">
+                <label className="form-label mb-1 fw-semibold">
                   Email <span className="text-danger">*</span>
                 </label>
                 <input
@@ -93,7 +93,7 @@ class LoginPage extends React.Component {
                 {this.validator.message('Email or username', this.state.username, 'required', {
                   className: 'text-danger',
                 })}
-                <label className="form-label fw-semibold mt-24 mb-1 text-black" htmlFor="password">
+                <label className="form-label fw-semibold mt-24 mb-1" htmlFor="password">
                   Password <span className="text-danger">*</span>
                 </label>
                 <InputPassword

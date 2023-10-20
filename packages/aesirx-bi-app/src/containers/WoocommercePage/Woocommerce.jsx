@@ -115,7 +115,7 @@ const Woocommerce = observer((props) => {
             barColors={['#2C94EA']}
             data={dataWoocommerce?.toBarChart()}
             margin={{ left: 40 }}
-            isFilterButtons={false}
+            filterButtons={[]}
           />
         </div>
       </div>

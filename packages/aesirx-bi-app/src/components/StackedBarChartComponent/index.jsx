@@ -31,6 +31,7 @@ const StackedBarChartComponent = ({
   filterData = [],
   isLegend,
   isSelection = true,
+  filterButtons,
 }) => {
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
   const [currentData, setCurrentData] = useState(data[0]);
@@ -112,7 +113,7 @@ const StackedBarChartComponent = ({
         selectionData={filterData}
         chartTitle={chartTitle}
         isSelection={isSelection}
-        isFilterButtons={true}
+        filterButtons={filterButtons}
         view={view}
         setView={setView}
       />

@@ -56,7 +56,8 @@ const Browsers = observer(
                         <TopTable
                           data={this.dashboardListViewModel?.browsersData?.list}
                           pagination={this.dashboardListViewModel?.browsersData?.pagination}
-                          isPagination={false}
+                          isPagination={true}
+                          simplePagination={true}
                           selectPage={async (value) => {
                             await this.dashboardListViewModel.handleFilterPages({ page: value });
                           }}
@@ -74,7 +75,8 @@ const Browsers = observer(
                         <TopTable
                           data={this.dashboardListViewModel?.devicesTableData?.list}
                           pagination={this.dashboardListViewModel?.devicesTableData?.pagination}
-                          isPagination={false}
+                          isPagination={true}
+                          simplePagination={true}
                           selectPage={async (value) => {
                             await this.dashboardListViewModel.handleFilterPages({ page: value });
                           }}

@@ -37,9 +37,7 @@ export class WoocommerceStore {
     try {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getAttribute(dataFilter, dateFilter);
-      console.log(responseDataFromLibrary);
       if (responseDataFromLibrary) {
-        console.log('attrattr', attr);
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary, attr);
         });

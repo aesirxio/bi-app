@@ -9,7 +9,6 @@ import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import TopTabs from './Component/TopTabs';
 
 const Woocommerce = observer((props) => {
-  console.log('props', props);
   const { t } = useTranslation();
   const {
     woocommerceList: {

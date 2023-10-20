@@ -18,7 +18,6 @@ const HeaderFilterComponent = ({
   setView,
 }) => {
   const { t } = useTranslation();
-  console.log('filterButtons', filterButtons['days']);
   return (
     <div className="d-flex justify-content-between mb-24">
       <div className="d-flex align-items-center">

@@ -9,7 +9,6 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 
 const TopTableComponent = (props) => {
   const { data, isPagination = true, status, t } = props;
-  console.log('dataneeeee', data);
   const columnsTable = React.useMemo(
     () =>
       data?.header?.map((item, index) => {
@@ -25,8 +24,6 @@ const TopTableComponent = (props) => {
     [data?.header]
   );
   const dataTable = React.useMemo(() => data?.data, [data?.data]);
-  console.log('columnsTable', columnsTable);
-  console.log('dataTable', dataTable);
   return (
     <>
       {status === PAGE_STATUS.LOADING ? (

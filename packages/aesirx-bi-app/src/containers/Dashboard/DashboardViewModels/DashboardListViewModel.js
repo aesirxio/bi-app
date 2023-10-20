@@ -9,7 +9,6 @@ import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import DashboardModel from '../DashboardModel/DashboardModel';
 import CountryModel from '../../RegionCountryPage/CountryModel/CountryModel';
-import BrowserModel from '../../AudiencePage/BrowserModel/BrowserModel';
 import PageModel from '../../AudiencePage/PagesModel/PageModel';
 class DashboardListViewModel {
   dashboardStore = null;
@@ -20,6 +19,7 @@ class DashboardListViewModel {
   countriesData = null;
   browsersData = null;
   devicesData = null;
+  devicesTableData = null;
   pagesTableData = null;
   constructor(dashboardStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -216,8 +216,11 @@ class DashboardListViewModel {
   callbackOnBrowsersSuccessHandler = (data) => {
     if (data) {
       if (data?.message !== 'canceled') {
-        const transformData = new BrowserModel(data.list, this.globalStoreViewModel);
-        this.browsersData = transformData.toBrowsersTableTop();
+        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        this.browsersData = {
+          list: transformData.toBrowsersTableTop(),
+          pagination: data.pagination,
+        };
         this.status = PAGE_STATUS.READY;
       }
     } else {
@@ -230,6 +233,11 @@ class DashboardListViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.devicesData = data?.list;
+        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        this.devicesTableData = {
+          list: transformData.toDevicesTableTop(),
+          pagination: data.pagination,
+        };
         this.status = PAGE_STATUS.READY;
       }
     } else {

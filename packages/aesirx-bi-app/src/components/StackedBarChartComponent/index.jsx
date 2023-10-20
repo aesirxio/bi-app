@@ -70,7 +70,6 @@ const StackedBarChartComponent = ({
   const customizedTooltip = useMemo(
     () =>
       ({ payload }) => {
-   
         return (
           <div className="areachart-tooltip p-15 text-white bg-primary">
             <p className="text-uppercase fw-semibold fs-14 mb-sm">

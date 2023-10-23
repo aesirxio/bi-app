@@ -39,7 +39,7 @@ const OverviewComponent = observer(
             isLegend={true}
           />
         </div>
-      );
+      ); 
     }
   }
 );

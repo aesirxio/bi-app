@@ -54,11 +54,11 @@ class DashboardModel {
         (_item) => moment(_item.date).format('YYYY-MM-DD') === date
       );
       return {
-        name: date && moment(date, 'YYYY-MM-DD').format('MM-DD'),
+        name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'),
         visits: filterDate?.[BI_VISITORS_FIELD_KEY.VISITS] ?? 0,
         page_views: filterDate?.[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS] ?? 0,
       };
-    });
+    }); 
 
     const month = twelveMonth.map((month, index) => {
       const filterMonthDate = this.data.filter((_item) => moment(_item?.date).month() === index);

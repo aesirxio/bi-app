@@ -20,7 +20,7 @@ const AudiencePage = lazy(() => import('./Audience'));
 const AudienceBehaviorPage = lazy(() => import('./AudienceBehavior'));
 
 const RenderComponent = ({ link, ...props }) => {
-  switch (link) {
+  switch (link) { 
     case 'audience-behavior':
       return <AudienceBehaviorPage {...props} />;
 

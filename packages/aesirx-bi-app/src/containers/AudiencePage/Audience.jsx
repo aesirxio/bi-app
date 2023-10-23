@@ -113,17 +113,17 @@ const AudiencePage = observer(
           </div>
 
           <Row className="mb-24">
+            <Col lg={3}>
+              <CardComponent data={card ?? []} />
+            </Col>
             <Col lg={9}>
               <OverviewComponent
-                bars={['visits']}
-                barColors={['#0066FF']}
+                bars={['visits','page_views']}
+                barColors={['#0066FF','#96C0FF']}
                 isSelection={false}
                 listViewModel={this.audienceListViewModel}
                 status={this.audienceListViewModel?.statusOverview}
               />
-            </Col>
-            <Col lg={3}>
-              <CardComponent data={card ?? []} />
             </Col>
           </Row>
           <TopTabs listViewModel={this.audienceListViewModel} />

@@ -9,14 +9,14 @@ const mainMenu = [
     page: 'dashboard',
   },
   {
-    text: 'txt_menu_audience',
+    text: 'txt_menu_visitors',
     link: `/audience/overview`,
     icons: env.PUBLIC_URL + '/assets/images/audience.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
     submenu: [
       {
         text: 'txt_menu_overview',
-        mini_text: 'txt_menu_audience',
+        mini_text: 'txt_menu_visitors',
         link: `/audience/overview`,
         page: 'audience-overview',
       },

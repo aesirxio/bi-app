@@ -14,6 +14,7 @@ class DashboardListViewModel {
   dashboardStore = null;
   status = PAGE_STATUS.READY;
   statusTopPageTable = PAGE_STATUS.READY;
+  statusTopBrowser = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   summaryData = null;
   visitorData = null;
@@ -84,17 +85,30 @@ class DashboardListViewModel {
   };
 
   getBrowsers = (dataFilter, dateFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.dataFilterBrowsers = {
+      page_size: '8',
+      'sort[]': 'number_of_visitors',
+      'sort_direction[]': 'desc',
+      ...this.dataFilterBrowsers,
+      ...dataFilter,
+    };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.dashboardStore.getBrowsers(
-      {
-        ...this.dataFilter,
-        page_size: '8',
-        'sort[]': 'number_of_page_views',
-        'sort_direction[]': 'desc',
-      },
+      this.dataFilterBrowsers,
+      dateRangeFilter,
+      this.callbackOnBrowsersSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterBrowsers = async (dataFilter) => {
+    this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.dataFilterBrowsers = { ...this.dataFilterBrowsers, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.dashboardStore.getBrowsers(
+      this.dataFilterBrowsers,
       dateRangeFilter,
       this.callbackOnBrowsersSuccessHandler,
       this.callbackOnErrorHandler
@@ -102,17 +116,30 @@ class DashboardListViewModel {
   };
 
   getDevices = (dataFilter, dateFilter) => {
-    this.status = PAGE_STATUS.LOADING;
-    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.dataFilterDevices = {
+      page_size: '8',
+      'sort[]': 'number_of_visitors',
+      'sort_direction[]': 'desc',
+      ...this.dataFilterDevices,
+      ...dataFilter,
+    };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.dashboardStore.getDevices(
-      {
-        ...this.dataFilter,
-        page_size: '8',
-        'sort[]': 'number_of_visitors',
-        'sort_direction[]': 'desc',
-      },
+      this.dataFilterDevices,
+      dateRangeFilter,
+      this.callbackOnDevicesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterDevices = async (dataFilter) => {
+    this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.dataFilterDevices = { ...this.dataFilterDevices, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.dashboardStore.getDevices(
+      this.dataFilterDevices,
       dateRangeFilter,
       this.callbackOnDevicesSuccessHandler,
       this.callbackOnErrorHandler
@@ -222,10 +249,10 @@ class DashboardListViewModel {
           list: transformData.toBrowsersTableTop(),
           pagination: data.pagination,
         };
-        this.status = PAGE_STATUS.READY;
+        this.statusTopBrowser = PAGE_STATUS.READY;
       }
     } else {
-      this.status = PAGE_STATUS.ERROR;
+      this.statusTopBrowser = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };
@@ -239,10 +266,10 @@ class DashboardListViewModel {
           list: transformData.toDevicesTableTop(),
           pagination: data.pagination,
         };
-        this.status = PAGE_STATUS.READY;
+        this.statusTopBrowser = PAGE_STATUS.READY;
       }
     } else {
-      this.status = PAGE_STATUS.ERROR;
+      this.statusTopBrowser = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

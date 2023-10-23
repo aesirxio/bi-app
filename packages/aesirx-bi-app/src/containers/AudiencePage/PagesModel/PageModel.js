@@ -27,16 +27,26 @@ class PageModel {
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION,
     ];
+    const largestValue = this.data[0] && this.data[0][BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS];
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
           Header: headerTable[index],
           accessor: key,
-          Cell: ({ cell, column }) => {
+          Cell: ({ cell, column, row }) => {
             const urlParams = column.id === BI_PAGES_FIELD_KEY.URL && new URL(cell?.value);
             return column.id === BI_PAGES_FIELD_KEY.URL ? (
-              <div className={''}>
-                {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+              <div className={'position-relative px-20 py-sm'}>
+                <div
+                  className="position-absolute top-0 start-0 h-100 z-0"
+                  style={{
+                    backgroundColor: '#E7EFFF',
+                    width: `${((row.cells[1]?.value / largestValue) * 100)?.toString()}%`,
+                  }}
+                ></div>
+                <div className="position-relative z-1">
+                  {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                </div>
               </div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (
               <div className={'text-end'}>

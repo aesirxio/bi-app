@@ -17,8 +17,6 @@ import {
   Legend,
 } from 'recharts';
 import CHART_TYPE from 'constants/ChartType';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const BarChartComponent = ({
   data = [],
@@ -85,11 +83,9 @@ const BarChartComponent = ({
         {payload.map((entry, index) => (
           <li key={`item-${index}`} className="me-24 fs-14 d-flex align-items-center">
             <div
-              className="rounded-2 me-8px d-flex align-items-center justify-content-center"
-              style={{ backgroundColor: entry?.color, width: 16, height: 16 }}
-            >
-              <FontAwesomeIcon className="text-white" icon={faCheck} style={{ fontSize: 10 }} />
-            </div>
+              className="rounded-circle me-8px d-flex align-items-center justify-content-center"
+              style={{ backgroundColor: entry?.color, width: 14, height: 14 }}
+            ></div>
             {entry.value}
           </li>
         ))}

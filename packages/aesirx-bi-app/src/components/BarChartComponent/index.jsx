@@ -17,8 +17,6 @@ import {
   Legend,
 } from 'recharts';
 import CHART_TYPE from 'constants/ChartType';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const BarChartComponent = ({
   data = [],

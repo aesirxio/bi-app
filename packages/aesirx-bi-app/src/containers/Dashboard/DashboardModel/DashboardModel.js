@@ -90,6 +90,7 @@ class DashboardModel {
 
   toBrowsersTableTop = () => {
     const headerTable = ['txt_browser', 'txt_visitors'];
+    const largestValue = this.data[0] && this.data[0][BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
     const accessor = [BI_BROWSERS_FIELD_KEY.BROWSER_NAME, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
@@ -102,7 +103,7 @@ class DashboardModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
-          Cell: ({ cell, column }) => {
+          Cell: ({ cell, column, row }) => {
             let browserImg = '';
             switch (cell?.value) {
               case 'Chrome':
@@ -133,16 +134,25 @@ class DashboardModel {
             return (
               <>
                 {column.id === BI_BROWSERS_FIELD_KEY.BROWSER_NAME ? (
-                  <div className={'d-flex align-items-center'}>
-                    {browserImg && (
-                      <Image
-                        className={`me-12px`}
-                        style={{ width: 22, height: 22 }}
-                        src={env.PUBLIC_URL + browserImg}
-                        alt={'icons'}
-                      />
-                    )}
-                    {cell?.value === '' ? 'Unknown' : cell?.value}
+                  <div className={'d-flex align-items-center py-sm px-20 position-relative'}>
+                    <div
+                      className="position-absolute top-0 start-0 h-100 z-0"
+                      style={{
+                        backgroundColor: '#E7EFFF',
+                        width: `${((row.cells[1]?.value / largestValue) * 100)?.toString()}%`,
+                      }}
+                    ></div>
+                    <div className="z-1">
+                      {browserImg && (
+                        <Image
+                          className={`me-12px`}
+                          style={{ width: 22, height: 22 }}
+                          src={env.PUBLIC_URL + browserImg}
+                          alt={'icons'}
+                        />
+                      )}
+                      {cell?.value === '' ? 'Unknown' : cell?.value}
+                    </div>
                   </div>
                 ) : (
                   <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
@@ -185,6 +195,7 @@ class DashboardModel {
   toDevicesTableTop = () => {
     const headerTable = ['txt_device', 'txt_visitors'];
     const accessor = [BI_DEVICES_FIELD_KEY.DEVICE, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    const largestValue = this.data[0] && this.data[0][BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
@@ -196,12 +207,23 @@ class DashboardModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
-          Cell: ({ cell, column }) => {
+          Cell: ({ cell, column, row }) => {
             return (
               <>
                 {column.id === BI_DEVICES_FIELD_KEY.DEVICE ? (
-                  <div className={'d-flex align-items-center text-capitalize'}>
-                    {cell?.value === '' ? 'Unknown' : cell?.value}
+                  <div
+                    className={
+                      'd-flex align-items-center text-capitalize py-sm px-20 position-relative'
+                    }
+                  >
+                    <div
+                      className="position-absolute top-0 start-0 h-100 z-0"
+                      style={{
+                        backgroundColor: '#E7EFFF',
+                        width: `${((row.cells[1]?.value / largestValue) * 100)?.toString()}%`,
+                      }}
+                    ></div>
+                    <div className="z-1">{cell?.value === '' ? 'Unknown' : cell?.value}</div>
                   </div>
                 ) : (
                   <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>

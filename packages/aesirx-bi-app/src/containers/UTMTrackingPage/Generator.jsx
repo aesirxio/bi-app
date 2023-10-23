@@ -13,6 +13,7 @@ const Generator = observer(() => {
   const [generateUrl, setGenerateUrl] = useState();
   const [submitted, setSubmitted] = useState(false);
   const [values, setValues] = useState({
+    websiteURL: url,
     campaignID: '',
     campaignSource: '',
     campaignMedium: '',
@@ -38,7 +39,7 @@ const Generator = observer(() => {
         ...(values.campaignTerm && { utm_term: values.campaignTerm }),
         ...(values.campaignContent && { utm_content: values.campaignContent }),
       });
-      setGenerateUrl(url + '?' + params.toString());
+      setGenerateUrl(values?.websiteURL + '?' + params.toString());
       setSubmitted(true);
     }
   };
@@ -66,8 +67,8 @@ const Generator = observer(() => {
                     type="input"
                     placeholder="website URL"
                     name="websiteURL"
-                    value={url}
-                    readOnly
+                    defaultValue={values.websiteURL}
+                    onChange={handleChange('websiteURL')}
                   />
                   <p className="fs-sm ps-1 fst-italic">The full website URL</p>
                 </Form.Group>

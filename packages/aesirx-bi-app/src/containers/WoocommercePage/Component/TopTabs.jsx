@@ -13,7 +13,6 @@ const TopTabs = observer(
       this.state = { loading: false };
     }
     render() {
-      console.log('this.listViewModelneea', this.listViewModel);
       const { t } = this.props;
       return (
         <>

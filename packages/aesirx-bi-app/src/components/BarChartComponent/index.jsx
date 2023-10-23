@@ -3,7 +3,7 @@ import HeaderFilterComponent from '../HeaderFilterComponent';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import PAGE_STATUS from '../../constants/PageStatus';
 import { env } from 'aesirx-lib';
-import React, { useEffect, useState,useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import {
   BarChart,
@@ -14,7 +14,7 @@ import {
   Tooltip,
   Bar,
   Text,
-  Legend
+  Legend,
 } from 'recharts';
 import CHART_TYPE from 'constants/ChartType';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -34,7 +34,7 @@ const BarChartComponent = ({
   margin,
   layout,
   isLegend = false,
-  isFilterButtons = true,
+  filterButtons = [],
   tooltipComponent
 }) => {
   const { t } = useTranslation();
@@ -42,7 +42,6 @@ const BarChartComponent = ({
   const [currentData, setCurrentData] = useState(data[0]);
   const [view, setView] = useState(CHART_TYPE.DAY);
 
-  console.log("check current data", currentData);
   useEffect(() => {
     const [month, date] = data;
 
@@ -82,7 +81,6 @@ const BarChartComponent = ({
   };
   const renderLegend = (props) => {
     const { payload } = props;
-    console.log("check data payload",payload);
     return (
       // <ul className="ms-3 mt-2 d-flex align-items-center">
       //   {payload.map((entry, index) => (
@@ -98,16 +96,17 @@ const BarChartComponent = ({
       //   ))}
       // </ul>
       <ul className="ms-3 mt-2 d-flex align-items-center">
-        {payload.map((entry, index) => (
-          <li key={`item-${index}`} className="me-24 fs-14 d-flex align-items-center">
-            <div
-              className="rounded-circle me-8px d-flex align-items-center justify-content-center"
-              style={{ backgroundColor: entry?.color, width: 14, height: 14 }}
-            ></div>
-            {entry.value}
-          </li>
-        ))}
-      </ul>
+      {payload.map((entry, index) => (
+        <li key={`item-${index}`} className="me-24 fs-14 d-flex align-items-center">
+          <div
+            className="rounded-circle me-8px d-flex align-items-center justify-content-center"
+            style={{ backgroundColor: entry?.color, width: 14, height: 14 }}
+          ></div>
+          {entry.value}
+        </li>
+      ))}
+    </ul>
+
     );
   };
 
@@ -150,7 +149,7 @@ const BarChartComponent = ({
             selectionData={filterData}
             chartTitle={chartTitle}
             isSelection={isSelection}
-            isFilterButtons={isFilterButtons}
+            filterButtons={filterButtons}
             view={view}
             setView={setView}
           />
@@ -160,7 +159,7 @@ const BarChartComponent = ({
               layout={layout ? layout : 'vertical'}
               margin={margin}
             >
-              <CartesianGrid strokeDasharray="7 7" vertical={layout ? false : true} />
+              <CartesianGrid strokeDasharray="7 7" vertical={layout ? true : false} />
               {layout ? (
                 <>
                   <XAxis
@@ -203,7 +202,7 @@ const BarChartComponent = ({
                   />
                 </>
               )}
-               <Tooltip content={customizedTooltip} />
+              <Tooltip />
               {bars &&
                 bars.map((item, index) => {
                   return (

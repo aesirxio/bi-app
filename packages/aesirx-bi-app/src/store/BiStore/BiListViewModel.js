@@ -44,7 +44,6 @@ class BiListViewModel {
         date_end: date_end,
       };
     }
-    console.log('hehehehe');
   }
 
   setActiveDomain = (domain) => {

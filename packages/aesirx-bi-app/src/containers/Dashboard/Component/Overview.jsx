@@ -37,10 +37,10 @@ const OverviewComponent = observer(
             filterData={this?.listViewModel?.visitorData?.getFilterName()}
             isSelection={false}
             isLegend={true}
-            filterButtons={['days', 'months', 'weeks']}
+            filterButtons={['days', 'months']}
           />
         </div>
-      );
+      ); 
     }
   }
 );

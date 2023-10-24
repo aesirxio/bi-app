@@ -118,8 +118,8 @@ const AudiencePage = observer(
             </Col>
             <Col lg={9}>
               <OverviewComponent
-                bars={['visits', 'page_views']}
-                barColors={['#0066FF', '#96C0FF']}
+                bars={['visits','page_views']}
+                barColors={['#0066FF','#96C0FF']}
                 isSelection={false}
                 listViewModel={this.audienceListViewModel}
                 status={this.audienceListViewModel?.statusOverview}

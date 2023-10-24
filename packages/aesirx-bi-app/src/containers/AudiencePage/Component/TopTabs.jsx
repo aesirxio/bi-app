@@ -20,22 +20,27 @@ const TopTabs = observer(
           <Tab.Container id="left-tabs-example" defaultActiveKey="country">
             <Row className="gx-24">
               <Col sm={3}>
-                <div className="bg-white rounded-3 pe-24 shadow-sm h-100 position-relative">
+                <div className="bg-white rounded-3 p-24 shadow-sm">
                   <Nav variant="pills" className="flex-column">
                     <Nav.Item>
-                      <Nav.Link eventKey="country">{t('txt_Countries')}</Nav.Link>
+                      <Nav.Link eventKey="country" className="ps-0">
+                        {t('txt_Country')}
+                      </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="city">{t('txt_Cities')}</Nav.Link>
+                      <Nav.Link eventKey="city" className="ps-0">
+                        {t('txt_City')}
+                      </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="browser">{t('txt_browser')}</Nav.Link>
+                      <Nav.Link eventKey="browser" className="ps-0">
+                        {t('txt_browser')}
+                      </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="device">{t('txt_devices')}</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="language">{t('txt_language')}</Nav.Link>
+                      <Nav.Link eventKey="language" className="ps-0">
+                        {t('txt_language')}
+                      </Nav.Link>
                     </Nav.Item>
                   </Nav>
                 </div>

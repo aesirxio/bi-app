@@ -22,7 +22,7 @@ class AudienceListViewModel {
   globalStoreViewModel = null;
   metricsData = null;
   visitorData = null;
-  countriesTableData = null;
+  countriesTableData = null; 
   citiesTableData = null;
   browsersTableData = null;
   languagesTableData = null;
@@ -34,7 +34,7 @@ class AudienceListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
-    console.log('check 0');
+    console.log("check 0");
     this.getMetrics(dataFilter, dateFilter);
     this.getVisitors(dataFilter, dateFilter);
     this.getCountries(dataFilter, dateFilter);
@@ -62,7 +62,7 @@ class AudienceListViewModel {
   };
 
   getVisitors = (dataFilter, dateFilter) => {
-    console.log('check 1..');
+    console.log("check 1..");
     this.statusOverview = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
@@ -272,14 +272,14 @@ class AudienceListViewModel {
     }
   };
   callbackOnVisitorSuccessHandler = (data) => {
-    console.log('check 3');
-    console.log('check data', data);
+    console.log("check 3");
+    console.log("check data",data);
     if (data) {
       if (data?.message !== 'canceled') {
         this.statusOverview = PAGE_STATUS.READY;
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.visitorData = transformData;
-        console.log('check transformData', transformData);
+        console.log("check transformData",transformData);
       }
     } else {
       this.status = PAGE_STATUS.ERROR;

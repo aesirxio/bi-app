@@ -8,8 +8,27 @@
 @import 'bootstrap/scss/reboot';
 
 @media print {
+  @import 'bootstrap/scss/mixins';
   @page {
     size: 400mm 400mm;
+  }
+  html,
+  body {
+    height: initial !important;
+    overflow: initial !important;
+    -webkit-print-color-adjust: exact;
+  }
+  .page-break {
+    margin-top: 1rem;
+    display: block;
+    page-break-before: auto;
+  }
+  div {
+    page-break-inside: avoid;
+  }
+  .scroll-container {
+    overflow: visible;
+    height: fit-content;
   }
 }
 .printButton {
@@ -56,6 +75,19 @@
         &.active {
           background-color: transparent;
         }
+      }
+    }
+  }
+}
+#bi-app {
+  .daterange-picker-wrapper {
+    .form-control {
+      min-width: 330px;
+      &.en {
+        min-width: 330px;
+      }
+      &.vi {
+        min-width: 330px;
       }
     }
   }

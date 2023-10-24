@@ -58,7 +58,11 @@ const ComponentToPrint = observer(
     }
 
     render() {
-      return <Country {...this.props} />;
+      return (
+        <div className="aesirxui">
+          <Country {...this.props} />
+        </div>
+      );
     }
   }
 );

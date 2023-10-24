@@ -62,7 +62,11 @@ const ComponentToPrint = observer(
     }
 
     render() {
-      return <Dashboard {...this.props} />;
+      return (
+        <div className="aesirxui">
+          <Dashboard {...this.props} />
+        </div>
+      );
     }
   }
 );

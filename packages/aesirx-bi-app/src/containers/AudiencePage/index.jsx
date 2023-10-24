@@ -59,7 +59,6 @@ const AudienceContainer = observer(
               );
             }}
             content={() => this.componentRef}
-            copyStyles={true}
           />
           <ComponentToPrint
             integration={integration}

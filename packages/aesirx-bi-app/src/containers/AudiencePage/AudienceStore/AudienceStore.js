@@ -16,7 +16,7 @@ export class AudienceStore {
           });
         });
       }
-    } catch (error) { 
+    } catch (error) {
       console.log('errorrrr', error);
       runInAction(() => {
         if (error.response?.data.message) {
@@ -35,11 +35,11 @@ export class AudienceStore {
   };
 
   getVisitors = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
-    console.log("check 2");
+    console.log('check 2');
     try {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getVisitors(dataFilter, dateFilter);
-      console.log("check responseDataFromLibrary",responseDataFromLibrary);
+      console.log('check responseDataFromLibrary', responseDataFromLibrary);
       if (responseDataFromLibrary) {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);

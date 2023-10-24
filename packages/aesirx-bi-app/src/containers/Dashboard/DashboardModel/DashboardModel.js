@@ -58,7 +58,7 @@ class DashboardModel {
         visits: filterDate?.[BI_VISITORS_FIELD_KEY.VISITS] ?? 0,
         page_views: filterDate?.[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS] ?? 0,
       };
-    }); 
+    });
 
     const month = twelveMonth.map((month, index) => {
       const filterMonthDate = this.data.filter((_item) => moment(_item?.date).month() === index);
@@ -81,7 +81,48 @@ class DashboardModel {
         page_views: totalPageViewCount,
       };
     });
-    return [{ visitors: month }, { visitors: date }];
+
+    const weekData = {};
+
+    dateRange.forEach((date) => {
+      const startOfWeek = moment(date).startOf('isoWeek');
+      const endOfWeek = moment(date).endOf('isoWeek');
+      const weekName = `${startOfWeek.format('DD MMM')} - ${endOfWeek.format('DD MMM')}`;
+
+      if (!weekData[weekName]) {
+        weekData[weekName] = {
+          visits: 0,
+          page_views: 0,
+        };
+      }
+
+      const filterWeekDate = this.data.filter((item) =>
+        moment(item?.date).isBetween(startOfWeek, endOfWeek, null, '[]')
+      );
+
+      if (filterWeekDate) {
+        const totalVisitorCount = filterWeekDate.reduce(
+          (acc, item) => acc + item[BI_VISITORS_FIELD_KEY.VISITS],
+          0
+        );
+        const totalPageViewCount = filterWeekDate.reduce(
+          (acc, item) => acc + item[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS],
+          0
+        );
+
+        weekData[weekName].visits += totalVisitorCount;
+        weekData[weekName].page_views += totalPageViewCount;
+      }
+    });
+
+    // Convert object to array format
+    const week = Object.keys(weekData).map((weekName) => ({
+      name: weekName,
+      visits: weekData[weekName].visits,
+      page_views: weekData[weekName].page_views,
+    }));
+
+    return [{ visitors: month }, { visitors: date }, { visitors: week }];
   };
 
   getFilterName = () => {

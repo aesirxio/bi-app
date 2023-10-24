@@ -3,7 +3,7 @@ import HeaderFilterComponent from '../HeaderFilterComponent';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import PAGE_STATUS from '../../constants/PageStatus';
 import { env } from 'aesirx-lib';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import {
   BarChart,
@@ -17,8 +17,6 @@ import {
   Legend,
 } from 'recharts';
 import CHART_TYPE from 'constants/ChartType';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const BarChartComponent = ({
   data = [],
@@ -35,7 +33,7 @@ const BarChartComponent = ({
   layout,
   isLegend = false,
   filterButtons = [],
-  tooltipComponent
+  tooltipComponent,
 }) => {
   const { t } = useTranslation();
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
@@ -43,10 +41,14 @@ const BarChartComponent = ({
   const [view, setView] = useState(CHART_TYPE.DAY);
 
   useEffect(() => {
-    const [month, date] = data;
+    const [month, date, week] = data;
 
     if (view === CHART_TYPE.MONTH) {
       setCurrentData(month);
+    }
+
+    if (view === CHART_TYPE.WEEK) {
+      setCurrentData(week);
     }
 
     if (view === CHART_TYPE.DAY) {
@@ -96,17 +98,16 @@ const BarChartComponent = ({
       //   ))}
       // </ul>
       <ul className="ms-3 mt-2 d-flex align-items-center">
-      {payload.map((entry, index) => (
-        <li key={`item-${index}`} className="me-24 fs-14 d-flex align-items-center">
-          <div
-            className="rounded-circle me-8px d-flex align-items-center justify-content-center"
-            style={{ backgroundColor: entry?.color, width: 14, height: 14 }}
-          ></div>
-          {entry.value}
-        </li>
-      ))}
-    </ul>
-
+        {payload.map((entry, index) => (
+          <li key={`item-${index}`} className="me-24 fs-14 d-flex align-items-center">
+            <div
+              className="rounded-circle me-8px d-flex align-items-center justify-content-center"
+              style={{ backgroundColor: entry?.color, width: 14, height: 14 }}
+            ></div>
+            {entry.value}
+          </li>
+        ))}
+      </ul>
     );
   };
 
@@ -114,7 +115,7 @@ const BarChartComponent = ({
     () =>
       ({ payload }) => {
         return (
-          <div className="areachart-tooltip p-15 text-white bg-primary">
+          <div className="areachart-tooltip p-15 text-white bg-primary w-150px">
             <p className="text-uppercase fw-semibold fs-14 mb-sm">
               {payload.length > 0 ? payload[0].payload.name : ''}
             </p>
@@ -122,8 +123,8 @@ const BarChartComponent = ({
               payload.map((item, index) => {
                 return (
                   <div key={index} className="mb-0 fs-12 row">
-                    {payload.length > 1 && <div className="col-10 fw-bold">{item.name}:</div>}
-                    <div className="col-2">
+                    {payload.length > 1 && <div className="col-8 fw-bold">{item.name}:</div>}
+                    <div className="col-4">
                       <p className="mb-0">
                         <span className="mr-2">{tooltipComponent.value}</span>
                         <span>{item.value}</span>
@@ -159,7 +160,7 @@ const BarChartComponent = ({
               layout={layout ? layout : 'vertical'}
               margin={margin}
             >
-              <CartesianGrid strokeDasharray="7 7" vertical={layout ? true : false} />
+              <CartesianGrid strokeDasharray="7 7" vertical={layout ? false : true} />
               {layout ? (
                 <>
                   <XAxis
@@ -202,7 +203,8 @@ const BarChartComponent = ({
                   />
                 </>
               )}
-              <Tooltip />
+              {/* <Tooltip /> */}
+              <Tooltip content={customizedTooltip} />
               {bars &&
                 bars.map((item, index) => {
                   return (

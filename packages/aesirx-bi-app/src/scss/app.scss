@@ -8,7 +8,6 @@
 @import 'bootstrap/scss/reboot';
 
 @media print {
-  @import 'bootstrap/scss/mixins';
   @page {
     size: 400mm 400mm;
   }

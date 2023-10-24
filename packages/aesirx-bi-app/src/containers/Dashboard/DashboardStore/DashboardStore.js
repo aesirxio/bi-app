@@ -129,7 +129,6 @@ export class DashboardStore {
     try {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getDevices(dataFilter, dateFilter);
-      console.log('responseDataFromLibrary', responseDataFromLibrary);
       if (responseDataFromLibrary) {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);

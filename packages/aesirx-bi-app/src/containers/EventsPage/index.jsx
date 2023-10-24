@@ -53,22 +53,17 @@ const EventsPage = observer(
             <ReactToPrint
               trigger={() => {
                 return (
-                  <Translation>
-                    {(t, { i18n }) => (
-                      <a
-                        className={`btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm printButton ${i18n?.language}`}
-                        href="#"
-                      >
-                        {t('txt_export_pdf')}
-                      </a>
-                    )}
-                  </Translation>
+                  <a
+                    className={`btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm printButton `}
+                    href="#"
+                  >
+                    <Translation>{(t) => <>{t('txt_export_pdf')}</>}</Translation>
+                  </a>
                 );
               }}
               content={() => this.componentRef}
             />
           )}
-
           <ComponentToPrint
             integration={integration}
             integrationLink={integrationLink}
@@ -89,7 +84,7 @@ const ComponentToPrint = observer(
 
     render() {
       return (
-        <>
+        <div className="aesirxui">
           {this.props.integration ? (
             <RenderComponent
               link={this.props.integrationLink}
@@ -106,7 +101,7 @@ const ComponentToPrint = observer(
               </Route>
             </>
           )}
-        </>
+        </div>
       );
     }
   }

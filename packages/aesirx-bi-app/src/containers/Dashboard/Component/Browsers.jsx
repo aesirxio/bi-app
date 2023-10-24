@@ -59,15 +59,15 @@ const Browsers = observer(
                           isPagination={true}
                           simplePagination={true}
                           selectPage={async (value) => {
-                            await this.dashboardListViewModel.handleFilterPages({ page: value });
+                            await this.dashboardListViewModel.handleFilterBrowsers({ page: value });
                           }}
                           selectPageSize={async (value) => {
-                            await this.dashboardListViewModel.handleFilterPages({
+                            await this.dashboardListViewModel.handleFilterBrowsers({
                               page: 1,
                               page_size: value,
                             });
                           }}
-                          status={this.dashboardListViewModel?.status}
+                          status={this.dashboardListViewModel?.statusTopBrowser}
                           {...this.props}
                         />
                       </Tab.Pane>

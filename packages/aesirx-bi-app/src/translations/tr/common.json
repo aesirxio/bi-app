@@ -136,8 +136,6 @@
   "txt_tooltip_bounce_rate": "Sayfayla etkileşimin olmadığı tek sayfalık oturumların yüzdesi. Geri dönen bir oturumun süresi 0 saniyedir.",
   "txt_tooltip_page_session": "Bir oturum sırasında görüntülenen ortalama sayfa sayısı. Tek bir sayfanın yinelenen görüntülemeleri sayılır..",
   "txt_tooltip_avg_session_duration": "Bir Oturumun ortalama uzunluğu.",
-  "txt_Countries" : "Ulkeler",
-  "txt_Cities"  : "Sehirler"
-  
-
+  "txt_countries" : "Ulkeler",
+  "txt_cities"  : "Sehirler"
 }

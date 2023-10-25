@@ -80,7 +80,7 @@ const ComponentToPrint = observer(
 
     render() {
       return (
-        <>
+        <div className="aesirxui">
           {this.props.integration ? (
             <RenderComponent
               link={this.props.integrationLink}
@@ -97,7 +97,7 @@ const ComponentToPrint = observer(
               </Route>
             </>
           )}
-        </>
+        </div>
       );
     }
   }

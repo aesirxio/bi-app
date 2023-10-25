@@ -38,7 +38,7 @@
 }
 .daterange-picker-wrapper .form-control {
   width: 285px;
-} 
+}
 #tooltipTable {
   max-width: 400px;
   text-align: center;
@@ -50,6 +50,13 @@
         color: #0f674c;
       }
     }
+  }
+  #customCol .nav-pills .nav-link.active {
+    color: #0f674c !important;
+    background-color: var(--bs-white);
+    font-weight: 600;
+    border-left: 2px solid;
+    border-radius: 0px;
   }
   #biapp {
     .table {

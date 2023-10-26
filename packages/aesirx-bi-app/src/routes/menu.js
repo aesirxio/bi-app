@@ -10,21 +10,21 @@ const mainMenu = [
   },
   {
     text: 'txt_menu_visitors',
-    link: `/audience/overview`,
+    link: `/visitors/overview`,
     icons: env.PUBLIC_URL + '/assets/images/audience.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
     submenu: [
       {
         text: 'txt_menu_overview',
         mini_text: 'txt_menu_visitors',
-        link: `/audience/overview`,
-        page: 'audience-overview',
+        link: `/visitors/overview`,
+        page: 'visitors-overview',
       },
       {
         text: 'txt_menu_behavior',
         mini_text: 'txt_menu_behavior',
-        link: `/audience/behavior`,
-        page: 'audience-behavior',
+        link: `/visitors/behavior`,
+        page: 'visitors-behavior',
       },
     ],
   },
@@ -91,8 +91,8 @@ const integrationMenu = () => {
     }),
     {
       text: 'txt_menu_behavior',
-      link: `/bi/audience/behavior`,
-      page: 'audience-behavior',
+      link: `/bi/visitors/behavior`,
+      page: 'visitors-behavior',
     },
   ];
 };

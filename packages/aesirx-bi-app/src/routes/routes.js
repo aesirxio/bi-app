@@ -8,7 +8,7 @@ import React, { lazy } from 'react';
 const LoginPage = lazy(() => import('../containers/LoginPage'));
 
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
-const AudiencePage = lazy(() => import('../containers/AudiencePage'));
+const VisitorsPage = lazy(() => import('../containers/VisitorsPage'));
 const RevenuePage = lazy(() => import('../containers/RevenuePage'));
 const UTMTrackingPage = lazy(() => import('../containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('../containers/EventsPage'));
@@ -33,10 +33,10 @@ const mainRoutes = [
     main: () => <DashboardPage />,
   },
   {
-    path: ['/audience/overview', '/audience/behavior'],
+    path: ['/visitors/overview', '/visitors/behavior'],
     exact: true,
-    page: ['audience-overview', 'audience-behavior'],
-    main: () => <AudiencePage />,
+    page: ['visitors-overview', 'visitors-behavior'],
+    main: () => <VisitorsPage />,
   },
   { path: '/revenue', exact: true, main: () => <RevenuePage /> },
   {

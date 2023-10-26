@@ -7,15 +7,15 @@ import DateRangePicker from '../../components/DateRangePicker';
 import CardComponent from '../Dashboard/Component/Card';
 import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import { withRouter } from 'react-router-dom';
-import { withAudienceViewModel } from './AudienceViewModels/AudienceViewModelContextProvider';
+import { withVisitorsViewModel } from './VisitorsViewModels/VisitorsViewModelContextProvider';
 import { BiViewModelContext } from '../../store/BiStore/BiViewModelContextProvider';
 import { env } from 'aesirx-lib';
 import moment from 'moment';
 import TopTabsBehavior from './Component/TopTabsBehavior';
 import OverviewComponent from '../Dashboard/Component/Overview';
 
-const AudienceBehaviorPage = observer(
-  class AudienceBehaviorPage extends Component {
+const VisitorsBehaviorPage = observer(
+  class VisitorsBehaviorPage extends Component {
     static contextType = BiViewModelContext;
 
     constructor(props) {
@@ -23,12 +23,12 @@ const AudienceBehaviorPage = observer(
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
 
-      this.audienceListViewModel = this.viewModel
-        ? this.viewModel.getAudienceListViewModel()
+      this.visitorsListViewModel = this.viewModel
+        ? this.viewModel.getVisitorsListViewModel()
         : null;
     }
     componentDidMount = () => {
-      this.audienceListViewModel.initializeBehavior({
+      this.visitorsListViewModel.initializeBehavior({
         'filter[domain]': this.context.biListViewModel.activeDomain,
       });
     };
@@ -37,13 +37,13 @@ const AudienceBehaviorPage = observer(
         this.props.location !== prevProps.location ||
         this.props.activeDomain !== prevProps.activeDomain
       ) {
-        this.audienceListViewModel.initializeBehavior({
+        this.visitorsListViewModel.initializeBehavior({
           'filter[domain]': this.context.biListViewModel.activeDomain,
         });
       }
     };
     handleDateRangeChange = (startDate, endDate) => {
-      this.audienceListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
+      this.visitorsListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
     };
 
     generateCard = () => {
@@ -55,23 +55,23 @@ const AudienceBehaviorPage = observer(
           icon: env.PUBLIC_URL + '/assets/images/view.svg',
           iconColor: '#2E71B1',
           value: Helper.numberWithCommas(
-            this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+            this.visitorsListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
           ),
           isIncrease: false,
-          loading: this.audienceListViewModel.statusMetrics,
+          loading: this.visitorsListViewModel.statusMetrics,
           options: [
             {
               label: t('txt_all'),
               value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
               actualValue: Helper.numberWithCommas(
-                this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+                this.visitorsListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
               ),
             },
             {
               label: t('txt_unique'),
               value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
               actualValue: Helper.numberWithCommas(
-                this.audienceListViewModel.metricsData?.[
+                this.visitorsListViewModel.metricsData?.[
                   BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
                 ]
               ),
@@ -81,7 +81,7 @@ const AudienceBehaviorPage = observer(
             label: t('txt_all'),
             value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
             actualValue: Helper.numberWithCommas(
-              this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
+              this.visitorsListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
             ),
           },
         },
@@ -91,19 +91,19 @@ const AudienceBehaviorPage = observer(
           icon: env.PUBLIC_URL + '/assets/images/duration.svg',
           iconColor: '#EF3737',
           value:
-            (this.audienceListViewModel?.metricsData?.[
+            (this.visitorsListViewModel?.metricsData?.[
               BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
             ]
               ? moment
                   .utc(
-                    this.audienceListViewModel?.metricsData?.[
+                    this.visitorsListViewModel?.metricsData?.[
                       BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
                     ] * 1000
                   )
                   .format('HH:mm:ss')
               : '00:00:00') + 's',
           isIncrease: false,
-          loading: this.audienceListViewModel.statusMetrics,
+          loading: this.visitorsListViewModel.statusMetrics,
         },
         {
           className: 'col-12',
@@ -111,12 +111,12 @@ const AudienceBehaviorPage = observer(
           icon: env.PUBLIC_URL + '/assets/images/page.svg',
           iconColor: '#FFBE55',
           value: Helper.numberWithCommas(
-            this.audienceListViewModel?.metricsData?.[
+            this.visitorsListViewModel?.metricsData?.[
               BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION
             ]
           ),
           isIncrease: false,
-          loading: this.audienceListViewModel?.statusMetrics,
+          loading: this.visitorsListViewModel?.statusMetrics,
         },
       ];
     };
@@ -142,18 +142,18 @@ const AudienceBehaviorPage = observer(
                 bars={['page_views']}
                 barColors={['#0066FF']}
                 isSelection={false}
-                listViewModel={this.audienceListViewModel}
-                status={this.audienceListViewModel?.statusOverview}
+                listViewModel={this.visitorsListViewModel}
+                status={this.visitorsListViewModel?.statusOverview}
               />
             </Col>
             <Col lg={3}>
               <CardComponent data={card ?? []} />
             </Col>
           </Row>
-          <TopTabsBehavior listViewModel={this.audienceListViewModel} />
+          <TopTabsBehavior listViewModel={this.visitorsListViewModel} />
         </div>
       );
     }
   }
 );
-export default withTranslation()(withRouter(withAudienceViewModel(AudienceBehaviorPage)));
+export default withTranslation()(withRouter(withVisitorsViewModel(VisitorsBehaviorPage)));

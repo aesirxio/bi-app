@@ -19,7 +19,7 @@ import { env } from 'aesirx-lib';
 import { Col, Row } from 'react-bootstrap';
 import Countries from './Component/Countries';
 import Browsers from './Component/Browsers';
-import TopTable from '../AudiencePage/Component/TopTable';
+import TopTable from '../VisitorsPage/Component/TopTable';
 import { Image } from 'aesirx-uikit';
 
 const Dashboard = observer(

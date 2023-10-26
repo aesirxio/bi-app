@@ -135,5 +135,7 @@
   "txt_tooltip_unique_page_views": "Tekil Sayfa Görüntülemeleri, belirtilen sayfanın en az bir kez görüntülendiği oturumların sayısıdır. Her sayfa URL'si + sayfa Başlığı kombinasyonu için tekil bir sayfa görüntüleme sayılır.",
   "txt_tooltip_bounce_rate": "Sayfayla etkileşimin olmadığı tek sayfalık oturumların yüzdesi. Geri dönen bir oturumun süresi 0 saniyedir.",
   "txt_tooltip_page_session": "Bir oturum sırasında görüntülenen ortalama sayfa sayısı. Tek bir sayfanın yinelenen görüntülemeleri sayılır..",
-  "txt_tooltip_avg_session_duration": "Bir Oturumun ortalama uzunluğu."
+  "txt_tooltip_avg_session_duration": "Bir Oturumun ortalama uzunluğu.",
+  "txt_countries" : "Ulkeler",
+  "txt_cities"  : "Sehirler"
 }

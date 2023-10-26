@@ -10,21 +10,21 @@ const mainMenu = [
   },
   {
     text: 'txt_menu_visitors',
-    link: `/audience`,
+    link: `/visitors`,
     icons: env.PUBLIC_URL + '/assets/images/visitors.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/visitors.svg',
     submenu: [
       {
         text: 'txt_menu_overview',
         mini_text: 'txt_menu_visitors',
-        link: `/audience`,
-        page: 'audience',
+        link: `/visitors`,
+        page: 'visitors',
       },
       {
         text: 'txt_menu_locations',
         mini_text: 'txt_menu_locations',
-        link: `/audience/locations`,
-        page: 'audience-locations',
+        link: `/visitors/locations`,
+        page: 'visitors-locations',
       },
     ],
   },

@@ -9,7 +9,7 @@ import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import DashboardModel from '../DashboardModel/DashboardModel';
 import CountryModel from '../../RegionCountryPage/CountryModel/CountryModel';
-import PageModel from '../../AudiencePage/PagesModel/PageModel';
+import PageModel from '../../VisitorsPage/PagesModel/PageModel';
 class DashboardListViewModel {
   dashboardStore = null;
   status = PAGE_STATUS.READY;

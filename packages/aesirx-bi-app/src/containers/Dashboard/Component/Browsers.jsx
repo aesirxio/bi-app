@@ -9,7 +9,7 @@ import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from '../../../components/ComponentNoData';
 import { env } from 'aesirx-lib';
 import { BiViewModelContext } from '../../../store/BiStore/BiViewModelContextProvider';
-import TopTable from 'containers/AudiencePage/Component/TopTable';
+import TopTable from 'containers/VisitorsPage/Component/TopTable';
 
 const Browsers = observer(
   class Browsers extends Component {

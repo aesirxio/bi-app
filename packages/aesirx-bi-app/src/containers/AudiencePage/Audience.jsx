@@ -47,59 +47,8 @@ const AudiencePage = observer(
       this.audienceListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
     };
 
-    generateCard = () => {
-      const { t } = this.props;
-      return [
-        {
-          className: 'col-12 mb-24',
-          title: t('txt_visitors'),
-          icon: env.PUBLIC_URL + '/assets/images/visitor.svg',
-          iconColor: '#1AB394',
-          value: Helper.numberWithCommas(
-            this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-          ),
-          isIncrease: true,
-          loading: this.audienceListViewModel.statusMetrics,
-        },
-        {
-          className: 'col-12 mb-24',
-          title: t('txt_acg_session_duration'),
-          icon: env.PUBLIC_URL + '/assets/images/duration.svg',
-          iconColor: '#EF3737',
-          value:
-            (this.audienceListViewModel?.metricsData?.[
-              BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
-            ]
-              ? moment
-                  .utc(
-                    this.audienceListViewModel?.metricsData?.[
-                      BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
-                    ] * 1000
-                  )
-                  .format('HH:mm:ss')
-              : '00:00:00') + 's',
-          isIncrease: false,
-          loading: this.audienceListViewModel.statusMetrics,
-        },
-        {
-          className: 'col-12',
-          title: t('txt_page_session'),
-          icon: env.PUBLIC_URL + '/assets/images/page.svg',
-          iconColor: '#FFBE55',
-          value: Helper.numberWithCommas(
-            this.audienceListViewModel?.metricsData?.[
-              BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION
-            ]
-          ),
-          isIncrease: false,
-          loading: this.audienceListViewModel.statusMetrics,
-        },
-      ];
-    };
-
     render() {
       const { t } = this.props;
-      const card = this.generateCard();
       return (
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-3">
@@ -111,10 +60,124 @@ const AudiencePage = observer(
               <DateRangePicker onChange={this.handleDateRangeChange} />
             </div>
           </div>
-
           <Row className="mb-24">
-            <Col lg={3}>
-              <CardComponent data={card ?? []} />
+            <Col lg="3">
+              <div className="bg-white shadow-sm rounded-3 h-100 d-flex flex-column">
+                <div className="p-32px d-flex flex-column flex-grow-1">
+                  <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
+                    <h5
+                      className="fs-6 mb-14px text-gray-900 fw-medium"
+                      style={{ fontSize: '16px', color: '#5F5E70' }}
+                    >
+                      {t('txt_visitors')}
+                    </h5>
+                    <div
+                      className="fs-24 d-flex align-items-center"
+                      style={{ fontSize: '24px', color: '#132342' }}
+                    >
+                      {Helper.numberWithCommas(
+                        this.audienceListViewModel.metricsData?.[
+                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+                        ]
+                      )}
+                    </div>
+                  </div>
+                  <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
+                    <h5
+                      className="fs-6 mb-14px text-gray-900 fw-medium"
+                      style={{ fontSize: '16px', color: '#5F5E70' }}
+                    >
+                      {t('txt_unique_visitors')}
+                    </h5>
+                    <div
+                      className="fs-24 d-flex align-items-center"
+                      style={{ fontSize: '24px', color: '#132342' }}
+                    >
+                      {Helper.numberWithCommas(
+                        this.audienceListViewModel.metricsData?.[
+                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+                        ]
+                      )}
+                    </div>
+                  </div>
+                  <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
+                    <h5
+                      className="fs-6 mb-14px text-gray-900 fw-medium"
+                      style={{ fontSize: '16px', color: '#5F5E70' }}
+                    >
+                      {t('txt_average_visit_duration')}
+                    </h5>
+                    <div
+                      className="fs-24 d-flex align-items-center"
+                      style={{ fontSize: '24px', color: '#132342' }}
+                    >
+                      {this.audienceListViewModel?.metricsData?.[
+                        BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+                      ]
+                        ? moment
+                            .utc(
+                              this.audienceListViewModel?.metricsData?.[
+                                BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+                              ] * 1000
+                            )
+                            .format('m [min] s [s]')
+                        : '0 min 0s'}
+                    </div>
+                  </div>
+                  <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
+                    <h5
+                      className="fs-6 mb-14px text-gray-900 fw-medium"
+                      style={{ fontSize: '16px', color: '#5F5E70' }}
+                    >
+                      {t('txt_page_views')}
+                    </h5>
+                    <div
+                      className="fs-24 d-flex align-items-center"
+                      style={{ fontSize: '24px', color: '#132342' }}
+                    >
+                      {Helper.numberWithCommas(
+                        this.audienceListViewModel.metricsData?.[
+                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
+                        ]
+                      )}
+                    </div>
+                  </div>
+                  <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
+                    <h5
+                      className="fs-6 mb-14px text-gray-900 fw-medium"
+                      style={{ fontSize: '16px', color: '#5F5E70' }}
+                    >
+                      {t('txt_page_views')}
+                    </h5>
+                    <div
+                      className="fs-24 d-flex align-items-center"
+                      style={{ fontSize: '24px', color: '#132342' }}
+                    >
+                      {Helper.numberWithCommas(
+                        this.audienceListViewModel.metricsData?.[
+                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
+                        ]
+                      )}
+                    </div>
+                  </div>
+                  <div className="bg-white rounded-3 fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
+                    <h5
+                      className="fs-6 mb-14px text-gray-900 fw-medium"
+                      style={{ fontSize: '16px', color: '#5F5E70' }}
+                    >
+                      {t('txt_bounce_rate')}
+                    </h5>
+                    <div
+                      className="fs-24 d-flex align-items-center"
+                      style={{ fontSize: '24px', color: '#132342' }}
+                    >
+                      {Helper.numberWithCommas(
+                        this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.BOUNCE_RATE]
+                      ) + '%'}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </Col>
             <Col lg={9}>
               <OverviewComponent

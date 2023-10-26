@@ -8,15 +8,15 @@ import OverviewComponent from '../Dashboard/Component/Overview';
 import CardComponent from '../Dashboard/Component/Card';
 import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import { withRouter } from 'react-router-dom';
-import { withAudienceViewModel } from './AudienceViewModels/AudienceViewModelContextProvider';
+import { withVisitorsViewModel } from './VisitorsViewModels/VisitorsViewModelContextProvider';
 import { BiViewModelContext } from '../../store/BiStore/BiViewModelContextProvider';
 import { env } from 'aesirx-lib';
 import moment from 'moment';
 import TopTabs from './Component/TopTabs';
 import 'flag-icons/sass/flag-icons.scss';
 
-const AudiencePage = observer(
-  class AudiencePage extends Component {
+const VisitorsPage = observer(
+  class VisitorsPage extends Component {
     static contextType = BiViewModelContext;
 
     constructor(props) {
@@ -24,12 +24,12 @@ const AudiencePage = observer(
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
 
-      this.audienceListViewModel = this.viewModel
-        ? this.viewModel.getAudienceListViewModel()
+      this.visitorsListViewModel = this.viewModel
+        ? this.viewModel.getVisitorsListViewModel()
         : null;
     }
     componentDidMount = () => {
-      this.audienceListViewModel.initialize({
+      this.visitorsListViewModel.initialize({
         'filter[domain]': this.context.biListViewModel.activeDomain,
       });
     };
@@ -38,13 +38,13 @@ const AudiencePage = observer(
         this.props.location !== prevProps.location ||
         this.props.activeDomain !== prevProps.activeDomain
       ) {
-        this.audienceListViewModel.initialize({
+        this.visitorsListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
         });
       }
     };
     handleDateRangeChange = (startDate, endDate) => {
-      this.audienceListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
+      this.visitorsListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
     };
 
     render() {
@@ -53,7 +53,7 @@ const AudiencePage = observer(
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-3">
             <div>
-              <h2 className="fw-bold mb-8px">{t('txt_audience')}</h2>
+              <h2 className="fw-bold mb-8px">{t('txt_visitors')}</h2>
               <p className="mb-0">{t('txt_analytic_details')}</p>
             </div>
             <div className="position-relative">
@@ -76,7 +76,7 @@ const AudiencePage = observer(
                       style={{ fontSize: '24px', color: '#132342' }}
                     >
                       {Helper.numberWithCommas(
-                        this.audienceListViewModel.metricsData?.[
+                        this.visitorsListViewModel.metricsData?.[
                           BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
                         ]
                       )}
@@ -94,7 +94,7 @@ const AudiencePage = observer(
                       style={{ fontSize: '24px', color: '#132342' }}
                     >
                       {Helper.numberWithCommas(
-                        this.audienceListViewModel.metricsData?.[
+                        this.visitorsListViewModel.metricsData?.[
                           BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
                         ]
                       )}
@@ -111,12 +111,12 @@ const AudiencePage = observer(
                       className="fs-24 d-flex align-items-center"
                       style={{ fontSize: '24px', color: '#132342' }}
                     >
-                      {this.audienceListViewModel?.metricsData?.[
+                      {this.visitorsListViewModel?.metricsData?.[
                         BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
                       ]
                         ? moment
                             .utc(
-                              this.audienceListViewModel?.metricsData?.[
+                              this.visitorsListViewModel?.metricsData?.[
                                 BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
                               ] * 1000
                             )
@@ -136,7 +136,7 @@ const AudiencePage = observer(
                       style={{ fontSize: '24px', color: '#132342' }}
                     >
                       {Helper.numberWithCommas(
-                        this.audienceListViewModel.metricsData?.[
+                        this.visitorsListViewModel.metricsData?.[
                           BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
                         ]
                       )}
@@ -154,7 +154,7 @@ const AudiencePage = observer(
                       style={{ fontSize: '24px', color: '#132342' }}
                     >
                       {Helper.numberWithCommas(
-                        this.audienceListViewModel.metricsData?.[
+                        this.visitorsListViewModel.metricsData?.[
                           BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
                         ]
                       )}
@@ -172,7 +172,7 @@ const AudiencePage = observer(
                       style={{ fontSize: '24px', color: '#132342' }}
                     >
                       {Helper.numberWithCommas(
-                        this.audienceListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.BOUNCE_RATE]
+                        this.visitorsListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.BOUNCE_RATE]
                       ) + '%'}
                     </div>
                   </div>
@@ -184,15 +184,15 @@ const AudiencePage = observer(
                 bars={['visits', 'page_views']}
                 barColors={['#0066FF', '#96C0FF']}
                 isSelection={false}
-                listViewModel={this.audienceListViewModel}
-                status={this.audienceListViewModel?.statusOverview}
+                listViewModel={this.visitorsListViewModel}
+                status={this.visitorsListViewModel?.statusOverview}
               />
             </Col>
           </Row>
-          <TopTabs listViewModel={this.audienceListViewModel} />
+          <TopTabs listViewModel={this.visitorsListViewModel} />
         </div>
       );
     }
   }
 );
-export default withTranslation()(withRouter(withAudienceViewModel(AudiencePage)));
+export default withTranslation()(withRouter(withVisitorsViewModel(VisitorsPage)));

@@ -20,7 +20,7 @@ import SbarLeftIntegration from './SbarLeftIntegration';
 const DashboardPage = lazy(() => import('../../containers/Dashboard'));
 const UTMTrackingPage = lazy(() => import('../../containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('../../containers/EventsPage'));
-const AudiencePage = lazy(() => import('../../containers/AudiencePage'));
+const VisitorsPage = lazy(() => import('../../containers/VisitorsPage'));
 const FlowPage = lazy(() => import('../../containers/FlowDetailPage'));
 const RegionCountryPage = lazy(() => import('../../containers/RegionCountryPage'));
 
@@ -54,11 +54,11 @@ String.prototype.startsWith = function (str) {
 
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
-    case 'audience-overview':
-      return <AudiencePage {...props} />;
+    case 'visitors-overview':
+      return <VisitorsPage {...props} />;
 
-    case 'audience-behavior':
-      return <AudiencePage {...props} />;
+    case 'visitors-behavior':
+      return <VisitorsPage {...props} />;
 
     case 'utm-tracking':
       return <UTMTrackingPage {...props} />;

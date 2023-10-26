@@ -13,8 +13,8 @@ import CityModel from '../CityModel/CityModel';
 import BrowserModel from '../BrowserModel/BrowserModel';
 import LanguageModel from '../LanguagesModel/LanguageModel';
 import PageModel from '../PagesModel/PageModel';
-class AudienceListViewModel {
-  audienceStore = null;
+class VisitorsListViewModel {
+  visitorsStore = null;
   status = PAGE_STATUS.READY;
   statusOverview = PAGE_STATUS.READY;
   statusMetrics = PAGE_STATUS.READY;
@@ -27,9 +27,9 @@ class AudienceListViewModel {
   browsersTableData = null;
   languagesTableData = null;
   pagesTableData = null;
-  constructor(audienceStore, globalStoreViewModel) {
+  constructor(visitorsStore, globalStoreViewModel) {
     makeAutoObservable(this);
-    this.audienceStore = audienceStore;
+    this.visitorsStore = visitorsStore;
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
@@ -52,7 +52,7 @@ class AudienceListViewModel {
     this.statusMetrics = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
-    this.audienceStore.getMetrics(
+    this.visitorsStore.getMetrics(
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnMetricsDataSuccessHandler,
@@ -65,7 +65,7 @@ class AudienceListViewModel {
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.audienceStore.getVisitors(
+    this.visitorsStore.getVisitors(
       {
         ...this.dataFilter,
         page_size: '1000',
@@ -87,7 +87,7 @@ class AudienceListViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    await this.audienceStore.getCountries(
+    await this.visitorsStore.getCountries(
       this.dataFilterCountries,
       dateRangeFilter,
       this.callbackOnCountriesSuccessHandler,
@@ -106,7 +106,7 @@ class AudienceListViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    await this.audienceStore.getCities(
+    await this.visitorsStore.getCities(
       this.dataFilterCities,
       dateRangeFilter,
       this.callbackOnCitiesSuccessHandler,
@@ -125,7 +125,7 @@ class AudienceListViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    await this.audienceStore.getBrowsers(
+    await this.visitorsStore.getBrowsers(
       this.dataFilterBrowsers,
       dateRangeFilter,
       this.callbackOnBrowsersSuccessHandler,
@@ -144,7 +144,7 @@ class AudienceListViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    await this.audienceStore.getLanguages(
+    await this.visitorsStore.getLanguages(
       this.dataFilterLanguages,
       dateRangeFilter,
       this.callbackOnLanguagesSuccessHandler,
@@ -163,7 +163,7 @@ class AudienceListViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    await this.audienceStore.getPages(
+    await this.visitorsStore.getPages(
       this.dataFilterPages,
       dateRangeFilter,
       this.callbackOnPagesSuccessHandler,
@@ -175,7 +175,7 @@ class AudienceListViewModel {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    this.audienceStore.getMetrics(
+    this.visitorsStore.getMetrics(
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
@@ -187,7 +187,7 @@ class AudienceListViewModel {
     this.statusTopTable = PAGE_STATUS.LOADING;
     this.dataFilterCountries = { ...this.dataFilterCountries, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.audienceStore.getCountries(
+    await this.visitorsStore.getCountries(
       this.dataFilterCountries,
       dateRangeFilter,
       this.callbackOnCountriesSuccessHandler,
@@ -199,7 +199,7 @@ class AudienceListViewModel {
     this.statusTopTable = PAGE_STATUS.LOADING;
     this.dataFilterCities = { ...this.dataFilterCities, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.audienceStore.getCities(
+    await this.visitorsStore.getCities(
       this.dataFilterCities,
       dateRangeFilter,
       this.callbackOnCitiesSuccessHandler,
@@ -211,7 +211,7 @@ class AudienceListViewModel {
     this.statusTopTable = PAGE_STATUS.LOADING;
     this.dataFilterBrowsers = { ...this.dataFilterBrowsers, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.audienceStore.getBrowsers(
+    await this.visitorsStore.getBrowsers(
       this.dataFilterBrowsers,
       dateRangeFilter,
       this.callbackOnBrowsersSuccessHandler,
@@ -223,7 +223,7 @@ class AudienceListViewModel {
     this.statusTopTable = PAGE_STATUS.LOADING;
     this.dataFilterLanguages = { ...this.dataFilterLanguages, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.audienceStore.getLanguages(
+    await this.visitorsStore.getLanguages(
       this.dataFilterLanguages,
       dateRangeFilter,
       this.callbackOnLanguagesSuccessHandler,
@@ -235,7 +235,7 @@ class AudienceListViewModel {
     this.statusTopTable = PAGE_STATUS.LOADING;
     this.dataFilterPages = { ...this.dataFilterPages, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.audienceStore.getPages(
+    await this.visitorsStore.getPages(
       this.dataFilterPages,
       dateRangeFilter,
       this.callbackOnPagesSuccessHandler,
@@ -369,4 +369,4 @@ class AudienceListViewModel {
   };
 }
 
-export default AudienceListViewModel;
+export default VisitorsListViewModel;

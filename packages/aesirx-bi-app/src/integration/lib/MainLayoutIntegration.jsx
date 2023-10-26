@@ -54,26 +54,26 @@ String.prototype.startsWith = function (str) {
 
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
-    case 'audience-overview':
+    case 'audience':
       return <AudiencePage {...props} />;
 
-    case 'audience-behavior':
+    case 'audience-locations':
+      return <RegionCountryPage {...props} />;
+
+    case 'behavior':
       return <AudiencePage {...props} />;
+
+    case 'behavior-events':
+      return <EventsPage {...props} />;
+
+    case 'behavior-events-generator':
+      return <EventsPage {...props} />;
 
     case 'utm-tracking':
       return <UTMTrackingPage {...props} />;
 
     case 'utm-tracking-generator':
       return <UTMTrackingPage {...props} />;
-
-    case 'events':
-      return <EventsPage {...props} />;
-
-    case 'events-generator':
-      return <EventsPage {...props} />;
-
-    case 'region-country':
-      return <RegionCountryPage {...props} />;
 
     case link.startsWith('flow') ? link : '':
       return <FlowPage {...props} />;

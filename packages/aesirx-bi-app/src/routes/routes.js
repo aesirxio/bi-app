@@ -33,9 +33,9 @@ const mainRoutes = [
     main: () => <DashboardPage />,
   },
   {
-    path: ['/audience/overview', '/audience/behavior'],
+    path: ['/audience', '/behavior'],
     exact: true,
-    page: ['audience-overview', 'audience-behavior'],
+    page: ['audience', 'behavior'],
     main: () => <AudiencePage />,
   },
   { path: '/revenue', exact: true, main: () => <RevenuePage /> },
@@ -46,8 +46,8 @@ const mainRoutes = [
     main: () => <UTMTrackingPage />,
   },
   {
-    path: ['/events', '/events/generator'],
-    page: ['events', 'events-generator'],
+    path: ['/behavior/events', '/behavior/events-generator'],
+    page: ['behavior-events', 'behavior-events-generator'],
     exact: true,
     main: () => <EventsPage />,
   },
@@ -64,7 +64,8 @@ const mainRoutes = [
     main: () => <FlowPage />,
   },
   {
-    path: '/region-country',
+    path: '/audience/locations',
+    page: 'audience-locations',
     exact: true,
     main: () => <RegionCountryPage />,
   },

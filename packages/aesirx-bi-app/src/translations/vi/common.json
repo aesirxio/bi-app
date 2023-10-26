@@ -227,5 +227,8 @@
   "txt_top_view": "Chế độ xem từ trên xuống",
   "txt_product": "Sản phẩm",
   "txt_top_product_add_to_cart": "Sản phẩm hàng đầu - Thêm vào giỏ hàng",
-  "txt_top_search": "Tìm kiếm hàng đầu"
+  "txt_top_search": "Tìm kiếm hàng đầu",
+  "txt_menu_pages": "Trang",
+  "txt_menu_locations": "Vị trí",
+  "txt_generator_event": "Trình tạo mã"
 }

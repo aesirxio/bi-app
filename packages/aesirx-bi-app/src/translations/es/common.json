@@ -227,5 +227,8 @@
   "txt_top_view": "Vista superior",
   "txt_product": "Producto",
   "txt_top_product_add_to_cart": "Producto principal - Agregar al carrito",
-  "txt_top_search": "Búsqueda principal"
+  "txt_top_search": "Búsqueda principal",
+  "txt_menu_pages": "Páginas",
+  "txt_menu_locations": "Ubicaciones",
+  "txt_generator_event": "Evento generador"
 }

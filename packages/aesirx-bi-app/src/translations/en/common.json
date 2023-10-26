@@ -156,5 +156,8 @@
   "txt_top_view": "Top View",
   "txt_product": "Product",
   "txt_top_product_add_to_cart": "Top Product - Add to cart",
-  "txt_top_search": "Top Search"
+  "txt_top_search": "Top Search",
+  "txt_menu_pages": "Pages",
+  "txt_menu_locations": "Locations",
+  "txt_generator_event": "Generator Event"
 }

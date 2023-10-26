@@ -1,5 +1,5 @@
 import React, { Component, lazy } from 'react';
-import { Route, matchPath } from 'react-router-dom';
+import { Link, Route, matchPath, withRouter } from 'react-router-dom';
 import EventsStore from './EventsStore/EventsStore';
 import { EventsViewModelContextProvider } from './EventsViewModels/EventsViewModelContextProvider';
 import EventsViewModel from './EventsViewModels/EventsViewModel';
@@ -15,9 +15,9 @@ const Generator = lazy(() => import('./Generator'));
 
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
-    case 'events':
+    case 'behavior-events':
       return <Events {...props} />;
-    case 'events-generator':
+    case 'behavior-events-generator':
       return <Generator {...props} />;
 
     default:
@@ -43,27 +43,36 @@ const EventsPage = observer(
       const { integration = false } = this.props;
       const { integrationLink, activeDomain } = this.biListViewModel;
       const match = matchPath(history.location.pathname, {
-        path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/events',
+        path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/behavior/events',
         exact: true,
         strict: false,
       });
       return (
         <EventsViewModelContextProvider viewModel={this.behaviorViewModel}>
-          {(match?.isExact || integrationLink === 'events') && (
-            <ReactToPrint
-              trigger={() => {
-                return (
-                  <a
-                    className={`btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm printButton `}
-                    href="#"
-                  >
-                    <Translation>{(t) => <>{t('txt_export_pdf')}</>}</Translation>
-                  </a>
-                );
-              }}
-              content={() => this.componentRef}
-            />
+          {(match?.isExact || integrationLink === 'behavior/events') && (
+            <div className="printButton">
+              <Link
+                to="/behavior/events-generator"
+                className="btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm"
+              >
+                <Translation>{(t) => <>{t('txt_generator_event')}</>}</Translation>
+              </Link>
+              <ReactToPrint
+                trigger={() => {
+                  return (
+                    <a
+                      className={`btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm `}
+                      href="#"
+                    >
+                      <Translation>{(t) => <>{t('txt_export_pdf')}</>}</Translation>
+                    </a>
+                  );
+                }}
+                content={() => this.componentRef}
+              />
+            </div>
           )}
+
           <ComponentToPrint
             integration={integration}
             integrationLink={integrationLink}
@@ -93,10 +102,10 @@ const ComponentToPrint = observer(
             />
           ) : (
             <>
-              <Route exact path={['/events', '/bi/events']}>
+              <Route exact path={['/behavior/events', '/bi/behavior/events']}>
                 <Events />
               </Route>
-              <Route exact path={['/events/generator']}>
+              <Route exact path={['/behavior/events-generator']}>
                 <Generator />
               </Route>
             </>
@@ -107,4 +116,4 @@ const ComponentToPrint = observer(
   }
 );
 
-export default withBiViewModel(EventsPage);
+export default withBiViewModel(withRouter(EventsPage));

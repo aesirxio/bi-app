@@ -227,5 +227,8 @@
   "txt_top_view": "Вигляд зверху",
   "txt_product": "Продукт",
   "txt_top_product_add_to_cart": "Найпопулярніший продукт - Додати в кошик",
-  "txt_top_search": "Найпопулярніший пошук"
+  "txt_top_search": "Найпопулярніший пошук",
+  "txt_menu_pages": "Сторінки",
+  "txt_menu_locations": "Розташування",
+  "txt_generator_event": "Генератор події"
 }

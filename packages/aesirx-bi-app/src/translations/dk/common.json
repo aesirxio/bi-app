@@ -156,5 +156,8 @@
   "txt_top_view": "Se ovenfra",
   "txt_product": "Produkt",
   "txt_top_product_add_to_cart": "Topprodukt - Læg i kurv",
-  "txt_top_search": "Topsøgning"
+  "txt_top_search": "Topsøgning",
+  "txt_menu_pages": "Sider",
+  "txt_menu_locations": "Placeringer",
+  "txt_generator_event": "Generatorhændelse"
 }

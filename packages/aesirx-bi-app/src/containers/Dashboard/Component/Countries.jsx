@@ -37,10 +37,10 @@ const Countries = observer(
                   className="fs-14 text-body cursor-pointer"
                   onClick={() => {
                     if (this.props.integration) {
-                      this.context.biListViewModel.setIntegrationLink(`region-country`);
+                      this.context.biListViewModel.setIntegrationLink(`audience-locations`);
                     } else {
                       this.props.history.push(
-                        `${this.context.biListViewModel.activeDomain}/region-country`
+                        `${this.context.biListViewModel.activeDomain}/audience-locations`
                       );
                     }
                   }}

@@ -227,5 +227,8 @@
   "txt_top_view": "มุมมองด้านบน",
   "txt_product": "ผลิตภัณฑ์",
   "txt_top_product_add_to_cart": "สินค้ายอดนิยม - เพิ่มลงตะกร้า",
-  "txt_top_search": "การค้นหายอดนิยม"
+  "txt_top_search": "การค้นหายอดนิยม",
+  "txt_menu_pages": "หน้า",
+  "txt_menu_locations": "สถานที่",
+  "txt_generator_event": "กิจกรรมตัวสร้าง"
 }

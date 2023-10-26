@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { useWoocommerceViewModel } from './WoocommerceViewModels/WoocommerceViewModelContextProvider';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
-import TopTabs from './Component/TopTabs';
 import { Col, Row } from 'react-bootstrap';
 import TopTable from 'containers/AudiencePage/Component/TopTable';
 

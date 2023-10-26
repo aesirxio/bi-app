@@ -7,7 +7,7 @@ import { useWoocommerceViewModel } from './WoocommerceViewModels/WoocommerceView
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { Col, Row } from 'react-bootstrap';
-import TopTable from 'containers/AudiencePage/Component/TopTable';
+import TopTable from 'containers/VisitorsPage/Component/TopTable';
 
 const Woocommerce = observer(() => {
   const { t } = useTranslation();

@@ -36,7 +36,7 @@ const mainRoutes = [
     path: ['/visitors', '/behavior'],
     exact: true,
     page: ['visitors', 'behavior'],
-    main: () => <AudiencePage />,
+    main: () => <VisitorsPage />,
   },
   { path: '/revenue', exact: true, main: () => <RevenuePage /> },
   {
@@ -64,8 +64,8 @@ const mainRoutes = [
     main: () => <FlowPage />,
   },
   {
-    path: '/audience/locations',
-    page: 'audience-locations',
+    path: '/visitors/locations',
+    page: 'visitors-locations',
     exact: true,
     main: () => <RegionCountryPage />,
   },

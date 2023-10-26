@@ -89,7 +89,7 @@ const ComponentToPrint = observer(
             />
           ) : (
             <>
-              <Route exact path={['/visitors/overview', '/bi/visitors/overview']}>
+              <Route exact path={['/visitors', '/bi/visitors']}>
                 <VisitorsPage {...this.props} />
               </Route>
               <Route exact path={['/behavior', '/bi/behavior']}>

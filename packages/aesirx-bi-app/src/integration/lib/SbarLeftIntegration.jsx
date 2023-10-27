@@ -57,7 +57,7 @@ const SbarLeftIntegration = observer(() => {
 
   return (
     <aside
-      className={`sidebar w-248  mt-0 position-relative bg-dark mh-100 h-100 d-flex flex-column z-index-100 justify-content-between`}
+      className={`sidebar w-260 mt-0 position-relative bg-menu mh-100 h-100 d-flex flex-column z-index-100 justify-content-between`}
     >
       <nav className="main-menu py-24 mt-0">
         <p className="menu_title text-dark-blue fs-14 mb-0 text-uppercase">{t('txt_main_menu')}</p>

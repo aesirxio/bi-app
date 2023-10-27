@@ -71,6 +71,7 @@ const mainMenu = [
   {
     text: 'txt_menu_woocommerce',
     link: `/woocommerce`,
+    page: 'woocommerce',
     icons: env.PUBLIC_URL + '/assets/images/woocommerce.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/woocommerce.svg',
   },

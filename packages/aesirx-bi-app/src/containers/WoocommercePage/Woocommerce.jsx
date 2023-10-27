@@ -6,21 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { useWoocommerceViewModel } from './WoocommerceViewModels/WoocommerceViewModelContextProvider';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
-import TopTabs from './Component/TopTabs';
+import { Col, Row } from 'react-bootstrap';
+import TopTable from 'containers/VisitorsPage/Component/TopTable';
 
 const Woocommerce = observer(() => {
   const { t } = useTranslation();
   const {
-    woocommerceList: {
-      getVisitor,
-      getWoocommerce,
-      dataWoocommerce,
-      status,
-      // statusTable,
-      handleFilterDateRange,
-      // handleFilterTable,
-      getAttribute,
-    },
+    woocommerceList: { dataWoocommerce, status, handleFilterDateRange, initialize },
     woocommerceList,
   } = useWoocommerceViewModel();
   const {
@@ -32,45 +24,9 @@ const Woocommerce = observer(() => {
   }, []);
   useEffect(() => {
     const execute = async () => {
-      getVisitor({
+      await initialize({
         'filter[domain]': activeDomain,
-        'filter[attribute_name]': 'analytics_woocommerce',
-        'filter_not[event_name]': 'visit',
       });
-      getWoocommerce({
-        'filter[domain]': activeDomain,
-        'filter[attribute_name]': 'analytics_woocommerce',
-        'filter_not[event_name]': 'visit',
-      });
-      Promise.all([
-        getAttribute(
-          {
-            'filter[domain]': activeDomain,
-            page_size: 5,
-            'filter[attribute_name]': 'wooocommerce_product_name',
-          },
-          {},
-          'cart'
-        ),
-        getAttribute(
-          {
-            'filter[domain]': activeDomain,
-            page_size: 5,
-            'filter[attribute_name]': 'wooocommerce_search',
-          },
-          {},
-          'search'
-        ),
-        getAttribute(
-          {
-            'filter[domain]': activeDomain,
-            page_size: 5,
-            'filter[attribute_name]': 'product-0-name',
-          },
-          {},
-          'checkout'
-        ),
-      ]);
     };
     execute();
     return () => {};
@@ -118,7 +74,6 @@ const Woocommerce = observer(() => {
           />
         </div>
       </div>
-      {woocommerceList && <TopTabs listViewModel={woocommerceList} />}
       {/* <div className="row gx-24 mb-24">
         <div className="col-12 ">
           {data?.list && (
@@ -133,6 +88,47 @@ const Woocommerce = observer(() => {
           )}
         </div>
       </div> */}
+      <Row className="my-24 pb-24">
+        <Col lg={4} className="mb-24">
+          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+            <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_view')}</h4>
+            <TopTable
+              data={woocommerceList?.productViewTableData?.list}
+              pagination={woocommerceList?.productViewTableData?.pagination}
+              isPagination={false}
+              simplePagination={true}
+              limit={10}
+              status={woocommerceList?.statusTopProductViewTable}
+            />
+          </div>
+        </Col>
+        <Col lg={4} className="mb-24">
+          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+            <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_product_add_to_cart')}</h4>
+            <TopTable
+              data={woocommerceList?.productCartTableData?.list}
+              pagination={woocommerceList?.productCartTableData?.pagination}
+              isPagination={false}
+              simplePagination={true}
+              limit={10}
+              status={woocommerceList?.statusTopProductCartTable}
+            />
+          </div>
+        </Col>
+        <Col lg={4} className="mb-24">
+          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+            <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_search')}</h4>
+            <TopTable
+              data={woocommerceList?.productSearchTableData?.list}
+              pagination={woocommerceList?.productSearchTableData?.pagination}
+              isPagination={false}
+              simplePagination={true}
+              limit={10}
+              status={woocommerceList?.statusTopProductSearchTable}
+            />
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 });

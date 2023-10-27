@@ -13,7 +13,7 @@ import {
   history,
 } from 'aesirx-uikit';
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
-const AudiencePage = lazy(() => import('../containers/AudiencePage'));
+const VisitorsPage = lazy(() => import('../containers/VisitorsPage'));
 const RevenuePage = lazy(() => import('../containers/RevenuePage'));
 const UTMTrackingPage = lazy(() => import('../containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('../containers/EventsPage'));
@@ -38,10 +38,10 @@ const mainRoutes = [
     main: () => <DashboardPage />,
   },
   {
-    path: ['/audience/overview', '/audience/behavior'],
+    path: ['/visitors', '/behavior'],
     exact: true,
-    page: ['audience-overview', 'audience-behavior'],
-    main: () => <AudiencePage />,
+    page: ['visitors', 'behavior'],
+    main: () => <VisitorsPage />,
   },
   { path: '/revenue', exact: true, main: () => <RevenuePage /> },
   {
@@ -51,8 +51,8 @@ const mainRoutes = [
     main: () => <UTMTrackingPage />,
   },
   {
-    path: ['/events', '/events/generator'],
-    page: ['events', 'events-generator'],
+    path: ['/behavior/events', '/behavior/events-generator'],
+    page: ['behavior-events', 'behavior-events-generator'],
     exact: true,
     main: () => <EventsPage />,
   },
@@ -69,7 +69,8 @@ const mainRoutes = [
     main: () => <FlowPage />,
   },
   {
-    path: '/region-country',
+    path: '/visitors/locations',
+    page: 'visitors-locations',
     exact: true,
     main: () => <RegionCountryPage />,
   },

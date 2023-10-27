@@ -1,6 +1,6 @@
 {
   "txt_bi": "BI",
-  "txt_menu_audience": "Audience",
+  "txt_menu_visitors": "Visitors",
   "txt_menu_overview": "Overview",
   "txt_menu_behavior": "Behavior",
   "txt_menu_revenue": "Revenue",
@@ -97,7 +97,8 @@
   "txt_page_views": "Pageviews",
   "txt_unique_page_views": "Unique Page Views",
   "txt_acg_session_duration": "Avg. Session Duration",
-  "txt_bounce_rate": "Bounce Rate",
+  "txt_bounce_rate": "Bounce rate",
+  "txt_average_visit_duration": "Average visit duration",
   "txt_page_session": "Page/Session",
   "txt_in_total": "In Total",
   "txt_description": "Description",
@@ -150,6 +151,14 @@
   "txt_top_pages": "Top Pages",
   "txt_map": "Map",
   "txt_countries": "Countries",
+  "txt_cities": "Cities",
   "txt_os": "OS",
-  "txt_types": "Types"
+  "txt_types": "Types",
+  "txt_top_view": "Top View",
+  "txt_product": "Product",
+  "txt_top_product_add_to_cart": "Top Product - Add to cart",
+  "txt_top_search": "Top Search",
+  "txt_menu_pages": "Pages",
+  "txt_menu_locations": "Locations",
+  "txt_generator_event": "Generator Event"
 }

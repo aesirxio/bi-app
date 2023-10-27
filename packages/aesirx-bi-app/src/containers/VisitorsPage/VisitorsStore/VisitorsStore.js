@@ -1,6 +1,6 @@
 import { runInAction } from 'mobx';
 import { AesirxBiApiService } from 'aesirx-lib';
-export class AudienceStore {
+export class VisitorsStore {
   getMetrics = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
@@ -221,4 +221,4 @@ export class AudienceStore {
   };
 }
 
-export default AudienceStore;
+export default VisitorsStore;

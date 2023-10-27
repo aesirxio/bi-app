@@ -19,7 +19,7 @@ import { env } from 'aesirx-lib';
 import { Col, Row } from 'react-bootstrap';
 import Countries from './Component/Countries';
 import Browsers from './Component/Browsers';
-import TopTable from '../AudiencePage/Component/TopTable';
+import TopTable from '../VisitorsPage/Component/TopTable';
 import { Image } from 'aesirx-uikit';
 
 const Dashboard = observer(
@@ -93,7 +93,7 @@ const Dashboard = observer(
           </div>
           <Row className="mt-24">
             <Col lg="3">
-              <div className="bg-white shadow-sm rounded-3">
+              <div className="bg-white shadow-sm rounded-3 h-100">
                 <div className="bg-white border-bottom">
                   <div className="bg-dark-blue text-white p-24 rounded-3 rounded-bottom-0 fw-medium">
                     <h5 className="fs-6 mb-12px fw-medium">

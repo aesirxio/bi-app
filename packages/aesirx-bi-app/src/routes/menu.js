@@ -9,30 +9,50 @@ const mainMenu = [
     page: 'dashboard',
   },
   {
-    text: 'txt_menu_audience',
-    link: `/audience/overview`,
-    icons: env.PUBLIC_URL + '/assets/images/audience.svg',
-    icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
+    text: 'txt_menu_visitors',
+    link: `/visitors`,
+    icons: env.PUBLIC_URL + '/assets/images/visitors.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/visitors.svg',
     submenu: [
       {
         text: 'txt_menu_overview',
-        mini_text: 'txt_menu_audience',
-        link: `/audience/overview`,
-        page: 'audience-overview',
+        mini_text: 'txt_menu_visitors',
+        link: `/visitors`,
+        page: 'visitors',
       },
       {
-        text: 'txt_menu_behavior',
-        mini_text: 'txt_menu_behavior',
-        link: `/audience/behavior`,
-        page: 'audience-behavior',
+        text: 'txt_menu_locations',
+        mini_text: 'txt_menu_locations',
+        link: `/visitors/locations`,
+        page: 'visitors-locations',
+      },
+    ],
+  },
+  {
+    text: 'txt_menu_behavior',
+    link: `/behavior`,
+    icons: env.PUBLIC_URL + '/assets/images/behavior.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/behavior.svg',
+    submenu: [
+      {
+        text: 'txt_menu_pages',
+        mini_text: 'txt_menu_pages',
+        link: `/behavior`,
+        page: 'behavior',
+      },
+      {
+        text: 'txt_menu_events',
+        mini_text: 'txt_menu_events',
+        link: `/behavior/events`,
+        page: 'behavior-events',
       },
     ],
   },
   {
     text: 'txt_menu_utm_tracking',
     link: `/utm-tracking`,
-    icons: env.PUBLIC_URL + '/assets/images/behavior.svg',
-    icons_color: env.PUBLIC_URL + '/assets/images/behavior.svg',
+    icons: env.PUBLIC_URL + '/assets/images/utm-tracking.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/utm-tracking.svg',
     submenu: [
       {
         text: 'txt_menu_overview',
@@ -49,37 +69,11 @@ const mainMenu = [
     ],
   },
   {
-    text: 'txt_menu_events',
-    link: `/events`,
-    icons: env.PUBLIC_URL + '/assets/images/calendar-line.svg',
-    icons_color: env.PUBLIC_URL + '/assets/images/calendar-line.svg',
-    submenu: [
-      {
-        text: 'txt_menu_overview',
-        mini_text: 'txt_menu_events',
-        link: `/events`,
-        page: 'events',
-      },
-      {
-        text: 'txt_menu_generator',
-        mini_text: 'txt_menu_generator',
-        link: `/events/generator`,
-        page: 'events-generator',
-      },
-    ],
-  },
-  // {
-  //   text: 'txt_menu_woocommerce',
-  //   link: `/woocommerce`,
-  //   icons: env.PUBLIC_URL + '/assets/images/calendar-line.svg',
-  //   icons_color: env.PUBLIC_URL + '/assets/images/calendar-line.svg',
-  // },
-  {
-    text: 'txt_menu_region',
-    link: `/region-country`,
-    icons: env.PUBLIC_URL + '/assets/images/region-country.svg',
-    icons_color: env.PUBLIC_URL + '/assets/images/region-country.svg',
-    page: 'region-country',
+    text: 'txt_menu_woocommerce',
+    link: `/woocommerce`,
+    page: 'woocommerce',
+    icons: env.PUBLIC_URL + '/assets/images/woocommerce.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/woocommerce.svg',
   },
 ];
 
@@ -91,8 +85,8 @@ const integrationMenu = () => {
     }),
     {
       text: 'txt_menu_behavior',
-      link: `/bi/audience/behavior`,
-      page: 'audience-behavior',
+      link: `/bi/behavior`,
+      page: 'behavior',
     },
   ];
 };

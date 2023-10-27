@@ -20,9 +20,10 @@ import SbarLeftIntegration from './SbarLeftIntegration';
 const DashboardPage = lazy(() => import('../../containers/Dashboard'));
 const UTMTrackingPage = lazy(() => import('../../containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('../../containers/EventsPage'));
-const AudiencePage = lazy(() => import('../../containers/AudiencePage'));
+const VisitorsPage = lazy(() => import('../../containers/VisitorsPage'));
 const FlowPage = lazy(() => import('../../containers/FlowDetailPage'));
 const RegionCountryPage = lazy(() => import('../../containers/RegionCountryPage'));
+const WoocommercePage = lazy(() => import('../../containers/WoocommercePage'));
 
 const biViewModel = new BiViewModel();
 
@@ -54,11 +55,23 @@ String.prototype.startsWith = function (str) {
 
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
-    case 'audience-overview':
-      return <AudiencePage {...props} />;
+    case 'visitors':
+      return <VisitorsPage {...props} />;
 
-    case 'audience-behavior':
-      return <AudiencePage {...props} />;
+    case 'visitors-locations':
+      return <RegionCountryPage {...props} />;
+
+    case 'visitors-behavior':
+      return <VisitorsPage {...props} />;
+
+    case 'behavior':
+      return <VisitorsPage {...props} />;
+
+    case 'behavior-events':
+      return <EventsPage {...props} />;
+
+    case 'behavior-events-generator':
+      return <EventsPage {...props} />;
 
     case 'utm-tracking':
       return <UTMTrackingPage {...props} />;
@@ -66,14 +79,8 @@ const RenderComponent = ({ link, ...props }) => {
     case 'utm-tracking-generator':
       return <UTMTrackingPage {...props} />;
 
-    case 'events':
-      return <EventsPage {...props} />;
-
-    case 'events-generator':
-      return <EventsPage {...props} />;
-
-    case 'region-country':
-      return <RegionCountryPage {...props} />;
+    case 'woocommerce':
+      return <WoocommercePage {...props} />;
 
     case link.startsWith('flow') ? link : '':
       return <FlowPage {...props} />;

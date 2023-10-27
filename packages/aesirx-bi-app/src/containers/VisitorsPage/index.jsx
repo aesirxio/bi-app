@@ -9,44 +9,44 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 
 import { withRouter } from 'react-router-dom';
-import AudienceStore from './AudienceStore/AudienceStore';
-import AudienceViewModel from './AudienceViewModels/AudienceViewModel';
-import { AudienceViewModelContextProvider } from './AudienceViewModels/AudienceViewModelContextProvider';
+import VisitorsStore from './VisitorsStore/VisitorsStore';
+import VisitorsViewModel from './VisitorsViewModels/VisitorsViewModels';
+import { VisitorsViewModelContextProvider } from './VisitorsViewModels/VisitorsViewModelContextProvider';
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { Route } from 'react-router-dom';
 import ReactToPrint from 'react-to-print';
 
-const AudiencePage = lazy(() => import('./Audience'));
-const AudienceBehaviorPage = lazy(() => import('./AudienceBehavior'));
+const VisitorsPage = lazy(() => import('./Visitors'));
+const VisitorsBehaviorPage = lazy(() => import('./VisitorsBehavior'));
 
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
-    case 'audience-behavior':
-      return <AudienceBehaviorPage {...props} />;
+    case 'behavior':
+      return <VisitorsBehaviorPage {...props} />;
 
     default:
-      return <AudiencePage {...props} />;
+      return <VisitorsPage {...props} />;
   }
 };
 
-const AudienceContainer = observer(
-  class AudienceContainer extends Component {
-    audienceStore = null;
-    audienceViewModel = null;
+const VisitorsContainer = observer(
+  class VisitorsContainer extends Component {
+    VisitorsStore = null;
+    VisitorsViewModel = null;
     constructor(props) {
       super(props);
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
       this.biListViewModel = this.viewModel ? this.viewModel.getBiListViewModel() : null;
-      this.audienceStore = new AudienceStore();
-      this.audienceViewModel = new AudienceViewModel(this.audienceStore, this.biListViewModel);
+      this.VisitorsStore = new VisitorsStore();
+      this.VisitorsViewModel = new VisitorsViewModel(this.VisitorsStore, this.biListViewModel);
     }
 
     render() {
       const { integration = false } = this.props;
       const { integrationLink, activeDomain } = this.biListViewModel;
       return (
-        <AudienceViewModelContextProvider viewModel={this.audienceViewModel}>
+        <VisitorsViewModelContextProvider viewModel={this.VisitorsViewModel}>
           <ReactToPrint
             trigger={() => {
               return (
@@ -66,7 +66,7 @@ const AudienceContainer = observer(
             activeDomain={activeDomain}
             ref={(el) => (this.componentRef = el)}
           />
-        </AudienceViewModelContextProvider>
+        </VisitorsViewModelContextProvider>
       );
     }
   }
@@ -89,11 +89,11 @@ const ComponentToPrint = observer(
             />
           ) : (
             <>
-              <Route exact path={['/audience/overview', '/bi/audience/overview']}>
-                <AudiencePage {...this.props} />
+              <Route exact path={['/visitors', '/bi/visitors']}>
+                <VisitorsPage {...this.props} />
               </Route>
-              <Route exact path={['/audience/behavior', '/bi/audience/behavior']}>
-                <AudienceBehaviorPage {...this.props} />
+              <Route exact path={['/behavior', '/bi/behavior']}>
+                <VisitorsBehaviorPage {...this.props} />
               </Route>
             </>
           )}
@@ -102,4 +102,4 @@ const ComponentToPrint = observer(
     }
   }
 );
-export default withTranslation()(withRouter(withBiViewModel(AudienceContainer)));
+export default withTranslation()(withRouter(withBiViewModel(VisitorsContainer)));

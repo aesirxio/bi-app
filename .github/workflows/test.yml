@@ -4,20 +4,22 @@ on:
   pull_request:
 
 jobs:
-  code:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: 16.x
 
+      - run: git submodule update --init --recursive
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Run Build
-        run: CI=false yarn run build
+      - name: Run build
+        run: CI=false yarn build
 
       - name: Run Prettier
         run: yarn run format:check

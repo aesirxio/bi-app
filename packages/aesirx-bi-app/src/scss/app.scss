@@ -50,6 +50,13 @@
       }
     }
   }
+  #customCol .nav-pills .nav-link.active {
+    color: #0f674c !important;
+    background-color: var(--bs-white);
+    font-weight: 600;
+    border-left: 2px solid;
+    border-radius: 0px;
+  }
   #biapp {
     .table {
       --aesirxui-table-bg: #fff;
@@ -88,6 +95,18 @@
       &.vi {
         min-width: 330px;
       }
+    }
+  }
+  .mode-switcher {
+    input[type='checkbox']:checked::before {
+      display: none;
+    }
+  }
+}
+.wp-admin {
+  #biapp.mini_left {
+    .w-260 {
+      width: 90px !important;
     }
   }
 }

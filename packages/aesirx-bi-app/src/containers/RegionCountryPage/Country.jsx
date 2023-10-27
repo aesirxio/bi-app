@@ -70,7 +70,7 @@ const Country = observer(
               ) : (
                 <>
                   <div className="d-flex align-items-center justify-content-between mb-24">
-                    <h4 className="me-24 mb-0 fw-semibold">{t('txt_Countries')}</h4>
+                    <h4 className="me-24 mb-0 fw-semibold">{t('txt_countries')}</h4>
                   </div>
                   <Row className="align-items-center justify-content-center">
                     <Col lg={8}>

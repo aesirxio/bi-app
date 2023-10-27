@@ -1,4 +1,5 @@
 name: demo
+
 on:
   push:
     tags:
@@ -19,17 +20,18 @@ jobs:
       REACT_APP_DEFAULT_PASSWORD: ${{ secrets.REACT_APP_DEFAULT_PASSWORD }}
       REACT_APP_DEMO_USER: ${{ secrets.REACT_APP_DEMO_USER }}
       REACT_APP_DEMO_PASSWORD: ${{ secrets.REACT_APP_DEMO_PASSWORD }}
-
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-            fetch-depth: 0
-            ref: master
+          fetch-depth: 0
+          ref: master
+
       - uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - run: yarn install
+      - run: git submodule update --init --recursive
+      - run: yarn install --frozen-lockfile
       - run: yarn build
 
       - name: Install SSH Key
@@ -42,4 +44,4 @@ jobs:
         run: ssh-keyscan -p ${{ secrets.SSH_PORT}} -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
-        run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PATH }}
+        run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./packages/aesirx-bi-app/build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PATH }}

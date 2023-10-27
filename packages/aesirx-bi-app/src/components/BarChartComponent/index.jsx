@@ -3,7 +3,7 @@ import HeaderFilterComponent from '../HeaderFilterComponent';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import PAGE_STATUS from '../../constants/PageStatus';
 import { env } from 'aesirx-lib';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import {
   BarChart,
@@ -33,6 +33,7 @@ const BarChartComponent = ({
   layout,
   isLegend = false,
   filterButtons = [],
+  tooltipComponent,
 }) => {
   const { t } = useTranslation();
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
@@ -40,10 +41,14 @@ const BarChartComponent = ({
   const [view, setView] = useState(CHART_TYPE.DAY);
 
   useEffect(() => {
-    const [month, date] = data;
+    const [month, date, week] = data;
 
     if (view === CHART_TYPE.MONTH) {
       setCurrentData(month);
+    }
+
+    if (view === CHART_TYPE.WEEK) {
+      setCurrentData(week);
     }
 
     if (view === CHART_TYPE.DAY) {
@@ -92,6 +97,34 @@ const BarChartComponent = ({
       </ul>
     );
   };
+
+  const customizedTooltip = useMemo(
+    () =>
+      ({ payload }) => {
+        return (
+          <div className="areachart-tooltip p-15 text-white bg-primary w-150px">
+            <p className="text-uppercase fw-semibold fs-14 mb-sm">
+              {payload.length > 0 ? payload[0].payload.name : ''}
+            </p>
+            {payload &&
+              payload.map((item, index) => {
+                return (
+                  <div key={index} className="mb-0 fs-12 row">
+                    {payload.length > 1 && <div className="col-8 fw-bold">{item.name}:</div>}
+                    <div className="col-4">
+                      <p className="mb-0">
+                        <span className="mr-2">{tooltipComponent?.value}</span>
+                        <span>{item.value}</span>
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        );
+      },
+    [tooltipComponent]
+  );
   return (
     <div className="bg-white rounded-3 px-24 py-3 shadow-sm position-relative h-100">
       {loading === PAGE_STATUS.LOADING ? (
@@ -114,7 +147,7 @@ const BarChartComponent = ({
               layout={layout ? layout : 'vertical'}
               margin={margin}
             >
-              <CartesianGrid strokeDasharray="7 7" vertical={layout ? true : false} />
+              <CartesianGrid strokeDasharray="7 7" vertical={layout ? false : true} />
               {layout ? (
                 <>
                   <XAxis
@@ -157,7 +190,7 @@ const BarChartComponent = ({
                   />
                 </>
               )}
-              <Tooltip />
+              <Tooltip content={customizedTooltip} />
               {bars &&
                 bars.map((item, index) => {
                   return (

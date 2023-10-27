@@ -66,13 +66,13 @@ const StackedBarChartComponent = ({
         return (
           <div className="areachart-tooltip p-15 text-white bg-primary">
             <p className="text-uppercase fw-semibold fs-14 mb-sm">
-              {payload.length > 0 ? payload[0].payload.name : ''}
+              {payload?.length > 0 ? payload[0].payload.name : ''}
             </p>
             {payload &&
               payload.map((item, index) => {
                 return (
                   <div key={index} className="mb-0 fs-12 row">
-                    {payload.length > 1 && <div className="col-10 fw-bold">{item.name}:</div>}
+                    {payload?.length > 1 && <div className="col-10 fw-bold">{item.name}:</div>}
                     <div className="col-2">
                       <p className="mb-0">
                         <span className="mr-2">{tooltipComponent?.value}</span>

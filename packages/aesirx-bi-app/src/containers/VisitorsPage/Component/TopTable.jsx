@@ -19,6 +19,8 @@ const TopTableComponent = (props) => {
     selectPage,
     selectPageSize,
     status,
+    limit,
+    isPaginationAPI = isPagination ? true : false,
     t,
   } = props;
   const columnsTable = React.useMemo(
@@ -88,11 +90,12 @@ const TopTableComponent = (props) => {
           canSort={true}
           pagination={isPagination}
           paginationClass={'fs-14 border-top mt-2'}
-          isPaginationAPI={true}
+          isPaginationAPI={isPaginationAPI}
           paginationResponse={pagination}
           selectPage={selectPage}
           selectPageSize={selectPageSize}
           simplePagination={simplePagination}
+          limit={limit}
         />
       ) : (
         <div className="position-relative ChartWrapper bg-white rounded-3 shadow-sm">

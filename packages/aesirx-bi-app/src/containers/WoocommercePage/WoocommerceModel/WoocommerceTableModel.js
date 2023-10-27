@@ -100,6 +100,136 @@ class WoocoomerceTableModel {
       };
     }
   };
+
+  toViewProductTableTop = () => {
+    const headerTable = ['txt_product', 'txt_visitors'];
+    const accessor = ['value', 'count'];
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          width: 170,
+          Cell: ({ cell, column }) =>
+            column.id === 'value' ? (
+              <div className={''}>{cell?.value}</div>
+            ) : (
+              <div className={'text-end'}>{cell?.value}</div>
+            ),
+        };
+      });
+      const data = this.data
+        ?.map((item) => {
+          return {
+            ...item,
+            ...accessor
+              .map((i) => {
+                return {
+                  [i]: item[i],
+                };
+              })
+              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+          };
+        })
+        ?.sort((a, b) => b['count'] - a['count']);
+
+      return {
+        header,
+        data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+  toProductSearchTableTop = () => {
+    const headerTable = ['txt_keyword', 'txt_clicks'];
+    const accessor = ['value', 'count'];
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          width: 170,
+          Cell: ({ cell, column }) =>
+            column.id === 'value' ? (
+              <div className={''}>{cell?.value}</div>
+            ) : (
+              <div className={'text-end'}>{cell?.value}</div>
+            ),
+        };
+      });
+      const data = this.data
+        ?.map((item) => {
+          return {
+            ...item,
+            ...accessor
+              .map((i) => {
+                return {
+                  [i]: item[i],
+                };
+              })
+              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+          };
+        })
+        ?.sort((a, b) => b['count'] - a['count']);
+
+      return {
+        header,
+        data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+  toProductCartTableTop = () => {
+    const headerTable = ['txt_product', 'txt_quantity'];
+    const accessor = ['value', 'count'];
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          width: 170,
+          Cell: ({ cell, column }) =>
+            column.id === 'value' ? (
+              <div className={''}>{cell?.value}</div>
+            ) : (
+              <div className={'text-end'}>{cell?.value}</div>
+            ),
+        };
+      });
+      const data = this.data
+        ?.map((item) => {
+          return {
+            ...item,
+            ...accessor
+              .map((i) => {
+                return {
+                  [i]: item[i],
+                };
+              })
+              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+          };
+        })
+        ?.sort((a, b) => b['count'] - a['count']);
+
+      return {
+        header,
+        data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
 }
 
 export default WoocoomerceTableModel;

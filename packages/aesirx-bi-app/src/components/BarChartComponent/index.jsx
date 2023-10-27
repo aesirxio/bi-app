@@ -113,7 +113,7 @@ const BarChartComponent = ({
                     {payload.length > 1 && <div className="col-8 fw-bold">{item.name}:</div>}
                     <div className="col-4">
                       <p className="mb-0">
-                        <span className="mr-2">{tooltipComponent.value}</span>
+                        <span className="mr-2">{tooltipComponent?.value}</span>
                         <span>{item.value}</span>
                       </p>
                     </div>

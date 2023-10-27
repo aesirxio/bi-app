@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+**/node_modules
 /.pnp
 .pnp.js
 
@@ -10,6 +11,7 @@
 
 # production
 /build
+/dist
 
 #vscode
 .vscode
@@ -34,3 +36,5 @@ yarn-error.log*
 dist
 .yalc
 yalc.lock
+.nx/installation
+.nx/cache

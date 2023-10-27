@@ -1,0 +1,101 @@
+/*
+ * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
+ * @license     GNU General Public License version 3, see LICENSE.
+ */
+
+@import 'aesirx-uikit/dist/utils/bootstrap.scss';
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+
+@media print {
+  @import 'bootstrap/scss/mixins';
+  @page {
+    size: 400mm 400mm;
+  }
+  html,
+  body {
+    height: initial !important;
+    overflow: initial !important;
+    -webkit-print-color-adjust: exact;
+  }
+  .page-break {
+    margin-top: 1rem;
+    display: block;
+    page-break-before: auto;
+  }
+  div {
+    page-break-inside: avoid;
+  }
+  .scroll-container {
+    overflow: visible;
+    height: fit-content;
+  }
+}
+.printButton {
+  position: absolute;
+  top: 31px;
+  right: 355px;
+}
+.daterange-picker-wrapper .form-control {
+  width: 285px;
+}
+#tooltipTable {
+  max-width: 400px;
+  text-align: center;
+}
+.aesirxui {
+  .nav-pills.nav-custom {
+    .nav-link {
+      &.active {
+        color: #0f674c;
+      }
+    }
+  }
+  #customCol .nav-pills .nav-link.active {
+    color: #0f674c !important;
+    background-color: var(--bs-white);
+    font-weight: 600;
+    border-left: 2px solid;
+    border-radius: 0px;
+  }
+  #biapp {
+    .table {
+      --aesirxui-table-bg: #fff;
+      td {
+        border: 0;
+      }
+    }
+  }
+}
+[data-bs-theme='dark'] {
+  .aesirxui {
+    .text-gray-900 {
+      color: #fff;
+    }
+    #biapp {
+      .table {
+        --aesirxui-table-bg: var(--aesirxui-color-blue-6);
+      }
+    }
+    .nav-pills {
+      .nav-link {
+        &.active {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+#bi-app {
+  .daterange-picker-wrapper {
+    .form-control {
+      min-width: 330px;
+      &.en {
+        min-width: 330px;
+      }
+      &.vi {
+        min-width: 330px;
+      }
+    }
+  }
+}

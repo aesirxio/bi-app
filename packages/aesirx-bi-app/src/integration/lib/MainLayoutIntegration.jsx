@@ -23,6 +23,7 @@ const EventsPage = lazy(() => import('../../containers/EventsPage'));
 const VisitorsPage = lazy(() => import('../../containers/VisitorsPage'));
 const FlowPage = lazy(() => import('../../containers/FlowDetailPage'));
 const RegionCountryPage = lazy(() => import('../../containers/RegionCountryPage'));
+const WoocommercePage = lazy(() => import('../../containers/WoocommercePage'));
 
 const biViewModel = new BiViewModel();
 
@@ -63,6 +64,9 @@ const RenderComponent = ({ link, ...props }) => {
     case 'visitors-behavior':
       return <VisitorsPage {...props} />;
 
+    case 'behavior':
+      return <VisitorsPage {...props} />;
+
     case 'behavior-events':
       return <EventsPage {...props} />;
 
@@ -74,6 +78,9 @@ const RenderComponent = ({ link, ...props }) => {
 
     case 'utm-tracking-generator':
       return <UTMTrackingPage {...props} />;
+
+    case 'woocommerce':
+      return <WoocommercePage {...props} />;
 
     case link.startsWith('flow') ? link : '':
       return <FlowPage {...props} />;

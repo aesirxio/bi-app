@@ -7,10 +7,6 @@ import React, { lazy } from 'react';
 import {
   LoginPage,
   ProfilePage,
-  DigitalAssetsPage,
-  MembersPage,
-  EditMemberProvider,
-  history,
 } from 'aesirx-uikit';
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
 const VisitorsPage = lazy(() => import('../containers/VisitorsPage'));

@@ -4,9 +4,7 @@
  */
 
 import React, { lazy } from 'react';
-
-const LoginPage = lazy(() => import('../containers/LoginPage'));
-
+import { LoginPage, ProfilePage } from 'aesirx-uikit';
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
 const VisitorsPage = lazy(() => import('../containers/VisitorsPage'));
 const RevenuePage = lazy(() => import('../containers/RevenuePage'));
@@ -21,7 +19,7 @@ const authRoutes = [
   {
     path: '/login',
     exact: true,
-    main: () => <LoginPage />,
+    main: () => <LoginPage text="BI" />,
   },
 ];
 
@@ -71,7 +69,13 @@ const mainRoutes = [
   },
 ];
 
-const settingRoutes = [];
+const settingRoutes = [
+  {
+    path: '/profile',
+    exact: false,
+    main: () => <ProfilePage />,
+  },
+];
 
 const integrationRoutes = () =>
   mainRoutes.map((item) => {

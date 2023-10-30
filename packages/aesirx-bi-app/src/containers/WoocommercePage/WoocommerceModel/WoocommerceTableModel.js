@@ -2,6 +2,7 @@
  * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
  * @license     GNU General Public License version 3, see LICENSE.
  */
+import { BI_WOOCOMMERCE_PRODUCT_FIELD_KEY } from 'aesirx-lib';
 import React from 'react';
 
 class WoocoomerceTableModel {
@@ -218,6 +219,108 @@ class WoocoomerceTableModel {
           };
         })
         ?.sort((a, b) => b['count'] - a['count']);
+
+      return {
+        header,
+        data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toWoocoomerceProductTopTable = () => {
+    const headerTable = ['txt_product_name', 'txt_quantity', 'txt_product_revenue'];
+    const accessor = [
+      BI_WOOCOMMERCE_PRODUCT_FIELD_KEY.PRODUCT,
+      BI_WOOCOMMERCE_PRODUCT_FIELD_KEY.QUANTITY,
+      BI_WOOCOMMERCE_PRODUCT_FIELD_KEY.PRODUCT_REVENUE,
+    ];
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          width: 170,
+          Cell: ({ cell, column }) =>
+            column.id === BI_WOOCOMMERCE_PRODUCT_FIELD_KEY.PRODUCT ? (
+              <div className={'px-15'}>{cell?.value}</div>
+            ) : (
+              <div className={'px-15 text-end'}>{cell?.value}</div>
+            ),
+        };
+      });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+
+      return {
+        header,
+        data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toWoocoomerceProductTable = () => {
+    const headerTable = [
+      'txt_product_name',
+      'txt_quantity',
+      'txt_items_sold',
+      'txt_product_revenue',
+      'txt_avg_price',
+      'txt_avg_quantity',
+    ];
+    const accessor = [
+      BI_WOOCOMMERCE_PRODUCT_FIELD_KEY.PRODUCT,
+      BI_WOOCOMMERCE_PRODUCT_FIELD_KEY.QUANTITY,
+      BI_WOOCOMMERCE_PRODUCT_FIELD_KEY.ITEMS_SOLD,
+      BI_WOOCOMMERCE_PRODUCT_FIELD_KEY.PRODUCT_REVENUE,
+      BI_WOOCOMMERCE_PRODUCT_FIELD_KEY.AVG_PRICE,
+      BI_WOOCOMMERCE_PRODUCT_FIELD_KEY.AVG_QUANTITY,
+    ];
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          width: 170,
+          Cell: ({ cell, column }) =>
+            column.id === BI_WOOCOMMERCE_PRODUCT_FIELD_KEY.PRODUCT ? (
+              <div className={'px-15'}>{cell?.value}</div>
+            ) : (
+              <div className={'px-15'}>{cell?.value}</div>
+            ),
+        };
+      });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
 
       return {
         header,

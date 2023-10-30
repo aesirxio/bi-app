@@ -160,5 +160,17 @@
   "txt_top_search": "En İyi Arama",
   "txt_menu_pages": "Sayfalar",
   "txt_menu_locations": "Konumlar",
-  "txt_generator_event": "Jeneratör Etkinliği"
+  "txt_generator_event": "Jeneratör Etkinliği",
+  "txt_checkout_conversion_rate": "Dönüşüm Oranını Kontrol Et",
+  "txt_avg_order_value": "Ortalama Sipariş Değeri",
+  "txt_total_add_to_carts": "Sepete Ekleme Toplamı",
+  "txt_transactions": "İşlemler",
+  "txt_statistics": "İstatistikler",
+  "txt_menu_products": "Ürünler",
+  "txt_quantity": "Miktar",
+  "txt_items_sold": "Satılan Öğeler",
+  "txt_product_revenue": "Ürün Geliri",
+  "txt_avg_price": "Ort. Fiyat",
+  "txt_avg_quantity": "Ort. Adet",
+  "txt_top_products": "En Popüler Ürünler"
 }

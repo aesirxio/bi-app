@@ -231,5 +231,17 @@
   "txt_top_search": "Найпопулярніший пошук",
   "txt_menu_pages": "Сторінки",
   "txt_menu_locations": "Розташування",
-  "txt_generator_event": "Генератор події"
+  "txt_generator_event": "Генератор події",
+  "txt_checkout_conversion_rate": "Коефіцієнт конверсії оплати",
+  "txt_avg_order_value": "Середня вартість замовлення",
+  "txt_total_add_to_carts": "Усього додати до кошиків",
+  "txt_transactions": "Транзакції",
+  "txt_statistics": "Статистика",
+  "txt_menu_products": "Продукти",
+  "txt_quantity": "Кількість",
+  "txt_items_sold": "Продані товари",
+  "txt_product_revenue": "Дохід від продукту",
+  "txt_avg_price": "Середня ціна",
+  "txt_avg_quantity": "Середня кількість",
+  "txt_top_products": "Найпопулярніші продукти"
 }

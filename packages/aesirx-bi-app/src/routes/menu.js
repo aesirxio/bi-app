@@ -74,6 +74,20 @@ const mainMenu = [
     page: 'woocommerce',
     icons: env.PUBLIC_URL + '/assets/images/woocommerce.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/woocommerce.svg',
+    submenu: [
+      {
+        text: 'txt_menu_overview',
+        mini_text: 'txt_menu_woocommerce',
+        link: `/woocommerce`,
+        page: 'woocommerce',
+      },
+      {
+        text: 'txt_menu_products',
+        mini_text: 'txt_menu_products',
+        link: `/woocommerce/product`,
+        page: 'woocommerce-product',
+      },
+    ],
   },
 ];
 

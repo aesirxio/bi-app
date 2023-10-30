@@ -12,15 +12,24 @@ const BehaviorTable = ({
   statusTable,
   t,
   isPaginationAPI = false,
+  isTranslate = false,
 }) => {
   const columnsTable = React.useMemo(
     () =>
       header.map((item, index) => ({
         ...item,
-        className: `px-3 py-16 fs-sm fw-semibold bg-gray-700 ${
+        className: `px-3 py-16 fs-sm fw-semibold border-bottom border-gray-800 align-middle ${
           index + 1 === header.length ? 'rounded-top-end-3' : ''
         } ${index === 0 ? 'rounded-top-start-3' : ''}`,
         width: 100,
+
+        ...(isTranslate
+          ? {
+              Header: (
+                <span className="align-middle text-gray-900 fw-medium">{t(item.Header)}</span>
+              ),
+            }
+          : {}),
       })),
     [header]
   );

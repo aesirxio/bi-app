@@ -50,8 +50,8 @@ const mainRoutes = [
     main: () => <EventsPage />,
   },
   {
-    path: ['/woocommerce'],
-    page: ['woocommerce'],
+    path: ['/woocommerce', '/woocommerce/product'],
+    page: ['woocommerce', 'woocommerce-product'],
     exact: true,
     main: () => <WoocommercePage />,
   },

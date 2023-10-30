@@ -89,6 +89,9 @@ const RenderComponent = ({ link, ...props }) => {
     case 'woocommerce':
       return <WoocommercePage {...props} />;
 
+    case 'woocommerce-product':
+      return <WoocommercePage {...props} />;
+
     case link.startsWith('flow') ? link : '':
       return <FlowPage {...props} />;
     default:

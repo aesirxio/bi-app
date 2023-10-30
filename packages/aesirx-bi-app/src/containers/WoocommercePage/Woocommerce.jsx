@@ -62,7 +62,7 @@ const Woocommerce = observer(() => {
             </div>
           </div>
         </Col>
-        <Col className="w-50 w-xl-auto">
+        {/* <Col className="w-50 w-xl-auto">
           <div className="bg-white rounded-3 p-24 h-100">
             <div className="text-gray-900 fw-medium mb-1">{t('txt_checkout_conversion_rate')}</div>
             <div className="fs-4 fw-medium">
@@ -72,7 +72,7 @@ const Woocommerce = observer(() => {
               %
             </div>
           </div>
-        </Col>
+        </Col> */}
         <Col className="w-50 w-xl-auto">
           <div className="bg-white rounded-3 p-24 h-100">
             <div className="text-gray-900 fw-medium mb-1">{t('txt_avg_order_value')}</div>

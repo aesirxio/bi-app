@@ -11,11 +11,14 @@ import { history } from 'aesirx-uikit';
 import { Translation } from 'react-i18next';
 
 const Woocommerce = lazy(() => import('./Woocommerce'));
+const WoocommerceProduct = lazy(() => import('./WoocommerceProduct'));
 
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
     case 'woocommerce':
       return <Woocommerce {...props} />;
+    case 'woocommerce-product':
+      return <WoocommerceProduct {...props} />;
 
     default:
       return <Woocommerce {...props} />;
@@ -49,7 +52,9 @@ const WoocommercePage = observer(
       });
       return (
         <WoocommerceViewModelContextProvider viewModel={this.behaviorViewModel}>
-          {(match?.isExact || integrationLink === 'woocommerce') && (
+          {(match?.isExact ||
+            integrationLink === 'woocommerce' ||
+            integrationLink === 'woocommerce-product') && (
             <ReactToPrint
               trigger={() => {
                 return (
@@ -100,6 +105,9 @@ const ComponentToPrint = observer(
             <>
               <Route exact path={['/woocommerce', '/bi/woocommerce']}>
                 <Woocommerce />
+              </Route>
+              <Route exact path={['/woocommerce/product', '/bi/woocommerce/product']}>
+                <WoocommerceProduct />
               </Route>
             </>
           )}

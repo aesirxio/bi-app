@@ -109,9 +109,9 @@ const BarChartComponent = ({
             {payload &&
               payload.map((item, index) => {
                 return (
-                  <div key={index} className="mb-0 fs-12 row">
-                    {payload?.length > 1 && <div className="col-8 fw-bold">{item.name}:</div>}
-                    <div className="col-4">
+                  <div key={index} className="mb-0 fs-12 d-flex flex-nowrap">
+                    {payload?.length > 1 && <div className="fw-bold">{item.name}: </div>}
+                    <div className="ps-sm">
                       <p className="mb-0">
                         <span className="mr-2">{tooltipComponent?.value}</span>
                         <span>{item.value}</span>

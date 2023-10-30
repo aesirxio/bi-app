@@ -231,5 +231,17 @@
   "txt_top_search": "การค้นหายอดนิยม",
   "txt_menu_pages": "หน้า",
   "txt_menu_locations": "สถานที่",
-  "txt_generator_event": "กิจกรรมตัวสร้าง"
+  "txt_generator_event": "กิจกรรมตัวสร้าง",
+  "txt_checkout_conversion_rate": "ตรวจสอบอัตรา Conversion",
+  "txt_avg_order_value": "มูลค่าการสั่งซื้อเฉลี่ย",
+  "txt_total_add_to_carts": "เพิ่มทั้งหมดลงตะกร้า",
+  "txt_transactions": "ธุรกรรม",
+  "txt_statistics": "สถิติ",
+  "txt_menu_products": "ผลิตภัณฑ์",
+  "txt_quantity": "ปริมาณ",
+  "txt_items_sold": "สินค้าที่ขาย",
+  "txt_product_revenue": "รายได้จากผลิตภัณฑ์",
+  "txt_avg_price": "ราคาเฉลี่ย",
+  "txt_avg_quantity": "จำนวนเฉลี่ย",
+  "txt_top_products": "ผลิตภัณฑ์ยอดนิยม"
 }

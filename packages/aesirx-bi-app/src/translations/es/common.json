@@ -231,5 +231,17 @@
   "txt_top_search": "Búsqueda principal",
   "txt_menu_pages": "Páginas",
   "txt_menu_locations": "Ubicaciones",
-  "txt_generator_event": "Evento generador"
+  "txt_generator_event": "Evento generador",
+  "txt_checkout_conversion_rate": "Consultar tasa de conversión",
+  "txt_avg_order_value": "Valor promedio del pedido",
+  "txt_total_add_to_carts": "Agregar total a carritos",
+  "txt_transactions": "Transacciones",
+  "txt_statistics": "Estadísticas",
+  "txt_menu_products": "Productos",
+  "txt_quantity": "Cantidad",
+  "txt_items_sold": "Artículos vendidos",
+  "txt_product_revenue": "Ingresos del producto",
+  "txt_avg_price": "Precio promedio",
+  "txt_avg_quantity": "Cantidad promedio",
+  "txt_top_products": "Productos principales"
 }

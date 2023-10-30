@@ -231,5 +231,17 @@
   "txt_top_search": "Najčešća pretraga",
   "txt_menu_pages": "Stranice",
   "txt_menu_locations": "Lokacije",
-  "txt_generator_event": "กิจกรรมตัวสร้าง"
+  "txt_generator_event": "กิจกรรมตัวสร้าง",
+  "txt_checkout_conversion_rate": "Stopa konverzije naplate",
+  "txt_avg_order_value": "Prosječna vrijednost narudžbe",
+  "txt_total_add_to_carts": "Ukupno dodaj u košaricu",
+  "txt_transactions": "Transakcije",
+  "txt_statistics": "Statistika",
+  "txt_menu_products": "Proizvodi",
+  "txt_quantity": "Količina",
+  "txt_items_sold": "Prodane stavke",
+  "txt_product_revenue": "Prihod od proizvoda",
+  "txt_avg_price": "Prosječna cijena",
+  "txt_avg_quantity": "Prosj. KOLIČINA",
+  "txt_top_products": "Najbolji proizvodi"
 }

@@ -7,9 +7,9 @@ import React from 'react';
 
 import 'aesirx-uikit/dist/index.css';
 import 'scss/app.scss';
-import { AppProvider } from 'aesirx-uikit';
+import { AppProvider, isLogin } from 'aesirx-uikit';
 import { authRoutes, mainRoutes } from './routes/routes';
-import { isLogin } from './auth';
+// import { isLogin } from './auth';
 
 import { BiStoreProvider } from './store/BiStore/BiViewModelContextProvider';
 import { BiViewModel } from './store/BiStore/BiViewModel';

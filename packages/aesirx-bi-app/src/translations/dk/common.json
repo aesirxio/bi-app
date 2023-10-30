@@ -160,5 +160,17 @@
   "txt_top_search": "Topsøgning",
   "txt_menu_pages": "Sider",
   "txt_menu_locations": "Placeringer",
-  "txt_generator_event": "Generatorhændelse"
+  "txt_generator_event": "Generatorhændelse",
+  "txt_checkout_conversion_rate": "Tjek konverteringsrate",
+  "txt_avg_order_value": "Gennemsnitlig ordreværdi",
+  "txt_total_add_to_carts": "I alt Tilføj til indkøbsvogne",
+  "txt_transactions": "Transaktioner",
+  "txt_statistics": "Statistik",
+  "txt_menu_products": "Produkter",
+  "txt_quantity": "Mængde",
+  "txt_items_sold": "Solgte varer",
+  "txt_product_revenue": "Produktomsætning",
+  "txt_avg_price": "Gns. pris",
+  "txt_avg_quantity": "Gns. ANTAL",
+  "txt_top_products": "Topprodukter"
 }

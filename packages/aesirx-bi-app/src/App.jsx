@@ -31,6 +31,7 @@ const App = () => {
         componentHeader={<DataStream />}
         rootId="#biapp"
         leftMenu={<Menu />}
+        logo={'/assets/images/logo_company.svg'}
       />
     </BiStoreProvider>
   );

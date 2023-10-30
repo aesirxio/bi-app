@@ -1,14 +1,11 @@
 import React, { useCallback, useEffect } from 'react';
-import StackedBarChartComponent from '../../components/StackedBarChartComponent';
 import BarChartComponent from '../../components/BarChartComponent';
 import DateRangePicker from '../../components/DateRangePicker';
 import { useTranslation } from 'react-i18next';
 import { useWoocommerceViewModel } from './WoocommerceViewModels/WoocommerceViewModelContextProvider';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
-import { Col, Row } from 'react-bootstrap';
-import TopTable from 'containers/VisitorsPage/Component/TopTable';
-import { BI_WOOCOMMERCE_STATISTIC_FIELD_KEY, Helper, env } from 'aesirx-lib';
+import { env } from 'aesirx-lib';
 import BehaviorTable from 'components/BehaviorTable';
 import ComponentNoData from 'components/ComponentNoData';
 
@@ -24,7 +21,6 @@ const WoocommerceProduct = observer(() => {
       initializeProduct,
       handleFilterTableWoocommerceProduct,
     },
-    woocommerceList,
   } = useWoocommerceViewModel();
   const {
     biListViewModel: { activeDomain },

@@ -436,7 +436,6 @@ class WoocommerceListModel {
     const month = twelveMonth.map((month, index) => {
       const filterMonthDate = this.data.filter((_item) => moment(_item?.date).month() === index);
       let totalVisitorCount = 0;
-      let totalPageViewCount = 0;
       if (filterMonthDate) {
         totalVisitorCount = filterMonthDate.reduce(
           (acc, item) => acc + item[BI_WOOCOMMERCE_PRODUCT_CHART_FIELD_KEY.QUANTITY],

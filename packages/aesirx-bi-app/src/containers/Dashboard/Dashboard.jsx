@@ -21,6 +21,7 @@ import Countries from './Component/Countries';
 import Browsers from './Component/Browsers';
 import TopTable from '../VisitorsPage/Component/TopTable';
 import { Image } from 'aesirx-uikit';
+import BarChartComponent from 'components/BarChartComponent';
 
 const Dashboard = observer(
   class Dashboard extends Component {

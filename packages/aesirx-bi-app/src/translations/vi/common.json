@@ -231,5 +231,17 @@
   "txt_top_search": "Tìm kiếm hàng đầu",
   "txt_menu_pages": "Trang",
   "txt_menu_locations": "Vị trí",
-  "txt_generator_event": "Trình tạo mã"
+  "txt_generator_event": "Trình tạo mã",
+  "txt_checkout_conversion_rate": "Tỷ lệ chuyển đổi",
+  "txt_avg_order_value": "Giá trị đơn hàng trung bình",
+  "txt_total_add_to_carts": "Tổng số thêm vào giỏ hàng",
+  "txt_transactions": "Giao dịch",
+  "txt_statistics": "Thống kê",
+  "txt_menu_products": "Sản phẩm",
+  "txt_quantity": "Số lượng",
+  "txt_items_sold": "Các mặt hàng đã bán",
+  "txt_product_revenue": "Doanh thu sản phẩm",
+  "txt_avg_price": "Giá trung bình",
+  "txt_avg_quantity": "Số  lượng trung bình",
+  "txt_top_products": "Sản phẩm hàng đầu"
 }

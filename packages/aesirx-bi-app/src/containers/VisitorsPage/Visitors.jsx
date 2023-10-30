@@ -85,7 +85,7 @@ const VisitorsPage = observer(
                       className="fs-6 mb-14px text-gray-900 fw-medium"
                       style={{ fontSize: '16px', color: '#5F5E70' }}
                     >
-                      {t('txt_unique_visitors')}
+                      {t('txt_unique_page_views')}
                     </h5>
                     <div
                       className="fs-24 d-flex align-items-center"
@@ -140,24 +140,6 @@ const VisitorsPage = observer(
                       )}
                     </div>
                   </div>
-                  <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
-                    <h5
-                      className="fs-6 mb-14px text-gray-900 fw-medium"
-                      style={{ fontSize: '16px', color: '#5F5E70' }}
-                    >
-                      {t('txt_page_views')}
-                    </h5>
-                    <div
-                      className="fs-24 d-flex align-items-center"
-                      style={{ fontSize: '24px', color: '#132342' }}
-                    >
-                      {Helper.numberWithCommas(
-                        this.visitorsListViewModel.metricsData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
-                        ]
-                      )}
-                    </div>
-                  </div>
                   <div className="bg-white rounded-3 fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
                     <h5
                       className="fs-6 mb-14px text-gray-900 fw-medium"
@@ -178,8 +160,9 @@ const VisitorsPage = observer(
               </div>
             </Col>
             <Col lg={9}>
+              
               <OverviewComponent
-                bars={['visits', 'page_views']}
+                bars={['visits', 'unique_visits']}
                 barColors={['#0066FF', '#96C0FF']}
                 isSelection={false}
                 listViewModel={this.visitorsListViewModel}

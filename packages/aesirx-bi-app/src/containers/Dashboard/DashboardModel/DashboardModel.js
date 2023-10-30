@@ -57,6 +57,7 @@ class DashboardModel {
         name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'),
         visits: filterDate?.[BI_VISITORS_FIELD_KEY.VISITS] ?? 0,
         page_views: filterDate?.[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS] ?? 0,
+        unique_visits: filterDate?.["unique_visits"] ?? 0,
       };
     });
 

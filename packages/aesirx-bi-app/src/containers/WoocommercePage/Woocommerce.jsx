@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect } from 'react';
-import StackedBarChartComponent from '../../components/StackedBarChartComponent';
 import BarChartComponent from '../../components/BarChartComponent';
 import DateRangePicker from '../../components/DateRangePicker';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +16,6 @@ const Woocommerce = observer(() => {
       statisticData,
       statisticDataChart,
       productTableTopData,
-      statusStatistic,
       statusStatisticChart,
       statusProduct,
       handleFilterDateRange,
@@ -55,8 +53,8 @@ const Woocommerce = observer(() => {
       <Row className="mb-24">
         <Col className="w-50 w-xl-auto">
           <div className="bg-white rounded-3 p-24 h-100">
-            <div class="text-gray-900 fw-medium mb-1">{t('txt_total_revenue')}</div>
-            <div class="fs-4 fw-medium">
+            <div className="text-gray-900 fw-medium mb-1">{t('txt_total_revenue')}</div>
+            <div className="fs-4 fw-medium">
               $
               {Helper.numberWithCommas(
                 statisticData?.[BI_WOOCOMMERCE_STATISTIC_FIELD_KEY?.TOTAL_REVENUE]
@@ -66,8 +64,8 @@ const Woocommerce = observer(() => {
         </Col>
         <Col className="w-50 w-xl-auto">
           <div className="bg-white rounded-3 p-24 h-100">
-            <div class="text-gray-900 fw-medium mb-1">{t('txt_checkout_conversion_rate')}</div>
-            <div class="fs-4 fw-medium">
+            <div className="text-gray-900 fw-medium mb-1">{t('txt_checkout_conversion_rate')}</div>
+            <div className="fs-4 fw-medium">
               {Helper.numberWithCommas(
                 statisticData?.[BI_WOOCOMMERCE_STATISTIC_FIELD_KEY?.CONVERSION_RATE]
               )}
@@ -77,8 +75,8 @@ const Woocommerce = observer(() => {
         </Col>
         <Col className="w-50 w-xl-auto">
           <div className="bg-white rounded-3 p-24 h-100">
-            <div class="text-gray-900 fw-medium mb-1">{t('txt_avg_order_value')}</div>
-            <div class="fs-4 fw-medium">
+            <div className="text-gray-900 fw-medium mb-1">{t('txt_avg_order_value')}</div>
+            <div className="fs-4 fw-medium">
               $
               {Helper.numberWithCommas(
                 statisticData?.[BI_WOOCOMMERCE_STATISTIC_FIELD_KEY?.AVG_ORDER_VALUE]
@@ -88,8 +86,8 @@ const Woocommerce = observer(() => {
         </Col>
         <Col className="w-50 w-xl-auto">
           <div className="bg-white rounded-3 p-24 h-100">
-            <div class="text-gray-900 fw-medium mb-1">{t('txt_total_add_to_carts')}</div>
-            <div class="fs-4 fw-medium">
+            <div className="text-gray-900 fw-medium mb-1">{t('txt_total_add_to_carts')}</div>
+            <div className="fs-4 fw-medium">
               {Helper.numberWithCommas(
                 statisticData?.[BI_WOOCOMMERCE_STATISTIC_FIELD_KEY?.TOTAL_ADD_TO_CARTS]
               )}
@@ -98,8 +96,8 @@ const Woocommerce = observer(() => {
         </Col>
         <Col className="w-50 w-xl-auto">
           <div className="bg-white rounded-3 p-24 h-100">
-            <div class="text-gray-900 fw-medium mb-1">{t('txt_transactions')}</div>
-            <div class="fs-4 fw-medium">
+            <div className="text-gray-900 fw-medium mb-1">{t('txt_transactions')}</div>
+            <div className="fs-4 fw-medium">
               {Helper.numberWithCommas(
                 statisticData?.[BI_WOOCOMMERCE_STATISTIC_FIELD_KEY?.TRANSACTIONS]
               )}

@@ -113,7 +113,7 @@
     json5 "^2.2.2"
     semver "^6.3.1"
 
-"@babel/core@^7.11.6", "@babel/core@^7.21", "@babel/core@^7.23.0":
+"@babel/core@^7.11.6", "@babel/core@^7.21", "@babel/core@^7.23", "@babel/core@^7.23.0":
   version "7.23.2"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.23.2.tgz#ed10df0d580fff67c5f3ee70fd22e2e4c90a9f94"
   integrity sha512-n7s51eWdaWZ3vGT2tD4T7J6eJs3QoBXydv7vkUM06Bf1cbVD2Kc2UrkzhiQwobfV7NwOnQXYL7UBJ5VPU+RGoQ==
@@ -4499,7 +4499,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.13.tgz#f64277c341150c979e42b00e4ac289290c9df469"
   integrity sha512-N+0kuo9KgrUQ1Sn/ifDXsvg0TTleP7rIy4zOBGECxAljqvqfqpTfzx0Q1NUedOixRMBfe2Whhb056a42cWs26Q==
 
-"@types/node@>=10.0.0", "@types/node@^20.8.0":
+"@types/node@>=10.0.0":
   version "20.8.8"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.8.tgz#adee050b422061ad5255fc38ff71b2bb96ea2a0e"
   integrity sha512-YRsdVxq6OaLfmR9Hy816IMp33xOBjfyOgUd77ehqg96CFywxAPbDbXvAsuN2KVg2HOT8Eh6uAfU+l4WffwPVrQ==
@@ -4515,6 +4515,13 @@
   version "18.18.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.18.7.tgz#bb3a7068dc4ba421b6968f2a259298b3a4e129e8"
   integrity sha512-bw+lEsxis6eqJYW8Ql6+yTqkE6RuFtsQPSe5JxXbqYRFQEER5aJA9a5UH9igqDWm3X4iLHIKOHlnAXLM4mi7uQ==
+  dependencies:
+    undici-types "~5.26.4"
+
+"@types/node@^20.8.0":
+  version "20.8.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.9.tgz#646390b4fab269abce59c308fc286dcd818a2b08"
+  integrity sha512-UzykFsT3FhHb1h7yD4CA4YhBHq545JC0YnEz41xkipN88eKQtL6rSgocL5tbAP6Ola9Izm/Aw4Ora8He4x0BHg==
   dependencies:
     undici-types "~5.26.4"
 
@@ -5277,9 +5284,9 @@
   integrity sha512-Cn+3I0V0vT9ghMuzh1KzZvCkiAxTq+1TR2eSqw5E5AVWfmCtECFkVZBP6uUJZ8YjwLqXheI+rnjqPy7sVM4Fyg==
 
 "@walletconnect/types@^2.9.1":
-  version "2.10.2"
-  resolved "https://registry.yarnpkg.com/@walletconnect/types/-/types-2.10.2.tgz#68e433a29ec2cf42d79d8b50c77bd5c1d91db721"
-  integrity sha512-luNV+07Wdla4STi9AejseCQY31tzWKQ5a7C3zZZaRK/di+rFaAAb7YW04OP4klE7tw/mJRGPTlekZElmHxO8kQ==
+  version "2.10.4"
+  resolved "https://registry.yarnpkg.com/@walletconnect/types/-/types-2.10.4.tgz#23f6e4bd785671812dc6ea96848a6bd7ea78f038"
+  integrity sha512-eQpOElyiwJp3tepuOS3TS9dXTl9jVVlrC3iVA8bytnbLagkAUxmiv/s7PyDFx+ndXwQVh8PFBkWg1oxGwgCSBA==
   dependencies:
     "@walletconnect/events" "^1.0.1"
     "@walletconnect/heartbeat" "1.2.1"
@@ -5653,10 +5660,10 @@ aes-js@^3.1.2:
   resolved "https://registry.yarnpkg.com/aes-js/-/aes-js-3.1.2.tgz#db9aabde85d5caabbfc0d4f2a4446960f627146a"
   integrity sha512-e5pEa2kBnBOgR4Y/p20pskXI74UEz7de8ZGVo58asOtvSVG5YAbJeELPZxOmt+Bnz3rX753YKhfIn4X4l1PPRQ==
 
-aesirx-dam-app@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/aesirx-dam-app/-/aesirx-dam-app-1.4.1.tgz#c7863faa32a1ff82faa4f7480a00d88cd0db495b"
-  integrity sha512-YwF9uuH6CehpKRdZJ+eGigxee1uBBw+hNCP99fQUeRe3k5qW7gie4SWNFQnMA8QOvOIpf9L0FP5IjCFitRDsuw==
+aesirx-dam-app@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/aesirx-dam-app/-/aesirx-dam-app-1.5.0.tgz#683bc3537a6ef539e8f1af79ff77f76869e39b92"
+  integrity sha512-jUXeMGQ7Nb+72sk48HvoS8bx5f6mQzxBhaXlbVZfQJFxVM7CIxR9CQBWcSe1WKRetFgMo936oHt51L/bYuhsHg==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.2.0"
     "@fortawesome/free-regular-svg-icons" "^6.2.0"
@@ -5681,6 +5688,19 @@ aesirx-dam-app@^1.4.1:
     react-table "^7.8.0"
     simple-react-validator "^1.6.2"
     web-vitals "^3.3.1"
+
+aesirx-lib@^1.11.1:
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/aesirx-lib/-/aesirx-lib-1.11.2.tgz#358e912232f8a42e74447c3bd8ed1ff2387aa16c"
+  integrity sha512-WR1zeSHJdxfI3Ibosw0nxWxNNgbN0r0/N6mwAaYAijrBTMG/o0S2UfTNLhfW9oCpY+XtpxosDZOSTSRGfTrVYw==
+  dependencies:
+    axios "^1.4.0"
+    axios-auth-refresh "^3.3.6"
+    date-fns "^2.30.0"
+    date-fns-tz "^2.0.0"
+    moment "^2.29.4"
+    query-string "7"
+    react-secure-storage "^1.2.2"
 
 agent-base@6:
   version "6.0.2"

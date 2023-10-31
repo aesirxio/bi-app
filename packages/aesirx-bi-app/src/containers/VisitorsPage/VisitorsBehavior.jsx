@@ -114,7 +114,7 @@ const VisitorsBehaviorPage = observer(
             </div>
           </div>
           <CardComponent data={card ?? []} />
-          <Row className="mb-24">
+          <Row className="mb-24 ChartWrapper">
             <Col lg={12}>
               <OverviewComponent
                 bars={['page_views']}

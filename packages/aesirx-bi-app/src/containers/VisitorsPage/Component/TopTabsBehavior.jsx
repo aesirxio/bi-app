@@ -15,7 +15,7 @@ const TopTabs = observer(
       const { statusTopTable } = this.listViewModel;
       return (
         <div className="position-relative h-100">
-          <div className="bg-white rounded-3 shadow-sm h-100 position-relative">
+          <div className="bg-white rounded-3 shadow-sm h-100 position-relative ChartWrapper">
             <TopTable
               data={this.listViewModel?.pagesTableData?.list}
               pagination={this.listViewModel?.pagesTableData?.pagination}

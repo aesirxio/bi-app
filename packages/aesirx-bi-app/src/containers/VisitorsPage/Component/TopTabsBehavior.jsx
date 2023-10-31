@@ -13,48 +13,26 @@ const TopTabs = observer(
       this.state = { loading: false };
     }
     render() {
-      const { t } = this.props;
       const { statusTopTable } = this.listViewModel;
       return (
         <div className="position-relative h-100">
-          <Tab.Container id="left-tabs-example" defaultActiveKey="page">
-            <Row className="gx-24">
-              <Col sm={2}>
-                <div className="bg-white rounded-3 px-15 py-2 shadow-sm">
-                  <Nav variant="pills" className="flex-column">
-                    <Nav.Item>
-                      <Nav.Link eventKey="page" className="ps-0">
-                        {t('txt_page')}
-                      </Nav.Link>
-                    </Nav.Item>
-                  </Nav>
-                </div>
-              </Col>
-              <Col sm={10}>
-                <div className="bg-white rounded-3 shadow-sm h-100 position-relative">
-                  <Tab.Content>
-                    <Tab.Pane eventKey="page">
-                      <TopTable
-                        data={this.listViewModel?.pagesTableData?.list}
-                        pagination={this.listViewModel?.pagesTableData?.pagination}
-                        selectPage={async (value) => {
-                          await this.listViewModel.handleFilterPages({ page: value });
-                        }}
-                        selectPageSize={async (value) => {
-                          await this.listViewModel.handleFilterPages({
-                            page: 1,
-                            page_size: value,
-                          });
-                        }}
-                        status={statusTopTable}
-                        {...this.props}
-                      />
-                    </Tab.Pane>
-                  </Tab.Content>
-                </div>
-              </Col>
-            </Row>
-          </Tab.Container>
+          <div className="bg-white rounded-3 shadow-sm h-100 position-relative">
+            <TopTable
+              data={this.listViewModel?.pagesTableData?.list}
+              pagination={this.listViewModel?.pagesTableData?.pagination}
+              selectPage={async (value) => {
+                await this.listViewModel.handleFilterPages({ page: value });
+              }}
+              selectPageSize={async (value) => {
+                await this.listViewModel.handleFilterPages({
+                  page: 1,
+                  page_size: value,
+                });
+              }}
+              status={statusTopTable}
+              {...this.props}
+            />
+          </div>
         </div>
       );
     }

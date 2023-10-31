@@ -9,7 +9,6 @@ import { BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import { withRouter } from 'react-router-dom';
 import { withVisitorsViewModel } from './VisitorsViewModels/VisitorsViewModelContextProvider';
 import { BiViewModelContext } from '../../store/BiStore/BiViewModelContextProvider';
-import { env } from 'aesirx-lib';
 import moment from 'moment';
 import TopTabsBehavior from './Component/TopTabsBehavior';
 import OverviewComponent from '../Dashboard/Component/Overview';
@@ -50,46 +49,17 @@ const VisitorsBehaviorPage = observer(
       const { t } = this.props;
       return [
         {
-          className: 'col-12 mb-24',
+          className: 'col-3 mb-24',
           title: t('txt_page_views'),
-          icon: env.PUBLIC_URL + '/assets/images/view.svg',
-          iconColor: '#2E71B1',
           value: Helper.numberWithCommas(
             this.visitorsListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
           ),
           isIncrease: false,
           loading: this.visitorsListViewModel.statusMetrics,
-          options: [
-            {
-              label: t('txt_all'),
-              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
-              actualValue: Helper.numberWithCommas(
-                this.visitorsListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-              ),
-            },
-            {
-              label: t('txt_unique'),
-              value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
-              actualValue: Helper.numberWithCommas(
-                this.visitorsListViewModel.metricsData?.[
-                  BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
-                ]
-              ),
-            },
-          ],
-          defaultValue: {
-            label: t('txt_all'),
-            value: BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
-            actualValue: Helper.numberWithCommas(
-              this.visitorsListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-            ),
-          },
         },
         {
-          className: 'col-12 mb-24',
+          className: 'col-3 mb-24',
           title: t('txt_acg_session_duration'),
-          icon: env.PUBLIC_URL + '/assets/images/duration.svg',
-          iconColor: '#EF3737',
           value:
             (this.visitorsListViewModel?.metricsData?.[
               BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
@@ -106,15 +76,23 @@ const VisitorsBehaviorPage = observer(
           loading: this.visitorsListViewModel.statusMetrics,
         },
         {
-          className: 'col-12',
+          className: 'col-3 mb-24',
           title: t('txt_page_session'),
-          icon: env.PUBLIC_URL + '/assets/images/page.svg',
-          iconColor: '#FFBE55',
           value: Helper.numberWithCommas(
             this.visitorsListViewModel?.metricsData?.[
               BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION
             ]
           ),
+          isIncrease: false,
+          loading: this.visitorsListViewModel?.statusMetrics,
+        },
+        {
+          className: 'col-3 mb-24',
+          title: t('txt_bounce_rate'),
+          value:
+            Helper.numberWithCommas(
+              this.visitorsListViewModel?.metricsData?.[BI_SUMMARY_FIELD_KEY.BOUNCE_RATE]
+            ) + '%',
           isIncrease: false,
           loading: this.visitorsListViewModel?.statusMetrics,
         },
@@ -135,19 +113,18 @@ const VisitorsBehaviorPage = observer(
               <DateRangePicker onChange={this.handleDateRangeChange} />
             </div>
           </div>
-
+          <CardComponent data={card ?? []} />
           <Row className="mb-24">
-            <Col lg={9}>
+            <Col lg={12}>
               <OverviewComponent
                 bars={['page_views']}
                 barColors={['#0066FF']}
                 isSelection={false}
                 listViewModel={this.visitorsListViewModel}
                 status={this.visitorsListViewModel?.statusOverview}
+                data={this.visitorsListViewModel?.visitorData?.toAreaChart()}
+                filterData={this.visitorsListViewModel?.visitorData?.getFilterName()}
               />
-            </Col>
-            <Col lg={3}>
-              <CardComponent data={card ?? []} />
             </Col>
           </Row>
           <TopTabsBehavior listViewModel={this.visitorsListViewModel} />

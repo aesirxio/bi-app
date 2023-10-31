@@ -57,6 +57,7 @@ class DashboardModel {
         name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'),
         visits: filterDate?.[BI_VISITORS_FIELD_KEY.VISITS] ?? 0,
         page_views: filterDate?.[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS] ?? 0,
+        unique_visits: filterDate?.['unique_visits'] ?? 0,
       };
     });
 
@@ -64,6 +65,7 @@ class DashboardModel {
       const filterMonthDate = this.data.filter((_item) => moment(_item?.date).month() === index);
       let totalVisitorCount = 0;
       let totalPageViewCount = 0;
+      let totalUniqueVisitorCount = 0;
       if (filterMonthDate) {
         totalVisitorCount = filterMonthDate.reduce(
           (acc, item) => acc + item[BI_VISITORS_FIELD_KEY.VISITS],
@@ -73,12 +75,17 @@ class DashboardModel {
           (acc, item) => acc + item[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS],
           0
         );
+        totalUniqueVisitorCount = filterMonthDate.reduce(
+          (acc, item) => acc + item['unique_visits'],
+          0
+        );
       }
 
       return {
         name: month,
         visits: totalVisitorCount,
         page_views: totalPageViewCount,
+        unique_visits: totalUniqueVisitorCount,
       };
     });
 
@@ -93,6 +100,7 @@ class DashboardModel {
         weekData[weekName] = {
           visits: 0,
           page_views: 0,
+          unique_visits: 0,
         };
       }
 
@@ -109,9 +117,14 @@ class DashboardModel {
           (acc, item) => acc + item[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS],
           0
         );
+        const totalUniqueVisitorCount = filterWeekDate.reduce(
+          (acc, item) => acc + item['unique_visits'],
+          0
+        );
 
         weekData[weekName].visits += totalVisitorCount;
         weekData[weekName].page_views += totalPageViewCount;
+        weekData[weekName].unique_visits += totalUniqueVisitorCount;
       }
     });
 
@@ -120,6 +133,7 @@ class DashboardModel {
       name: weekName,
       visits: weekData[weekName].visits,
       page_views: weekData[weekName].page_views,
+      unique_visits: weekData[weekName].unique_visits,
     }));
 
     return [{ visitors: month }, { visitors: date }, { visitors: week }];

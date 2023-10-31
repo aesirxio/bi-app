@@ -87,7 +87,7 @@ class VisitorsListViewModel {
         page_size: '1000',
       },
       dateRangeFilter,
-      this.callbackOnVisitorSuccessHandler,
+      this.callbackOnVisitsSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -285,11 +285,24 @@ class VisitorsListViewModel {
       this.data = [];
     }
   };
-  callbackOnVisitorSuccessHandler = (data) => {
+  callbackOnVisitsSuccessHandler = (data) => {
     if (data) {
       if (data?.message !== 'canceled') {
         this.statusOverview = PAGE_STATUS.READY;
         const transformData = new DashboardModel(data, this.globalStoreViewModel);
+        this.visitorData = transformData;
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.statusOverview = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+  callbackOnVisitorSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.statusOverview = PAGE_STATUS.READY;
+        const transformData = new DashboardModel(data?.list, this.globalStoreViewModel);
         this.visitorData = transformData;
       }
     } else {

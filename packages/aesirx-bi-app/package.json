@@ -1,6 +1,6 @@
 {
   "name": "aesirx-bi-app",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "GPL-3.0-only",
   "author": "AesirX",
   "main": "dist/index.js",
@@ -10,6 +10,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "aesirx-sso": "*",
     "aesirx-lib": "*",
     "aesirx-uikit": "*",
     "axios": "^1.4.0",

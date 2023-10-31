@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
-import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import TopTable from './TopTable';
 const TopTabs = observer(
   class TopTabs extends Component {

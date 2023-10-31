@@ -10,12 +10,13 @@ import { BiViewModel } from '../../store/BiStore/BiViewModel';
 import 'scss/app.scss';
 
 import { observer } from 'mobx-react';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, LoginPage } from 'aesirx-uikit';
 import { AppProvider } from 'aesirx-uikit';
 import { authRoutes, mainRoutes } from '../../routes/routes';
 import { DataStream } from '../../components/DataStream';
 import { appLanguages } from '../../translations';
 import SbarLeftIntegration from './SbarLeftIntegration';
+import { Storage } from 'aesirx-lib';
 
 const DashboardPage = lazy(() => import('../../containers/Dashboard'));
 const UTMTrackingPage = lazy(() => import('../../containers/UTMTrackingPage'));
@@ -23,10 +24,13 @@ const EventsPage = lazy(() => import('../../containers/EventsPage'));
 const VisitorsPage = lazy(() => import('../../containers/VisitorsPage'));
 const FlowPage = lazy(() => import('../../containers/FlowDetailPage'));
 const RegionCountryPage = lazy(() => import('../../containers/RegionCountryPage'));
+const WoocommercePage = lazy(() => import('../../containers/WoocommercePage'));
 
 const biViewModel = new BiViewModel();
 
 const MainLayoutIntegration = (props) => {
+  const isAuthenticated = Storage.getItem('auth');
+
   return (
     <BiStoreProvider viewModel={biViewModel}>
       <AppProvider
@@ -41,7 +45,11 @@ const MainLayoutIntegration = (props) => {
         noavatar={true}
       >
         <div className="bi-intergration_layout">
-          <App {...props} integration={true} />
+          {!isAuthenticated && window.env.STORAGE === 'external' ? (
+            <LoginPage text="BI" />
+          ) : (
+            <App {...props} integration={true} />
+          )}
         </div>
       </AppProvider>
     </BiStoreProvider>
@@ -54,11 +62,23 @@ String.prototype.startsWith = function (str) {
 
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
-    case 'visitors-overview':
+    case 'visitors':
       return <VisitorsPage {...props} />;
+
+    case 'visitors-locations':
+      return <RegionCountryPage {...props} />;
 
     case 'visitors-behavior':
       return <VisitorsPage {...props} />;
+
+    case 'behavior':
+      return <VisitorsPage {...props} />;
+
+    case 'behavior-events':
+      return <EventsPage {...props} />;
+
+    case 'behavior-events-generator':
+      return <EventsPage {...props} />;
 
     case 'utm-tracking':
       return <UTMTrackingPage {...props} />;
@@ -66,14 +86,11 @@ const RenderComponent = ({ link, ...props }) => {
     case 'utm-tracking-generator':
       return <UTMTrackingPage {...props} />;
 
-    case 'events':
-      return <EventsPage {...props} />;
+    case 'woocommerce':
+      return <WoocommercePage {...props} />;
 
-    case 'events-generator':
-      return <EventsPage {...props} />;
-
-    case 'region-country':
-      return <RegionCountryPage {...props} />;
+    case 'woocommerce-product':
+      return <WoocommercePage {...props} />;
 
     case link.startsWith('flow') ? link : '':
       return <FlowPage {...props} />;

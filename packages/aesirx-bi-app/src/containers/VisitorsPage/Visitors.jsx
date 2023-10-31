@@ -65,14 +65,11 @@ const VisitorsPage = observer(
                   <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
                     <h5
                       className="fs-6 mb-14px text-gray-900 fw-medium"
-                      style={{ fontSize: '16px', color: '#5F5E70' }}
+                      style={{ fontSize: '16px' }}
                     >
                       {t('txt_visitors')}
                     </h5>
-                    <div
-                      className="fs-24 d-flex align-items-center"
-                      style={{ fontSize: '24px', color: '#132342' }}
-                    >
+                    <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                       {Helper.numberWithCommas(
                         this.visitorsListViewModel.metricsData?.[
                           BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
@@ -83,14 +80,11 @@ const VisitorsPage = observer(
                   <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
                     <h5
                       className="fs-6 mb-14px text-gray-900 fw-medium"
-                      style={{ fontSize: '16px', color: '#5F5E70' }}
+                      style={{ fontSize: '16px' }}
                     >
                       {t('txt_unique_page_views')}
                     </h5>
-                    <div
-                      className="fs-24 d-flex align-items-center"
-                      style={{ fontSize: '24px', color: '#132342' }}
-                    >
+                    <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                       {Helper.numberWithCommas(
                         this.visitorsListViewModel.metricsData?.[
                           BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
@@ -101,14 +95,11 @@ const VisitorsPage = observer(
                   <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
                     <h5
                       className="fs-6 mb-14px text-gray-900 fw-medium"
-                      style={{ fontSize: '16px', color: '#5F5E70' }}
+                      style={{ fontSize: '16px' }}
                     >
                       {t('txt_average_visit_duration')}
                     </h5>
-                    <div
-                      className="fs-24 d-flex align-items-center"
-                      style={{ fontSize: '24px', color: '#132342' }}
-                    >
+                    <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                       {this.visitorsListViewModel?.metricsData?.[
                         BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
                       ]
@@ -122,17 +113,15 @@ const VisitorsPage = observer(
                         : '0 min 0s'}
                     </div>
                   </div>
+            
                   <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
                     <h5
                       className="fs-6 mb-14px text-gray-900 fw-medium"
-                      style={{ fontSize: '16px', color: '#5F5E70' }}
+                      style={{ fontSize: '16px' }}
                     >
                       {t('txt_page_views')}
                     </h5>
-                    <div
-                      className="fs-24 d-flex align-items-center"
-                      style={{ fontSize: '24px', color: '#132342' }}
-                    >
+                    <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                       {Helper.numberWithCommas(
                         this.visitorsListViewModel.metricsData?.[
                           BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
@@ -143,14 +132,11 @@ const VisitorsPage = observer(
                   <div className="bg-white rounded-3 fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
                     <h5
                       className="fs-6 mb-14px text-gray-900 fw-medium"
-                      style={{ fontSize: '16px', color: '#5F5E70' }}
+                      style={{ fontSize: '16px' }}
                     >
                       {t('txt_bounce_rate')}
                     </h5>
-                    <div
-                      className="fs-24 d-flex align-items-center"
-                      style={{ fontSize: '24px', color: '#132342' }}
-                    >
+                    <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                       {Helper.numberWithCommas(
                         this.visitorsListViewModel.metricsData?.[BI_SUMMARY_FIELD_KEY.BOUNCE_RATE]
                       ) + '%'}

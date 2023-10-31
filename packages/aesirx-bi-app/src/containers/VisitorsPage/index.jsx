@@ -21,7 +21,7 @@ const VisitorsBehaviorPage = lazy(() => import('./VisitorsBehavior'));
 
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
-    case 'visitors-behavior':
+    case 'behavior':
       return <VisitorsBehaviorPage {...props} />;
 
     default:
@@ -89,10 +89,10 @@ const ComponentToPrint = observer(
             />
           ) : (
             <>
-              <Route exact path={['/visitors/overview', '/bi/visitors/overview']}>
+              <Route exact path={['/visitors', '/bi/visitors']}>
                 <VisitorsPage {...this.props} />
               </Route>
-              <Route exact path={['/visitors/behavior', '/bi/visitors/behavior']}>
+              <Route exact path={['/behavior', '/bi/behavior']}>
                 <VisitorsBehaviorPage {...this.props} />
               </Route>
             </>

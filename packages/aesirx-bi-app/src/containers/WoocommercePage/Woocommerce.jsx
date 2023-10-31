@@ -1,25 +1,25 @@
 import React, { useCallback, useEffect } from 'react';
-import StackedBarChartComponent from '../../components/StackedBarChartComponent';
 import BarChartComponent from '../../components/BarChartComponent';
 import DateRangePicker from '../../components/DateRangePicker';
 import { useTranslation } from 'react-i18next';
 import { useWoocommerceViewModel } from './WoocommerceViewModels/WoocommerceViewModelContextProvider';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
-import TopTabs from './Component/TopTabs';
+import { Col, Row } from 'react-bootstrap';
+import TopTable from 'containers/VisitorsPage/Component/TopTable';
+import { BI_WOOCOMMERCE_STATISTIC_FIELD_KEY, Helper } from 'aesirx-lib';
 
 const Woocommerce = observer(() => {
   const { t } = useTranslation();
   const {
     woocommerceList: {
-      getVisitor,
-      getWoocommerce,
-      dataWoocommerce,
-      status,
-      // statusTable,
+      statisticData,
+      statisticDataChart,
+      productTableTopData,
+      statusStatisticChart,
+      statusProduct,
       handleFilterDateRange,
-      // handleFilterTable,
-      getAttribute,
+      initialize,
     },
     woocommerceList,
   } = useWoocommerceViewModel();
@@ -32,45 +32,9 @@ const Woocommerce = observer(() => {
   }, []);
   useEffect(() => {
     const execute = async () => {
-      getVisitor({
+      await initialize({
         'filter[domain]': activeDomain,
-        'filter[attribute_name]': 'analytics_woocommerce',
-        'filter_not[event_name]': 'visit',
       });
-      getWoocommerce({
-        'filter[domain]': activeDomain,
-        'filter[attribute_name]': 'analytics_woocommerce',
-        'filter_not[event_name]': 'visit',
-      });
-      Promise.all([
-        getAttribute(
-          {
-            'filter[domain]': activeDomain,
-            page_size: 5,
-            'filter[attribute_name]': 'wooocommerce_product_name',
-          },
-          {},
-          'cart'
-        ),
-        getAttribute(
-          {
-            'filter[domain]': activeDomain,
-            page_size: 5,
-            'filter[attribute_name]': 'wooocommerce_search',
-          },
-          {},
-          'search'
-        ),
-        getAttribute(
-          {
-            'filter[domain]': activeDomain,
-            page_size: 5,
-            'filter[attribute_name]': 'product-0-name',
-          },
-          {},
-          'checkout'
-        ),
-      ]);
     };
     execute();
     return () => {};
@@ -86,53 +50,142 @@ const Woocommerce = observer(() => {
           <DateRangePicker onChange={handleDateRangeChange} />
         </div>
       </div>
-      <div className="row gx-24 mb-24">
-        <div className="col-lg-6 col-12">
-          <StackedBarChartComponent
-            loading={status}
-            chartTitle={t('txt_menu_overview')}
-            height={390}
-            data={dataWoocommerce?.toAreaChart() ?? []}
-            colors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            lineColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            lines={dataWoocommerce?.getListLine()}
-            filterData={dataWoocommerce?.getFilterName()}
-            tooltipComponent={{
-              header: t('txt_number'),
-              value: ``,
-            }}
-            isLegend={true}
-          />
-        </div>
-        <div className="col-lg-6 col-12">
+      <Row className="mb-24">
+        <Col className="w-50 w-xl-auto">
+          <div className="bg-white rounded-3 p-24 h-100">
+            <div className="text-gray-900 fw-medium mb-1">{t('txt_total_revenue')}</div>
+            <div className="fs-4 fw-medium">
+              $
+              {Helper.numberWithCommas(
+                statisticData?.[BI_WOOCOMMERCE_STATISTIC_FIELD_KEY?.TOTAL_REVENUE]
+              )}
+            </div>
+          </div>
+        </Col>
+        {/* <Col className="w-50 w-xl-auto">
+          <div className="bg-white rounded-3 p-24 h-100">
+            <div className="text-gray-900 fw-medium mb-1">{t('txt_checkout_conversion_rate')}</div>
+            <div className="fs-4 fw-medium">
+              {Helper.numberWithCommas(
+                statisticData?.[BI_WOOCOMMERCE_STATISTIC_FIELD_KEY?.CONVERSION_RATE]
+              )}
+              %
+            </div>
+          </div>
+        </Col> */}
+        <Col className="w-50 w-xl-auto">
+          <div className="bg-white rounded-3 p-24 h-100">
+            <div className="text-gray-900 fw-medium mb-1">{t('txt_avg_order_value')}</div>
+            <div className="fs-4 fw-medium">
+              $
+              {Helper.numberWithCommas(
+                statisticData?.[BI_WOOCOMMERCE_STATISTIC_FIELD_KEY?.AVG_ORDER_VALUE]
+              )}
+            </div>
+          </div>
+        </Col>
+        <Col className="w-50 w-xl-auto">
+          <div className="bg-white rounded-3 p-24 h-100">
+            <div className="text-gray-900 fw-medium mb-1">{t('txt_total_add_to_carts')}</div>
+            <div className="fs-4 fw-medium">
+              {Helper.numberWithCommas(
+                statisticData?.[BI_WOOCOMMERCE_STATISTIC_FIELD_KEY?.TOTAL_ADD_TO_CARTS]
+              )}
+            </div>
+          </div>
+        </Col>
+        <Col className="w-50 w-xl-auto">
+          <div className="bg-white rounded-3 p-24 h-100">
+            <div className="text-gray-900 fw-medium mb-1">{t('txt_transactions')}</div>
+            <div className="fs-4 fw-medium">
+              {Helper.numberWithCommas(
+                statisticData?.[BI_WOOCOMMERCE_STATISTIC_FIELD_KEY?.TRANSACTIONS]
+              )}
+            </div>
+          </div>
+        </Col>
+      </Row>
+      <div className="bg-white rounded-3 ChartWrapper d-flex align-items-center mb-24">
+        <div className="position-relative w-100 h-100">
           <BarChartComponent
-            loading={status}
-            chartTitle={'Event count'}
-            height={390}
-            bars={['number']}
-            barColors={['#2C94EA']}
-            data={dataWoocommerce?.toBarChart()}
-            margin={{ left: 40 }}
-            filterButtons={[]}
+            height={500}
+            data={statisticDataChart?.list}
+            colors={['#1AB394']}
+            layout="horizontal"
+            barColors={['#0066FF', '#96C0FF']}
+            bars={['total_revenue', 'total_purchasers']}
+            hiddenGrid={{ vertical: false }}
+            XAxisOptions={{ axisLine: true, padding: { left: 50, right: 50 } }}
+            defaultValue={{ label: 'Visitors', value: 'visitors' }}
+            options={[{ label: 'Visitors', value: 'visitors' }]}
+            loading={statusStatisticChart}
+            tooltipComponent={{
+              header: t('txt_in_total'),
+              value: '',
+            }}
+            status={statusStatisticChart}
+            filterData={[{ label: 'Visitors', value: 'visitors' }]}
+            isSelection={false}
+            isLegend={true}
+            filterButtons={['days', 'months', 'weeks']}
+            chartTitle={t('txt_statistics')}
           />
         </div>
       </div>
-      {woocommerceList && <TopTabs listViewModel={woocommerceList} />}
-      {/* <div className="row gx-24 mb-24">
-        <div className="col-12 ">
-          {data?.list && (
-            <BehaviorTable
-              data={data?.list?.toEventTable(props.integration)}
-              pagination={data.pagination}
-              handleFilterTable={handleFilterTable}
-              statusTable={statusTable}
-              isPaginationAPI={true}
-              {...props}
+      <Row className="my-24 pb-24">
+        <Col lg={6} className="mb-24">
+          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+            <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_search')}</h4>
+            <TopTable
+              data={woocommerceList?.productSearchTableData?.list}
+              pagination={woocommerceList?.productSearchTableData?.pagination}
+              isPagination={false}
+              simplePagination={true}
+              limit={10}
+              status={woocommerceList?.statusTopProductSearchTable}
             />
-          )}
-        </div>
-      </div> */}
+          </div>
+        </Col>
+        <Col lg={6} className="mb-24">
+          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+            <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_product_add_to_cart')}</h4>
+            <TopTable
+              data={woocommerceList?.productCartTableData?.list}
+              pagination={woocommerceList?.productCartTableData?.pagination}
+              isPagination={false}
+              simplePagination={true}
+              limit={10}
+              status={woocommerceList?.statusTopProductCartTable}
+            />
+          </div>
+        </Col>
+        <Col lg={6} className="mb-24">
+          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+            <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_products')}</h4>
+            <TopTable
+              data={productTableTopData?.list}
+              pagination={productTableTopData?.pagination}
+              isPagination={false}
+              simplePagination={true}
+              limit={10}
+              status={statusProduct}
+            />
+          </div>
+        </Col>
+        <Col lg={6} className="mb-24">
+          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+            <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_view')}</h4>
+            <TopTable
+              data={woocommerceList?.productViewTableData?.list}
+              pagination={woocommerceList?.productViewTableData?.pagination}
+              isPagination={false}
+              simplePagination={true}
+              limit={10}
+              status={woocommerceList?.statusTopProductViewTable}
+            />
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 });

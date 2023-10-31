@@ -8,7 +8,6 @@
 @import 'bootstrap/scss/reboot';
 
 @media print {
-  @import 'bootstrap/scss/mixins';
   @page {
     size: 400mm 400mm;
   }
@@ -96,6 +95,18 @@
       &.vi {
         min-width: 330px;
       }
+    }
+  }
+  .mode-switcher {
+    input[type='checkbox']:checked::before {
+      display: none;
+    }
+  }
+}
+.wp-admin {
+  #biapp.mini_left {
+    .w-260 {
+      width: 90px !important;
     }
   }
 }

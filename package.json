@@ -3,7 +3,8 @@
   "workspaces": [
     "packages/aesirx-bi-app",
     "packages/aesirx-lib",
-    "packages/aesirx-uikit"
+    "packages/aesirx-uikit",
+    "packages/aesirx-sso"
   ],
   "devDependencies": {
     "nx": "16.3.2"
@@ -20,8 +21,8 @@
     "d3-color": "^3"
   },
   "scripts": {
-    "prepare": "nx run-many -t build -p aesirx-uikit aesirx-lib && nx run-many -t build:lib --exclude aesirx-uikit aesirx-lib aesirx-bi-app",
-    "dev": "nx run-many -t dev -p aesirx-bi-app aesirx-uikit aesirx-lib",
+    "prepare": "nx run aesirx-sso:build && nx run-many -t build -p aesirx-uikit aesirx-lib && nx run-many -t build:lib --exclude aesirx-uikit aesirx-lib aesirx-bi-app",
+    "dev": "nx run-many -t dev -p aesirx-uikit aesirx-lib aesirx-bi-app",
     "build": "nx run aesirx-bi-app:build",
     "build:lib": "nx run aesirx-bi-app:build:lib",
     "lint:check": "nx run aesirx-bi-app:lint:check",

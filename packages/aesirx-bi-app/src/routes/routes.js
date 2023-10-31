@@ -4,9 +4,7 @@
  */
 
 import React, { lazy } from 'react';
-
-const LoginPage = lazy(() => import('../containers/LoginPage'));
-
+import { LoginPage, ProfilePage } from 'aesirx-uikit';
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
 const VisitorsPage = lazy(() => import('../containers/VisitorsPage'));
 const RevenuePage = lazy(() => import('../containers/RevenuePage'));
@@ -21,7 +19,7 @@ const authRoutes = [
   {
     path: '/login',
     exact: true,
-    main: () => <LoginPage />,
+    main: () => <LoginPage text="BI" />,
   },
 ];
 
@@ -33,9 +31,9 @@ const mainRoutes = [
     main: () => <DashboardPage />,
   },
   {
-    path: ['/visitors/overview', '/visitors/behavior'],
+    path: ['/visitors', '/behavior'],
     exact: true,
-    page: ['visitors-overview', 'visitors-behavior'],
+    page: ['visitors', 'behavior'],
     main: () => <VisitorsPage />,
   },
   { path: '/revenue', exact: true, main: () => <RevenuePage /> },
@@ -46,14 +44,14 @@ const mainRoutes = [
     main: () => <UTMTrackingPage />,
   },
   {
-    path: ['/events', '/events/generator'],
-    page: ['events', 'events-generator'],
+    path: ['/behavior/events', '/behavior/events-generator'],
+    page: ['behavior-events', 'behavior-events-generator'],
     exact: true,
     main: () => <EventsPage />,
   },
   {
-    path: ['/woocommerce'],
-    page: ['woocommerce'],
+    path: ['/woocommerce', '/woocommerce/product'],
+    page: ['woocommerce', 'woocommerce-product'],
     exact: true,
     main: () => <WoocommercePage />,
   },
@@ -64,13 +62,20 @@ const mainRoutes = [
     main: () => <FlowPage />,
   },
   {
-    path: '/region-country',
+    path: '/visitors/locations',
+    page: 'visitors-locations',
     exact: true,
     main: () => <RegionCountryPage />,
   },
 ];
 
-const settingRoutes = [];
+const settingRoutes = [
+  {
+    path: '/profile',
+    exact: false,
+    main: () => <ProfilePage />,
+  },
+];
 
 const integrationRoutes = () =>
   mainRoutes.map((item) => {

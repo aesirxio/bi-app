@@ -52,7 +52,7 @@ const ComponentCard = ({
               ></span>
             </div>
           )}
-          <h6 className="mb-0 fw-semibold">{title}</h6>
+          <h6 className="mb-0 fw-medium text-gray-900">{title}</h6>
         </div>
         {options && (
           <AesirXSelect
@@ -72,7 +72,7 @@ const ComponentCard = ({
             size="10px"
           />
         )}
-        <h3 className="mb-0 fw-semibold fs-24">{selectedValue}</h3>
+        <h3 className="mb-0 fw-medium fs-24">{selectedValue}</h3>
         <div className="d-flex flex-wrap align-item-center">
           {percent && (
             <div className="d-flex w-100 mb-sm justify-content-end">

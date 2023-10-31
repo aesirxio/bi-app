@@ -160,7 +160,6 @@ const VisitorsPage = observer(
               </div>
             </Col>
             <Col lg={9}>
-              
               <OverviewComponent
                 bars={['visits', 'unique_visits']}
                 barColors={['#0066FF', '#96C0FF']}

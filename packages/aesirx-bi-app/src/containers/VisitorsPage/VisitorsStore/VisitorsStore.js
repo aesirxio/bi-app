@@ -69,7 +69,6 @@ export class VisitorsStore {
     try {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getVisits(dataFilter, dateFilter);
-      console
       if (responseDataFromLibrary) {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);

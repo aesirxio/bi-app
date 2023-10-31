@@ -218,7 +218,6 @@ class DashboardListViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.status = PAGE_STATUS.READY;
-        console.log('this.status', data);
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.visitorData = transformData;
       }

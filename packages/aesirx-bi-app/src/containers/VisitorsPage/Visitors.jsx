@@ -113,7 +113,7 @@ const VisitorsPage = observer(
                         : '0 min 0s'}
                     </div>
                   </div>
-            
+
                   <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
                     <h5
                       className="fs-6 mb-14px text-gray-900 fw-medium"
@@ -152,6 +152,8 @@ const VisitorsPage = observer(
                 isSelection={false}
                 listViewModel={this.visitorsListViewModel}
                 status={this.visitorsListViewModel?.statusOverview}
+                data={this.visitorsListViewModel?.visitsData?.toAreaChart()}
+                filterData={this.visitorsListViewModel?.visitsData?.getFilterName()}
               />
             </Col>
           </Row>

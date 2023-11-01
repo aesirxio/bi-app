@@ -49,7 +49,7 @@ const VisitorsPage = observer(
       const { t } = this.props;
       return (
         <div className="py-4 px-4">
-          <div className="d-flex align-items-center justify-content-between mb-3">
+          <div className="d-flex align-items-center justify-content-between mb-24">
             <div>
               <h2 className="fw-bold mb-8px">{t('txt_visitors')}</h2>
               <p className="mb-0">{t('txt_analytic_details')}</p>
@@ -165,7 +165,7 @@ const VisitorsPage = observer(
             </Col>
             <Col lg={9}>
               <OverviewComponent
-                bars={['visits', 'unique_visits']}
+                bars={['unique_visits', 'visits']}
                 barColors={['#0066FF', '#96C0FF']}
                 isSelection={false}
                 listViewModel={this.visitorsListViewModel}

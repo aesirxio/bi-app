@@ -48,17 +48,17 @@ const DataStream = observer(() => {
         }`}
         aria-controls="wr_list_submenu"
         aria-expanded={isOpenCollapse === 'data-stream'}
+        style={{ minWidth: '200px' }}
       >
         <p className="overflow-hidden text-start m-0">
-          <span className="mb-sm fs-sm">{t('txt_menu_data_stream')}</span>
+          <span className="mb-sm fs-12 text-gray-heading">{t('txt_menu_data_stream')}</span>
           <br />
-          <span className="text-body fw-bold text-white mb-0 fs-4 text-start">
+          <span className="text-body fw-semibold text-white mb-0 fs-5 text-start">
             {
               biStore.biListViewModel?.listDomain?.find(
                 (x) => x.domain === biStore.biListViewModel?.activeDomain
               )?.name
-            }{' '}
-            ({biStore.biListViewModel?.activeDomain})
+            }
           </span>
         </p>
         {biStore.biListViewModel?.listDomain.length > 1 && (
@@ -68,25 +68,25 @@ const DataStream = observer(() => {
         )}
       </Button>
       <Collapse className="position-relative" in={isOpenCollapse === 'data-stream'}>
-        <ul className="px-16 position-absolute bg-white shadow-lg rounded-1 w-100 top-100 start-0 list-unstyled mb-0 mh-80vh overflow-auto">
+        <ul
+          className="px-16 position-absolute bg-white shadow-lg rounded-1 w-100 top-100 start-0 list-unstyled mb-0 overflow-auto"
+          style={{ maxHeight: '320px' }}
+        >
           {biStore.biListViewModel?.listDomain.map((item, index) => {
             return (
               item.domain !== biStore.biListViewModel?.activeDomain && (
                 <li
                   key={index}
-                  className={`item_menu cursor-pointer`}
+                  className={`item_menu cursor-pointer mb-0`}
                   onClick={() => handleChangeDataStream(item.domain)}
                 >
-                  <div className={`text-decoration-none`}>
-                    <span
-                      className={`d-block py-16 link_menu text-decoration-none  ${
-                        biStore.biListViewModel?.listDomain.length - 1 === index
-                          ? ''
-                          : 'border-bottom-1 border-gray-800'
-                      }`}
+                  <div className={`text-decoration-none border-bottom`}>
+                    <div
+                      className={`d-block py-2 link_menu text-decoration-none fs-5 fw-semibold `}
                     >
                       {item.name}
-                    </span>
+                      <div className="fs-12 text-gray-heading fw-normal">{item.domain}</div>
+                    </div>
                   </div>
                 </li>
               )

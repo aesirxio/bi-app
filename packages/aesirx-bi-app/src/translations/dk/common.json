@@ -133,6 +133,7 @@
   "txt_utm_tracking_generator": "UTM Tracking Generator",
   "txt_events_generator": "Events Generator",
   "txt_export_pdf": "Eksporter PDF",
+  "txt_export": "Eksporter",
   "txt_tooltip_visitors": "Antal besøgende",
   "txt_tooltip_page_views": "Sidevisninger er det samlede antal viste sider. Gentagne visninger af en enkelt side tælles med.",
   "txt_tooltip_unique_page_views": "Unikke sidevisninger er antallet af sessioner, hvor den angivne side blev set mindst én gang. En unik sidevisning tælles for hver kombination af side-URL + sidetitel.",

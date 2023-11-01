@@ -131,6 +131,7 @@
   "txt_utm_tracking_generator": "UTM İzleme Motoru",
   "txt_events_generator": "Etinlik Motoru",
   "txt_export_pdf": "PDF Dışa Aktar",
+  "txt_export": "Dışa Aktar",
   "txt_tooltip_visitors": "Ziyaretçi sayısı",
   "txt_tooltip_page_views": "Sayfa görüntüleme sayısı, görüntülenen toplam sayfa sayısıdır. Tek bir sayfanın yinelenen görüntülemeleri sayılır.",
   "txt_tooltip_unique_page_views": "Tekil Sayfa Görüntülemeleri, belirtilen sayfanın en az bir kez görüntülendiği oturumların sayısıdır. Her sayfa URL'si + sayfa Başlığı kombinasyonu için tekil bir sayfa görüntüleme sayılır.",

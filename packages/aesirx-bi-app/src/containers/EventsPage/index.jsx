@@ -53,18 +53,15 @@ const EventsPage = observer(
             <div className="printButton">
               <Link
                 to="/behavior/events-generator"
-                className="btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm"
+                className="btn btn-success me-2 text-nowrap fw-semibold py-13 lh-sm"
               >
                 <Translation>{(t) => <>{t('txt_generator_event')}</>}</Translation>
               </Link>
               <ReactToPrint
                 trigger={() => {
                   return (
-                    <a
-                      className={`btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm `}
-                      href="#"
-                    >
-                      <Translation>{(t) => <>{t('txt_export_pdf')}</>}</Translation>
+                    <a className={`btn btn-light me-2 text-nowrap py-13 lh-sm rounded-1 `} href="#">
+                      <Translation>{(t) => <>{t('txt_export')}</>}</Translation>
                     </a>
                   );
                 }}

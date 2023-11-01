@@ -204,6 +204,7 @@
   "txt_utm_tracking_generator": "Generador de seguimiento UTM",
   "txt_events_generator": "Generador de eventos",
   "txt_export_pdf": "Exportar PDF",
+  "txt_export": "Exportar",
   "txt_tooltip_visitors": "Número de visitantes",
   "txt_tooltip_page_views": "Pageviews es el número total de páginas vistas. Se cuentan las vistas repetidas de una sola página.",
   "txt_tooltip_unique_page_views": "Vistas de página únicas es la cantidad de sesiones durante las cuales la página especificada se vio al menos una vez. Se cuenta una vista de página única para cada combinación de URL de página + título de página.",

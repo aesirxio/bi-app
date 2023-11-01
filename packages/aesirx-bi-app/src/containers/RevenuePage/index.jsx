@@ -9,7 +9,7 @@ class RevenuePage extends Component {
     return (
       <>
         <div className="p-3">
-          <div className="d-flex align-items-center justify-content-between mb-3">
+          <div className="d-flex align-items-center justify-content-between mb-24">
             <div>
               <h2 className="fw-bold mb-8px">{t('txt_menu_revenue')}</h2>
             </div>

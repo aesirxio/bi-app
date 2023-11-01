@@ -204,6 +204,7 @@
   "txt_utm_tracking_generator": "Trình tạo UTM Tracking",
   "txt_events_generator": "Trình tạo sự kiện",
   "txt_export_pdf": "Xuất file PDF",
+  "txt_export": "Xuất file",
   "txt_tooltip_visitors": "Số lượng người xem trang",
   "txt_tooltip_page_views": "Lượt xem trang là tổng số trang đã được xem. Số lần xem lặp lại của một trang vẫn sẽ được tính.",
   "txt_tooltip_unique_page_views": "Lượt xem trang duy nhất là tổng hợp số lần xem trang được tạo bởi cùng một người dùng trong cùng một phiên (tức là số phiên trong đó trang web được xem một hoặc nhiều lần). Số lượt xem trang duy nhất được tính dựa trên sự kết hợp của hai yếu tố URL trang + Tiêu đề trang",

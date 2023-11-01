@@ -28,7 +28,7 @@
     "react-router-dom": "^5.2.0",
     "react-simple-maps": "^3.0.0",
     "react-table": "^7.6.2",
-    "react-to-print": "^2.14.12",
+    "react-to-print": "^2.14.15",
     "react-tooltip": "^5.18.1",
     "recharts": "^2.6.2",
     "simple-react-validator": "^1.6.0",

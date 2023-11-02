@@ -3,9 +3,8 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import { BI_PAGES_FIELD_KEY, BI_SUMMARY_FIELD_KEY, env } from 'aesirx-lib';
+import { BI_PAGES_FIELD_KEY, BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
-import ComponentSVG from 'components/ComponentSVG';
 
 class PageModel {
   data = [];
@@ -40,6 +39,7 @@ class PageModel {
               <a
                 href={`${cell?.value}`}
                 target="_blank"
+                rel="noreferrer"
                 className={'d-block position-relative px-20 py-sm table-link text-gray-900'}
               >
                 <div

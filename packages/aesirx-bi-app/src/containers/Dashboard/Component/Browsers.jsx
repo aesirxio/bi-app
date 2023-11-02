@@ -53,42 +53,48 @@ const Browsers = observer(
                     </div>
                     <Tab.Content className="h-100">
                       <Tab.Pane eventKey="browser">
-                        <TopTable
-                          data={this.dashboardListViewModel?.browsersData?.list}
-                          pagination={this.dashboardListViewModel?.browsersData?.pagination}
-                          isPagination={true}
-                          simplePagination={true}
-                          selectPage={async (value) => {
-                            await this.dashboardListViewModel.handleFilterBrowsers({ page: value });
-                          }}
-                          selectPageSize={async (value) => {
-                            await this.dashboardListViewModel.handleFilterBrowsers({
-                              page: 1,
-                              page_size: value,
-                            });
-                          }}
-                          status={this.dashboardListViewModel?.statusTopBrowser}
-                          {...this.props}
-                        />
+                        <div className="browser-table">
+                          <TopTable
+                            data={this.dashboardListViewModel?.browsersData?.list}
+                            pagination={this.dashboardListViewModel?.browsersData?.pagination}
+                            isPagination={true}
+                            simplePagination={true}
+                            selectPage={async (value) => {
+                              await this.dashboardListViewModel.handleFilterBrowsers({
+                                page: value,
+                              });
+                            }}
+                            selectPageSize={async (value) => {
+                              await this.dashboardListViewModel.handleFilterBrowsers({
+                                page: 1,
+                                page_size: value,
+                              });
+                            }}
+                            status={this.dashboardListViewModel?.statusTopBrowser}
+                            {...this.props}
+                          />
+                        </div>
                       </Tab.Pane>
                       <Tab.Pane eventKey="types">
-                        <TopTable
-                          data={this.dashboardListViewModel?.devicesTableData?.list}
-                          pagination={this.dashboardListViewModel?.devicesTableData?.pagination}
-                          isPagination={true}
-                          simplePagination={true}
-                          selectPage={async (value) => {
-                            await this.dashboardListViewModel.handleFilterPages({ page: value });
-                          }}
-                          selectPageSize={async (value) => {
-                            await this.dashboardListViewModel.handleFilterPages({
-                              page: 1,
-                              page_size: value,
-                            });
-                          }}
-                          status={this.dashboardListViewModel?.status}
-                          {...this.props}
-                        />
+                        <div className="browser-table">
+                          <TopTable
+                            data={this.dashboardListViewModel?.devicesTableData?.list}
+                            pagination={this.dashboardListViewModel?.devicesTableData?.pagination}
+                            isPagination={true}
+                            simplePagination={true}
+                            selectPage={async (value) => {
+                              await this.dashboardListViewModel.handleFilterPages({ page: value });
+                            }}
+                            selectPageSize={async (value) => {
+                              await this.dashboardListViewModel.handleFilterPages({
+                                page: 1,
+                                page_size: value,
+                              });
+                            }}
+                            status={this.dashboardListViewModel?.status}
+                            {...this.props}
+                          />
+                        </div>
                       </Tab.Pane>
                     </Tab.Content>
                   </Tab.Container>

@@ -64,16 +64,19 @@ const StackedBarChartComponent = ({
     () =>
       ({ payload }) => {
         return (
-          <div className="areachart-tooltip p-15 text-white bg-primary">
-            <p className="text-uppercase fw-semibold fs-14 mb-sm">
+          <div
+            className="areachart-tooltip p-15 text-white rounded-6"
+            style={{ backgroundColor: '#132342' }}
+          >
+            <p className="fw-semibold fs-14 mb-sm">
               {payload?.length > 0 ? payload[0].payload.name : ''}
             </p>
             {payload &&
               payload.map((item, index) => {
                 return (
-                  <div key={index} className="mb-0 fs-12 row">
-                    {payload?.length > 1 && <div className="col-10 fw-bold">{item.name}:</div>}
-                    <div className="col-2">
+                  <div key={index} className="mb-0 fs-12 d-flex flex-nowrap">
+                    {payload?.length > 1 && <div className=" fw-bold">{item.name}:</div>}
+                    <div className="ps-sm">
                       <p className="mb-0">
                         <span className="mr-2">{tooltipComponent?.value}</span>
                         <span>{item.value}</span>

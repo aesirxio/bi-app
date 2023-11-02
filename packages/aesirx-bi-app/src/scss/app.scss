@@ -110,3 +110,56 @@
     }
   }
 }
+#biapp {
+  .text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-inline-box;
+    -webkit-box-orient: vertical;
+  }
+  .line-clamp-1 {
+    -webkit-line-clamp: 1;
+  }
+  .table-link {
+    .table-link-bg {
+      background-color: #e7efff;
+    }
+    &:hover {
+      .table-link-bg {
+        background-color: #a9c6ff;
+      }
+      .table-link-icon {
+        display: block;
+      }
+      .table-link-text {
+        &::after {
+          content: '';
+          position: absolute;
+          right: -18px;
+          top: 4px;
+          width: 12px;
+          height: 12px;
+          background-image: url('../../public/assets/images/external_link.svg');
+          background-repeat: no-repeat;
+        }
+      }
+    }
+    .table-link-icon {
+      position: absolute;
+      right: -20px;
+      top: -2px;
+      display: none;
+    }
+  }
+  .browser-table .table > :not(caption) > * > * {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .pagination {
+    button {
+      &:hover {
+        background-color: inherit;
+      }
+    }
+  }
+}

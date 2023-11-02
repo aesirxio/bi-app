@@ -75,7 +75,7 @@ const Table = ({
     : [...Array(pageOptions.length)];
   return (
     <>
-      <div className="bg-white fs-14 rounded-3 position-relative">
+      <div className="bg-white fs-14 rounded-3 position-relative text-gray-900">
         {rows.length ? (
           <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
             <thead>
@@ -220,7 +220,7 @@ const Table = ({
                           <td
                             key={index}
                             {...cell.getCellProps({ style: { width: cell.column.width } })}
-                            className="py-2 wb-all"
+                            className="py-2 wb-all align-middle"
                           >
                             {cell.render('Cell')}
                           </td>

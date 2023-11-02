@@ -83,7 +83,7 @@ const Countries = observer(
                         />
                       </Tab.Pane>
                       <Tab.Pane eventKey="countries">
-                        <div className="d-flex align-items-center justify-content-between text-gray fw-semibold pb-1 mb-15 text-uppercase border-bottom">
+                        <div className="d-flex align-items-center justify-content-between text-gray-900 fw-medium pb-1 mb-15 border-bottom">
                           <div>{t('txt_Country')}</div>
                           <div>{t('txt_views')}</div>
                         </div>

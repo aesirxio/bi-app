@@ -61,10 +61,10 @@ const WoocommercePage = observer(
                   <Translation>
                     {(t, { i18n }) => (
                       <a
-                        className={`btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm printButton ${i18n?.language}`}
+                        className={`btn btn-light me-2 text-nowrap py-13 lh-sm rounded-1 printButton ${i18n?.language}`}
                         href="#"
                       >
-                        {t('txt_export_pdf')}
+                        {t('txt_export')}
                       </a>
                     )}
                   </Translation>

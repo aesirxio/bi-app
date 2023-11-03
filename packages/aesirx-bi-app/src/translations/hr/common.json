@@ -204,6 +204,7 @@
   "txt_utm_tracking_generator": "UTM generator praćenja",
   "txt_events_generator": "Generator događaja",
   "txt_export_pdf": "Izvezi PDF",
+  "txt_export": "Izvezi",
   "txt_tooltip_visitors": "Broj posjetitelja",
   "txt_tooltip_page_views": "Pageviews je ukupan broj pregledanih stranica. Broje se ponovljeni prikazi jedne stranice.",
   "txt_tooltip_unique_page_views": "Jedinstveni prikazi stranice broj su sesija tijekom kojih je određena stranica pogledana barem jednom. Jedinstveni prikaz stranice broji se za svaku kombinaciju URL stranice + naslov stranice.",

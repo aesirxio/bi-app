@@ -57,10 +57,10 @@ const UTMTrackingPage = observer(
               trigger={() => {
                 return (
                   <a
-                    className={`btn btn-success me-2 text-nowrap fw-semibold py-16 lh-sm printButton`}
+                    className={`btn btn-light me-2 text-nowrap py-13 lh-sm rounded-1 printButton`}
                     href="#"
                   >
-                    <Translation>{(t) => <> {t('txt_export_pdf')}</>}</Translation>
+                    <Translation>{(t) => <> {t('txt_export')}</>}</Translation>
                   </a>
                 );
               }}

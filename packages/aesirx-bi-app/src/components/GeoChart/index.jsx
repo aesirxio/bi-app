@@ -94,6 +94,11 @@ const GeoChart = (props) => {
                   data-tooltip-id="markerTooltip"
                   data-tooltip-html={tooltipContent}
                   data-tooltip-place="top"
+                  style={{
+                    default: { outline: 'none' },
+                    hover: { outline: 'none' },
+                    pressed: { outline: 'none' },
+                  }}
                 />
               );
             })

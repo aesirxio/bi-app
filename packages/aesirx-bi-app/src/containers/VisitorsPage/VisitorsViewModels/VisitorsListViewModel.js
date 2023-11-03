@@ -287,7 +287,7 @@ class VisitorsListViewModel {
     }
   };
   callbackOnVisitsSuccessHandler = (data) => {
-    if (data) {
+    if (data?.length) {
       if (data?.message !== 'canceled') {
         this.statusOverview = PAGE_STATUS.READY;
         const transformData = new DashboardModel(data, this.globalStoreViewModel);

@@ -91,7 +91,7 @@ const Dashboard = observer(
               <DateRangePicker onChange={this.handleDateRangeChange} />
             </div>
           </div>
-          <Row className="mt-24">
+          <Row>
             <Col lg="3">
               <div className="bg-white shadow-sm rounded-3 h-100">
                 <div className="bg-white border-bottom">

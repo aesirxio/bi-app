@@ -59,10 +59,10 @@ const HeaderFilterComponent = ({
             <Button
               onClick={() => setView(CHART_TYPE.DAY)}
               className={`${
-                view == CHART_TYPE.DAY && 'text-white bg-gray-900'
-              } py-2 px-15 fs-12 lh-sm shadow-none border`}
+                view == CHART_TYPE.DAY && 'text-white bg-gray-heading'
+              } py-2 px-15 fs-12 lh-sm shadow-none border border-gray-800 text-gray-900`}
               variant={
-                view == 'days' ? 'dark' : `${view == CHART_TYPE.DAY ? 'gray-900' : 'outline'}`
+                view == 'days' ? 'dark' : `${view == CHART_TYPE.DAY ? 'gray-heading' : 'outline'}`
               }
             >
               {t('txt_days')}
@@ -72,10 +72,10 @@ const HeaderFilterComponent = ({
             <Button
               onClick={() => setView(CHART_TYPE.WEEK)}
               className={`${
-                view == CHART_TYPE.WEEK && 'text-white bg-gray-900'
-              } py-2 px-15 fs-12 lh-sm shadow-none border`}
+                view == CHART_TYPE.WEEK && 'text-white bg-gray-heading'
+              } py-2 px-15 fs-12 lh-sm shadow-none border border-gray-800 text-gray-900`}
               variant={
-                view == 'weeks' ? 'dark' : `${view == CHART_TYPE.WEEK ? 'gray-900' : 'outline'}`
+                view == 'weeks' ? 'dark' : `${view == CHART_TYPE.WEEK ? 'gray-heading' : 'outline'}`
               }
             >
               {t('txt_weeks')}
@@ -85,10 +85,12 @@ const HeaderFilterComponent = ({
             <Button
               onClick={() => setView(CHART_TYPE.MONTH)}
               className={`${
-                view == CHART_TYPE.MONTH && 'text-white bg-gray-900'
-              } py-2 px-15 fs-12 lh-sm shadow-none border`}
+                view == CHART_TYPE.MONTH && 'text-white bg-gray-heading'
+              } py-2 px-15 fs-12 lh-sm shadow-none border border-gray-800 text-gray-900`}
               variant={
-                view == 'months' ? 'dark' : `${view == CHART_TYPE.MONTH ? 'gray-900' : 'outline'}`
+                view == 'months'
+                  ? 'dark'
+                  : `${view == CHART_TYPE.MONTH ? 'gray-heading' : 'outline'}`
               }
             >
               {t('txt_months')}

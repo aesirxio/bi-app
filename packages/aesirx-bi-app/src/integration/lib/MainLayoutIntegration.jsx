@@ -43,6 +43,7 @@ const MainLayoutIntegration = (props) => {
         leftMenu={<SbarLeftIntegration />}
         rootId="#biapp"
         noavatar={true}
+        isColorMode={false}
       >
         <div className="bi-intergration_layout">
           {!isAuthenticated && window.env.STORAGE === 'external' ? (

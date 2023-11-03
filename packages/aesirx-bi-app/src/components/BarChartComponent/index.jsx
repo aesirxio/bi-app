@@ -102,8 +102,11 @@ const BarChartComponent = ({
     () =>
       ({ payload }) => {
         return (
-          <div className="areachart-tooltip p-15 text-white bg-primary w-150px">
-            <p className="text-uppercase fw-semibold fs-14 mb-sm">
+          <div
+            className="areachart-tooltip p-15 text-white w-150px rounded-6"
+            style={{ backgroundColor: '#132342' }}
+          >
+            <p className="fw-semibold fs-14 mb-sm">
               {payload?.length > 0 ? payload[0].payload.name : ''}
             </p>
             {payload &&
@@ -190,7 +193,7 @@ const BarChartComponent = ({
                   />
                 </>
               )}
-              <Tooltip content={customizedTooltip} />
+              <Tooltip content={customizedTooltip} cursor={{ fill: 'transparent' }} />
               {bars &&
                 bars.map((item, index) => {
                   return (

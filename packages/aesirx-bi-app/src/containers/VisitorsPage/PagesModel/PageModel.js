@@ -36,18 +36,24 @@ class PageModel {
           Cell: ({ cell, column, row }) => {
             const urlParams = column.id === BI_PAGES_FIELD_KEY.URL && new URL(cell?.value);
             return column.id === BI_PAGES_FIELD_KEY.URL ? (
-              <div className={'position-relative px-20 py-sm'}>
+              <a
+                href={`${cell?.value}`}
+                target="_blank"
+                rel="noreferrer"
+                className={'d-block position-relative px-20 py-sm table-link text-gray-900'}
+              >
                 <div
-                  className="position-absolute top-0 start-0 h-100 z-0"
+                  className="position-absolute top-0 start-0 h-100 z-0 table-link-bg"
                   style={{
-                    backgroundColor: '#E7EFFF',
                     width: `${((row.cells[1]?.value / largestValue) * 100)?.toString()}%`,
                   }}
                 ></div>
-                <div className="position-relative z-1">
-                  {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                <div className="position-relative z-1 text-ellipsis line-clamp-1 pe-20">
+                  <div className="position-relative table-link-text">
+                    {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                  </div>
                 </div>
-              </div>
+              </a>
             ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (
               <div className={'text-end'}>
                 {cell?.value ? moment.utc(cell?.value * 1000).format('HH:mm:ss') : '00:00:00'}

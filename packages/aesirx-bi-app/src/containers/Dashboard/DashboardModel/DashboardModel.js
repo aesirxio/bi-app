@@ -144,9 +144,13 @@ class DashboardModel {
   };
 
   toBrowsersTableTop = () => {
-    const headerTable = ['txt_browser', 'txt_visitors'];
+    const headerTable = ['txt_browser', 'txt_visitors', '%'];
     const largestValue = this.data[0] && this.data[0][BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
-    const accessor = [BI_BROWSERS_FIELD_KEY.BROWSER_NAME, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    const accessor = [
+      BI_BROWSERS_FIELD_KEY.BROWSER_NAME,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS_PERCENT,
+    ];
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
@@ -157,7 +161,7 @@ class DashboardModel {
               ? 250
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
-              : 170,
+              : 100,
           Cell: ({ cell, column, row }) => {
             let browserImg = '';
             switch (cell?.value) {
@@ -209,8 +213,14 @@ class DashboardModel {
                       {cell?.value === '' ? 'Unknown' : cell?.value}
                     </div>
                   </div>
+                ) : column.id === BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS_PERCENT ? (
+                  <div className={'text-end'}>
+                    {Helper.numberWithCommas(cell?.value / 10) ?? null}
+                  </div>
                 ) : (
-                  <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
+                  <div className={'text-end pe-2'}>
+                    {Helper.numberWithCommas(cell?.value) ?? null}
+                  </div>
                 )}
               </>
             );

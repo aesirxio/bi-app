@@ -47,6 +47,7 @@ const VisitorsPage = observer(
 
     render() {
       const { t } = this.props;
+      console.log('dsadsa', this.visitorsListViewModel.metricsData);
       return (
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-24">
@@ -72,7 +73,7 @@ const VisitorsPage = observer(
                     <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                       {Helper.numberWithCommas(
                         this.visitorsListViewModel.metricsData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+                          BI_SUMMARY_FIELD_KEY.TOTAL_NUMBER_OF_VISITORS
                         ]
                       )}
                     </div>
@@ -82,12 +83,12 @@ const VisitorsPage = observer(
                       className="fs-6 mb-14px text-gray-900 fw-medium"
                       style={{ fontSize: '16px' }}
                     >
-                      {t('txt_unique_page_views')}
+                      {t('txt_unique_visitors')}
                     </h5>
                     <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                       {Helper.numberWithCommas(
                         this.visitorsListViewModel.metricsData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
                         ]
                       )}
                     </div>

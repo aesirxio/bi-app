@@ -102,7 +102,7 @@ const Dashboard = observer(
                     <div className="fs-24">
                       {Helper.numberWithCommas(
                         this.dashboardListViewModel.summaryData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+                          BI_SUMMARY_FIELD_KEY.TOTAL_NUMBER_OF_VISITORS
                         ]
                       )}
                     </div>
@@ -114,7 +114,7 @@ const Dashboard = observer(
                     <div className="fs-24">
                       {Helper.numberWithCommas(
                         this.dashboardListViewModel.summaryData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
                         ]
                       )}
                     </div>

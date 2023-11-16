@@ -244,5 +244,11 @@
   "txt_product_revenue": "Дохід від продукту",
   "txt_avg_price": "Середня ціна",
   "txt_avg_quantity": "Середня кількість",
-  "txt_top_products": "Найпопулярніші продукти"
+  "txt_top_products": "Найпопулярніші продукти",
+  "txt_menu_consents": "Згода",
+  "txt_web3id": "Web3ID",
+  "txt_wallet": "Гаманець",
+  "txt_consent": "Згода",
+  "txt_tier": "Рівень",
+  "txt_uuid": "UUID"
 }

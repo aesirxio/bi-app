@@ -11,6 +11,7 @@ const RevenuePage = lazy(() => import('../containers/RevenuePage'));
 const UTMTrackingPage = lazy(() => import('../containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('../containers/EventsPage'));
 const WoocommercePage = lazy(() => import('../containers/WoocommercePage'));
+const ConsentsPage = lazy(() => import('../containers/ConsentsPage'));
 
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const FlowPage = lazy(() => import('../containers/FlowDetailPage'));
@@ -66,6 +67,12 @@ const mainRoutes = [
     page: 'visitors-locations',
     exact: true,
     main: () => <RegionCountryPage />,
+  },
+  {
+    path: ['/consents'],
+    page: ['consents'],
+    exact: true,
+    main: () => <ConsentsPage />,
   },
 ];
 

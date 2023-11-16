@@ -244,5 +244,11 @@
   "txt_product_revenue": "Ingresos del producto",
   "txt_avg_price": "Precio promedio",
   "txt_avg_quantity": "Cantidad promedio",
-  "txt_top_products": "Productos principales"
+  "txt_top_products": "Productos principales",
+  "txt_menu_consents": "Consentimientos",
+  "txt_web3id": "Web3ID",
+  "txt_wallet": "Monedero",
+  "txt_consent": "Consentimiento",
+  "txt_tier": "Nivel",
+  "txt_uuid": "UUID"
 }

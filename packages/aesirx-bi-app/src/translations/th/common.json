@@ -244,5 +244,11 @@
   "txt_product_revenue": "รายได้จากผลิตภัณฑ์",
   "txt_avg_price": "ราคาเฉลี่ย",
   "txt_avg_quantity": "จำนวนเฉลี่ย",
-  "txt_top_products": "ผลิตภัณฑ์ยอดนิยม"
+  "txt_top_products": "ผลิตภัณฑ์ยอดนิยม",
+  "txt_menu_consents": "ยินยอม",
+  "txt_web3id": "Web3ID",
+  "txt_wallet": "กระเป๋าเงิน",
+  "txt_consent": "ยินยอม",
+  "txt_tier": "ระดับ",
+  "txt_uuid": "UUID"
 }

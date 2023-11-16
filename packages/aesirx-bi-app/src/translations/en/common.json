@@ -173,5 +173,11 @@
   "txt_product_revenue": "Product Revenue",
   "txt_avg_price": "Avg. Price",
   "txt_avg_quantity": "Avg. QTY",
-  "txt_top_products": "Top Products"
+  "txt_top_products": "Top Products",
+  "txt_menu_consents": "Consents",
+  "txt_web3id": "Web3ID",
+  "txt_wallet": "Wallet",
+  "txt_consent": "Consent",
+  "txt_tier": "Tier",
+  "txt_uuid": "UUID"
 }

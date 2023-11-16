@@ -173,5 +173,11 @@
   "txt_product_revenue": "Ürün Geliri",
   "txt_avg_price": "Ort. Fiyat",
   "txt_avg_quantity": "Ort. Adet",
-  "txt_top_products": "En Popüler Ürünler"
+  "txt_top_products": "En Popüler Ürünler",
+  "txt_menu_consents": "Onaylar",
+  "txt_web3id": "Web3ID",
+  "txt_wallet": "Cüzdan",
+  "txt_consent": "Onay",
+  "txt_tier": "Kademe",
+  "txt_uuid": "UUID"
 }

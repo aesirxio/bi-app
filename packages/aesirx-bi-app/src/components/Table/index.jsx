@@ -17,7 +17,6 @@ const Table = ({
   columns,
   data,
   pagination,
-  store,
   onSelect,
   dataList,
   classNameTable,

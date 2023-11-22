@@ -6,19 +6,7 @@ import { Tooltip } from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons/faCircleInfo';
 const CountryTable = (props) => {
-  const { data, listViewModel, domain, t } = props;
-  const handleSort = async (column) => {
-    listViewModel.getCountries(
-      {
-        'filter[domain]': domain,
-      },
-      {},
-      {
-        'sort[]': column?.id,
-        'sort_direction[]': listViewModel?.sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
-      }
-    );
-  };
+  const { data, t } = props;
   const columnsTable = React.useMemo(
     () =>
       data?.header.map((item, index) => {

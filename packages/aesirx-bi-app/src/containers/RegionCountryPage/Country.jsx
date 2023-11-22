@@ -98,8 +98,6 @@ const Country = observer(
               ) : this.countryListViewModel?.countriesTableData?.list ? (
                 <CountryTable
                   data={this.countryListViewModel?.countriesTableData?.list}
-                  listViewModel={this.countryListViewModel}
-                  domain={this.context.biListViewModel.activeDomain}
                   {...this.props}
                 />
               ) : (

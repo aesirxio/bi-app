@@ -22,6 +22,9 @@ const TopTableComponent = (props) => {
     limit,
     isPaginationAPI = isPagination ? true : false,
     t,
+    sortAPI,
+    handleSort,
+    sortBy,
   } = props;
   const columnsTable = React.useMemo(
     () =>
@@ -56,6 +59,7 @@ const TopTableComponent = (props) => {
             index !== 0 ? 'rounded-top-end-3 text-end' : ''
           } ${index === 0 ? 'rounded-top-start-3' : ''}`,
           width: item.width ? item.width : index === 0 ? 'auto' : 170,
+          allowSort: item?.allowSort || false,
           Header: (
             <span className="align-middle text-gray-900 fw-medium">
               {t(item.Header)}
@@ -96,6 +100,9 @@ const TopTableComponent = (props) => {
           selectPageSize={selectPageSize}
           simplePagination={simplePagination}
           limit={limit}
+          sortAPI={sortAPI}
+          sortAPIHandle={handleSort}
+          sortBy={sortBy}
         />
       ) : (
         <div className="position-relative ChartWrapper bg-white rounded-3 shadow-sm">

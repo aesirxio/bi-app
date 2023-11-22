@@ -98,16 +98,8 @@ const Country = observer(
               ) : this.countryListViewModel?.countriesTableData?.list ? (
                 <CountryTable
                   data={this.countryListViewModel?.countriesTableData?.list}
-                  // pagination={this.countryListViewModel?.countriesTableData?.pagination}
-                  // selectPage={async (value) => {
-                  //   await this.countryListViewModel.handleFilter({ page: value });
-                  // }}
-                  // selectPageSize={async (value) => {
-                  //   await this.countryListViewModel.handleFilter({
-                  //     page: 1,
-                  //     page_size: value,
-                  //   });
-                  // }}
+                  listViewModel={this.countryListViewModel}
+                  domain={this.context.biListViewModel.activeDomain}
                   {...this.props}
                 />
               ) : (

@@ -12,6 +12,76 @@ const TopTabs = observer(
       this.listViewModel = listViewModel ? listViewModel : null;
       this.state = { loading: false };
     }
+
+    handleSortCountries = async (column) => {
+      this.listViewModel.getCountries(
+        {
+          'filter[domain]': this.props.domain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.listViewModel?.sortByCountries['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+        }
+      );
+    };
+
+    handleSortCities = async (column) => {
+      this.listViewModel.getCities(
+        {
+          'filter[domain]': this.props.domain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.listViewModel?.sortByCities['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+        }
+      );
+    };
+
+    handleSortBrowsers = async (column) => {
+      this.listViewModel.getBrowsers(
+        {
+          'filter[domain]': this.props.domain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.listViewModel?.sortByBrowsers['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+        }
+      );
+    };
+
+    handleSortDevices = async (column) => {
+      this.listViewModel.getDevices(
+        {
+          'filter[domain]': this.props.domain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.listViewModel?.sortByDevices['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+        }
+      );
+    };
+
+    handleSortLanguages = async (column) => {
+      this.listViewModel.getLanguages(
+        {
+          'filter[domain]': this.props.domain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.listViewModel?.sortByLanguages['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+        }
+      );
+    };
     render() {
       const { t } = this.props;
       const { statusTopTable } = this.listViewModel;
@@ -67,6 +137,9 @@ const TopTabs = observer(
                           });
                         }}
                         status={statusTopTable}
+                        sortAPI={true}
+                        handleSort={this.handleSortCountries}
+                        sortBy={this.listViewModel?.sortByCountries}
                         {...this.props}
                       />
                     </Tab.Pane>
@@ -78,12 +151,15 @@ const TopTabs = observer(
                           await this.listViewModel.handleFilterCities({ page: value });
                         }}
                         selectPageSize={async (value) => {
-                          await this.listViewModel.handleFilterCountries({
+                          await this.listViewModel.handleFilterCities({
                             page: 1,
                             page_size: value,
                           });
                         }}
                         status={statusTopTable}
+                        sortAPI={true}
+                        handleSort={this.handleSortCities}
+                        sortBy={this.listViewModel?.sortByCities}
                         {...this.props}
                       />
                     </Tab.Pane>
@@ -95,12 +171,35 @@ const TopTabs = observer(
                           await this.listViewModel.handleFilterBrowsers({ page: value });
                         }}
                         selectPageSize={async (value) => {
-                          await this.listViewModel.handleFilterCountries({
+                          await this.listViewModel.handleFilterBrowsers({
                             page: 1,
                             page_size: value,
                           });
                         }}
                         status={statusTopTable}
+                        sortAPI={true}
+                        handleSort={this.handleSortBrowsers}
+                        sortBy={this.listViewModel?.sortByBrowsers}
+                        {...this.props}
+                      />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="device">
+                      <TopTable
+                        data={this.listViewModel?.devicesTableData?.list}
+                        pagination={this.listViewModel?.devicesTableData?.pagination}
+                        selectPage={async (value) => {
+                          await this.listViewModel.handleFilterDevices({ page: value });
+                        }}
+                        selectPageSize={async (value) => {
+                          await this.listViewModel.handleFilterDevices({
+                            page: 1,
+                            page_size: value,
+                          });
+                        }}
+                        status={statusTopTable}
+                        sortAPI={true}
+                        handleSort={this.handleSortDevices}
+                        sortBy={this.listViewModel?.sortByDevices}
                         {...this.props}
                       />
                     </Tab.Pane>
@@ -118,6 +217,9 @@ const TopTabs = observer(
                           });
                         }}
                         status={statusTopTable}
+                        sortAPI={true}
+                        handleSort={this.handleSortLanguages}
+                        sortBy={this.listViewModel?.sortByLanguages}
                         {...this.props}
                       />
                     </Tab.Pane>

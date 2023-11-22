@@ -14,6 +14,7 @@ class CountryListViewModel {
   globalStoreViewModel = null;
   countriesData = null;
   countriesTableData = null;
+  sortBy = { 'sort[]': '', 'sort_direction[]': '' };
   constructor(countriesStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.countriesStore = countriesStore;
@@ -24,14 +25,18 @@ class CountryListViewModel {
     this.getCountries(dataFilter, dateFilter);
   };
 
-  getCountries = (dataFilter, dateFilter) => {
+  getCountries = (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
     this.status = PAGE_STATUS.LOADING;
+    this.sortBy = sortBy;
     this.dataFilter = {
       page_size: '1000',
-      'sort[]': 'number_of_page_views',
-      'sort_direction[]': 'desc',
       ...this.dataFilter,
       ...dataFilter,
+      ...this.sortBy,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 

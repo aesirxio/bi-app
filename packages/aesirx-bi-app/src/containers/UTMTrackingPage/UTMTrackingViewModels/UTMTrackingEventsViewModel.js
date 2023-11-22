@@ -17,7 +17,7 @@ class UTMTrackingEventsViewModel {
   dataFilter = {};
   attributeData = null;
   dataAttribute = null;
-
+  sortBy = { 'sort[]': '', 'sort_direction[]': '' };
   constructor(utmTrackingStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.utmTrackingStore = utmTrackingStore;
@@ -28,12 +28,18 @@ class UTMTrackingEventsViewModel {
     return new UTMTrackingEventModel(this.data);
   };
 
-  getVisitor = (dataFilter, dateFilter) => {
+  getVisitor = (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'start', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTable = PAGE_STATUS.LOADING;
+    this.sortBy = sortBy;
     this.dataFilterTable = {
       page_size: '5',
       ...this.dataFilterTable,
       ...dataFilter,
+      ...this.sortBy,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 

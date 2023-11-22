@@ -23,6 +23,8 @@ const Table = ({
   classNameTable,
   canSort,
   sortAPI,
+  sortAPIHandle,
+  sortBy,
   limit,
   paginationClass,
   isPaginationAPI,
@@ -99,49 +101,47 @@ const Table = ({
                       return (
                         <th
                           key={index}
-                          {...(!sortAPI && {
-                            ...column.getHeaderProps(
-                              canSort && !column.rowSpan
-                                ? column.getSortByToggleProps()
-                                : columnInside && columnInside.getSortByToggleProps()
-                            ),
-                          })}
+                          {...(!sortAPI &&
+                            column?.allowSort && {
+                              ...column.getHeaderProps(
+                                canSort && !column.rowSpan
+                                  ? column.getSortByToggleProps()
+                                  : columnInside && columnInside.getSortByToggleProps()
+                              ),
+                            })}
                           className={`${column.className} ${
-                            sortAPI && sortParams !== 'number' && sortParams !== 'selection'
+                            sortAPI &&
+                            column?.allowSort &&
+                            sortParams !== 'number' &&
+                            sortParams !== 'selection'
                               ? 'cursor-pointer'
                               : ''
                           }`}
                           {...(sortAPI &&
+                            column?.allowSort &&
                             sortParams !== 'number' &&
                             sortParams !== 'selection' && {
                               onClick: async () => {
-                                if (store.sortBy.id === sortParams && store.sortBy.desc) {
-                                  store.sortBy = { desc: true };
-                                } else if (store.sortBy.id !== sortParams) {
-                                  store.sortBy = { id: sortParams, desc: false };
-                                } else {
-                                  store.sortBy = { id: sortParams, desc: !store.sortBy.desc };
-                                }
-                                await store.getItems();
+                                sortAPIHandle(column);
                               },
                             })}
                           rowSpan={`${column.rowSpan ?? 1}`}
                         >
                           {column.render('Header')}
-                          {canSort && (
+                          {canSort && column?.allowSort && (
                             <span className="position-relative align-middle">
                               {sortAPI ? (
-                                store?.sortBy?.id === sortParams &&
+                                sortBy['sort[]'] === sortParams &&
                                 sortParams !== 'number' &&
                                 sortParams !== 'selection' ? (
-                                  store?.sortBy?.desc ? (
+                                  sortBy['sort_direction[]'] === 'desc' ? (
                                     <FontAwesomeIcon
-                                      className="sort-icon sort-icon-down ms-sm"
+                                      className="sort-icon sort-icon-down ms-sm mt-n3"
                                       icon={faSortDown}
                                     />
                                   ) : (
                                     <FontAwesomeIcon
-                                      className="sort-icon sort-icon-up ms-sm mb-n8px"
+                                      className="sort-icon sort-icon-up ms-sm mb-nsm"
                                       icon={faSortUp}
                                     />
                                   )
@@ -158,12 +158,12 @@ const Table = ({
                                 sortParams !== 'selection' ? (
                                   column.isSortedDesc ? (
                                     <FontAwesomeIcon
-                                      className="sort-icon sort-icon-down ms-sm"
+                                      className="sort-icon sort-icon-down ms-sm mt-n3"
                                       icon={faSortDown}
                                     />
                                   ) : (
                                     <FontAwesomeIcon
-                                      className="sort-icon sort-icon-up ms-sm mb-n8px"
+                                      className="sort-icon sort-icon-up ms-sm mb-nsm"
                                       icon={faSortUp}
                                     />
                                   )
@@ -180,12 +180,12 @@ const Table = ({
                                 sortParams !== 'selection' ? (
                                 columnInside.isSortedDesc ? (
                                   <FontAwesomeIcon
-                                    className="sort-icon sort-icon-down ms-sm"
+                                    className="sort-icon sort-icon-down ms-sm mt-n3"
                                     icon={faSortDown}
                                   />
                                 ) : (
                                   <FontAwesomeIcon
-                                    className="sort-icon sort-icon-up ms-sm mb-n8px"
+                                    className="sort-icon sort-icon-up ms-sm mb-nsm"
                                     icon={faSortUp}
                                   />
                                 )
@@ -254,6 +254,7 @@ const Table = ({
                   isSearchable={false}
                   isBorder={false}
                   isShadow={false}
+                  menuPlacement={'top'}
                   options={[
                     { label: 5, value: 5 },
                     { label: 10, value: 10 },

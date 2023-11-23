@@ -13,6 +13,7 @@ const BehaviorTable = ({
   t,
   isPaginationAPI = false,
   isTranslate = false,
+  sortAPI = true,
   handleSort,
   sortBy,
 }) => {
@@ -47,7 +48,7 @@ const BehaviorTable = ({
           columns={columnsTable}
           data={dataTable}
           canSort={true}
-          sortAPI={true}
+          sortAPI={sortAPI}
           sortAPIHandle={handleSort}
           sortBy={sortBy}
           pagination={true}

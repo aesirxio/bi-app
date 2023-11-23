@@ -130,6 +130,7 @@ const Table = ({
                           {canSort && column?.allowSort && (
                             <span className="position-relative align-middle">
                               {sortAPI ? (
+                                sortBy &&
                                 sortBy['sort[]'] === sortParams &&
                                 sortParams !== 'number' &&
                                 sortParams !== 'selection' ? (

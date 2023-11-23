@@ -5,14 +5,16 @@ export class VisitorsStore {
     try {
       const biService = new AesirxBiApiService();
       const responsedDataFromLibary = await biService.getMetrics(dataFilter, dateFilter);
-      if (responsedDataFromLibary) {
+      if (responsedDataFromLibary && responsedDataFromLibary?.name !== 'AxiosError') {
         runInAction(() => {
           callbackOnSuccess(responsedDataFromLibary);
         });
       } else {
         runInAction(() => {
           callbackOnError({
-            message: 'Something went wrong from Server response',
+            message:
+              responsedDataFromLibary?.response?.data?.error ||
+              'Something went wrong from Server response',
           });
         });
       }

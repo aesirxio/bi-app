@@ -216,6 +216,7 @@ class DashboardListViewModel {
 
   callbackOnErrorHandler = (error) => {
     this.status = PAGE_STATUS.READY;
+    console.log('error', error);
     notify(error.message, 'error');
   };
 

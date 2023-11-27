@@ -38,7 +38,7 @@ const MainLayoutIntegration = (props) => {
         authRoutes={authRoutes}
         mainRoutes={mainRoutes}
         isLogin={() => true}
-        componentHeader={<DataStream integration={true}/>}
+        componentHeader={<DataStream integration={true} />}
         integration={true}
         leftMenu={<SbarLeftIntegration />}
         rootId="#biapp"

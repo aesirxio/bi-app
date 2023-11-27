@@ -163,3 +163,11 @@
     }
   }
 }
+.item_menu.intergration {
+  a {
+    &:hover,
+    &.active {
+      border-bottom: 2px solid $success;
+    }
+  }
+}

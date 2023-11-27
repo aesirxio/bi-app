@@ -35,7 +35,8 @@ class VisitorsListViewModel {
 
   initialize = (dataFilter, dateFilter) => {
     this.getMetrics(dataFilter, dateFilter);
-    this.getVisitors(dataFilter, dateFilter);
+    // this.getVisitors(dataFilter, dateFilter);
+    this.getVisits(dataFilter, dateFilter);
     this.getCountries(dataFilter, dateFilter);
     this.getCities(dataFilter, dateFilter);
     this.getBrowsers(dataFilter, dateFilter);
@@ -66,6 +67,21 @@ class VisitorsListViewModel {
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.visitorsStore.getVisitors(
+      {
+        ...this.dataFilter,
+        page_size: '1000',
+      },
+      dateRangeFilter,
+      this.callbackOnVisitorSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getVisits = (dataFilter, dateFilter) => {
+    this.statusOverview = PAGE_STATUS.LOADING;
+    this.dataFilter = { ...this.dataFilter, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+    this.visitorsStore.getVisits(
       {
         ...this.dataFilter,
         page_size: '1000',
@@ -273,7 +289,7 @@ class VisitorsListViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.statusOverview = PAGE_STATUS.READY;
-        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        const transformData = new DashboardModel(data, this.globalStoreViewModel);
         this.visitorData = transformData;
       }
     } else {

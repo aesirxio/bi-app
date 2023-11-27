@@ -82,7 +82,7 @@ const VisitorsPage = observer(
                       className="fs-6 mb-14px text-gray-900 fw-medium"
                       style={{ fontSize: '16px' }}
                     >
-                      {t('txt_unique_visitors')}
+                      {t('txt_unique_page_views')}
                     </h5>
                     <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                       {Helper.numberWithCommas(
@@ -161,7 +161,7 @@ const VisitorsPage = observer(
             </Col>
             <Col lg={9}>
               <OverviewComponent
-                bars={['visits', 'page_views']}
+                bars={['visits', 'unique_visits']}
                 barColors={['#0066FF', '#96C0FF']}
                 isSelection={false}
                 listViewModel={this.visitorsListViewModel}

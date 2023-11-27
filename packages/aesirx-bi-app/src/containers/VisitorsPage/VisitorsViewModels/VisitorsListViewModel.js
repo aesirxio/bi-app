@@ -22,6 +22,7 @@ class VisitorsListViewModel {
   globalStoreViewModel = null;
   metricsData = null;
   visitorData = null;
+  visitsData = null;
   countriesTableData = null;
   citiesTableData = null;
   browsersTableData = null;
@@ -290,7 +291,7 @@ class VisitorsListViewModel {
       if (data?.message !== 'canceled') {
         this.statusOverview = PAGE_STATUS.READY;
         const transformData = new DashboardModel(data, this.globalStoreViewModel);
-        this.visitorData = transformData;
+        this.visitsData = transformData;
       }
     } else {
       this.status = PAGE_STATUS.ERROR;

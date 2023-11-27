@@ -183,6 +183,8 @@ const Dashboard = observer(
                 barColors={['#0066FF', '#96C0FF']}
                 listViewModel={this.dashboardListViewModel}
                 status={this.dashboardListViewModel?.status}
+                data={this.dashboardListViewModel?.visitorData?.toAreaChart()}
+                filterData={this.dashboardListViewModel?.visitorData?.getFilterName()}
               />
             </Col>
           </Row>

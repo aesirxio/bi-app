@@ -113,25 +113,7 @@ const VisitorsPage = observer(
                         : '0 min 0s'}
                     </div>
                   </div>
-<<<<<<< HEAD
-                  <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
-                    <h5
-                      className="fs-6 mb-14px text-gray-900 fw-medium"
-                      style={{ fontSize: '16px' }}
-                    >
-                      {t('txt_page_views')}
-                    </h5>
-                    <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
-                      {Helper.numberWithCommas(
-                        this.visitorsListViewModel.metricsData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
-                        ]
-                      )}
-                    </div>
-                  </div>
-=======
 
->>>>>>> 27b62a1 (Update behavior page)
                   <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
                     <h5
                       className="fs-6 mb-14px text-gray-900 fw-medium"

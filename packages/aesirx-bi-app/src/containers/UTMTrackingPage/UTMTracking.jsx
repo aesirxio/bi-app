@@ -83,7 +83,7 @@ const UTMTrackingPage = observer((props) => {
     await getVisitor({
       'filter[domain]': activeDomain,
       'filter[attribute_name]': 'utm_source',
-      ...(data?.value !== 'all' ? { 'filter[attribute_value]': data?.value } : {}),
+      'filter[attribute_value]': data?.value,
     });
   };
   const handleSort = async (column) => {

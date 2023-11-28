@@ -40,9 +40,15 @@ class UTMTrackingEventsViewModel {
     this.sortBy = sortBy;
     this.dataFilterTable = {
       page_size: '5',
+      ...this.dataFilterTable,
       ...dataFilter,
       ...this.sortBy,
     };
+    if (dataFilter['filter[attribute_value]'] === 'all') {
+      if (this.dataFilterTable['filter[attribute_value]']) {
+        delete this.dataFilterTable['filter[attribute_value]'];
+      }
+    }
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.utmTrackingStore.getVisitor(

@@ -11,12 +11,14 @@ import UTMTrackingEventModel from '../UTMTrackingModel/UTMTrackingListEventModel
 class UTMTrackingEventsViewModel {
   utmTrackingStore = null;
   statusAttribute = PAGE_STATUS.READY;
+  statusAttributeList = PAGE_STATUS.READY;
   statusTable = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   data = null;
   dataFilter = {};
   attributeData = null;
   dataAttribute = null;
+  dataAttributeList = null;
 
   constructor(utmTrackingStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -32,7 +34,6 @@ class UTMTrackingEventsViewModel {
     this.statusTable = PAGE_STATUS.LOADING;
     this.dataFilterTable = {
       page_size: '5',
-      ...this.dataFilterTable,
       ...dataFilter,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
@@ -41,6 +42,23 @@ class UTMTrackingEventsViewModel {
       this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getAttributeList = (dataFilter, dateFilter) => {
+    this.statusTable = PAGE_STATUS.LOADING;
+    this.dataFilterAttributeList = {
+      page_size: '5',
+      ...this.dataFilterAttributeList,
+      ...dataFilter,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.utmTrackingStore.getAttribute(
+      this.dataFilterAttributeList,
+      dateRangeFilter,
+      this.callbackOnDataAttributeListSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -132,6 +150,19 @@ class UTMTrackingEventsViewModel {
       }
     } else {
       this.statusAttribute = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnDataAttributeListSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.statusAttributeList = PAGE_STATUS.READY;
+        const transformData = new UTMTrackingEventModel(data, this.globalStoreViewModel);
+        this.dataAttributeList = transformData;
+      }
+    } else {
+      this.statusAttributeList = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

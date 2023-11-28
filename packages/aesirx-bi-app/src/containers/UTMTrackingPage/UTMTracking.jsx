@@ -7,6 +7,8 @@ import BehaviorTable from '../../components/BehaviorTable';
 import { useUTMTrackingViewModel } from './UTMTrackingViewModels/UTMTrackingViewModelContextProvider';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
+import { AesirXSelect } from 'aesirx-uikit';
+import { Col, Row } from 'react-bootstrap';
 
 const UTMTrackingPage = observer((props) => {
   const { t } = useTranslation();
@@ -18,7 +20,9 @@ const UTMTrackingPage = observer((props) => {
       handleFilterDateRange,
       handleFilterTable,
       getAttributeDate,
+      getAttributeList,
       dataAttribute,
+      dataAttributeList,
       statusTable,
     },
   } = useUTMTrackingViewModel();
@@ -66,11 +70,21 @@ const UTMTrackingPage = observer((props) => {
         'filter[domain]': activeDomain,
         'filter[attribute_name]': 'utm_source',
       });
+      await getAttributeList({
+        'filter[domain]': activeDomain,
+        'filter[attribute_name]': 'utm_source',
+      });
     };
     execute();
     return () => {};
   }, [activeDomain]);
-
+  const onSelectionChange = async (data) => {
+    await getVisitor({
+      'filter[domain]': activeDomain,
+      'filter[attribute_name]': 'utm_source',
+      ...(data?.value !== 'all' ? { 'filter[attribute_value]': data?.value } : {}),
+    });
+  };
   return (
     <div className="py-4 px-4 h-100">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -142,8 +156,25 @@ const UTMTrackingPage = observer((props) => {
           />
         </div>
       </div>
+      {dataAttributeList?.toAttributeList()?.length && (
+        <Row className="mb-2">
+          <Col lg="2">
+            <AesirXSelect
+              defaultValue={{ label: 'All Campaign', value: 'all' }}
+              options={dataAttributeList?.toAttributeList()}
+              className={`fs-sm`}
+              isBorder={true}
+              onChange={(data) => {
+                onSelectionChange(data);
+              }}
+              plColor={'#808495'}
+              isSearchable={false}
+            />
+          </Col>
+        </Row>
+      )}
       <div className="row gx-24 mb-24">
-        <div className="col-12 ">
+        <div className="col-12">
           {data?.list && (
             <BehaviorTable
               data={data?.list?.toEventTableUTM(props.integration)}

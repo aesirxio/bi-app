@@ -37,7 +37,6 @@ export class UTMTrackingStore {
     try {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getAttribute(dataFilter, dateFilter);
-      console.log(responseDataFromLibrary);
       if (responseDataFromLibrary) {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);

@@ -65,14 +65,6 @@ class UTMTrackingEventModel {
   toBarChartUTM = () => {
     const transform = this.transformResponseUTM();
     return Object.keys(transform).map((item) => {
-      console.log(
-        'transform[item]',
-        transform[item]?.map((e) => {
-          return e?.values?.find((sub_item) => {
-            return sub_item?.value === item;
-          })?.count;
-        })
-      );
       return {
         name: item,
         number: transform[item]
@@ -305,6 +297,12 @@ class UTMTrackingEventModel {
         data: [],
       };
     }
+  };
+
+  toAttributeList = () => {
+    const transform = this.transformResponseUTM();
+    const result = Object.keys(transform)?.map((item, key) => ({ value: item, label: item }));
+    return [{ label: 'All Campaign', value: 'all' }, ...result];
   };
 }
 

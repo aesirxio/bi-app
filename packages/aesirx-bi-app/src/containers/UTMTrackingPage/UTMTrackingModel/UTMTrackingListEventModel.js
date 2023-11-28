@@ -302,7 +302,7 @@ class UTMTrackingEventModel {
 
   toAttributeList = () => {
     const transform = this.transformResponseUTM();
-    const result = Object.keys(transform)?.map((item, key) => ({ value: item, label: item }));
+    const result = Object.keys(transform)?.map((item) => ({ value: item, label: item }));
     return [{ label: 'All Campaign', value: 'all' }, ...result];
   };
 }

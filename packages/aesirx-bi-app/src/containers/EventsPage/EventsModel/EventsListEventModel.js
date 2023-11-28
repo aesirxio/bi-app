@@ -231,6 +231,7 @@ class EventsListModel {
         return {
           Header: headerTable[index],
           accessor: key,
+          allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
           Cell: ({ cell, column, row }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
               return (
@@ -293,10 +294,6 @@ class EventsListModel {
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
       });
-      data?.length &&
-        data?.sort(
-          (a, b) => moment(b.start, 'DD-MM-YYYY HH:mm:ss') - moment(a.start, 'DD-MM-YYYY HH:mm:ss')
-        );
       return {
         header,
         data: data,

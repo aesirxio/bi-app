@@ -70,6 +70,7 @@ class CountryModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
+          allowSort: key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? false : true,
           Cell: ({ cell, column, row }) => {
             return column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
               <div className={'px-3'}>
@@ -152,6 +153,7 @@ class CountryModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
+          allowSort: key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? false : true,
           accessor: key,
           Cell: ({ cell, row, column }) => {
             return column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
@@ -179,24 +181,18 @@ class CountryModel {
           },
         };
       });
-      const data = this.data
-        ?.map((item) => {
-          return {
-            ...item,
-            ...accessor
-              .map((i) => {
-                return {
-                  [i]: item[i],
-                };
-              })
-              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
-          };
-        })
-        ?.sort(
-          (a, b) =>
-            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-        );
-
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
       return {
         header,
         data: data,

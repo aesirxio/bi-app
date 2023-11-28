@@ -203,6 +203,7 @@ class UTMTrackingEventModel {
         return {
           Header: headerTable[index],
           accessor: key,
+          allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
           Cell: ({ cell, column }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.FLOW_ID && cell?.value) {
               const findUUID = this.data.find((obj) => {

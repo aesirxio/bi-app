@@ -24,6 +24,7 @@ const UTMTrackingPage = observer((props) => {
       dataAttribute,
       dataAttributeList,
       statusTable,
+      sortBy,
     },
   } = useUTMTrackingViewModel();
   const {
@@ -84,6 +85,19 @@ const UTMTrackingPage = observer((props) => {
       'filter[attribute_name]': 'utm_source',
       ...(data?.value !== 'all' ? { 'filter[attribute_value]': data?.value } : {}),
     });
+  };
+  const handleSort = async (column) => {
+    await getVisitor(
+      {
+        'filter[domain]': activeDomain,
+        'filter[attribute_name]': 'utm_source',
+      },
+      {},
+      {
+        'sort[]': column?.id,
+        'sort_direction[]': sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+      }
+    );
   };
   return (
     <div className="py-4 px-4 h-100">
@@ -182,6 +196,8 @@ const UTMTrackingPage = observer((props) => {
               isPaginationAPI={true}
               pagination={data.pagination}
               handleFilterTable={handleFilterTable}
+              handleSort={handleSort}
+              sortBy={sortBy}
               {...props}
             />
           )}

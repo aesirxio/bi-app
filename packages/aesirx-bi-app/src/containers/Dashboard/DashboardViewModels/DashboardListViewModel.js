@@ -23,6 +23,9 @@ class DashboardListViewModel {
   devicesData = null;
   devicesTableData = null;
   pagesTableData = null;
+  sortByPages = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByDevices = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByBrowsers = { 'sort[]': '', 'sort_direction[]': '' };
   constructor(dashboardStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.dashboardStore = dashboardStore;
@@ -84,14 +87,19 @@ class DashboardListViewModel {
     );
   };
 
-  getBrowsers = (dataFilter, dateFilter) => {
+  getBrowsers = (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.sortByBrowsers = sortBy;
     this.dataFilterBrowsers = {
       page_size: '8',
-      'sort[]': 'number_of_visitors',
-      'sort_direction[]': 'desc',
+
       ...this.dataFilterBrowsers,
       ...dataFilter,
+      ...this.sortByBrowsers,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -115,14 +123,18 @@ class DashboardListViewModel {
     );
   };
 
-  getDevices = (dataFilter, dateFilter) => {
+  getDevices = (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.sortByDevices = sortBy;
     this.dataFilterDevices = {
       page_size: '8',
-      'sort[]': 'number_of_visitors',
-      'sort_direction[]': 'desc',
       ...this.dataFilterDevices,
       ...dataFilter,
+      ...this.sortByDevices,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -146,14 +158,18 @@ class DashboardListViewModel {
     );
   };
 
-  getPages = async (dataFilter, dateFilter) => {
+  getPages = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_page_views', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTopPageTable = PAGE_STATUS.LOADING;
+    this.sortByPages = sortBy;
     this.dataFilterPages = {
       page_size: '8',
-      'sort[]': 'number_of_page_views',
-      'sort_direction[]': 'desc',
       ...this.dataFilterPages,
       ...dataFilter,
+      ...this.sortByPages,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -200,6 +216,7 @@ class DashboardListViewModel {
 
   callbackOnErrorHandler = (error) => {
     this.status = PAGE_STATUS.READY;
+    console.log('error', error);
     notify(error.message, 'error');
   };
 

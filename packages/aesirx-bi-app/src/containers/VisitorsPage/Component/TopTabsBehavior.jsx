@@ -29,6 +29,9 @@ const TopTabs = observer(
                 });
               }}
               status={statusTopTable}
+              sortAPI={true}
+              handleSort={this.props.handleSort}
+              sortBy={this.listViewModel?.sortBy}
               {...this.props}
             />
           </div>

@@ -39,6 +39,7 @@ const CountryTable = (props) => {
             index + 1 === data?.header.length ? 'rounded-top-end-3' : ''
           } ${index === 0 ? 'rounded-top-start-3' : ''}`,
           width: item.width ? item.width : index === 0 ? 'auto' : 170,
+          allowSort: item?.allowSort || false,
           Header: (
             <span className="align-middle">
               {t(item.Header)}

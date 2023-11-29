@@ -26,8 +26,16 @@ class VisitorsListViewModel {
   countriesTableData = null;
   citiesTableData = null;
   browsersTableData = null;
+  devicesTableData = null;
   languagesTableData = null;
   pagesTableData = null;
+  sortBy = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByCountries = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByCities = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByBrowsers = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByDevices = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByLanguages = { 'sort[]': '', 'sort_direction[]': '' };
+
   constructor(visitorsStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.visitorsStore = visitorsStore;
@@ -41,6 +49,7 @@ class VisitorsListViewModel {
     this.getCountries(dataFilter, dateFilter);
     this.getCities(dataFilter, dateFilter);
     this.getBrowsers(dataFilter, dateFilter);
+    this.getDevices(dataFilter, dateFilter);
     this.getLanguages(dataFilter, dateFilter);
   };
 
@@ -93,14 +102,18 @@ class VisitorsListViewModel {
     );
   };
 
-  getCountries = async (dataFilter, dateFilter) => {
+  getCountries = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
+    this.sortByCountries = sortBy;
     this.dataFilterCountries = {
       page_size: '5',
-      'sort[]': 'number_of_page_views',
-      'sort_direction[]': 'desc',
       ...this.dataFilterCountries,
       ...dataFilter,
+      ...this.sortByCountries,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -112,14 +125,18 @@ class VisitorsListViewModel {
     );
   };
 
-  getCities = async (dataFilter, dateFilter) => {
+  getCities = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
+    this.sortByCities = sortBy;
     this.dataFilterCities = {
       page_size: '5',
-      'sort[]': 'number_of_page_views',
-      'sort_direction[]': 'desc',
       ...this.dataFilterCities,
       ...dataFilter,
+      ...this.sortByCities,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -131,14 +148,18 @@ class VisitorsListViewModel {
     );
   };
 
-  getBrowsers = async (dataFilter, dateFilter) => {
+  getBrowsers = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
+    this.sortByBrowsers = sortBy;
     this.dataFilterBrowsers = {
       page_size: '5',
-      'sort[]': 'number_of_page_views',
-      'sort_direction[]': 'desc',
       ...this.dataFilterBrowsers,
       ...dataFilter,
+      ...this.sortByBrowsers,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -150,14 +171,41 @@ class VisitorsListViewModel {
     );
   };
 
-  getLanguages = async (dataFilter, dateFilter) => {
+  getDevices = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
+    this.sortByDevices = sortBy;
+    this.dataFilterDevices = {
+      page_size: '5',
+      ...this.dataFilterDevices,
+      ...dataFilter,
+      ...this.sortByDevices,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.visitorsStore.getDevices(
+      this.dataFilterDevices,
+      dateRangeFilter,
+      this.callbackOnDevicesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getLanguages = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
+    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.sortByLanguages = sortBy;
     this.dataFilterLanguages = {
       page_size: '5',
-      'sort[]': 'number_of_page_views',
-      'sort_direction[]': 'desc',
       ...this.dataFilterLanguages,
       ...dataFilter,
+      ...this.sortByLanguages,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -169,14 +217,14 @@ class VisitorsListViewModel {
     );
   };
 
-  getPages = async (dataFilter, dateFilter) => {
+  getPages = async (dataFilter, dateFilter, sortBy = {}) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
+    this.sortBy = sortBy;
     this.dataFilterPages = {
       page_size: '5',
-      'sort[]': 'number_of_page_views',
-      'sort_direction[]': 'desc',
       ...this.dataFilterPages,
       ...dataFilter,
+      ...this.sortBy,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -232,6 +280,18 @@ class VisitorsListViewModel {
       this.dataFilterBrowsers,
       dateRangeFilter,
       this.callbackOnBrowsersSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterDevices = async (dataFilter) => {
+    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.dataFilterDevices = { ...this.dataFilterDevices, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.visitorsStore.getDevices(
+      this.dataFilterDevices,
+      dateRangeFilter,
+      this.callbackOnDevicesSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -354,6 +414,23 @@ class VisitorsListViewModel {
         const transformData = new BrowserModel(data.list, this.globalStoreViewModel);
         this.browsersTableData = {
           list: transformData.toBrowsersTableTop(),
+          pagination: data.pagination,
+        };
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.statusTopTable = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnDevicesSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.statusTopTable = PAGE_STATUS.READY;
+        const transformData = new BrowserModel(data.list, this.globalStoreViewModel);
+        this.devicesTableData = {
+          list: transformData.toDevicesTableTop(),
           pagination: data.pagination,
         };
       }

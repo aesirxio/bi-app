@@ -24,6 +24,38 @@ const Browsers = observer(
         : null;
     }
 
+    handleSortDevices = async (column) => {
+      this.dashboardListViewModel.getDevices(
+        {
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.dashboardListViewModel?.sortByDevices['sort_direction[]'] === 'desc'
+              ? 'asc'
+              : 'desc',
+        }
+      );
+    };
+
+    handleSortBrowsers = async (column) => {
+      this.dashboardListViewModel.getBrowsers(
+        {
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.dashboardListViewModel?.sortByBrowsers['sort_direction[]'] === 'desc'
+              ? 'asc'
+              : 'desc',
+        }
+      );
+    };
+
     render() {
       const { t } = this.props;
       const { status } = this.dashboardListViewModel;
@@ -71,6 +103,9 @@ const Browsers = observer(
                               });
                             }}
                             status={this.dashboardListViewModel?.statusTopBrowser}
+                            sortAPI={true}
+                            handleSort={this.handleSortBrowsers}
+                            sortBy={this.dashboardListViewModel?.sortByBrowsers}
                             {...this.props}
                           />
                         </div>
@@ -91,7 +126,10 @@ const Browsers = observer(
                                 page_size: value,
                               });
                             }}
-                            status={this.dashboardListViewModel?.status}
+                            status={this.dashboardListViewModel?.statusTopBrowser}
+                            sortAPI={true}
+                            handleSort={this.handleSortDevices}
+                            sortBy={this.dashboardListViewModel?.sortByDevices}
                             {...this.props}
                           />
                         </div>

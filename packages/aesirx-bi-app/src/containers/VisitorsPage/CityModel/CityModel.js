@@ -50,6 +50,7 @@ class CityModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
+          allowSort: true,
           Cell: ({ cell, column }) =>
             column.id === BI_CITIES_FIELD_KEY.CITY ? (
               <div className={'px-15'}>{cell?.value === '' ? 'Unknown' : cell?.value}</div>
@@ -64,23 +65,18 @@ class CityModel {
             ),
         };
       });
-      const data = this.data
-        ?.map((item) => {
-          return {
-            ...item,
-            ...accessor
-              .map((i) => {
-                return {
-                  [i]: item[i],
-                };
-              })
-              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
-          };
-        })
-        ?.sort(
-          (a, b) =>
-            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-        );
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
 
       return {
         header,

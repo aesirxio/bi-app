@@ -158,7 +158,10 @@ const VisitorsPage = observer(
               />
             </Col>
           </Row>
-          <TopTabs listViewModel={this.visitorsListViewModel} />
+          <TopTabs
+            listViewModel={this.visitorsListViewModel}
+            domain={this.context.biListViewModel.activeDomain}
+          />
         </div>
       );
     }

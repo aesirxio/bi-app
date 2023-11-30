@@ -99,6 +99,20 @@ const VisitorsBehaviorPage = observer(
       ];
     };
 
+    handleSort = async (column) => {
+      this.visitorsListViewModel.getPages(
+        {
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.visitorsListViewModel?.sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+        }
+      );
+    };
+
     render() {
       const { t } = this.props;
       const card = this.generateCard();
@@ -127,7 +141,10 @@ const VisitorsBehaviorPage = observer(
               />
             </Col>
           </Row>
-          <TopTabsBehavior listViewModel={this.visitorsListViewModel} />
+          <TopTabsBehavior
+            listViewModel={this.visitorsListViewModel}
+            handleSort={this.handleSort}
+          />
         </div>
       );
     }

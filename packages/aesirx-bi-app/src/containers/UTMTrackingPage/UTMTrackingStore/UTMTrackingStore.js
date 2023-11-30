@@ -6,13 +6,15 @@ export class UTMTrackingStore {
     try {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getVisitor(dataFilter, dateFilter);
-      if (responseDataFromLibrary) {
+      if (responseDataFromLibrary && responseDataFromLibrary?.name !== 'AxiosError') {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);
         });
       } else {
         callbackOnError({
-          message: 'Something went wrong from Server response',
+          message:
+            responseDataFromLibrary?.response?.data?.error ||
+            'Something went wrong from Server response',
         });
       }
     } catch (error) {
@@ -21,6 +23,10 @@ export class UTMTrackingStore {
         if (error.response?.data.message) {
           callbackOnError({
             message: error.response?.data?.message,
+          });
+        } else if (error.response?.data.error) {
+          callbackOnError({
+            message: error.response?.data?.error,
           });
         } else {
           callbackOnError({
@@ -38,13 +44,15 @@ export class UTMTrackingStore {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getAttribute(dataFilter, dateFilter);
       console.log(responseDataFromLibrary);
-      if (responseDataFromLibrary) {
+      if (responseDataFromLibrary && responseDataFromLibrary?.name !== 'AxiosError') {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);
         });
       } else {
         callbackOnError({
-          message: 'Something went wrong from Server response',
+          message:
+            responseDataFromLibrary?.response?.data?.error ||
+            'Something went wrong from Server response',
         });
       }
     } catch (error) {
@@ -53,6 +61,10 @@ export class UTMTrackingStore {
         if (error.response?.data.message) {
           callbackOnError({
             message: error.response?.data?.message,
+          });
+        } else if (error.response?.data.error) {
+          callbackOnError({
+            message: error.response?.data?.error,
           });
         } else {
           callbackOnError({
@@ -69,13 +81,15 @@ export class UTMTrackingStore {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getAttributeDate(dataFilter, dateFilter);
       console.log(responseDataFromLibrary);
-      if (responseDataFromLibrary) {
+      if (responseDataFromLibrary && responseDataFromLibrary?.name !== 'AxiosError') {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);
         });
       } else {
         callbackOnError({
-          message: 'Something went wrong from Server response',
+          message:
+            responseDataFromLibrary?.response?.data?.error ||
+            'Something went wrong from Server response',
         });
       }
     } catch (error) {
@@ -84,6 +98,10 @@ export class UTMTrackingStore {
         if (error.response?.data.message) {
           callbackOnError({
             message: error.response?.data?.message,
+          });
+        } else if (error.response?.data.error) {
+          callbackOnError({
+            message: error.response?.data?.error,
           });
         } else {
           callbackOnError({

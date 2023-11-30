@@ -39,6 +39,13 @@ const EventsPage = observer(
 
       this.behaviorViewModel = new EventsViewModel(this.eventsStore, this.biListViewModel);
     }
+    handleChangeLink = (e, link) => {
+      e.preventDefault();
+
+      if (link) {
+        this.biListViewModel.setIntegrationLink(link);
+      }
+    };
     render() {
       const { integration = false } = this.props;
       const { integrationLink, activeDomain } = this.biListViewModel;
@@ -49,14 +56,25 @@ const EventsPage = observer(
       });
       return (
         <EventsViewModelContextProvider viewModel={this.behaviorViewModel}>
-          {(match?.isExact || integrationLink === 'behavior/events') && (
+          {(match?.isExact || integrationLink === 'behavior-events') && (
             <div className="printButton">
-              <Link
-                to="/behavior/events-generator"
-                className="btn btn-success me-2 text-nowrap fw-semibold py-13 lh-sm"
-              >
-                <Translation>{(t) => <>{t('txt_generator_event')}</>}</Translation>
-              </Link>
+              {integration ? (
+                <a
+                  href="#"
+                  onClick={(e) => this.handleChangeLink(e, 'behavior-events-generator')}
+                  className={`btn btn-success me-2 text-nowrap fw-semibold py-13 lh-sm`}
+                >
+                  <Translation>{(t) => <>{t('txt_generator_event')}</>}</Translation>
+                </a>
+              ) : (
+                <Link
+                  to="/behavior/events-generator"
+                  className="btn btn-success me-2 text-nowrap fw-semibold py-13 lh-sm"
+                >
+                  <Translation>{(t) => <>{t('txt_generator_event')}</>}</Translation>
+                </Link>
+              )}
+
               <ReactToPrint
                 trigger={() => {
                   return (

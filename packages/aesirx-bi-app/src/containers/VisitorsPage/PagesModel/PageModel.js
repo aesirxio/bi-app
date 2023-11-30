@@ -27,12 +27,15 @@ class PageModel {
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION,
     ];
-    const largestValue = this.data[0] && this.data[0][BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS];
+    const largestValue = Math.max(
+      ...this.data.map((o) => o[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS])
+    );
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
           Header: headerTable[index],
           accessor: key,
+          allowSort: true,
           Cell: ({ cell, column, row }) => {
             const urlParams = column.id === BI_PAGES_FIELD_KEY.URL && new URL(cell?.value);
             return column.id === BI_PAGES_FIELD_KEY.URL ? (
@@ -64,24 +67,18 @@ class PageModel {
           },
         };
       });
-      const data = this.data
-        ?.map((item) => {
-          return {
-            ...item,
-            ...accessor
-              .map((i) => {
-                return {
-                  [i]: item[i],
-                };
-              })
-              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
-          };
-        })
-        ?.sort(
-          (a, b) =>
-            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS] -
-            a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS]
-        );
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
 
       return {
         header,
@@ -117,6 +114,7 @@ class PageModel {
         return {
           Header: headerTable[index],
           accessor: key,
+          allowSort: true,
           width:
             key === BI_PAGES_FIELD_KEY.URL
               ? 300

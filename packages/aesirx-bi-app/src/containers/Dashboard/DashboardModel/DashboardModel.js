@@ -145,7 +145,9 @@ class DashboardModel {
 
   toBrowsersTableTop = () => {
     const headerTable = ['txt_browser', 'txt_visitors', '%'];
-    const largestValue = this.data[0] && this.data[0][BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    const largestValue = Math.max(
+      ...this.data.map((o) => o[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS])
+    );
     const accessor = [
       BI_BROWSERS_FIELD_KEY.BROWSER_NAME,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
@@ -156,6 +158,7 @@ class DashboardModel {
         return {
           Header: headerTable[index],
           accessor: key,
+          allowSort: true,
           width:
             key === BI_BROWSERS_FIELD_KEY.BROWSER_NAME
               ? 250
@@ -227,23 +230,18 @@ class DashboardModel {
           },
         };
       });
-      const data = this.data
-        ?.map((item) => {
-          return {
-            ...item,
-            ...accessor
-              .map((i) => {
-                return {
-                  [i]: item[i],
-                };
-              })
-              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
-          };
-        })
-        ?.sort(
-          (a, b) =>
-            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-        );
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
 
       return {
         header,
@@ -260,12 +258,15 @@ class DashboardModel {
   toDevicesTableTop = () => {
     const headerTable = ['txt_device', 'txt_visitors'];
     const accessor = [BI_DEVICES_FIELD_KEY.DEVICE, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
-    const largestValue = this.data[0] && this.data[0][BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    const largestValue = Math.max(
+      ...this.data.map((o) => o[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS])
+    );
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
           Header: headerTable[index],
           accessor: key,
+          allowSort: true,
           width:
             key === BI_DEVICES_FIELD_KEY.DEVICE
               ? 250
@@ -298,23 +299,18 @@ class DashboardModel {
           },
         };
       });
-      const data = this.data
-        ?.map((item) => {
-          return {
-            ...item,
-            ...accessor
-              .map((i) => {
-                return {
-                  [i]: item[i],
-                };
-              })
-              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
-          };
-        })
-        ?.sort(
-          (a, b) =>
-            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-        );
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
 
       return {
         header,

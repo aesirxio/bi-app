@@ -17,6 +17,7 @@ class EventsListViewModel {
   dataEvents = null;
   dataFilter = {};
   attributeData = null;
+  sortBy = { 'sort[]': '', 'sort_direction[]': '' };
 
   constructor(eventsStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -28,18 +29,18 @@ class EventsListViewModel {
     return new EventsListModel(this.data);
   };
 
-  getVisitor = (dataFilter, dateFilter) => {
+  getVisitor = async (dataFilter, dateFilter, sortBy = {}) => {
     this.statusTable = PAGE_STATUS.LOADING;
+    this.sortBy = sortBy;
     this.dataFilterTable = {
       page_size: '5',
-      'sort[]': 'number_of_page_views',
-      'sort_direction[]': 'desc',
       ...this.dataFilterTable,
       ...dataFilter,
+      ...this.sortBy,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.eventsStore.getVisitor(
+    await this.eventsStore.getVisitor(
       this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,

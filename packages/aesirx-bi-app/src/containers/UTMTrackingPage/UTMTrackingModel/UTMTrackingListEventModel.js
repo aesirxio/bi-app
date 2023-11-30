@@ -65,14 +65,6 @@ class UTMTrackingEventModel {
   toBarChartUTM = () => {
     const transform = this.transformResponseUTM();
     return Object.keys(transform).map((item) => {
-      console.log(
-        'transform[item]',
-        transform[item]?.map((e) => {
-          return e?.values?.find((sub_item) => {
-            return sub_item?.value === item;
-          })?.count;
-        })
-      );
       return {
         name: item,
         number: transform[item]
@@ -211,6 +203,7 @@ class UTMTrackingEventModel {
         return {
           Header: headerTable[index],
           accessor: key,
+          allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
           Cell: ({ cell, column }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.FLOW_ID && cell?.value) {
               const findUUID = this.data.find((obj) => {
@@ -305,6 +298,12 @@ class UTMTrackingEventModel {
         data: [],
       };
     }
+  };
+
+  toAttributeList = () => {
+    const transform = this.transformResponseUTM();
+    const result = Object.keys(transform)?.map((item) => ({ value: item, label: item }));
+    return [{ label: 'All Campaign', value: 'all' }, ...result];
   };
 }
 

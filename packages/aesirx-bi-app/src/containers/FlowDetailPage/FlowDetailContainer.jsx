@@ -132,7 +132,10 @@ const FlowDetailContainer = observer((props) => {
         </div>
         <div className="col-9">
           {relatedVisitorData ? (
-            <BehaviorTable data={relatedVisitorData?.toEventTable(props.integration)} />
+            <BehaviorTable
+              data={relatedVisitorData?.toEventTable(props.integration)}
+              sortAPI={false}
+            />
           ) : null}
         </div>
       </div>

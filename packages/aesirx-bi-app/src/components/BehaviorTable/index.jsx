@@ -13,6 +13,9 @@ const BehaviorTable = ({
   t,
   isPaginationAPI = false,
   isTranslate = false,
+  sortAPI = true,
+  handleSort,
+  sortBy,
 }) => {
   const columnsTable = React.useMemo(
     () =>
@@ -22,7 +25,7 @@ const BehaviorTable = ({
           index + 1 === header.length ? 'rounded-top-end-3' : ''
         } ${index === 0 ? 'rounded-top-start-3' : ''}`,
         width: 100,
-
+        allowSort: item?.allowSort || false,
         ...(isTranslate
           ? {
               Header: (
@@ -33,6 +36,7 @@ const BehaviorTable = ({
       })),
     [header]
   );
+
   const dataTable = React.useMemo(() => data, [data]);
   return (
     <div className="h-100 ChartWrapper position-relative">
@@ -44,6 +48,9 @@ const BehaviorTable = ({
           columns={columnsTable}
           data={dataTable}
           canSort={true}
+          sortAPI={sortAPI}
+          sortAPIHandle={handleSort}
+          sortBy={sortBy}
           pagination={true}
           paginationClass={'fs-14 px-4'}
           isPaginationAPI={isPaginationAPI}

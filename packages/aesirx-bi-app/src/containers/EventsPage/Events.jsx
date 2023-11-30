@@ -18,6 +18,7 @@ const Events = observer((props) => {
       dataEvents,
       status,
       statusTable,
+      sortBy,
       handleFilterDateRange,
       handleFilterTable,
     },
@@ -32,10 +33,14 @@ const Events = observer((props) => {
 
   useEffect(() => {
     const execute = async () => {
-      getVisitor({
-        'filter[domain]': activeDomain,
-        'filter_not[event_name]': 'visit',
-      });
+      getVisitor(
+        {
+          'filter[domain]': activeDomain,
+          'filter_not[event_name]': 'visit',
+        },
+        {},
+        { 'sort[]': 'start', 'sort_direction[]': 'desc' }
+      );
       getEvents({
         'filter[domain]': activeDomain,
         'filter_not[event_name]': 'visit',
@@ -44,7 +49,19 @@ const Events = observer((props) => {
     execute();
     return () => {};
   }, [activeDomain]);
-
+  const handleSort = async (column) => {
+    getVisitor(
+      {
+        'filter[domain]': activeDomain,
+        'filter_not[event_name]': 'visit',
+      },
+      {},
+      {
+        'sort[]': column?.id,
+        'sort_direction[]': sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+      }
+    );
+  };
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -100,6 +117,8 @@ const Events = observer((props) => {
               handleFilterTable={handleFilterTable}
               statusTable={statusTable}
               isPaginationAPI={true}
+              handleSort={handleSort}
+              sortBy={sortBy}
               {...props}
             />
           )}

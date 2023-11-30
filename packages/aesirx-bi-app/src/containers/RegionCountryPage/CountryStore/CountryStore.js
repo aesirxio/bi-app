@@ -5,13 +5,15 @@ export class CountryStore {
     try {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getCountries(dataFilter, dateFilter);
-      if (responseDataFromLibrary) {
+      if (responseDataFromLibrary && responseDataFromLibrary?.name !== 'AxiosError') {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);
         });
       } else {
         callbackOnError({
-          message: 'Something went wrong from Server response',
+          message:
+            responseDataFromLibrary?.response?.data?.error ||
+            'Something went wrong from Server response',
         });
       }
     } catch (error) {

@@ -56,6 +56,22 @@ const Dashboard = observer(
     handleDateRangeChange = (startDate, endDate) => {
       this.dashboardListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
     };
+
+    handleSortPage = async (column) => {
+      this.dashboardListViewModel.getPages(
+        {
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.dashboardListViewModel?.sortByPages['sort_direction[]'] === 'desc'
+              ? 'asc'
+              : 'desc',
+        }
+      );
+    };
     render() {
       const { t } = this.props;
 
@@ -207,6 +223,9 @@ const Dashboard = observer(
                     });
                   }}
                   status={this.dashboardListViewModel?.statusTopPageTable}
+                  sortAPI={true}
+                  handleSort={this.handleSortPage}
+                  sortBy={this.dashboardListViewModel?.sortByPages}
                   {...this.props}
                 />
               </div>

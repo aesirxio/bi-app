@@ -250,5 +250,7 @@
   "txt_wallet": "Ví",
   "txt_consent": "Consent",
   "txt_tier": "Cấp",
-  "txt_uuid": "UUID"
+  "txt_uuid": "UUID",
+  "txt_datetime": "Ngày giờ",
+  "txt_expiration": "Hết hạn"
 }

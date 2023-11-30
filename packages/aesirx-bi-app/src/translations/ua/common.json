@@ -250,5 +250,7 @@
   "txt_wallet": "Гаманець",
   "txt_consent": "Згода",
   "txt_tier": "Рівень",
-  "txt_uuid": "UUID"
+  "txt_uuid": "UUID",
+  "txt_datetime": "Дата й час",
+  "txt_expiration": "Термін дії"
 }

@@ -29,7 +29,7 @@ const PieChartComponent = ({ data, status, colors, height, chartTitle, link, ...
   };
   const customizedLegend = ({ payload }) => {
     return (
-      <div className="piechart-legend mb-0 mt-1 d-flex align-items-center flex-wrap justify-content-center">
+      <div className="piechart-legend mb-0 mt-1 d-flex align-items-center flex-wrap">
         {payload.map((entry, index) => (
           <div className="pe-1 mb-1 d-flex w-50 justify-content-center" key={`item-${index}`}>
             <div

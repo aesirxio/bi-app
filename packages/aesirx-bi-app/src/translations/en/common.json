@@ -179,5 +179,7 @@
   "txt_wallet": "Wallet",
   "txt_consent": "Consent",
   "txt_tier": "Tier",
-  "txt_uuid": "UUID"
+  "txt_uuid": "UUID",
+  "txt_datetime": "Datetime",
+  "txt_expiration": "Expiration"
 }

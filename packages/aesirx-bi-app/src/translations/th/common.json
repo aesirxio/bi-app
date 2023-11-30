@@ -250,5 +250,7 @@
   "txt_wallet": "กระเป๋าเงิน",
   "txt_consent": "ยินยอม",
   "txt_tier": "ระดับ",
-  "txt_uuid": "UUID"
+  "txt_uuid": "UUID",
+  "txt_datetime": "วันที่และเวลา",
+  "txt_expiration": "หมดอายุ"
 }

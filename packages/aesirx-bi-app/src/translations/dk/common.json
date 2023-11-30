@@ -179,5 +179,7 @@
   "txt_wallet": "Tegnebog",
   "txt_consent": "Samtykke",
   "txt_tier": "Tier",
-  "txt_uuid": "UUID"
+  "txt_uuid": "UUID",
+  "txt_datetime": "Datotid",
+  "txt_expiration": "Udløb"
 }

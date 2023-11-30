@@ -24,6 +24,8 @@ const Consents = observer(() => {
       statusConsentsDate,
       consentsTierData,
       statusConsentsTier,
+      sortBy,
+      getConsentsList,
     },
   } = useConsentsViewModel();
   const {
@@ -42,12 +44,19 @@ const Consents = observer(() => {
     execute();
     return () => {};
   }, [activeDomain]);
-  const dataPieChart = [
-    { name: 'Tier 1', value: 3 },
-    { name: 'Tier 2', value: 5 },
-    { name: 'Tier 3', value: 7 },
-    { name: 'Tier 4', value: 3 },
-  ];
+
+  const handleSort = async (column) => {
+    getConsentsList(
+      {
+        'filter[domain]': activeDomain,
+      },
+      {},
+      {
+        'sort[]': column?.id,
+        'sort_direction[]': sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+      }
+    );
+  };
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column min-vh-100">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -122,6 +131,8 @@ const Consents = observer(() => {
             pagination={consentsListData?.pagination}
             isTranslate={true}
             handleFilterTable={handleFilterTableConsentsList}
+            handleSort={handleSort}
+            sortBy={sortBy}
           />
         ) : (
           <div className="position-absolute top-50 start-50 translate-middle">

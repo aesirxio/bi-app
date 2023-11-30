@@ -250,5 +250,7 @@
   "txt_wallet": "Monedero",
   "txt_consent": "Consentimiento",
   "txt_tier": "Nivel",
-  "txt_uuid": "UUID"
+  "txt_uuid": "UUID",
+  "txt_datetime": "Fechahora",
+  "txt_expiration": "Vencimiento"
 }

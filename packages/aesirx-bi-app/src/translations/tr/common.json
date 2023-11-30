@@ -179,5 +179,7 @@
   "txt_wallet": "Cüzdan",
   "txt_consent": "Onay",
   "txt_tier": "Kademe",
-  "txt_uuid": "UUID"
+  "txt_uuid": "UUID",
+  "txt_datetime": "Tarihsaat",
+  "txt_expiration": "Son kullanma tarihi"
 }

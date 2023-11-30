@@ -21,6 +21,7 @@ class ConsentsListViewModel {
   consentsDateData = null;
   statusConsentsTier = PAGE_STATUS.READY;
   consentsTierData = null;
+  sortBy = { 'sort[]': '', 'sort_direction[]': '' };
   constructor(consentsStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.consentsStore = consentsStore;
@@ -48,12 +49,18 @@ class ConsentsListViewModel {
     );
   };
 
-  getConsentsList = (dataFilter, dateFilter) => {
+  getConsentsList = (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'datetime', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusConsentsList = PAGE_STATUS.LOADING;
+    this.sortBy = sortBy;
     this.dataFilterConsentsList = {
       page_size: '5',
       ...this.dataFilterConsentsList,
       ...dataFilter,
+      ...this.sortBy,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 

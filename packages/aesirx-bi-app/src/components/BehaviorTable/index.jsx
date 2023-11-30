@@ -24,7 +24,7 @@ const BehaviorTable = ({
         className: `px-3 py-16 fs-sm fw-semibold border-bottom border-gray-800 align-middle ${
           index + 1 === header.length ? 'rounded-top-end-3' : ''
         } ${index === 0 ? 'rounded-top-start-3' : ''}`,
-        width: 100,
+        width: item?.width ?? 100,
         allowSort: item?.allowSort || false,
         ...(isTranslate
           ? {

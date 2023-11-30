@@ -250,5 +250,7 @@
   "txt_wallet": "Novčanik",
   "txt_consent": "Pristanak",
   "txt_tier": "Razina",
-  "txt_uuid": "UUID"
+  "txt_uuid": "UUID",
+  "txt_datetime": "Datum i vrijeme",
+  "txt_expiration": "Istek"
 }

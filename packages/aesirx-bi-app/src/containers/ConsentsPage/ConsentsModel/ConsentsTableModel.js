@@ -4,6 +4,7 @@
  */
 import { BI_CONSENTS_DATE_FIELD_KEY, BI_CONSENTS_LIST_FIELD_KEY } from 'aesirx-lib';
 import React from 'react';
+import moment from 'moment';
 
 class ConsentsTableModel {
   data = [];
@@ -25,8 +26,8 @@ class ConsentsTableModel {
       'txt_wallet',
       'txt_web3id',
       // 'txt_consent',
-      // 'txt_date_time',
-      // 'txt_expiration',
+      'txt_datetime',
+      'txt_expiration',
       'txt_uuid',
     ];
     const accessor = [
@@ -34,8 +35,8 @@ class ConsentsTableModel {
       BI_CONSENTS_LIST_FIELD_KEY.WALLET,
       BI_CONSENTS_LIST_FIELD_KEY.WEB3ID,
       // BI_CONSENTS_LIST_FIELD_KEY.CONSENT,
-      // BI_CONSENTS_LIST_FIELD_KEY.DATETIME,
-      // BI_CONSENTS_LIST_FIELD_KEY.EXPIRATION,
+      BI_CONSENTS_LIST_FIELD_KEY.DATETIME,
+      BI_CONSENTS_LIST_FIELD_KEY.EXPIRATION,
       BI_CONSENTS_LIST_FIELD_KEY.UUID,
     ];
     if (this.data?.length) {
@@ -49,11 +50,20 @@ class ConsentsTableModel {
               : key === BI_CONSENTS_LIST_FIELD_KEY.WEB3ID
               ? 100
               : 170,
+          allowSort: true,
           Cell: ({ cell, column }) =>
             column.id === BI_CONSENTS_LIST_FIELD_KEY.WEB3ID ? (
               <div className={'px-15'}>{cell?.value}</div>
             ) : column.id === BI_CONSENTS_LIST_FIELD_KEY.WALLET ? (
               <div className={'px-15'}>{cell?.value?.address}</div>
+            ) : column.id === BI_CONSENTS_LIST_FIELD_KEY.DATETIME ? (
+              <div className={'px-15'}>
+                {cell?.value && moment(cell?.value).format('YYYY-MM-DD HH:mm:ss')}
+              </div>
+            ) : column.id === BI_CONSENTS_LIST_FIELD_KEY.EXPIRATION ? (
+              <div className={'px-15'}>
+                {cell?.value && moment(cell?.value).format('YYYY-MM-DD HH:mm:ss')}
+              </div>
             ) : (
               <div className={'px-15'}>{cell?.value}</div>
             ),

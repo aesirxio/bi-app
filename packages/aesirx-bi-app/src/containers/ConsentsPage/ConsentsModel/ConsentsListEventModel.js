@@ -2,7 +2,6 @@
  * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
  * @license     GNU General Public License version 3, see LICENSE.
  */
-import React from 'react';
 import {
   BI_EVENTS_FIELD_KEY,
   BI_VISITOR_FIELD_KEY,
@@ -10,9 +9,7 @@ import {
   BI_CONSENTS_TIER_FIELD_KEY,
 } from 'aesirx-lib';
 import moment from 'moment';
-import { NavLink } from 'react-router-dom';
 import { enumerateDaysBetweenDates } from 'aesirx-lib';
-import { BI_CONSENTS_LIST_FIELD_KEY } from 'aesirx-lib';
 
 class ConsentsListModel {
   data = [];

@@ -69,6 +69,12 @@ const mainMenu = [
     ],
   },
   {
+    text: 'txt_menu_consents',
+    link: `/consents`,
+    icons: env.PUBLIC_URL + '/assets/images/audience.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
+  },
+  {
     ...(env.REACT_APP_WOOCOMMERCE_MENU === 'true'
       ? {
           text: 'txt_menu_woocommerce',

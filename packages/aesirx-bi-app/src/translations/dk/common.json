@@ -173,5 +173,13 @@
   "txt_product_revenue": "Produktomsætning",
   "txt_avg_price": "Gns. pris",
   "txt_avg_quantity": "Gns. ANTAL",
-  "txt_top_products": "Topprodukter"
+  "txt_top_products": "Topprodukter",
+  "txt_menu_consents": "Samtykke",
+  "txt_web3id": "Web3ID",
+  "txt_wallet": "Tegnebog",
+  "txt_consent": "Samtykke",
+  "txt_tier": "Tier",
+  "txt_uuid": "UUID",
+  "txt_datetime": "Datotid",
+  "txt_expiration": "Udløb"
 }

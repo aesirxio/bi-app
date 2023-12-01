@@ -244,5 +244,13 @@
   "txt_product_revenue": "Prihod od proizvoda",
   "txt_avg_price": "Prosječna cijena",
   "txt_avg_quantity": "Prosj. KOLIČINA",
-  "txt_top_products": "Najbolji proizvodi"
+  "txt_top_products": "Najbolji proizvodi",
+  "txt_menu_consents": "Pristanci",
+  "txt_web3id": "Web3ID",
+  "txt_wallet": "Novčanik",
+  "txt_consent": "Pristanak",
+  "txt_tier": "Razina",
+  "txt_uuid": "UUID",
+  "txt_datetime": "Datum i vrijeme",
+  "txt_expiration": "Istek"
 }

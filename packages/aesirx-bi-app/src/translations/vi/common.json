@@ -244,5 +244,13 @@
   "txt_product_revenue": "Doanh thu sản phẩm",
   "txt_avg_price": "Giá trung bình",
   "txt_avg_quantity": "Số  lượng trung bình",
-  "txt_top_products": "Sản phẩm hàng đầu"
+  "txt_top_products": "Sản phẩm hàng đầu",
+  "txt_menu_consents": "Consents",
+  "txt_web3id": "Web3ID",
+  "txt_wallet": "Ví",
+  "txt_consent": "Consent",
+  "txt_tier": "Cấp",
+  "txt_uuid": "UUID",
+  "txt_datetime": "Ngày giờ",
+  "txt_expiration": "Hết hạn"
 }

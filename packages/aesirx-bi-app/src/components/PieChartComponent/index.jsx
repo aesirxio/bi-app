@@ -1,11 +1,11 @@
-import { Spinner } from 'aesirx-uikit';
+import { PAGE_STATUS, RingLoaderComponent, Spinner } from 'aesirx-uikit';
 import React from 'react';
 import { useState } from 'react';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
 import { env } from 'aesirx-lib';
-const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props }) => {
+const PieChartComponent = ({ data, status, colors, height, chartTitle, link, ...props }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const RADIAN = Math.PI / 180;
 
@@ -29,15 +29,23 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
   };
   const customizedLegend = ({ payload }) => {
     return (
-      <ul className="piechart-legend mb-0 mt-1">
+      <div className="piechart-legend mb-0 mt-1 d-flex align-items-center flex-wrap">
         {payload.map((entry, index) => (
-          <li style={{ color: entry.color }} key={`item-${index}`}>
-            <span onClick={() => onPieEnter(entry, index)} className="cursor-pointer fs-sm">
-              {entry.value}
-            </span>
-          </li>
+          <div className="pe-1 mb-1 d-flex w-50 justify-content-center" key={`item-${index}`}>
+            <div
+              className="rounded-circle me-8px d-flex align-items-center justify-content-center mt-1"
+              style={{ backgroundColor: entry?.color, width: 14, height: 14 }}
+            ></div>
+            <div
+              className="d-flex flex-wrap cursor-pointer"
+              onClick={() => onPieEnter(entry, index)}
+            >
+              <div className="fs-sm w-100">{entry.value}</div>
+              <div className="fw-semibold">{(entry.payload.percent * 100)?.toFixed(1)}%</div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     );
   };
   const onPieEnter = (_, index) => {
@@ -102,7 +110,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
           fill="#999"
           className="fs-sm"
         >
-          {`(${(percent * 100).toFixed(2)}%)`}
+          {`(${(percent * 100).toFixed(1)}%)`}
         </text>
       </g>
     );
@@ -111,7 +119,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
   const { t } = props;
 
   return (
-    <div className="p-24 bg-white rounded-3 shadow-sm h-100">
+    <div className="p-24 bg-white rounded-3">
       {chartTitle && (
         <div className="d-flex justify-content-between">
           <h5 className="fw-semibold">{chartTitle} </h5>
@@ -132,7 +140,9 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
           )}
         </div>
       )}
-      {data ? (
+      {status === PAGE_STATUS.LOADING ? (
+        <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
+      ) : data ? (
         <ResponsiveContainer width="100%" height={height ?? 500} className="bg-white">
           <PieChart>
             <Pie

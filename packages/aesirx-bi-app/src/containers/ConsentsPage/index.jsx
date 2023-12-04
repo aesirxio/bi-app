@@ -1,12 +1,11 @@
 import React, { Component, lazy } from 'react';
-import { Route, matchPath, withRouter } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import ConsentsStore from './ConsentsStore/ConsentsStore';
 import { ConsentsViewModelContextProvider } from './ConsentsViewModels/ConsentsViewModelContextProvider';
 import ConsentsViewModel from './ConsentsViewModels/ConsentsViewModel';
 
 import { observer } from 'mobx-react';
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
-import { history } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 import ExportButton from 'components/ExportButton';
 
@@ -39,11 +38,6 @@ const ConsentsPage = observer(
     render() {
       const { integration = false } = this.props;
       const { integrationLink, activeDomain } = this.biListViewModel;
-      const match = matchPath(history.location.pathname, {
-        path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/consents',
-        exact: true,
-        strict: false,
-      });
       return (
         <ConsentsViewModelContextProvider viewModel={this.behaviorViewModel}>
           <ExportButton

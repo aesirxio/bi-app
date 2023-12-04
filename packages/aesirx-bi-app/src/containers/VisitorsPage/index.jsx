@@ -85,7 +85,6 @@ const VisitorsContainer = observer(
                 data: this?.VisitorsViewModel?.visitorsListViewModel?.languagesTableData?.list
                   ?.data,
               },
-              ,
             ]
           : [];
       return (

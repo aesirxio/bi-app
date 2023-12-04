@@ -15,7 +15,6 @@ import { DashboardViewModelContextProvider } from './DashboardViewModels/Dashboa
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import Dashboard from './Dashboard';
 
-import ReactToPrint from 'react-to-print';
 import 'flag-icons/sass/flag-icons.scss';
 import ExportButton from 'components/ExportButton';
 
@@ -42,7 +41,7 @@ const DashboardContainer = observer(
         {
           name: 'Locations',
           data: this?.dashboardViewModel?.dashboardListViewModel?.countriesData?.length
-            ? this?.dashboardViewModel?.dashboardListViewModel?.countriesData?.map(
+            ? /* eslint-disable-next-line no-unused-vars */ this?.dashboardViewModel?.dashboardListViewModel?.countriesData?.map(
                 ({ country_code, flag, ...keepAttrs }) => keepAttrs
               )
             : [],

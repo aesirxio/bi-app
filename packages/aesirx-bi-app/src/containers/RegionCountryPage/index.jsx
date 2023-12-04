@@ -8,7 +8,6 @@ import CountryStore from './CountryStore/CountryStore';
 import CountryViewModel from './CountryViewModels/CountryViewModel';
 import { CountryViewModelContextProvider } from './CountryViewModels/CountryViewModelContextProvider';
 import { history } from 'aesirx-uikit';
-import ReactToPrint from 'react-to-print';
 import ExportButton from 'components/ExportButton';
 
 const CountryContainer = observer(

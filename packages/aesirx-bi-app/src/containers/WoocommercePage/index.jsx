@@ -6,9 +6,8 @@ import WoocommerceViewModel from './WoocommerceViewModels/WoocommerceViewModel';
 
 import { observer } from 'mobx-react';
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
-import ReactToPrint from 'react-to-print';
 import { history } from 'aesirx-uikit';
-import { Translation, withTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import ExportButton from 'components/ExportButton';
 
 const Woocommerce = lazy(() => import('./Woocommerce'));

@@ -6,7 +6,6 @@ import EventsViewModel from './EventsViewModels/EventsViewModel';
 
 import { observer } from 'mobx-react';
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
-import ReactToPrint from 'react-to-print';
 import { history } from 'aesirx-uikit';
 import { Translation, withTranslation } from 'react-i18next';
 import ExportButton from 'components/ExportButton';

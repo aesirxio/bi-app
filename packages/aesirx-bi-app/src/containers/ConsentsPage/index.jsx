@@ -1,14 +1,14 @@
 import React, { Component, lazy } from 'react';
-import { Route, matchPath } from 'react-router-dom';
+import { Route, matchPath, withRouter } from 'react-router-dom';
 import ConsentsStore from './ConsentsStore/ConsentsStore';
 import { ConsentsViewModelContextProvider } from './ConsentsViewModels/ConsentsViewModelContextProvider';
 import ConsentsViewModel from './ConsentsViewModels/ConsentsViewModel';
 
 import { observer } from 'mobx-react';
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
-import ReactToPrint from 'react-to-print';
 import { history } from 'aesirx-uikit';
-import { Translation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
+import ExportButton from 'components/ExportButton';
 
 const Consents = lazy(() => import('./Consents'));
 
@@ -46,28 +46,12 @@ const ConsentsPage = observer(
       });
       return (
         <ConsentsViewModelContextProvider viewModel={this.behaviorViewModel}>
-          {(match?.isExact ||
-            integrationLink === 'consents' ||
-            integrationLink === 'consents-date' ||
-            integrationLink === 'consents-tier') && (
-            <ReactToPrint
-              trigger={() => {
-                return (
-                  <Translation>
-                    {(t, { i18n }) => (
-                      <a
-                        className={`btn btn-light me-2 text-nowrap py-13 lh-sm rounded-1 printButton ${i18n?.language}`}
-                        href="#"
-                      >
-                        {t('txt_export')}
-                      </a>
-                    )}
-                  </Translation>
-                );
-              }}
-              content={() => this.componentRef}
-            />
-          )}
+          <ExportButton
+            data={this?.behaviorViewModel?.consentsList?.consentsListData?.list?.data}
+            i18n={this.props.i18n}
+            t={this.props.t}
+            componentRef={this.componentRef}
+          />
 
           <ComponentToPrint
             integration={integration}
@@ -86,7 +70,6 @@ const ComponentToPrint = observer(
     constructor(props) {
       super(props);
     }
-
     render() {
       return (
         <div className="aesirxui">
@@ -109,4 +92,4 @@ const ComponentToPrint = observer(
   }
 );
 
-export default withBiViewModel(ConsentsPage);
+export default withTranslation()(withRouter(withBiViewModel(ConsentsPage)));

@@ -8,13 +8,14 @@ import React, { Component, lazy } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 
-import { withRouter } from 'react-router-dom';
+import { matchPath, withRouter } from 'react-router-dom';
 import VisitorsStore from './VisitorsStore/VisitorsStore';
 import VisitorsViewModel from './VisitorsViewModels/VisitorsViewModels';
 import { VisitorsViewModelContextProvider } from './VisitorsViewModels/VisitorsViewModelContextProvider';
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { Route } from 'react-router-dom';
-import ReactToPrint from 'react-to-print';
+import ExportButton from 'components/ExportButton';
+import { history } from 'aesirx-uikit';
 
 const VisitorsPage = lazy(() => import('./Visitors'));
 const VisitorsBehaviorPage = lazy(() => import('./VisitorsBehavior'));
@@ -45,21 +46,58 @@ const VisitorsContainer = observer(
     render() {
       const { integration = false } = this.props;
       const { integrationLink, activeDomain } = this.biListViewModel;
+      const matchVisitor = matchPath(history.location.pathname, {
+        path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/visitors',
+        exact: true,
+        strict: false,
+      });
+      const matchBehavior = matchPath(history.location.pathname, {
+        path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/behavior',
+        exact: true,
+        strict: false,
+      });
+      const dataExport =
+        matchBehavior?.isExact || integrationLink === 'behavior'
+          ? this?.VisitorsViewModel?.visitorsListViewModel?.pagesTableData?.list?.data
+          : null;
+      const tableVisitorExport =
+        matchVisitor?.isExact || integrationLink === 'visitors'
+          ? [
+              {
+                name: 'Countries',
+                data: this?.VisitorsViewModel?.visitorsListViewModel?.countriesTableData?.list
+                  ?.data,
+              },
+              {
+                name: 'Cities',
+                data: this?.VisitorsViewModel?.visitorsListViewModel?.citiesTableData?.list?.data,
+              },
+              {
+                name: 'Browsers',
+                data: this?.VisitorsViewModel?.visitorsListViewModel?.browsersTableData?.list?.data,
+              },
+              {
+                name: 'Devices',
+                data: this?.VisitorsViewModel?.visitorsListViewModel?.devicesTableData?.list?.data,
+              },
+              {
+                name: 'Languages',
+                data: this?.VisitorsViewModel?.visitorsListViewModel?.languagesTableData?.list
+                  ?.data,
+              },
+              ,
+            ]
+          : [];
       return (
         <VisitorsViewModelContextProvider viewModel={this.VisitorsViewModel}>
-          <ReactToPrint
-            trigger={() => {
-              return (
-                <a
-                  className={`btn btn-light me-2 text-nowrap py-13 lh-sm rounded-1 printButton ${this.props?.i18n?.language}`}
-                  href="#"
-                >
-                  {this.props.t('txt_export')}
-                </a>
-              );
-            }}
-            content={() => this.componentRef}
+          <ExportButton
+            data={dataExport}
+            tableExport={tableVisitorExport}
+            i18n={this.props.i18n}
+            t={this.props.t}
+            componentRef={this.componentRef}
           />
+
           <ComponentToPrint
             integration={integration}
             integrationLink={integrationLink}

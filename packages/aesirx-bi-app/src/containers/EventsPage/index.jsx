@@ -8,7 +8,8 @@ import { observer } from 'mobx-react';
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import ReactToPrint from 'react-to-print';
 import { history } from 'aesirx-uikit';
-import { Translation } from 'react-i18next';
+import { Translation, withTranslation } from 'react-i18next';
+import ExportButton from 'components/ExportButton';
 
 const Events = lazy(() => import('./Events'));
 const Generator = lazy(() => import('./Generator'));
@@ -57,7 +58,7 @@ const EventsPage = observer(
       return (
         <EventsViewModelContextProvider viewModel={this.behaviorViewModel}>
           {(match?.isExact || integrationLink === 'behavior-events') && (
-            <div className="printButton">
+            <div className="printButton d-flex">
               {integration ? (
                 <a
                   href="#"
@@ -74,16 +75,12 @@ const EventsPage = observer(
                   <Translation>{(t) => <>{t('txt_generator_event')}</>}</Translation>
                 </Link>
               )}
-
-              <ReactToPrint
-                trigger={() => {
-                  return (
-                    <a className={`btn btn-light me-2 text-nowrap py-13 lh-sm rounded-1 `} href="#">
-                      <Translation>{(t) => <>{t('txt_export')}</>}</Translation>
-                    </a>
-                  );
-                }}
-                content={() => this.componentRef}
+              <ExportButton
+                data={this?.behaviorViewModel?.eventsList?.data?.list?.toEventTable(true)?.data}
+                i18n={this.props.i18n}
+                t={this.props.t}
+                componentRef={this.componentRef}
+                classWrapper={true}
               />
             </div>
           )}
@@ -131,4 +128,4 @@ const ComponentToPrint = observer(
   }
 );
 
-export default withBiViewModel(withRouter(EventsPage));
+export default withTranslation()(withBiViewModel(withRouter(EventsPage)));

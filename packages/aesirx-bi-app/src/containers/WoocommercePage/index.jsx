@@ -8,7 +8,8 @@ import { observer } from 'mobx-react';
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import ReactToPrint from 'react-to-print';
 import { history } from 'aesirx-uikit';
-import { Translation } from 'react-i18next';
+import { Translation, withTranslation } from 'react-i18next';
+import ExportButton from 'components/ExportButton';
 
 const Woocommerce = lazy(() => import('./Woocommerce'));
 const WoocommerceProduct = lazy(() => import('./WoocommerceProduct'));
@@ -50,27 +51,35 @@ const WoocommercePage = observer(
         exact: true,
         strict: false,
       });
+      const tableWoocommerceExport = [
+        {
+          name: 'Top Search',
+          data: this?.behaviorViewModel?.woocommerceList?.productSearchTableData?.list?.data,
+        },
+        {
+          name: 'Add to cart',
+          data: this?.behaviorViewModel?.woocommerceList?.productCartTableData?.list?.data,
+        },
+        {
+          name: 'Top Products',
+          data: this?.behaviorViewModel?.woocommerceList?.productTableTopData?.list?.data,
+        },
+        {
+          name: 'Top View',
+          data: this?.behaviorViewModel?.woocommerceList?.productViewTableData?.list?.data,
+        },
+      ];
+      console.log('this?.behaviorViewModel', this?.behaviorViewModel);
       return (
         <WoocommerceViewModelContextProvider viewModel={this.behaviorViewModel}>
           {(match?.isExact ||
             integrationLink === 'woocommerce' ||
             integrationLink === 'woocommerce-product') && (
-            <ReactToPrint
-              trigger={() => {
-                return (
-                  <Translation>
-                    {(t, { i18n }) => (
-                      <a
-                        className={`btn btn-light me-2 text-nowrap py-13 lh-sm rounded-1 printButton ${i18n?.language}`}
-                        href="#"
-                      >
-                        {t('txt_export')}
-                      </a>
-                    )}
-                  </Translation>
-                );
-              }}
-              content={() => this.componentRef}
+            <ExportButton
+              tableExport={tableWoocommerceExport}
+              i18n={this.props.i18n}
+              t={this.props.t}
+              componentRef={this.componentRef}
             />
           )}
 
@@ -117,4 +126,4 @@ const ComponentToPrint = observer(
   }
 );
 
-export default withBiViewModel(WoocommercePage);
+export default withTranslation()(withBiViewModel(WoocommercePage));

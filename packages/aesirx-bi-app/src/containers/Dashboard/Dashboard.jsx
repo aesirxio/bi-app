@@ -72,6 +72,22 @@ const Dashboard = observer(
         }
       );
     };
+
+    handleSortSources = async (column) => {
+      this.dashboardListViewModel.getReferer(
+        {
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.dashboardListViewModel?.sortBySources['sort_direction[]'] === 'desc'
+              ? 'asc'
+              : 'desc',
+        }
+      );
+    };
     render() {
       const { t } = this.props;
 
@@ -205,6 +221,31 @@ const Dashboard = observer(
             </Col>
           </Row>
           <Row className="my-24 pb-24">
+            <Col lg={6} className="mb-24">
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_sources')}</h4>
+                <TopTable
+                  data={this.dashboardListViewModel?.sourcesTableData?.list}
+                  pagination={this.dashboardListViewModel?.sourcesTableData?.pagination}
+                  isPagination={true}
+                  simplePagination={true}
+                  selectPage={async (value) => {
+                    await this.dashboardListViewModel.handleFilterSources({ page: value });
+                  }}
+                  selectPageSize={async (value) => {
+                    await this.dashboardListViewModel.handleFilterSources({
+                      page: 1,
+                      page_size: value,
+                    });
+                  }}
+                  status={this.dashboardListViewModel?.statusTopSourceTable}
+                  sortAPI={true}
+                  handleSort={this.handleSortSources}
+                  sortBy={this.dashboardListViewModel?.sortBySources}
+                  {...this.props}
+                />
+              </div>
+            </Col>
             <Col lg={6} className="mb-24">
               <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
                 <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_pages')}</h4>

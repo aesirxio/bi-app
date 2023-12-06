@@ -15,6 +15,7 @@ class DashboardListViewModel {
   status = PAGE_STATUS.READY;
   statusTopPageTable = PAGE_STATUS.READY;
   statusTopBrowser = PAGE_STATUS.READY;
+  statusTopSourceTable = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   summaryData = null;
   visitorData = null;
@@ -23,9 +24,11 @@ class DashboardListViewModel {
   devicesData = null;
   devicesTableData = null;
   pagesTableData = null;
+  sourcesTableData = null;
   sortByPages = { 'sort[]': '', 'sort_direction[]': '' };
   sortByDevices = { 'sort[]': '', 'sort_direction[]': '' };
   sortByBrowsers = { 'sort[]': '', 'sort_direction[]': '' };
+  sortBySources = { 'sort[]': '', 'sort_direction[]': '' };
   constructor(dashboardStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.dashboardStore = dashboardStore;
@@ -39,6 +42,7 @@ class DashboardListViewModel {
     this.getBrowsers(dataFilter, dateFilter);
     this.getDevices(dataFilter, dateFilter);
     this.getPages(dataFilter, dateFilter);
+    this.getReferer(dataFilter, dateFilter);
   };
 
   getMetrics = (dataFilter, dateFilter) => {
@@ -181,6 +185,29 @@ class DashboardListViewModel {
     );
   };
 
+  getReferer = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
+    this.statusTopSourceTable = PAGE_STATUS.LOADING;
+    this.sortBySources = sortBy;
+    this.dataFilterSources = {
+      page_size: '8',
+      ...this.dataFilterSources,
+      ...dataFilter,
+      ...this.sortBySources,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.dashboardStore.getReferer(
+      this.dataFilterSources,
+      dateRangeFilter,
+      this.callbackOnSourcesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   handleFilter = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
@@ -210,6 +237,18 @@ class DashboardListViewModel {
       this.dataFilterPages,
       dateRangeFilter,
       this.callbackOnPagesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterSources = async (dataFilter) => {
+    this.statusTopSourceTable = PAGE_STATUS.LOADING;
+    this.dataFilterSources = { ...this.dataFilterSources, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.dashboardStore.getReferer(
+      this.dataFilterSources,
+      dateRangeFilter,
+      this.callbackOnSourcesSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -304,6 +343,24 @@ class DashboardListViewModel {
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusTopPageTable = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnSourcesSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        this.statusTopSourceTable = PAGE_STATUS.READY;
+        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        this.sourcesTableData = {
+          list: transformData.toSourcesTableTopDashboard(),
+          pagination: data.pagination,
+        };
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.statusTopSourceTable = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

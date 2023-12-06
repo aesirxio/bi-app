@@ -181,5 +181,7 @@
   "txt_tier": "Kademe",
   "txt_uuid": "UUID",
   "txt_datetime": "Tarihsaat",
-  "txt_expiration": "Son kullanma tarihi"
+  "txt_expiration": "Son kullanma tarihi",
+  "txt_top_sources": "En İyi Kaynaklar",
+  "txt_source": "Kaynak"
 }

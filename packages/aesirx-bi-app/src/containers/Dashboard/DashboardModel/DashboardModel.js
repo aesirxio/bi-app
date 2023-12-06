@@ -14,6 +14,7 @@ import {
   env,
 } from 'aesirx-lib';
 import { Image } from 'react-bootstrap';
+import { BI_REFERER_FIELD_KEY } from 'aesirx-lib';
 
 class DashboardModel {
   data = [];
@@ -295,6 +296,109 @@ class DashboardModel {
                   <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
                 )}
               </>
+            );
+          },
+        };
+      });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+
+      return {
+        header,
+        data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toSourcesTableTopDashboard = () => {
+    const headerTable = ['txt_source', 'txt_visitors'];
+    const accessor = [BI_REFERER_FIELD_KEY.REFERER, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    const largestValue = Math.max(
+      ...this.data.map((o) => o[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS])
+    );
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          allowSort: true,
+          Cell: ({ cell, column, row }) => {
+            let imgIcon = ``;
+            if (column.id === BI_REFERER_FIELD_KEY.REFERER) {
+              imgIcon = cell?.value?.includes('aesirx.io')
+                ? `${env.PUBLIC_URL}/assets/images/logo/welcome-logo.png`
+                : ``;
+              switch (cell?.value) {
+                case '':
+                  imgIcon = `${env.PUBLIC_URL}/assets/images/direct.png`;
+                  break;
+                case 'https://www.google.com/':
+                  imgIcon = `${env.PUBLIC_URL}/assets/images/google.png`;
+                  break;
+                case 'https://www.facebook.com/':
+                  imgIcon = `${env.PUBLIC_URL}/assets/images/facebook.png`;
+                  break;
+                case 'https://www.linkedin.com/':
+                  imgIcon = `${env.PUBLIC_URL}/assets/images/linkedin.png`;
+                  break;
+                case 'https://yandex.ru/':
+                  imgIcon = `${env.PUBLIC_URL}/assets/images/yandex.png`;
+                  break;
+                case 'https://duckduckgo.com/':
+                  imgIcon = `${env.PUBLIC_URL}/assets/images/duckduckgo.svg`;
+                  break;
+                case 'https://www.reddit.com/':
+                  imgIcon = `${env.PUBLIC_URL}/assets/images/reddit.png`;
+                  break;
+                case 'https://twitter.com/':
+                  imgIcon = `${env.PUBLIC_URL}/assets/images/twitter.png`;
+                  break;
+                case 'https://github.com/':
+                  imgIcon = `${env.PUBLIC_URL}/assets/images/github.png`;
+                  break;
+              }
+            }
+
+            return column.id === BI_REFERER_FIELD_KEY.REFERER ? (
+              <div className={'d-block position-relative px-20 py-sm text-gray-900'}>
+                <div
+                  className="position-absolute top-0 start-0 h-100 z-0 table-link-bg"
+                  style={{
+                    width: `${((row.cells[1]?.value / largestValue) * 100)?.toString()}%`,
+                  }}
+                ></div>
+                <div className="position-relative z-1 text-ellipsis line-clamp-1 pe-20">
+                  <div className="position-relative table-link-text">
+                    {imgIcon && (
+                      <Image
+                        className={`me-sm object-fit-contain`}
+                        style={{ width: 22, height: 22 }}
+                        src={env.PUBLIC_URL + imgIcon}
+                        alt={'icons'}
+                      />
+                    )}
+                    {/* {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search} */}
+                    {cell?.value ? cell?.value : 'Direct / None'}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
             );
           },
         };

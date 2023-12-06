@@ -252,5 +252,7 @@
   "txt_tier": "Razina",
   "txt_uuid": "UUID",
   "txt_datetime": "Datum i vrijeme",
-  "txt_expiration": "Istek"
+  "txt_expiration": "Istek",
+  "txt_top_sources": "Glavni izvori",
+  "txt_source": "Izvor"
 }

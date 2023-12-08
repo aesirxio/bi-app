@@ -340,6 +340,14 @@ class DashboardModel {
           Cell: ({ cell, column, row }) => {
             let imgIcon = ``;
             if (column.id === BI_REFERER_FIELD_KEY.REFERER) {
+              if (cell?.value) {
+                const url = new URL(cell?.value);
+                imgIcon =
+                  url?.hostname === 'aesirx.io'
+                    ? `${env.PUBLIC_URL}/assets/images/logo/welcome-logo.png`
+                    : ``;
+              }
+
               imgIcon = cell?.value?.includes('aesirx.io')
                 ? `${env.PUBLIC_URL}/assets/images/logo/welcome-logo.png`
                 : ``;

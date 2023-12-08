@@ -347,10 +347,6 @@ class DashboardModel {
                     ? `${env.PUBLIC_URL}/assets/images/logo/welcome-logo.png`
                     : ``;
               }
-
-              imgIcon = cell?.value?.includes('aesirx.io')
-                ? `${env.PUBLIC_URL}/assets/images/logo/welcome-logo.png`
-                : ``;
               switch (cell?.value) {
                 case '':
                   imgIcon = `${env.PUBLIC_URL}/assets/images/direct.png`;

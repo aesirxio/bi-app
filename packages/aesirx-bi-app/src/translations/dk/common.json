@@ -181,5 +181,7 @@
   "txt_tier": "Tier",
   "txt_uuid": "UUID",
   "txt_datetime": "Datotid",
-  "txt_expiration": "Udløb"
+  "txt_expiration": "Udløb",
+  "txt_top_sources": "Topkilder",
+  "txt_source": "Kilde"
 }

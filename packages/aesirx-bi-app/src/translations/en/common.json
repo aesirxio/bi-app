@@ -181,5 +181,7 @@
   "txt_tier": "Tier",
   "txt_uuid": "UUID",
   "txt_datetime": "Datetime",
-  "txt_expiration": "Expiration"
+  "txt_expiration": "Expiration",
+  "txt_top_sources": "Top Sources",
+  "txt_source": "Source"
 }

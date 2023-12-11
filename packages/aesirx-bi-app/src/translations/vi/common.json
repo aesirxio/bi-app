@@ -252,5 +252,7 @@
   "txt_tier": "Cấp",
   "txt_uuid": "UUID",
   "txt_datetime": "Ngày giờ",
-  "txt_expiration": "Hết hạn"
+  "txt_expiration": "Hết hạn",
+  "txt_top_sources": "Các nguồn hàng đầu",
+  "txt_source": "Nguồn"
 }

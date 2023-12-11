@@ -252,5 +252,7 @@
   "txt_tier": "Nivel",
   "txt_uuid": "UUID",
   "txt_datetime": "Fechahora",
-  "txt_expiration": "Vencimiento"
+  "txt_expiration": "Vencimiento",
+  "txt_top_sources": "Fuentes principales",
+  "txt_source": "Fuente"
 }

@@ -79,6 +79,7 @@ const WoocommercePage = observer(
               i18n={this.props.i18n}
               t={this.props.t}
               componentRef={this.componentRef}
+              sectionName={'woocommerce'}
             />
           )}
 

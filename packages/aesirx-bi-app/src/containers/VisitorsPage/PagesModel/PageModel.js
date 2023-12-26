@@ -102,7 +102,7 @@ class PageModel {
   toPagesTableTop = () => {
     const headerTable = [
       'txt_page',
-      'txt_page_views',
+      'txt_visitors',
       'txt_unique_page_views',
       'txt_bounce_rate',
       'txt_page_session',

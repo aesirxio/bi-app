@@ -37,6 +37,7 @@ const CountryContainer = observer(
             i18n={this.props.i18n}
             t={this.props.t}
             componentRef={this.componentRef}
+            sectionName={'location'}
           />
           <ComponentToPrint ref={(el) => (this.componentRef = el)} />
         </CountryViewModelContextProvider>

@@ -3,17 +3,33 @@ import { Col, Dropdown, Form, Row } from 'react-bootstrap';
 import { CSVLink } from 'react-csv';
 import { Translation } from 'react-i18next';
 import ReactToPrint from 'react-to-print';
+import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { downloadExcel } from 'utils';
 
-function ExportButton({ data, tableExport, t, i18n, componentRef, classWrapper = false }) {
+function ExportButton({
+  data,
+  tableExport,
+  t,
+  i18n,
+  componentRef,
+  classWrapper = false,
+  sectionName = '',
+}) {
   const [exportFile, setExportFile] = useState({
     format: 'pdf',
     type: 'page',
   });
+  const biStore = useBiViewModel();
 
   const handleChange = (state) => {
     setExportFile(state);
   };
+  const isSameday =
+    biStore?.biListViewModel?.dateFilter?.date_start ===
+    biStore?.biListViewModel?.dateFilter?.date_end;
+  const nameFile = `${biStore?.biListViewModel?.activeDomain}_${sectionName}_${
+    biStore?.biListViewModel?.dateFilter?.date_start
+  }${!isSameday ? `_${biStore?.biListViewModel?.dateFilter?.date_end}` : ''}`;
   return (
     <div className={`${classWrapper ? '' : 'printButton'} me-2`}>
       <Dropdown align="end">
@@ -135,7 +151,7 @@ function ExportButton({ data, tableExport, t, i18n, componentRef, classWrapper =
                     <CSVLink
                       data={tableExport?.find((o) => o?.name === exportFile?.name)?.data}
                       className="btn btn-light text-nowrap py-13 lh-sm rounded-1"
-                      filename="data.csv"
+                      filename={`${nameFile}.csv`}
                     >
                       Export
                     </CSVLink>
@@ -146,7 +162,7 @@ function ExportButton({ data, tableExport, t, i18n, componentRef, classWrapper =
                   <CSVLink
                     data={data}
                     className="btn btn-light text-nowrap py-13 lh-sm rounded-1"
-                    filename="data.csv"
+                    filename={`${nameFile}.csv`}
                   >
                     Export
                   </CSVLink>
@@ -161,7 +177,10 @@ function ExportButton({ data, tableExport, t, i18n, componentRef, classWrapper =
                     <button
                       className="btn btn-light text-nowrap py-13 lh-sm rounded-1"
                       onClick={() =>
-                        downloadExcel(tableExport?.find((o) => o?.name === exportFile?.name)?.data)
+                        downloadExcel(
+                          tableExport?.find((o) => o?.name === exportFile?.name)?.data,
+                          `${nameFile}`
+                        )
                       }
                     >
                       Export
@@ -172,7 +191,7 @@ function ExportButton({ data, tableExport, t, i18n, componentRef, classWrapper =
                 ) : data?.length ? (
                   <button
                     className="btn btn-light text-nowrap py-13 lh-sm rounded-1"
-                    onClick={() => downloadExcel(data)}
+                    onClick={() => downloadExcel(data, `${nameFile}`)}
                   >
                     Export
                   </button>

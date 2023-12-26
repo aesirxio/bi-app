@@ -80,6 +80,7 @@ const EventsPage = observer(
                 t={this.props.t}
                 componentRef={this.componentRef}
                 classWrapper={true}
+                sectionName={'event'}
               />
             </div>
           )}

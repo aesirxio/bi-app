@@ -95,6 +95,9 @@ const VisitorsContainer = observer(
             i18n={this.props.i18n}
             t={this.props.t}
             componentRef={this.componentRef}
+            sectionName={
+              matchVisitor?.isExact || integrationLink === 'visitors' ? 'visitors' : 'behavior'
+            }
           />
 
           <ComponentToPrint

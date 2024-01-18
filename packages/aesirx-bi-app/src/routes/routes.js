@@ -14,6 +14,7 @@ const WoocommercePage = lazy(() => import('../containers/WoocommercePage'));
 const ConsentsPage = lazy(() => import('../containers/ConsentsPage'));
 
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
+const FlowListPage = lazy(() => import('../containers/FlowListPage'));
 const FlowPage = lazy(() => import('../containers/FlowDetailPage'));
 
 const authRoutes = [
@@ -67,6 +68,12 @@ const mainRoutes = [
     page: 'visitors-locations',
     exact: true,
     main: () => <RegionCountryPage />,
+  },
+  {
+    path: '/visitors/flow',
+    page: 'visitors-flow',
+    exact: true,
+    main: () => <FlowListPage />,
   },
   {
     path: ['/consents'],

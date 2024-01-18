@@ -26,6 +26,12 @@ const mainMenu = [
         link: `/visitors/locations`,
         page: 'visitors-locations',
       },
+      {
+        text: 'txt_menu_user_experience',
+        mini_text: 'txt_menu_locations',
+        link: `/visitors/flow`,
+        page: 'visitors-flow',
+      },
     ],
   },
   {

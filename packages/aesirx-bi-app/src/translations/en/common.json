@@ -183,5 +183,12 @@
   "txt_datetime": "Datetime",
   "txt_expiration": "Expiration",
   "txt_top_sources": "Top Sources",
-  "txt_source": "Source"
+  "txt_source": "Source",
+  "txt_menu_user_experience": "User Experience",
+  "txt_user_experience": "User Experience",
+  "txt_time": "Time",
+  "txt_locale": "Locale",
+  "txt_sop_id": "SoP ID",
+  "txt_session": "Session",
+  "txt_referrer": "Referrer"
 }

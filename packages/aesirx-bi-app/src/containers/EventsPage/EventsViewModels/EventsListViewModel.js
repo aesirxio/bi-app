@@ -17,6 +17,7 @@ class EventsListViewModel {
   dataEvents = null;
   dataFilter = {};
   attributeData = null;
+  search = {};
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
 
   constructor(eventsStore, globalStoreViewModel) {
@@ -29,14 +30,16 @@ class EventsListViewModel {
     return new EventsListModel(this.data);
   };
 
-  getVisitor = async (dataFilter, dateFilter, sortBy = {}) => {
+  getVisitor = async (dataFilter, dateFilter, sortBy = {}, search = {}) => {
     this.statusTable = PAGE_STATUS.LOADING;
     this.sortBy = sortBy;
+    this.search = search;
     this.dataFilterTable = {
       page_size: '5',
       ...this.dataFilterTable,
       ...dataFilter,
       ...this.sortBy,
+      ...this.search,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 

@@ -62,6 +62,16 @@ const Events = observer((props) => {
       }
     );
   };
+  const handleSearch = async (search) => {
+    getVisitor(
+      {
+        'filter[domain]': activeDomain,
+      },
+      {},
+      {},
+      { 'filter[url]': search }
+    );
+  };
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -119,6 +129,7 @@ const Events = observer((props) => {
               isPaginationAPI={true}
               handleSort={handleSort}
               sortBy={sortBy}
+              handleSearch={handleSearch}
               {...props}
             />
           )}

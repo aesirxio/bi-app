@@ -113,6 +113,17 @@ const VisitorsBehaviorPage = observer(
       );
     };
 
+    handleSearch = async (search) => {
+      this.visitorsListViewModel.getPages(
+        {
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        },
+        {},
+        {},
+        { 'filter[url]': search }
+      );
+    };
+
     render() {
       const { t } = this.props;
       const card = this.generateCard();
@@ -144,6 +155,7 @@ const VisitorsBehaviorPage = observer(
           <TopTabsBehavior
             listViewModel={this.visitorsListViewModel}
             handleSort={this.handleSort}
+            handleSearch={this.handleSearch}
           />
         </div>
       );

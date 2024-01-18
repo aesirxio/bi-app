@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useCallback } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import TopTable from './TopTable';
+import { Col, Form, Row } from 'react-bootstrap';
+import { useAsyncDebounce } from 'react-table';
+import { debounce } from 'lodash';
 const TopTabs = observer(
   class TopTabs extends Component {
     constructor(props) {
@@ -11,10 +14,24 @@ const TopTabs = observer(
       this.listViewModel = listViewModel ? listViewModel : null;
       this.state = { loading: false };
     }
+    search = _.debounce((e) => {
+      this.props.handleSearch(e?.target?.value);
+    }, 500);
     render() {
       const { statusTopTable } = this.listViewModel;
+
       return (
         <div className="position-relative h-100">
+          <Row className="mb-3">
+            <Col lg="4">
+              <Form.Control
+                as="input"
+                placeholder="Search url"
+                name="search"
+                onChange={this.search}
+              />
+            </Col>
+          </Row>
           <div className="bg-white rounded-3 shadow-sm h-100 position-relative ChartWrapper">
             <TopTable
               data={this.listViewModel?.pagesTableData?.list}

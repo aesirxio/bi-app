@@ -217,14 +217,16 @@ class VisitorsListViewModel {
     );
   };
 
-  getPages = async (dataFilter, dateFilter, sortBy = {}) => {
+  getPages = async (dataFilter, dateFilter, sortBy = {}, search = {}) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
     this.sortBy = sortBy;
+    this.search = search;
     this.dataFilterPages = {
       page_size: '5',
       ...this.dataFilterPages,
       ...dataFilter,
       ...this.sortBy,
+      ...this.search,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 

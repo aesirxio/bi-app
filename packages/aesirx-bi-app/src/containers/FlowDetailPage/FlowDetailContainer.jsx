@@ -109,7 +109,7 @@ const FlowDetailContainer = observer((props) => {
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="position-relative">
-        <h2 className="fw-bold mb-8px mb-3">{t('txt_visitor_flow') + ' ' + uuidDetail}</h2>
+        <h2 className="fw-bold mb-8px mb-3">{t('txt_visitor_detail')}</h2>
       </div>
       <Card loading={status} data={CardData} />
       <div className="row gx-24 ">
@@ -132,10 +132,7 @@ const FlowDetailContainer = observer((props) => {
         </div>
         <div className="col-9">
           {relatedVisitorData ? (
-            <BehaviorTable
-              data={relatedVisitorData?.toEventTable(props.integration)}
-              sortAPI={false}
-            />
+            <BehaviorTable data={relatedVisitorData?.toFlowDetailTable()} sortAPI={false} />
           ) : null}
         </div>
       </div>

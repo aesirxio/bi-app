@@ -45,13 +45,13 @@ const BehaviorTable = ({
   }, 500);
   return (
     <div className="h-100 ChartWrapper position-relative">
-      {handleSearch && (
+      {/* {handleSearch && (
         <Row className="mb-3">
           <Col lg="4">
             <Form.Control as="input" placeholder="Search url" name="search" onChange={searchFunc} />
           </Col>
         </Row>
-      )}
+      )} */}
       {statusTable === PAGE_STATUS.LOADING ? (
         <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
       ) : data ? (

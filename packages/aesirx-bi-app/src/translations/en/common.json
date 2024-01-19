@@ -190,5 +190,6 @@
   "txt_locale": "Locale",
   "txt_sop_id": "SoP ID",
   "txt_session": "Session",
-  "txt_referrer": "Referrer"
+  "txt_referrer": "Referrer",
+  "txt_visitor_detail": "Visitor Detail"
 }

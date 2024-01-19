@@ -188,7 +188,7 @@ class UTMTrackingEventModel {
       'Date',
     ];
     const accessor = [
-      BI_VISITOR_FIELD_KEY.FLOW_ID,
+      BI_VISITOR_FIELD_KEY.UUID,
       'utm_source',
       'utm_medium',
       'utm_campaign',
@@ -205,9 +205,9 @@ class UTMTrackingEventModel {
           accessor: key,
           allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
           Cell: ({ cell, column }) => {
-            if (column.id === BI_VISITOR_FIELD_KEY.FLOW_ID && cell?.value) {
+            if (column.id === BI_VISITOR_FIELD_KEY.UUID && cell?.value) {
               const findUUID = this.data.find((obj) => {
-                return obj?.[BI_VISITOR_FIELD_KEY.FLOW_ID] === cell?.value;
+                return obj?.[BI_VISITOR_FIELD_KEY.UUID] === cell?.value;
               });
               return (
                 <>

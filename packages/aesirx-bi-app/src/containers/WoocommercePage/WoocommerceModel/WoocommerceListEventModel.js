@@ -238,7 +238,7 @@ class WoocommerceListModel {
                       onClick={(e) =>
                         this.handleChangeLink(
                           e,
-                          `flow/${row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]}`
+                          `flow/${row.original?.[BI_VISITOR_FIELD_KEY.UUID]}`
                         )
                       }
                       className={`px-3`}
@@ -247,7 +247,7 @@ class WoocommerceListModel {
                     </a>
                   ) : (
                     <NavLink
-                      to={`/flow/${row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]}`}
+                      to={`/flow/${row.original?.[BI_VISITOR_FIELD_KEY.UUID]}`}
                       className={'px-3'}
                     >
                       {cell?.value}

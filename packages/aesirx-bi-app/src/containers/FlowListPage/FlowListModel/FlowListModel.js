@@ -78,7 +78,7 @@ class FlowListModel {
                 </NavLink>
               </>
             ) : column.id === BI_FLOW_LIST_FIELD_KEY.START ? (
-              <div className={'px-3'}>{moment(cell?.value).format('YYYY-MM-DD HH:mm:ss')}</div>
+              <div className={'px-3'}>{moment(cell?.value).format('DD-MM-YYYY HH:mm:ss')}</div>
             ) : (
               <div className={'px-3'}>{cell?.value}</div>
             );

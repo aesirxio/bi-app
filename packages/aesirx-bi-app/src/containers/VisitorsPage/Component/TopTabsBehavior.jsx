@@ -22,7 +22,7 @@ const TopTabs = observer(
 
       return (
         <div className="position-relative h-100">
-          <Row className="mb-3">
+          {/* <Row className="mb-3">
             <Col lg="4">
               <Form.Control
                 as="input"
@@ -31,7 +31,7 @@ const TopTabs = observer(
                 onChange={this.search}
               />
             </Col>
-          </Row>
+          </Row> */}
           <div className="bg-white rounded-3 shadow-sm h-100 position-relative ChartWrapper">
             <TopTable
               data={this.listViewModel?.pagesTableData?.list}

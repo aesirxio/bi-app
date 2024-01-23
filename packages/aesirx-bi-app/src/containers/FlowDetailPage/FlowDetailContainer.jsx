@@ -66,6 +66,11 @@ const FlowDetailContainer = observer((props) => {
             )
             .format('HH:mm:ss') ?? 0,
       },
+      {
+        className: 'col-3',
+        title: t('txt_actions'),
+        value: data?.[BI_FLOW_DETAIL_KEY.EVENTS]?.length ?? 0,
+      },
     ],
     [data]
   );
@@ -132,7 +137,11 @@ const FlowDetailContainer = observer((props) => {
         </div>
         <div className="col-9">
           {relatedVisitorData ? (
-            <BehaviorTable data={relatedVisitorData?.toFlowDetailTable()} sortAPI={false} />
+            <BehaviorTable
+              data={relatedVisitorData?.toFlowDetailTable()}
+              sortAPI={false}
+              limit={20}
+            />
           ) : null}
         </div>
       </div>

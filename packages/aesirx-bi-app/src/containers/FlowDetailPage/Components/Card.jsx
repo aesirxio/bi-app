@@ -20,20 +20,20 @@ const Card = ({ data = [], loading = PAGE_STATUS.LOADING }) => {
                     <>
                       <div className="overflow-hidden">
                         <p className="m-0 text-gray fs-16">{item.title}</p>
-                        <h3 className="mb-0 fw-semibold fs-24">{item?.value}</h3>
+                        <h3 className="mb-0 fw-semibold fs-4">{item?.value}</h3>
                       </div>
                       <div className="d-flex flex-wrap align-item-center">
                         <div
                           className={`icon-card rounded-circle `}
-                          style={{ background: hexToRGB(item.iconColor, 0.15) }}
+                          style={{ background: item?.iconColor && hexToRGB(item?.iconColor, 0.15) }}
                         >
                           <span
                             className={`icon arrow d-inline-block align-text-bottom ms-auto`}
                             style={{
-                              WebkitMaskImage: `url(${item.icon})`,
+                              WebkitMaskImage: `url(${item?.icon})`,
                               WebkitMaskRepeat: 'no-repeat',
                               WebkitMaskPosition: 'center',
-                              backgroundColor: hexToRGB(item.iconColor),
+                              backgroundColor: item?.iconColor && hexToRGB(item?.iconColor),
                             }}
                           ></span>
                         </div>

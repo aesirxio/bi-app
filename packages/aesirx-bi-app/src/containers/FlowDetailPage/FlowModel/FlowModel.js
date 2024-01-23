@@ -76,9 +76,9 @@ class FlowModel {
             key === BI_VISITOR_FIELD_KEY.UUID
               ? 10
               : key === BI_VISITOR_FIELD_KEY.EVENT_NAME || key === BI_VISITOR_FIELD_KEY.EVENT_TYPE
-              ? 50
+              ? 80
               : 170,
-          allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
+          allowSort: true,
           Cell: ({ cell, column, row }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
               return <div className={'px-3'}>{cell?.value ?? null}</div>;

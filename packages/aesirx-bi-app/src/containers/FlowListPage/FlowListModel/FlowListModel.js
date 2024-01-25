@@ -22,23 +22,27 @@ class FlowListModel {
 
   toFlowListTable = () => {
     const headerTable = [
-      'txt_time',
+      'txt_time_utc',
       'txt_locale',
+      'txt_sop_id',
+      'txt_event',
+      'txt_conversion',
+      'txt_url',
       '',
-      // 'txt_sop_id',
       // 'txt_tier',
       // 'txt_session',
-      // 'txt_url',
       // 'txt_referrer',
     ];
     const accessor = [
       BI_FLOW_LIST_FIELD_KEY.START,
       BI_FLOW_LIST_FIELD_KEY.GEO,
+      BI_FLOW_LIST_FIELD_KEY.SOP_ID,
+      BI_FLOW_LIST_FIELD_KEY.EVENT,
+      BI_FLOW_LIST_FIELD_KEY.CONVERSION,
+      BI_FLOW_LIST_FIELD_KEY.URL,
       BI_FLOW_LIST_FIELD_KEY.UUID,
-      // BI_FLOW_LIST_FIELD_KEY.SOP_ID,
       // BI_FLOW_LIST_FIELD_KEY.TIER,
       // BI_FLOW_LIST_FIELD_KEY.SESSION,
-      // BI_FLOW_LIST_FIELD_KEY.URL,
       // BI_FLOW_LIST_FIELD_KEY.REFERRER,
     ];
     if (this.data?.length) {
@@ -46,42 +50,77 @@ class FlowListModel {
         return {
           Header: headerTable[index],
           accessor: key,
-          width: key === BI_FLOW_LIST_FIELD_KEY.UUID ? 10 : 170,
-          allowSort: key === BI_FLOW_LIST_FIELD_KEY.COUNTRY_NAME ? false : true,
+          width:
+            key === BI_FLOW_LIST_FIELD_KEY.START
+              ? 100
+              : key === BI_FLOW_LIST_FIELD_KEY.SOP_ID
+              ? 40
+              : key === BI_FLOW_LIST_FIELD_KEY.EVENT ||
+                key === BI_FLOW_LIST_FIELD_KEY.CONVERSION ||
+                key === BI_FLOW_LIST_FIELD_KEY.GEO
+              ? 30
+              : key === BI_FLOW_LIST_FIELD_KEY.URL
+              ? 230
+              : key === BI_FLOW_LIST_FIELD_KEY.UUID
+              ? 80
+              : 170,
+          allowSort:
+            key === BI_FLOW_LIST_FIELD_KEY.EVENT ||
+            key === BI_FLOW_LIST_FIELD_KEY.CONVERSION ||
+            key === BI_FLOW_LIST_FIELD_KEY.URL ||
+            key === BI_FLOW_LIST_FIELD_KEY.SOP_ID ||
+            key === BI_FLOW_LIST_FIELD_KEY.GEO
+              ? false
+              : true,
           Cell: ({ cell, column, row }) => {
-            return column.id === BI_FLOW_LIST_FIELD_KEY.GEO ? (
-              <div className={'px-3'}>
-                {cell?.value === '' ? (
-                  <></>
-                ) : (
-                  <span
-                    className={`me-1 fi fi-${this.data
-                      .find(
-                        (o) =>
-                          o[BI_FLOW_LIST_FIELD_KEY.GEO]?.country?.code ===
-                          row?.values[BI_FLOW_LIST_FIELD_KEY.GEO]?.country?.code
-                      )
-                      ?.[BI_FLOW_LIST_FIELD_KEY.GEO]?.country?.code?.toLowerCase()}`}
-                  ></span>
-                )}
-                <span className="text-nowrap">
-                  {cell?.value === '' ? 'Unknown' : cell?.value?.country?.name}
-                </span>
-              </div>
-            ) : column.id === BI_FLOW_LIST_FIELD_KEY.UUID ? (
-              <>
-                <NavLink
-                  to={`/flow/${cell?.value}`}
-                  className={'btn btn-success px-3 py-1 fw-semibold'}
+            if (column.id === BI_FLOW_LIST_FIELD_KEY.GEO) {
+              return (
+                <div className={'px-3'}>
+                  {cell?.value === '' ? (
+                    <></>
+                  ) : (
+                    <span
+                      className={`me-1 fi fi-${this.data
+                        .find(
+                          (o) =>
+                            o[BI_FLOW_LIST_FIELD_KEY.GEO]?.country?.code ===
+                            row?.values[BI_FLOW_LIST_FIELD_KEY.GEO]?.country?.code
+                        )
+                        ?.[BI_FLOW_LIST_FIELD_KEY.GEO]?.country?.code?.toLowerCase()}`}
+                    ></span>
+                  )}
+                  <span className="text-nowrap">{cell?.value === '' ? 'Unknown' : ''}</span>
+                </div>
+              );
+            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.UUID) {
+              return (
+                <>
+                  <NavLink to={`/flow/${cell?.value}`} className={'btn btn-light px-3 py-1 fs-sm'}>
+                    View Detail
+                  </NavLink>
+                </>
+              );
+            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.URL && cell?.value) {
+              const urlParams = new URL(cell?.value);
+              let displayUrl = urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search;
+              return (
+                <a
+                  href={cell?.value}
+                  target="_blank"
+                  className={'px-3 d-inline-block text-secondary-50'}
                 >
-                  View Detail
-                </NavLink>
-              </>
-            ) : column.id === BI_FLOW_LIST_FIELD_KEY.START ? (
-              <div className={'px-3'}>{moment(cell?.value).format('DD-MM-YYYY HH:mm:ss')}</div>
-            ) : (
-              <div className={'px-3'}>{cell?.value}</div>
-            );
+                  {displayUrl?.length > 53 ? displayUrl?.slice(0, 53) + '...' : displayUrl}
+                </a>
+              );
+            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.START) {
+              return (
+                <div className={'px-3'}>
+                  {moment(cell?.value)?.utc()?.format('DD-MM-YYYY HH:mm:ss')}
+                </div>
+              );
+            } else {
+              return <div className={'px-3'}>{cell?.value}</div>;
+            }
           },
         };
       });

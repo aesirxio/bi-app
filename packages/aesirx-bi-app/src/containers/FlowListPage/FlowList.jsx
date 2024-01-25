@@ -32,12 +32,14 @@ const FlowList = observer(
       if (this.props.location !== prevProps.location && !this.props.integration) {
         this.flowListListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
+          'with[]': 'events',
         });
       }
 
       if (this.props.activeDomain !== prevProps.activeDomain && this.props.integration) {
         this.flowListListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
+          'with[]': 'events',
         });
       }
     };
@@ -45,6 +47,7 @@ const FlowList = observer(
     componentDidMount = () => {
       this.flowListListViewModel.initialize({
         'filter[domain]': this.context.biListViewModel.activeDomain,
+        'with[]': 'events',
       });
     };
 
@@ -56,6 +59,7 @@ const FlowList = observer(
       this.flowListListViewModel.getFlowList(
         {
           'filter[domain]': this.props.domain,
+          'with[]': 'events',
         },
         {},
         {

@@ -58,7 +58,7 @@ class FlowModel {
   };
 
   toFlowDetailTable = () => {
-    const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Time', ''];
+    const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Time (UTC)', ''];
     const accessor = [
       BI_VISITOR_FIELD_KEY.EVENT_NAME,
       BI_VISITOR_FIELD_KEY.EVENT_TYPE,
@@ -109,7 +109,7 @@ class FlowModel {
             .map((i) => {
               if (i === BI_VISITOR_FIELD_KEY.START_DATE) {
                 return {
-                  [i]: moment(item[i]).format('HH:mm:ss'),
+                  [i]: moment(item[i])?.utc()?.format('HH:mm:ss'),
                 };
               } else {
                 return {

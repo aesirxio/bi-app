@@ -82,10 +82,17 @@ class BrowserModel {
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
       });
-
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {
@@ -152,10 +159,17 @@ class BrowserModel {
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
       });
-
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {

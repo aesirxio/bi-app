@@ -218,9 +218,7 @@ class DashboardModel {
                     </div>
                   </div>
                 ) : column.id === BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS_PERCENT ? (
-                  <div className={'text-end'}>
-                    {Helper.numberWithCommas(cell?.value / 10) ?? null}
-                  </div>
+                  <div className={'text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
                 ) : (
                   <div className={'text-end pe-2'}>
                     {Helper.numberWithCommas(cell?.value) ?? null}
@@ -232,6 +230,8 @@ class DashboardModel {
         };
       });
       const data = this.data?.map((item) => {
+        item[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS_PERCENT] =
+          item[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS_PERCENT] / 10;
         return {
           ...item,
           ...accessor
@@ -243,10 +243,17 @@ class DashboardModel {
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
       });
-
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {
@@ -312,10 +319,18 @@ class DashboardModel {
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
       });
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
 
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {

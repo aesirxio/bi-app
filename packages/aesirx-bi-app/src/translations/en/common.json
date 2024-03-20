@@ -193,5 +193,6 @@
   "txt_visitor_detail": "Visitor Detail",
   "txt_event": "Event",
   "txt_conversion": "Conversion",
-  "txt_time_utc": "Time (UTC)"
+  "txt_time_utc": "Time (UTC)",
+  "txt_actions": "Actions"
 }

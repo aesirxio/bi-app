@@ -3,17 +3,19 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { notify } from 'aesirx-uikit';
+import { history, notify } from 'aesirx-uikit';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import FlowListModel from '../FlowListModel/FlowListModel';
+import queryString from 'query-string';
 class FlowListListViewModel {
   countriesStore = null;
   status = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   countriesTableData = null;
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
+  dataFilterFlowList = {};
   constructor(countriesStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.countriesStore = countriesStore;
@@ -69,8 +71,12 @@ class FlowListListViewModel {
   };
 
   handleFilterFlowList = async (dataFilter) => {
+    const location = history.location;
     this.status = PAGE_STATUS.LOADING;
-    this.dataFilterFlowList = { ...this.dataFilterFlowList, ...dataFilter };
+
+    this.dataFilterFlowList = { ...this.dataFilter, ...dataFilter };
+    this.globalStoreViewModel.dataFilter = this.dataFilterFlowList;
+
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
     await this.countriesStore.getFlowList(
       this.dataFilterFlowList,
@@ -78,11 +84,17 @@ class FlowListListViewModel {
       this.callbackOnCountriesSuccessHandler,
       this.callbackOnErrorHandler
     );
+    if (dataFilter?.page) {
+      const search = {
+        ...queryString.parse(location.search),
+        ...{ page: dataFilter?.page },
+      };
+      window.history.replaceState('', '', `/visitors/flow?${queryString.stringify(search)}`);
+    }
   };
 
   callbackOnErrorHandler = (error) => {
     this.status = PAGE_STATUS.READY;
-    console.log('testneee');
     notify(error.message, 'error');
   };
 

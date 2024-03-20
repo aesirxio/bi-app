@@ -13,6 +13,7 @@ import FlowListTable from './Component/FlowListTable';
 import ComponentNoData from '../../components/ComponentNoData';
 import { env } from 'aesirx-lib';
 import 'flag-icons/sass/flag-icons.scss';
+import queryString from 'query-string';
 
 const FlowList = observer(
   class FlowList extends Component {
@@ -26,6 +27,7 @@ const FlowList = observer(
       this.flowListListViewModel = this.viewModel
         ? this.viewModel.getFlowListListViewModel()
         : null;
+      this.params = queryString.parse(props.location.search);
     }
 
     componentDidUpdate = (prevProps) => {
@@ -33,6 +35,7 @@ const FlowList = observer(
         this.flowListListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
           'with[]': 'events',
+          ...(this.params?.page && { page: this.params?.page }),
         });
       }
 
@@ -40,6 +43,7 @@ const FlowList = observer(
         this.flowListListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
           'with[]': 'events',
+          ...(this.params?.page && { page: this.params?.page }),
         });
       }
     };
@@ -48,6 +52,7 @@ const FlowList = observer(
       this.flowListListViewModel.initialize({
         'filter[domain]': this.context.biListViewModel.activeDomain,
         'with[]': 'events',
+        ...(this.params?.page && { page: this.params?.page }),
       });
     };
 

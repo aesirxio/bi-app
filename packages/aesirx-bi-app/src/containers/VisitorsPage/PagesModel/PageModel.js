@@ -134,7 +134,10 @@ class PageModel {
           Cell: ({ cell, column }) => {
             const urlParams = column.id === BI_PAGES_FIELD_KEY.URL && new URL(cell?.value);
             return column.id === BI_PAGES_FIELD_KEY.URL ? (
-              <NavLink to={`/behavior/detail?url=${cell?.value}`} className={'px-15 d-block'}>
+              <NavLink
+                to={`/behavior/detail?url=${cell?.value}`}
+                className={'px-15 d-block text-secondary-50'}
+              >
                 {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
               </NavLink>
             ) : column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (

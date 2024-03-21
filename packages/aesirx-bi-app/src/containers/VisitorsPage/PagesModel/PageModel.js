@@ -5,6 +5,7 @@
 import React from 'react';
 import { BI_PAGES_FIELD_KEY, BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
+import { NavLink } from 'react-router-dom';
 
 class PageModel {
   data = [];
@@ -133,9 +134,9 @@ class PageModel {
           Cell: ({ cell, column }) => {
             const urlParams = column.id === BI_PAGES_FIELD_KEY.URL && new URL(cell?.value);
             return column.id === BI_PAGES_FIELD_KEY.URL ? (
-              <div className={'px-15'}>
+              <NavLink to={`/behavior/detail?url=${cell?.value}`} className={'px-15 d-block'}>
                 {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
-              </div>
+              </NavLink>
             ) : column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (
               <div className={'px-3 text-end'}>{cell?.value + '%' ?? null}</div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (

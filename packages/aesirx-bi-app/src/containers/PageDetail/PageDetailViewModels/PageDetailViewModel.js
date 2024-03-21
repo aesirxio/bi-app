@@ -7,11 +7,11 @@ import { notify } from 'aesirx-uikit';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
-import DashboardModel from '../DashboardModel/DashboardModel';
+import PageDetailModel from '../PageDetailModel/PageDetailModel';
 import CountryModel from '../../RegionCountryPage/CountryModel/CountryModel';
-import PageModel from '../../VisitorsPage/PagesModel/PageModel';
-class DashboardListViewModel {
-  dashboardStore = null;
+import PageModel from 'containers/VisitorsPage/PagesModel/PageModel';
+class PageDetailListViewModel {
+  pageDetailStore = null;
   status = PAGE_STATUS.READY;
   statusTopPageTable = PAGE_STATUS.READY;
   statusTopBrowser = PAGE_STATUS.READY;
@@ -29,9 +29,9 @@ class DashboardListViewModel {
   sortByDevices = { 'sort[]': '', 'sort_direction[]': '' };
   sortByBrowsers = { 'sort[]': '', 'sort_direction[]': '' };
   sortBySources = { 'sort[]': '', 'sort_direction[]': '' };
-  constructor(dashboardStore, globalStoreViewModel) {
+  constructor(pageDetailStore, globalStoreViewModel) {
     makeAutoObservable(this);
-    this.dashboardStore = dashboardStore;
+    this.pageDetailStore = pageDetailStore;
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
@@ -49,7 +49,7 @@ class DashboardListViewModel {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
-    this.dashboardStore.getMetrics(
+    this.pageDetailStore.getMetrics(
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnSummaryDataSuccessHandler,
@@ -62,7 +62,7 @@ class DashboardListViewModel {
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.dashboardStore.getVisitors(
+    this.pageDetailStore.getVisitors(
       {
         ...this.dataFilter,
         page_size: '1000',
@@ -78,7 +78,7 @@ class DashboardListViewModel {
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.dashboardStore.getCountries(
+    this.pageDetailStore.getCountries(
       {
         ...this.dataFilter,
         page_size: '10',
@@ -107,7 +107,7 @@ class DashboardListViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.dashboardStore.getBrowsers(
+    this.pageDetailStore.getBrowsers(
       this.dataFilterBrowsers,
       dateRangeFilter,
       this.callbackOnBrowsersSuccessHandler,
@@ -119,7 +119,7 @@ class DashboardListViewModel {
     this.statusTopBrowser = PAGE_STATUS.LOADING;
     this.dataFilterBrowsers = { ...this.dataFilterBrowsers, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.dashboardStore.getBrowsers(
+    await this.pageDetailStore.getBrowsers(
       this.dataFilterBrowsers,
       dateRangeFilter,
       this.callbackOnBrowsersSuccessHandler,
@@ -142,7 +142,7 @@ class DashboardListViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.dashboardStore.getDevices(
+    this.pageDetailStore.getDevices(
       this.dataFilterDevices,
       dateRangeFilter,
       this.callbackOnDevicesSuccessHandler,
@@ -154,7 +154,7 @@ class DashboardListViewModel {
     this.statusTopBrowser = PAGE_STATUS.LOADING;
     this.dataFilterDevices = { ...this.dataFilterDevices, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.dashboardStore.getDevices(
+    await this.pageDetailStore.getDevices(
       this.dataFilterDevices,
       dateRangeFilter,
       this.callbackOnDevicesSuccessHandler,
@@ -177,7 +177,7 @@ class DashboardListViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    await this.dashboardStore.getPages(
+    await this.pageDetailStore.getPages(
       this.dataFilterPages,
       dateRangeFilter,
       this.callbackOnPagesSuccessHandler,
@@ -200,7 +200,7 @@ class DashboardListViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    await this.dashboardStore.getReferer(
+    await this.pageDetailStore.getReferer(
       this.dataFilterSources,
       dateRangeFilter,
       this.callbackOnSourcesSuccessHandler,
@@ -212,7 +212,7 @@ class DashboardListViewModel {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    this.dashboardStore.getMetrics(
+    this.pageDetailStore.getMetrics(
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
@@ -233,7 +233,7 @@ class DashboardListViewModel {
     this.statusTopPageTable = PAGE_STATUS.LOADING;
     this.dataFilterPages = { ...this.dataFilterPages, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.dashboardStore.getPages(
+    await this.pageDetailStore.getPages(
       this.dataFilterPages,
       dateRangeFilter,
       this.callbackOnPagesSuccessHandler,
@@ -245,7 +245,7 @@ class DashboardListViewModel {
     this.statusTopSourceTable = PAGE_STATUS.LOADING;
     this.dataFilterSources = { ...this.dataFilterSources, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.dashboardStore.getReferer(
+    await this.pageDetailStore.getReferer(
       this.dataFilterSources,
       dateRangeFilter,
       this.callbackOnSourcesSuccessHandler,
@@ -274,7 +274,7 @@ class DashboardListViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.status = PAGE_STATUS.READY;
-        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        const transformData = new PageDetailModel(data.list, this.globalStoreViewModel);
         this.visitorData = transformData;
       }
     } else {
@@ -299,7 +299,7 @@ class DashboardListViewModel {
   callbackOnBrowsersSuccessHandler = (data) => {
     if (data) {
       if (data?.message !== 'canceled') {
-        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        const transformData = new PageDetailModel(data.list, this.globalStoreViewModel);
         this.browsersData = {
           list: transformData.toBrowsersTableTop(),
           pagination: data.pagination,
@@ -316,7 +316,7 @@ class DashboardListViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.devicesData = data?.list;
-        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        const transformData = new PageDetailModel(data.list, this.globalStoreViewModel);
         this.devicesTableData = {
           list: transformData.toDevicesTableTop(),
           pagination: data.pagination,
@@ -352,9 +352,9 @@ class DashboardListViewModel {
       if (data?.message !== 'canceled') {
         this.status = PAGE_STATUS.READY;
         this.statusTopSourceTable = PAGE_STATUS.READY;
-        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        const transformData = new PageDetailModel(data.list, this.globalStoreViewModel);
         this.sourcesTableData = {
-          list: transformData.toSourcesTableTopDashboard(),
+          list: transformData.toSourcesTableTopPageDetail(),
           pagination: data.pagination,
         };
       }
@@ -366,4 +366,4 @@ class DashboardListViewModel {
   };
 }
 
-export default DashboardListViewModel;
+export default PageDetailListViewModel;

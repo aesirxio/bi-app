@@ -6,6 +6,7 @@
 import React, { lazy } from 'react';
 import { LoginPage, ProfilePage } from 'aesirx-uikit';
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
+const PageDetail = lazy(() => import('../containers/PageDetail'));
 const VisitorsPage = lazy(() => import('../containers/VisitorsPage'));
 const RevenuePage = lazy(() => import('../containers/RevenuePage'));
 const UTMTrackingPage = lazy(() => import('../containers/UTMTrackingPage'));
@@ -38,6 +39,12 @@ const mainRoutes = [
     exact: true,
     page: ['visitors', 'behavior'],
     main: () => <VisitorsPage />,
+  },
+  {
+    path: ['/behavior/detail'],
+    exact: true,
+    page: ['behavior/detail'],
+    main: () => <PageDetail />,
   },
   { path: '/revenue', exact: true, main: () => <RevenuePage /> },
   {

@@ -16,7 +16,7 @@ import {
 import { Image } from 'react-bootstrap';
 import { BI_REFERER_FIELD_KEY } from 'aesirx-lib';
 
-class DashboardModel {
+class PageDetailModel {
   data = [];
   globalViewModel = null;
   constructor(entity, globalViewModel) {
@@ -340,7 +340,7 @@ class DashboardModel {
     }
   };
 
-  toSourcesTableTopDashboard = () => {
+  toSourcesTableTopPageDetail = () => {
     const headerTable = ['txt_source', 'txt_visitors'];
     const accessor = [BI_REFERER_FIELD_KEY.REFERER, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
     const largestValue = Math.max(
@@ -457,4 +457,4 @@ class DashboardModel {
   };
 }
 
-export default DashboardModel;
+export default PageDetailModel;

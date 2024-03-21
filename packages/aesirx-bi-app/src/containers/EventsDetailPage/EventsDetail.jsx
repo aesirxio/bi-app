@@ -58,7 +58,7 @@ const Events = observer((props) => {
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
-        <div className="position-relative d-flex align-items-center">
+        <div className="position-relative d-flex align-items-center mb-8px">
           <div
             className={`back_icon d-flex align-items-center justify-content-center cursor-pointer me-1`}
             onClick={() => {
@@ -71,7 +71,7 @@ const Events = observer((props) => {
           >
             <FontAwesomeIcon className={`text-success`} icon={faChevronLeft} />
           </div>
-          <h2 className="fw-bold mb-8px">{eventNameDetail}</h2>
+          <h2 className="fw-bold mb-0">{eventNameDetail}</h2>
         </div>
         <div className="position-relative">
           <DateRangePicker onChange={handleDateRangeChange} />

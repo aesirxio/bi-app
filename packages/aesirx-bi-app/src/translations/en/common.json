@@ -194,5 +194,9 @@
   "txt_event": "Event",
   "txt_conversion": "Conversion",
   "txt_time_utc": "Time (UTC)",
-  "txt_actions": "Actions"
+  "txt_actions": "Actions",
+  "txt_event_detail": "Event Detail",
+  "txt_event_count": "Event count",
+  "txt_total_users": "Total users",
+  "txt_event_count_per_user": "Event count per user"
 }

@@ -7,11 +7,9 @@ import { notify } from 'aesirx-uikit';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
-import EventsListModel from '../EventsModel/EventsListEventModel';
-import queryString from 'query-string';
-
-class EventsListViewModel {
-  eventsStore = null;
+import EventsDetailModel from '../EventsDetailModel/EventsDetailModel';
+class EventsDetailViewModel {
+  EventsDetailStore = null;
   status = PAGE_STATUS.READY;
   statusTable = PAGE_STATUS.READY;
   globalStoreViewModel = null;
@@ -22,14 +20,14 @@ class EventsListViewModel {
   search = {};
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
 
-  constructor(eventsStore, globalStoreViewModel) {
+  constructor(EventsDetailStore, globalStoreViewModel) {
     makeAutoObservable(this);
-    this.eventsStore = eventsStore;
+    this.EventsDetailStore = EventsDetailStore;
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
-  transformDataToEventsListModel = () => {
-    return new EventsListModel(this.data);
+  transformDataToEventsDetailModel = () => {
+    return new EventsDetailModel(this.data);
   };
 
   getVisitor = async (dataFilter, dateFilter, sortBy = {}, search = {}) => {
@@ -45,7 +43,7 @@ class EventsListViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    await this.eventsStore.getVisitor(
+    await this.EventsDetailStore.getVisitor(
       this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
@@ -53,7 +51,7 @@ class EventsListViewModel {
     );
   };
 
-  getEvents = (dataFilter, dateFilter) => {
+  getEventDetail = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilterEvents = {
       page_size: '1000',
@@ -62,7 +60,7 @@ class EventsListViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.eventsStore.getEvents(
+    this.EventsDetailStore.getEvents(
       this.dataFilterEvents,
       dateRangeFilter,
       this.callbackOnDataEventsSuccessHandler,
@@ -75,7 +73,7 @@ class EventsListViewModel {
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel?.dateFilter, ...dateFilter };
 
-    this.eventsStore.getAttribute(
+    this.EventsDetailStore.getAttribute(
       dataFilter,
       dateRangeFilter,
       this.callbackOnDataAttributeSuccessHandler,
@@ -97,13 +95,13 @@ class EventsListViewModel {
     };
 
     this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
-    this.eventsStore.getVisitor(
+    this.EventsDetailStore.getVisitor(
       this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
     );
-    this.eventsStore.getEvents(
+    this.EventsDetailStore.getEvents(
       this.dataFilterEvents,
       dateRangeFilter,
       this.callbackOnDataEventsSuccessHandler,
@@ -115,20 +113,12 @@ class EventsListViewModel {
     this.statusTable = PAGE_STATUS.LOADING;
     this.dataFilterTable = { ...this.dataFilterTable, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.eventsStore.getVisitor(
+    await this.EventsDetailStore.getVisitor(
       this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
     );
-    this.globalStoreViewModel.dataFilter = this.dataFilterTable;
-    if (dataFilter?.page) {
-      const search = {
-        ...queryString.parse(location.search),
-        ...{ page: dataFilter?.page },
-      };
-      window.history.replaceState('', '', `/behavior/events?${queryString.stringify(search)}`);
-    }
   };
 
   callbackOnErrorHandler = (error) => {
@@ -140,7 +130,7 @@ class EventsListViewModel {
     if (data?.list) {
       if (data?.message !== 'canceled') {
         this.statusTable = PAGE_STATUS.READY;
-        const transformData = new EventsListModel(data?.list, this.globalStoreViewModel);
+        const transformData = new EventsDetailModel(data?.list, this.globalStoreViewModel);
         this.data = {
           list: transformData,
           pagination: data.pagination,
@@ -156,7 +146,7 @@ class EventsListViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.status = PAGE_STATUS.READY;
-        const transformData = new EventsListModel(data, this.globalStoreViewModel);
+        const transformData = new EventsDetailModel(data, this.globalStoreViewModel);
         this.dataEvents = transformData;
       }
     } else {
@@ -178,4 +168,4 @@ class EventsListViewModel {
   };
 }
 
-export default EventsListViewModel;
+export default EventsDetailViewModel;

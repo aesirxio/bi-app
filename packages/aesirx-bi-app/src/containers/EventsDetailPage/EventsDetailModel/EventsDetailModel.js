@@ -8,7 +8,7 @@ import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 import { enumerateDaysBetweenDates } from 'aesirx-lib';
 
-class EventsListModel {
+class EventsDetailModel {
   data = [];
   globalViewModel = null;
   constructor(entity, globalViewModel) {
@@ -236,11 +236,7 @@ class EventsListModel {
           allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
           Cell: ({ cell, column, row }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
-              return (
-                <NavLink to={`/behavior/events/${cell?.value}`} className={'px-3'}>
-                  {cell?.value ?? null}
-                </NavLink>
-              );
+              return <div className={'px-3'}>{cell?.value ?? null}</div>;
             } else if (column.id === BI_VISITOR_FIELD_KEY.UUID) {
               return <></>;
             } else if (
@@ -299,4 +295,4 @@ class EventsListModel {
   };
 }
 
-export default EventsListModel;
+export default EventsDetailModel;

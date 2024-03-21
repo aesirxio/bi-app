@@ -116,7 +116,7 @@ const FlowDetailContainer = observer((props) => {
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="position-relative d-flex align-items-center mb-3">
         <div
-          className={`${styles?.back_icon} d-flex align-items-center justify-content-center cursor-pointer me-1`}
+          className={`back_icon d-flex align-items-center justify-content-center cursor-pointer me-1`}
           onClick={() => {
             history.push(
               `/visitors/flow?date_end=${dateFilter?.date_end}&date_start=${

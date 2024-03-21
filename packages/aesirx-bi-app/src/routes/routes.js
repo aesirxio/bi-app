@@ -10,6 +10,7 @@ const VisitorsPage = lazy(() => import('../containers/VisitorsPage'));
 const RevenuePage = lazy(() => import('../containers/RevenuePage'));
 const UTMTrackingPage = lazy(() => import('../containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('../containers/EventsPage'));
+const EventsDetailPage = lazy(() => import('../containers/EventsDetailPage'));
 const WoocommercePage = lazy(() => import('../containers/WoocommercePage'));
 const ConsentsPage = lazy(() => import('../containers/ConsentsPage'));
 
@@ -50,6 +51,12 @@ const mainRoutes = [
     page: ['behavior-events', 'behavior-events-generator'],
     exact: true,
     main: () => <EventsPage />,
+  },
+  {
+    path: ['/behavior/events/:eventName'],
+    exact: true,
+    page: ['behavior/events/:eventName'],
+    main: () => <EventsDetailPage />,
   },
   {
     path: ['/woocommerce', '/woocommerce/product'],

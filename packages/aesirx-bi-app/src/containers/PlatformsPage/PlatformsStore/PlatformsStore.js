@@ -68,7 +68,6 @@ export class PlatformsStore {
     try {
       const biService = new AesirxBiApiService();
       const responseDataFromLibrary = await biService.getIsps(dataFilter, dateFilter);
-      console.log(responseDataFromLibrary);
       if (responseDataFromLibrary) {
         runInAction(() => {
           callbackOnSuccess(responseDataFromLibrary);

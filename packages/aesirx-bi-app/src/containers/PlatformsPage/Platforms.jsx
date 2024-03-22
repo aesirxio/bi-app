@@ -6,6 +6,7 @@ import { withPlatformsViewModel } from './PlatformsViewModel/PlatformsViewModelC
 import Browers from './Component/Browers';
 import DateRangePicker from 'components/DateRangePicker';
 import Isps from './Component/Isps';
+import Divices from './Component/Divices';
 const { observer } = require('mobx-react');
 
 const Platform = observer(
@@ -25,9 +26,7 @@ const Platform = observer(
         startDate ?? endDate,
         endDate ?? startDate
       );
-
     };
-
 
     render() {
       return (
@@ -40,25 +39,30 @@ const Platform = observer(
               <DateRangePicker onChange={this.handleDateRangeChange} />
             </div>
           </div>
-          <div className="row justify-content-center align-items-center g-2">
+          <div className="row justify-content-center align-items-center g-2 mb-2">
             <div className="col">
               <div className="bg-white p-3 rounded">
                 <Browers />
               </div>
             </div>
-              <div className="col">
-                <div className="bg-white p-3 rounded">
-                  <Browers />
-                </div>
-              </div>
-            <div className="row justify-content-center align-items-center g-2">
-              <div className="col">
-                <div className="bg-white p-3 rounded">
-                  <Isps />
-                </div>
+            <div className="col">
+              <div className="bg-white p-3 rounded">
+                <Isps />
               </div>
             </div>
           </div>
+
+          <div className="row justify-content-center align-items-center g-2">
+            <div className="col">
+              <div className="bg-white p-3 rounded">
+                <Divices />
+              </div>
+            </div>
+            <div className="col">
+            </div>
+          </div>
+
+
         </div>
       );
     }

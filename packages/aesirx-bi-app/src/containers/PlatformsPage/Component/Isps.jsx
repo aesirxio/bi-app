@@ -24,8 +24,6 @@ const Isps = observer(
         : null;
     }
 
-    
-
     handleSortIsps = async (column) => {
       this.platformsListViewModel.getIsps(
         {
@@ -44,53 +42,42 @@ const Isps = observer(
 
     render() {
       const { t } = this.props;
-      const { statusTopBrowser } = this.platformsListViewModel;
+      const { statusTopBrowser, ispsTableData } = this.platformsListViewModel;
+
       return (
         <div className="position-relative ChartWrapper h-100">
           {statusTopBrowser === PAGE_STATUS.LOADING ? (
             <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white" />
           ) : (
             <>
-              {this.platformsListViewModel?.ispsData?.list?.data?.length ? (
+              {ispsTableData ? (
                 <>
                   <Tab.Container id="countries-tab" defaultActiveKey="browser">
                     <div className="d-flex justify-content-between align-items-center mb-2">
                       <h4 className="me-24 mb-0 fw-semibold fs-5">Isps</h4>
-                      <Nav variant="pills" className="nav-custom">
-                        <Nav.Item>
-                          <Nav.Link eventKey="browser" className="ps-0">
-                            {t('txt_browser')}
-                          </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                          <Nav.Link eventKey="types" className="ps-0">
-                            {t('txt_types')}
-                          </Nav.Link>
-                        </Nav.Item>
-                      </Nav>
                     </div>
                     <Tab.Content className="h-100">
                       <Tab.Pane eventKey="browser">
                         <div className="browser-table">
                           <TopTable
-                            data={this.platformsListViewModel?.ispsData?.list}
-                            pagination={this.platformsListViewModel?.ispsData?.pagination}
+                            data={ispsTableData.list}
+                            pagination={ispsTableData.pagination}
                             isPagination={true}
                             simplePagination={true}
                             selectPage={async (value) => {
-                              await this.platformsListViewModel.handleSortIsps({
+                              await this.platformsListViewModel.handleFilterIsps({
                                 page: value,
                               });
                             }}
                             selectPageSize={async (value) => {
-                              await this.platformsListViewModel.handleSortIsps({
+                              await this.platformsListViewModel.handleFilterIsps({
                                 page: 1,
                                 page_size: value,
                               });
                             }}
                             status={this.platformsListViewModel?.statusTopBrowser}
                             sortAPI={true}
-                            handleSort={this.handleSortBrowsers}
+                            handleSort={this.handleSortIsps}
                             sortBy={this.platformsListViewModel?.sortByIsps}
                             {...this.props}
                           />

@@ -160,6 +160,7 @@ class PlatformsListViewModel {
       if (data?.message !== 'canceled') {
         this.ispsData = data?.list;
         const transformData = new platformsModel(data.list, this.globalStoreViewModel);
+        console.log(transformData);
         this.ispsTableData = {
           list: transformData.toIspsTableTop(),
           pagination: data.pagination,
@@ -197,6 +198,18 @@ class PlatformsListViewModel {
       this.dataFilterBrowsers,
       dateRangeFilter,
       this.callbackOnBrowsersSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterIsps = async (dataFilter) => {
+    this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.dataFilterIsps = { ...this.dataFilterIsps, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.platformsStore.getIsps(
+      this.dataFilterIsps,
+      dateRangeFilter,
+      this.callbackOnIspsSuccessHandler,
       this.callbackOnErrorHandler
     );
   };

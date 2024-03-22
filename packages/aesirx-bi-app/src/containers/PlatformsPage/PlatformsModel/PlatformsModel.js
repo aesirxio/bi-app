@@ -262,9 +262,7 @@ class platformsModel {
   toDevicesTableTop = () => {
     const headerTable = ['txt_device', 'txt_visitors'];
     const accessor = [BI_DEVICES_FIELD_KEY.DEVICE, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
-    const largestValue = Math.max(
-      ...this.data.map((o) => o[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS])
-    );
+
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
@@ -278,23 +276,12 @@ class platformsModel {
               ? 220
               : 170,
           Cell: ({ cell, column, row }) => {
+            console.log(column.id, cell.value);
+
             return (
               <>
                 {column.id === BI_DEVICES_FIELD_KEY.DEVICE ? (
-                  <div
-                    className={
-                      'd-flex align-items-center text-capitalize py-sm px-20 position-relative'
-                    }
-                  >
-                    <div
-                      className="position-absolute top-0 start-0 h-100 z-0"
-                      style={{
-                        backgroundColor: '#E7EFFF',
-                        width: `${((row.cells[1]?.value / largestValue) * 100)?.toString()}%`,
-                      }}
-                    ></div>
-                    <div className="z-1">{cell?.value === '' ? 'Unknown' : cell?.value}</div>
-                  </div>
+                  <div className="text-capitalize">{cell?.value}</div>
                 ) : (
                   <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
                 )}
@@ -337,11 +324,13 @@ class platformsModel {
   };
 
   toIspsTableTop = () => {
-    const headerTable = ['txt_device', 'txt_visitors'];
-    const accessor = [BI_ISPS_FIELD_KEY.DEVICE, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
-    const largestValue = Math.max(
-      ...this.data.map((o) => o[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS])
-    );
+    const headerTable = ['ISP', 'Visitors', 'Bounce Rate (%)'];
+    const accessor = [
+      BI_ISPS_FIELD_KEY.ISP,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_ISPS_FIELD_KEY.BOUNCE_RATE,
+    ];
+
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
@@ -349,7 +338,7 @@ class platformsModel {
           accessor: key,
           allowSort: true,
           width:
-            key === BI_ISPS_FIELD_KEY.DEVICE
+            key === BI_ISPS_FIELD_KEY.ISP
               ? 250
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
@@ -357,23 +346,10 @@ class platformsModel {
           Cell: ({ cell, column, row }) => {
             return (
               <>
-                {column.id === BI_ISPS_FIELD_KEY.DEVICE ? (
-                  <div
-                    className={
-                      'd-flex align-items-center text-capitalize py-sm px-20 position-relative'
-                    }
-                  >
-                    <div
-                      className="position-absolute top-0 start-0 h-100 z-0"
-                      style={{
-                        backgroundColor: '#E7EFFF',
-                        width: `${((row.cells[1]?.value / largestValue) * 100)?.toString()}%`,
-                      }}
-                    ></div>
-                    <div className="z-1">{cell?.value === '' ? 'Unknown' : cell?.value}</div>
-                  </div>
+                {column.id === BI_ISPS_FIELD_KEY.ISP ? (
+                  <div>{cell?.value}</div>
                 ) : (
-                  <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
+                  <div className={' text-end'}>{cell?.value}</div>
                 )}
               </>
             );

@@ -24,40 +24,8 @@ const Browsers = observer(
         : null;
     }
 
-    handleSortDevices = async (column) => {
-      this.platformsListViewModel.getDevices(
-        {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        },
-        {},
-        {
-          'sort[]': column?.id,
-          'sort_direction[]':
-            this.platformsListViewModel?.sortByDevices['sort_direction[]'] === 'desc'
-              ? 'asc'
-              : 'desc',
-        }
-      );
-    };
-
     handleSortBrowsers = async (column) => {
       this.platformsListViewModel.getBrowsers(
-        {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        },
-        {},
-        {
-          'sort[]': column?.id,
-          'sort_direction[]':
-            this.platformsListViewModel?.sortByBrowsers['sort_direction[]'] === 'desc'
-              ? 'asc'
-              : 'desc',
-        }
-      );
-    };
-
-    handleSortIsps = async (column) => {
-      this.platformsListViewModel.getIsps(
         {
           'filter[domain]': this.context.biListViewModel.activeDomain,
         },
@@ -85,19 +53,8 @@ const Browsers = observer(
                 <>
                   <Tab.Container id="countries-tab" defaultActiveKey="browser">
                     <div className="d-flex justify-content-between align-items-center mb-2">
-                      <h4 className="me-24 mb-0 fw-semibold fs-5">{t('txt_devices')}</h4>
-                      <Nav variant="pills" className="nav-custom">
-                        <Nav.Item>
-                          <Nav.Link eventKey="browser" className="ps-0">
-                            {t('txt_browser')}
-                          </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                          <Nav.Link eventKey="types" className="ps-0">
-                            {t('txt_types')}
-                          </Nav.Link>
-                        </Nav.Item>
-                      </Nav>
+                      <h4 className="me-24 mb-0 fw-semibold fs-5">{t('txt_browser')}</h4>
+                      
                     </div>
                     <Tab.Content className="h-100">
                       <Tab.Pane eventKey="browser">
@@ -126,37 +83,13 @@ const Browsers = observer(
                           />
                         </div>
                       </Tab.Pane>
-                      <Tab.Pane eventKey="types">
-                        <div className="browser-table">
-                          <TopTable
-                            data={this.platformsListViewModel?.devicesTableData?.list}
-                            pagination={this.platformsListViewModel?.devicesTableData?.pagination}
-                            isPagination={true}
-                            simplePagination={true}
-                            selectPage={async (value) => {
-                              await this.platformsListViewModel.handleFilterPages({ page: value });
-                            }}
-                            selectPageSize={async (value) => {
-                              await this.platformsListViewModel.handleFilterPages({
-                                page: 1,
-                                page_size: value,
-                              });
-                            }}
-                            status={this.platformsListViewModel?.statusTopBrowser}
-                            sortAPI={true}
-                            handleSort={this.handleSortDevices}
-                            sortBy={this.platformsListViewModel?.sortByDevices}
-                            {...this.props}
-                          />
-                        </div>
-                      </Tab.Pane>
                     </Tab.Content>
                   </Tab.Container>
                 </>
               ) : (
                 <>
                   <div className="d-flex align-items-center justify-content-between mb-2">
-                    <h4 className="me-24 mb-0 fw-semibold">{t('txt_devices')}</h4>
+                    <h4 className="me-24 mb-0 fw-semibold">{t('txt_browser')}</h4>
                   </div>
                   <ComponentNoData
                     icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}

@@ -12,7 +12,6 @@ import { BI_FLOW_DETAIL_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { Image } from 'react-bootstrap';
 import { BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
-import styles from './index.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { history } from 'aesirx-uikit';
@@ -167,11 +166,7 @@ const FlowDetailContainer = observer((props) => {
                         {moment(item[BI_VISITOR_FIELD_KEY.START_DATE])?.utc()?.format('HH:mm:ss')}
                       </div>
                       <div
-                        className={`${
-                          styles?.flow_detail_item_content_action
-                        } text-white fw-medium d-inline-flex my-sm ${
-                          styles[item?.[BI_VISITOR_FIELD_KEY.EVENT_NAME]]
-                        } ${
+                        className={`flow_detail_item_content_action text-white fw-medium d-inline-flex my-sm ${
                           item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit' ? 'text-capitalize' : ''
                         }`}
                       >
@@ -183,7 +178,7 @@ const FlowDetailContainer = observer((props) => {
                         <a
                           href={`${item[BI_VISITOR_FIELD_KEY.URL]}`}
                           target="_blank"
-                          class={`${styles?.flow_detail_item_content_link} fw-semibold`}
+                          class={`flow_detail_item_content_link fw-semibold`}
                         >
                           {item[BI_VISITOR_FIELD_KEY.URL]}
                         </a>

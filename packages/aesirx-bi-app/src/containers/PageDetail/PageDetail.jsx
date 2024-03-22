@@ -118,9 +118,9 @@ const PageDetail = observer(
                       this.context.biListViewModel.dateFilter?.date_end
                     }&date_start=${this.context.biListViewModel.dateFilter?.date_start}&domain=${
                       this.context.biListViewModel.activeDomain
-                    }&page=${
-                      this.context.biListViewModel.dataFilter?.page
-                        ? this.context.biListViewModel.dataFilter?.page
+                    }&pagination=${
+                      this.context.biListViewModel.dataFilter?.pagination
+                        ? this.context.biListViewModel.dataFilter?.pagination
                         : '1'
                     }`
                   );

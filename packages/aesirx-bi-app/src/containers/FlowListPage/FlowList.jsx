@@ -35,7 +35,7 @@ const FlowList = observer(
         this.flowListListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
           'with[]': 'events',
-          ...(this.params?.page && { page: this.params?.page }),
+          ...(this.params?.pagination && { page: this.params?.pagination }),
         });
       }
 
@@ -43,7 +43,7 @@ const FlowList = observer(
         this.flowListListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
           'with[]': 'events',
-          ...(this.params?.page && { page: this.params?.page }),
+          ...(this.params?.pagination && { page: this.params?.pagination }),
         });
       }
     };
@@ -52,7 +52,7 @@ const FlowList = observer(
       this.flowListListViewModel.initialize({
         'filter[domain]': this.context.biListViewModel.activeDomain,
         'with[]': 'events',
-        ...(this.params?.page && { page: this.params?.page }),
+        ...(this.params?.pagination && { page: this.params?.pagination }),
       });
     };
 

@@ -75,7 +75,7 @@ class FlowListListViewModel {
     this.status = PAGE_STATUS.LOADING;
 
     this.dataFilterFlowList = { ...this.dataFilter, ...dataFilter };
-    this.globalStoreViewModel.dataFilter = this.dataFilterFlowList;
+    this.globalStoreViewModel.dataFilter = { pagination: this.dataFilterFlowList?.page };
 
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
     await this.countriesStore.getFlowList(
@@ -87,7 +87,7 @@ class FlowListListViewModel {
     if (dataFilter?.page) {
       const search = {
         ...queryString.parse(location.search),
-        ...{ page: dataFilter?.page },
+        ...{ pagination: dataFilter?.page },
       };
       window.history.replaceState('', '', `/visitors/flow?${queryString.stringify(search)}`);
     }

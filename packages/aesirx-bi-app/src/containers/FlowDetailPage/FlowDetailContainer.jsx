@@ -120,7 +120,9 @@ const FlowDetailContainer = observer((props) => {
             history.push(
               `/visitors/flow?date_end=${dateFilter?.date_end}&date_start=${
                 dateFilter?.date_start
-              }&domain=${activeDomain}&page=${dataFilter?.page ? dataFilter?.page : '1'}`
+              }&domain=${activeDomain}&pagination=${
+                dataFilter?.pagination ? dataFilter?.pagination : '1'
+              }`
             );
           }}
         >

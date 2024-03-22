@@ -121,11 +121,11 @@ class EventsListViewModel {
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
     );
-    this.globalStoreViewModel.dataFilter = this.dataFilterTable;
+    this.globalStoreViewModel.dataFilter = { pagination: this.dataFilterTable?.page };
     if (dataFilter?.page) {
       const search = {
         ...queryString.parse(location.search),
-        ...{ page: dataFilter?.page },
+        ...{ pagination: dataFilter?.page },
       };
       window.history.replaceState('', '', `/behavior/events?${queryString.stringify(search)}`);
     }

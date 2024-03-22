@@ -322,11 +322,11 @@ class VisitorsListViewModel {
       this.callbackOnPagesSuccessHandler,
       this.callbackOnErrorHandler
     );
-    this.globalStoreViewModel.dataFilter = this.dataFilterPages;
+    this.globalStoreViewModel.dataFilter = { pagination: this.dataFilterPages?.page };
     if (dataFilter?.page) {
       const search = {
         ...queryString.parse(location.search),
-        ...{ page: dataFilter?.page },
+        ...{ pagination: dataFilter?.page },
       };
       window.history.replaceState('', '', `/behavior?${queryString.stringify(search)}`);
     }

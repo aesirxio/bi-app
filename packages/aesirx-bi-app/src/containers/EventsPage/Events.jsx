@@ -39,7 +39,7 @@ const Events = observer((props) => {
         {
           'filter[domain]': activeDomain,
           'filter_not[event_name]': 'visit',
-          ...(params?.page && { page: params?.page }),
+          ...(params?.pagination && { page: params?.pagination }),
         },
         {},
         { 'sort[]': 'start', 'sort_direction[]': 'desc' }

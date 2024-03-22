@@ -34,7 +34,7 @@ const VisitorsBehaviorPage = observer(
           'filter[domain]': this.context.biListViewModel.activeDomain,
         },
         {},
-        { ...(this.params?.page && { page: this.params?.page }) }
+        { ...(this.params?.pagination && { page: this.params?.pagination }) }
       );
     };
     componentDidUpdate = (prevProps) => {
@@ -47,7 +47,7 @@ const VisitorsBehaviorPage = observer(
             'filter[domain]': this.context.biListViewModel.activeDomain,
           },
           {},
-          { ...(this.params?.page && { page: this.params?.page }) }
+          { ...(this.params?.pagination && { page: this.params?.pagination }) }
         );
       }
     };

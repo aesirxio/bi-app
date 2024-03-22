@@ -358,37 +358,35 @@ class DashboardModel {
               if (cell?.value) {
                 const url = new URL(cell?.value);
                 imgIcon =
-                  url?.hostname === 'aesirx.io'
-                    ? `${env.PUBLIC_URL}/assets/images/logo/welcome-logo.png`
-                    : ``;
+                  url?.hostname === 'aesirx.io' ? `/assets/images/logo/welcome-logo.png` : ``;
               }
               switch (cell?.value) {
                 case '':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/direct.png`;
+                  imgIcon = `/assets/images/direct.png`;
                   break;
                 case 'https://www.google.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/google.png`;
+                  imgIcon = `/assets/images/google.png`;
                   break;
                 case 'https://www.facebook.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/facebook.png`;
+                  imgIcon = `/assets/images/facebook.png`;
                   break;
                 case 'https://www.linkedin.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/linkedin.png`;
+                  imgIcon = `/assets/images/linkedin.png`;
                   break;
                 case 'https://yandex.ru/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/yandex.png`;
+                  imgIcon = `/assets/images/yandex.png`;
                   break;
                 case 'https://duckduckgo.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/duckduckgo.svg`;
+                  imgIcon = `/assets/images/duckduckgo.svg`;
                   break;
                 case 'https://www.reddit.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/reddit.png`;
+                  imgIcon = `/assets/images/reddit.png`;
                   break;
                 case 'https://twitter.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/twitter.png`;
+                  imgIcon = `/assets/images/twitter.png`;
                   break;
                 case 'https://github.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/github.png`;
+                  imgIcon = `/assets/images/github.png`;
                   break;
               }
             }

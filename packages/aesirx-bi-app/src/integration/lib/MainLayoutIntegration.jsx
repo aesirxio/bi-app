@@ -22,6 +22,7 @@ const DashboardPage = lazy(() => import('../../containers/Dashboard'));
 const UTMTrackingPage = lazy(() => import('../../containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('../../containers/EventsPage'));
 const VisitorsPage = lazy(() => import('../../containers/VisitorsPage'));
+const FlowListPage = lazy(() => import('../../containers/FlowListPage'));
 const FlowPage = lazy(() => import('../../containers/FlowDetailPage'));
 const RegionCountryPage = lazy(() => import('../../containers/RegionCountryPage'));
 const WoocommercePage = lazy(() => import('../../containers/WoocommercePage'));
@@ -71,6 +72,9 @@ const RenderComponent = ({ link, ...props }) => {
 
     case 'visitors-behavior':
       return <VisitorsPage {...props} />;
+
+    case 'visitors-flow':
+      return <FlowListPage {...props} />;
 
     case 'behavior':
       return <VisitorsPage {...props} />;

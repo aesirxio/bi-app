@@ -166,6 +166,7 @@ const VisitorsBehaviorPage = observer(
             listViewModel={this.visitorsListViewModel}
             handleSort={this.handleSort}
             handleSearch={this.handleSearch}
+            {...this.props}
           />
         </div>
       );

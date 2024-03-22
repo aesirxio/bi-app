@@ -104,7 +104,7 @@ class FlowListListViewModel {
         this.status = PAGE_STATUS.READY;
         const transformData = new FlowListModel(data.list, this.globalStoreViewModel);
         this.countriesTableData = {
-          list: transformData.toFlowListTable(),
+          list: transformData,
           pagination: data.pagination,
         };
       }

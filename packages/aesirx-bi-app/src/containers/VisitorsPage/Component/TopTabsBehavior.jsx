@@ -34,7 +34,9 @@ const TopTabs = observer(
           </Row> */}
           <div className="bg-white rounded-3 shadow-sm h-100 position-relative ChartWrapper">
             <TopTable
-              data={this.listViewModel?.pagesTableData?.list}
+              data={this.listViewModel?.pagesTableData?.list?.toPagesTableTop(
+                this.props.integration
+              )}
               pagination={this.listViewModel?.pagesTableData?.pagination}
               selectPage={async (value) => {
                 await this.listViewModel.handleFilterPages({ page: value });

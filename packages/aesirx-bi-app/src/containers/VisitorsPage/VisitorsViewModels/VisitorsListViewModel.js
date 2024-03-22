@@ -476,7 +476,7 @@ class VisitorsListViewModel {
         this.statusTopTable = PAGE_STATUS.READY;
         const transformData = new PageModel(data.list, this.globalStoreViewModel);
         this.pagesTableData = {
-          list: transformData.toPagesTableTop(),
+          list: transformData,
           pagination: data.pagination,
         };
       }

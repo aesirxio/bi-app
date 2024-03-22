@@ -100,7 +100,7 @@ class PageModel {
     }
   };
 
-  toPagesTableTop = () => {
+  toPagesTableTop = (integration) => {
     const headerTable = [
       'txt_page',
       'txt_visitors',
@@ -134,12 +134,26 @@ class PageModel {
           Cell: ({ cell, column }) => {
             const urlParams = column.id === BI_PAGES_FIELD_KEY.URL && new URL(cell?.value);
             return column.id === BI_PAGES_FIELD_KEY.URL ? (
-              <NavLink
-                to={`/behavior/detail?url=${cell?.value}`}
-                className={'px-15 d-block text-secondary-50'}
-              >
-                {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
-              </NavLink>
+              <>
+                {integration ? (
+                  <a
+                    href="#"
+                    onClick={(e) => this.handleChangeLink(e, `behavior/detail?url=${cell?.value}}`)}
+                    className={'px-15 d-block text-secondary-50'}
+                  >
+                    <span>
+                      {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                    </span>
+                  </a>
+                ) : (
+                  <NavLink
+                    to={`/behavior/detail?url=${cell?.value}`}
+                    className={'px-15 d-block text-secondary-50'}
+                  >
+                    {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                  </NavLink>
+                )}
+              </>
             ) : column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (
               <div className={'px-3 text-end'}>{cell?.value + '%' ?? null}</div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (

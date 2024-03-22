@@ -20,7 +20,7 @@ class FlowListModel {
     return this.data;
   };
 
-  toFlowListTable = () => {
+  toFlowListTable = (integration) => {
     const headerTable = [
       'txt_time_utc',
       'txt_locale',
@@ -95,9 +95,22 @@ class FlowListModel {
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.UUID) {
               return (
                 <>
-                  <NavLink to={`/flow/${cell?.value}`} className={'btn btn-light px-3 py-1 fs-sm'}>
-                    View Detail
-                  </NavLink>
+                  {integration ? (
+                    <a
+                      href="#"
+                      onClick={(e) => this.handleChangeLink(e, `flow/${cell?.value}`)}
+                      className={'btn btn-light px-3 py-1 fs-sm'}
+                    >
+                      <span> View Detail</span>
+                    </a>
+                  ) : (
+                    <NavLink
+                      to={`/flow/${cell?.value}`}
+                      className={'btn btn-light px-3 py-1 fs-sm'}
+                    >
+                      View Detail
+                    </NavLink>
+                  )}
                 </>
               );
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.URL && cell?.value) {

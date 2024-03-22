@@ -94,7 +94,9 @@ const FlowList = observer(
                 <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
               ) : this.flowListListViewModel?.countriesTableData?.list ? (
                 <FlowListTable
-                  data={this.flowListListViewModel?.countriesTableData?.list}
+                  data={this.flowListListViewModel?.countriesTableData?.list?.toFlowListTable(
+                    this.props.integration
+                  )}
                   pagination={this.flowListListViewModel?.countriesTableData?.pagination}
                   selectPage={async (value) => {
                     await this.flowListListViewModel.handleFilterFlowList({ page: value });

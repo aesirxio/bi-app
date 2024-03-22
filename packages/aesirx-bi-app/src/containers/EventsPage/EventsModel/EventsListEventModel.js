@@ -237,12 +237,24 @@ class EventsListModel {
           Cell: ({ cell, column, row }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
               return (
-                <NavLink
-                  to={`/behavior/events/${cell?.value}`}
-                  className={'px-3 text-secondary-50'}
-                >
-                  {cell?.value ?? null}
-                </NavLink>
+                <>
+                  {integration ? (
+                    <a
+                      href="#"
+                      onClick={(e) => this.handleChangeLink(e, `behavior/events/${cell?.value}`)}
+                      className={'px-3 text-secondary-50'}
+                    >
+                      <span>{cell?.value ?? null}</span>
+                    </a>
+                  ) : (
+                    <NavLink
+                      to={`/behavior/events/${cell?.value}`}
+                      className={'px-3 text-secondary-50'}
+                    >
+                      {cell?.value ?? null}
+                    </NavLink>
+                  )}
+                </>
               );
             } else if (column.id === BI_VISITOR_FIELD_KEY.UUID) {
               return <></>;

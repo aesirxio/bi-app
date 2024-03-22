@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { history } from 'aesirx-uikit';
+import queryString from 'query-string';
 
 const Events = observer((props) => {
   const { t } = useTranslation();
@@ -70,7 +71,7 @@ const Events = observer((props) => {
         <div className="position-relative d-flex align-items-center mb-8px">
           <div
             className={`back_icon d-flex align-items-center justify-content-center cursor-pointer me-1`}
-            onClick={() => {
+            onClick={(e) => {
               if (props.integration) {
                 handleChangeLink(e, `behavior-events`);
               } else {

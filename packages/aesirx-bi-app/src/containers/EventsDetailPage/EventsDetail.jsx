@@ -16,7 +16,7 @@ const Events = observer((props) => {
     eventsDetail: { handleFilterDateRange, getEventDetail, dataEvents },
   } = useEventsDetailViewModel();
   const {
-    biListViewModel: { activeDomain, dateFilter, dataFilter },
+    biListViewModel: { activeDomain, dateFilter, dataFilter, integrationLink, setIntegrationLink },
   } = useBiViewModel();
 
   const handleDateRangeChange = useCallback((startDate, endDate) => {
@@ -42,7 +42,12 @@ const Events = observer((props) => {
   //   return () => {};
   // }, [activeDomain]);
   const { eventName } = useParams();
-  const eventNameDetail = props.integration ? props.integrationLink.split('/')[1] : eventName;
+  const params = queryString.parse(props.location.search);
+  const eventNameDetail = props.integration
+    ? integrationLink?.split('&id=')[1]
+      ? integrationLink?.split('&id=')[1]
+      : params?.id
+    : eventName;
   useEffect(() => {
     const execute = async () => {
       await getEventDetail({
@@ -53,6 +58,12 @@ const Events = observer((props) => {
     execute();
     return () => {};
   }, [activeDomain]);
+  const handleChangeLink = (e, link) => {
+    e.preventDefault();
+    if (link) {
+      setIntegrationLink(link);
+    }
+  };
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -60,13 +71,17 @@ const Events = observer((props) => {
           <div
             className={`back_icon d-flex align-items-center justify-content-center cursor-pointer me-1`}
             onClick={() => {
-              history.push(
-                `/behavior/events/?date_end=${dateFilter?.date_end}&date_start=${
-                  dateFilter?.date_start
-                }&domain=${activeDomain}&pagination=${
-                  dataFilter?.pagination ? dataFilter?.pagination : '1'
-                }`
-              );
+              if (props.integration) {
+                handleChangeLink(e, `behavior-events`);
+              } else {
+                history.push(
+                  `/behavior/events/?date_end=${dateFilter?.date_end}&date_start=${
+                    dateFilter?.date_start
+                  }&domain=${activeDomain}&pagination=${
+                    dataFilter?.pagination ? dataFilter?.pagination : '1'
+                  }`
+                );
+              }
             }}
           >
             <FontAwesomeIcon className={`text-success`} icon={faChevronLeft} />

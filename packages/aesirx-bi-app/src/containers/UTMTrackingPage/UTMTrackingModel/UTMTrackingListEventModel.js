@@ -214,7 +214,7 @@ class UTMTrackingEventModel {
                   {integration ? (
                     <a
                       href="#"
-                      onClick={(e) => this.handleChangeLink(e, `flow/${cell?.value}`)}
+                      onClick={(e) => this.handleChangeLink(e, `flow&id=${cell?.value}`)}
                       className={`px-3`}
                     >
                       <span>

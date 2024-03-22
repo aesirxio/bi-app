@@ -15,6 +15,7 @@ import { BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { history } from 'aesirx-uikit';
+import queryString from 'query-string';
 
 const FlowDetailContainer = observer((props) => {
   const { t } = useTranslation();
@@ -22,10 +23,15 @@ const FlowDetailContainer = observer((props) => {
     flowDetailViewModel: { data = [], relatedVisitorData, getFlowDetail, status },
   } = useFlowViewModel();
   const {
-    biListViewModel: { activeDomain, integrationLink, dateFilter, dataFilter },
+    biListViewModel: { activeDomain, dateFilter, dataFilter, integrationLink, setIntegrationLink },
   } = useBiViewModel();
   const { uuid } = useParams();
-  const uuidDetail = props.integration ? integrationLink.split('/')[1] : uuid;
+  const params = queryString.parse(props.location.search);
+  const uuidDetail = props.integration
+    ? integrationLink?.split('&id=')[1]
+      ? integrationLink?.split('&id=')[1]
+      : params?.id
+    : uuid;
   useEffect(() => {
     const execute = async () => {
       await getFlowDetail(uuidDetail, {
@@ -111,19 +117,29 @@ const FlowDetailContainer = observer((props) => {
     ],
     [data]
   );
+  const handleChangeLink = (e, link) => {
+    e.preventDefault();
+    if (link) {
+      setIntegrationLink(link);
+    }
+  };
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="position-relative d-flex align-items-center mb-3">
         <div
           className={`back_icon d-flex align-items-center justify-content-center cursor-pointer me-1`}
-          onClick={() => {
-            history.push(
-              `/visitors/flow?date_end=${dateFilter?.date_end}&date_start=${
-                dateFilter?.date_start
-              }&domain=${activeDomain}&pagination=${
-                dataFilter?.pagination ? dataFilter?.pagination : '1'
-              }`
-            );
+          onClick={(e) => {
+            if (props.integration) {
+              handleChangeLink(e, `visitors-flow`);
+            } else {
+              history.push(
+                `/visitors/flow?date_end=${dateFilter?.date_end}&date_start=${
+                  dateFilter?.date_start
+                }&domain=${activeDomain}&pagination=${
+                  dataFilter?.pagination ? dataFilter?.pagination : '1'
+                }`
+              );
+            }
           }}
         >
           <FontAwesomeIcon className={`text-success`} icon={faChevronLeft} />

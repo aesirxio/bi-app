@@ -19,7 +19,12 @@ class FlowListModel {
   toRaw = () => {
     return this.data;
   };
-
+  handleChangeLink = (e, link) => {
+    e.preventDefault();
+    if (link) {
+      this.globalViewModel.setIntegrationLink(link);
+    }
+  };
   toFlowListTable = (integration) => {
     const headerTable = [
       'txt_time_utc',
@@ -98,7 +103,7 @@ class FlowListModel {
                   {integration ? (
                     <a
                       href="#"
-                      onClick={(e) => this.handleChangeLink(e, `flow/${cell?.value}`)}
+                      onClick={(e) => this.handleChangeLink(e, `flow&id=${cell?.value}`)}
                       className={'btn btn-light px-3 py-1 fs-sm'}
                     >
                       <span> View Detail</span>

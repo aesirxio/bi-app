@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import { BI_FLOW_LIST_FIELD_KEY, Helper } from 'aesirx-lib';
+import { BI_FLOW_LIST_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 
@@ -120,6 +120,7 @@ class FlowListModel {
                 <a
                   href={cell?.value}
                   target="_blank"
+                  rel="noreferrer"
                   className={'px-3 d-inline-block text-secondary-50'}
                 >
                   {displayUrl?.length > 53 ? displayUrl?.slice(0, 53) + '...' : displayUrl}

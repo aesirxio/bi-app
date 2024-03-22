@@ -180,7 +180,8 @@ const FlowDetailContainer = observer((props) => {
                         <a
                           href={`${item[BI_VISITOR_FIELD_KEY.URL]}`}
                           target="_blank"
-                          class={`flow_detail_item_content_link fw-semibold`}
+                          rel="noreferrer"
+                          className={`flow_detail_item_content_link fw-semibold`}
                         >
                           {item[BI_VISITOR_FIELD_KEY.URL]}
                         </a>

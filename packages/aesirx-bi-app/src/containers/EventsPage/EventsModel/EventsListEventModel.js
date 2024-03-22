@@ -234,7 +234,7 @@ class EventsListModel {
           accessor: key,
           width: key === BI_VISITOR_FIELD_KEY.UUID ? 10 : 170,
           allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
-          Cell: ({ cell, column, row }) => {
+          Cell: ({ cell, column }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
               return (
                 <>

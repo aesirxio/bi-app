@@ -4,8 +4,6 @@ import { withFlowListViewModel } from './FlowListViewModels/FlowListViewModelCon
 import { observer } from 'mobx-react';
 import { BiViewModelContext } from '../../store/BiStore/BiViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
-import GeoChart from '../../components/GeoChart';
-import { Col, Row } from 'react-bootstrap';
 import DateRangePicker from '../../components/DateRangePicker';
 import PAGE_STATUS from '../../constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';

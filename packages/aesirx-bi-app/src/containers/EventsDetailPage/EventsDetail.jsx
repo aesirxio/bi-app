@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
 import StackedBarChartComponent from '../../components/StackedBarChartComponent';
-import BarChartComponent from '../../components/BarChartComponent';
 import DateRangePicker from '../../components/DateRangePicker';
 import { useTranslation } from 'react-i18next';
 import { useEventsDetailViewModel } from './EventsDetailViewModels/EventsDetailViewModelContextProvider';
@@ -42,9 +41,8 @@ const Events = observer((props) => {
   //   execute();
   //   return () => {};
   // }, [activeDomain]);
-
   const { eventName } = useParams();
-  const eventNameDetail = props.integration ? integrationLink.split('/')[1] : eventName;
+  const eventNameDetail = props.integration ? props.integrationLink.split('/')[1] : eventName;
   useEffect(() => {
     const execute = async () => {
       await getEventDetail({

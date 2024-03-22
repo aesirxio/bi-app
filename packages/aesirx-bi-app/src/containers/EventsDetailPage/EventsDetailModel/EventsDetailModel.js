@@ -5,7 +5,6 @@
 import React from 'react';
 import { BI_EVENTS_FIELD_KEY, BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
-import { NavLink } from 'react-router-dom';
 import { enumerateDaysBetweenDates } from 'aesirx-lib';
 
 class EventsDetailModel {
@@ -217,7 +216,7 @@ class EventsDetailModel {
       this.globalViewModel.setIntegrationLink(link);
     }
   };
-  toEventTable = (integration) => {
+  toEventTable = () => {
     const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Date', ''];
     const accessor = [
       BI_VISITOR_FIELD_KEY.EVENT_NAME,
@@ -234,7 +233,7 @@ class EventsDetailModel {
           accessor: key,
           width: key === BI_VISITOR_FIELD_KEY.UUID ? 10 : 170,
           allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
-          Cell: ({ cell, column, row }) => {
+          Cell: ({ cell, column }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
               return <div className={'px-3'}>{cell?.value ?? null}</div>;
             } else if (column.id === BI_VISITOR_FIELD_KEY.UUID) {

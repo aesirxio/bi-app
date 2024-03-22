@@ -79,7 +79,7 @@ class FlowModel {
               ? 80
               : 170,
           allowSort: true,
-          Cell: ({ cell, column, row }) => {
+          Cell: ({ cell, column }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
               return <div className={'px-3'}>{cell?.value ?? null}</div>;
             } else if (column.id === BI_VISITOR_FIELD_KEY.UUID) {
@@ -92,7 +92,7 @@ class FlowModel {
               const urlParams = new URL(cell?.value);
               let displayUrl = urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search;
               return (
-                <a href={cell?.value} target="_blank" className={'px-3 d-block'}>
+                <a href={cell?.value} rel="noreferrer" target="_blank" className={'px-3 d-block'}>
                   {displayUrl?.length > 53 ? displayUrl?.slice(0, 53) + '...' : displayUrl}
                 </a>
               );

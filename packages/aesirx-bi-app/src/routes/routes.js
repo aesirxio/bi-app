@@ -18,6 +18,7 @@ const ConsentsPage = lazy(() => import('../containers/ConsentsPage'));
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const FlowListPage = lazy(() => import('../containers/FlowListPage'));
 const FlowPage = lazy(() => import('../containers/FlowDetailPage'));
+const PlatformsPage = lazy(() => import('../containers/PlatformsPage'));
 
 const authRoutes = [
   {
@@ -94,6 +95,12 @@ const mainRoutes = [
     page: ['consents'],
     exact: true,
     main: () => <ConsentsPage />,
+  },
+  {
+    path: '/visitors/platforms',
+    page: 'platforms',
+    exact: true,
+    main: () => <PlatformsPage />,
   },
 ];
 

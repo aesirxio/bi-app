@@ -32,6 +32,12 @@ const mainMenu = [
         link: `/visitors/flow`,
         page: 'visitors-flow',
       },
+      {
+        text: 'Platforms',
+        mini_text: 'Platforms',
+        link: `/visitors/platforms`,
+        page: 'visitors-platforms',
+      },
     ],
   },
   {

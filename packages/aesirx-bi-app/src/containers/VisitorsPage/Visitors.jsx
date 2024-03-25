@@ -47,7 +47,6 @@ const VisitorsPage = observer(
 
     render() {
       const { t } = this.props;
-      console.log('dsadsa', this.visitorsListViewModel.metricsData);
       return (
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-24">

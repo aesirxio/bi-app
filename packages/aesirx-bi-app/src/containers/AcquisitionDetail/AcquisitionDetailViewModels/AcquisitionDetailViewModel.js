@@ -8,7 +8,6 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import AcquisitionDetailModel from '../AcquisitionDetailModel/AcquisitionDetailModel';
-import CountryModel from '../../RegionCountryPage/CountryModel/CountryModel';
 import PageModel from 'containers/VisitorsPage/PagesModel/PageModel';
 class AcquisitionDetailListViewModel {
   acquisitionDetailStore = null;

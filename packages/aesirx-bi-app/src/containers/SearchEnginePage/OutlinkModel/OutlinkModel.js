@@ -4,13 +4,10 @@
  */
 import React from 'react';
 import {
-  BI_CHANNEL_FIELD_KEY,
   BI_OUTLINK_FIELD_KEY,
-  BI_PAGES_FIELD_KEY,
   BI_SUMMARY_FIELD_KEY,
 } from 'aesirx-lib';
 import moment from 'moment';
-import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 

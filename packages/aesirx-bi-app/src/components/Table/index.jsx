@@ -45,8 +45,6 @@ const Table = ({
     headerGroups,
     prepareRow,
     rows,
-    rowSpanHeaders,
-    selectedFlatRows,
     visibleColumns,
     page,
     pageOptions,

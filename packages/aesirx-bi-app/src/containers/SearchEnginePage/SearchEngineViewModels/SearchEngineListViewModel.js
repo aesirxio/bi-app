@@ -10,7 +10,6 @@ import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import queryString from 'query-string';
 import OutlinkModel from '../OutlinkModel/OutlinkModel';
-import { BI_OUTLINK_FIELD_KEY, BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 class SearchEngineListViewModel {
   searchEngineStore = null;
   status = PAGE_STATUS.READY;

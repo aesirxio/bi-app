@@ -142,7 +142,6 @@ const SearchEnginePage = observer(
 
     render() {
       const { t } = this.props;
-      const card = this.generateCard();
       console.log('teste', this.searchEngineListViewModel?.channelTableData?.list);
       return (
         <div className="py-4 px-4">

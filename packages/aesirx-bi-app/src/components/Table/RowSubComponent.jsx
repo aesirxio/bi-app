@@ -15,7 +15,7 @@ import React from 'react';
  * @returns The JSX element representing the sub rows.
  */
 
-function SubRows({ row, rowProps, visibleColumns, data, idKey, loading }) {
+function SubRows({ row, rowProps, visibleColumns, data, loading }) {
   if (loading) {
     return (
       <tr>
@@ -35,10 +35,11 @@ function SubRows({ row, rowProps, visibleColumns, data, idKey, loading }) {
                 key={`${rowProps.key}-expanded-${i}`}
                 className="border-bottom row_sub_component"
               >
-                {row.cells.map((cell) => {
+                {row.cells.map((cell, key) => {
                   return (
                     <td
                       {...cell.getCellProps()}
+                      key={key}
                       className={`py-2 wb-all align-middle sub-cell-${cell.column.id} `}
                     >
                       {cell.render('SubCell', {
@@ -71,7 +72,7 @@ function SubRows({ row, rowProps, visibleColumns, data, idKey, loading }) {
  */
 
 const SubRowAsync = ({ row, rowProps, visibleColumns, listViewModel, idKey }) => {
-  const [loading, setLoading] = React.useState < boolean > true;
+  const [loading, setLoading] = React.useState(true);
 
   const data = React.useRef([]);
 

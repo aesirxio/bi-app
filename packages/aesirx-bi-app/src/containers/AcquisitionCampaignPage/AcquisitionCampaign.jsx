@@ -7,14 +7,11 @@ import BehaviorTable from '../../components/BehaviorTable';
 import { useAcquisitionCampaignViewModel } from './AcquisitionCampaignViewModels/AcquisitionCampaignViewModelContextProvider';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
-import { AesirXSelect } from 'aesirx-uikit';
-import { Col, Row } from 'react-bootstrap';
 
 const AcquisitionCampaignPage = observer((props) => {
   const { t } = useTranslation();
   const {
     acquisitionCampaignEvents: {
-      getVisitor,
       data,
       statusAttribute,
       handleFilterDateRange,
@@ -23,7 +20,6 @@ const AcquisitionCampaignPage = observer((props) => {
       getAttributeTable,
       getAttributeList,
       dataAttribute,
-      dataAttributeList,
       statusTable,
       sortBy,
     },

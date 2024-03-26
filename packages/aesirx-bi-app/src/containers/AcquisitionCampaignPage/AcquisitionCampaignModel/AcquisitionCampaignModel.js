@@ -3,9 +3,8 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import { BI_SUMMARY_FIELD_KEY, BI_VISITORS_FIELD_KEY, BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
+import { BI_SUMMARY_FIELD_KEY, BI_VISITORS_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
-import { NavLink } from 'react-router-dom';
 import { enumerateDaysBetweenDates } from 'aesirx-lib';
 
 class AcquisitionCampaignModel {
@@ -233,7 +232,7 @@ class AcquisitionCampaignModel {
       });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {

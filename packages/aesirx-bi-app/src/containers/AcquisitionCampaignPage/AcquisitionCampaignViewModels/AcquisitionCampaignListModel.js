@@ -8,7 +8,7 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import AcquisitionCampaignModel from '../AcquisitionCampaignModel/AcquisitionCampaignModel';
-import { BI_SUMMARY_FIELD_KEY, BI_VISITORS_FIELD_KEY } from 'aesirx-lib';
+import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 class AcquisitionCampaignListModel {
   acquisitionCampaignStore = null;
   statusAttribute = PAGE_STATUS.READY;

@@ -159,7 +159,7 @@ class EventsDetailViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.status = PAGE_STATUS.READY;
-        this.attributeData = data;
+        this.attributeData = data?.list;
       }
     } else {
       this.status = PAGE_STATUS.ERROR;

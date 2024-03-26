@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { usePagination, useSortBy, useTable } from 'react-table';
+import { useExpanded, usePagination, useSortBy, useTable } from 'react-table';
 import { withTranslation } from 'react-i18next';
 import ComponentNoData from '../ComponentNoData';
 import './index.scss';
@@ -13,6 +13,9 @@ import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { env } from 'aesirx-lib';
 import { AesirXSelect } from 'aesirx-uikit';
 import ComponentSVG from 'components/ComponentSVG';
+import { SubRows } from './RowSubComponent';
+import PAGE_STATUS from 'constants/PageStatus';
+
 const Table = ({
   columns,
   data,
@@ -31,6 +34,9 @@ const Table = ({
   selectPage,
   selectPageSize,
   simplePagination = false,
+  status,
+  hasSubRow,
+  idKey,
   ...props
 }) => {
   const {
@@ -39,6 +45,9 @@ const Table = ({
     headerGroups,
     prepareRow,
     rows,
+    rowSpanHeaders,
+    selectedFlatRows,
+    visibleColumns,
     page,
     pageOptions,
     previousPage,
@@ -60,7 +69,21 @@ const Table = ({
       },
     },
     useSortBy,
+    useExpanded,
     usePagination
+  );
+  const renderRowSubComponent = React.useCallback(
+    ({ row, rowProps, visibleColumns, subRow, idKey }) => (
+      <SubRows
+        row={row}
+        rowProps={rowProps}
+        visibleColumns={visibleColumns}
+        loading={status === PAGE_STATUS.LOADING}
+        data={subRow}
+        idKey={idKey}
+      />
+    ),
+    [status]
   );
 
   const handlePagination = async (pageIndex) => {
@@ -205,6 +228,7 @@ const Table = ({
               {page.length > 0 &&
                 page.map((row) => {
                   prepareRow(row);
+                  const rowProps = row.getRowProps();
                   let newRowCells = '';
 
                   dataList
@@ -212,21 +236,27 @@ const Table = ({
                         (item) => !dataList.some((other) => item.column.id === other)
                       ))
                     : (newRowCells = row.cells);
-
+                  const subRow = row.cells.find((item) => item?.column?.id === idKey)?.value ?? [];
                   return (
-                    <tr key={row.getRowProps().key} {...row.getRowProps()}>
-                      {newRowCells.map((cell, index) => {
-                        return (
-                          <td
-                            key={index}
-                            {...cell.getCellProps({ style: { width: cell.column.width } })}
-                            className="py-2 wb-all align-middle"
-                          >
-                            {cell.render('Cell')}
-                          </td>
-                        );
-                      })}
-                    </tr>
+                    <React.Fragment key={row.getRowProps().key}>
+                      <tr {...row.getRowProps()}>
+                        {newRowCells.map((cell, index) => {
+                          return (
+                            <td
+                              key={index}
+                              {...cell.getCellProps({ style: { width: cell.column.width } })}
+                              className="py-2 wb-all align-middle"
+                            >
+                              {cell.render('Cell')}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                      {hasSubRow === false
+                        ? null
+                        : row.isExpanded &&
+                          renderRowSubComponent({ row, rowProps, visibleColumns, subRow, idKey })}
+                    </React.Fragment>
                   );
                 })}
             </tbody>

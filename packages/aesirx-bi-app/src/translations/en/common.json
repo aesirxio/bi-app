@@ -198,5 +198,15 @@
   "txt_event_detail": "Event Detail",
   "txt_event_count": "Event count",
   "txt_total_users": "Total users",
-  "txt_event_count_per_user": "Event count per user"
+  "txt_event_count_per_user": "Event count per user",
+  "txt_menu_acquisition": "Acquisition",
+  "txt_acquisition_overview": "Acquisition Overview",
+  "txt_traffic": "Traffic",
+  "txt_acquisition": "Acquisition",
+  "txt_menu_search_engines": "Search Engines",
+  "txt_search_engines": "Search Engines",
+  "txt_visits": "Visits",
+  "txt_menu_campaigns": "Campaigns",
+  "txt_campaign": "Campaign",
+  "txt_campaign_overview": "Campaign Overview"
 }

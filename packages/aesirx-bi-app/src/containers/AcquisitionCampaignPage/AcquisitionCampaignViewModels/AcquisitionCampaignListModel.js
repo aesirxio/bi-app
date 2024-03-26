@@ -7,9 +7,10 @@ import { notify } from 'aesirx-uikit';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
-import UTMTrackingEventModel from '../UTMTrackingModel/UTMTrackingListEventModel';
-class UTMTrackingEventsViewModel {
-  utmTrackingStore = null;
+import AcquisitionCampaignModel from '../AcquisitionCampaignModel/AcquisitionCampaignModel';
+import { BI_SUMMARY_FIELD_KEY, BI_VISITORS_FIELD_KEY } from 'aesirx-lib';
+class AcquisitionCampaignListModel {
+  acquisitionCampaignStore = null;
   statusAttribute = PAGE_STATUS.READY;
   statusAttributeList = PAGE_STATUS.READY;
   statusTable = PAGE_STATUS.READY;
@@ -21,17 +22,17 @@ class UTMTrackingEventsViewModel {
   dataAttributeList = null;
 
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
-  constructor(utmTrackingStore, globalStoreViewModel) {
+  constructor(acquisitionCampaignStore, globalStoreViewModel) {
     makeAutoObservable(this);
-    this.utmTrackingStore = utmTrackingStore;
+    this.acquisitionCampaignStore = acquisitionCampaignStore;
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
-  transformDataToUTMTrackingEventModel = () => {
-    return new UTMTrackingEventModel(this.data);
+  transformDataToAcquisitionCampaignModel = () => {
+    return new AcquisitionCampaignModel(this.data);
   };
 
-  getVisitor = (
+  getAttributeTable = (
     dataFilter,
     dateFilter,
     sortBy = { 'sort[]': 'start', 'sort_direction[]': 'desc' }
@@ -51,7 +52,7 @@ class UTMTrackingEventsViewModel {
     }
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.utmTrackingStore.getVisitor(
+    this.acquisitionCampaignStore.getAttribute(
       this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
@@ -68,7 +69,7 @@ class UTMTrackingEventsViewModel {
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.utmTrackingStore.getAttribute(
+    this.acquisitionCampaignStore.getAttribute(
       this.dataFilterAttributeList,
       dateRangeFilter,
       this.callbackOnDataAttributeListSuccessHandler,
@@ -84,7 +85,7 @@ class UTMTrackingEventsViewModel {
       ...dataFilter,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel?.dateFilter, ...dateFilter };
-    this.utmTrackingStore.getAttributeDate(
+    this.acquisitionCampaignStore.getAttributeDate(
       this.dataFilterAttribute,
       dateRangeFilter,
       this.callbackOnDataAttributeSuccessHandler,
@@ -106,13 +107,13 @@ class UTMTrackingEventsViewModel {
     };
 
     this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
-    this.utmTrackingStore.getVisitor(
+    this.acquisitionCampaignStore.getAttributeTable(
       this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
     );
-    this.utmTrackingStore.getAttributeDate(
+    this.acquisitionCampaignStore.getAttributeDate(
       this.dataFilterAttribute,
       dateRangeFilter,
       this.callbackOnDataAttributeSuccessHandler,
@@ -124,7 +125,7 @@ class UTMTrackingEventsViewModel {
     this.statusTable = PAGE_STATUS.LOADING;
     this.dataFilterTable = { ...this.dataFilterTable, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.utmTrackingStore.getVisitor(
+    await this.acquisitionCampaignStore.getAttributeTable(
       this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
@@ -139,10 +140,28 @@ class UTMTrackingEventsViewModel {
   };
 
   callbackOnDataSuccessHandler = (data) => {
-    if (data?.list) {
+    if (data) {
       if (data?.message !== 'canceled') {
         this.statusTable = PAGE_STATUS.READY;
-        const transformData = new UTMTrackingEventModel(data?.list, this.globalStoreViewModel);
+
+        const transformFormat = data?.list[0]?.values?.map((item) => {
+          return {
+            value: item?.value,
+            [BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS]:
+              item[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS],
+            [BI_SUMMARY_FIELD_KEY?.TOTAL_NUMBER_OF_VISITORS]:
+              item[BI_SUMMARY_FIELD_KEY?.TOTAL_NUMBER_OF_VISITORS],
+            [BI_SUMMARY_FIELD_KEY?.AVERAGE_SESSION_DURATION]:
+              item[BI_SUMMARY_FIELD_KEY?.AVERAGE_SESSION_DURATION],
+            [BI_SUMMARY_FIELD_KEY?.NUMBER_OF_PAGES_PER_SESSION]:
+              item[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_PAGES_PER_SESSION],
+            [BI_SUMMARY_FIELD_KEY?.BOUNCE_RATE]: item[BI_SUMMARY_FIELD_KEY?.BOUNCE_RATE],
+          };
+        });
+        const transformData = new AcquisitionCampaignModel(
+          transformFormat,
+          this.globalStoreViewModel
+        );
         this.data = {
           list: transformData,
           pagination: data.pagination,
@@ -158,7 +177,7 @@ class UTMTrackingEventsViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.statusAttribute = PAGE_STATUS.READY;
-        const transformData = new UTMTrackingEventModel(data, this.globalStoreViewModel);
+        const transformData = new AcquisitionCampaignModel(data, this.globalStoreViewModel);
         this.dataAttribute = transformData;
       }
     } else {
@@ -171,7 +190,7 @@ class UTMTrackingEventsViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.statusAttributeList = PAGE_STATUS.READY;
-        const transformData = new UTMTrackingEventModel(data?.list, this.globalStoreViewModel);
+        const transformData = new AcquisitionCampaignModel(data?.list, this.globalStoreViewModel);
         this.dataAttributeList = transformData;
       }
     } else {
@@ -181,4 +200,4 @@ class UTMTrackingEventsViewModel {
   };
 }
 
-export default UTMTrackingEventsViewModel;
+export default AcquisitionCampaignListModel;

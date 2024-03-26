@@ -7,6 +7,10 @@ import React, { lazy } from 'react';
 import { LoginPage, ProfilePage } from 'aesirx-uikit';
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
 const PageDetail = lazy(() => import('../containers/PageDetail'));
+const AcquisitionPage = lazy(() => import('../containers/AcquisitionPage'));
+const AcquisitionDetail = lazy(() => import('../containers/AcquisitionDetail'));
+const SearchEnginePage = lazy(() => import('../containers/SearchEnginePage'));
+const AcquisitionCampaignPage = lazy(() => import('../containers/AcquisitionCampaignPage'));
 const VisitorsPage = lazy(() => import('../containers/VisitorsPage'));
 const RevenuePage = lazy(() => import('../containers/RevenuePage'));
 const UTMTrackingPage = lazy(() => import('../containers/UTMTrackingPage'));
@@ -40,6 +44,30 @@ const mainRoutes = [
     exact: true,
     page: ['visitors', 'behavior'],
     main: () => <VisitorsPage />,
+  },
+  {
+    path: ['/acquisition'],
+    exact: true,
+    page: ['acquisition'],
+    main: () => <AcquisitionPage />,
+  },
+  {
+    path: ['/acquisition/detail'],
+    exact: true,
+    page: ['acquisition-detail'],
+    main: () => <AcquisitionDetail />,
+  },
+  {
+    path: ['/acquisition/search-engines'],
+    exact: true,
+    page: ['acquisition-search-engines'],
+    main: () => <SearchEnginePage />,
+  },
+  {
+    path: ['/acquisition/campaigns'],
+    exact: true,
+    page: ['acquisition-campaigns'],
+    main: () => <AcquisitionCampaignPage />,
   },
   {
     path: ['/behavior/detail'],

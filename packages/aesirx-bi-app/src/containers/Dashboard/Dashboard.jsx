@@ -282,6 +282,34 @@ const Dashboard = observer(
               </div>
             </Col>
           </Row>
+
+          <Row className="my-24 pb-24">
+            <Col lg={12} className="mb-24">
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_event')}</h4>
+                <TopTable
+                  data={this.dashboardListViewModel?.eventNameTypeTableData?.list}
+                  pagination={this.dashboardListViewModel?.eventNameTypeTableData?.pagination}
+                  isPagination={true}
+                  simplePagination={true}
+                  selectPage={async (value) => {
+                    await this.dashboardListViewModel.handleFilterSources({ page: value });
+                  }}
+                  selectPageSize={async (value) => {
+                    await this.dashboardListViewModel.handleFilterSources({
+                      page: 1,
+                      page_size: value,
+                    });
+                  }}
+                  status={this.dashboardListViewModel?.browsersData}
+                  sortAPI={true}
+                  handleSort={this.handleSortSources}
+                  sortBy={this.dashboardListViewModel?.sortByEventsType}
+                  {...this.props}
+                />
+              </div>
+            </Col>
+          </Row>
         </div>
       );
     }

@@ -9,6 +9,7 @@ import {
   BI_DEVICES_FIELD_KEY,
   BI_SUMMARY_FIELD_KEY,
   BI_VISITORS_FIELD_KEY,
+  BI_EVENTS_TYPE_FIELD_KEY,
   Helper,
   enumerateDaysBetweenDates,
   env,
@@ -438,6 +439,80 @@ class DashboardModel {
       return {
         header,
         data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toEventsTypeTableTop = () => {
+    const headerTable = ['text_keyword', 'txt_unique_visitors', 'txt_visitors'];
+    const accessor = [
+      BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME,
+      BI_EVENTS_TYPE_FIELD_KEY.UNIQUE_VISITOR,
+      BI_EVENTS_TYPE_FIELD_KEY.TOTAL_VISITOR,
+    ];
+    const largestValue = Math.max(
+      ...this.data.map((o) => o[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS])
+    );
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          allowSort: true,
+          width:
+            key === BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME
+              ? 250
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+              ? 220
+              : 170,
+          Cell: ({ cell, column, row }) => {
+            return (
+              <>
+                {column.id === BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME ? (
+                  <div
+                    className={
+                      'd-flex align-items-center text-capitalize py-sm px-20 position-relative'
+                    }
+                  >
+                    <div className="z-1">{cell?.value === '' ? 'Unknown' : cell?.value}</div>
+                  </div>
+                ) : (
+                  <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
+                )}
+              </>
+            );
+          },
+        };
+      });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
+
+      return {
+        header,
+        data: filteredData,
       };
     } else {
       return {

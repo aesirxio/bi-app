@@ -6,7 +6,7 @@ import PlatformsViewModel from './PlatformsViewModel/PlatformsViewModel';
 import { PlatformsViewModelContextProvider } from './PlatformsViewModel/PlatformsViewModelContextProvider';
 import Platform from './Platforms';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-const { observer } = require('mobx-react');
+import { observer } from 'mobx-react';
 
 const PlatformsContainers = observer(
   class PlatformsContainers extends Component {

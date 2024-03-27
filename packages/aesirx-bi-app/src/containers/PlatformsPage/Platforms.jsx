@@ -7,8 +7,7 @@ import Browers from './Component/Browers';
 import DateRangePicker from 'components/DateRangePicker';
 import Isps from './Component/Isps';
 import Divices from './Component/Divices';
-const { observer } = require('mobx-react');
-
+import { observer } from 'mobx-react';
 const Platform = observer(
   class Platform extends Component {
     static contextType = BiViewModelContext;
@@ -58,11 +57,8 @@ const Platform = observer(
                 <Divices />
               </div>
             </div>
-            <div className="col">
-            </div>
+            <div className="col"></div>
           </div>
-
-
         </div>
       );
     }

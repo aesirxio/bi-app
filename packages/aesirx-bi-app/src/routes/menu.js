@@ -83,7 +83,7 @@ const mainMenu = [
         text: 'txt_menu_outlinks',
         mini_text: 'txt_menu_outlinks',
         link: `/behavior/outlinks`,
-        page: 'behavior-oulinks',
+        page: 'behavior-outlinks',
       },
       {
         text: 'txt_menu_events',

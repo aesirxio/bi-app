@@ -26,6 +26,12 @@ const FlowListPage = lazy(() => import('../../containers/FlowListPage'));
 const FlowPage = lazy(() => import('../../containers/FlowDetailPage'));
 const RegionCountryPage = lazy(() => import('../../containers/RegionCountryPage'));
 const WoocommercePage = lazy(() => import('../../containers/WoocommercePage'));
+const AcquisitionPage = lazy(() => import('../../containers/AcquisitionPage'));
+const SearchEnginePage = lazy(() => import('../../containers/SearchEnginePage'));
+const AcquisitionCampaignPage = lazy(() => import('../../containers/AcquisitionCampaignPage'));
+const OutlinkPage = lazy(() => import('../../containers/OutlinkPage'));
+const UserFlowPage = lazy(() => import('../../containers/UserFlowPage'));
+const PlatformsPage = lazy(() => import('../../containers/PlatformsPage'));
 
 const biViewModel = new BiViewModel();
 
@@ -76,17 +82,35 @@ const RenderComponent = ({ link, ...props }) => {
     case 'visitors-flow':
       return <FlowListPage {...props} />;
 
+    case 'visitors-platforms':
+      return <PlatformsPage {...props} />;
+
     case 'behavior':
       return <VisitorsPage {...props} />;
 
     case 'behavior-events':
       return <EventsPage {...props} />;
 
+    case 'behavior-outlinks':
+      return <OutlinkPage {...props} />;
+
+    case 'behavior-users-flow':
+      return <UserFlowPage {...props} />;
+
     case 'behavior-events-generator':
       return <EventsPage {...props} />;
 
     case 'utm-tracking':
       return <UTMTrackingPage {...props} />;
+
+    case 'acquisition':
+      return <AcquisitionPage {...props} />;
+
+    case 'acquisition-search-engines':
+      return <SearchEnginePage {...props} />;
+
+    case 'acquisition-campaigns':
+      return <AcquisitionCampaignPage {...props} />;
 
     case 'utm-tracking-generator':
       return <UTMTrackingPage {...props} />;

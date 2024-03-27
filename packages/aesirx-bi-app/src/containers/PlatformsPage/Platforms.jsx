@@ -20,6 +20,18 @@ const Platform = observer(
         : null;
     }
 
+    componentDidMount = () => {
+      this.viewModel.platformsListViewModel.initialize({
+        'filter[domain]': this.context.biListViewModel.activeDomain,
+      });
+    };
+
+    componentDidUpdate = () => {
+      this.viewModel.platformsListViewModel.initialize({
+        'filter[domain]': this.context.biListViewModel.activeDomain,
+      });
+    };
+
     handleDateRangeChange = (startDate, endDate) => {
       this.viewModel.platformsListViewModel.handleFilterDateRange(
         startDate ?? endDate,
@@ -28,11 +40,12 @@ const Platform = observer(
     };
 
     render() {
+      const { t } = this.props;
       return (
         <div className="py-4 px-4 h-100 d-flex flex-column">
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
             <div className="position-relative">
-              <h2 className="fw-bold mb-8px">Platforms</h2>
+              <h2 className="fw-bold mb-8px">{t('txt_menu_platforms')}</h2>
             </div>
             <div className="position-relative">
               <DateRangePicker onChange={this.handleDateRangeChange} />

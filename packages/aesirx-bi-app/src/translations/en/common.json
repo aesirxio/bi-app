@@ -213,5 +213,11 @@
   "txt_outlinks": "Outlinks",
   "txt_menu_outlinks": "Outlinks",
   "txt_menu_users_flow": "Users Flow",
-  "txt_users_flow": "Users Flow"
+  "txt_users_flow": "Users Flow",
+  "txt_menu_platforms": "Platforms",
+  "text_click": "Click",
+  "text_keyword": "Keyword",
+  "text_campaign": "Campaign",
+  "txt_avg_page_session": "Avg. Page Session",
+  "txt_avg_session_duration": "Avg. Session Duration"
 }

@@ -8,14 +8,12 @@ import React, { Component, lazy } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 
-import { matchPath, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import OutlinkStore from './OutlinkStore/OutlinkStore';
 import OutlinkViewModel from './OutlinkViewModels/OutlinkViewModels';
 import { OutlinkViewModelContextProvider } from './OutlinkViewModels/OutlinkViewModelContextProvider';
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { Route } from 'react-router-dom';
-import ExportButton from 'components/ExportButton';
-import { history } from 'aesirx-uikit';
 
 const OutlinkPage = lazy(() => import('./Outlink'));
 
@@ -42,14 +40,14 @@ const OutlinkContainer = observer(
     render() {
       const { integration = false } = this.props;
       const { integrationLink, activeDomain } = this.biListViewModel;
-      const matchOutlink = matchPath(history.location.pathname, {
-        path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/behavior/outlinks',
-        exact: true,
-        strict: false,
-      });
-      const dataExport =
-        matchOutlink?.isExact ||
-        this?.OutlinkViewModel?.outlinkListViewModel?.pagesTableData?.list?.data;
+      // const matchOutlink = matchPath(history.location.pathname, {
+      //   path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/behavior/outlinks',
+      //   exact: true,
+      //   strict: false,
+      // });
+      // const dataExport =
+      //   matchOutlink?.isExact ||
+      //   this?.OutlinkViewModel?.outlinkListViewModel?.pagesTableData?.list?.data;
 
       return (
         <OutlinkViewModelContextProvider viewModel={this.OutlinkViewModel}>

@@ -8,14 +8,12 @@ import React, { Component, lazy } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 
-import { matchPath, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import UserFlowStore from './UserFlowStore/UserFlowStore';
 import UserFlowViewModel from './UserFlowViewModels/UserFlowViewModels';
 import { UserFlowViewModelContextProvider } from './UserFlowViewModels/UserFlowViewModelContextProvider';
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { Route } from 'react-router-dom';
-import ExportButton from 'components/ExportButton';
-import { history } from 'aesirx-uikit';
 
 const UserFlowPage = lazy(() => import('./UserFlow'));
 
@@ -42,14 +40,14 @@ const UserFlowContainer = observer(
     render() {
       const { integration = false } = this.props;
       const { integrationLink, activeDomain } = this.biListViewModel;
-      const matchUserFlow = matchPath(history.location.pathname, {
-        path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/behavior/users-flow',
-        exact: true,
-        strict: false,
-      });
-      const dataExport =
-        matchUserFlow?.isExact ||
-        this?.UserFlowViewModel?.userFlowListViewModel?.pagesTableData?.list?.data;
+      // const matchUserFlow = matchPath(history.location.pathname, {
+      //   path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/behavior/users-flow',
+      //   exact: true,
+      //   strict: false,
+      // });
+      // const dataExport =
+      //   matchUserFlow?.isExact ||
+      //   this?.UserFlowViewModel?.userFlowListViewModel?.pagesTableData?.list?.data;
 
       return (
         <UserFlowViewModelContextProvider viewModel={this.UserFlowViewModel}>

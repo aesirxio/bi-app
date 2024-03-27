@@ -9,9 +9,6 @@ import queryString from 'query-string';
 import { Sankey, Tooltip } from 'recharts';
 import Node from './Component/Node';
 import Link from './Component/Link';
-import { Col, Row } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 const UserFlowPage = observer(
   class UserFlowPage extends Component {

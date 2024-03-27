@@ -11,9 +11,13 @@ import CountryModel from '../CountryModel/CountryModel';
 class CountryListViewModel {
   countriesStore = null;
   status = PAGE_STATUS.READY;
+  statusTopRegionTable = PAGE_STATUS.READY;
+  statusTopCitiesTable = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   countriesData = null;
   countriesTableData = null;
+  regionTableData = null;
+  citiesTableData = null;
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
   constructor(countriesStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -23,6 +27,8 @@ class CountryListViewModel {
 
   initialize = (dataFilter, dateFilter) => {
     this.getCountries(dataFilter, dateFilter);
+    this.getRegion(dataFilter, dateFilter);
+    this.getCities(dataFilter, dateFilter);
   };
 
   getCountries = (
@@ -48,6 +54,52 @@ class CountryListViewModel {
     );
   };
 
+  getRegion = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
+    this.statusTopRegionTable = PAGE_STATUS.LOADING;
+    this.sortByRegion = sortBy;
+    this.dataFilterRegion = {
+      page_size: '8',
+      ...this.dataFilterRegion,
+      ...dataFilter,
+      ...this.sortByRegion,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.countriesStore.getRegion(
+      this.dataFilterRegion,
+      dateRangeFilter,
+      this.callbackOnRegionSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getCities = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
+    this.statusToCitiesTable = PAGE_STATUS.LOADING;
+    this.sortByCities = sortBy;
+    this.dataFilterCities = {
+      page_size: '8',
+      ...this.dataFilterCities,
+      ...dataFilter,
+      ...this.sortByCities,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.countriesStore.getCities(
+      this.dataFilterCities,
+      dateRangeFilter,
+      this.callbackOnCitiesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   handleFilter = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
@@ -56,6 +108,18 @@ class CountryListViewModel {
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnCountriesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterRegion = async (dataFilter) => {
+    this.statusTopRegionTable = PAGE_STATUS.LOADING;
+    this.dataFilterRegion = { ...this.dataFilterRegion, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.dashboardStore.getReferer(
+      this.dataFilterRegion,
+      dateRangeFilter,
+      this.callbackOnRegionSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -87,6 +151,40 @@ class CountryListViewModel {
       }
     } else {
       this.status = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+  callbackOnRegionSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        this.statusTopRegionTable = PAGE_STATUS.READY;
+        const transformData = new CountryModel(data.list, this.globalStoreViewModel);
+        this.regionTableData = {
+          list: transformData.toRegionTableTopDashboard(),
+          pagination: data.pagination,
+        };
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.statusTopRegionTable = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+  callbackOnCitiesSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        this.statusTopCitiesTable = PAGE_STATUS.READY;
+        const transformData = new CountryModel(data.list, this.globalStoreViewModel);
+        this.citiesTableData = {
+          list: transformData.toCitiesTableTopDashboard(),
+          pagination: data.pagination,
+        };
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.statusTopCitiesTable = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

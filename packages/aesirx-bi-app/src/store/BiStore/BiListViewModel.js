@@ -85,9 +85,13 @@ class BiListViewModel {
         ...queryString.parse(location.search),
         ...{ page: 'aesirx-bi-' + link },
       };
+      console.log(
+        'unescape(queryString.stringify(search))',
+        unescape(queryString.stringify(search))
+      );
       history.push({
         ...location,
-        ...{ search: queryString.stringify(search) },
+        ...{ search: unescape(queryString.stringify(search)) },
       });
     }
     this.integrationLink = link;

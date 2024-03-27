@@ -366,24 +366,36 @@ class WoocommerceListViewModel {
       this.status = PAGE_STATUS.READY;
       if (attr === 'cart') {
         this.statusTopProductCartTable = PAGE_STATUS.READY;
-        const transformData = new WoocoomerceTableModel(data[0]?.values, this.globalStoreViewModel);
+        const transformData = new WoocoomerceTableModel(
+          data?.list[0]?.values,
+          this.globalStoreViewModel
+        );
         this.productCartTableData = {
           list: transformData?.toProductCartTableTop(),
           pagination: data.pagination,
         };
       } else if (attr === 'search') {
         this.statusTopProductSearchTable = PAGE_STATUS.READY;
-        const transformData = new WoocoomerceTableModel(data[0]?.values, this.globalStoreViewModel);
+        const transformData = new WoocoomerceTableModel(
+          data?.list[0]?.values,
+          this.globalStoreViewModel
+        );
         this.productSearchTableData = {
           list: transformData?.toProductSearchTableTop(),
           pagination: data.pagination,
         };
       } else if (attr === 'checkout') {
-        const transformData = new WoocoomerceTableModel(data[0]?.values, this.globalStoreViewModel);
+        const transformData = new WoocoomerceTableModel(
+          data?.list[0]?.values,
+          this.globalStoreViewModel
+        );
         this.dataCheckout = transformData?.toWoocoomerceTableCheckoutTop();
       } else if (attr === 'view_product') {
         this.statusTopProductViewTable = PAGE_STATUS.READY;
-        const transformData = new WoocoomerceTableModel(data[0]?.values, this.globalStoreViewModel);
+        const transformData = new WoocoomerceTableModel(
+          data?.list[0]?.values,
+          this.globalStoreViewModel
+        );
         this.productViewTableData = {
           list: transformData?.toViewProductTableTop(),
           pagination: data.pagination,

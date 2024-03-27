@@ -5,7 +5,6 @@ import Table from '../Table';
 import PAGE_STATUS from '../../constants/PageStatus';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { Col, Form, Row } from 'react-bootstrap';
 const BehaviorTable = ({
   data: { header = [], data = [] },
   pagination,
@@ -17,7 +16,7 @@ const BehaviorTable = ({
   sortAPI = true,
   handleSort,
   sortBy,
-  handleSearch,
+  // handleSearch,
   limit,
 }) => {
   console.log('limitlimitlimit', limit);
@@ -42,9 +41,9 @@ const BehaviorTable = ({
   );
 
   const dataTable = React.useMemo(() => data, [data]);
-  const searchFunc = _.debounce((e) => {
-    handleSearch && handleSearch(e?.target?.value);
-  }, 500);
+  // const searchFunc = _.debounce((e) => {
+  //   handleSearch && handleSearch(e?.target?.value);
+  // }, 500);
   return (
     <div className="h-100 ChartWrapper position-relative">
       {/* {handleSearch && (

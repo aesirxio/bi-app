@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { withPlatformsViewModel } from '../PlatformsViewModel/PlatformsViewModelContextProvider';
-import { Nav, Tab } from 'react-bootstrap';
+import { Tab } from 'react-bootstrap';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from '../../../components/ComponentNoData';
@@ -54,7 +54,6 @@ const Browsers = observer(
                   <Tab.Container id="countries-tab" defaultActiveKey="browser">
                     <div className="d-flex justify-content-between align-items-center mb-2">
                       <h4 className="me-24 mb-0 fw-semibold fs-5">{t('txt_browser')}</h4>
-                      
                     </div>
                     <Tab.Content className="h-100">
                       <Tab.Pane eventKey="browser">

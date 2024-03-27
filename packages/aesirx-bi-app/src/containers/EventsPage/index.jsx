@@ -115,7 +115,7 @@ const ComponentToPrint = observer(
           ) : (
             <>
               <Route exact path={['/behavior/events', '/bi/behavior/events']}>
-                <Events />
+                <Events {...this.props} />
               </Route>
               <Route exact path={['/behavior/events-generator']}>
                 <Generator />

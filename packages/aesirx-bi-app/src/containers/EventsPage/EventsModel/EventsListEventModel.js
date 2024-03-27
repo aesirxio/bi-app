@@ -234,9 +234,28 @@ class EventsListModel {
           accessor: key,
           width: key === BI_VISITOR_FIELD_KEY.UUID ? 10 : 170,
           allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
-          Cell: ({ cell, column, row }) => {
+          Cell: ({ cell, column }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
-              return <div className={'px-3'}>{cell?.value ?? null}</div>;
+              return (
+                <>
+                  {integration ? (
+                    <a
+                      href="#"
+                      onClick={(e) => this.handleChangeLink(e, `behavior-events&id=${cell?.value}`)}
+                      className={'px-3 text-secondary-50'}
+                    >
+                      <span>{cell?.value ?? null}</span>
+                    </a>
+                  ) : (
+                    <NavLink
+                      to={`/behavior/events/${cell?.value}`}
+                      className={'px-3 text-secondary-50'}
+                    >
+                      {cell?.value ?? null}
+                    </NavLink>
+                  )}
+                </>
+              );
             } else if (column.id === BI_VISITOR_FIELD_KEY.UUID) {
               return <></>;
             } else if (

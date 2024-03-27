@@ -12,6 +12,7 @@ import { BiViewModelContext } from '../../store/BiStore/BiViewModelContextProvid
 import moment from 'moment';
 import TopTabsBehavior from './Component/TopTabsBehavior';
 import OverviewComponent from '../Dashboard/Component/Overview';
+import queryString from 'query-string';
 
 const VisitorsBehaviorPage = observer(
   class VisitorsBehaviorPage extends Component {
@@ -25,20 +26,29 @@ const VisitorsBehaviorPage = observer(
       this.visitorsListViewModel = this.viewModel
         ? this.viewModel.getVisitorsListViewModel()
         : null;
+      this.params = queryString.parse(props.location.search);
     }
     componentDidMount = () => {
-      this.visitorsListViewModel.initializeBehavior({
-        'filter[domain]': this.context.biListViewModel.activeDomain,
-      });
+      this.visitorsListViewModel.initializeBehavior(
+        {
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        },
+        {},
+        { ...(this.params?.pagination && { page: this.params?.pagination }) }
+      );
     };
     componentDidUpdate = (prevProps) => {
       if (
         this.props.location !== prevProps.location ||
         this.props.activeDomain !== prevProps.activeDomain
       ) {
-        this.visitorsListViewModel.initializeBehavior({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        });
+        this.visitorsListViewModel.initializeBehavior(
+          {
+            'filter[domain]': this.context.biListViewModel.activeDomain,
+          },
+          {},
+          { ...(this.params?.pagination && { page: this.params?.pagination }) }
+        );
       }
     };
     handleDateRangeChange = (startDate, endDate) => {
@@ -156,6 +166,7 @@ const VisitorsBehaviorPage = observer(
             listViewModel={this.visitorsListViewModel}
             handleSort={this.handleSort}
             handleSearch={this.handleSearch}
+            {...this.props}
           />
         </div>
       );

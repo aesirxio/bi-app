@@ -8,6 +8,8 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import EventsListModel from '../EventsModel/EventsListEventModel';
+import queryString from 'query-string';
+
 class EventsListViewModel {
   eventsStore = null;
   status = PAGE_STATUS.READY;
@@ -119,6 +121,14 @@ class EventsListViewModel {
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
     );
+    this.globalStoreViewModel.dataFilter = { pagination: this.dataFilterTable?.page };
+    if (dataFilter?.page) {
+      const search = {
+        ...queryString.parse(location.search),
+        ...{ pagination: dataFilter?.page },
+      };
+      window.history.replaceState('', '', `/behavior/events?${queryString.stringify(search)}`);
+    }
   };
 
   callbackOnErrorHandler = (error) => {
@@ -159,7 +169,7 @@ class EventsListViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.status = PAGE_STATUS.READY;
-        this.attributeData = data;
+        this.attributeData = data?.list;
       }
     } else {
       this.status = PAGE_STATUS.ERROR;

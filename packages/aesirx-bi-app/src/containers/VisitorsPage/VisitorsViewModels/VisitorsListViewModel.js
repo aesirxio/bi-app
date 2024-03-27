@@ -13,6 +13,7 @@ import CityModel from '../CityModel/CityModel';
 import BrowserModel from '../BrowserModel/BrowserModel';
 import LanguageModel from '../LanguagesModel/LanguageModel';
 import PageModel from '../PagesModel/PageModel';
+import queryString from 'query-string';
 class VisitorsListViewModel {
   visitorsStore = null;
   status = PAGE_STATUS.READY;
@@ -53,10 +54,10 @@ class VisitorsListViewModel {
     this.getLanguages(dataFilter, dateFilter);
   };
 
-  initializeBehavior = (dataFilter, dateFilter) => {
+  initializeBehavior = (dataFilter, dateFilter, page) => {
     this.getVisitors(dataFilter, dateFilter);
     this.getMetrics(dataFilter, dateFilter);
-    this.getPages(dataFilter, dateFilter);
+    this.getPages(dataFilter, dateFilter, page, {}, page);
   };
 
   getMetrics = (dataFilter, dateFilter) => {
@@ -217,7 +218,7 @@ class VisitorsListViewModel {
     );
   };
 
-  getPages = async (dataFilter, dateFilter, sortBy = {}, search = {}) => {
+  getPages = async (dataFilter, dateFilter, sortBy = {}, search = {}, page = {}) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
     this.sortBy = sortBy;
     this.search = search;
@@ -227,6 +228,7 @@ class VisitorsListViewModel {
       ...dataFilter,
       ...this.sortBy,
       ...this.search,
+      ...page,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -320,6 +322,14 @@ class VisitorsListViewModel {
       this.callbackOnPagesSuccessHandler,
       this.callbackOnErrorHandler
     );
+    this.globalStoreViewModel.dataFilter = { pagination: this.dataFilterPages?.page };
+    if (dataFilter?.page) {
+      const search = {
+        ...queryString.parse(location.search),
+        ...{ pagination: dataFilter?.page },
+      };
+      window.history.replaceState('', '', `/behavior?${queryString.stringify(search)}`);
+    }
   };
 
   handleFilterDateRange = (startDate, endDate) => {
@@ -466,7 +476,7 @@ class VisitorsListViewModel {
         this.statusTopTable = PAGE_STATUS.READY;
         const transformData = new PageModel(data.list, this.globalStoreViewModel);
         this.pagesTableData = {
-          list: transformData.toPagesTableTop(),
+          list: transformData,
           pagination: data.pagination,
         };
       }

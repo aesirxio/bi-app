@@ -7,6 +7,8 @@ import { useEventsViewModel } from './EventsViewModels/EventsViewModelContextPro
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import BehaviorTable from '../../components/BehaviorTable';
+import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
 const Events = observer((props) => {
   const { t } = useTranslation();
@@ -26,17 +28,18 @@ const Events = observer((props) => {
   const {
     biListViewModel: { activeDomain },
   } = useBiViewModel();
-
+  console.log('props', props);
   const handleDateRangeChange = useCallback((startDate, endDate) => {
     handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
   }, []);
-
+  const params = queryString.parse(props.location.search);
   useEffect(() => {
     const execute = async () => {
       getVisitor(
         {
           'filter[domain]': activeDomain,
           'filter_not[event_name]': 'visit',
+          ...(params?.pagination && { page: params?.pagination }),
         },
         {},
         { 'sort[]': 'start', 'sort_direction[]': 'desc' }
@@ -139,4 +142,4 @@ const Events = observer((props) => {
   );
 });
 
-export default Events;
+export default withRouter(Events);

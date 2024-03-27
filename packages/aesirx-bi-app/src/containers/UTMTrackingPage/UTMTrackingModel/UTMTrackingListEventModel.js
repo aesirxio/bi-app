@@ -214,7 +214,7 @@ class UTMTrackingEventModel {
                   {integration ? (
                     <a
                       href="#"
-                      onClick={(e) => this.handleChangeLink(e, `flow/${cell?.value}`)}
+                      onClick={(e) => this.handleChangeLink(e, `flow&id=${cell?.value}`)}
                       className={`px-3`}
                     >
                       <span>
@@ -226,7 +226,7 @@ class UTMTrackingEventModel {
                       </span>
                     </a>
                   ) : (
-                    <NavLink to={`/flow/${cell?.value}`} className={'px-3'}>
+                    <NavLink to={`/flow/${cell?.value}`} className={'px-3 text-secondary-50'}>
                       {
                         findUUID?.[BI_VISITOR_FIELD_KEY.ATTRIBUTES].find((obj) => {
                           return obj?.name === 'utm_id';

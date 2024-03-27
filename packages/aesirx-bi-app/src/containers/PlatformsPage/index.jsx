@@ -3,10 +3,10 @@ import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import { PlatformsStore } from './PlatformsStore/PlatformsStore';
 import PlatformsViewModel from './PlatformsViewModel/PlatformsViewModel';
-import { PlatformsViewModelContextProvider, withPlatformsViewModel } from './PlatformsViewModel/PlatformsViewModelContextProvider';
+import { PlatformsViewModelContextProvider } from './PlatformsViewModel/PlatformsViewModelContextProvider';
 import Platform from './Platforms';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-const { observer } = require('mobx-react');
+import { observer } from 'mobx-react';
 
 const PlatformsContainers = observer(
   class PlatformsContainers extends Component {
@@ -17,16 +17,14 @@ const PlatformsContainers = observer(
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
       this.biListViewModel = this.viewModel ? this.viewModel.getBiListViewModel() : null;
-      
+
       this.PlatformsStore = new PlatformsStore();
       this.PlatformsViewModel = new PlatformsViewModel(this.PlatformsStore, this.biListViewModel);
     }
 
     render() {
       return (
-        <PlatformsViewModelContextProvider
-          viewModel={this.PlatformsViewModel}
-        >
+        <PlatformsViewModelContextProvider viewModel={this.PlatformsViewModel}>
           <ComponentToPrint ref={(el) => (this.componentRef = el)} />
         </PlatformsViewModelContextProvider>
       );

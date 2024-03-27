@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import { BI_FLOW_LIST_FIELD_KEY, Helper } from 'aesirx-lib';
+import { BI_FLOW_LIST_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 
@@ -19,8 +19,13 @@ class FlowListModel {
   toRaw = () => {
     return this.data;
   };
-
-  toFlowListTable = () => {
+  handleChangeLink = (e, link) => {
+    e.preventDefault();
+    if (link) {
+      this.globalViewModel.setIntegrationLink(link);
+    }
+  };
+  toFlowListTable = (integration) => {
     const headerTable = [
       'txt_time_utc',
       'txt_locale',
@@ -95,9 +100,22 @@ class FlowListModel {
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.UUID) {
               return (
                 <>
-                  <NavLink to={`/flow/${cell?.value}`} className={'btn btn-light px-3 py-1 fs-sm'}>
-                    View Detail
-                  </NavLink>
+                  {integration ? (
+                    <a
+                      href="#"
+                      onClick={(e) => this.handleChangeLink(e, `flow&id=${cell?.value}`)}
+                      className={'btn btn-light px-3 py-1 fs-sm'}
+                    >
+                      <span> View Detail</span>
+                    </a>
+                  ) : (
+                    <NavLink
+                      to={`/flow/${cell?.value}`}
+                      className={'btn btn-light px-3 py-1 fs-sm'}
+                    >
+                      View Detail
+                    </NavLink>
+                  )}
                 </>
               );
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.URL && cell?.value) {
@@ -107,6 +125,7 @@ class FlowListModel {
                 <a
                   href={cell?.value}
                   target="_blank"
+                  rel="noreferrer"
                   className={'px-3 d-inline-block text-secondary-50'}
                 >
                   {displayUrl?.length > 53 ? displayUrl?.slice(0, 53) + '...' : displayUrl}

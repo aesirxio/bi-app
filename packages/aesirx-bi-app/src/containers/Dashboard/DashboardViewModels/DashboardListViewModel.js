@@ -422,7 +422,7 @@ class DashboardListViewModel {
         this.statusTopPageTable = PAGE_STATUS.READY;
         const transformData = new PageModel(data.list, this.globalStoreViewModel);
         this.pagesTableData = {
-          list: transformData.toPagesTableTopDashboard(),
+          list: transformData?.toPagesTableTopDashboard(),
           pagination: data.pagination,
         };
       }

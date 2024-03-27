@@ -4,8 +4,6 @@ import { withFlowListViewModel } from './FlowListViewModels/FlowListViewModelCon
 import { observer } from 'mobx-react';
 import { BiViewModelContext } from '../../store/BiStore/BiViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
-import GeoChart from '../../components/GeoChart';
-import { Col, Row } from 'react-bootstrap';
 import DateRangePicker from '../../components/DateRangePicker';
 import PAGE_STATUS from '../../constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';
@@ -13,6 +11,7 @@ import FlowListTable from './Component/FlowListTable';
 import ComponentNoData from '../../components/ComponentNoData';
 import { env } from 'aesirx-lib';
 import 'flag-icons/sass/flag-icons.scss';
+import queryString from 'query-string';
 
 const FlowList = observer(
   class FlowList extends Component {
@@ -26,6 +25,7 @@ const FlowList = observer(
       this.flowListListViewModel = this.viewModel
         ? this.viewModel.getFlowListListViewModel()
         : null;
+      this.params = queryString.parse(props.location.search);
     }
 
     componentDidUpdate = (prevProps) => {
@@ -33,6 +33,7 @@ const FlowList = observer(
         this.flowListListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
           'with[]': 'events',
+          ...(this.params?.pagination && { page: this.params?.pagination }),
         });
       }
 
@@ -40,6 +41,7 @@ const FlowList = observer(
         this.flowListListViewModel.initialize({
           'filter[domain]': this.context.biListViewModel.activeDomain,
           'with[]': 'events',
+          ...(this.params?.pagination && { page: this.params?.pagination }),
         });
       }
     };
@@ -48,6 +50,7 @@ const FlowList = observer(
       this.flowListListViewModel.initialize({
         'filter[domain]': this.context.biListViewModel.activeDomain,
         'with[]': 'events',
+        ...(this.params?.pagination && { page: this.params?.pagination }),
       });
     };
 
@@ -89,7 +92,9 @@ const FlowList = observer(
                 <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
               ) : this.flowListListViewModel?.countriesTableData?.list ? (
                 <FlowListTable
-                  data={this.flowListListViewModel?.countriesTableData?.list}
+                  data={this.flowListListViewModel?.countriesTableData?.list?.toFlowListTable(
+                    this.props.integration
+                  )}
                   pagination={this.flowListListViewModel?.countriesTableData?.pagination}
                   selectPage={async (value) => {
                     await this.flowListListViewModel.handleFilterFlowList({ page: value });

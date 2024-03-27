@@ -3,6 +3,7 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import moment from 'moment';
 import { notify } from 'aesirx-uikit';
 import platformsModel from '../PlatformsModel/PlatformsModel';
+import PageModel from 'containers/VisitorsPage/PagesModel/PageModel';
 
 class PlatformsListViewModel {
   platformsStore = null;

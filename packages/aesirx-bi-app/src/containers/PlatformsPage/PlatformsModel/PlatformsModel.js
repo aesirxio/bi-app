@@ -275,7 +275,7 @@ class platformsModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
-          Cell: ({ cell, column, row }) => {
+          Cell: ({ cell, column }) => {
             console.log(column.id, cell.value);
 
             return (
@@ -343,7 +343,7 @@ class platformsModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
-          Cell: ({ cell, column, row }) => {
+          Cell: ({ cell, column }) => {
             return (
               <>
                 {column.id === BI_ISPS_FIELD_KEY.ISP ? (

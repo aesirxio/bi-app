@@ -1,14 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component, lazy } from 'react';
 import { withTranslation } from 'react-i18next';
-import FlowList from './FlowList';
 import { withBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react';
-import { withRouter } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import FlowListStore from './FlowListStore/FlowListStore';
 import FlowListViewModel from './FlowListViewModels/FlowViewModel';
 import { FlowListViewModelContextProvider } from './FlowListViewModels/FlowListViewModelContextProvider';
 import { history } from 'aesirx-uikit';
 import ExportButton from 'components/ExportButton';
+
+const FlowList = lazy(() => import('./FlowList'));
+
+const RenderComponent = ({ link, ...props }) => {
+  switch (link) {
+    case 'visitors-flow':
+      return <FlowList {...props} />;
+  }
+};
 
 const FlowListContainer = observer(
   class FlowListContainer extends Component {
@@ -30,6 +38,8 @@ const FlowListContainer = observer(
       }
     };
     render() {
+      const { integration = false } = this.props;
+      const { integrationLink, activeDomain } = this.biListViewModel;
       return (
         <FlowListViewModelContextProvider viewModel={this.flowListViewModel}>
           <ExportButton
@@ -39,7 +49,12 @@ const FlowListContainer = observer(
             componentRef={this.componentRef}
             sectionName={'location'}
           />
-          <ComponentToPrint ref={(el) => (this.componentRef = el)} />
+          <ComponentToPrint
+            ref={(el) => (this.componentRef = el)}
+            integration={integration}
+            integrationLink={integrationLink}
+            activeDomain={activeDomain}
+          />
         </FlowListViewModelContextProvider>
       );
     }
@@ -54,7 +69,19 @@ const ComponentToPrint = observer(
     render() {
       return (
         <div className="aesirxui">
-          <FlowList {...this.props} />
+          {this.props.integration ? (
+            <RenderComponent
+              link={this.props.integrationLink}
+              activeDomain={this.props.activeDomain}
+              {...this.props}
+            />
+          ) : (
+            <>
+              <Route exact path={['/visitors/flow', '/bi/visitors/flow']}>
+                <FlowList {...this.props} />
+              </Route>
+            </>
+          )}
         </div>
       );
     }

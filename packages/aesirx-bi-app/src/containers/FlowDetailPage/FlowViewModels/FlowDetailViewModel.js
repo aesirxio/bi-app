@@ -5,7 +5,6 @@
 
 import { notify } from 'aesirx-uikit';
 import PAGE_STATUS from '../../../constants/PageStatus';
-import EventsListModel from '../../EventsPage/EventsModel/EventsListEventModel';
 import { makeAutoObservable } from 'mobx';
 import FlowModel from '../FlowModel/FlowModel';
 class FlowDetailViewModel {

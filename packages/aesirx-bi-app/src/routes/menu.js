@@ -9,6 +9,33 @@ const mainMenu = [
     page: 'dashboard',
   },
   {
+    text: 'txt_menu_acquisition',
+    link: `/acquisition`,
+    icons: env.PUBLIC_URL + '/assets/images/acquisition.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/acquisition.svg',
+    submenu: [
+      {
+        text: 'txt_menu_overview',
+        mini_text: 'txt_menu_acquisition',
+        link: `/acquisition`,
+        page: 'acquisition',
+      },
+      {
+        text: 'txt_menu_search_engines',
+        mini_text: 'txt_menu_search_engines',
+        link: `/acquisition/search-engines`,
+        page: 'acquisition-search-engines',
+      },
+      {
+        text: 'txt_menu_campaigns',
+        mini_text: 'txt_menu_campaigns',
+        link: `/acquisition/campaigns`,
+        page: 'acquisition-campaigns',
+      },
+    ],
+  },
+
+  {
     text: 'txt_menu_visitors',
     link: `/visitors`,
     icons: env.PUBLIC_URL + '/assets/images/visitors.svg',
@@ -53,10 +80,22 @@ const mainMenu = [
         page: 'behavior',
       },
       {
+        text: 'txt_menu_outlinks',
+        mini_text: 'txt_menu_outlinks',
+        link: `/behavior/outlinks`,
+        page: 'behavior-outlinks',
+      },
+      {
         text: 'txt_menu_events',
         mini_text: 'txt_menu_events',
         link: `/behavior/events`,
         page: 'behavior-events',
+      },
+      {
+        text: 'txt_menu_users_flow',
+        mini_text: 'txt_menu_users_flow',
+        link: `/behavior/users-flow`,
+        page: 'behavior-users-flow',
       },
     ],
   },

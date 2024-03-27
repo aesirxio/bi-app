@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { withPlatformsViewModel } from '../PlatformsViewModel/PlatformsViewModelContextProvider';
-import { Nav, Tab } from 'react-bootstrap';
+import { Tab } from 'react-bootstrap';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import ComponentNoData from '../../../components/ComponentNoData';

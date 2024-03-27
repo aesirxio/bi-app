@@ -12,6 +12,7 @@ const AcquisitionDetail = lazy(() => import('../containers/AcquisitionDetail'));
 const SearchEnginePage = lazy(() => import('../containers/SearchEnginePage'));
 const AcquisitionCampaignPage = lazy(() => import('../containers/AcquisitionCampaignPage'));
 const VisitorsPage = lazy(() => import('../containers/VisitorsPage'));
+const OutlinkPage = lazy(() => import('../containers/OutlinkPage'));
 const RevenuePage = lazy(() => import('../containers/RevenuePage'));
 const UTMTrackingPage = lazy(() => import('../containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('../containers/EventsPage'));
@@ -68,6 +69,12 @@ const mainRoutes = [
     exact: true,
     page: ['acquisition-campaigns'],
     main: () => <AcquisitionCampaignPage />,
+  },
+  {
+    path: ['/behavior/outlinks'],
+    exact: true,
+    page: ['behavior/outlinks'],
+    main: () => <OutlinkPage />,
   },
   {
     path: ['/behavior/detail'],

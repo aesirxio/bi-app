@@ -32,7 +32,7 @@ const TopTableComponent = (props) => {
         let tooltip = '';
         switch (item?.accessor) {
           case BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS:
-            tooltip = 'txt_tooltip_visitors';
+            tooltip = 'txt_tooltip_outlink';
             break;
           case BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS:
             tooltip = 'txt_tooltip_page_views';
@@ -56,10 +56,11 @@ const TopTableComponent = (props) => {
         return {
           ...item,
           className: `px-15 py-16 fs-sm fw-semibold border-bottom border-gray-800 align-middle ${
-            index !== 0 ? 'rounded-top-end-3 text-end' : ''
-          } ${index === 0 ? 'rounded-top-start-3' : ''}`,
+            index !== 1 ? 'rounded-top-end-3 text-end' : ''
+          } ${index === 1 ? 'rounded-top-start-3' : ''}`,
           width: item.width ? item.width : index === 0 ? 'auto' : 170,
           allowSort: item?.allowSort || false,
+          subRows: item?.subRows ?? [],
           Header: (
             <span className="align-middle text-gray-900 fw-medium">
               {t(item.Header)}
@@ -81,7 +82,7 @@ const TopTableComponent = (props) => {
     [data?.header]
   );
   const dataTable = React.useMemo(() => data?.data, [data?.data]);
-
+  console.log('dataTabledataTable', dataTable);
   return (
     <>
       {status === PAGE_STATUS.LOADING ? (
@@ -103,6 +104,10 @@ const TopTableComponent = (props) => {
           sortAPI={sortAPI}
           sortAPIHandle={handleSort}
           sortBy={sortBy}
+          listViewModel={props.listViewModel}
+          hasSubRow={true}
+          status={status}
+          idKey={'urls'}
         />
       ) : (
         <div className="position-relative ChartWrapper bg-white rounded-3 shadow-sm">

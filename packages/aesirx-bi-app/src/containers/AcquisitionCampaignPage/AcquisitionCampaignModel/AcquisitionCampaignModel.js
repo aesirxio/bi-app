@@ -177,21 +177,21 @@ class AcquisitionCampaignModel {
   toEventTableAcquisitionCampaign = () => {
     const headerTable = [
       'txt_campaign',
-      'txt_visitors',
-      'txt_unique_visitors',
+      'txt_page_views',
+      'txt_unique_page_views',
       'txt_bounce_rate',
       'txt_page_session',
       'txt_acg_session_duration',
     ];
     const accessor = [
       'value',
-      BI_SUMMARY_FIELD_KEY.TOTAL_NUMBER_OF_VISITORS,
-      BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.BOUNCE_RATE,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION,
       BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION,
     ];
-    if (this.data.length) {
+    if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
           Header: headerTable[index],

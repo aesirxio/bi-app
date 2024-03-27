@@ -80,6 +80,12 @@ const mainMenu = [
         page: 'behavior',
       },
       {
+        text: 'txt_menu_outlinks',
+        mini_text: 'txt_menu_outlinks',
+        link: `/behavior/outlinks`,
+        page: 'behavior-oulinks',
+      },
+      {
         text: 'txt_menu_events',
         mini_text: 'txt_menu_events',
         link: `/behavior/events`,

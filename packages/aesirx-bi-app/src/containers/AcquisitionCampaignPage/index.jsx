@@ -10,7 +10,6 @@ import { history } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 import ExportButton from 'components/ExportButton';
 const AcquisitionCampaign = lazy(() => import('./AcquisitionCampaign'));
-const Generator = lazy(() => import('./Generator'));
 
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
@@ -92,9 +91,6 @@ const ComponentToPrint = observer(
             <>
               <Route exact path={['/acquisition/campaigns', '/bi/acquisition-campaigns']}>
                 <AcquisitionCampaign />
-              </Route>
-              <Route exact path={['/acquisition/campaigns/generator', '/bi/acquisition-campaigns']}>
-                <Generator />
               </Route>
             </>
           )}

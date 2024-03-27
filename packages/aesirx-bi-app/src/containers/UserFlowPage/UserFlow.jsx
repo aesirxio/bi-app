@@ -93,7 +93,7 @@ const UserFlowPage = observer(
             </div>
           </div>
           <div className="bg-white rounded-3 shadow-sm h-100 position-relative ChartWrapper">
-            {this.userFlowListViewModel?.userFlowTableData?.list?.data ? (
+            {this.userFlowListViewModel?.userFlowTableData?.list?.data?.nodes?.length ? (
               <>
                 {/* {this.userFlowListViewModel?.userFlowTableData?.list?.data?.nodes?.length ? (
                   <Row className="gx-0">

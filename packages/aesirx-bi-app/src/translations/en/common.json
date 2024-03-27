@@ -211,5 +211,7 @@
   "txt_campaign_overview": "Campaign Overview",
   "txt_city": "City",
   "txt_outlinks": "Outlinks",
-  "txt_menu_outlinks": "Outlinks"
+  "txt_menu_outlinks": "Outlinks",
+  "txt_menu_users_flow": "Users Flow",
+  "txt_users_flow": "Users Flow"
 }

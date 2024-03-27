@@ -91,6 +91,12 @@ const mainMenu = [
         link: `/behavior/events`,
         page: 'behavior-events',
       },
+      {
+        text: 'txt_menu_users_flow',
+        mini_text: 'txt_menu_users_flow',
+        link: `/behavior/users-flow`,
+        page: 'behavior-users-flow',
+      },
     ],
   },
   {

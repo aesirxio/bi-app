@@ -10,7 +10,6 @@ import moment from 'moment';
 import DashboardModel from '../DashboardModel/DashboardModel';
 import CountryModel from '../../RegionCountryPage/CountryModel/CountryModel';
 import PageModel from '../../VisitorsPage/PagesModel/PageModel';
-import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 class DashboardListViewModel {
   dashboardStore = null;
   status = PAGE_STATUS.READY;
@@ -387,7 +386,7 @@ class DashboardListViewModel {
   callbackOnAttributesSuccessHandler = (data) => {
     if (data) {
       if (data?.message !== 'canceled') {
-        const transformFormat = data?.list?.map((item, index) => {
+        const transformFormat = data?.list?.map((item) => {
           return item.values[0];
         });
         this.dataAttributesType = transformFormat;

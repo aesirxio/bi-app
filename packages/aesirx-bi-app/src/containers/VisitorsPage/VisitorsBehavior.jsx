@@ -13,6 +13,7 @@ import moment from 'moment';
 import TopTabsBehavior from './Component/TopTabsBehavior';
 import OverviewComponent from '../Dashboard/Component/Overview';
 import queryString from 'query-string';
+import BarChartComponent from 'components/BarChartComponent';
 
 const VisitorsBehaviorPage = observer(
   class VisitorsBehaviorPage extends Component {
@@ -137,6 +138,10 @@ const VisitorsBehaviorPage = observer(
     render() {
       const { t } = this.props;
       const card = this.generateCard();
+      console.log(
+        'this.visitorsListViewModel?.pagesCountData',
+        this.visitorsListViewModel?.pagesCountData
+      );
       return (
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-24">
@@ -150,7 +155,7 @@ const VisitorsBehaviorPage = observer(
           </div>
           <CardComponent data={card ?? []} />
           <Row className="mb-24 ChartWrapper">
-            <Col lg={12}>
+            <Col lg={6}>
               <OverviewComponent
                 bars={['page_views']}
                 barColors={['#0066FF']}
@@ -159,6 +164,19 @@ const VisitorsBehaviorPage = observer(
                 status={this.visitorsListViewModel?.statusOverview}
                 data={this.visitorsListViewModel?.visitorData?.toAreaChart()}
                 filterData={this.visitorsListViewModel?.visitorData?.getFilterName()}
+              />
+            </Col>
+            <Col lg={6}>
+              <BarChartComponent
+                chartTitle={t('txt_views_by_page') + ' count'}
+                height={390}
+                bars={['number']}
+                barColors={['#2C94EA']}
+                data={this.visitorsListViewModel?.pagesCountData?.list?.toBarChart()}
+                margin={{ left: 40 }}
+                filterButtons={[]}
+                loading={this.visitorsListViewModel?.statusPagesCount}
+                isSelection={false}
               />
             </Col>
           </Row>

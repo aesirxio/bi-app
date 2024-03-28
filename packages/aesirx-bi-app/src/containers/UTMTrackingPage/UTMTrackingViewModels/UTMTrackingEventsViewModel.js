@@ -171,7 +171,7 @@ class UTMTrackingEventsViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.statusAttributeList = PAGE_STATUS.READY;
-        const transformData = new UTMTrackingEventModel(data, this.globalStoreViewModel);
+        const transformData = new UTMTrackingEventModel(data?.list, this.globalStoreViewModel);
         this.dataAttributeList = transformData;
       }
     } else {

@@ -6,15 +6,25 @@
 import React, { lazy } from 'react';
 import { LoginPage, ProfilePage } from 'aesirx-uikit';
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
+const PageDetail = lazy(() => import('../containers/PageDetail'));
+const AcquisitionPage = lazy(() => import('../containers/AcquisitionPage'));
+const AcquisitionDetail = lazy(() => import('../containers/AcquisitionDetail'));
+const SearchEnginePage = lazy(() => import('../containers/SearchEnginePage'));
+const AcquisitionCampaignPage = lazy(() => import('../containers/AcquisitionCampaignPage'));
 const VisitorsPage = lazy(() => import('../containers/VisitorsPage'));
+const OutlinkPage = lazy(() => import('../containers/OutlinkPage'));
+const UserFlowPage = lazy(() => import('../containers/UserFlowPage'));
 const RevenuePage = lazy(() => import('../containers/RevenuePage'));
 const UTMTrackingPage = lazy(() => import('../containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('../containers/EventsPage'));
+const EventsDetailPage = lazy(() => import('../containers/EventsDetailPage'));
 const WoocommercePage = lazy(() => import('../containers/WoocommercePage'));
 const ConsentsPage = lazy(() => import('../containers/ConsentsPage'));
 
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
+const FlowListPage = lazy(() => import('../containers/FlowListPage'));
 const FlowPage = lazy(() => import('../containers/FlowDetailPage'));
+const PlatformsPage = lazy(() => import('../containers/PlatformsPage'));
 
 const authRoutes = [
   {
@@ -37,6 +47,48 @@ const mainRoutes = [
     page: ['visitors', 'behavior'],
     main: () => <VisitorsPage />,
   },
+  {
+    path: ['/acquisition'],
+    exact: true,
+    page: ['acquisition'],
+    main: () => <AcquisitionPage />,
+  },
+  {
+    path: ['/acquisition/detail'],
+    exact: true,
+    page: ['acquisition-detail'],
+    main: () => <AcquisitionDetail />,
+  },
+  {
+    path: ['/acquisition/search-engines'],
+    exact: true,
+    page: ['acquisition-search-engines'],
+    main: () => <SearchEnginePage />,
+  },
+  {
+    path: ['/acquisition/campaigns'],
+    exact: true,
+    page: ['acquisition-campaigns'],
+    main: () => <AcquisitionCampaignPage />,
+  },
+  {
+    path: ['/behavior/outlinks'],
+    exact: true,
+    page: ['behavior/outlinks'],
+    main: () => <OutlinkPage />,
+  },
+  {
+    path: ['/behavior/users-flow'],
+    exact: true,
+    page: ['behavior/users-flow'],
+    main: () => <UserFlowPage />,
+  },
+  {
+    path: ['/behavior/detail'],
+    exact: true,
+    page: ['behavior/detail'],
+    main: () => <PageDetail />,
+  },
   { path: '/revenue', exact: true, main: () => <RevenuePage /> },
   {
     path: ['/utm-tracking', '/utm-tracking/generator'],
@@ -49,6 +101,12 @@ const mainRoutes = [
     page: ['behavior-events', 'behavior-events-generator'],
     exact: true,
     main: () => <EventsPage />,
+  },
+  {
+    path: ['/behavior/events/:eventName'],
+    exact: true,
+    page: ['behavior/events/:eventName'],
+    main: () => <EventsDetailPage />,
   },
   {
     path: ['/woocommerce', '/woocommerce/product'],
@@ -69,10 +127,22 @@ const mainRoutes = [
     main: () => <RegionCountryPage />,
   },
   {
+    path: '/visitors/flow',
+    page: 'visitors-flow',
+    exact: true,
+    main: () => <FlowListPage />,
+  },
+  {
     path: ['/consents'],
     page: ['consents'],
     exact: true,
     main: () => <ConsentsPage />,
+  },
+  {
+    path: '/visitors/platforms',
+    page: 'platforms',
+    exact: true,
+    main: () => <PlatformsPage />,
   },
 ];
 

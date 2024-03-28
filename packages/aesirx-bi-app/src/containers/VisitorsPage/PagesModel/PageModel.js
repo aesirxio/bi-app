@@ -5,6 +5,7 @@
 import React from 'react';
 import { BI_PAGES_FIELD_KEY, BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
+import { NavLink } from 'react-router-dom';
 
 class PageModel {
   data = [];
@@ -99,7 +100,7 @@ class PageModel {
     }
   };
 
-  toPagesTableTop = () => {
+  toPagesTableTop = (integration) => {
     const headerTable = [
       'txt_page',
       'txt_visitors',
@@ -133,9 +134,26 @@ class PageModel {
           Cell: ({ cell, column }) => {
             const urlParams = column.id === BI_PAGES_FIELD_KEY.URL && new URL(cell?.value);
             return column.id === BI_PAGES_FIELD_KEY.URL ? (
-              <div className={'px-15'}>
-                {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
-              </div>
+              <>
+                {integration ? (
+                  <a
+                    href="#"
+                    onClick={(e) => this.handleChangeLink(e, `behavior/detail?url=${cell?.value}}`)}
+                    className={'px-15 d-block text-secondary-50'}
+                  >
+                    <span>
+                      {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                    </span>
+                  </a>
+                ) : (
+                  <NavLink
+                    to={`/behavior/detail?url=${cell?.value}`}
+                    className={'px-15 d-block text-secondary-50'}
+                  >
+                    {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                  </NavLink>
+                )}
+              </>
             ) : column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (
               <div className={'px-3 text-end'}>{cell?.value + '%' ?? null}</div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (
@@ -178,6 +196,40 @@ class PageModel {
         data: [],
       };
     }
+  };
+  transformResponse = () => {
+    let data = {};
+
+    if (this.data?.length > 0) {
+      this.data?.forEach((item) => {
+        const dataFilterEventName = this.data.filter(
+          (_item) => _item[BI_PAGES_FIELD_KEY.URL] === item[BI_PAGES_FIELD_KEY.URL]
+        );
+
+        console.log('dataFilterEventName', dataFilterEventName);
+        data = {
+          ...data,
+          // [item[BI_PAGES_FIELD_KEY.URL]]:
+          //   urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search,
+          [item[BI_PAGES_FIELD_KEY.URL]]: dataFilterEventName,
+        };
+      });
+    }
+
+    return data;
+  };
+  toBarChart = () => {
+    const transform = this.transformResponse();
+    return Object.keys(transform).map((item) => {
+      const urlParams = item && new URL(item);
+      return {
+        name: urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search,
+        number: transform[item]?.reduce(
+          (a, b) => a + b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
+          0
+        ),
+      };
+    });
   };
 }
 

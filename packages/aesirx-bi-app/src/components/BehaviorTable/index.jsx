@@ -16,7 +16,10 @@ const BehaviorTable = ({
   sortAPI = true,
   handleSort,
   sortBy,
+  // handleSearch,
+  limit,
 }) => {
+  console.log('limitlimitlimit', limit);
   const columnsTable = React.useMemo(
     () =>
       header.map((item, index) => ({
@@ -38,8 +41,18 @@ const BehaviorTable = ({
   );
 
   const dataTable = React.useMemo(() => data, [data]);
+  // const searchFunc = _.debounce((e) => {
+  //   handleSearch && handleSearch(e?.target?.value);
+  // }, 500);
   return (
     <div className="h-100 ChartWrapper position-relative">
+      {/* {handleSearch && (
+        <Row className="mb-3">
+          <Col lg="4">
+            <Form.Control as="input" placeholder="Search url" name="search" onChange={searchFunc} />
+          </Col>
+        </Row>
+      )} */}
       {statusTable === PAGE_STATUS.LOADING ? (
         <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
       ) : data ? (
@@ -64,6 +77,7 @@ const BehaviorTable = ({
               page_size: value,
             });
           }}
+          limit={limit}
         />
       ) : (
         <div className="position-relative ChartWrapper bg-white rounded-3 shadow-sm">

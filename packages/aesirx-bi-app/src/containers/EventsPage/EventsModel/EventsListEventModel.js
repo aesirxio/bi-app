@@ -218,47 +218,46 @@ class EventsListModel {
     }
   };
   toEventTable = (integration) => {
-    const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Date'];
+    const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Date', ''];
     const accessor = [
       BI_VISITOR_FIELD_KEY.EVENT_NAME,
       BI_VISITOR_FIELD_KEY.EVENT_TYPE,
       BI_VISITOR_FIELD_KEY.URL,
       BI_VISITOR_FIELD_KEY.REFERER,
       BI_VISITOR_FIELD_KEY.START_DATE,
+      BI_VISITOR_FIELD_KEY.UUID,
     ];
     if (this.data.length) {
       const header = accessor.map((key, index) => {
         return {
           Header: headerTable[index],
           accessor: key,
+          width: key === BI_VISITOR_FIELD_KEY.UUID ? 10 : 170,
           allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
-          Cell: ({ cell, column, row }) => {
+          Cell: ({ cell, column }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
               return (
                 <>
                   {integration ? (
                     <a
                       href="#"
-                      onClick={(e) =>
-                        this.handleChangeLink(
-                          e,
-                          `flow/${row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]}`
-                        )
-                      }
-                      className={`px-3`}
+                      onClick={(e) => this.handleChangeLink(e, `behavior-events&id=${cell?.value}`)}
+                      className={'px-3 text-secondary-50'}
                     >
-                      <span>{cell?.value}</span>
+                      <span>{cell?.value ?? null}</span>
                     </a>
                   ) : (
                     <NavLink
-                      to={`/flow/${row.original?.[BI_VISITOR_FIELD_KEY.FLOW_ID]}`}
-                      className={'px-3'}
+                      to={`/behavior/events/${cell?.value}`}
+                      className={'px-3 text-secondary-50'}
                     >
-                      {cell?.value}
+                      {cell?.value ?? null}
                     </NavLink>
                   )}
                 </>
               );
+            } else if (column.id === BI_VISITOR_FIELD_KEY.UUID) {
+              return <></>;
             } else if (
               (column.id === BI_VISITOR_FIELD_KEY.REFERER ||
                 column.id === BI_VISITOR_FIELD_KEY.URL) &&

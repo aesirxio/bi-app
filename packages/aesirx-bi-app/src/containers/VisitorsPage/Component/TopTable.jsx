@@ -88,7 +88,7 @@ const TopTableComponent = (props) => {
         <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
       ) : data ? (
         <Table
-          classNameTable={'mb-0 table'}
+          classNameTable={'mb-0'}
           columns={columnsTable}
           data={dataTable}
           canSort={true}

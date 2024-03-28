@@ -7,6 +7,7 @@ import FlowStore from './FlowStore/FlowStore';
 import FlowViewModel from './FlowViewModels/FlowViewModel';
 import FlowDetailContainer from './FlowDetailContainer';
 import EventsStore from '../EventsPage/EventsStore/EventsStore';
+import { withRouter } from 'react-router-dom';
 
 const FlowPage = observer(
   class FlowPage extends Component {
@@ -39,4 +40,4 @@ const FlowPage = observer(
   }
 );
 
-export default withBiViewModel(FlowPage);
+export default withBiViewModel(withRouter(FlowPage));

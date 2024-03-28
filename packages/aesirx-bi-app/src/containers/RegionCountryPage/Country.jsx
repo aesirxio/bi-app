@@ -13,6 +13,7 @@ import CountryTable from './Component/CountryTable';
 import ComponentNoData from '../../components/ComponentNoData';
 import { env } from 'aesirx-lib';
 import 'flag-icons/sass/flag-icons.scss';
+import TopTable from 'containers/VisitorsPage/Component/TopTable';
 
 const Country = observer(
   class Country extends Component {
@@ -48,6 +49,20 @@ const Country = observer(
 
     handleDateRangeChange = (startDate, endDate) => {
       this.countryListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
+    };
+
+    handleSortRegion = async (column) => {
+      this.countryListViewModel.getRegion(
+        {
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.countryListViewModel?.sortByRegion['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+        }
+      );
     };
     render() {
       const { t } = this.props;
@@ -112,6 +127,58 @@ const Country = observer(
                 </div>
               )}
             </div>
+            <Row className="my-24 pb-24">
+              <Col lg={6} className="mb-24">
+                <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                  <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_region')}</h4>
+                  <TopTable
+                    data={this.countryListViewModel?.regionTableData?.list}
+                    pagination={this.countryListViewModel?.regionTableData?.pagination}
+                    isPagination={true}
+                    simplePagination={true}
+                    selectPage={async (value) => {
+                      await this.countryListViewModel.handleFilterRegion({ page: value });
+                    }}
+                    selectPageSize={async (value) => {
+                      await this.countryListViewModel.handleFilterRegion({
+                        page: 1,
+                        page_size: value,
+                      });
+                    }}
+                    status={this.countryListViewModel?.statusTopRegionTable}
+                    sortAPI={true}
+                    handleSort={this.handleSortRegion}
+                    sortBy={this.countryListViewModel?.sortByRegion}
+                    {...this.props}
+                  />
+                </div>
+              </Col>
+              <Col lg={6} className="mb-24">
+                <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                  <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_city')}</h4>
+                  <TopTable
+                    data={this.countryListViewModel?.citiesTableData?.list}
+                    pagination={this.countryListViewModel?.citiesTableData?.pagination}
+                    isPagination={true}
+                    simplePagination={true}
+                    selectPage={async (value) => {
+                      await this.countryListViewModel.handleFilterCities({ page: value });
+                    }}
+                    selectPageSize={async (value) => {
+                      await this.countryListViewModel.handleFilterCities({
+                        page: 1,
+                        page_size: value,
+                      });
+                    }}
+                    status={this.countryListViewModel?.statusTopCitiesTable}
+                    sortAPI={true}
+                    handleSort={this.handleSortCities}
+                    sortBy={this.countryListViewModel?.sortByCities}
+                    {...this.props}
+                  />
+                </div>
+              </Col>
+            </Row>
           </div>
         </>
       );

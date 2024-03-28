@@ -129,6 +129,8 @@ class ConsentsListModel {
       const filterDate = this.data.find(
         (_item) => moment(_item.date).format('YYYY-MM-DD') === date
       );
+      console.log('this.data', this.data);
+      console.log('filterDate', filterDate);
       return {
         name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'),
         Total: filterDate?.[BI_CONSENTS_DATE_FIELD_KEY.TOTAL] ?? 0,
@@ -183,7 +185,11 @@ class ConsentsListModel {
       name: weekName,
       Total: weekData[weekName].quantity,
     }));
-
+    console.log('this.consentsDateData', [
+      { visitors: month },
+      { visitors: date },
+      { visitors: week },
+    ]);
     return [{ visitors: month }, { visitors: date }, { visitors: week }];
   };
 }

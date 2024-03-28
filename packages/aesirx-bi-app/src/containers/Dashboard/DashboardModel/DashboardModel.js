@@ -9,12 +9,14 @@ import {
   BI_DEVICES_FIELD_KEY,
   BI_SUMMARY_FIELD_KEY,
   BI_VISITORS_FIELD_KEY,
+  BI_EVENTS_TYPE_FIELD_KEY,
+  BI_ATTRIBUTE_FIELD_KEY,
+  BI_REFERER_FIELD_KEY,
   Helper,
   enumerateDaysBetweenDates,
   env,
 } from 'aesirx-lib';
 import { Image } from 'react-bootstrap';
-import { BI_REFERER_FIELD_KEY } from 'aesirx-lib';
 
 class DashboardModel {
   data = [];
@@ -358,43 +360,50 @@ class DashboardModel {
               if (cell?.value) {
                 const url = new URL(cell?.value);
                 imgIcon =
-                  url?.hostname === 'aesirx.io'
-                    ? `${env.PUBLIC_URL}/assets/images/logo/welcome-logo.png`
-                    : ``;
+                  url?.hostname === 'aesirx.io' ? `/assets/images/logo/welcome-logo.png` : ``;
               }
               switch (cell?.value) {
                 case '':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/direct.png`;
+                  imgIcon = `/assets/images/direct.png`;
                   break;
                 case 'https://www.google.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/google.png`;
+                  imgIcon = `/assets/images/google.png`;
                   break;
                 case 'https://www.facebook.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/facebook.png`;
+                  imgIcon = `/assets/images/facebook.png`;
                   break;
                 case 'https://www.linkedin.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/linkedin.png`;
+                  imgIcon = `/assets/images/linkedin.png`;
                   break;
                 case 'https://yandex.ru/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/yandex.png`;
+                  imgIcon = `/assets/images/yandex.png`;
                   break;
                 case 'https://duckduckgo.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/duckduckgo.svg`;
+                  imgIcon = `/assets/images/duckduckgo.svg`;
                   break;
                 case 'https://www.reddit.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/reddit.png`;
+                  imgIcon = `/assets/images/reddit.png`;
                   break;
                 case 'https://twitter.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/twitter.png`;
+                  imgIcon = `/assets/images/twitter.png`;
                   break;
                 case 'https://github.com/':
-                  imgIcon = `${env.PUBLIC_URL}/assets/images/github.png`;
+                  imgIcon = `/assets/images/github.png`;
                   break;
               }
             }
 
             return column.id === BI_REFERER_FIELD_KEY.REFERER ? (
-              <div className={'d-block position-relative px-20 py-sm text-gray-900'}>
+              <a
+                {...(cell?.value
+                  ? {
+                      target: '_blank',
+                      rel: 'noreferrer',
+                      href: `${cell?.value}`,
+                    }
+                  : {})}
+                className={'d-block position-relative px-20 py-sm text-gray-900 table-link'}
+              >
                 <div
                   className="position-absolute top-0 start-0 h-100 z-0 table-link-bg"
                   style={{
@@ -415,7 +424,7 @@ class DashboardModel {
                     {cell?.value ? cell?.value : 'Direct / None'}
                   </div>
                 </div>
-              </div>
+              </a>
             ) : (
               <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
             );
@@ -438,6 +447,155 @@ class DashboardModel {
       return {
         header,
         data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toEventsTypeTableTop = () => {
+    const headerTable = ['text_keyword', 'txt_unique_visitors', 'txt_visitors'];
+    const accessor = [
+      BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME,
+      BI_EVENTS_TYPE_FIELD_KEY.UNIQUE_VISITOR,
+      BI_EVENTS_TYPE_FIELD_KEY.TOTAL_VISITOR,
+    ];
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          allowSort: true,
+          width:
+            key === BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME
+              ? 250
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+              ? 220
+              : 170,
+          Cell: ({ cell, column }) => {
+            return (
+              <>
+                {column.id === BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME ? (
+                  <div
+                    className={
+                      'd-flex align-items-center text-capitalize py-sm px-20 position-relative'
+                    }
+                  >
+                    <div className="z-1">{cell?.value === '' ? 'Unknown' : cell?.value}</div>
+                  </div>
+                ) : (
+                  <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
+                )}
+              </>
+            );
+          },
+        };
+      });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
+
+      return {
+        header,
+        data: filteredData,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toAttributeTableTop = () => {
+    const headerTable = [
+      'text_campaign',
+      'txt_page_views',
+      'txt_unique_page_views',
+      'txt_visitors',
+      'txt_bounce_rate',
+      'txt_avg_page_session',
+      'txt_avg_session_duration',
+    ];
+    const accessor = [
+      BI_ATTRIBUTE_FIELD_KEY.VALUE,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_SUMMARY_FIELD_KEY.BOUNCE_RATE,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION,
+      BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION,
+    ];
+    if (this.data?.length > 0) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          allowSort: true,
+          width: key === BI_ATTRIBUTE_FIELD_KEY.VALUE && 250,
+          Cell: ({ cell, column }) => {
+            return (
+              <>
+                {column.id === BI_ATTRIBUTE_FIELD_KEY.VALUE ? (
+                  <div
+                    className={
+                      'd-flex align-items-center text-capitalize py-sm px-20 position-relative'
+                    }
+                  >
+                    <div className="z-1">{cell?.value === '' ? 'Unknown' : cell?.value}</div>
+                  </div>
+                ) : (
+                  <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
+                )}
+              </>
+            );
+          },
+        };
+      });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
+
+      return {
+        header,
+        data: filteredData,
       };
     } else {
       return {

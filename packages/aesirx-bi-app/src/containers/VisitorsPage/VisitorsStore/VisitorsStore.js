@@ -5,14 +5,16 @@ export class VisitorsStore {
     try {
       const biService = new AesirxBiApiService();
       const responsedDataFromLibary = await biService.getMetrics(dataFilter, dateFilter);
-      if (responsedDataFromLibary) {
+      if (responsedDataFromLibary && responsedDataFromLibary?.name !== 'AxiosError') {
         runInAction(() => {
           callbackOnSuccess(responsedDataFromLibary);
         });
       } else {
         runInAction(() => {
           callbackOnError({
-            message: 'Something went wrong from Server response',
+            message:
+              responsedDataFromLibary?.response?.data?.error ||
+              'Something went wrong from Server response',
           });
         });
       }
@@ -189,6 +191,37 @@ export class VisitorsStore {
     }
   };
 
+  getDevices = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
+    try {
+      const biService = new AesirxBiApiService();
+      const responseDataFromLibrary = await biService.getDevices(dataFilter, dateFilter);
+      if (responseDataFromLibrary) {
+        runInAction(() => {
+          callbackOnSuccess(responseDataFromLibrary);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+    } catch (error) {
+      console.log('errorrrr', error);
+      runInAction(() => {
+        if (error.response?.data.message) {
+          callbackOnError({
+            message: error.response?.data?.message,
+          });
+        } else {
+          callbackOnError({
+            message: error?.response?.data?._messages
+              ? error.response?.data?._messages[0]?.message
+              : 'Something went wrong from Server response',
+          });
+        }
+      });
+    }
+  };
+
   getLanguages = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
     try {
       const biService = new AesirxBiApiService();
@@ -231,6 +264,68 @@ export class VisitorsStore {
       } else {
         callbackOnError({
           message: 'Something went wrong from Server response',
+        });
+      }
+    } catch (error) {
+      console.log('errorrrr', error);
+      runInAction(() => {
+        if (error.response?.data.message) {
+          callbackOnError({
+            message: error.response?.data?.message,
+          });
+        } else {
+          callbackOnError({
+            message: error?.response?.data?._messages
+              ? error.response?.data?._messages[0]?.message
+              : 'Something went wrong from Server response',
+          });
+        }
+      });
+    }
+  };
+  getPagesCount = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
+    try {
+      const biService = new AesirxBiApiService();
+      const responseDataFromLibrary = await biService.getPages(dataFilter, dateFilter);
+      if (responseDataFromLibrary) {
+        runInAction(() => {
+          callbackOnSuccess(responseDataFromLibrary);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+    } catch (error) {
+      console.log('errorrrr', error);
+      runInAction(() => {
+        if (error.response?.data.message) {
+          callbackOnError({
+            message: error.response?.data?.message,
+          });
+        } else {
+          callbackOnError({
+            message: error?.response?.data?._messages
+              ? error.response?.data?._messages[0]?.message
+              : 'Something went wrong from Server response',
+          });
+        }
+      });
+    }
+  };
+  getFlowList = async (dataFilter, dateFilter, callbackOnSuccess, callbackOnError) => {
+    try {
+      const biService = new AesirxBiApiService();
+      const responseDataFromLibrary = await biService.getFlowList(dataFilter, dateFilter);
+      if (responseDataFromLibrary && responseDataFromLibrary?.name !== 'AxiosError') {
+        runInAction(() => {
+          callbackOnSuccess(responseDataFromLibrary);
+        });
+      } else {
+        callbackOnError({
+          message:
+            responseDataFromLibrary?.response?.data?.error ||
+            'Something went wrong from Server response',
         });
       }
     } catch (error) {

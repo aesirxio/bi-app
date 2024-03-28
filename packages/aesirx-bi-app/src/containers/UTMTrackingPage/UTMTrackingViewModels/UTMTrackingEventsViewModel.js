@@ -11,13 +11,16 @@ import UTMTrackingEventModel from '../UTMTrackingModel/UTMTrackingListEventModel
 class UTMTrackingEventsViewModel {
   utmTrackingStore = null;
   statusAttribute = PAGE_STATUS.READY;
+  statusAttributeList = PAGE_STATUS.READY;
   statusTable = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   data = null;
   dataFilter = {};
   attributeData = null;
   dataAttribute = null;
+  dataAttributeList = null;
 
+  sortBy = { 'sort[]': '', 'sort_direction[]': '' };
   constructor(utmTrackingStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.utmTrackingStore = utmTrackingStore;
@@ -28,19 +31,47 @@ class UTMTrackingEventsViewModel {
     return new UTMTrackingEventModel(this.data);
   };
 
-  getVisitor = (dataFilter, dateFilter) => {
+  getVisitor = (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'start', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTable = PAGE_STATUS.LOADING;
+    this.sortBy = sortBy;
     this.dataFilterTable = {
       page_size: '5',
       ...this.dataFilterTable,
       ...dataFilter,
+      ...this.sortBy,
     };
+    if (dataFilter['filter[attribute_value]'] === 'all') {
+      if (this.dataFilterTable['filter[attribute_value]']) {
+        delete this.dataFilterTable['filter[attribute_value]'];
+      }
+    }
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.utmTrackingStore.getVisitor(
       this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getAttributeList = (dataFilter, dateFilter) => {
+    this.statusTable = PAGE_STATUS.LOADING;
+    this.dataFilterAttributeList = {
+      page_size: '5',
+      ...this.dataFilterAttributeList,
+      ...dataFilter,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.utmTrackingStore.getAttribute(
+      this.dataFilterAttributeList,
+      dateRangeFilter,
+      this.callbackOnDataAttributeListSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -132,6 +163,19 @@ class UTMTrackingEventsViewModel {
       }
     } else {
       this.statusAttribute = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnDataAttributeListSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.statusAttributeList = PAGE_STATUS.READY;
+        const transformData = new UTMTrackingEventModel(data?.list, this.globalStoreViewModel);
+        this.dataAttributeList = transformData;
+      }
+    } else {
+      this.statusAttributeList = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

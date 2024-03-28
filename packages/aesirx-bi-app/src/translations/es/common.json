@@ -204,6 +204,7 @@
   "txt_utm_tracking_generator": "Generador de seguimiento UTM",
   "txt_events_generator": "Generador de eventos",
   "txt_export_pdf": "Exportar PDF",
+  "txt_export": "Exportar",
   "txt_tooltip_visitors": "Número de visitantes",
   "txt_tooltip_page_views": "Pageviews es el número total de páginas vistas. Se cuentan las vistas repetidas de una sola página.",
   "txt_tooltip_unique_page_views": "Vistas de página únicas es la cantidad de sesiones durante las cuales la página especificada se vio al menos una vez. Se cuenta una vista de página única para cada combinación de URL de página + título de página.",
@@ -243,5 +244,15 @@
   "txt_product_revenue": "Ingresos del producto",
   "txt_avg_price": "Precio promedio",
   "txt_avg_quantity": "Cantidad promedio",
-  "txt_top_products": "Productos principales"
+  "txt_top_products": "Productos principales",
+  "txt_menu_consents": "Consentimientos",
+  "txt_web3id": "Web3ID",
+  "txt_wallet": "Monedero",
+  "txt_consent": "Consentimiento",
+  "txt_tier": "Nivel",
+  "txt_uuid": "UUID",
+  "txt_datetime": "Fechahora",
+  "txt_expiration": "Vencimiento",
+  "txt_top_sources": "Fuentes principales",
+  "txt_source": "Fuente"
 }

@@ -8,6 +8,8 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import EventsListModel from '../EventsModel/EventsListEventModel';
+import queryString from 'query-string';
+
 class EventsListViewModel {
   eventsStore = null;
   status = PAGE_STATUS.READY;
@@ -17,6 +19,8 @@ class EventsListViewModel {
   dataEvents = null;
   dataFilter = {};
   attributeData = null;
+  search = {};
+  sortBy = { 'sort[]': '', 'sort_direction[]': '' };
 
   constructor(eventsStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -28,18 +32,20 @@ class EventsListViewModel {
     return new EventsListModel(this.data);
   };
 
-  getVisitor = (dataFilter, dateFilter) => {
+  getVisitor = async (dataFilter, dateFilter, sortBy = {}, search = {}) => {
     this.statusTable = PAGE_STATUS.LOADING;
+    this.sortBy = sortBy;
+    this.search = search;
     this.dataFilterTable = {
       page_size: '5',
-      'sort[]': 'number_of_page_views',
-      'sort_direction[]': 'desc',
       ...this.dataFilterTable,
       ...dataFilter,
+      ...this.sortBy,
+      ...this.search,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
-    this.eventsStore.getVisitor(
+    await this.eventsStore.getVisitor(
       this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
@@ -115,6 +121,14 @@ class EventsListViewModel {
       this.callbackOnDataSuccessHandler,
       this.callbackOnErrorHandler
     );
+    this.globalStoreViewModel.dataFilter = { pagination: this.dataFilterTable?.page };
+    if (dataFilter?.page) {
+      const search = {
+        ...queryString.parse(location.search),
+        ...{ pagination: dataFilter?.page },
+      };
+      window.history.replaceState('', '', `/behavior/events?${queryString.stringify(search)}`);
+    }
   };
 
   callbackOnErrorHandler = (error) => {
@@ -155,7 +169,7 @@ class EventsListViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.status = PAGE_STATUS.READY;
-        this.attributeData = data;
+        this.attributeData = data?.list;
       }
     } else {
       this.status = PAGE_STATUS.ERROR;

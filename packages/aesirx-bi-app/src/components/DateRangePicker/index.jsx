@@ -18,7 +18,7 @@ const DateRangePicker = (props) => {
 
   return (
     <div
-      style={{ minHeight: '50px' }}
+      style={{ minHeight: '48px' }}
       ref={datePickerRef}
       className="d-flex align-items-center bg-white rounded-1 shadow-sm daterange-picker-wrapper"
     >

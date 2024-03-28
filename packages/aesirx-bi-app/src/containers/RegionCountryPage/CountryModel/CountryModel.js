@@ -3,7 +3,13 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import { BI_COUNTRIES_FIELD_KEY, BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
+import {
+  BI_CITIES_FIELD_KEY,
+  BI_COUNTRIES_FIELD_KEY,
+  BI_REGION_FIELD_KEY,
+  BI_SUMMARY_FIELD_KEY,
+  Helper,
+} from 'aesirx-lib';
 import moment from 'moment';
 
 class CountryModel {
@@ -70,6 +76,7 @@ class CountryModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
+          allowSort: key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? false : true,
           Cell: ({ cell, column, row }) => {
             return column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
               <div className={'px-3'}>
@@ -110,10 +117,17 @@ class CountryModel {
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
       });
-
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {
@@ -152,6 +166,7 @@ class CountryModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
+          allowSort: key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? false : true,
           accessor: key,
           Cell: ({ cell, row, column }) => {
             return column.id === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? (
@@ -179,23 +194,111 @@ class CountryModel {
           },
         };
       });
-      const data = this.data
-        ?.map((item) => {
-          return {
-            ...item,
-            ...accessor
-              .map((i) => {
-                return {
-                  [i]: item[i],
-                };
-              })
-              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
-          };
-        })
-        ?.sort(
-          (a, b) =>
-            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-        );
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
+      return {
+        header,
+        data: filteredData,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toRegionTableTopDashboard = () => {
+    const headerTable = ['txt_region', 'txt_visitors'];
+    const accessor = [BI_REGION_FIELD_KEY.REGION, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          allowSort: true,
+          Cell: ({ cell, column }) => {
+            return column.id === BI_REGION_FIELD_KEY.REGION ? (
+              <div className={'px-15'}>{cell?.value ?? null}</div>
+            ) : (
+              <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
+            );
+          },
+        };
+      });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+
+      return {
+        header,
+        data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toCitiesTableTopDashboard = () => {
+    const headerTable = ['txt_city', 'txt_visitors'];
+    const accessor = [BI_CITIES_FIELD_KEY.CITY, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          allowSort: true,
+          Cell: ({ cell, column }) => {
+            return column.id === BI_CITIES_FIELD_KEY.CITY ? (
+              <div className={'px-15'}>{cell?.value ?? null}</div>
+            ) : (
+              <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
+            );
+          },
+        };
+      });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
 
       return {
         header,

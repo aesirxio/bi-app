@@ -47,10 +47,17 @@ class WoocoomerceTableModel {
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
       });
-
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {
@@ -89,10 +96,17 @@ class WoocoomerceTableModel {
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
       });
-
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {
@@ -133,10 +147,17 @@ class WoocoomerceTableModel {
           };
         })
         ?.sort((a, b) => b['count'] - a['count']);
-
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {
@@ -176,10 +197,17 @@ class WoocoomerceTableModel {
           };
         })
         ?.sort((a, b) => b['count'] - a['count']);
-
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {
@@ -219,10 +247,17 @@ class WoocoomerceTableModel {
           };
         })
         ?.sort((a, b) => b['count'] - a['count']);
-
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {
@@ -265,10 +300,17 @@ class WoocoomerceTableModel {
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
       });
-
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {
@@ -321,10 +363,17 @@ class WoocoomerceTableModel {
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
         };
       });
-
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {

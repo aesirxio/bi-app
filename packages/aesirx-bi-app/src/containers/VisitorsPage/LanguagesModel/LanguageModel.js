@@ -44,6 +44,7 @@ class LanguageModel {
         return {
           Header: headerTable[index],
           accessor: key,
+          allowSort: true,
           width:
             key === BI_LANGUAGES_FIELD_KEY.LANG
               ? 250
@@ -64,27 +65,29 @@ class LanguageModel {
             ),
         };
       });
-      const data = this.data
-        ?.map((item) => {
-          return {
-            ...item,
-            ...accessor
-              .map((i) => {
-                return {
-                  [i]: item[i],
-                };
-              })
-              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
-          };
-        })
-        ?.sort(
-          (a, b) =>
-            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-        );
-
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {

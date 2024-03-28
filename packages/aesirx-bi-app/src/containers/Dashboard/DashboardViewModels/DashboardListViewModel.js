@@ -15,6 +15,7 @@ class DashboardListViewModel {
   status = PAGE_STATUS.READY;
   statusTopPageTable = PAGE_STATUS.READY;
   statusTopBrowser = PAGE_STATUS.READY;
+  statusTopSourceTable = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   summaryData = null;
   visitorData = null;
@@ -22,7 +23,18 @@ class DashboardListViewModel {
   browsersData = null;
   devicesData = null;
   devicesTableData = null;
+  attributeTypeTableData = null;
+  eventNameTypeTableData = null;
   pagesTableData = null;
+  sourcesTableData = null;
+  dataAttributesType = null;
+  eventNameTypeDataType = null;
+  sortByPages = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByDevices = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByBrowsers = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByEventNameType = { 'sort[]': '', 'sort_direction[]': '' };
+  sortBySources = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByAttribute = { 'sort[]': '', 'sort_direction[]': '' };
   constructor(dashboardStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.dashboardStore = dashboardStore;
@@ -36,6 +48,9 @@ class DashboardListViewModel {
     this.getBrowsers(dataFilter, dateFilter);
     this.getDevices(dataFilter, dateFilter);
     this.getPages(dataFilter, dateFilter);
+    this.getReferer(dataFilter, dateFilter);
+    this.getEventsType(dataFilter, dateFilter);
+    this.getAttribute(dataFilter, dateFilter);
   };
 
   getMetrics = (dataFilter, dateFilter) => {
@@ -84,14 +99,19 @@ class DashboardListViewModel {
     );
   };
 
-  getBrowsers = (dataFilter, dateFilter) => {
+  getBrowsers = (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.sortByBrowsers = sortBy;
     this.dataFilterBrowsers = {
       page_size: '8',
-      'sort[]': 'number_of_visitors',
-      'sort_direction[]': 'desc',
+
       ...this.dataFilterBrowsers,
       ...dataFilter,
+      ...this.sortByBrowsers,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -115,14 +135,18 @@ class DashboardListViewModel {
     );
   };
 
-  getDevices = (dataFilter, dateFilter) => {
+  getDevices = (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.sortByDevices = sortBy;
     this.dataFilterDevices = {
       page_size: '8',
-      'sort[]': 'number_of_visitors',
-      'sort_direction[]': 'desc',
       ...this.dataFilterDevices,
       ...dataFilter,
+      ...this.sortByDevices,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -146,14 +170,18 @@ class DashboardListViewModel {
     );
   };
 
-  getPages = async (dataFilter, dateFilter) => {
+  getPages = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_page_views', 'sort_direction[]': 'desc' }
+  ) => {
     this.statusTopPageTable = PAGE_STATUS.LOADING;
+    this.sortByPages = sortBy;
     this.dataFilterPages = {
       page_size: '8',
-      'sort[]': 'number_of_page_views',
-      'sort_direction[]': 'desc',
       ...this.dataFilterPages,
       ...dataFilter,
+      ...this.sortByPages,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -161,6 +189,75 @@ class DashboardListViewModel {
       this.dataFilterPages,
       dateRangeFilter,
       this.callbackOnPagesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getAttribute = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_page_views', 'sort_direction[]': 'desc' }
+  ) => {
+    this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.sortByAttribute = sortBy;
+    this.dataFilterPages = {
+      page_size: '8',
+      ...this.dataFilterPages,
+      ...dataFilter,
+      ...this.sortByAttribute,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.dashboardStore.getAttribute(
+      this.dataFilterPages,
+      dateRangeFilter,
+      this.callbackOnAttributesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getEventsType = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_page_views', 'sort_direction[]': 'desc' }
+  ) => {
+    this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.sortByEventsType = sortBy;
+    this.dataFilterEventsType = {
+      page_size: '8',
+      ...this.dataFilterEventsType,
+      ...dataFilter,
+      ...this.sortByEventsType,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.dashboardStore.getEventsType(
+      this.dataFilterEventsType,
+      dateRangeFilter,
+      this.callbackOnEventNameTypeSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getReferer = async (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
+  ) => {
+    this.statusTopSourceTable = PAGE_STATUS.LOADING;
+    this.sortBySources = sortBy;
+    this.dataFilterSources = {
+      page_size: '8',
+      ...this.dataFilterSources,
+      ...dataFilter,
+      ...this.sortBySources,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.dashboardStore.getReferer(
+      this.dataFilterSources,
+      dateRangeFilter,
+      this.callbackOnSourcesSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -198,8 +295,21 @@ class DashboardListViewModel {
     );
   };
 
+  handleFilterSources = async (dataFilter) => {
+    this.statusTopSourceTable = PAGE_STATUS.LOADING;
+    this.dataFilterSources = { ...this.dataFilterSources, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.dashboardStore.getReferer(
+      this.dataFilterSources,
+      dateRangeFilter,
+      this.callbackOnSourcesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   callbackOnErrorHandler = (error) => {
     this.status = PAGE_STATUS.READY;
+    console.log('error', error);
     notify(error.message, 'error');
   };
 
@@ -273,6 +383,43 @@ class DashboardListViewModel {
     }
   };
 
+  callbackOnAttributesSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        const transformFormat = data?.list?.map((item) => {
+          return item.values[0];
+        });
+        this.dataAttributesType = transformFormat;
+        const formatData = new DashboardModel(transformFormat, this.globalStoreViewModel);
+        this.attributeTypeTableData = {
+          list: formatData.toAttributeTableTop(),
+          pagination: data.pagination,
+        };
+        this.statusTopBrowser = PAGE_STATUS.READY;
+      }
+    } else {
+      this.statusTopBrowser = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnEventNameTypeSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.eventNameTypeData = data?.list;
+        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        this.eventNameTypeTableData = {
+          list: transformData.toEventsTypeTableTop(),
+          pagination: data.pagination,
+        };
+        this.statusTopBrowser = PAGE_STATUS.READY;
+      }
+    } else {
+      this.statusTopBrowser = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
   callbackOnPagesSuccessHandler = (data) => {
     if (data) {
       if (data?.message !== 'canceled') {
@@ -280,13 +427,31 @@ class DashboardListViewModel {
         this.statusTopPageTable = PAGE_STATUS.READY;
         const transformData = new PageModel(data.list, this.globalStoreViewModel);
         this.pagesTableData = {
-          list: transformData.toPagesTableTopDashboard(),
+          list: transformData?.toPagesTableTopDashboard(),
           pagination: data.pagination,
         };
       }
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusTopPageTable = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnSourcesSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        this.statusTopSourceTable = PAGE_STATUS.READY;
+        const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
+        this.sourcesTableData = {
+          list: transformData.toSourcesTableTopDashboard(),
+          pagination: data.pagination,
+        };
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.statusTopSourceTable = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

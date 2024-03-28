@@ -204,6 +204,7 @@
   "txt_utm_tracking_generator": "เครื่องมือสร้างการติดตาม UTM",
   "txt_events_generator": "ตัวสร้างเหตุการณ์",
   "txt_export_pdf": "ส่งออก PDF",
+  "txt_export": "ส่งออก",
   "txt_tooltip_visitors": "จำนวนผู้เข้าชม",
   "txt_tooltip_page_views": "จำนวนหน้าที่มีการเปิดคือจำนวนหน้าที่ดูทั้งหมด การดูซ้ำของหน้าเดียวจะถูกนับ",
   "txt_tooltip_unique_page_views": "การเปิดดูหน้าเว็บที่ไม่ซ้ำคือจำนวนเซสชันที่มีการดูหน้าเว็บที่ระบุอย่างน้อยหนึ่งครั้ง การดูหน้าเว็บที่ไม่ซ้ำกันจะถูกนับสำหรับชุดค่าผสมของ URL ของหน้า + ชื่อหน้าแต่ละชุด",
@@ -243,5 +244,15 @@
   "txt_product_revenue": "รายได้จากผลิตภัณฑ์",
   "txt_avg_price": "ราคาเฉลี่ย",
   "txt_avg_quantity": "จำนวนเฉลี่ย",
-  "txt_top_products": "ผลิตภัณฑ์ยอดนิยม"
+  "txt_top_products": "ผลิตภัณฑ์ยอดนิยม",
+  "txt_menu_consents": "ยินยอม",
+  "txt_web3id": "Web3ID",
+  "txt_wallet": "กระเป๋าเงิน",
+  "txt_consent": "ยินยอม",
+  "txt_tier": "ระดับ",
+  "txt_uuid": "UUID",
+  "txt_datetime": "วันที่และเวลา",
+  "txt_expiration": "หมดอายุ",
+  "txt_top_sources": "แหล่งที่มายอดนิยม",
+  "txt_source": "แหล่งที่มา"
 }

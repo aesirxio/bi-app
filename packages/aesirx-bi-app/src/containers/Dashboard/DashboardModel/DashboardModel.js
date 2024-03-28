@@ -9,6 +9,9 @@ import {
   BI_DEVICES_FIELD_KEY,
   BI_SUMMARY_FIELD_KEY,
   BI_VISITORS_FIELD_KEY,
+  BI_EVENTS_TYPE_FIELD_KEY,
+  BI_ATTRIBUTE_FIELD_KEY,
+  BI_REFERER_FIELD_KEY,
   Helper,
   enumerateDaysBetweenDates,
   env,
@@ -144,20 +147,27 @@ class DashboardModel {
   };
 
   toBrowsersTableTop = () => {
-    const headerTable = ['txt_browser', 'txt_visitors'];
-    const largestValue = this.data[0] && this.data[0][BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
-    const accessor = [BI_BROWSERS_FIELD_KEY.BROWSER_NAME, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    const headerTable = ['txt_browser', 'txt_visitors', '%'];
+    const largestValue = Math.max(
+      ...this.data.map((o) => o[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS])
+    );
+    const accessor = [
+      BI_BROWSERS_FIELD_KEY.BROWSER_NAME,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS_PERCENT,
+    ];
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
           Header: headerTable[index],
           accessor: key,
+          allowSort: true,
           width:
             key === BI_BROWSERS_FIELD_KEY.BROWSER_NAME
               ? 250
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
-              : 170,
+              : 100,
           Cell: ({ cell, column, row }) => {
             let browserImg = '';
             switch (cell?.value) {
@@ -209,35 +219,43 @@ class DashboardModel {
                       {cell?.value === '' ? 'Unknown' : cell?.value}
                     </div>
                   </div>
+                ) : column.id === BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS_PERCENT ? (
+                  <div className={'text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
                 ) : (
-                  <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
+                  <div className={'text-end pe-2'}>
+                    {Helper.numberWithCommas(cell?.value) ?? null}
+                  </div>
                 )}
               </>
             );
           },
         };
       });
-      const data = this.data
-        ?.map((item) => {
-          return {
-            ...item,
-            ...accessor
-              .map((i) => {
-                return {
-                  [i]: item[i],
-                };
-              })
-              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
-          };
-        })
-        ?.sort(
-          (a, b) =>
-            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-        );
-
+      const data = this.data?.map((item) => {
+        item[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS_PERCENT] =
+          item[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS_PERCENT] / 10;
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
       return {
         header,
-        data: data,
+        data: filteredData,
       };
     } else {
       return {
@@ -250,12 +268,15 @@ class DashboardModel {
   toDevicesTableTop = () => {
     const headerTable = ['txt_device', 'txt_visitors'];
     const accessor = [BI_DEVICES_FIELD_KEY.DEVICE, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
-    const largestValue = this.data[0] && this.data[0][BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    const largestValue = Math.max(
+      ...this.data.map((o) => o[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS])
+    );
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
           Header: headerTable[index],
           accessor: key,
+          allowSort: true,
           width:
             key === BI_DEVICES_FIELD_KEY.DEVICE
               ? 250
@@ -288,27 +309,293 @@ class DashboardModel {
           },
         };
       });
-      const data = this.data
-        ?.map((item) => {
-          return {
-            ...item,
-            ...accessor
-              .map((i) => {
-                return {
-                  [i]: item[i],
-                };
-              })
-              .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
-          };
-        })
-        ?.sort(
-          (a, b) =>
-            b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] - a[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-        );
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
+
+      return {
+        header,
+        data: filteredData,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toSourcesTableTopDashboard = () => {
+    const headerTable = ['txt_source', 'txt_visitors'];
+    const accessor = [BI_REFERER_FIELD_KEY.REFERER, BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS];
+    const largestValue = Math.max(
+      ...this.data.map((o) => o[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS])
+    );
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          allowSort: true,
+          Cell: ({ cell, column, row }) => {
+            let imgIcon = ``;
+            if (column.id === BI_REFERER_FIELD_KEY.REFERER) {
+              if (cell?.value) {
+                const url = new URL(cell?.value);
+                imgIcon =
+                  url?.hostname === 'aesirx.io' ? `/assets/images/logo/welcome-logo.png` : ``;
+              }
+              switch (cell?.value) {
+                case '':
+                  imgIcon = `/assets/images/direct.png`;
+                  break;
+                case 'https://www.google.com/':
+                  imgIcon = `/assets/images/google.png`;
+                  break;
+                case 'https://www.facebook.com/':
+                  imgIcon = `/assets/images/facebook.png`;
+                  break;
+                case 'https://www.linkedin.com/':
+                  imgIcon = `/assets/images/linkedin.png`;
+                  break;
+                case 'https://yandex.ru/':
+                  imgIcon = `/assets/images/yandex.png`;
+                  break;
+                case 'https://duckduckgo.com/':
+                  imgIcon = `/assets/images/duckduckgo.svg`;
+                  break;
+                case 'https://www.reddit.com/':
+                  imgIcon = `/assets/images/reddit.png`;
+                  break;
+                case 'https://twitter.com/':
+                  imgIcon = `/assets/images/twitter.png`;
+                  break;
+                case 'https://github.com/':
+                  imgIcon = `/assets/images/github.png`;
+                  break;
+              }
+            }
+
+            return column.id === BI_REFERER_FIELD_KEY.REFERER ? (
+              <a
+                {...(cell?.value
+                  ? {
+                      target: '_blank',
+                      rel: 'noreferrer',
+                      href: `${cell?.value}`,
+                    }
+                  : {})}
+                className={'d-block position-relative px-20 py-sm text-gray-900 table-link'}
+              >
+                <div
+                  className="position-absolute top-0 start-0 h-100 z-0 table-link-bg"
+                  style={{
+                    width: `${((row.cells[1]?.value / largestValue) * 100)?.toString()}%`,
+                  }}
+                ></div>
+                <div className="position-relative z-1 text-ellipsis line-clamp-1 pe-20">
+                  <div className="position-relative table-link-text">
+                    {imgIcon && (
+                      <Image
+                        className={`me-sm object-fit-contain`}
+                        style={{ width: 22, height: 22 }}
+                        src={env.PUBLIC_URL + imgIcon}
+                        alt={'icons'}
+                      />
+                    )}
+                    {/* {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search} */}
+                    {cell?.value ? cell?.value : 'Direct / None'}
+                  </div>
+                </div>
+              </a>
+            ) : (
+              <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
+            );
+          },
+        };
+      });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
 
       return {
         header,
         data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toEventsTypeTableTop = () => {
+    const headerTable = ['text_keyword', 'txt_unique_visitors', 'txt_visitors'];
+    const accessor = [
+      BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME,
+      BI_EVENTS_TYPE_FIELD_KEY.UNIQUE_VISITOR,
+      BI_EVENTS_TYPE_FIELD_KEY.TOTAL_VISITOR,
+    ];
+    if (this.data?.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          allowSort: true,
+          width:
+            key === BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME
+              ? 250
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+              ? 220
+              : 170,
+          Cell: ({ cell, column }) => {
+            return (
+              <>
+                {column.id === BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME ? (
+                  <div
+                    className={
+                      'd-flex align-items-center text-capitalize py-sm px-20 position-relative'
+                    }
+                  >
+                    <div className="z-1">{cell?.value === '' ? 'Unknown' : cell?.value}</div>
+                  </div>
+                ) : (
+                  <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
+                )}
+              </>
+            );
+          },
+        };
+      });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
+
+      return {
+        header,
+        data: filteredData,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
+  toAttributeTableTop = () => {
+    const headerTable = [
+      'text_campaign',
+      'txt_page_views',
+      'txt_unique_page_views',
+      'txt_visitors',
+      'txt_bounce_rate',
+      'txt_avg_page_session',
+      'txt_avg_session_duration',
+    ];
+    const accessor = [
+      BI_ATTRIBUTE_FIELD_KEY.VALUE,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
+      BI_SUMMARY_FIELD_KEY.BOUNCE_RATE,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION,
+      BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION,
+    ];
+    if (this.data?.length > 0) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          allowSort: true,
+          width: key === BI_ATTRIBUTE_FIELD_KEY.VALUE && 250,
+          Cell: ({ cell, column }) => {
+            return (
+              <>
+                {column.id === BI_ATTRIBUTE_FIELD_KEY.VALUE ? (
+                  <div
+                    className={
+                      'd-flex align-items-center text-capitalize py-sm px-20 position-relative'
+                    }
+                  >
+                    <div className="z-1">{cell?.value === '' ? 'Unknown' : cell?.value}</div>
+                  </div>
+                ) : (
+                  <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
+                )}
+              </>
+            );
+          },
+        };
+      });
+      const data = this.data?.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              return {
+                [i]: item[i],
+              };
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
+
+      return {
+        header,
+        data: filteredData,
       };
     } else {
       return {

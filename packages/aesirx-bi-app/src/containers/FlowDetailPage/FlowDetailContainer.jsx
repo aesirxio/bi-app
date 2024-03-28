@@ -5,12 +5,17 @@ import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { useFlowViewModel } from './FlowViewModels/FlowViewModelContextProvider';
-import { useParams } from 'react-router-dom';
+import { useParams, withRouter } from 'react-router-dom';
 import Card from './Components/Card';
 import { env } from 'aesirx-lib';
 import { BI_FLOW_DETAIL_KEY } from 'aesirx-lib';
 import moment from 'moment';
-import BehaviorTable from '../../components/BehaviorTable';
+import { Image } from 'react-bootstrap';
+import { BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { history } from 'aesirx-uikit';
+import queryString from 'query-string';
 
 const FlowDetailContainer = observer((props) => {
   const { t } = useTranslation();
@@ -18,10 +23,15 @@ const FlowDetailContainer = observer((props) => {
     flowDetailViewModel: { data = [], relatedVisitorData, getFlowDetail, status },
   } = useFlowViewModel();
   const {
-    biListViewModel: { activeDomain, integrationLink },
+    biListViewModel: { activeDomain, dateFilter, dataFilter, integrationLink, setIntegrationLink },
   } = useBiViewModel();
   const { uuid } = useParams();
-  const uuidDetail = props.integration ? integrationLink.split('/')[1] : uuid;
+  const params = queryString.parse(props.location.search);
+  const uuidDetail = props.integration
+    ? integrationLink?.split('&id=')[1]
+      ? integrationLink?.split('&id=')[1]
+      : params?.id
+    : uuid;
   useEffect(() => {
     const execute = async () => {
       await getFlowDetail(uuidDetail, {
@@ -35,23 +45,23 @@ const FlowDetailContainer = observer((props) => {
   const CardData = useMemo(
     () => [
       {
-        className: 'col-3',
+        className: 'col-4',
         title: t('txt_domain'),
         icon: env.PUBLIC_URL + '/assets/images/domain.svg',
         iconColor: '#1AB394',
         value: data?.[BI_FLOW_DETAIL_KEY.DOMAIN] ?? '',
       },
+      // {
+      //   className: 'col-4',
+      //   title: t('txt_location'),
+      //   icon: env.PUBLIC_URL + '/assets/images/location.svg',
+      //   iconColor: '#1AB394',
+      //   value: data?.[BI_FLOW_DETAIL_KEY.LOCATION]?.country?.name ?? 'unDetected',
+      // },
       {
-        className: 'col-3',
-        title: t('txt_location'),
-        icon: env.PUBLIC_URL + '/assets/images/location.svg',
-        iconColor: '#1AB394',
-        value: data?.[BI_FLOW_DETAIL_KEY.LOCATION]?.country?.name ?? 'unDetected',
-      },
-      {
-        className: 'col-3',
+        className: 'col-4',
         title: t('txt_duration'),
-        icon: env.PUBLIC_URL + '/assets/images/clock.svg',
+        icon: env.PUBLIC_URL + '/assets/images/duration.png',
         iconColor: '#1AB394',
         value:
           moment
@@ -65,6 +75,13 @@ const FlowDetailContainer = observer((props) => {
                 .asMilliseconds()
             )
             .format('HH:mm:ss') ?? 0,
+      },
+      {
+        className: 'col-4',
+        title: t('txt_actions'),
+        icon: env.PUBLIC_URL + '/assets/images/click.png',
+        iconColor: '#1AB394',
+        value: data?.[BI_FLOW_DETAIL_KEY.EVENTS]?.length ?? 0,
       },
     ],
     [data]
@@ -73,22 +90,17 @@ const FlowDetailContainer = observer((props) => {
     () => [
       {
         text: t('txt_date'),
-        value: moment(data?.[BI_FLOW_DETAIL_KEY.START]).format('DD/MM/YYYY') ?? '',
+        value: data?.[BI_FLOW_DETAIL_KEY.START]
+          ? moment.utc(data?.[BI_FLOW_DETAIL_KEY.START]).format('DD/MM/YYYY hh:mm:ss')
+          : '',
       },
       {
-        text: t('txt_duration'),
-        value:
-          moment
-            .utc(
-              moment
-                .duration(
-                  moment(data?.[BI_FLOW_DETAIL_KEY.END]).diff(
-                    moment(data?.[BI_FLOW_DETAIL_KEY.START])
-                  )
-                )
-                .asMilliseconds()
-            )
-            .format('HH:mm:ss') ?? 0,
+        text: t('txt_domain'),
+        value: data?.[BI_FLOW_DETAIL_KEY.DOMAIN] ?? '',
+      },
+      {
+        text: t('txt_locale'),
+        value: data?.[BI_FLOW_DETAIL_KEY.LOCATION]?.country?.name ?? 'unDetected',
       },
       {
         text: t('txt_ip'),
@@ -105,16 +117,38 @@ const FlowDetailContainer = observer((props) => {
     ],
     [data]
   );
-
+  const handleChangeLink = (e, link) => {
+    e.preventDefault();
+    if (link) {
+      setIntegrationLink(link);
+    }
+  };
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
-      <div className="position-relative">
-        <h2 className="fw-bold mb-8px mb-3">{t('txt_visitor_flow') + ' ' + uuidDetail}</h2>
+      <div className="position-relative d-flex align-items-center mb-3">
+        <div
+          className={`back_icon d-flex align-items-center justify-content-center cursor-pointer me-1`}
+          onClick={(e) => {
+            if (props.integration) {
+              handleChangeLink(e, `visitors-flow`);
+            } else {
+              history.push(
+                `/visitors/flow?date_end=${dateFilter?.date_end}&date_start=${
+                  dateFilter?.date_start
+                }&domain=${activeDomain}&pagination=${
+                  dataFilter?.pagination ? dataFilter?.pagination : '1'
+                }`
+              );
+            }
+          }}
+        >
+          <FontAwesomeIcon className={`text-success`} icon={faChevronLeft} />
+        </div>
+        <h2 className="fw-bold mb-0">{t('txt_visitor_detail')}</h2>
       </div>
-      <Card loading={status} data={CardData} />
       <div className="row gx-24 ">
         <div className="col-3">
-          <div className="bg-white p-24 shadow-sm rounded-3 h-100 ">
+          <div className="bg-white p-24 shadow-sm rounded-3">
             {LeftTableData?.length
               ? LeftTableData.map((item, index) => (
                   <div
@@ -131,13 +165,62 @@ const FlowDetailContainer = observer((props) => {
           </div>
         </div>
         <div className="col-9">
-          {relatedVisitorData ? (
-            <BehaviorTable data={relatedVisitorData?.toEventTable(props.integration)} />
-          ) : null}
+          <Card loading={status} data={CardData} />
+          {relatedVisitorData?.data?.length ? (
+            <div className="bg-white p-24">
+              {relatedVisitorData?.data?.map((item, key) => {
+                return (
+                  <div className="d-flex align-items-center mb-24 flow-detail-item" key={key}>
+                    <div className="flow-detail-item-image me-10">
+                      <Image
+                        className={`object-fit-contain`}
+                        style={{ width: 32, height: 32 }}
+                        src={`${env.PUBLIC_URL}/assets/images/flow_icon.png`}
+                        alt={'icons'}
+                      />
+                    </div>
+                    <div className="flow-detail-item-content d-flex flex-wrap">
+                      <div className="fs-14 w-100" style={{ color: '#5F5E70' }}>
+                        {moment(item[BI_VISITOR_FIELD_KEY.START_DATE])?.utc()?.format('HH:mm:ss')}
+                      </div>
+                      <div
+                        className={`flow_detail_item_content_action text-white fw-medium d-inline-flex my-sm ${
+                          item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit' ? 'text-capitalize' : ''
+                        }`}
+                      >
+                        {item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit'
+                          ? 'Visited'
+                          : item[BI_VISITOR_FIELD_KEY.EVENT_NAME]}
+                      </div>
+                      <div className="w-100">
+                        <a
+                          href={`${item[BI_VISITOR_FIELD_KEY.URL]}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={`flow_detail_item_content_link fw-semibold`}
+                        >
+                          {item[BI_VISITOR_FIELD_KEY.URL]}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <></>
+          )}
+          {/* {relatedVisitorData ? (
+            <BehaviorTable
+              data={relatedVisitorData?.toFlowDetailTable()}
+              sortAPI={false}
+              limit={20}
+            />
+          ) : null} */}
         </div>
       </div>
     </div>
   );
 });
 
-export default FlowDetailContainer;
+export default withRouter(FlowDetailContainer);

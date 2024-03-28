@@ -56,6 +56,38 @@ const Dashboard = observer(
     handleDateRangeChange = (startDate, endDate) => {
       this.dashboardListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
     };
+
+    handleSortPage = async (column) => {
+      this.dashboardListViewModel.getPages(
+        {
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.dashboardListViewModel?.sortByPages['sort_direction[]'] === 'desc'
+              ? 'asc'
+              : 'desc',
+        }
+      );
+    };
+
+    handleSortSources = async (column) => {
+      this.dashboardListViewModel.getReferer(
+        {
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+        },
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.dashboardListViewModel?.sortBySources['sort_direction[]'] === 'desc'
+              ? 'asc'
+              : 'desc',
+        }
+      );
+    };
     render() {
       const { t } = this.props;
 
@@ -91,7 +123,7 @@ const Dashboard = observer(
               <DateRangePicker onChange={this.handleDateRangeChange} />
             </div>
           </div>
-          <Row className="mt-24">
+          <Row>
             <Col lg="3">
               <div className="bg-white shadow-sm rounded-3 h-100">
                 <div className="bg-white border-bottom">
@@ -102,7 +134,7 @@ const Dashboard = observer(
                     <div className="fs-24">
                       {Helper.numberWithCommas(
                         this.dashboardListViewModel.summaryData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+                          BI_SUMMARY_FIELD_KEY.TOTAL_NUMBER_OF_VISITORS
                         ]
                       )}
                     </div>
@@ -114,7 +146,7 @@ const Dashboard = observer(
                     <div className="fs-24">
                       {Helper.numberWithCommas(
                         this.dashboardListViewModel.summaryData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
                         ]
                       )}
                     </div>
@@ -188,7 +220,32 @@ const Dashboard = observer(
               />
             </Col>
           </Row>
-          <Row className="my-24 pb-24">
+          <Row className="">
+            <Col lg={6} className="mb-24">
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_sources')}</h4>
+                <TopTable
+                  data={this.dashboardListViewModel?.sourcesTableData?.list}
+                  pagination={this.dashboardListViewModel?.sourcesTableData?.pagination}
+                  isPagination={true}
+                  simplePagination={true}
+                  selectPage={async (value) => {
+                    await this.dashboardListViewModel.handleFilterSources({ page: value });
+                  }}
+                  selectPageSize={async (value) => {
+                    await this.dashboardListViewModel.handleFilterSources({
+                      page: 1,
+                      page_size: value,
+                    });
+                  }}
+                  status={this.dashboardListViewModel?.statusTopSourceTable}
+                  sortAPI={true}
+                  handleSort={this.handleSortSources}
+                  sortBy={this.dashboardListViewModel?.sortBySources}
+                  {...this.props}
+                />
+              </div>
+            </Col>
             <Col lg={6} className="mb-24">
               <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
                 <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_pages')}</h4>
@@ -207,6 +264,9 @@ const Dashboard = observer(
                     });
                   }}
                   status={this.dashboardListViewModel?.statusTopPageTable}
+                  sortAPI={true}
+                  handleSort={this.handleSortPage}
+                  sortBy={this.dashboardListViewModel?.sortByPages}
                   {...this.props}
                 />
               </div>
@@ -219,6 +279,61 @@ const Dashboard = observer(
             <Col lg={6} className="mb-24">
               <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
                 <Browsers {...this.props} />
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col lg={12} className="mb-24">
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_event')}</h4>
+                <TopTable
+                  data={this.dashboardListViewModel?.eventNameTypeTableData?.list}
+                  pagination={this.dashboardListViewModel?.eventNameTypeTableData?.pagination}
+                  isPagination={true}
+                  simplePagination={true}
+                  selectPage={async (value) => {
+                    await this.dashboardListViewModel.handleFilterSources({ page: value });
+                  }}
+                  selectPageSize={async (value) => {
+                    await this.dashboardListViewModel.handleFilterSources({
+                      page: 1,
+                      page_size: value,
+                    });
+                  }}
+                  status={this.dashboardListViewModel?.browsersData}
+                  sortAPI={true}
+                  handleSort={this.handleSortSources}
+                  sortBy={this.dashboardListViewModel?.sortByEventsType}
+                  {...this.props}
+                />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={12} className="mb-24">
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_menu_utm_tracking')}</h4>
+                <TopTable
+                  data={this.dashboardListViewModel?.attributeTypeTableData?.list}
+                  pagination={this.dashboardListViewModel?.attributeTypeTableData?.pagination}
+                  isPagination={true}
+                  simplePagination={true}
+                  selectPage={async (value) => {
+                    await this.dashboardListViewModel.handleFilterSources({ page: value });
+                  }}
+                  selectPageSize={async (value) => {
+                    await this.dashboardListViewModel.handleFilterSources({
+                      page: 1,
+                      page_size: value,
+                    });
+                  }}
+                  status={this.dashboardListViewModel?.browsersData}
+                  sortAPI={true}
+                  handleSort={this.handleSortSources}
+                  sortBy={this.dashboardListViewModel?.sortByEventsType}
+                  {...this.props}
+                />
               </div>
             </Col>
           </Row>

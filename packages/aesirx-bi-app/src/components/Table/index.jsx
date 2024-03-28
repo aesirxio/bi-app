@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { usePagination, useSortBy, useTable } from 'react-table';
+import { useExpanded, usePagination, useSortBy, useTable } from 'react-table';
 import { withTranslation } from 'react-i18next';
 import ComponentNoData from '../ComponentNoData';
 import './index.scss';
@@ -13,16 +13,20 @@ import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { env } from 'aesirx-lib';
 import { AesirXSelect } from 'aesirx-uikit';
 import ComponentSVG from 'components/ComponentSVG';
+import { SubRows } from './RowSubComponent';
+import PAGE_STATUS from 'constants/PageStatus';
+
 const Table = ({
   columns,
   data,
   pagination,
-  store,
   onSelect,
   dataList,
   classNameTable,
   canSort,
   sortAPI,
+  sortAPIHandle,
+  sortBy,
   limit,
   paginationClass,
   isPaginationAPI,
@@ -30,6 +34,9 @@ const Table = ({
   selectPage,
   selectPageSize,
   simplePagination = false,
+  status,
+  hasSubRow,
+  idKey,
   ...props
 }) => {
   const {
@@ -38,6 +45,7 @@ const Table = ({
     headerGroups,
     prepareRow,
     rows,
+    visibleColumns,
     page,
     pageOptions,
     previousPage,
@@ -59,7 +67,21 @@ const Table = ({
       },
     },
     useSortBy,
+    useExpanded,
     usePagination
+  );
+  const renderRowSubComponent = React.useCallback(
+    ({ row, rowProps, visibleColumns, subRow, idKey }) => (
+      <SubRows
+        row={row}
+        rowProps={rowProps}
+        visibleColumns={visibleColumns}
+        loading={status === PAGE_STATUS.LOADING}
+        data={subRow}
+        idKey={idKey}
+      />
+    ),
+    [status]
   );
 
   const handlePagination = async (pageIndex) => {
@@ -75,7 +97,7 @@ const Table = ({
     : [...Array(pageOptions.length)];
   return (
     <>
-      <div className="bg-white fs-14 rounded-3 position-relative">
+      <div className="bg-white fs-14 rounded-3 position-relative text-gray-900">
         {rows.length ? (
           <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
             <thead>
@@ -99,49 +121,48 @@ const Table = ({
                       return (
                         <th
                           key={index}
-                          {...(!sortAPI && {
-                            ...column.getHeaderProps(
-                              canSort && !column.rowSpan
-                                ? column.getSortByToggleProps()
-                                : columnInside && columnInside.getSortByToggleProps()
-                            ),
-                          })}
+                          {...(!sortAPI &&
+                            column?.allowSort && {
+                              ...column.getHeaderProps(
+                                canSort && !column.rowSpan
+                                  ? column.getSortByToggleProps()
+                                  : columnInside && columnInside.getSortByToggleProps()
+                              ),
+                            })}
                           className={`${column.className} ${
-                            sortAPI && sortParams !== 'number' && sortParams !== 'selection'
+                            sortAPI &&
+                            column?.allowSort &&
+                            sortParams !== 'number' &&
+                            sortParams !== 'selection'
                               ? 'cursor-pointer'
                               : ''
                           }`}
                           {...(sortAPI &&
+                            column?.allowSort &&
                             sortParams !== 'number' &&
                             sortParams !== 'selection' && {
                               onClick: async () => {
-                                if (store.sortBy.id === sortParams && store.sortBy.desc) {
-                                  store.sortBy = { desc: true };
-                                } else if (store.sortBy.id !== sortParams) {
-                                  store.sortBy = { id: sortParams, desc: false };
-                                } else {
-                                  store.sortBy = { id: sortParams, desc: !store.sortBy.desc };
-                                }
-                                await store.getItems();
+                                sortAPIHandle(column);
                               },
                             })}
                           rowSpan={`${column.rowSpan ?? 1}`}
                         >
                           {column.render('Header')}
-                          {canSort && (
+                          {canSort && column?.allowSort && (
                             <span className="position-relative align-middle">
                               {sortAPI ? (
-                                store?.sortBy?.id === sortParams &&
+                                sortBy &&
+                                sortBy['sort[]'] === sortParams &&
                                 sortParams !== 'number' &&
                                 sortParams !== 'selection' ? (
-                                  store?.sortBy?.desc ? (
+                                  sortBy['sort_direction[]'] === 'desc' ? (
                                     <FontAwesomeIcon
-                                      className="sort-icon sort-icon-down ms-sm"
+                                      className="sort-icon sort-icon-down ms-sm mt-n3"
                                       icon={faSortDown}
                                     />
                                   ) : (
                                     <FontAwesomeIcon
-                                      className="sort-icon sort-icon-up ms-sm mb-n8px"
+                                      className="sort-icon sort-icon-up ms-sm mb-nsm"
                                       icon={faSortUp}
                                     />
                                   )
@@ -158,12 +179,12 @@ const Table = ({
                                 sortParams !== 'selection' ? (
                                   column.isSortedDesc ? (
                                     <FontAwesomeIcon
-                                      className="sort-icon sort-icon-down ms-sm"
+                                      className="sort-icon sort-icon-down ms-sm mt-n3"
                                       icon={faSortDown}
                                     />
                                   ) : (
                                     <FontAwesomeIcon
-                                      className="sort-icon sort-icon-up ms-sm mb-n8px"
+                                      className="sort-icon sort-icon-up ms-sm mb-nsm"
                                       icon={faSortUp}
                                     />
                                   )
@@ -180,12 +201,12 @@ const Table = ({
                                 sortParams !== 'selection' ? (
                                 columnInside.isSortedDesc ? (
                                   <FontAwesomeIcon
-                                    className="sort-icon sort-icon-down ms-sm"
+                                    className="sort-icon sort-icon-down ms-sm mt-n3"
                                     icon={faSortDown}
                                   />
                                 ) : (
                                   <FontAwesomeIcon
-                                    className="sort-icon sort-icon-up ms-sm mb-n8px"
+                                    className="sort-icon sort-icon-up ms-sm mb-nsm"
                                     icon={faSortUp}
                                   />
                                 )
@@ -205,6 +226,7 @@ const Table = ({
               {page.length > 0 &&
                 page.map((row) => {
                   prepareRow(row);
+                  const rowProps = row.getRowProps();
                   let newRowCells = '';
 
                   dataList
@@ -212,21 +234,27 @@ const Table = ({
                         (item) => !dataList.some((other) => item.column.id === other)
                       ))
                     : (newRowCells = row.cells);
-
+                  const subRow = row.cells.find((item) => item?.column?.id === idKey)?.value ?? [];
                   return (
-                    <tr key={row.getRowProps().key} {...row.getRowProps()}>
-                      {newRowCells.map((cell, index) => {
-                        return (
-                          <td
-                            key={index}
-                            {...cell.getCellProps({ style: { width: cell.column.width } })}
-                            className="py-2 wb-all"
-                          >
-                            {cell.render('Cell')}
-                          </td>
-                        );
-                      })}
-                    </tr>
+                    <React.Fragment key={row.getRowProps().key}>
+                      <tr {...row.getRowProps()}>
+                        {newRowCells.map((cell, index) => {
+                          return (
+                            <td
+                              key={index}
+                              {...cell.getCellProps({ style: { width: cell.column.width } })}
+                              className="py-2 wb-all align-middle"
+                            >
+                              {cell.render('Cell')}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                      {hasSubRow === false
+                        ? null
+                        : row.isExpanded &&
+                          renderRowSubComponent({ row, rowProps, visibleColumns, subRow, idKey })}
+                    </React.Fragment>
                   );
                 })}
             </tbody>
@@ -254,6 +282,7 @@ const Table = ({
                   isSearchable={false}
                   isBorder={false}
                   isShadow={false}
+                  menuPlacement={'top'}
                   options={[
                     { label: 5, value: 5 },
                     { label: 10, value: 10 },

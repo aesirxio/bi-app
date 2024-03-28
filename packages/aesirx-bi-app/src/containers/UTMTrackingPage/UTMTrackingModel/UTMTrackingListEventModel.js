@@ -65,14 +65,6 @@ class UTMTrackingEventModel {
   toBarChartUTM = () => {
     const transform = this.transformResponseUTM();
     return Object.keys(transform).map((item) => {
-      console.log(
-        'transform[item]',
-        transform[item]?.map((e) => {
-          return e?.values?.find((sub_item) => {
-            return sub_item?.value === item;
-          })?.count;
-        })
-      );
       return {
         name: item,
         number: transform[item]
@@ -196,7 +188,7 @@ class UTMTrackingEventModel {
       'Date',
     ];
     const accessor = [
-      BI_VISITOR_FIELD_KEY.FLOW_ID,
+      BI_VISITOR_FIELD_KEY.UUID,
       'utm_source',
       'utm_medium',
       'utm_campaign',
@@ -211,17 +203,18 @@ class UTMTrackingEventModel {
         return {
           Header: headerTable[index],
           accessor: key,
+          allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
           Cell: ({ cell, column }) => {
-            if (column.id === BI_VISITOR_FIELD_KEY.FLOW_ID && cell?.value) {
+            if (column.id === BI_VISITOR_FIELD_KEY.UUID && cell?.value) {
               const findUUID = this.data.find((obj) => {
-                return obj?.[BI_VISITOR_FIELD_KEY.FLOW_ID] === cell?.value;
+                return obj?.[BI_VISITOR_FIELD_KEY.UUID] === cell?.value;
               });
               return (
                 <>
                   {integration ? (
                     <a
                       href="#"
-                      onClick={(e) => this.handleChangeLink(e, `flow/${cell?.value}`)}
+                      onClick={(e) => this.handleChangeLink(e, `flow&id=${cell?.value}`)}
                       className={`px-3`}
                     >
                       <span>
@@ -233,7 +226,7 @@ class UTMTrackingEventModel {
                       </span>
                     </a>
                   ) : (
-                    <NavLink to={`/flow/${cell?.value}`} className={'px-3'}>
+                    <NavLink to={`/flow/${cell?.value}`} className={'px-3 text-secondary-50'}>
                       {
                         findUUID?.[BI_VISITOR_FIELD_KEY.ATTRIBUTES].find((obj) => {
                           return obj?.name === 'utm_id';
@@ -305,6 +298,12 @@ class UTMTrackingEventModel {
         data: [],
       };
     }
+  };
+
+  toAttributeList = () => {
+    const transform = this.transformResponseUTM();
+    const result = Object.keys(transform)?.map((item) => ({ value: item, label: item }));
+    return [{ label: 'All Campaign', value: 'all' }, ...result];
   };
 }
 

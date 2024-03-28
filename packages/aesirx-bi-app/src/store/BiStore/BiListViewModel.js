@@ -34,7 +34,9 @@ class BiListViewModel {
     this.activeDomain = checkPage?.domain
       ? checkPage?.domain
       : env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain;
-    this.integrationLink = checkPage?.menu ? checkPage?.menu : 'dashboard';
+    this.integrationLink = checkPage?.page
+      ? checkPage?.page?.replace('aesirx-bi-', '')
+      : 'dashboard';
 
     const date_start = checkPage?.date_start;
     const date_end = checkPage?.date_end;
@@ -81,11 +83,15 @@ class BiListViewModel {
     ) {
       const search = {
         ...queryString.parse(location.search),
-        ...{ menu: link },
+        ...{ page: 'aesirx-bi-' + link },
       };
+      console.log(
+        'unescape(queryString.stringify(search))',
+        unescape(queryString.stringify(search))
+      );
       history.push({
         ...location,
-        ...{ search: queryString.stringify(search) },
+        ...{ search: unescape(queryString.stringify(search)) },
       });
     }
     this.integrationLink = link;

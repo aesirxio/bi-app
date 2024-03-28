@@ -131,6 +131,7 @@
   "txt_utm_tracking_generator": "UTM İzleme Motoru",
   "txt_events_generator": "Etinlik Motoru",
   "txt_export_pdf": "PDF Dışa Aktar",
+  "txt_export": "Dışa Aktar",
   "txt_tooltip_visitors": "Ziyaretçi sayısı",
   "txt_tooltip_page_views": "Sayfa görüntüleme sayısı, görüntülenen toplam sayfa sayısıdır. Tek bir sayfanın yinelenen görüntülemeleri sayılır.",
   "txt_tooltip_unique_page_views": "Tekil Sayfa Görüntülemeleri, belirtilen sayfanın en az bir kez görüntülendiği oturumların sayısıdır. Her sayfa URL'si + sayfa Başlığı kombinasyonu için tekil bir sayfa görüntüleme sayılır.",
@@ -172,5 +173,15 @@
   "txt_product_revenue": "Ürün Geliri",
   "txt_avg_price": "Ort. Fiyat",
   "txt_avg_quantity": "Ort. Adet",
-  "txt_top_products": "En Popüler Ürünler"
+  "txt_top_products": "En Popüler Ürünler",
+  "txt_menu_consents": "Onaylar",
+  "txt_web3id": "Web3ID",
+  "txt_wallet": "Cüzdan",
+  "txt_consent": "Onay",
+  "txt_tier": "Kademe",
+  "txt_uuid": "UUID",
+  "txt_datetime": "Tarihsaat",
+  "txt_expiration": "Son kullanma tarihi",
+  "txt_top_sources": "En İyi Kaynaklar",
+  "txt_source": "Kaynak"
 }

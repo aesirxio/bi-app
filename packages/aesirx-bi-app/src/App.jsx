@@ -31,6 +31,7 @@ const App = () => {
         rootId="#biapp"
         leftMenu={<Menu />}
         logo={'/assets/images/logo_company.svg'}
+        isColorMode={false}
       />
     </BiStoreProvider>
   );

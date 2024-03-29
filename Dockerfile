@@ -1,6 +1,6 @@
 
 ## builder
-FROM node:16-alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 
 COPY .git .
@@ -28,7 +28,7 @@ RUN yarn install --frozen-lockfile --network-timeout 600000
 RUN yarn build
 
 # Bundle static assets
-FROM node:16-alpine AS production
+FROM node:18-alpine AS production
 WORKDIR /app
 
 # Copy built assets from builder

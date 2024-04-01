@@ -7,7 +7,7 @@
     "packages/aesirx-sso"
   ],
   "devDependencies": {
-    "nx": "17.2.8"
+    "nx": "18.2.1"
   },
   "resolutions": {
     "@yarnpkg/parsers": "3.0.0-rc.48.1",

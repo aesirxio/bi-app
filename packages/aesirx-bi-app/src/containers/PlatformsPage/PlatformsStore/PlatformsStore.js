@@ -94,7 +94,6 @@ export class PlatformsStore {
       });
     }
   };
-
 }
 
 export default PlatformsStore;

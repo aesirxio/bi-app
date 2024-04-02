@@ -220,7 +220,7 @@ const Dashboard = observer(
               />
             </Col>
           </Row>
-          <Row className="">
+          <Row className="mt-4">
             <Col lg={6} className="mb-24">
               <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
                 <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_sources')}</h4>
@@ -301,7 +301,7 @@ const Dashboard = observer(
                       page_size: value,
                     });
                   }}
-                  status={this.dashboardListViewModel?.browsersData}
+                  status={this.dashboardListViewModel?.statusTopBrowser}
                   sortAPI={true}
                   handleSort={this.handleSortSources}
                   sortBy={this.dashboardListViewModel?.sortByEventsType}
@@ -328,7 +328,7 @@ const Dashboard = observer(
                       page_size: value,
                     });
                   }}
-                  status={this.dashboardListViewModel?.browsersData}
+                  status={this.dashboardListViewModel?.statusTopBrowser}
                   sortAPI={true}
                   handleSort={this.handleSortSources}
                   sortBy={this.dashboardListViewModel?.sortByEventsType}

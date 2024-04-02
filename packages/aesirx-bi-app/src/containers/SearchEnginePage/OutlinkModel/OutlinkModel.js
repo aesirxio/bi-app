@@ -3,10 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import {
-  BI_OUTLINK_FIELD_KEY,
-  BI_SUMMARY_FIELD_KEY,
-} from 'aesirx-lib';
+import { BI_OUTLINK_FIELD_KEY, BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons';

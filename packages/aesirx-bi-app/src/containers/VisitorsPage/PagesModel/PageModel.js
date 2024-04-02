@@ -197,6 +197,40 @@ class PageModel {
       };
     }
   };
+  transformResponse = () => {
+    let data = {};
+
+    if (this.data?.length > 0) {
+      this.data?.forEach((item) => {
+        const dataFilterEventName = this.data.filter(
+          (_item) => _item[BI_PAGES_FIELD_KEY.URL] === item[BI_PAGES_FIELD_KEY.URL]
+        );
+
+        console.log('dataFilterEventName', dataFilterEventName);
+        data = {
+          ...data,
+          // [item[BI_PAGES_FIELD_KEY.URL]]:
+          //   urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search,
+          [item[BI_PAGES_FIELD_KEY.URL]]: dataFilterEventName,
+        };
+      });
+    }
+
+    return data;
+  };
+  toBarChart = () => {
+    const transform = this.transformResponse();
+    return Object.keys(transform).map((item) => {
+      const urlParams = item && new URL(item);
+      return {
+        name: urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search,
+        number: transform[item]?.reduce(
+          (a, b) => a + b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
+          0
+        ),
+      };
+    });
+  };
 }
 
 export default PageModel;

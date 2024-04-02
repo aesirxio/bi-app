@@ -14,12 +14,15 @@ import BrowserModel from '../BrowserModel/BrowserModel';
 import LanguageModel from '../LanguagesModel/LanguageModel';
 import PageModel from '../PagesModel/PageModel';
 import queryString from 'query-string';
+import FlowListModel from 'containers/FlowListPage/FlowListModel/FlowListModel';
 class VisitorsListViewModel {
   visitorsStore = null;
   status = PAGE_STATUS.READY;
   statusOverview = PAGE_STATUS.READY;
   statusMetrics = PAGE_STATUS.READY;
   statusTopTable = PAGE_STATUS.READY;
+  statusPagesCount = PAGE_STATUS.READY;
+  statusFlowList = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   metricsData = null;
   visitorData = null;
@@ -30,12 +33,16 @@ class VisitorsListViewModel {
   devicesTableData = null;
   languagesTableData = null;
   pagesTableData = null;
+  pagesCountData = null;
+  flowListTableData = null;
+  dataFilterFlowList = {};
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
   sortByCountries = { 'sort[]': '', 'sort_direction[]': '' };
   sortByCities = { 'sort[]': '', 'sort_direction[]': '' };
   sortByBrowsers = { 'sort[]': '', 'sort_direction[]': '' };
   sortByDevices = { 'sort[]': '', 'sort_direction[]': '' };
   sortByLanguages = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByFlowList = { 'sort[]': '', 'sort_direction[]': '' };
 
   constructor(visitorsStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -52,12 +59,14 @@ class VisitorsListViewModel {
     this.getBrowsers(dataFilter, dateFilter);
     this.getDevices(dataFilter, dateFilter);
     this.getLanguages(dataFilter, dateFilter);
+    this.getFlowList(dataFilter, dateFilter);
   };
 
-  initializeBehavior = (dataFilter, dateFilter, page) => {
+  initializeBehavior = async (dataFilter, dateFilter, page) => {
     this.getVisitors(dataFilter, dateFilter);
     this.getMetrics(dataFilter, dateFilter);
-    this.getPages(dataFilter, dateFilter, page, {}, page);
+    await this.getPages(dataFilter, dateFilter, page);
+    await this.getPagesCount(dataFilter, dateFilter, page);
   };
 
   getMetrics = (dataFilter, dateFilter) => {
@@ -218,7 +227,7 @@ class VisitorsListViewModel {
     );
   };
 
-  getPages = async (dataFilter, dateFilter, sortBy = {}, search = {}, page = {}) => {
+  getPages = async (dataFilter, dateFilter, sortBy = {}, search = {}) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
     this.sortBy = sortBy;
     this.search = search;
@@ -228,7 +237,6 @@ class VisitorsListViewModel {
       ...dataFilter,
       ...this.sortBy,
       ...this.search,
-      ...page,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
@@ -236,6 +244,50 @@ class VisitorsListViewModel {
       this.dataFilterPages,
       dateRangeFilter,
       this.callbackOnPagesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getPagesCount = async (dataFilter, dateFilter, sortBy = {}, search = {}) => {
+    this.statusPagesCount = PAGE_STATUS.LOADING;
+    this.sortBy = sortBy;
+    this.search = search;
+    this.dataFilterPages = {
+      page_size: '3',
+      ...this.dataFilterPages,
+      ...dataFilter,
+      ...this.sortBy,
+      ...this.search,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.visitorsStore.getPagesCount(
+      this.dataFilterPages,
+      dateRangeFilter,
+      this.callbackOnPagesCountSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getFlowList = (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'start', 'sort_direction[]': 'desc' }
+  ) => {
+    this.statusFlowList = PAGE_STATUS.LOADING;
+    this.sortByFlowList = sortBy;
+    this.dataFilter = {
+      page_size: '10',
+      ...this.dataFilter,
+      ...dataFilter,
+      ...this.sortByFlowList,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.visitorsStore.getFlowList(
+      this.dataFilter,
+      dateRangeFilter,
+      this.callbackOnFlowListSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -339,6 +391,47 @@ class VisitorsListViewModel {
       date_end: moment(endDate).endOf('day').format('YYYY-MM-DD'),
     };
     this.initialize(this.dataFilter, dateRangeFilter);
+  };
+
+  handleFilterFlowList = async (dataFilter) => {
+    const location = history.location;
+    this.status = PAGE_STATUS.LOADING;
+
+    this.dataFilterFlowList = { ...this.dataFilter, ...dataFilter };
+    this.globalStoreViewModel.dataFilter = { pagination: this.dataFilterFlowList?.page };
+
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.visitorsStore.getFlowList(
+      this.dataFilterFlowList,
+      dateRangeFilter,
+      this.callbackOnFlowListSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+    if (dataFilter?.page) {
+      const search = {
+        ...queryString.parse(location.search),
+        ...{ pagination: dataFilter?.page },
+      };
+      window.history.replaceState('', '', `/visitors/flow?${queryString.stringify(search)}`);
+    }
+  };
+
+  callbackOnFlowListSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
+        this.status = PAGE_STATUS.READY;
+        this.statusFlowList = PAGE_STATUS.READY;
+        const transformData = new FlowListModel(data.list, this.globalStoreViewModel);
+        this.flowListTableData = {
+          list: transformData,
+          pagination: data.pagination,
+        };
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.statusFlowList = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
   };
 
   callbackOnErrorHandler = (error) => {
@@ -483,6 +576,24 @@ class VisitorsListViewModel {
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.statusTopTable = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnPagesCountSuccessHandler = (data) => {
+    console.log('data', data);
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.statusPagesCount = PAGE_STATUS.READY;
+        const transformData = new PageModel(data.list, this.globalStoreViewModel);
+        this.pagesCountData = {
+          list: transformData,
+          pagination: data.pagination,
+        };
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.statusPagesCount = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

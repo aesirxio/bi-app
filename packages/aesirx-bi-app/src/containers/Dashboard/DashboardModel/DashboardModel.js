@@ -463,9 +463,6 @@ class DashboardModel {
       BI_EVENTS_TYPE_FIELD_KEY.UNIQUE_VISITOR,
       BI_EVENTS_TYPE_FIELD_KEY.TOTAL_VISITOR,
     ];
-    const largestValue = Math.max(
-      ...this.data.map((o) => o[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS])
-    );
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
         return {
@@ -478,7 +475,7 @@ class DashboardModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : 170,
-          Cell: ({ cell, column, row }) => {
+          Cell: ({ cell, column }) => {
             return (
               <>
                 {column.id === BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME ? (
@@ -556,7 +553,7 @@ class DashboardModel {
           accessor: key,
           allowSort: true,
           width: key === BI_ATTRIBUTE_FIELD_KEY.VALUE && 250,
-          Cell: ({ cell, column, row }) => {
+          Cell: ({ cell, column }) => {
             return (
               <>
                 {column.id === BI_ATTRIBUTE_FIELD_KEY.VALUE ? (

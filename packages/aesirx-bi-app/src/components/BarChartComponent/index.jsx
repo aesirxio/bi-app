@@ -103,8 +103,8 @@ const BarChartComponent = ({
       ({ payload }) => {
         return (
           <div
-            className="areachart-tooltip p-15 text-white w-150px rounded-6"
-            style={{ backgroundColor: '#132342' }}
+            className="areachart-tooltip p-15 text-white rounded-6"
+            style={{ backgroundColor: '#132342', width: 'auto' }}
           >
             <p className="fw-semibold fs-14 mb-sm">
               {payload?.length > 0 ? payload[0].payload.name : ''}

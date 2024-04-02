@@ -301,7 +301,7 @@ const Dashboard = observer(
                       page_size: value,
                     });
                   }}
-                  status={this.dashboardListViewModel?.browsersData}
+                  status={this.dashboardListViewModel?.statusTopBrowser}
                   sortAPI={true}
                   handleSort={this.handleSortSources}
                   sortBy={this.dashboardListViewModel?.sortByEventsType}
@@ -328,7 +328,7 @@ const Dashboard = observer(
                       page_size: value,
                     });
                   }}
-                  status={this.dashboardListViewModel?.browsersData}
+                  status={this.dashboardListViewModel?.statusTopBrowser}
                   sortAPI={true}
                   handleSort={this.handleSortSources}
                   sortBy={this.dashboardListViewModel?.sortByEventsType}

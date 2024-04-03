@@ -102,7 +102,7 @@ class AcquisitionCampaignModel {
     const date = {
       all: dateRange.map((date) => {
         return {
-          name: date && moment(date, 'YYYY-MM-DD').format('MM-DD'),
+          name: date && moment(date, 'YYYY-MM-DD').format('DD'),
           ...Object.keys(transform)
             .map((item) => {
               const filterDate = transform[item]?.filter(
@@ -125,7 +125,7 @@ class AcquisitionCampaignModel {
                 (_item) => moment(_item[BI_VISITORS_FIELD_KEY.DATE]).format('YYYY-MM-DD') === date
               );
               return {
-                name: date && moment(date, 'YYYY-MM-DD').format('MM-DD'),
+                name: date && moment(date, 'YYYY-MM-DD').format('DD'),
                 [item]: filterDate?.length
                   ? filterDate[0]?.values?.find((e) => e?.value === item)?.count
                   : 0,

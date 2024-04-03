@@ -143,9 +143,36 @@ const UTMTrackingPage = observer((props) => {
             chartTitle={t('txt_menu_overview')}
             height={390}
             data={dataAttribute?.toAreaChartUTM()}
-            colors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            lineColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            colors={[
+              '#1AB394',
+              '#9747FF',
+              '#479CFF',
+              '#024E6D',
+              '#3F51B5',
+              '#FFC107',
+              '#4CAF50',
+              '#FF5722',
+            ]}
+            areaColors={[
+              '#1AB394',
+              '#9747FF',
+              '#479CFF',
+              '#024E6D',
+              '#3F51B5',
+              '#FFC107',
+              '#4CAF50',
+              '#FF5722',
+            ]}
+            lineColors={[
+              '#1AB394',
+              '#9747FF',
+              '#479CFF',
+              '#024E6D',
+              '#3F51B5',
+              '#FFC107',
+              '#4CAF50',
+              '#FF5722',
+            ]}
             lines={dataAttribute?.getListLineUTM()}
             filterData={dataAttribute?.getFilterNameUTM()}
             tooltipComponent={{

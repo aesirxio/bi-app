@@ -51,7 +51,7 @@ class platformsModel {
         (_item) => moment(_item.date).format('YYYY-MM-DD') === date
       );
       return {
-        name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'),
+        name: date && moment(date, 'YYYY-MM-DD').format('DD'),
         visits: filterDate?.[BI_VISITORS_FIELD_KEY.VISITS] ?? 0,
         page_views: filterDate?.[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS] ?? 0,
         unique_visits: filterDate?.['unique_visits'] ?? 0,

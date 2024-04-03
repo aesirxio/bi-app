@@ -84,7 +84,7 @@ const BarChartComponent = ({
   const renderLegend = (props) => {
     const { payload } = props;
     return (
-      <ul className="ms-3 mt-2 d-flex align-items-center">
+      <ul className="ms-3 mt-2 d-flex align-items-center flex-wrap">
         {payload.map((entry, index) => (
           <li key={`item-${index}`} className="me-24 fs-14 d-flex align-items-center">
             <div

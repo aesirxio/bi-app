@@ -57,7 +57,7 @@ class DashboardModel {
         (_item) => moment(_item.date).format('YYYY-MM-DD') === date
       );
       return {
-        name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'),
+        name: date && moment(date, 'YYYY-MM-DD').format('DD'),
         visits: filterDate?.[BI_VISITORS_FIELD_KEY.VISITS] ?? 0,
         page_views: filterDate?.[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS] ?? 0,
         unique_visits: filterDate?.['unique_visits'] ?? 0,
@@ -412,13 +412,15 @@ class DashboardModel {
                 ></div>
                 <div className="position-relative z-1 text-ellipsis line-clamp-1 pe-20">
                   <div className="position-relative table-link-text">
-                    {imgIcon && (
+                    {imgIcon ? (
                       <Image
                         className={`me-sm object-fit-contain`}
                         style={{ width: 22, height: 22 }}
                         src={env.PUBLIC_URL + imgIcon}
                         alt={'icons'}
                       />
+                    ) : (
+                      <div style={{ width: 22, height: 22 }} className="me-sm d-inline-block"></div>
                     )}
                     {/* {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search} */}
                     {cell?.value ? cell?.value : 'Direct / None'}

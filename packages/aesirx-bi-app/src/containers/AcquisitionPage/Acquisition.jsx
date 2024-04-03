@@ -74,6 +74,7 @@ const AcquisitionPage = observer(
           ),
           isIncrease: false,
           loading: this.acquisitionListViewModel.statusMetrics,
+          tooltip: t('txt_tooltip_visitors'),
         },
 
         {
@@ -86,6 +87,7 @@ const AcquisitionPage = observer(
           ),
           isIncrease: false,
           loading: this.acquisitionListViewModel?.statusMetrics,
+          tooltip: t('txt_tooltip_page_session'),
         },
         {
           className: 'col-3 mb-24',
@@ -96,6 +98,7 @@ const AcquisitionPage = observer(
             ) + '%',
           isIncrease: false,
           loading: this.acquisitionListViewModel?.statusMetrics,
+          tooltip: t('txt_tooltip_bounce_rate'),
         },
         {
           className: 'col-3 mb-24',
@@ -114,6 +117,7 @@ const AcquisitionPage = observer(
               : '00:00:00') + 's',
           isIncrease: false,
           loading: this.acquisitionListViewModel.statusMetrics,
+          tooltip: t('txt_tooltip_avg_session_duration'),
         },
       ];
     };
@@ -146,7 +150,6 @@ const AcquisitionPage = observer(
     render() {
       const { t } = this.props;
       const card = this.generateCard();
-      console.log('teste', this.acquisitionListViewModel?.channelTableData?.list);
       return (
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-24">

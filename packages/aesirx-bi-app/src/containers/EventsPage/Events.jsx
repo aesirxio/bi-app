@@ -93,10 +93,28 @@ const Events = observer((props) => {
             chartTitle={t('txt_menu_overview')}
             height={390}
             data={dataEvents?.toAreaChart() ?? []}
-            colors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            colors={[
+              '#1AB394',
+              '#9747FF',
+              '#479CFF',
+              '#024E6D',
+              '#3F51B5',
+              '#FFC107',
+              '#4CAF50',
+              '#FF5722',
+            ]}
             // areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
             areaColors={['#0066FF', '#1AB394', '#4747EB', '#96C0FF', '#D5EEFF']}
-            lineColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            lineColors={[
+              '#1AB394',
+              '#9747FF',
+              '#479CFF',
+              '#024E6D',
+              '#3F51B5',
+              '#FFC107',
+              '#4CAF50',
+              '#FF5722',
+            ]}
             lines={dataEvents?.getListLine()}
             filterData={dataEvents?.getFilterName()}
             tooltipComponent={{

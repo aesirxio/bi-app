@@ -206,13 +206,18 @@ class PageDetailModel {
                       }}
                     ></div>
                     <div className="z-1">
-                      {browserImg && (
+                      {browserImg ? (
                         <Image
                           className={`me-12px`}
                           style={{ width: 22, height: 22 }}
                           src={env.PUBLIC_URL + browserImg}
                           alt={'icons'}
                         />
+                      ) : (
+                        <div
+                          style={{ width: 22, height: 22 }}
+                          className="d-inline-block me-12px"
+                        ></div>
                       )}
                       {cell?.value === '' ? 'Unknown' : cell?.value}
                     </div>
@@ -286,9 +291,9 @@ class PageDetailModel {
               <>
                 {column.id === BI_DEVICES_FIELD_KEY.DEVICE ? (
                   <div
-                    className={
-                      'd-flex align-items-center text-capitalize py-sm px-20 position-relative'
-                    }
+                    className={`d-flex align-items-center py-sm px-20 position-relative ${
+                      cell?.value === 'iPhone' || cell?.value === 'iPad' ? '' : 'text-capitalize'
+                    }`}
                   >
                     <div
                       className="position-absolute top-0 start-0 h-100 z-0"

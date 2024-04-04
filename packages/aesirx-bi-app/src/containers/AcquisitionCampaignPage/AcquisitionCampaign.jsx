@@ -125,7 +125,7 @@ const AcquisitionCampaignPage = observer((props) => {
         </div>
         <div className="col-lg-6 col-12">
           <BarChartComponent
-            chartTitle={t('txt_event') + ' count'}
+            chartTitle={t('txt_campaign') + ' count'}
             height={390}
             bars={['number']}
             barColors={['#2C94EA']}

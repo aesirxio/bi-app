@@ -232,7 +232,12 @@ class EventsListModel {
         return {
           Header: headerTable[index],
           accessor: key,
-          width: key === BI_VISITOR_FIELD_KEY.UUID ? 10 : 170,
+          width:
+            key === BI_VISITOR_FIELD_KEY.UUID
+              ? 10
+              : key === BI_VISITOR_FIELD_KEY.EVENT_TYPE
+              ? 50
+              : 170,
           allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
           Cell: ({ cell, column }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {

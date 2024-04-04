@@ -151,6 +151,7 @@ const Events = observer((props) => {
               handleSort={handleSort}
               sortBy={sortBy}
               handleSearch={handleSearch}
+              tdClass={'align-top'}
               {...props}
             />
           )}

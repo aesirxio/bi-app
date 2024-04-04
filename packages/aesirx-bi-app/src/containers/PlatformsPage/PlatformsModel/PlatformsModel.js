@@ -202,13 +202,18 @@ class platformsModel {
                       }}
                     ></div>
                     <div className="z-1">
-                      {browserImg && (
+                      {browserImg ? (
                         <Image
                           className={`me-12px`}
                           style={{ width: 22, height: 22 }}
                           src={env.PUBLIC_URL + browserImg}
                           alt={'icons'}
                         />
+                      ) : (
+                        <div
+                          style={{ width: 22, height: 22 }}
+                          className="d-inline-block me-12px"
+                        ></div>
                       )}
                       {cell?.value === '' ? 'Unknown' : cell?.value}
                     </div>
@@ -272,16 +277,20 @@ class platformsModel {
           width:
             key === BI_DEVICES_FIELD_KEY.DEVICE
               ? 250
-              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
-              ? 220
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+              ? 140
               : 170,
           Cell: ({ cell, column }) => {
-            console.log(column.id, cell.value);
-
             return (
               <>
                 {column.id === BI_DEVICES_FIELD_KEY.DEVICE ? (
-                  <div className="text-capitalize">{cell?.value}</div>
+                  <div
+                    className={` ${
+                      cell?.value === 'iPhone' || cell?.value === 'iPad' ? '' : 'text-capitalize'
+                    }`}
+                  >
+                    {cell?.value}
+                  </div>
                 ) : (
                   <div className={' text-end'}>{Helper.numberWithCommas(cell?.value) ?? null}</div>
                 )}
@@ -347,7 +356,7 @@ class platformsModel {
             return (
               <>
                 {column.id === BI_ISPS_FIELD_KEY.ISP ? (
-                  <div>{cell?.value}</div>
+                  <div>{cell?.value ? cell?.value : 'Unknown'}</div>
                 ) : (
                   <div className={' text-end'}>{cell?.value}</div>
                 )}

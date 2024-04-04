@@ -54,7 +54,7 @@ const Divices = observer(
                     <h4 className="me-24 mb-0 fw-semibold fs-5">{t('txt_devices')}</h4>
                   </div>
                   <div className="h-100">
-                    <div className="browser-table">
+                    <div>
                       <TopTable
                         data={devicesTableData?.list}
                         pagination={devicesTableData?.pagination}
@@ -73,6 +73,7 @@ const Divices = observer(
                         sortAPI={true}
                         handleSort={this.handleSortDevices}
                         sortBy={this.platformsListViewModel?.sortByDevices}
+                        tableClass={'table'}
                         {...this.props}
                       />
                     </div>

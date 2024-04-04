@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import TopTable from './TopTable';
 const TopTabs = observer(
@@ -122,6 +122,24 @@ const TopTabs = observer(
               </Col>
               <Col sm={9}>
                 <div className="bg-white rounded-3 shadow-sm h-100 position-relative">
+                  <div className="text-end p-3">
+                    {this.props.integration ? (
+                      <a
+                        href="#"
+                        onClick={(e) => this.props.handleChangeLink(e, `/visitors-locations`)}
+                        className={'text-success me-2 text-nowrap fw-semibold'}
+                      >
+                        {t('txt_view_more')}
+                      </a>
+                    ) : (
+                      <Link
+                        to="/visitors/locations"
+                        className="text-success me-2 text-nowrap fw-semibold"
+                      >
+                        {t('txt_view_more')}
+                      </Link>
+                    )}
+                  </div>
                   <Tab.Content>
                     <Tab.Pane eventKey="country">
                       <TopTable

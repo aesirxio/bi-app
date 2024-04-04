@@ -25,6 +25,7 @@ const TopTableComponent = (props) => {
     sortAPI,
     handleSort,
     sortBy,
+    tableClass,
   } = props;
   const columnsTable = React.useMemo(
     () =>
@@ -88,7 +89,7 @@ const TopTableComponent = (props) => {
         <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
       ) : data ? (
         <Table
-          classNameTable={'mb-0'}
+          classNameTable={`mb-0 ${tableClass}`}
           columns={columnsTable}
           data={dataTable}
           canSort={true}

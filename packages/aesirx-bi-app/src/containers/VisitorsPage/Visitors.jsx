@@ -186,6 +186,8 @@ const VisitorsPage = observer(
           <TopTabs
             listViewModel={this.visitorsListViewModel}
             domain={this.context.biListViewModel.activeDomain}
+            handleChangeLink={this.handleChangeLink}
+            {...this.props}
           />
           <div className="position-relative ChartWrapper my-4 bg-white rounded-3 p-3">
             <div className="d-flex align-items-center justify-content-between">

@@ -123,7 +123,7 @@ const AcquisitionPage = observer(
     };
 
     handleSort = async (column) => {
-      this.acquisitionListViewModel.getPages(
+      this.acquisitionListViewModel.getChannel(
         {
           'filter[domain]': this.context.biListViewModel.activeDomain,
         },
@@ -137,7 +137,7 @@ const AcquisitionPage = observer(
     };
 
     handleSearch = async (search) => {
-      this.acquisitionListViewModel.getPages(
+      this.acquisitionListViewModel.getChannel(
         {
           'filter[domain]': this.context.biListViewModel.activeDomain,
         },
@@ -179,7 +179,7 @@ const AcquisitionPage = observer(
                 <div className="w-100">
                   {this.acquisitionListViewModel?.channelTableData?.list?.data?.length ? (
                     <PieChartComponent
-                      height={300}
+                      height={400}
                       data={this.acquisitionListViewModel?.channelTableData?.list?.toPieChart()}
                       status={this.acquisitionListViewModel?.statusTopTable}
                       colors={['#0066FF', '#4747EB', '#96C0FF', '#D5EEFF']}

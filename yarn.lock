@@ -3373,9 +3373,9 @@
     buffer "~6.0.3"
 
 "@solana/web3.js@^1.70.1":
-  version "1.91.2"
-  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.91.2.tgz#a5cb46a90076faaa284856e24464cac2b68fdc0c"
-  integrity sha512-WXPl5VXtfNKWM2RkGj7mvX6dKcZURDKe1lWBFAt/RqDBI9Rjr9hr7Y+U+yz2+TyViMmoinfJVlkS4gk2FPDG/g==
+  version "1.91.6"
+  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.91.6.tgz#c090661c344cbc61e6cdeb0da67d3ea80d5848e1"
+  integrity sha512-dm20nN6HQvXToo+kM51nxHdtaa2wMSRdeK37p+WIWESfeiVHqV8XbV4XnWupq6ngt5vIckhGFG7ZnTBxUgLzDA==
   dependencies:
     "@babel/runtime" "^7.23.4"
     "@noble/curves" "^1.2.0"
@@ -5206,60 +5206,6 @@ aesirx-lib@^1.11.1:
     moment "^2.29.4"
     query-string "7"
     react-secure-storage "^1.2.2"
-
-aesirx-lib@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/aesirx-lib/-/aesirx-lib-2.0.5.tgz#67aa4a5c1f192f50315bccaeda0d00e1666b281c"
-  integrity sha512-NxvPzQm1T2SKAT+masxG0Srr1WCb2et4QsphYIZFVlVIFc8mcuRIiw5mhwYh7XgXw7k5VhlqMFyicGvvTuL0rg==
-  dependencies:
-    axios "^1.6.0"
-    axios-auth-refresh "^3.3.6"
-    date-fns "^2.30.0"
-    date-fns-tz "^2.0.0"
-    moment "^2.29.4"
-    murmurhash-js "^1.0.0"
-    query-string "7"
-    react-secure-storage "^1.3.2"
-
-aesirx-sso@^1.4.6:
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/aesirx-sso/-/aesirx-sso-1.4.6.tgz#d92c80f96c31942ae63c58991a4e68f3d2369a6c"
-  integrity sha512-m5ped5rz6cQsiXgC/Tq9SzSSuxFs4r1P6NOrrWcE+a0fSsNJPJYC+SwO/umXDxQAtm4ABhBwG6kBSrGBXosVWA==
-  dependencies:
-    "@concordium/browser-wallet-api-helpers" "^3.0.0"
-    "@concordium/react-components" "^0.4.0-rc.7"
-    "@concordium/web-sdk" "^7.0.4-rc.3"
-    "@fingerprintjs/fingerprintjs" "3.4.2"
-    "@fortawesome/fontawesome-svg-core" "^6.4.2"
-    "@fortawesome/free-solid-svg-icons" "^6.4.2"
-    "@fortawesome/react-fontawesome" "^0.2.0"
-    "@wagmi/core" "^1.3.8"
-    "@web3modal/ethereum" "^2.7.0"
-    "@web3modal/react" "^2.7.0"
-    aesirx-lib "^2.0.4"
-    axios "^1.6.0"
-    bootstrap "^5.3.0"
-    bowser "^2.11.0"
-    cross-env "^7.0.3"
-    dotenv "^16.0.3"
-    ethers "^6.7.1"
-    formik "^2.4.4"
-    friendly-challenge "^0.9.13"
-    lodash "^4.17.21"
-    query-string "^8.1.0"
-    react "^18.2.0"
-    react-bootstrap "^2.8.0"
-    react-device-detect "^2.2.3"
-    react-lazy-load-image-component "^1.6.0"
-    react-secure-storage "^1.2.2"
-    react-spinners "^0.13.8"
-    react-toastify "^9.1.3"
-    reactstrap "^9.2.0"
-    socket.io "^4.7.2"
-    socket.io-client "^4.7.2"
-    viem "^1.0.0"
-    wagmi "^1.4.13"
-    yup "^1.3.2"
 
 agent-base@6:
   version "6.0.2"

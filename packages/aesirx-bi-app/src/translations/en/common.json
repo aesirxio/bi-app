@@ -220,5 +220,6 @@
   "text_campaign": "Campaign",
   "txt_avg_page_session": "Avg. Page Session",
   "txt_avg_session_duration": "Avg. Session Duration",
-  "txt_views_by_page": "Views by Page"
+  "txt_views_by_page": "Views by Page",
+  "txt_menu_consents_template": "Consents Template"
 }

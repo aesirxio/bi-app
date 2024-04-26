@@ -124,6 +124,20 @@ const mainMenu = [
     link: `/consents`,
     icons: env.PUBLIC_URL + '/assets/images/audience.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
+    submenu: [
+      {
+        text: 'txt_menu_overview',
+        mini_text: 'txt_menu_consents',
+        link: `/consents`,
+        page: 'consents',
+      },
+      {
+        text: 'txt_menu_consents_template',
+        mini_text: 'txt_menu_consents_template',
+        link: `/consents/template`,
+        page: 'consents-template',
+      },
+    ],
   },
   {
     ...(env.REACT_APP_WOOCOMMERCE_MENU === 'true'

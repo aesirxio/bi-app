@@ -37,10 +37,12 @@ const ConsentsTemplate = observer(() => {
   const [values, setValues] = useState({
     domain: activeDomain,
     template: '',
+    gtag_id: '',
+    gtm_id: '',
   });
 
   const handleChange = (name) => {
-    setValues({ domain: activeDomain, template: name });
+    setValues({ ...values, domain: activeDomain, template: name });
   };
   const handleSubmit = async () => {
     if (values?.template) {
@@ -69,6 +71,33 @@ const ConsentsTemplate = observer(() => {
         </Button>
       </div>
       <Form.Group className="mb-3" controlId="formExport">
+        <Form.Label className="fw-semibold w-100">
+          Fill your Google tag id, Google Tag Manager id for {activeDomain} (optional)
+        </Form.Label>
+        <Row className="mb-3">
+          <Col lg="6">
+            <Form.Control
+              type="text"
+              placeholder={`${t('txt_input_gtag_id')}`}
+              value={values?.gtag_id ?? ''}
+              onChange={(e) => {
+                setValues({ ...values, gtag_id: e.target?.value });
+              }}
+            />
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col lg="6">
+            <Form.Control
+              type="text"
+              placeholder={`${t('txt_input_gtm_id')}`}
+              value={values?.gtm_id ?? ''}
+              onChange={(e) => {
+                setValues({ ...values, gtm_id: e.target?.value });
+              }}
+            />
+          </Col>
+        </Row>
         <Form.Label className="fw-semibold w-100">
           Choose consent template for {activeDomain}
         </Form.Label>

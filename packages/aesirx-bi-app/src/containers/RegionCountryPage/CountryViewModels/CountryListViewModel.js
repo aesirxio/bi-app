@@ -82,7 +82,7 @@ class CountryListViewModel {
     dateFilter,
     sortBy = { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' }
   ) => {
-    this.statusToCitiesTable = PAGE_STATUS.LOADING;
+    this.statusTopCitiesTable = PAGE_STATUS.LOADING;
     this.sortByCities = sortBy;
     this.dataFilterCities = {
       page_size: '8',
@@ -156,8 +156,7 @@ class CountryListViewModel {
   };
   callbackOnRegionSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
-        this.status = PAGE_STATUS.READY;
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.statusTopRegionTable = PAGE_STATUS.READY;
         const transformData = new CountryModel(data.list, this.globalStoreViewModel);
         this.regionTableData = {
@@ -166,7 +165,6 @@ class CountryListViewModel {
         };
       }
     } else {
-      this.status = PAGE_STATUS.ERROR;
       this.statusTopRegionTable = PAGE_STATUS.ERROR;
       this.data = [];
     }
@@ -174,7 +172,6 @@ class CountryListViewModel {
   callbackOnCitiesSuccessHandler = (data) => {
     if (data) {
       if (data?.message !== 'canceled') {
-        this.status = PAGE_STATUS.READY;
         this.statusTopCitiesTable = PAGE_STATUS.READY;
         const transformData = new CountryModel(data.list, this.globalStoreViewModel);
         this.citiesTableData = {
@@ -183,7 +180,6 @@ class CountryListViewModel {
         };
       }
     } else {
-      this.status = PAGE_STATUS.ERROR;
       this.statusTopCitiesTable = PAGE_STATUS.ERROR;
       this.data = [];
     }

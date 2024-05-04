@@ -49,6 +49,7 @@ const CountryTable = (props) => {
                     data-tooltip-id="tooltipTable"
                     data-tooltip-content={t(tooltip)}
                     className="mx-sm fs-12 mb-1"
+                    data-tooltip-place={`${index === data?.header?.length - 1 ? 'top-end' : 'top'}`}
                     icon={faCircleInfo}
                   />
                   <Tooltip id="tooltipTable" />

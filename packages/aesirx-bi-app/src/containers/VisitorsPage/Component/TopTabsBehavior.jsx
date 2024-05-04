@@ -16,7 +16,7 @@ const TopTabs = observer(
     // }, 500);
     render() {
       const { statusTopTable } = this.listViewModel;
-
+      console.log('this.listViewModel?.sortByPages', this.listViewModel);
       return (
         <div className="position-relative h-100">
           {/* <Row className="mb-3">
@@ -47,7 +47,7 @@ const TopTabs = observer(
               status={statusTopTable}
               sortAPI={true}
               handleSort={this.props.handleSort}
-              sortBy={this.listViewModel?.sortBy}
+              sortBy={this.listViewModel?.sortByPages}
               {...this.props}
             />
           </div>

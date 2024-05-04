@@ -32,7 +32,7 @@ const TopTableComponent = (props) => {
         let tooltip = '';
         switch (item?.accessor) {
           case BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS:
-            tooltip = 'txt_tooltip_acquisition';
+            tooltip = 'txt_tooltip_visitors';
             break;
           case BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS:
             tooltip = 'txt_tooltip_page_views';
@@ -69,6 +69,7 @@ const TopTableComponent = (props) => {
                     data-tooltip-id="tooltipTable"
                     data-tooltip-content={t(tooltip)}
                     className="mx-sm fs-12 mb-1"
+                    data-tooltip-place={`${index === data?.header?.length - 1 ? 'top-end' : 'top'}`}
                     icon={faCircleInfo}
                   />
                   <Tooltip id="tooltipTable" />

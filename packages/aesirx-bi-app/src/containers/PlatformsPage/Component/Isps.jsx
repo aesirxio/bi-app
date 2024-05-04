@@ -58,7 +58,7 @@ const Isps = observer(
                     </div>
                     <Tab.Content className="h-100">
                       <Tab.Pane eventKey="browser">
-                        <div className="browser-table">
+                        <div>
                           <TopTable
                             data={ispsTableData.list}
                             pagination={ispsTableData.pagination}
@@ -79,6 +79,7 @@ const Isps = observer(
                             sortAPI={true}
                             handleSort={this.handleSortIsps}
                             sortBy={this.platformsListViewModel?.sortByIsps}
+                            tableClass={'table'}
                             {...this.props}
                           />
                         </div>

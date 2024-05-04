@@ -47,8 +47,11 @@ class CityModel {
           width:
             key === BI_CITIES_FIELD_KEY.CITY
               ? 250
-              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS ||
+                key === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
               ? 220
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+              ? 140
               : 170,
           allowSort: true,
           Cell: ({ cell, column }) =>

@@ -74,6 +74,7 @@ const AcquisitionPage = observer(
           ),
           isIncrease: false,
           loading: this.acquisitionListViewModel.statusMetrics,
+          tooltip: t('txt_tooltip_visitors'),
         },
 
         {
@@ -86,6 +87,7 @@ const AcquisitionPage = observer(
           ),
           isIncrease: false,
           loading: this.acquisitionListViewModel?.statusMetrics,
+          tooltip: t('txt_tooltip_page_session'),
         },
         {
           className: 'col-3 mb-24',
@@ -96,6 +98,7 @@ const AcquisitionPage = observer(
             ) + '%',
           isIncrease: false,
           loading: this.acquisitionListViewModel?.statusMetrics,
+          tooltip: t('txt_tooltip_bounce_rate'),
         },
         {
           className: 'col-3 mb-24',
@@ -114,12 +117,13 @@ const AcquisitionPage = observer(
               : '00:00:00') + 's',
           isIncrease: false,
           loading: this.acquisitionListViewModel.statusMetrics,
+          tooltip: t('txt_tooltip_avg_session_duration'),
         },
       ];
     };
 
     handleSort = async (column) => {
-      this.acquisitionListViewModel.getPages(
+      this.acquisitionListViewModel.getChannel(
         {
           'filter[domain]': this.context.biListViewModel.activeDomain,
         },
@@ -133,7 +137,7 @@ const AcquisitionPage = observer(
     };
 
     handleSearch = async (search) => {
-      this.acquisitionListViewModel.getPages(
+      this.acquisitionListViewModel.getChannel(
         {
           'filter[domain]': this.context.biListViewModel.activeDomain,
         },
@@ -146,7 +150,6 @@ const AcquisitionPage = observer(
     render() {
       const { t } = this.props;
       const card = this.generateCard();
-      console.log('teste', this.acquisitionListViewModel?.channelTableData?.list);
       return (
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-24">
@@ -176,7 +179,7 @@ const AcquisitionPage = observer(
                 <div className="w-100">
                   {this.acquisitionListViewModel?.channelTableData?.list?.data?.length ? (
                     <PieChartComponent
-                      height={300}
+                      height={400}
                       data={this.acquisitionListViewModel?.channelTableData?.list?.toPieChart()}
                       status={this.acquisitionListViewModel?.statusTopTable}
                       colors={['#0066FF', '#4747EB', '#96C0FF', '#D5EEFF']}

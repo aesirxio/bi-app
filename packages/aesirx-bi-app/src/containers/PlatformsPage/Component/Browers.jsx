@@ -57,7 +57,7 @@ const Browsers = observer(
                     </div>
                     <Tab.Content className="h-100">
                       <Tab.Pane eventKey="browser">
-                        <div className="browser-table">
+                        <div>
                           <TopTable
                             data={this.platformsListViewModel?.browsersData?.list}
                             pagination={this.platformsListViewModel?.browsersData?.pagination}
@@ -78,6 +78,7 @@ const Browsers = observer(
                             sortAPI={true}
                             handleSort={this.handleSortBrowsers}
                             sortBy={this.platformsListViewModel?.sortByBrowsers}
+                            tableClass={'table'}
                             {...this.props}
                           />
                         </div>

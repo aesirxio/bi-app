@@ -76,13 +76,13 @@ class ConsentsTemplateListViewModel {
     );
   };
 
-  callbackOnErrorHandler = (error) => {
+  callbackOnErrorHandler = () => {
     this.status = PAGE_STATUS.READY;
     this.statusConsentsTemplate = PAGE_STATUS.READY;
     this.consentsTemplate = {};
     // notify(error.message, 'error');
   };
-  callbackOnErrorUpdateConsentHandler = (error) => {
+  callbackOnErrorUpdateConsentHandler = () => {
     this.status = PAGE_STATUS.READY;
     this.statusUpdateConsentsTemplate = PAGE_STATUS.READY;
     // notify(error.message, 'error');

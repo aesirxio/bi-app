@@ -4,6 +4,9 @@ import { AesirXSelect, PulseLoaderComponent } from 'aesirx-uikit';
 
 import PAGE_STATUS from '../../constants/PageStatus';
 import { env } from 'aesirx-lib';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import { Tooltip } from 'react-bootstrap';
 const ComponentCard = ({
   title,
   icon,
@@ -15,6 +18,7 @@ const ComponentCard = ({
   options,
   defaultValue,
   loading,
+  tooltip,
 }) => {
   const [defaultFilter, setDefaultFilter] = useState(defaultValue ?? null);
   const [selectedValue, setSelectedValue] = useState(value);
@@ -53,6 +57,17 @@ const ComponentCard = ({
             </div>
           )}
           <h6 className="mb-0 fw-medium text-gray-900">{title}</h6>
+          {tooltip && (
+            <>
+              <FontAwesomeIcon
+                data-tooltip-id="tooltipTable"
+                data-tooltip-content={tooltip}
+                className="mx-sm fs-12 mb-1"
+                icon={faCircleInfo}
+              />
+              <Tooltip id="tooltipTable" />
+            </>
+          )}
         </div>
         {options && (
           <AesirXSelect

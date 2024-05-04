@@ -51,7 +51,7 @@ const Platform = observer(
               <DateRangePicker onChange={this.handleDateRangeChange} />
             </div>
           </div>
-          <div className="row justify-content-center align-items-center g-2 mb-2">
+          <div className="row justify-content-center g-4 mb-4">
             <div className="col">
               <div className="bg-white p-3 rounded">
                 <Browers />
@@ -64,7 +64,7 @@ const Platform = observer(
             </div>
           </div>
 
-          <div className="row justify-content-center align-items-center g-2">
+          <div className="row justify-content-center align-items-center g-4">
             <div className="col">
               <div className="bg-white p-3 rounded">
                 <Divices />

@@ -27,6 +27,7 @@ const CardComponent = observer(
                     // textPercent={'form June'}
                     options={item.options}
                     defaultValue={item.defaultValue}
+                    tooltip={item?.tooltip}
                   />
                 </div>
               ))

@@ -53,8 +53,11 @@ class BrowserModel {
           width:
             key === BI_BROWSERS_FIELD_KEY.BROWSER_NAME
               ? 250
-              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS ||
+                key === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
               ? 220
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+              ? 140
               : 170,
           Cell: ({ cell, column }) =>
             column.id === BI_BROWSERS_FIELD_KEY.BROWSER_NAME ? (
@@ -129,13 +132,22 @@ class BrowserModel {
           width:
             key === BI_DEVICES_FIELD_KEY.DEVICE
               ? 250
-              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS ||
+                key === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
               ? 220
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+              ? 140
               : 170,
           allowSort: true,
           Cell: ({ cell, column }) =>
             column.id === BI_DEVICES_FIELD_KEY.DEVICE ? (
-              <div className={'px-15'}>{cell?.value === '' ? 'Unknown' : cell?.value}</div>
+              <div
+                className={`px-15 ${
+                  cell?.value === 'iPhone' || cell?.value === 'iPad' ? '' : 'text-capitalize'
+                }`}
+              >
+                {cell?.value === '' ? 'Unknown' : cell?.value}
+              </div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (
               <div className={'px-3 text-end'}>{cell?.value + '%' ?? null}</div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (

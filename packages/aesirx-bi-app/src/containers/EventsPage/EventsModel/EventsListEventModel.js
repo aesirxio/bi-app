@@ -97,7 +97,7 @@ class EventsListModel {
     const date = {
       all: dateRange.map((date) => {
         return {
-          name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'),
+          name: date && moment(date, 'YYYY-MM-DD').format('DD'),
           ...Object.keys(transform)
             .map((item) => {
               const filterDate = transform[item].filter((_item) => {
@@ -232,7 +232,12 @@ class EventsListModel {
         return {
           Header: headerTable[index],
           accessor: key,
-          width: key === BI_VISITOR_FIELD_KEY.UUID ? 10 : 170,
+          width:
+            key === BI_VISITOR_FIELD_KEY.UUID
+              ? 10
+              : key === BI_VISITOR_FIELD_KEY.EVENT_TYPE
+              ? 50
+              : 170,
           allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
           Cell: ({ cell, column }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {

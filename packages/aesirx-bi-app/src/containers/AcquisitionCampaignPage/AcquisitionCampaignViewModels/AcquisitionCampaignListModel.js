@@ -107,7 +107,7 @@ class AcquisitionCampaignListModel {
     };
 
     this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
-    this.acquisitionCampaignStore.getAttributeTable(
+    this.acquisitionCampaignStore.getAttribute(
       this.dataFilterTable,
       dateRangeFilter,
       this.callbackOnDataSuccessHandler,
@@ -115,6 +115,12 @@ class AcquisitionCampaignListModel {
     );
     this.acquisitionCampaignStore.getAttributeDate(
       this.dataFilterAttribute,
+      dateRangeFilter,
+      this.callbackOnDataAttributeSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+    this.acquisitionCampaignStore.getAttributeList(
+      this.dataFilterAttributeList,
       dateRangeFilter,
       this.callbackOnDataAttributeSuccessHandler,
       this.callbackOnErrorHandler

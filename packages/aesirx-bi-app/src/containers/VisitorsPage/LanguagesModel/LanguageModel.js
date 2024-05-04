@@ -48,8 +48,11 @@ class LanguageModel {
           width:
             key === BI_LANGUAGES_FIELD_KEY.LANG
               ? 250
-              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS ||
+                key === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
               ? 220
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+              ? 140
               : 170,
           Cell: ({ cell, column }) =>
             column.id === BI_LANGUAGES_FIELD_KEY.LANG ? (

@@ -162,9 +162,12 @@ class CountryModel {
           Header: headerTable[index],
           width:
             key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME
-              ? 270
-              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+              ? 230
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS ||
+                key === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
               ? 220
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+              ? 140
               : 170,
           allowSort: key === BI_COUNTRIES_FIELD_KEY.COUNTRY_NAME ? false : true,
           accessor: key,
@@ -237,7 +240,7 @@ class CountryModel {
           allowSort: true,
           Cell: ({ cell, column }) => {
             return column.id === BI_REGION_FIELD_KEY.REGION ? (
-              <div className={'px-15'}>{cell?.value ?? null}</div>
+              <div className={'px-15'}>{cell?.value ? cell?.value : 'Unknown'}</div>
             ) : (
               <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
             );
@@ -280,7 +283,7 @@ class CountryModel {
           allowSort: true,
           Cell: ({ cell, column }) => {
             return column.id === BI_CITIES_FIELD_KEY.CITY ? (
-              <div className={'px-15'}>{cell?.value ?? null}</div>
+              <div className={'px-15'}>{cell?.value ? cell?.value : 'Unknown'}</div>
             ) : (
               <div className={'px-15 text-end'}>{cell?.value ?? null}</div>
             );

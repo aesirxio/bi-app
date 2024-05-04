@@ -91,26 +91,26 @@ const Dashboard = observer(
     render() {
       const { t } = this.props;
 
-      let maxDevices =
-        this.dashboardListViewModel.devicesData?.length &&
-        this.dashboardListViewModel.devicesData.reduce(function (prev, current) {
-          if (
-            +current[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] >
-            +prev[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-          ) {
-            return current;
-          } else {
-            return prev;
-          }
-        });
-      const maxDevicePercent =
-        this.dashboardListViewModel.devicesData?.length &&
-        (maxDevices[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] /
-          this.dashboardListViewModel.devicesData.reduce(
-            (a, b) => +a + +b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
-            0
-          )) *
-          100;
+      // let maxDevices =
+      //   this.dashboardListViewModel.devicesData?.length &&
+      //   this.dashboardListViewModel.devicesData.reduce(function (prev, current) {
+      //     if (
+      //       +current[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] >
+      //       +prev[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
+      //     ) {
+      //       return current;
+      //     } else {
+      //       return prev;
+      //     }
+      //   });
+      // const maxDevicePercent =
+      //   this.dashboardListViewModel.devicesData?.length &&
+      //   (maxDevices[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] /
+      //     this.dashboardListViewModel.devicesData.reduce(
+      //       (a, b) => +a + +b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
+      //       0
+      //     )) *
+      //     100;
 
       return (
         <div className="py-4 px-4 h-100 d-flex flex-column">
@@ -193,12 +193,19 @@ const Dashboard = observer(
                           </div>
                         </div>
                         <div className="d-flex align-items-center">
-                          {maxDevices[BI_DEVICES_FIELD_KEY?.DEVICE] ===
-                            device[BI_DEVICES_FIELD_KEY?.DEVICE] && (
+                          {
                             <div className="fs-sm me-12px text-gray-900">
-                              {maxDevicePercent?.toFixed(2)}%
+                              {(
+                                (device[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS] /
+                                  this.dashboardListViewModel.devicesData.reduce(
+                                    (a, b) => +a + +b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
+                                    0
+                                  )) *
+                                100
+                              )?.toFixed(2)}
+                              %
                             </div>
-                          )}
+                          }
                           <div className="fw-medium fs-18px">
                             {device[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS]}
                           </div>

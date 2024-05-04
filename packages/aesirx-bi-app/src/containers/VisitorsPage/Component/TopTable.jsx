@@ -25,6 +25,7 @@ const TopTableComponent = (props) => {
     sortAPI,
     handleSort,
     sortBy,
+    tableClass,
   } = props;
   const columnsTable = React.useMemo(
     () =>
@@ -69,6 +70,7 @@ const TopTableComponent = (props) => {
                     data-tooltip-id="tooltipTable"
                     data-tooltip-content={t(tooltip)}
                     className="mx-sm fs-12 mb-1"
+                    data-tooltip-place={`${index === data?.header?.length - 1 ? 'top-end' : 'top'}`}
                     icon={faCircleInfo}
                   />
                   <Tooltip id="tooltipTable" />
@@ -88,7 +90,7 @@ const TopTableComponent = (props) => {
         <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
       ) : data ? (
         <Table
-          classNameTable={'mb-0'}
+          classNameTable={`mb-0 ${tableClass}`}
           columns={columnsTable}
           data={dataTable}
           canSort={true}

@@ -37,6 +37,7 @@ const Table = ({
   status,
   hasSubRow,
   idKey,
+  tdClass,
   ...props
 }) => {
   const {
@@ -243,7 +244,7 @@ const Table = ({
                             <td
                               key={index}
                               {...cell.getCellProps({ style: { width: cell.column.width } })}
-                              className="py-2 wb-all align-middle"
+                              className={`py-2 wb-all ${tdClass ? tdClass : 'align-middle'}`}
                             >
                               {cell.render('Cell')}
                             </td>

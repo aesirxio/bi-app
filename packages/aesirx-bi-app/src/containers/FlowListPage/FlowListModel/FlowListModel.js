@@ -59,11 +59,11 @@ class FlowListModel {
             key === BI_FLOW_LIST_FIELD_KEY.START
               ? 100
               : key === BI_FLOW_LIST_FIELD_KEY.SOP_ID
-              ? 40
+              ? 80
               : key === BI_FLOW_LIST_FIELD_KEY.EVENT ||
                 key === BI_FLOW_LIST_FIELD_KEY.CONVERSION ||
                 key === BI_FLOW_LIST_FIELD_KEY.GEO
-              ? 30
+              ? 20
               : key === BI_FLOW_LIST_FIELD_KEY.URL
               ? 230
               : key === BI_FLOW_LIST_FIELD_KEY.UUID

@@ -67,6 +67,7 @@ const Country = observer(
     render() {
       const { t } = this.props;
       const { status } = this.countryListViewModel;
+      console.log('status', status);
       return (
         <>
           <div className="py-4 px-4 d-flex flex-column">

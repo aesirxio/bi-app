@@ -67,6 +67,7 @@ const VisitorsBehaviorPage = observer(
           ),
           isIncrease: false,
           loading: this.visitorsListViewModel.statusMetrics,
+          tooltip: t('txt_tooltip_page_views'),
         },
         {
           className: 'col-3 mb-24',
@@ -85,6 +86,7 @@ const VisitorsBehaviorPage = observer(
               : '00:00:00') + 's',
           isIncrease: false,
           loading: this.visitorsListViewModel.statusMetrics,
+          tooltip: t('txt_tooltip_avg_session_duration'),
         },
         {
           className: 'col-3 mb-24',
@@ -96,6 +98,7 @@ const VisitorsBehaviorPage = observer(
           ),
           isIncrease: false,
           loading: this.visitorsListViewModel?.statusMetrics,
+          tooltip: t('txt_tooltip_page_session'),
         },
         {
           className: 'col-3 mb-24',
@@ -106,6 +109,7 @@ const VisitorsBehaviorPage = observer(
             ) + '%',
           isIncrease: false,
           loading: this.visitorsListViewModel?.statusMetrics,
+          tooltip: t('txt_tooltip_bounce_rate'),
         },
       ];
     };

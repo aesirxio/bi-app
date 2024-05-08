@@ -61,7 +61,7 @@
   "txt_download_folder": "Download Folder",
   "txt_delete_folder": "Delete Folder",
   "txt_are_you_sure": "Are you sure?",
-  "txt_cancle": "Cancle",
+  "txt_cancel": "Cancel",
   "txt_yes_delete": "Yes, Delete",
   "txt_file": "FILES",
   "txt_storage": "Storage",
@@ -220,5 +220,8 @@
   "text_campaign": "Campaign",
   "txt_avg_page_session": "Avg. Page Session",
   "txt_avg_session_duration": "Avg. Session Duration",
-  "txt_views_by_page": "Views by Page"
+  "txt_views_by_page": "Views by Page",
+  "txt_menu_consents_template": "Consents Template",
+  "txt_input_gtag_id": "Input Gtag ID",
+  "txt_input_gtm_id": "Input GTM ID"
 }

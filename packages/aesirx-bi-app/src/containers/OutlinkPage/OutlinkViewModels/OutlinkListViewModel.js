@@ -31,7 +31,7 @@ class OutlinkListViewModel {
     this.sortBy = sortBy;
     this.search = search;
     this.dataFilterOutlink = {
-      page_size: '5',
+      page_size: '10',
       ...this.dataFilterOutlink,
       ...dataFilter,
       ...this.sortBy,

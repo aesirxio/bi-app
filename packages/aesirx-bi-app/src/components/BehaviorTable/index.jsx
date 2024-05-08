@@ -16,6 +16,7 @@ const BehaviorTable = ({
   sortAPI = true,
   handleSort,
   sortBy,
+  tdClass,
   // handleSearch,
   limit,
 }) => {
@@ -78,6 +79,7 @@ const BehaviorTable = ({
             });
           }}
           limit={limit}
+          tdClass={tdClass}
         />
       ) : (
         <div className="position-relative ChartWrapper bg-white rounded-3 shadow-sm">

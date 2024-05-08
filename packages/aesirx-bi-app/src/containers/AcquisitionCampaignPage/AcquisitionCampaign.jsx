@@ -83,9 +83,36 @@ const AcquisitionCampaignPage = observer((props) => {
             loading={statusAttribute}
             height={390}
             data={dataAttribute?.toAreaChartAcquisitionCampaign()}
-            colors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            lineColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
+            colors={[
+              '#1AB394',
+              '#9747FF',
+              '#479CFF',
+              '#024E6D',
+              '#3F51B5',
+              '#FFC107',
+              '#4CAF50',
+              '#FF5722',
+            ]}
+            areaColors={[
+              '#1AB394',
+              '#9747FF',
+              '#479CFF',
+              '#024E6D',
+              '#3F51B5',
+              '#FFC107',
+              '#4CAF50',
+              '#FF5722',
+            ]}
+            lineColors={[
+              '#1AB394',
+              '#9747FF',
+              '#479CFF',
+              '#024E6D',
+              '#3F51B5',
+              '#FFC107',
+              '#4CAF50',
+              '#FF5722',
+            ]}
             lines={dataAttribute?.getListLineAcquisitionCampaign()}
             filterData={dataAttribute?.getFilterNameAcquisitionCampaign()}
             tooltipComponent={{
@@ -98,7 +125,7 @@ const AcquisitionCampaignPage = observer((props) => {
         </div>
         <div className="col-lg-6 col-12">
           <BarChartComponent
-            chartTitle={t('txt_event') + ' count'}
+            chartTitle={t('txt_campaign') + ' count'}
             height={390}
             bars={['number']}
             barColors={['#2C94EA']}

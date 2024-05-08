@@ -96,7 +96,7 @@ class EventsDetailModel {
     const date = {
       all: dateRange.map((date) => {
         return {
-          name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'),
+          name: date && moment(date, 'YYYY-MM-DD').format('DD'),
           ...Object.keys(transform)
             .map((item) => {
               const filterDate = transform[item].filter((_item) => {

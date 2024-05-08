@@ -43,6 +43,7 @@ class VisitorsListViewModel {
   sortByDevices = { 'sort[]': '', 'sort_direction[]': '' };
   sortByLanguages = { 'sort[]': '', 'sort_direction[]': '' };
   sortByFlowList = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByPages = { 'sort[]': '', 'sort_direction[]': '' };
 
   constructor(visitorsStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -65,8 +66,8 @@ class VisitorsListViewModel {
   initializeBehavior = async (dataFilter, dateFilter, page) => {
     this.getVisitors(dataFilter, dateFilter);
     this.getMetrics(dataFilter, dateFilter);
-    await this.getPages(dataFilter, dateFilter, page);
-    await this.getPagesCount(dataFilter, dateFilter, page);
+    await this.getPages(dataFilter, dateFilter, null, page);
+    await this.getPagesCount(dataFilter, dateFilter, null, page);
   };
 
   getMetrics = (dataFilter, dateFilter) => {
@@ -229,7 +230,8 @@ class VisitorsListViewModel {
 
   getPages = async (dataFilter, dateFilter, sortBy = {}, search = {}) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
-    this.sortBy = sortBy;
+    this.sortBy = sortBy ?? { 'sort[]': 'url', 'sort_direction[]': 'asc' };
+    this.sortByPages = sortBy ?? { 'sort[]': 'url', 'sort_direction[]': 'asc' };
     this.search = search;
     this.dataFilterPages = {
       page_size: '5',
@@ -250,7 +252,7 @@ class VisitorsListViewModel {
 
   getPagesCount = async (dataFilter, dateFilter, sortBy = {}, search = {}) => {
     this.statusPagesCount = PAGE_STATUS.LOADING;
-    this.sortBy = sortBy;
+    this.sortBy = sortBy ?? { 'sort[]': 'number_of_visitors', 'sort_direction[]': 'desc' };
     this.search = search;
     this.dataFilterPages = {
       page_size: '3',

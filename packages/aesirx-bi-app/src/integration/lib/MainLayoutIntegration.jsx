@@ -32,6 +32,8 @@ const AcquisitionCampaignPage = lazy(() => import('../../containers/AcquisitionC
 const OutlinkPage = lazy(() => import('../../containers/OutlinkPage'));
 const UserFlowPage = lazy(() => import('../../containers/UserFlowPage'));
 const PlatformsPage = lazy(() => import('../../containers/PlatformsPage'));
+const ConsentsPage = lazy(() => import('../../containers/ConsentsPage'));
+const ConsentsTemplatePage = lazy(() => import('../../containers/ConsentsTemplatePage'));
 
 const biViewModel = new BiViewModel();
 
@@ -120,6 +122,12 @@ const RenderComponent = ({ link, ...props }) => {
 
     case 'woocommerce-product':
       return <WoocommercePage {...props} />;
+
+    case 'consents':
+      return <ConsentsPage {...props} />;
+
+    case 'consents-template':
+      return <ConsentsTemplatePage {...props} />;
 
     case link.startsWith('flow') ? link : '':
       return <FlowPage {...props} />;

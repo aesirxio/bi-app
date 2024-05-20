@@ -9,6 +9,8 @@ import queryString from 'query-string';
 import { Sankey, Tooltip } from 'recharts';
 import Node from './Component/Node';
 import Link from './Component/Link';
+import { env } from 'aesirx-lib';
+import ComponentNoData from 'components/ComponentNoData';
 
 const UserFlowPage = observer(
   class UserFlowPage extends Component {
@@ -89,8 +91,12 @@ const UserFlowPage = observer(
               <DateRangePicker onChange={this.handleDateRangeChange} />
             </div>
           </div>
-          <div className="bg-white rounded-3 shadow-sm h-100 position-relative ChartWrapper">
-            {this.userFlowListViewModel?.userFlowTableData?.list?.data?.nodes?.length ? (
+          <div
+            className="bg-white rounded-3 shadow-sm h-100 position-relative ChartWrapper"
+            style={{ minHeight: '400px' }}
+          >
+            {this.userFlowListViewModel?.userFlowTableData?.list?.data?.nodes?.length &&
+            this.userFlowListViewModel?.userFlowTableData?.list?.data?.nodes?.length > 1 ? (
               <>
                 {/* {this.userFlowListViewModel?.userFlowTableData?.list?.data?.nodes?.length ? (
                   <Row className="gx-0">
@@ -148,7 +154,13 @@ const UserFlowPage = observer(
                 </Sankey>
               </>
             ) : (
-              <></>
+              <div className="position-absolute top-50 start-50 translate-middle">
+                <ComponentNoData
+                  icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
+                  title={t('txt_no_data')}
+                  width="w-50"
+                />
+              </div>
             )}
           </div>
         </div>

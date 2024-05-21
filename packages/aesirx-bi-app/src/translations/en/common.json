@@ -223,5 +223,6 @@
   "txt_views_by_page": "Views by Page",
   "txt_menu_consents_template": "Consents Template",
   "txt_input_gtag_id": "Input Gtag ID",
-  "txt_input_gtm_id": "Input GTM ID"
+  "txt_input_gtm_id": "Input GTM ID",
+  "txt_clicks": "Clicks"
 }

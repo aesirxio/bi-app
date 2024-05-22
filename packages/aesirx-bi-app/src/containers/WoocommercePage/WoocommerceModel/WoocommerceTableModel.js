@@ -167,7 +167,7 @@ class WoocoomerceTableModel {
     }
   };
   toProductSearchTableTop = () => {
-    const headerTable = ['txt_keyword', 'txt_clicks'];
+    const headerTable = ['txt_keywords', 'txt_clicks'];
     const accessor = ['value', 'count'];
     if (this.data?.length) {
       const header = accessor.map((key, index) => {

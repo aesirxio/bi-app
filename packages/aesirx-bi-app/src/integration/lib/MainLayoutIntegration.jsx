@@ -81,7 +81,7 @@ const RenderComponent = ({ link, ...props }) => {
     case 'visitors-behavior':
       return <VisitorsPage {...props} />;
 
-    case 'visitors-flow':
+    case 'flow':
       return <FlowListPage {...props} />;
 
     case 'visitors-platforms':
@@ -124,7 +124,7 @@ const RenderComponent = ({ link, ...props }) => {
       return <WoocommercePage {...props} />;
 
     case 'consents':
-        return <ConsentsPage {...props} />;
+      return <ConsentsPage {...props} />;
 
     case 'consents-template':
       return <ConsentsPage {...props} />;

@@ -13,7 +13,7 @@ const FlowList = lazy(() => import('./FlowList'));
 
 const RenderComponent = ({ link, ...props }) => {
   switch (link) {
-    case 'visitors-flow':
+    case 'flow':
       return <FlowList {...props} />;
   }
 };
@@ -77,7 +77,7 @@ const ComponentToPrint = observer(
             />
           ) : (
             <>
-              <Route exact path={['/visitors/flow', '/bi/visitors/flow']}>
+              <Route exact path={['/flow', '/bi/flow']}>
                 <FlowList {...this.props} />
               </Route>
             </>

@@ -195,13 +195,13 @@ const VisitorsPage = observer(
               {this.props.integration ? (
                 <a
                   href="#"
-                  onClick={(e) => this.handleChangeLink(e, `/visitors-flow`)}
+                  onClick={(e) => this.handleChangeLink(e, `/flow`)}
                   className={'text-success me-2 text-nowrap fw-semibold'}
                 >
                   {t('txt_view_more')}
                 </a>
               ) : (
-                <Link to="/visitors/flow" className="text-success me-2 text-nowrap fw-semibold">
+                <Link to="/flow" className="text-success me-2 text-nowrap fw-semibold">
                   {t('txt_view_more')}
                 </Link>
               )}

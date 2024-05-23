@@ -88,9 +88,9 @@ class AcquisitionListViewModel {
     this.statusTopTable = PAGE_STATUS.LOADING;
     this.sortBy = sortBy;
     this.search = search;
-    this.dataFilterPages = {
+    this.dataFilterChannel = {
       page_size: '5',
-      ...this.dataFilterPages,
+      ...this.dataFilterChannel,
       ...dataFilter,
       ...this.sortBy,
       ...this.search,
@@ -99,7 +99,7 @@ class AcquisitionListViewModel {
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     await this.acquisitionStore.getChannel(
-      this.dataFilterPages,
+      this.dataFilterChannel,
       dateRangeFilter,
       this.callbackOnChannelSuccessHandler,
       this.callbackOnErrorHandler
@@ -118,7 +118,7 @@ class AcquisitionListViewModel {
     );
   };
 
-  handleFilterChannel = async (dataFilter) => {
+  handleFilterPages = async (dataFilter) => {
     this.statusTopTable = PAGE_STATUS.LOADING;
     this.dataFilterChannel = { ...this.dataFilterChannel, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
@@ -134,7 +134,7 @@ class AcquisitionListViewModel {
         ...queryString.parse(location.search),
         ...{ pagination: dataFilter?.page },
       };
-      window.history.replaceState('', '', `/behavior?${queryString.stringify(search)}`);
+      window.history.replaceState('', '', `/acquisition?${queryString.stringify(search)}`);
     }
   };
 

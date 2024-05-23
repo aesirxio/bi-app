@@ -34,39 +34,6 @@ const mainMenu = [
       },
     ],
   },
-
-  {
-    text: 'txt_menu_visitors',
-    link: `/visitors`,
-    icons: env.PUBLIC_URL + '/assets/images/visitors.svg',
-    icons_color: env.PUBLIC_URL + '/assets/images/visitors.svg',
-    submenu: [
-      {
-        text: 'txt_menu_overview',
-        mini_text: 'txt_menu_visitors',
-        link: `/visitors`,
-        page: 'visitors',
-      },
-      {
-        text: 'txt_menu_locations',
-        mini_text: 'txt_menu_locations',
-        link: `/visitors/locations`,
-        page: 'visitors-locations',
-      },
-      {
-        text: 'txt_menu_user_experience',
-        mini_text: 'txt_menu_locations',
-        link: `/visitors/flow`,
-        page: 'visitors-flow',
-      },
-      {
-        text: 'txt_menu_platforms',
-        mini_text: 'txt_menu_platforms',
-        link: `/visitors/platforms`,
-        page: 'visitors-platforms',
-      },
-    ],
-  },
   {
     text: 'txt_menu_behavior',
     link: `/behavior`,
@@ -100,6 +67,26 @@ const mainMenu = [
     ],
   },
   {
+    text: 'txt_menu_consents',
+    link: `/consents`,
+    icons: env.PUBLIC_URL + '/assets/images/audience.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
+    submenu: [
+      {
+        text: 'txt_menu_overview',
+        mini_text: 'txt_menu_consents',
+        link: `/consents`,
+        page: 'consents',
+      },
+      {
+        text: 'txt_menu_consents_template',
+        mini_text: 'txt_menu_consents_template',
+        link: `/consents/template`,
+        page: 'consents-template',
+      },
+    ],
+  },
+  {
     text: 'txt_menu_utm_tracking',
     link: `/utm-tracking`,
     icons: env.PUBLIC_URL + '/assets/images/utm-tracking.svg',
@@ -120,25 +107,39 @@ const mainMenu = [
     ],
   },
   {
-    text: 'txt_menu_consents',
-    link: `/consents`,
-    icons: env.PUBLIC_URL + '/assets/images/audience.svg',
-    icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
+    text: 'txt_menu_visitors',
+    link: `/visitors`,
+    icons: env.PUBLIC_URL + '/assets/images/visitors.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/visitors.svg',
     submenu: [
       {
         text: 'txt_menu_overview',
-        mini_text: 'txt_menu_consents',
-        link: `/consents`,
-        page: 'consents',
+        mini_text: 'txt_menu_visitors',
+        link: `/visitors`,
+        page: 'visitors',
       },
       {
-        text: 'txt_menu_consents_template',
-        mini_text: 'txt_menu_consents_template',
-        link: `/consents/template`,
-        page: 'consents-template',
+        text: 'txt_menu_locations',
+        mini_text: 'txt_menu_locations',
+        link: `/visitors/locations`,
+        page: 'visitors-locations',
+      },
+      {
+        text: 'txt_menu_platforms',
+        mini_text: 'txt_menu_platforms',
+        link: `/visitors/platforms`,
+        page: 'visitors-platforms',
       },
     ],
   },
+  {
+    text: 'txt_menu_user_experience',
+    link: `/flow`,
+    page: 'flow',
+    icons: env.PUBLIC_URL + '/assets/images/ux.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/ux.svg',
+  },
+
   {
     ...(env.REACT_APP_WOOCOMMERCE_MENU === 'true'
       ? {

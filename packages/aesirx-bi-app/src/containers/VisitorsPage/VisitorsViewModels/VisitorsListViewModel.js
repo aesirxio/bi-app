@@ -414,7 +414,7 @@ class VisitorsListViewModel {
         ...queryString.parse(location.search),
         ...{ pagination: dataFilter?.page },
       };
-      window.history.replaceState('', '', `/visitors/flow?${queryString.stringify(search)}`);
+      window.history.replaceState('', '', `/flow?${queryString.stringify(search)}`);
     }
   };
 

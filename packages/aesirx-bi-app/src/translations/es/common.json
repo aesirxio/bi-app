@@ -211,7 +211,7 @@
   "txt_tooltip_bounce_rate": "El porcentaje de sesiones de una sola página en las que no hubo interacción con la página. Una sesión rebotada tiene una duración de 0 segundos.",
   "txt_tooltip_page_session": "El número promedio de páginas vistas durante una sesión. Se cuentan las vistas repetidas de una sola página.",
   "txt_tooltip_avg_session_duration": "La duración promedio de una sesión.",
-  "txt_menu_woocommerce": "Woocomercio",
+  "txt_menu_woocommerce": "Woo",
   "txt_add_to_cart": "Agregar al carrito",
   "txt_search_product": "Buscar Producto",
   "txt_order": "Pedido",

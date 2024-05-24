@@ -96,7 +96,9 @@ const UserFlowPage = observer(
             style={{ minHeight: '400px' }}
           >
             {this.userFlowListViewModel?.userFlowTableData?.list?.data?.nodes?.length &&
-            this.userFlowListViewModel?.userFlowTableData?.list?.data?.nodes?.length > 1 ? (
+            this.userFlowListViewModel?.userFlowTableData?.list?.data?.nodes?.length > 1 &&
+            this.userFlowListViewModel?.userFlowTableData?.list?.data?.links?.length &&
+            this.userFlowListViewModel?.userFlowTableData?.list?.data?.links?.length > 1 ? (
               <>
                 {/* {this.userFlowListViewModel?.userFlowTableData?.list?.data?.nodes?.length ? (
                   <Row className="gx-0">

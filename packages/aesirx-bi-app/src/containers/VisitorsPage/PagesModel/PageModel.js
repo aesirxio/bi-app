@@ -104,7 +104,7 @@ class PageModel {
     const headerTable = [
       'txt_page',
       'txt_visitors',
-      'txt_unique_page_views',
+      'txt_page_views',
       'txt_bounce_rate',
       'txt_page_session',
       'txt_time_on_page',
@@ -112,7 +112,7 @@ class PageModel {
     const accessor = [
       BI_PAGES_FIELD_KEY.URL,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS,
-      BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS,
+      BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS,
       BI_SUMMARY_FIELD_KEY.BOUNCE_RATE,
       BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGES_PER_SESSION,
       BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION,
@@ -126,11 +126,10 @@ class PageModel {
           width:
             key === BI_PAGES_FIELD_KEY.URL
               ? 300
-              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
+              : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
               ? 220
               : 170,
-          tooltip:
-            key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS ? 'txt_bounce_rate' : '',
+          tooltip: key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS ? 'txt_bounce_rate' : '',
           Cell: ({ cell, column }) => {
             const urlParams = column.id === BI_PAGES_FIELD_KEY.URL && new URL(cell?.value);
             return column.id === BI_PAGES_FIELD_KEY.URL ? (

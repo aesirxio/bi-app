@@ -128,8 +128,8 @@ const mainRoutes = [
     main: () => <RegionCountryPage />,
   },
   {
-    path: '/visitors/flow',
-    page: 'visitors-flow',
+    path: '/flow',
+    page: 'flow',
     exact: true,
     main: () => <FlowListPage />,
   },

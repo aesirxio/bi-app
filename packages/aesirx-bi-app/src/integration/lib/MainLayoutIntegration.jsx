@@ -81,7 +81,7 @@ const RenderComponent = ({ link, ...props }) => {
     case 'visitors-behavior':
       return <VisitorsPage {...props} />;
 
-    case 'flow':
+    case 'flow-list':
       return <FlowListPage {...props} />;
 
     case 'visitors-platforms':

@@ -130,10 +130,10 @@ const FlowDetailContainer = observer((props) => {
           className={`back_icon d-flex align-items-center justify-content-center cursor-pointer me-1`}
           onClick={(e) => {
             if (props.integration) {
-              handleChangeLink(e, `flow`);
+              handleChangeLink(e, `flow-list`);
             } else {
               history.push(
-                `/flow?date_end=${dateFilter?.date_end}&date_start=${
+                `/flow-list?date_end=${dateFilter?.date_end}&date_start=${
                   dateFilter?.date_start
                 }&domain=${activeDomain}&pagination=${
                   dataFilter?.pagination ? dataFilter?.pagination : '1'

@@ -104,9 +104,9 @@ const mainRoutes = [
     main: () => <EventsPage />,
   },
   {
-    path: ['/behavior/events/:eventName'],
+    path: ['/events-detail/:eventName'],
     exact: true,
-    page: ['behavior/events/:eventName'],
+    page: ['events-detail/:eventName'],
     main: () => <EventsDetailPage />,
   },
   {

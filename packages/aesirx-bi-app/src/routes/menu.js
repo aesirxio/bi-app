@@ -134,8 +134,8 @@ const mainMenu = [
   },
   {
     text: 'txt_menu_user_experience',
-    link: `/flow`,
-    page: 'flow',
+    link: `/flow-list`,
+    page: 'flow-list',
     icons: env.PUBLIC_URL + '/assets/images/ux.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/ux.svg',
   },

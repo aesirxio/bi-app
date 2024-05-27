@@ -104,9 +104,9 @@ const mainRoutes = [
     main: () => <EventsPage />,
   },
   {
-    path: ['/behavior/events/:eventName'],
+    path: ['/events-detail/:eventName'],
     exact: true,
-    page: ['behavior/events/:eventName'],
+    page: ['events-detail/:eventName'],
     main: () => <EventsDetailPage />,
   },
   {
@@ -128,8 +128,8 @@ const mainRoutes = [
     main: () => <RegionCountryPage />,
   },
   {
-    path: '/flow',
-    page: 'flow',
+    path: '/flow-list',
+    page: 'flow-list',
     exact: true,
     main: () => <FlowListPage />,
   },

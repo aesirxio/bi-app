@@ -246,14 +246,14 @@ class EventsListModel {
                   {integration ? (
                     <a
                       href="#"
-                      onClick={(e) => this.handleChangeLink(e, `behavior-events&id=${cell?.value}`)}
+                      onClick={(e) => this.handleChangeLink(e, `events-detail&id=${cell?.value}`)}
                       className={'px-3 text-secondary-50'}
                     >
                       <span>{cell?.value ?? null}</span>
                     </a>
                   ) : (
                     <NavLink
-                      to={`/behavior/events/${cell?.value}`}
+                      to={`/events-detail/${cell?.value}`}
                       className={'px-3 text-secondary-50'}
                     >
                       {cell?.value ?? null}

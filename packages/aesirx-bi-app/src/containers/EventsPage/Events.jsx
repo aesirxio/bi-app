@@ -79,8 +79,7 @@ const Events = observer((props) => {
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
         <div className="position-relative">
-          <h2 className="fw-bold mb-8px">{t('txt_menu_events')}</h2>
-          <p className="mb-0">{t('txt_analytic_details')}</p>
+          <h2 className="fw-bold mb-3 mt-3">{t('txt_menu_events')}</h2>
         </div>
         <div className="position-relative">
           <DateRangePicker onChange={handleDateRangeChange} />
@@ -90,7 +89,6 @@ const Events = observer((props) => {
         <div className="col-lg-6 col-12">
           <StackedBarChartComponent
             loading={status}
-            chartTitle={t('txt_menu_overview')}
             height={390}
             data={dataEvents?.toAreaChart() ?? []}
             colors={[

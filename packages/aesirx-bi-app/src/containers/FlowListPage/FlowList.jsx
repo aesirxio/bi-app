@@ -9,7 +9,7 @@ import PAGE_STATUS from '../../constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import FlowListTable from './Component/FlowListTable';
 import ComponentNoData from '../../components/ComponentNoData';
-import { env } from 'aesirx-lib';
+import { BI_FLOW_LIST_FIELD_KEY, env } from 'aesirx-lib';
 import 'flag-icons/sass/flag-icons.scss';
 import queryString from 'query-string';
 
@@ -66,7 +66,7 @@ const FlowList = observer(
         },
         {},
         {
-          'sort[]': column?.id,
+          'sort[]': column?.id === BI_FLOW_LIST_FIELD_KEY.GEO ? 'geo.country.name' : column?.id,
           'sort_direction[]':
             this.flowListListViewModel?.sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
         }

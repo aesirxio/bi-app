@@ -32,7 +32,7 @@ class FlowListModel {
       'txt_sop_id',
       'txt_event',
       'txt_conversion',
-      'txt_url',
+      // 'txt_url',
       '',
       // 'txt_tier',
       // 'txt_session',
@@ -44,7 +44,7 @@ class FlowListModel {
       BI_FLOW_LIST_FIELD_KEY.SOP_ID,
       BI_FLOW_LIST_FIELD_KEY.EVENT,
       BI_FLOW_LIST_FIELD_KEY.CONVERSION,
-      BI_FLOW_LIST_FIELD_KEY.URL,
+      // BI_FLOW_LIST_FIELD_KEY.URL,
       BI_FLOW_LIST_FIELD_KEY.UUID,
       // BI_FLOW_LIST_FIELD_KEY.TIER,
       // BI_FLOW_LIST_FIELD_KEY.SESSION,
@@ -73,10 +73,10 @@ class FlowListModel {
             key === BI_FLOW_LIST_FIELD_KEY.EVENT ||
             key === BI_FLOW_LIST_FIELD_KEY.CONVERSION ||
             key === BI_FLOW_LIST_FIELD_KEY.URL ||
-            key === BI_FLOW_LIST_FIELD_KEY.SOP_ID ||
-            key === BI_FLOW_LIST_FIELD_KEY.GEO
+            key === BI_FLOW_LIST_FIELD_KEY.SOP_ID
               ? false
               : true,
+          sortParams: key === BI_FLOW_LIST_FIELD_KEY.GEO ? 'geo.country.name' : key,
           Cell: ({ cell, column, row }) => {
             if (column.id === BI_FLOW_LIST_FIELD_KEY.GEO) {
               return (

@@ -48,7 +48,7 @@ const OutlinkPage = observer(
     };
 
     handleSort = async (column) => {
-      this.outlinkListViewModel.getPages(
+      this.outlinkListViewModel.getOutlink(
         {
           'filter[domain]': this.context.biListViewModel.activeDomain,
         },

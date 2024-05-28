@@ -62,7 +62,7 @@ class EventsListModel {
   getFilterName = () => {
     const transform = this.transformResponse();
     const filter = Object.keys(transform).map((item) => ({ value: item, label: item }));
-    filter?.unshift({ value: 'all', label: 'All' });
+    filter?.unshift({ value: 'all', label: 'All Event' });
     return filter;
   };
 
@@ -238,7 +238,7 @@ class EventsListModel {
               : key === BI_VISITOR_FIELD_KEY.EVENT_TYPE
               ? 50
               : 170,
-          allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
+          allowSort: true,
           Cell: ({ cell, column }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
               return (

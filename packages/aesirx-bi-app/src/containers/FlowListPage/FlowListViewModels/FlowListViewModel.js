@@ -35,6 +35,7 @@ class FlowListListViewModel {
     this.sortBy = sortBy;
     this.dataFilter = {
       page_size: '20',
+      'filter_not[device]': 'bot',
       ...this.dataFilter,
       ...dataFilter,
       ...this.sortBy,

@@ -116,7 +116,7 @@ const SearchEnginePage = observer(
     };
 
     handleSort = async (column) => {
-      this.searchEngineListViewModel.getPages(
+      this.searchEngineListViewModel.getOutlink(
         {
           'filter[domain]': this.context.biListViewModel.activeDomain,
         },

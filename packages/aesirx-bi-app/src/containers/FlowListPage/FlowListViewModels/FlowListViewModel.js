@@ -35,13 +35,16 @@ class FlowListListViewModel {
     this.sortBy = sortBy;
     this.dataFilter = {
       page_size: '20',
-      'filter_not[device]': 'bot',
       ...this.dataFilter,
       ...dataFilter,
       ...this.sortBy,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
-
+    if (dataFilter['filter_not[device]'] === 'all') {
+      if (this.dataFilter['filter_not[device]']) {
+        delete this.dataFilter['filter_not[device]'];
+      }
+    }
     this.countriesStore.getFlowList(
       this.dataFilter,
       dateRangeFilter,

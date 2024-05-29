@@ -44,7 +44,11 @@ class EventsListViewModel {
       ...this.search,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
-
+    if (dataFilter['filter[event_name]'] === 'all') {
+      if (this.dataFilterTable['filter[event_name]']) {
+        delete this.dataFilterTable['filter[event_name]'];
+      }
+    }
     await this.eventsStore.getVisitor(
       this.dataFilterTable,
       dateRangeFilter,

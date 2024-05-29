@@ -9,6 +9,8 @@ import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import BehaviorTable from '../../components/BehaviorTable';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
+import { Col, Row } from 'react-bootstrap';
+import { AesirXSelect } from 'aesirx-uikit';
 
 const Events = observer((props) => {
   const { t } = useTranslation();
@@ -75,6 +77,13 @@ const Events = observer((props) => {
       { 'filter[url]': search }
     );
   };
+  const onSelectionChange = async (data) => {
+    await getVisitor({
+      'filter[domain]': activeDomain,
+      'filter[event_name]': data?.value,
+    });
+  };
+  console.log('dataEvents?.toEventsList()', dataEvents?.toEventsList());
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -102,7 +111,21 @@ const Events = observer((props) => {
               '#FF5722',
             ]}
             // areaColors={['#1AB394', '#9747FF', '#479CFF', '#024E6D']}
-            areaColors={['#0066FF', '#1AB394', '#4747EB', '#96C0FF', '#D5EEFF']}
+            areaColors={[
+              '#0066FF',
+              '#1AB394',
+              '#4747EB',
+              '#96C0FF',
+              '#D5EEFF',
+              '#2196F3',
+              '#F44336',
+              '#FF9800',
+              '#00BCD4',
+              '#009688',
+              '#9C27B0',
+              '#E91E63',
+              '#673AB7',
+            ]}
             lineColors={[
               '#1AB394',
               '#9747FF',
@@ -137,6 +160,23 @@ const Events = observer((props) => {
           />
         </div>
       </div>
+      {dataEvents?.toEventsList()?.length && (
+        <Row className="mb-2">
+          <Col lg="2">
+            <AesirXSelect
+              defaultValue={{ label: 'All Event', value: 'all' }}
+              options={dataEvents?.toEventsList()}
+              className={`fs-sm`}
+              isBorder={true}
+              onChange={(data) => {
+                onSelectionChange(data);
+              }}
+              plColor={'#808495'}
+              isSearchable={false}
+            />
+          </Col>
+        </Row>
+      )}
       <div className="row gx-24 mb-24">
         <div className="col-12 ">
           {data?.list && (

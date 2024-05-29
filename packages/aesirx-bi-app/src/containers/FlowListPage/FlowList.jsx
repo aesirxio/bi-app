@@ -12,6 +12,8 @@ import ComponentNoData from '../../components/ComponentNoData';
 import { BI_FLOW_LIST_FIELD_KEY, env } from 'aesirx-lib';
 import 'flag-icons/sass/flag-icons.scss';
 import queryString from 'query-string';
+import { Col, Row } from 'react-bootstrap';
+import { AesirXSelect } from 'aesirx-uikit';
 
 const FlowList = observer(
   class FlowList extends Component {
@@ -72,6 +74,13 @@ const FlowList = observer(
         }
       );
     };
+
+    onSelectionChange = async (data) => {
+      await this.flowListListViewModel.getFlowList({
+        'filter[domain]': this.props.domain,
+        'filter_not[device]': data?.value,
+      });
+    };
     render() {
       const { t } = this.props;
       const { status } = this.flowListListViewModel;
@@ -80,13 +89,30 @@ const FlowList = observer(
           <div className="py-4 px-4 d-flex flex-column">
             <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
               <div className="position-relative">
-                <h2 className="fw-bold mb-8px">{t('txt_user_experience')}</h2>
-                <p className="mb-0">{t('txt_analytic_details')}</p>
+                <h2 className="fw-bold mb-3 mt-3">{t('txt_user_experience')}</h2>
               </div>
               <div className="position-relative">
                 <DateRangePicker onChange={this.handleDateRangeChange} />
               </div>
             </div>
+            <Row className="mb-2">
+              <Col lg="2">
+                <AesirXSelect
+                  defaultValue={{ label: 'Include Bot', value: 'all' }}
+                  options={[
+                    { label: 'Include Bot', value: 'all' },
+                    { label: 'Exclude Bot', value: 'bot' },
+                  ]}
+                  className={`fs-sm`}
+                  isBorder={true}
+                  onChange={(data) => {
+                    this.onSelectionChange(data);
+                  }}
+                  plColor={'#808495'}
+                  isSearchable={false}
+                />
+              </Col>
+            </Row>
             <div className="position-relative ChartWrapper">
               {status === PAGE_STATUS.LOADING ? (
                 <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />

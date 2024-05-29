@@ -317,6 +317,16 @@ class EventsListModel {
       };
     }
   };
+
+  toEventsList = () => {
+    const result = this.data?.map((item) => {
+      return {
+        value: item?.event_name,
+        label: item?.event_name,
+      };
+    });
+    return [{ label: 'All Event', value: 'all' }, ...result];
+  };
 }
 
 export default EventsListModel;

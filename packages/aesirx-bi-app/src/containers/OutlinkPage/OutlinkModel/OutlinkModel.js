@@ -41,7 +41,7 @@ class OutlinkModel {
               : key === BI_SUMMARY_FIELD_KEY.NUMBER_OF_UNIQUE_PAGE_VIEWS
               ? 220
               : key === BI_OUTLINK_FIELD_KEY.URLS
-              ? 20
+              ? 10
               : 170,
           Cell: ({ cell, column, row }) => {
             return column.id === BI_OUTLINK_FIELD_KEY.REFERER ? (

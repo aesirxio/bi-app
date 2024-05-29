@@ -9,21 +9,24 @@ import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import FlowListModel from '../FlowListModel/FlowListModel';
 import queryString from 'query-string';
+import EventsListModel from 'containers/EventsPage/EventsModel/EventsListEventModel';
 class FlowListListViewModel {
-  countriesStore = null;
+  flowlistStore = null;
   status = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   countriesTableData = null;
+  dataEvents = null;
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
   dataFilterFlowList = {};
-  constructor(countriesStore, globalStoreViewModel) {
+  constructor(flowlistStore, globalStoreViewModel) {
     makeAutoObservable(this);
-    this.countriesStore = countriesStore;
+    this.flowlistStore = flowlistStore;
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
   initialize = (dataFilter, dateFilter) => {
     this.getFlowList(dataFilter, dateFilter);
+    this.getEvents(dataFilter, dateFilter);
   };
 
   getFlowList = (
@@ -45,10 +48,33 @@ class FlowListListViewModel {
         delete this.dataFilter['filter_not[device]'];
       }
     }
-    this.countriesStore.getFlowList(
+    if (dataFilter['filter[event_name]'] === 'all') {
+      if (this.dataFilter['filter[event_name]']) {
+        delete this.dataFilter['filter[event_name]'];
+      }
+    }
+    this.flowlistStore.getFlowList(
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnCountriesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getEvents = (dataFilter, dateFilter) => {
+    this.status = PAGE_STATUS.LOADING;
+    this.dataFilterEvents = {
+      page_size: '1000',
+      'filter_not[event_name]': 'visit',
+      ...this.dataFilterEvents,
+      ...dataFilter,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.flowlistStore.getEvents(
+      this.dataFilterEvents,
+      dateRangeFilter,
+      this.callbackOnDataEventsSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -57,7 +83,7 @@ class FlowListListViewModel {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    this.countriesStore.getFlowList(
+    this.flowlistStore.getFlowList(
       this.dataFilter,
       dateRangeFilter,
       this.callbackOnCountriesSuccessHandler,
@@ -82,7 +108,7 @@ class FlowListListViewModel {
     this.globalStoreViewModel.dataFilter = { pagination: this.dataFilterFlowList?.page };
 
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
-    await this.countriesStore.getFlowList(
+    await this.flowlistStore.getFlowList(
       this.dataFilterFlowList,
       dateRangeFilter,
       this.callbackOnCountriesSuccessHandler,
@@ -111,6 +137,19 @@ class FlowListListViewModel {
           list: transformData,
           pagination: data.pagination,
         };
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnDataEventsSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        const transformData = new EventsListModel(data, this.globalStoreViewModel);
+        this.dataEvents = transformData;
       }
     } else {
       this.status = PAGE_STATUS.ERROR;

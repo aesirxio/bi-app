@@ -81,6 +81,12 @@ const FlowList = observer(
         'filter_not[device]': data?.value,
       });
     };
+    onSelectionChangeEvent = async (data) => {
+      await this.flowListListViewModel.getFlowList({
+        'filter[domain]': this.props.domain,
+        'filter[event_name]': data?.value,
+      });
+    };
     render() {
       const { t } = this.props;
       const { status } = this.flowListListViewModel;
@@ -112,6 +118,21 @@ const FlowList = observer(
                   isSearchable={false}
                 />
               </Col>
+              {this.flowListListViewModel?.dataEvents?.toEventsList()?.length && (
+                <Col lg="2">
+                  <AesirXSelect
+                    defaultValue={{ label: 'All Event', value: 'all' }}
+                    options={this.flowListListViewModel?.dataEvents?.toEventsList()}
+                    className={`fs-sm`}
+                    isBorder={true}
+                    onChange={(data) => {
+                      this.onSelectionChangeEvent(data);
+                    }}
+                    plColor={'#808495'}
+                    isSearchable={false}
+                  />
+                </Col>
+              )}
             </Row>
             <div className="position-relative ChartWrapper">
               {status === PAGE_STATUS.LOADING ? (

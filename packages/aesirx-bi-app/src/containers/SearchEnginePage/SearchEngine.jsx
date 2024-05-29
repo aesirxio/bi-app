@@ -142,13 +142,11 @@ const SearchEnginePage = observer(
 
     render() {
       const { t } = this.props;
-      console.log('teste', this.searchEngineListViewModel?.channelTableData?.list);
       return (
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-24">
             <div>
-              <h2 className="fw-bold mb-8px">{t('txt_search_engines')}</h2>
-              <p className="mb-0">{t('txt_analytic_details')}</p>
+              <h2 className="fw-bold mb-3 mt-3">{t('txt_search_engines')}</h2>
             </div>
             <div className="position-relative">
               <DateRangePicker onChange={this.handleDateRangeChange} />

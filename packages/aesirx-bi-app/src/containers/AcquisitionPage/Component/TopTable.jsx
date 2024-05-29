@@ -56,10 +56,11 @@ const TopTableComponent = (props) => {
         return {
           ...item,
           className: `px-15 py-16 fs-sm fw-semibold border-bottom border-gray-800 align-middle ${
-            index !== 0 ? 'rounded-top-end-3 text-end' : ''
-          } ${index === 0 ? 'rounded-top-start-3' : ''}`,
+            index > 1 ? 'rounded-top-end-3 text-end' : ''
+          } ${index <= 1 ? 'rounded-top-start-3' : ''}`,
           width: item.width ? item.width : index === 0 ? 'auto' : 170,
           allowSort: item?.allowSort || false,
+          subRows: item?.subRows ?? [],
           Header: (
             <span className="align-middle text-gray-900 fw-medium">
               {t(item.Header)}
@@ -104,6 +105,8 @@ const TopTableComponent = (props) => {
           sortAPI={sortAPI}
           sortAPIHandle={handleSort}
           sortBy={sortBy}
+          hasSubRow={true}
+          idKey={'searchEngine'}
         />
       ) : (
         <div className="position-relative ChartWrapper bg-white rounded-3 shadow-sm">

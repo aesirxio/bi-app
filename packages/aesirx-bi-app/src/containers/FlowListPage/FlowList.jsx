@@ -15,6 +15,9 @@ import queryString from 'query-string';
 import { Col, Row } from 'react-bootstrap';
 import { AesirXSelect } from 'aesirx-uikit';
 import OverviewComponent from './Component/Overview';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import _ from 'lodash';
 
 const FlowList = observer(
   class FlowList extends Component {
@@ -83,12 +86,21 @@ const FlowList = observer(
       });
     };
     onSelectionChangeEvent = async (data) => {
-      console.log('this.props', this.props);
       await this.flowListListViewModel.getFlowList({
         'filter[domain]': this.props.activeDomain,
         'filter[event_name]': data?.value,
       });
     };
+
+    debouncedChangeHandler = _.debounce(async (value) => {
+      await this.flowListListViewModel.getFlowList({
+        'filter[domain]': this.props.activeDomain,
+        'filter[url]': value.target?.value
+          ? `https://${this.context.biListViewModel.activeDomain}/${value.target?.value}`
+          : 'clearDataFilter',
+      });
+    }, 400);
+
     render() {
       const { t } = this.props;
       const { status } = this.flowListListViewModel;
@@ -116,7 +128,7 @@ const FlowList = observer(
               </Col>
             </Row>
             <Row className="mb-2">
-              <Col lg="2">
+              <Col lg="2" className="mb-2 mb-lg-0">
                 <AesirXSelect
                   defaultValue={{ label: 'Include Bot', value: 'all' }}
                   options={[
@@ -133,7 +145,7 @@ const FlowList = observer(
                 />
               </Col>
               {this.flowListListViewModel?.dataEvents?.toEventsList()?.length && (
-                <Col lg="2">
+                <Col lg="2" className="mb-2 mb-lg-0">
                   <AesirXSelect
                     defaultValue={{ label: 'All Event', value: 'all' }}
                     options={this.flowListListViewModel?.dataEvents?.toEventsList()}
@@ -147,11 +159,11 @@ const FlowList = observer(
                   />
                 </Col>
               )}
-              {this.flowListListViewModel?.dataConversion?.toEventsList()?.length && (
-                <Col lg="2">
+              {this.flowListListViewModel?.dataConversion?.toConversionList()?.length && (
+                <Col lg="2" className="mb-2 mb-lg-0">
                   <AesirXSelect
                     defaultValue={{ label: 'All Conversion', value: 'all' }}
-                    options={this.flowListListViewModel?.dataConversion?.toEventsList()}
+                    options={this.flowListListViewModel?.dataConversion?.toConversionList()}
                     className={`fs-sm`}
                     isBorder={true}
                     onChange={(data) => {
@@ -162,6 +174,21 @@ const FlowList = observer(
                   />
                 </Col>
               )}
+              <Col lg="6" className="mb-2 mb-lg-0">
+                <span className="search_url d-flex position-relative border rounded-2">
+                  <div className="px-2 bg-gray-400 d-flex align-items-center">
+                    https://{this.context.biListViewModel.activeDomain}/
+                  </div>
+                  <input
+                    placeholder={t('txt_search_url')}
+                    onChange={this.debouncedChangeHandler}
+                    className="form-control pe-2 pe-4 fs-14 border-0 shadow-none p-2"
+                  />
+                  <i className="text-green position-absolute top-0 bottom-0 end-0 pe-24 d-flex align-items-center">
+                    <FontAwesomeIcon icon={faSearch} />
+                  </i>
+                </span>
+              </Col>
             </Row>
             <div className="position-relative ChartWrapper">
               {status === PAGE_STATUS.LOADING ? (

@@ -263,7 +263,7 @@ const Table = ({
         ) : null}
 
         {rows.length === 0 ? (
-          <div className="">
+          <div className="ChartWrapper d-flex align-items-center justify-content-center">
             <ComponentNoData
               icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
               title={t('txt_no_data')}

@@ -327,7 +327,20 @@ class EventsListModel {
           };
         })
       : [];
-    return [{ label: 'All Event', value: 'all' }, ...result];
+    const arrayUniqueByKey = [...new Map(result.map((item) => [item['value'], item])).values()];
+    return [{ label: 'All Event', value: 'all' }, ...arrayUniqueByKey];
+  };
+  toConversionList = () => {
+    const result = this.data?.length
+      ? this.data?.map((item) => {
+          return {
+            value: item?.event_name,
+            label: item?.event_name,
+          };
+        })
+      : [];
+    const arrayUniqueByKey = [...new Map(result.map((item) => [item['value'], item])).values()];
+    return [{ label: 'All Conversion', value: 'all' }, ...arrayUniqueByKey];
   };
 }
 

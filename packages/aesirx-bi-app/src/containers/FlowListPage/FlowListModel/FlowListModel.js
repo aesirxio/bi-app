@@ -3,10 +3,11 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 import React from 'react';
-import { BI_FLOW_LIST_FIELD_KEY } from 'aesirx-lib';
+import { BI_FLOW_LIST_FIELD_KEY, env } from 'aesirx-lib';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 import { enumerateDaysBetweenDates } from 'aesirx-lib';
+import ComponentSVG from 'components/ComponentSVG';
 
 class FlowListModel {
   data = [];
@@ -31,11 +32,15 @@ class FlowListModel {
       'txt_time_utc',
       'txt_locale',
       'txt_sop_id',
+      'txt_ux_percent',
       'txt_duration',
+      'txt_page_views',
+      'txt_action',
       'txt_event',
       'txt_conversion',
-      'txt_action',
-      'txt_url',
+      'txt_bounce_rate',
+      '',
+      // 'txt_url',
       '',
       // 'txt_tier',
       // 'txt_session',
@@ -45,11 +50,15 @@ class FlowListModel {
       BI_FLOW_LIST_FIELD_KEY.START,
       BI_FLOW_LIST_FIELD_KEY.GEO,
       BI_FLOW_LIST_FIELD_KEY.SOP_ID,
+      BI_FLOW_LIST_FIELD_KEY.UX_PERCENT,
       BI_FLOW_LIST_FIELD_KEY.DURATION,
+      BI_FLOW_LIST_FIELD_KEY.PAGEVIEW,
+      BI_FLOW_LIST_FIELD_KEY.ACTION,
       BI_FLOW_LIST_FIELD_KEY.EVENT,
       BI_FLOW_LIST_FIELD_KEY.CONVERSION,
-      BI_FLOW_LIST_FIELD_KEY.ACTION,
-      BI_FLOW_LIST_FIELD_KEY.URL,
+      BI_FLOW_LIST_FIELD_KEY.BOUNCE_RATE,
+      BI_FLOW_LIST_FIELD_KEY.DEVICE,
+      // BI_FLOW_LIST_FIELD_KEY.URL,
       BI_FLOW_LIST_FIELD_KEY.UUID,
       // BI_FLOW_LIST_FIELD_KEY.TIER,
       // BI_FLOW_LIST_FIELD_KEY.SESSION,
@@ -62,15 +71,20 @@ class FlowListModel {
           accessor: key,
           width:
             key === BI_FLOW_LIST_FIELD_KEY.START
-              ? 220
+              ? 160
               : key === BI_FLOW_LIST_FIELD_KEY.SOP_ID
               ? 100
               : key === BI_FLOW_LIST_FIELD_KEY.EVENT ||
                 key === BI_FLOW_LIST_FIELD_KEY.DURATION ||
                 key === BI_FLOW_LIST_FIELD_KEY.CONVERSION ||
+                key === BI_FLOW_LIST_FIELD_KEY.PAGEVIEW ||
                 key === BI_FLOW_LIST_FIELD_KEY.ACTION ||
+                key === BI_FLOW_LIST_FIELD_KEY.DEVICE ||
                 key === BI_FLOW_LIST_FIELD_KEY.GEO
               ? 10
+              : key === BI_FLOW_LIST_FIELD_KEY.UX_PERCENT ||
+                key === BI_FLOW_LIST_FIELD_KEY.BOUNCE_RATE
+              ? 50
               : key === BI_FLOW_LIST_FIELD_KEY.URL
               ? 230
               : key === BI_FLOW_LIST_FIELD_KEY.UUID
@@ -105,16 +119,22 @@ class FlowListModel {
                     <a
                       href="#"
                       onClick={(e) => this.handleChangeLink(e, `flow&id=${cell?.value}`)}
-                      className={'btn btn-light px-3 py-1 fs-sm'}
+                      className={'px-3 py-1 fs-sm d-block text-center'}
                     >
-                      <span> View Detail</span>
+                      <ComponentSVG
+                        url={env.PUBLIC_URL + '/assets/images/eye.svg'}
+                        color="#222328"
+                      />
                     </a>
                   ) : (
                     <NavLink
                       to={`/flow/${cell?.value}`}
-                      className={'btn btn-light px-3 py-1 fs-sm'}
+                      className={'px-3 py-1 fs-sm d-block text-center'}
                     >
-                      View Detail
+                      <ComponentSVG
+                        url={env.PUBLIC_URL + '/assets/images/eye.svg'}
+                        color="#222328"
+                      />
                     </NavLink>
                   )}
                 </>
@@ -135,9 +155,39 @@ class FlowListModel {
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.START) {
               return (
                 <div className={'px-3 d-flex align-items-center'}>
-                  {row.original[BI_FLOW_LIST_FIELD_KEY.DEVICE] === 'bot' ? (
+                  {moment(cell?.value)?.utc()?.format('DD-MM-YYYY HH:mm:ss')}
+                </div>
+              );
+            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.DURATION) {
+              return (
+                <div className={'px-3'}>{moment.utc(cell?.value * 1000).format('mm:ss') ?? 0}</div>
+              );
+            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.BOUNCE_RATE) {
+              return <div className={'px-3'}>{cell?.value}%</div>;
+            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.UX_PERCENT) {
+              return (
+                <div className="d-flex align-items-center">
+                  <div class="set-size charts-container">
+                    <div class="pie-wrapper progress-75 style-2">
+                      <div class={`pie ${cell?.value <= 50 ? 'below-50' : 'above-50'}`}>
+                        <div
+                          class="left-side half-circle"
+                          style={{ transform: `rotate(${cell?.value * 3.6}deg)` }}
+                        ></div>
+                        <div class="right-side half-circle"></div>
+                      </div>
+                      <div class="shadow-pie"></div>
+                    </div>
+                  </div>
+                  <div className="ms-2"> {cell?.value}%</div>
+                </div>
+              );
+            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.DEVICE) {
+              return (
+                <div className={'px-3'}>
+                  {cell?.values === 'bot' ? (
                     <div
-                      className="text-success py-1 px-2 me-2 rounded-1 fw-semibold"
+                      className="text-success py-1 px-2 rounded-1 fw-semibold text-center"
                       style={{ backgroundColor: '#1AB39426' }}
                     >
                       Bot
@@ -145,12 +195,7 @@ class FlowListModel {
                   ) : (
                     <></>
                   )}
-                  {moment(cell?.value)?.utc()?.format('DD-MM-YYYY HH:mm:ss')}
                 </div>
-              );
-            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.DURATION) {
-              return (
-                <div className={'px-3'}>{moment.utc(cell?.value * 1000).format('mm:ss') ?? 0}</div>
               );
             } else {
               return <div className={'px-3'}>{cell?.value}</div>;

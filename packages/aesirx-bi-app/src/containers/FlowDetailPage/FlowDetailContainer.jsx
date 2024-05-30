@@ -44,13 +44,6 @@ const FlowDetailContainer = observer((props) => {
 
   const CardData = useMemo(
     () => [
-      {
-        className: 'col-4',
-        title: t('txt_domain'),
-        icon: env.PUBLIC_URL + '/assets/images/domain.svg',
-        iconColor: '#1AB394',
-        value: data?.[BI_FLOW_DETAIL_KEY.DOMAIN] ?? '',
-      },
       // {
       //   className: 'col-4',
       //   title: t('txt_location'),
@@ -63,25 +56,21 @@ const FlowDetailContainer = observer((props) => {
         title: t('txt_duration'),
         icon: env.PUBLIC_URL + '/assets/images/duration.png',
         iconColor: '#1AB394',
-        value:
-          moment
-            .utc(
-              moment
-                .duration(
-                  moment(data?.[BI_FLOW_DETAIL_KEY.END]).diff(
-                    moment(data?.[BI_FLOW_DETAIL_KEY.START])
-                  )
-                )
-                .asMilliseconds()
-            )
-            .format('HH:mm:ss') ?? 0,
+        value: moment.utc(data?.[BI_FLOW_DETAIL_KEY.DURATION] * 1000).format('HH:mm:ss') ?? 0,
       },
       {
         className: 'col-4',
-        title: t('txt_actions'),
+        title: t('txt_total_actions'),
         icon: env.PUBLIC_URL + '/assets/images/click.png',
         iconColor: '#1AB394',
-        value: data?.[BI_FLOW_DETAIL_KEY.EVENTS]?.length ?? 0,
+        value: data?.[BI_FLOW_DETAIL_KEY.ACTION] ?? 0,
+      },
+      {
+        className: 'col-4',
+        title: t('txt_total_events'),
+        icon: env.PUBLIC_URL + '/assets/images/action.svg',
+        iconColor: '#1AB394',
+        value: data?.[BI_FLOW_DETAIL_KEY.EVENT] ?? 0,
       },
     ],
     [data]
@@ -100,7 +89,7 @@ const FlowDetailContainer = observer((props) => {
       },
       {
         text: t('txt_locale'),
-        value: data?.[BI_FLOW_DETAIL_KEY.LOCATION]?.country?.name ?? 'unDetected',
+        value: data?.[BI_FLOW_DETAIL_KEY.GEO]?.country?.name ?? 'unDetected',
       },
       {
         text: t('txt_ip'),

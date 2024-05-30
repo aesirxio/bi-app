@@ -58,6 +58,11 @@ class FlowListListViewModel {
         delete this.dataFilter['filter[event_name]'];
       }
     }
+    if (dataFilter['filter[url]'] === 'clearDataFilter') {
+      if (this.dataFilter['filter[url]']) {
+        delete this.dataFilter['filter[url]'];
+      }
+    }
     this.flowlistStore.getFlowList(
       this.dataFilter,
       dateRangeFilter,

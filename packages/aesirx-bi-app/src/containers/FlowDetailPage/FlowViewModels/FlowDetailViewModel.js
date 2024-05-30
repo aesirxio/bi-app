@@ -5,14 +5,17 @@
 
 import { notify } from 'aesirx-uikit';
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import FlowModel from '../FlowModel/FlowModel';
+import EventsListModel from 'containers/EventsPage/EventsModel/EventsListEventModel';
 class FlowDetailViewModel {
   flowStore = null;
   behaviorStore = null;
   status = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   data = null;
+  dataEvents = null;
+  dataConversion = null;
   relatedVisitorData = null;
   dataFilter = {};
   constructor(flowStore, behaviorStore, globalStoreViewModel) {
@@ -22,14 +25,68 @@ class FlowDetailViewModel {
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
-  getFlowDetail = (flowId, dataFilter) => {
+  getFlowDetail = async (flowId, dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
 
-    this.flowStore.getFlowDetail(
+    if (dataFilter['filter_not[device]'] === 'all') {
+      if (this.dataFilter['filter_not[device]']) {
+        delete this.dataFilter['filter_not[device]'];
+      }
+    }
+    if (dataFilter['filter[event_name]'] === 'all') {
+      console.log('inne', this.dataFilter);
+      if (this.dataFilter['filter[event_name]']) {
+        console.log('inne2', this.dataFilter);
+        delete this.dataFilter['filter[event_name]'];
+        console.log('inne2', this.dataFilter);
+      }
+    }
+    if (dataFilter['filter[url]'] === 'clearDataFilter') {
+      if (this.dataFilter['filter[url]']) {
+        delete this.dataFilter['filter[url]'];
+      }
+    }
+    await this.flowStore.getFlowDetail(
       flowId,
-      dataFilter,
+      this.dataFilter,
       this.callbackOnDataSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getEvents = (dataFilter, dateFilter) => {
+    this.status = PAGE_STATUS.LOADING;
+    this.dataFilterEvents = {
+      page_size: '1000',
+      'filter_not[event_type]': 'conversion',
+      ...this.dataFilterEvents,
+      ...dataFilter,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.flowStore.getEvents(
+      this.dataFilterEvents,
+      dateRangeFilter,
+      this.callbackOnDataEventsSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getConversion = (dataFilter, dateFilter) => {
+    this.status = PAGE_STATUS.LOADING;
+    this.dataFilterConversion = {
+      page_size: '1000',
+      'filter[event_type]': 'conversion',
+      ...this.dataFilterConversion,
+      ...dataFilter,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.flowStore.getEvents(
+      this.dataFilterConversion,
+      dateRangeFilter,
+      this.callbackOnDataConversionSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -58,6 +115,32 @@ class FlowDetailViewModel {
     } else {
       this.status = PAGE_STATUS.ERROR;
       this.data = {};
+    }
+  };
+
+  callbackOnDataEventsSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        const transformData = new EventsListModel(data, this.globalStoreViewModel);
+        this.dataEvents = transformData;
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.dataEvents = [];
+    }
+  };
+
+  callbackOnDataConversionSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.status = PAGE_STATUS.READY;
+        const transformData = new EventsListModel(data, this.globalStoreViewModel);
+        this.dataConversion = transformData;
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.dataConversion = [];
     }
   };
 }

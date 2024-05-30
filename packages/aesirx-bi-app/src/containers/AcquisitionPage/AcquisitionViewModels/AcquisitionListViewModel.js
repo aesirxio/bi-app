@@ -35,9 +35,10 @@ class AcquisitionListViewModel {
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
-  initialize = (dataFilter, dateFilter, page) => {
+  initialize = async (dataFilter, dateFilter, page) => {
     this.getVisits(dataFilter, dateFilter);
     this.getMetrics(dataFilter, dateFilter);
+    await this.getOutlink(dataFilter, dateFilter, page, {}, page);
     this.getChannel(dataFilter, dateFilter, page, {}, page);
   };
 
@@ -106,6 +107,27 @@ class AcquisitionListViewModel {
     );
   };
 
+  getOutlink = async (dataFilter, dateFilter, sortBy = {}, search = {}) => {
+    this.statusTopTable = PAGE_STATUS.LOADING;
+    this.sortBy = sortBy;
+    this.search = search;
+    this.dataFilterOutlink = {
+      page_size: '1000',
+      ...this.dataFilterOutlink,
+      ...dataFilter,
+      ...this.sortBy,
+      ...this.search,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.acquisitionStore.getOutlink(
+      this.dataFilterOutlink,
+      dateRangeFilter,
+      this.callbackOnOutlinkSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   handleFilter = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
@@ -148,6 +170,7 @@ class AcquisitionListViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
+    console.log('errorerror', error);
     this.status = PAGE_STATUS.READY;
     notify(error.message, 'error');
   };
@@ -190,11 +213,34 @@ class AcquisitionListViewModel {
       this.data = [];
     }
   };
+  callbackOnOutlinkSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled') {
+        this.statusTopTable = PAGE_STATUS.READY;
+        const convertData = data.list?.map((item) => {
+          return { ...item, channel: item?.referer };
+        });
+        const transformData = new ChannelModel(convertData, this.globalStoreViewModel);
+        this.outlinkTableData = transformData;
+      }
+    } else {
+      this.status = PAGE_STATUS.ERROR;
+      this.statusTopTable = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
   callbackOnChannelSuccessHandler = (data) => {
     if (data) {
       if (data?.message !== 'canceled') {
         this.statusTopTable = PAGE_STATUS.READY;
-        const transformData = new ChannelModel(data.list, this.globalStoreViewModel);
+        const dataSearch = data.list?.map((item) => {
+          if (item?.channel === 'search') {
+            return { ...item, searchEngine: this.outlinkTableData?.data };
+          } else {
+            return item;
+          }
+        });
+        const transformData = new ChannelModel(dataSearch, this.globalStoreViewModel);
         this.channelTableData = {
           list: transformData,
           pagination: data.pagination,

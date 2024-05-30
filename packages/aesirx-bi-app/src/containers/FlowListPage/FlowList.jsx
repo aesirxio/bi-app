@@ -9,9 +9,15 @@ import PAGE_STATUS from '../../constants/PageStatus';
 import { RingLoaderComponent } from 'aesirx-uikit';
 import FlowListTable from './Component/FlowListTable';
 import ComponentNoData from '../../components/ComponentNoData';
-import { env } from 'aesirx-lib';
+import { BI_FLOW_LIST_FIELD_KEY, env } from 'aesirx-lib';
 import 'flag-icons/sass/flag-icons.scss';
 import queryString from 'query-string';
+import { Col, Row } from 'react-bootstrap';
+import { AesirXSelect } from 'aesirx-uikit';
+import OverviewComponent from './Component/Overview';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import _ from 'lodash';
 
 const FlowList = observer(
   class FlowList extends Component {
@@ -61,17 +67,40 @@ const FlowList = observer(
     handleSortFlowList = async (column) => {
       this.flowListListViewModel.getFlowList(
         {
-          'filter[domain]': this.props.domain,
+          'filter[domain]': this.props.activeDomain,
           'with[]': 'events',
         },
         {},
         {
-          'sort[]': column?.id,
+          'sort[]': column?.id === BI_FLOW_LIST_FIELD_KEY.GEO ? 'geo.country.name' : column?.id,
           'sort_direction[]':
             this.flowListListViewModel?.sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
         }
       );
     };
+
+    onSelectionChange = async (data) => {
+      await this.flowListListViewModel.getFlowList({
+        'filter[domain]': this.props.activeDomain,
+        'filter_not[device]': data?.value,
+      });
+    };
+    onSelectionChangeEvent = async (data) => {
+      await this.flowListListViewModel.getFlowList({
+        'filter[domain]': this.props.activeDomain,
+        'filter[event_name]': data?.value,
+      });
+    };
+
+    debouncedChangeHandler = _.debounce(async (value) => {
+      await this.flowListListViewModel.getFlowList({
+        'filter[domain]': this.props.activeDomain,
+        'filter[url]': value.target?.value
+          ? `https://${this.context.biListViewModel.activeDomain}/${value.target?.value}`
+          : 'clearDataFilter',
+      });
+    }, 400);
+
     render() {
       const { t } = this.props;
       const { status } = this.flowListListViewModel;
@@ -80,13 +109,87 @@ const FlowList = observer(
           <div className="py-4 px-4 d-flex flex-column">
             <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
               <div className="position-relative">
-                <h2 className="fw-bold mb-8px">{t('txt_user_experience')}</h2>
-                <p className="mb-0">{t('txt_analytic_details')}</p>
+                <h2 className="fw-bold mb-3 mt-3">{t('txt_user_experience')}</h2>
               </div>
               <div className="position-relative">
                 <DateRangePicker onChange={this.handleDateRangeChange} />
               </div>
             </div>
+            <Row className="mb-24 ChartWrapper">
+              <Col lg={12}>
+                <OverviewComponent
+                  bars={['event', 'conversion']}
+                  barColors={['#0066FF', '#96C0FF']}
+                  listViewModel={this.flowListListViewModel}
+                  status={this.flowListListViewModel?.statusChart}
+                  data={this.flowListListViewModel?.eventDateData?.toAreaChart()}
+                  filterData={this.flowListListViewModel?.eventDateData?.getFilterName()}
+                />
+              </Col>
+            </Row>
+            <Row className="mb-2">
+              <Col lg="2" className="mb-2 mb-lg-0">
+                <AesirXSelect
+                  defaultValue={{ label: 'Include Bot', value: 'all' }}
+                  options={[
+                    { label: 'Include Bot', value: 'all' },
+                    { label: 'Exclude Bot', value: 'bot' },
+                  ]}
+                  className={`fs-sm`}
+                  isBorder={true}
+                  onChange={(data) => {
+                    this.onSelectionChange(data);
+                  }}
+                  plColor={'#808495'}
+                  isSearchable={false}
+                />
+              </Col>
+              {this.flowListListViewModel?.dataEvents?.toEventsList()?.length && (
+                <Col lg="2" className="mb-2 mb-lg-0">
+                  <AesirXSelect
+                    defaultValue={{ label: 'All Event', value: 'all' }}
+                    options={this.flowListListViewModel?.dataEvents?.toEventsList()}
+                    className={`fs-sm`}
+                    isBorder={true}
+                    onChange={(data) => {
+                      this.onSelectionChangeEvent(data);
+                    }}
+                    plColor={'#808495'}
+                    isSearchable={false}
+                  />
+                </Col>
+              )}
+              {this.flowListListViewModel?.dataConversion?.toConversionList()?.length && (
+                <Col lg="2" className="mb-2 mb-lg-0">
+                  <AesirXSelect
+                    defaultValue={{ label: 'All Conversion', value: 'all' }}
+                    options={this.flowListListViewModel?.dataConversion?.toConversionList()}
+                    className={`fs-sm`}
+                    isBorder={true}
+                    onChange={(data) => {
+                      this.onSelectionChangeEvent(data);
+                    }}
+                    plColor={'#808495'}
+                    isSearchable={false}
+                  />
+                </Col>
+              )}
+              <Col lg="6" className="mb-2 mb-lg-0">
+                <span className="search_url d-flex position-relative border rounded-2">
+                  <div className="px-2 bg-gray-400 d-flex align-items-center">
+                    https://{this.context.biListViewModel.activeDomain}/
+                  </div>
+                  <input
+                    placeholder={t('txt_search_url')}
+                    onChange={this.debouncedChangeHandler}
+                    className="form-control pe-2 pe-4 fs-14 border-0 shadow-none p-2"
+                  />
+                  <i className="text-green position-absolute top-0 bottom-0 end-0 pe-24 d-flex align-items-center">
+                    <FontAwesomeIcon icon={faSearch} />
+                  </i>
+                </span>
+              </Col>
+            </Row>
             <div className="position-relative ChartWrapper">
               {status === PAGE_STATUS.LOADING ? (
                 <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />

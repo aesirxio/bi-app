@@ -67,14 +67,12 @@ const Country = observer(
     render() {
       const { t } = this.props;
       const { status } = this.countryListViewModel;
-      console.log('status', status);
       return (
         <>
           <div className="py-4 px-4 d-flex flex-column">
             <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
               <div className="position-relative">
-                <h2 className="fw-bold mb-8px">{t('txt_menu_region')}</h2>
-                <p className="mb-0">{t('txt_analytic_details')}</p>
+                <h2 className="fw-bold mb-3 mt-3">{t('txt_menu_region')}</h2>
               </div>
               <div className="position-relative">
                 <DateRangePicker onChange={this.handleDateRangeChange} />

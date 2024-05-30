@@ -62,7 +62,7 @@ class EventsListModel {
   getFilterName = () => {
     const transform = this.transformResponse();
     const filter = Object.keys(transform).map((item) => ({ value: item, label: item }));
-    filter?.unshift({ value: 'all', label: 'All' });
+    filter?.unshift({ value: 'all', label: 'All Event' });
     return filter;
   };
 
@@ -238,7 +238,7 @@ class EventsListModel {
               : key === BI_VISITOR_FIELD_KEY.EVENT_TYPE
               ? 50
               : 170,
-          allowSort: key === BI_VISITOR_FIELD_KEY.START_DATE ? true : false,
+          allowSort: true,
           Cell: ({ cell, column }) => {
             if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
               return (
@@ -316,6 +316,31 @@ class EventsListModel {
         data: [],
       };
     }
+  };
+
+  toEventsList = () => {
+    const result = this.data?.length
+      ? this.data?.map((item) => {
+          return {
+            value: item?.event_name,
+            label: item?.event_name,
+          };
+        })
+      : [];
+    const arrayUniqueByKey = [...new Map(result.map((item) => [item['value'], item])).values()];
+    return [{ label: 'All Event', value: 'all' }, ...arrayUniqueByKey];
+  };
+  toConversionList = () => {
+    const result = this.data?.length
+      ? this.data?.map((item) => {
+          return {
+            value: item?.event_name,
+            label: item?.event_name,
+          };
+        })
+      : [];
+    const arrayUniqueByKey = [...new Map(result.map((item) => [item['value'], item])).values()];
+    return [{ label: 'All Conversion', value: 'all' }, ...arrayUniqueByKey];
   };
 }
 

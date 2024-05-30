@@ -36,6 +36,7 @@
   right: 325px;
 }
 .aesirxui {
+  min-height: 65vh;
   .printButton {
     .dropdown-menu {
       min-width: 20rem;
@@ -197,4 +198,73 @@
 }
 .flow_detail_item_content_link {
   color: #1d55a9 !important;
+}
+
+$default-size: 25px;
+$default-size: 25px;
+@mixin size($width, $height) {
+  height: $height;
+  width: $width;
+}
+
+.aesirxui {
+  .search_url {
+    .form-control:focus {
+      box-shadow: none;
+    }
+  }
+  .charts-container {
+    &:after {
+      clear: both;
+      content: '';
+      display: table;
+    }
+  }
+  .pie-wrapper {
+    @include size($default-size, $default-size);
+    float: left;
+    position: relative;
+
+    &:nth-child(3n + 1) {
+      clear: both;
+    }
+
+    .pie {
+      @include size(100%, 100%);
+      clip: rect(0, $default-size, $default-size, $default-size / 2);
+      left: 0;
+      position: absolute;
+      top: 0;
+      .half-circle {
+        @include size(100%, 100%);
+        border: ($default-size / 10) solid #1d55a9;
+        border-radius: 50%;
+        clip: rect(0, $default-size / 2, $default-size, 0);
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+    }
+    &.progress-75 {
+      .pie {
+        &.above-50 {
+          clip: rect(auto, auto, auto, auto);
+          .right-side {
+            transform: rotate(180deg);
+          }
+        }
+        &.below-50 {
+          .right-side {
+            display: none;
+          }
+        }
+      }
+    }
+    .shadow-pie {
+      height: 100%;
+      width: 100%;
+      border: 0.1em solid #f0f2f5;
+      border-radius: 50%;
+    }
+  }
 }

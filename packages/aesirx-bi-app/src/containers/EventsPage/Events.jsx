@@ -83,7 +83,7 @@ const Events = observer((props) => {
       'filter[event_name]': data?.value,
     });
   };
-  console.log('dataEvents?.toEventsList()', dataEvents?.toEventsList());
+
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">

@@ -14,6 +14,7 @@ import 'flag-icons/sass/flag-icons.scss';
 import queryString from 'query-string';
 import { Col, Row } from 'react-bootstrap';
 import { AesirXSelect } from 'aesirx-uikit';
+import OverviewComponent from './Component/Overview';
 
 const FlowList = observer(
   class FlowList extends Component {
@@ -63,7 +64,7 @@ const FlowList = observer(
     handleSortFlowList = async (column) => {
       this.flowListListViewModel.getFlowList(
         {
-          'filter[domain]': this.props.domain,
+          'filter[domain]': this.props.activeDomain,
           'with[]': 'events',
         },
         {},
@@ -77,13 +78,14 @@ const FlowList = observer(
 
     onSelectionChange = async (data) => {
       await this.flowListListViewModel.getFlowList({
-        'filter[domain]': this.props.domain,
+        'filter[domain]': this.props.activeDomain,
         'filter_not[device]': data?.value,
       });
     };
     onSelectionChangeEvent = async (data) => {
+      console.log('this.props', this.props);
       await this.flowListListViewModel.getFlowList({
-        'filter[domain]': this.props.domain,
+        'filter[domain]': this.props.activeDomain,
         'filter[event_name]': data?.value,
       });
     };
@@ -101,6 +103,18 @@ const FlowList = observer(
                 <DateRangePicker onChange={this.handleDateRangeChange} />
               </div>
             </div>
+            <Row className="mb-24 ChartWrapper">
+              <Col lg={12}>
+                <OverviewComponent
+                  bars={['event', 'conversion']}
+                  barColors={['#0066FF', '#96C0FF']}
+                  listViewModel={this.flowListListViewModel}
+                  status={this.flowListListViewModel?.statusChart}
+                  data={this.flowListListViewModel?.eventDateData?.toAreaChart()}
+                  filterData={this.flowListListViewModel?.eventDateData?.getFilterName()}
+                />
+              </Col>
+            </Row>
             <Row className="mb-2">
               <Col lg="2">
                 <AesirXSelect
@@ -123,6 +137,21 @@ const FlowList = observer(
                   <AesirXSelect
                     defaultValue={{ label: 'All Event', value: 'all' }}
                     options={this.flowListListViewModel?.dataEvents?.toEventsList()}
+                    className={`fs-sm`}
+                    isBorder={true}
+                    onChange={(data) => {
+                      this.onSelectionChangeEvent(data);
+                    }}
+                    plColor={'#808495'}
+                    isSearchable={false}
+                  />
+                </Col>
+              )}
+              {this.flowListListViewModel?.dataConversion?.toEventsList()?.length && (
+                <Col lg="2">
+                  <AesirXSelect
+                    defaultValue={{ label: 'All Conversion', value: 'all' }}
+                    options={this.flowListListViewModel?.dataConversion?.toEventsList()}
                     className={`fs-sm`}
                     isBorder={true}
                     onChange={(data) => {

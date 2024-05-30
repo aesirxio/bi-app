@@ -38,7 +38,6 @@ class FlowListModel {
       'txt_action',
       'txt_event',
       'txt_conversion',
-      'txt_bounce_rate',
       '',
       // 'txt_url',
       '',
@@ -56,7 +55,6 @@ class FlowListModel {
       BI_FLOW_LIST_FIELD_KEY.ACTION,
       BI_FLOW_LIST_FIELD_KEY.EVENT,
       BI_FLOW_LIST_FIELD_KEY.CONVERSION,
-      BI_FLOW_LIST_FIELD_KEY.BOUNCE_RATE,
       BI_FLOW_LIST_FIELD_KEY.DEVICE,
       // BI_FLOW_LIST_FIELD_KEY.URL,
       BI_FLOW_LIST_FIELD_KEY.UUID,
@@ -82,8 +80,7 @@ class FlowListModel {
                 key === BI_FLOW_LIST_FIELD_KEY.DEVICE ||
                 key === BI_FLOW_LIST_FIELD_KEY.GEO
               ? 10
-              : key === BI_FLOW_LIST_FIELD_KEY.UX_PERCENT ||
-                key === BI_FLOW_LIST_FIELD_KEY.BOUNCE_RATE
+              : key === BI_FLOW_LIST_FIELD_KEY.UX_PERCENT
               ? 50
               : key === BI_FLOW_LIST_FIELD_KEY.URL
               ? 230

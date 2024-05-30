@@ -164,16 +164,16 @@ class FlowListModel {
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.UX_PERCENT) {
               return (
                 <div className="d-flex align-items-center">
-                  <div class="set-size charts-container">
-                    <div class="pie-wrapper progress-75 style-2">
-                      <div class={`pie ${cell?.value <= 50 ? 'below-50' : 'above-50'}`}>
+                  <div className="set-size charts-container">
+                    <div className="pie-wrapper progress-75 style-2">
+                      <div className={`pie ${cell?.value <= 50 ? 'below-50' : 'above-50'}`}>
                         <div
-                          class="left-side half-circle"
+                          className="left-side half-circle"
                           style={{ transform: `rotate(${cell?.value * 3.6}deg)` }}
                         ></div>
-                        <div class="right-side half-circle"></div>
+                        <div className="right-side half-circle"></div>
                       </div>
-                      <div class="shadow-pie"></div>
+                      <div className="shadow-pie"></div>
                     </div>
                   </div>
                   <div className="ms-2"> {cell?.value}%</div>

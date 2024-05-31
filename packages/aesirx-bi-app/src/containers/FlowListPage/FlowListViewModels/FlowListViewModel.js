@@ -20,6 +20,7 @@ class FlowListListViewModel {
   dataConversion = null;
   eventDateData = null;
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
+  isShowbot = true;
   dataFilterFlowList = {};
   constructor(flowlistStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -225,6 +226,9 @@ class FlowListListViewModel {
       this.status = PAGE_STATUS.ERROR;
       this.data = [];
     }
+  };
+  toggleShowbot = () => {
+    this.isShowbot = !this.isShowbot;
   };
 }
 

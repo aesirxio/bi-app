@@ -38,7 +38,7 @@ class FlowListModel {
       'txt_action',
       'txt_event',
       'txt_conversion',
-      '',
+      'txt_source',
       // 'txt_url',
       '',
       // 'txt_tier',
@@ -202,10 +202,10 @@ class FlowListModel {
               );
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.DEVICE) {
               return (
-                <div className={'px-3'}>
-                  {cell?.values === 'bot' ? (
+                <div className={'px-3 d-flex'}>
+                  {cell?.value === 'bot' ? (
                     <div
-                      className="text-success py-1 px-2 rounded-1 fw-semibold text-center"
+                      className="text-success py-1 px-12px rounded-1 fw-semibold text-center"
                       style={{ backgroundColor: '#1AB39426' }}
                     >
                       Bot

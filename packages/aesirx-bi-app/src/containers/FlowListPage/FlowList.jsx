@@ -12,7 +12,7 @@ import ComponentNoData from '../../components/ComponentNoData';
 import { BI_FLOW_LIST_FIELD_KEY, env } from 'aesirx-lib';
 import 'flag-icons/sass/flag-icons.scss';
 import queryString from 'query-string';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Form } from 'react-bootstrap';
 import { AesirXSelect } from 'aesirx-uikit';
 import OverviewComponent from './Component/Overview';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,7 +33,6 @@ const FlowList = observer(
         : null;
       this.params = queryString.parse(props.location.search);
     }
-
     componentDidUpdate = (prevProps) => {
       if (this.props.location !== prevProps.location && !this.props.integration) {
         this.flowListListViewModel.initialize({
@@ -82,8 +81,9 @@ const FlowList = observer(
     onSelectionChange = async (data) => {
       await this.flowListListViewModel.getFlowList({
         'filter[domain]': this.props.activeDomain,
-        'filter_not[device]': data?.value,
+        'filter_not[device]': data?.value ? 'all' : 'bot',
       });
+      this.flowListListViewModel.toggleShowbot();
     };
     onSelectionChangeEvent = async (data) => {
       await this.flowListListViewModel.getFlowList({
@@ -128,26 +128,10 @@ const FlowList = observer(
               </Col>
             </Row>
             <Row className="mb-2">
-              <Col lg="2" className="mb-2 mb-lg-0">
-                <AesirXSelect
-                  defaultValue={{ label: 'Include Bot', value: 'all' }}
-                  options={[
-                    { label: 'Include Bot', value: 'all' },
-                    { label: 'Exclude Bot', value: 'bot' },
-                  ]}
-                  className={`fs-sm`}
-                  isBorder={true}
-                  onChange={(data) => {
-                    this.onSelectionChange(data);
-                  }}
-                  plColor={'#808495'}
-                  isSearchable={false}
-                />
-              </Col>
               {this.flowListListViewModel?.dataEvents?.toEventsList()?.length && (
                 <Col lg="2" className="mb-2 mb-lg-0">
                   <AesirXSelect
-                    defaultValue={{ label: 'All Event', value: 'all' }}
+                    defaultValue={{ label: 'All Events', value: 'all' }}
                     options={this.flowListListViewModel?.dataEvents?.toEventsList()}
                     className={`fs-sm`}
                     isBorder={true}
@@ -162,7 +146,7 @@ const FlowList = observer(
               {this.flowListListViewModel?.dataConversion?.toConversionList()?.length && (
                 <Col lg="2" className="mb-2 mb-lg-0">
                   <AesirXSelect
-                    defaultValue={{ label: 'All Conversion', value: 'all' }}
+                    defaultValue={{ label: 'All Conversions', value: 'all' }}
                     options={this.flowListListViewModel?.dataConversion?.toConversionList()}
                     className={`fs-sm`}
                     isBorder={true}
@@ -188,6 +172,22 @@ const FlowList = observer(
                     <FontAwesomeIcon icon={faSearch} />
                   </i>
                 </span>
+              </Col>
+              <Col lg="2" className="d-flex justify-content-lg-end align-items-center">
+                <Form>
+                  <div key={`bot-checkbox`}>
+                    <Form.Check o className="mb-0" type={'checkbox'} id={`bot-checkbox`}>
+                      <Form.Check.Input
+                        checked={this.flowListListViewModel.isShowbot}
+                        onClick={() => {
+                          this.onSelectionChange({ value: !this.flowListListViewModel.isShowbot });
+                        }}
+                        type={'checkbox'}
+                      />
+                      <Form.Check.Label>Show bot</Form.Check.Label>
+                    </Form.Check>
+                  </div>
+                </Form>
               </Col>
             </Row>
             <div className="position-relative ChartWrapper">

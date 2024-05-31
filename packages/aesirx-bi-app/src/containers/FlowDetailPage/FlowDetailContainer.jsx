@@ -154,7 +154,7 @@ const FlowDetailContainer = observer((props) => {
         : 'clearDataFilter',
     });
   }, 400);
-  console.log(relatedVisitorData);
+
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="position-relative d-flex align-items-center mb-3">
@@ -202,7 +202,7 @@ const FlowDetailContainer = observer((props) => {
             {dataEvents?.toEventsList()?.length && (
               <Col lg="2" className="mb-2 mb-lg-0">
                 <AesirXSelect
-                  defaultValue={{ label: 'All Event', value: 'all' }}
+                  defaultValue={{ label: 'All Events', value: 'all' }}
                   options={dataEvents?.toEventsList()}
                   className={`fs-sm`}
                   isBorder={true}
@@ -217,7 +217,7 @@ const FlowDetailContainer = observer((props) => {
             {dataConversion?.toConversionList()?.length && (
               <Col lg="2" className="mb-2 mb-lg-0">
                 <AesirXSelect
-                  defaultValue={{ label: 'All Conversion', value: 'all' }}
+                  defaultValue={{ label: 'All Conversions', value: 'all' }}
                   options={dataConversion?.toConversionList()}
                   className={`fs-sm`}
                   isBorder={true}

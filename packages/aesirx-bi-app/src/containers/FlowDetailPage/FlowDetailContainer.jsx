@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -17,8 +17,10 @@ import { faChevronLeft, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { AesirXSelect, PAGE_STATUS, RingLoaderComponent, history } from 'aesirx-uikit';
 import queryString from 'query-string';
 import _ from 'lodash';
+import axios from 'axios';
 
 const FlowDetailContainer = observer((props) => {
+  const [fetchOG, setFetchOG] = useState([]);
   const { t } = useTranslation();
   const {
     flowDetailViewModel: {
@@ -59,6 +61,45 @@ const FlowDetailContainer = observer((props) => {
     execute();
     return () => {};
   }, [activeDomain]);
+
+  const getOG = async (data) => {
+    try {
+      const response = await axios.get(data?.url);
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(response.data, 'text/html');
+      const ogImageTag = doc.querySelector('meta[property="og:image"]');
+      const webTitle = doc.querySelector('title');
+      return {
+        ...data,
+        image: ogImageTag ? ogImageTag.getAttribute('content') : null,
+        title: webTitle ? webTitle.innerText : null,
+      };
+    } catch (error) {
+      return {
+        ...data,
+      };
+    }
+  };
+
+  useEffect(() => {
+    const getListOG = async () => {
+      if (relatedVisitorData?.data?.length && !fetchOG?.length) {
+        const listFetch = relatedVisitorData.data.map((item) => {
+          return {
+            uuid: item.uuid,
+            url: item.url,
+          };
+        });
+        const listOG = await Promise.all(
+          listFetch.map(async (item) => {
+            return await getOG(item);
+          })
+        );
+        setFetchOG(listOG);
+      }
+    };
+    getListOG();
+  }, [relatedVisitorData?.data]);
 
   const CardData = useMemo(
     () => [
@@ -253,13 +294,16 @@ const FlowDetailContainer = observer((props) => {
               ) : (
                 <>
                   {relatedVisitorData?.data?.map((item, key) => {
+                    const ogData = fetchOG.find((i) => item.uuid == i.uuid);
                     return (
                       <div className="d-flex align-items-center mb-24 flow-detail-item" key={key}>
                         <div className="flow-detail-item-image me-18px">
                           <Image
                             className={`object-fit-cover rounded-3 overflow-hidden`}
                             style={{ width: 148, height: 95 }}
-                            src={`/assets/images/default_preview.jpg`}
+                            src={
+                              ogData?.image ? ogData?.image : `/assets/images/default_preview.jpg`
+                            }
                             alt={'icons'}
                           />
                         </div>
@@ -287,6 +331,11 @@ const FlowDetailContainer = observer((props) => {
                                 : item[BI_VISITOR_FIELD_KEY.EVENT_NAME]}
                             </span>
                           </div>
+                          {ogData?.title && (
+                            <p className="mb-0 fw-medium w-100 lh-base text-gray-heading fs-14">
+                              {ogData.title}
+                            </p>
+                          )}
                           <div className="w-100">
                             <a
                               href={`${item[BI_VISITOR_FIELD_KEY.URL]}`}

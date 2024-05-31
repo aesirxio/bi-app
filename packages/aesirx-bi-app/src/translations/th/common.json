@@ -254,5 +254,8 @@
   "txt_datetime": "วันที่และเวลา",
   "txt_expiration": "หมดอายุ",
   "txt_top_sources": "แหล่งที่มายอดนิยม",
-  "txt_source": "แหล่งที่มา"
+  "txt_source": "แหล่งที่มา",
+  "txt_total_conversions": "ยอดการแปลงทั้งหมด",
+  "txt_page_view": "ยอดเข้าชมหน้า",
+  "txt_visitor": "ผู้เยี่ยมชม"
 }

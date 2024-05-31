@@ -254,5 +254,8 @@
   "txt_datetime": "Ngày giờ",
   "txt_expiration": "Hết hạn",
   "txt_top_sources": "Các nguồn hàng đầu",
-  "txt_source": "Nguồn"
+  "txt_source": "Nguồn",
+  "txt_total_conversions": "Tổng Chuyển Đổi",
+  "txt_page_view": "Lượt Xem Trang",
+  "txt_visitor": "Khách Tham Quan"
 }

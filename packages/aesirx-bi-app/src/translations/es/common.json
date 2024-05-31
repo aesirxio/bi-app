@@ -254,5 +254,8 @@
   "txt_datetime": "Fechahora",
   "txt_expiration": "Vencimiento",
   "txt_top_sources": "Fuentes principales",
-  "txt_source": "Fuente"
+  "txt_source": "Fuente",
+  "txt_total_conversions": "Conversiones Totales",
+  "txt_page_view": "Vistas De Página",
+  "txt_visitor": "Visitantes"
 }

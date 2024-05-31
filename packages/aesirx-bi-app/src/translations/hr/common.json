@@ -254,5 +254,8 @@
   "txt_datetime": "Datum i vrijeme",
   "txt_expiration": "Istek",
   "txt_top_sources": "Glavni izvori",
-  "txt_source": "Izvor"
+  "txt_source": "Izvor",
+  "txt_total_conversions": "Ukupne Konverzije",
+  "txt_page_view": "Prikazi Stranice",
+  "txt_visitor": "Posjetitelji"
 }

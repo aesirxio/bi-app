@@ -116,8 +116,7 @@ const Dashboard = observer(
         <div className="py-4 px-4 h-100 d-flex flex-column">
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
             <div className="position-relative">
-              <h2 className="fw-bold mb-8px">{t('txt_dashboard')}</h2>
-              <p className="mb-0">{t('txt_dashboard_below')}</p>
+              <h2 className="fw-bold mb-3 mt-3">{t('txt_dashboard')}</h2>
             </div>
             <div className="position-relative">
               <DateRangePicker onChange={this.handleDateRangeChange} />

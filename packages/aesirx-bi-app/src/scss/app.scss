@@ -36,6 +36,7 @@
   right: 325px;
 }
 .aesirxui {
+  min-height: 65vh;
   .printButton {
     .dropdown-menu {
       min-width: 20rem;
@@ -188,13 +189,113 @@
 }
 
 .flow_detail_item_content_action {
-  background-color: #0c8569;
+  background-color: #003059;
   padding: 2px 10px;
   border-radius: 4px;
+  &.conversion {
+    background-color: #6a3e73;
+  }
+  &.click {
+    background-color: #0f674c;
+  }
+}
+.flow_detail_item_content_name {
+  padding: 2px 10px;
+  border-radius: 4px;
+  background: #e5e5e5;
 }
 .visit {
   background-color: #5f5e70;
 }
 .flow_detail_item_content_link {
   color: #1d55a9 !important;
+}
+.ux-percent {
+  &:hover {
+    .ux-percent-detail {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  .ux-percent-detail {
+    visibility: hidden;
+    opacity: 0;
+    padding: 13px 19px;
+    top: 50%;
+    background-color: #132342;
+    min-width: 225px;
+    transform: translateY(-50%);
+    left: calc(100% - 24px);
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all ease 0.2s;
+  }
+}
+$default-size: 25px;
+$default-size: 25px;
+@mixin size($width, $height) {
+  height: $height;
+  width: $width;
+}
+
+.aesirxui {
+  .search_url {
+    .form-control:focus {
+      box-shadow: none;
+    }
+  }
+  .charts-container {
+    &:after {
+      clear: both;
+      content: '';
+      display: table;
+    }
+  }
+  .pie-wrapper {
+    @include size($default-size, $default-size);
+    float: left;
+    position: relative;
+
+    &:nth-child(3n + 1) {
+      clear: both;
+    }
+
+    .pie {
+      @include size(100%, 100%);
+      clip: rect(0, $default-size, $default-size, $default-size / 2);
+      left: 0;
+      position: absolute;
+      top: 0;
+      .half-circle {
+        @include size(100%, 100%);
+        border: ($default-size / 10) solid #1d55a9;
+        border-radius: 50%;
+        clip: rect(0, $default-size / 2, $default-size, 0);
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+    }
+    &.progress-75 {
+      .pie {
+        &.above-50 {
+          clip: rect(auto, auto, auto, auto);
+          .right-side {
+            transform: rotate(180deg);
+          }
+        }
+        &.below-50 {
+          .right-side {
+            display: none;
+          }
+        }
+      }
+    }
+    .shadow-pie {
+      height: 100%;
+      width: 100%;
+      border: 0.1em solid #f0f2f5;
+      border-radius: 50%;
+    }
+  }
 }

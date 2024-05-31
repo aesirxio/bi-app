@@ -166,6 +166,7 @@ const BarChartComponent = ({
                     tickLine={false}
                     axisLine={YAxisOptions?.axisLine ?? false}
                     padding={YAxisOptions?.padding}
+                    allowDecimals={false}
                     style={{
                       fontSize: '14px',
                     }}

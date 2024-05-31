@@ -183,5 +183,8 @@
   "txt_datetime": "Datotid",
   "txt_expiration": "Udløb",
   "txt_top_sources": "Topkilder",
-  "txt_source": "Kilde"
+  "txt_source": "Kilde",
+  "txt_total_conversions": "Totale Konverteringer",
+  "txt_page_view": "Sidevisninger",
+  "txt_visitor": "Besøgende"
 }

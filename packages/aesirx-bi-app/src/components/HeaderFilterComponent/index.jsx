@@ -21,9 +21,11 @@ const HeaderFilterComponent = ({
   return (
     <div className="d-flex justify-content-between mb-24">
       <div className="d-flex align-items-center">
-        <h4 className={`me-24 mb-0 ${!filterButtons?.length && !isSelection ? 'mt-20' : ''}`}>
-          {chartTitle}
-        </h4>
+        {chartTitle && (
+          <h4 className={`me-24 mb-0 ${!filterButtons?.length && !isSelection ? 'mt-20' : ''}`}>
+            {chartTitle}
+          </h4>
+        )}
         {isSelection && (
           <AesirXSelect
             value={currentSelection}

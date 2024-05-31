@@ -183,5 +183,8 @@
   "txt_datetime": "Tarihsaat",
   "txt_expiration": "Son kullanma tarihi",
   "txt_top_sources": "En İyi Kaynaklar",
-  "txt_source": "Kaynak"
+  "txt_source": "Kaynak",
+  "txt_total_conversions": "Toplam Dönüşümler",
+  "txt_page_view": "Sayfa Görüntülemeleri",
+  "txt_visitor": "Ziyaretçiler"
 }

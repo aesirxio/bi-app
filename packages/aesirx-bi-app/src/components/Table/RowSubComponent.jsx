@@ -30,17 +30,14 @@ function SubRows({ row, rowProps, visibleColumns, data, loading }) {
         <>
           {data.map((x, i) => {
             return (
-              <tr
-                {...rowProps}
-                key={`${rowProps.key}-expanded-${i}`}
-                className="border-bottom row_sub_component"
-              >
+              <tr {...rowProps} key={`${rowProps.key}-expanded-${i}`} className="row_sub_component">
                 {row.cells.map((cell, key) => {
                   return (
                     <td
                       {...cell.getCellProps()}
                       key={key}
                       className={`py-2 wb-all align-middle sub-cell-${cell.column.id} `}
+                      style={{ backgroundColor: key === 0 ? '#fff' : '#F0F3FB' }}
                     >
                       {cell.render('SubCell', {
                         value: cell.column.accessor(x, i),

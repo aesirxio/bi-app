@@ -83,7 +83,6 @@ const TopTableComponent = (props) => {
     [data?.header]
   );
   const dataTable = React.useMemo(() => data?.data, [data?.data]);
-  console.log('dataTabledataTable', dataTable);
   return (
     <>
       {status === PAGE_STATUS.LOADING ? (

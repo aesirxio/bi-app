@@ -88,7 +88,7 @@ const FlowDetailContainer = observer((props) => {
         title: t('txt_total_actions'),
         icon: env.PUBLIC_URL + '/assets/images/aim.svg',
         iconColor: '#1AB394',
-        value: data?.[BI_FLOW_DETAIL_KEY.EVENT] ?? 0,
+        value: data?.[BI_FLOW_DETAIL_KEY.ACTION] ?? 0,
       },
     ],
     [data]

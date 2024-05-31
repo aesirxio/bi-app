@@ -16,7 +16,6 @@
     "axios": "^1.4.0",
     "d3-fetch": "^3.0.1",
     "d3-scale": "^4.0.2",
-    "fetch-opengraph": "^1.0.36",
     "flag-icons": "^7.2.1",
     "mobx": "^6.0.4",
     "mobx-react": "^7.0.5",

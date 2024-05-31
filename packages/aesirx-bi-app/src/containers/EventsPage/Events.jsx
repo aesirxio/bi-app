@@ -164,7 +164,7 @@ const Events = observer((props) => {
         <Row className="mb-2">
           <Col lg="2">
             <AesirXSelect
-              defaultValue={{ label: 'All Event', value: 'all' }}
+              defaultValue={{ label: 'All Events', value: 'all' }}
               options={dataEvents?.toEventsList()}
               className={`fs-sm`}
               isBorder={true}

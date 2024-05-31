@@ -220,5 +220,8 @@
   "text_campaign": "Campagne",
   "txt_avg_page_session": "Pages par session moy.",
   "txt_avg_session_duration": "Durée de la session moy.",
-  "txt_views_by_page": "Vues par page"
+  "txt_views_by_page": "Vues par page",
+  "txt_total_conversions": "Conversions Totales",
+  "txt_page_view": "Vues De Page",
+  "txt_visitor": "Visiteurs"
 }

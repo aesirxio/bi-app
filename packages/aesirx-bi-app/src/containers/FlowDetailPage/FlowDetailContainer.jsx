@@ -71,22 +71,22 @@ const FlowDetailContainer = observer((props) => {
       // },
       {
         className: 'col-4',
-        title: t('txt_duration'),
-        icon: env.PUBLIC_URL + '/assets/images/duration.png',
+        title: t('txt_total_conversions'),
+        icon: env.PUBLIC_URL + '/assets/images/action.svg',
         iconColor: '#1AB394',
-        value: moment.utc(data?.[BI_FLOW_DETAIL_KEY.DURATION] * 1000).format('HH:mm:ss') ?? 0,
-      },
-      {
-        className: 'col-4',
-        title: t('txt_total_actions'),
-        icon: env.PUBLIC_URL + '/assets/images/click.png',
-        iconColor: '#1AB394',
-        value: data?.[BI_FLOW_DETAIL_KEY.ACTION] ?? 0,
+        value: data?.[BI_FLOW_DETAIL_KEY.CONVERSION] ?? 0,
       },
       {
         className: 'col-4',
         title: t('txt_total_events'),
-        icon: env.PUBLIC_URL + '/assets/images/action.svg',
+        icon: env.PUBLIC_URL + '/assets/images/click.png',
+        iconColor: '#1AB394',
+        value: data?.[BI_FLOW_DETAIL_KEY.EVENT] ?? 0,
+      },
+      {
+        className: 'col-4',
+        title: t('txt_total_actions'),
+        icon: env.PUBLIC_URL + '/assets/images/aim.svg',
         iconColor: '#1AB394',
         value: data?.[BI_FLOW_DETAIL_KEY.EVENT] ?? 0,
       },
@@ -98,7 +98,7 @@ const FlowDetailContainer = observer((props) => {
       {
         text: t('txt_date'),
         value: data?.[BI_FLOW_DETAIL_KEY.START]
-          ? moment.utc(data?.[BI_FLOW_DETAIL_KEY.START]).format('DD/MM/YYYY hh:mm:ss')
+          ? moment.utc(data?.[BI_FLOW_DETAIL_KEY.START]).format('DD-MM-YYYY hh:mm:ss')
           : '',
       },
       {
@@ -110,16 +110,24 @@ const FlowDetailContainer = observer((props) => {
         value: data?.[BI_FLOW_DETAIL_KEY.GEO]?.country?.name ?? 'unDetected',
       },
       {
-        text: t('txt_ip'),
-        value: data?.[BI_FLOW_DETAIL_KEY.IP] ?? '',
-      },
-      {
         text: t('txt_device'),
         value: data?.[BI_FLOW_DETAIL_KEY.DEVICE] ?? '',
       },
       {
         text: t('txt_browser'),
         value: data?.[BI_FLOW_DETAIL_KEY.BROWSER_NAME] ?? '',
+      },
+      {
+        text: t('txt_duration'),
+        value: moment.utc(data?.[BI_FLOW_DETAIL_KEY.DURATION] * 1000).format('mm:ss') ?? 0,
+      },
+      {
+        text: 'UX %',
+        value: (data?.[BI_FLOW_DETAIL_KEY.UX_PERCENT] ?? 0) + '%',
+      },
+      {
+        text: t('txt_page_view'),
+        value: data?.[BI_FLOW_DETAIL_KEY.PAGE_VIEW] ?? 0,
       },
     ],
     [data]
@@ -146,7 +154,7 @@ const FlowDetailContainer = observer((props) => {
         : 'clearDataFilter',
     });
   }, 400);
-
+  console.log(relatedVisitorData);
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="position-relative d-flex align-items-center mb-3">
@@ -181,7 +189,7 @@ const FlowDetailContainer = observer((props) => {
                       LeftTableData.length - 1 === index ? '' : 'mb-3'
                     } `}
                   >
-                    <span>{item.text}</span>
+                    <span className="fw-semibold">{item.text}</span>
                     <span>{item.value}</span>
                   </div>
                 ))
@@ -247,11 +255,11 @@ const FlowDetailContainer = observer((props) => {
                   {relatedVisitorData?.data?.map((item, key) => {
                     return (
                       <div className="d-flex align-items-center mb-24 flow-detail-item" key={key}>
-                        <div className="flow-detail-item-image me-10">
+                        <div className="flow-detail-item-image me-18px">
                           <Image
-                            className={`object-fit-contain`}
-                            style={{ width: 32, height: 32 }}
-                            src={`${env.PUBLIC_URL}/assets/images/flow_icon.png`}
+                            className={`object-fit-cover rounded-3 overflow-hidden`}
+                            style={{ width: 148, height: 95 }}
+                            src={`/assets/images/default_preview.jpg`}
                             alt={'icons'}
                           />
                         </div>
@@ -261,16 +269,23 @@ const FlowDetailContainer = observer((props) => {
                               ?.utc()
                               ?.format('HH:mm:ss')}
                           </div>
-                          <div
-                            className={`flow_detail_item_content_action text-white fw-medium d-inline-flex my-sm ${
-                              item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit'
-                                ? 'text-capitalize'
-                                : ''
-                            }`}
-                          >
-                            {item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit'
-                              ? 'Visited'
-                              : item[BI_VISITOR_FIELD_KEY.EVENT_NAME]}
+                          <div className="d-flex mb-sm fs-14 fw-medium">
+                            <div
+                              className={`flow_detail_item_content_action ${
+                                item[BI_VISITOR_FIELD_KEY.EVENT_TYPE]
+                              } text-white text-capitalize`}
+                            >
+                              {item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'action'
+                                ? t('txt_visitor')
+                                : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'conversion'
+                                ? t('txt_conversion')
+                                : t('txt_event')}
+                            </div>
+                            <span className="flow_detail_item_content_name ms-sm">
+                              {item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit'
+                                ? 'Visited'
+                                : item[BI_VISITOR_FIELD_KEY.EVENT_NAME]}
+                            </span>
                           </div>
                           <div className="w-100">
                             <a

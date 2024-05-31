@@ -228,5 +228,8 @@
   "txt_ux_percent": "UX %",
   "txt_search_url": "Search URL",
   "txt_total_events": "Total Events",
-  "txt_total_actions": "Total Actions"
+  "txt_total_actions": "Total Actions",
+  "txt_total_conversions": "Total Convertions",
+  "txt_page_view": "Page view",
+  "txt_visitor": "Visistor"
 }

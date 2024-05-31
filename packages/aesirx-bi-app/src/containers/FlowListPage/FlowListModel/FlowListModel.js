@@ -162,8 +162,9 @@ class FlowListModel {
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.BOUNCE_RATE) {
               return <div className={'px-3'}>{cell?.value}%</div>;
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.UX_PERCENT) {
+              const uxPercentDetail = cell?.row?.original?.uxPercentDetail ?? {};
               return (
-                <div className="d-flex align-items-center">
+                <div className="ux-percent position-relative d-flex align-items-center">
                   <div className="set-size charts-container">
                     <div className="pie-wrapper progress-75 style-2">
                       <div className={`pie ${cell?.value <= 50 ? 'below-50' : 'above-50'}`}>
@@ -177,6 +178,26 @@ class FlowListModel {
                     </div>
                   </div>
                   <div className="ms-2"> {cell?.value}%</div>
+                  <div className="position-absolute ux-percent-detail">
+                    <p className="d-flex justify-content-between mb-0 text-white">
+                      Visit Actions
+                      <span className="fw-semibold">
+                        {uxPercentDetail[BI_FLOW_LIST_FIELD_KEY.VISIT_ACTIONS] ?? 0}%
+                      </span>
+                    </p>
+                    <p className="d-flex justify-content-between mb-0 text-white">
+                      Event Actions
+                      <span className="fw-semibold">
+                        {uxPercentDetail[BI_FLOW_LIST_FIELD_KEY.EVENT_ACTIONS] ?? 0}%
+                      </span>
+                    </p>
+                    <p className="d-flex justify-content-between mb-0 text-white">
+                      Conversion Actions
+                      <span className="fw-semibold">
+                        {uxPercentDetail[BI_FLOW_LIST_FIELD_KEY.CONVERSION_ACTIONS] ?? 0}%
+                      </span>
+                    </p>
+                  </div>
                 </div>
               );
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.DEVICE) {
@@ -201,7 +222,14 @@ class FlowListModel {
         };
       });
       const data = this.data?.map((item) => {
+        const uxPercentDetail = {
+          [BI_FLOW_LIST_FIELD_KEY.VISIT_ACTIONS]: item[BI_FLOW_LIST_FIELD_KEY.VISIT_ACTIONS],
+          [BI_FLOW_LIST_FIELD_KEY.EVENT_ACTIONS]: item[BI_FLOW_LIST_FIELD_KEY.EVENT_ACTIONS],
+          [BI_FLOW_LIST_FIELD_KEY.CONVERSION_ACTIONS]:
+            item[BI_FLOW_LIST_FIELD_KEY.CONVERSION_ACTIONS],
+        };
         return {
+          uxPercentDetail,
           ...item,
           ...accessor
             .map((i) => {
@@ -214,7 +242,7 @@ class FlowListModel {
       });
       const filteredData = data?.map((obj) => {
         for (let prop in obj) {
-          if (!accessor.includes(prop)) {
+          if (!accessor.includes(prop) && prop !== 'uxPercentDetail') {
             delete obj[prop];
           }
         }

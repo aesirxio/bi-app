@@ -205,12 +205,15 @@ const FlowDetailContainer = observer((props) => {
             if (props.integration) {
               handleChangeLink(e, `flow-list`);
             } else {
+              const search = {
+                ...dataFilter,
+              };
               history.push(
                 `/flow-list?date_end=${dateFilter?.date_end}&date_start=${
                   dateFilter?.date_start
                 }&domain=${activeDomain}&pagination=${
                   dataFilter?.pagination ? dataFilter?.pagination : '1'
-                }`
+                }&${queryString.stringify(search)}`
               );
             }
           }}

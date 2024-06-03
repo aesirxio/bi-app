@@ -13,6 +13,7 @@ import EventsListModel from 'containers/EventsPage/EventsModel/EventsListEventMo
 class FlowListListViewModel {
   flowlistStore = null;
   status = PAGE_STATUS.READY;
+  statusTable = PAGE_STATUS.READY;
   statusChart = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   countriesTableData = null;
@@ -28,8 +29,8 @@ class FlowListListViewModel {
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
-  initialize = (dataFilter, dateFilter) => {
-    this.getFlowList(dataFilter, dateFilter);
+  initialize = (dataFilter, dateFilter, dataFilterTable) => {
+    this.getFlowList({ ...dataFilter, ...dataFilterTable }, dateFilter, dataFilterTable);
     this.getEvents(dataFilter, dateFilter);
     this.getConversion(dataFilter, dateFilter);
     this.getFlowDate(dataFilter, dateFilter);
@@ -40,7 +41,7 @@ class FlowListListViewModel {
     dateFilter,
     sortBy = { 'sort[]': 'start', 'sort_direction[]': 'desc' }
   ) => {
-    this.status = PAGE_STATUS.LOADING;
+    this.statusTable = PAGE_STATUS.LOADING;
     this.sortBy = sortBy;
     this.dataFilter = {
       page_size: '20',
@@ -49,20 +50,50 @@ class FlowListListViewModel {
       ...this.sortBy,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+    let search = {};
+    this.globalStoreViewModel.dataFilter = {
+      ...(sortBy['sort[]'] && { 'sort[]': sortBy['sort[]'] }),
+      ...(sortBy['sort_direction[]'] && { 'sort_direction[]': sortBy['sort_direction[]'] }),
+      ...(dataFilter['filter[event_name]'] && {
+        'filter[event_name]': dataFilter['filter[event_name]'],
+      }),
+      ...(dataFilter['filter[url]'] && {
+        'filter[url]': dataFilter['filter[url]'],
+      }),
+      ...(dataFilter['filter_not[device]'] && {
+        'filter_not[device]': dataFilter['filter_not[device]'],
+      }),
+    };
+    if (sortBy || dataFilter) {
+      search = {
+        ...queryString.parse(location.search),
+        ...(sortBy['sort[]'] && { 'sort[]': sortBy['sort[]'] }),
+        ...(sortBy['sort_direction[]'] && { 'sort_direction[]': sortBy['sort_direction[]'] }),
+        ...(dataFilter['filter[event_name]'] && {
+          'filter[event_name]': dataFilter['filter[event_name]'],
+        }),
+        ...(dataFilter['filter[url]'] && {
+          'filter[url]': dataFilter['filter[url]'],
+        }),
+        ...(dataFilter['filter_not[device]'] && {
+          'filter_not[device]': dataFilter['filter_not[device]'],
+        }),
+      };
+    }
     if (dataFilter['filter_not[device]'] === 'all') {
-      if (this.dataFilter['filter_not[device]']) {
-        delete this.dataFilter['filter_not[device]'];
-      }
+      this.dataFilter['filter_not[device]'] && delete this.dataFilter['filter_not[device]'];
+      search['filter_not[device]'] && delete search['filter_not[device]'];
     }
     if (dataFilter['filter[event_name]'] === 'all') {
-      if (this.dataFilter['filter[event_name]']) {
-        delete this.dataFilter['filter[event_name]'];
-      }
+      this.dataFilter['filter[event_name]'] && delete this.dataFilter['filter[event_name]'];
+      search['filter[event_name]'] && delete search['filter[event_name]'];
     }
     if (dataFilter['filter[url]'] === 'clearDataFilter') {
-      if (this.dataFilter['filter[url]']) {
-        delete this.dataFilter['filter[url]'];
-      }
+      this.dataFilter['filter[url]'] && delete this.dataFilter['filter[url]'];
+      search['filter[url]'] && delete search['filter[url]'];
+    }
+    if (sortBy || dataFilter) {
+      window.history.replaceState('', '', `/flow-list?${queryString.stringify(search)}`);
     }
     this.flowlistStore.getFlowList(
       this.dataFilter,
@@ -79,7 +110,7 @@ class FlowListListViewModel {
 
     this.flowlistStore.getFlowDate(
       {
-        ...this.dataFilter,
+        ...dataFilter,
         page_size: '1000',
       },
       dateRangeFilter,
@@ -147,7 +178,7 @@ class FlowListListViewModel {
 
   handleFilterFlowList = async (dataFilter) => {
     const location = history.location;
-    this.status = PAGE_STATUS.LOADING;
+    this.statusTable = PAGE_STATUS.LOADING;
 
     this.dataFilterFlowList = { ...this.dataFilter, ...dataFilter };
     this.globalStoreViewModel.dataFilter = { pagination: this.dataFilterFlowList?.page };
@@ -170,13 +201,14 @@ class FlowListListViewModel {
 
   callbackOnErrorHandler = (error) => {
     this.status = PAGE_STATUS.READY;
+    this.statusTable = PAGE_STATUS.READY;
     notify(error.message, 'error');
   };
 
   callbackOnCountriesSuccessHandler = (data) => {
     if (data) {
       if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
-        this.status = PAGE_STATUS.READY;
+        this.statusTable = PAGE_STATUS.READY;
         const transformData = new FlowListModel(data.list, this.globalStoreViewModel);
         this.countriesTableData = {
           list: transformData,
@@ -184,7 +216,7 @@ class FlowListListViewModel {
         };
       }
     } else {
-      this.status = PAGE_STATUS.ERROR;
+      this.statusTable = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

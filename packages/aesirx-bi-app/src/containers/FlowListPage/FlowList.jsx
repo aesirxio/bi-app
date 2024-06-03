@@ -35,28 +35,83 @@ const FlowList = observer(
     }
     componentDidUpdate = (prevProps) => {
       if (this.props.location !== prevProps.location && !this.props.integration) {
-        this.flowListListViewModel.initialize({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-          'with[]': 'events',
-          ...(this.params?.pagination && { page: this.params?.pagination }),
-        });
+        this.flowListListViewModel.initialize(
+          {
+            'filter[domain]': this.context.biListViewModel.activeDomain,
+            'with[]': 'events',
+            ...(this.params?.pagination && { page: this.params?.pagination }),
+          },
+          {},
+          {
+            ...(this.params['sort[]']
+              ? { 'sort[]': this.params['sort[]'] }
+              : { 'sort[]': 'start' }),
+            ...(this.params['sort_direction[]']
+              ? {
+                  'sort_direction[]': this.params['sort_direction[]'],
+                }
+              : { 'sort_direction[]': 'desc' }),
+            ...(this.params['filter[event_name]'] && {
+              'filter[event_name]': this.params['filter[event_name]'],
+            }),
+            ...(this.params['filter[url]'] && { 'filter[url]': this.params['filter[url]'] }),
+            ...(this.params['filter[device]'] && {
+              'filter[device]': this.params['filter[device]'],
+            }),
+          }
+        );
       }
 
       if (this.props.activeDomain !== prevProps.activeDomain && this.props.integration) {
-        this.flowListListViewModel.initialize({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-          'with[]': 'events',
-          ...(this.params?.pagination && { page: this.params?.pagination }),
-        });
+        this.flowListListViewModel.initialize(
+          {
+            'filter[domain]': this.context.biListViewModel.activeDomain,
+            'with[]': 'events',
+          },
+          {},
+          {
+            ...(this.params['sort[]']
+              ? { 'sort[]': this.params['sort[]'] }
+              : { 'sort[]': 'start' }),
+            ...(this.params['sort_direction[]']
+              ? {
+                  'sort_direction[]': this.params['sort_direction[]'],
+                }
+              : { 'sort_direction[]': 'desc' }),
+            ...(this.params['filter[event_name]'] && {
+              'filter[event_name]': this.params['filter[event_name]'],
+            }),
+            ...(this.params['filter[url]'] && { 'filter[url]': this.params['filter[url]'] }),
+            ...(this.params['filter[device]'] && {
+              'filter[device]': this.params['filter[device]'],
+            }),
+          }
+        );
       }
     };
 
     componentDidMount = () => {
-      this.flowListListViewModel.initialize({
-        'filter[domain]': this.context.biListViewModel.activeDomain,
-        'with[]': 'events',
-        ...(this.params?.pagination && { page: this.params?.pagination }),
-      });
+      this.flowListListViewModel.initialize(
+        {
+          'filter[domain]': this.context.biListViewModel.activeDomain,
+          'with[]': 'events',
+          ...(this.params?.pagination && { page: this.params?.pagination }),
+        },
+        {},
+        {
+          ...(this.params['sort[]'] ? { 'sort[]': this.params['sort[]'] } : { 'sort[]': 'start' }),
+          ...(this.params['sort_direction[]']
+            ? {
+                'sort_direction[]': this.params['sort_direction[]'],
+              }
+            : { 'sort_direction[]': 'desc' }),
+          ...(this.params['filter[event_name]'] && {
+            'filter[event_name]': this.params['filter[event_name]'],
+          }),
+          ...(this.params['filter[url]'] && { 'filter[url]': this.params['filter[url]'] }),
+          ...(this.params['filter[device]'] && { 'filter[device]': this.params['filter[device]'] }),
+        }
+      );
     };
 
     handleDateRangeChange = (startDate, endDate) => {
@@ -103,7 +158,7 @@ const FlowList = observer(
 
     render() {
       const { t } = this.props;
-      const { status } = this.flowListListViewModel;
+      const { statusTable } = this.flowListListViewModel;
       return (
         <>
           <div className="py-4 px-4 d-flex flex-column">
@@ -131,7 +186,14 @@ const FlowList = observer(
               {this.flowListListViewModel?.dataEvents?.toEventsList()?.length && (
                 <Col lg="2" className="mb-2 mb-lg-0">
                   <AesirXSelect
-                    defaultValue={{ label: 'All Events', value: 'all' }}
+                    defaultValue={
+                      this.params['filter[event_name]']
+                        ? {
+                            label: this.params['filter[event_name]'],
+                            value: this.params['filter[event_name]'],
+                          }
+                        : { label: 'All Events', value: 'all' }
+                    }
                     options={this.flowListListViewModel?.dataEvents?.toEventsList()}
                     className={`fs-sm`}
                     isBorder={true}
@@ -191,7 +253,7 @@ const FlowList = observer(
               </Col>
             </Row>
             <div className="position-relative ChartWrapper">
-              {status === PAGE_STATUS.LOADING ? (
+              {statusTable === PAGE_STATUS.LOADING ? (
                 <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
               ) : this.flowListListViewModel?.countriesTableData?.list ? (
                 <FlowListTable
@@ -208,7 +270,7 @@ const FlowList = observer(
                       page_size: value,
                     });
                   }}
-                  status={status}
+                  status={statusTable}
                   sortAPI={true}
                   handleSort={this.handleSortFlowList}
                   sortBy={this.flowListListViewModel?.sortBy}

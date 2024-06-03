@@ -206,12 +206,15 @@ const FlowDetailContainer = observer((props) => {
             if (props.integration) {
               handleChangeLink(e, `flow-list`);
             } else {
+              const search = {
+                ...dataFilter,
+              };
               history.push(
                 `/flow-list?date_end=${dateFilter?.date_end}&date_start=${
                   dateFilter?.date_start
                 }&domain=${activeDomain}&pagination=${
                   dataFilter?.pagination ? dataFilter?.pagination : '1'
-                }`
+                }&${queryString.stringify(search)}`
               );
             }
           }}
@@ -303,7 +306,9 @@ const FlowDetailContainer = observer((props) => {
                             className={`object-fit-cover rounded-3 overflow-hidden`}
                             style={{ width: 148, height: 95 }}
                             src={
-                              ogData?.image ? ogData?.image : `/assets/images/default_preview.jpg`
+                              ogData?.image
+                                ? ogData?.image
+                                : env.PUBLIC_URL + `/assets/images/default_preview.jpg`
                             }
                             alt={'icons'}
                           />

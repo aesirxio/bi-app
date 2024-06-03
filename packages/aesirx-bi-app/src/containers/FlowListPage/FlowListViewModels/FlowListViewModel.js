@@ -110,7 +110,7 @@ class FlowListListViewModel {
 
     this.flowlistStore.getFlowDate(
       {
-        ...this.dataFilter,
+        ...dataFilter,
         page_size: '1000',
       },
       dateRangeFilter,

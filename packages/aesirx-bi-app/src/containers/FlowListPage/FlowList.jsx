@@ -43,10 +43,14 @@ const FlowList = observer(
           },
           {},
           {
-            ...(this.params['sort[]'] && { 'sort[]': this.params['sort[]'] }),
-            ...(this.params['sort_direction[]'] && {
-              'sort_direction[]': this.params['sort_direction[]'],
-            }),
+            ...(this.params['sort[]']
+              ? { 'sort[]': this.params['sort[]'] }
+              : { 'sort[]': 'start' }),
+            ...(this.params['sort_direction[]']
+              ? {
+                  'sort_direction[]': this.params['sort_direction[]'],
+                }
+              : { 'sort_direction[]': 'desc' }),
             ...(this.params['filter[event_name]'] && {
               'filter[event_name]': this.params['filter[event_name]'],
             }),
@@ -66,10 +70,14 @@ const FlowList = observer(
           },
           {},
           {
-            ...(this.params['sort[]'] && { 'sort[]': this.params['sort[]'] }),
-            ...(this.params['sort_direction[]'] && {
-              'sort_direction[]': this.params['sort_direction[]'],
-            }),
+            ...(this.params['sort[]']
+              ? { 'sort[]': this.params['sort[]'] }
+              : { 'sort[]': 'start' }),
+            ...(this.params['sort_direction[]']
+              ? {
+                  'sort_direction[]': this.params['sort_direction[]'],
+                }
+              : { 'sort_direction[]': 'desc' }),
             ...(this.params['filter[event_name]'] && {
               'filter[event_name]': this.params['filter[event_name]'],
             }),

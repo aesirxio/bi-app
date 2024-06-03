@@ -254,5 +254,8 @@
   "txt_datetime": "Дата й час",
   "txt_expiration": "Термін дії",
   "txt_top_sources": "Найпопулярніші джерела",
-  "txt_source": "Джерело"
+  "txt_source": "Джерело",
+  "txt_total_conversions": "Загальні Конверсії",
+  "txt_page_view": "Перегляди Сторінок",
+  "txt_visitor": "Відвідувачі"
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -17,8 +17,10 @@ import { faChevronLeft, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { AesirXSelect, PAGE_STATUS, RingLoaderComponent, history } from 'aesirx-uikit';
 import queryString from 'query-string';
 import _ from 'lodash';
+import axios from 'axios';
 
 const FlowDetailContainer = observer((props) => {
+  const [fetchOG, setFetchOG] = useState([]);
   const { t } = useTranslation();
   const {
     flowDetailViewModel: {
@@ -60,6 +62,45 @@ const FlowDetailContainer = observer((props) => {
     return () => {};
   }, [activeDomain]);
 
+  const getOG = async (data) => {
+    try {
+      const response = await axios.get(data?.url);
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(response.data, 'text/html');
+      const ogImageTag = doc.querySelector('meta[property="og:image"]');
+      const webTitle = doc.querySelector('title');
+      return {
+        ...data,
+        image: ogImageTag ? ogImageTag.getAttribute('content') : null,
+        title: webTitle ? webTitle.innerText : null,
+      };
+    } catch (error) {
+      return {
+        ...data,
+      };
+    }
+  };
+
+  useEffect(() => {
+    const getListOG = async () => {
+      if (relatedVisitorData?.data?.length && !fetchOG?.length) {
+        const listFetch = relatedVisitorData.data.map((item) => {
+          return {
+            uuid: item.uuid,
+            url: item.url,
+          };
+        });
+        const listOG = await Promise.all(
+          listFetch.map(async (item) => {
+            return await getOG(item);
+          })
+        );
+        setFetchOG(listOG);
+      }
+    };
+    getListOG();
+  }, [relatedVisitorData?.data]);
+
   const CardData = useMemo(
     () => [
       // {
@@ -71,24 +112,24 @@ const FlowDetailContainer = observer((props) => {
       // },
       {
         className: 'col-4',
-        title: t('txt_duration'),
-        icon: env.PUBLIC_URL + '/assets/images/duration.png',
+        title: t('txt_total_conversions'),
+        icon: env.PUBLIC_URL + '/assets/images/action.svg',
         iconColor: '#1AB394',
-        value: moment.utc(data?.[BI_FLOW_DETAIL_KEY.DURATION] * 1000).format('HH:mm:ss') ?? 0,
-      },
-      {
-        className: 'col-4',
-        title: t('txt_total_actions'),
-        icon: env.PUBLIC_URL + '/assets/images/click.png',
-        iconColor: '#1AB394',
-        value: data?.[BI_FLOW_DETAIL_KEY.ACTION] ?? 0,
+        value: data?.[BI_FLOW_DETAIL_KEY.CONVERSION] ?? 0,
       },
       {
         className: 'col-4',
         title: t('txt_total_events'),
-        icon: env.PUBLIC_URL + '/assets/images/action.svg',
+        icon: env.PUBLIC_URL + '/assets/images/click.png',
         iconColor: '#1AB394',
         value: data?.[BI_FLOW_DETAIL_KEY.EVENT] ?? 0,
+      },
+      {
+        className: 'col-4',
+        title: t('txt_total_actions'),
+        icon: env.PUBLIC_URL + '/assets/images/aim.svg',
+        iconColor: '#1AB394',
+        value: data?.[BI_FLOW_DETAIL_KEY.ACTION] ?? 0,
       },
     ],
     [data]
@@ -98,7 +139,7 @@ const FlowDetailContainer = observer((props) => {
       {
         text: t('txt_date'),
         value: data?.[BI_FLOW_DETAIL_KEY.START]
-          ? moment.utc(data?.[BI_FLOW_DETAIL_KEY.START]).format('DD/MM/YYYY hh:mm:ss')
+          ? moment.utc(data?.[BI_FLOW_DETAIL_KEY.START]).format('DD-MM-YYYY hh:mm:ss')
           : '',
       },
       {
@@ -110,16 +151,24 @@ const FlowDetailContainer = observer((props) => {
         value: data?.[BI_FLOW_DETAIL_KEY.GEO]?.country?.name ?? 'unDetected',
       },
       {
-        text: t('txt_ip'),
-        value: data?.[BI_FLOW_DETAIL_KEY.IP] ?? '',
-      },
-      {
         text: t('txt_device'),
         value: data?.[BI_FLOW_DETAIL_KEY.DEVICE] ?? '',
       },
       {
         text: t('txt_browser'),
         value: data?.[BI_FLOW_DETAIL_KEY.BROWSER_NAME] ?? '',
+      },
+      {
+        text: t('txt_duration'),
+        value: moment.utc(data?.[BI_FLOW_DETAIL_KEY.DURATION] * 1000).format('mm:ss') ?? 0,
+      },
+      {
+        text: 'UX %',
+        value: (data?.[BI_FLOW_DETAIL_KEY.UX_PERCENT] ?? 0) + '%',
+      },
+      {
+        text: t('txt_page_view'),
+        value: data?.[BI_FLOW_DETAIL_KEY.PAGE_VIEW] ?? 0,
       },
     ],
     [data]
@@ -181,7 +230,7 @@ const FlowDetailContainer = observer((props) => {
                       LeftTableData.length - 1 === index ? '' : 'mb-3'
                     } `}
                   >
-                    <span>{item.text}</span>
+                    <span className="fw-semibold">{item.text}</span>
                     <span>{item.value}</span>
                   </div>
                 ))
@@ -194,7 +243,7 @@ const FlowDetailContainer = observer((props) => {
             {dataEvents?.toEventsList()?.length && (
               <Col lg="2" className="mb-2 mb-lg-0">
                 <AesirXSelect
-                  defaultValue={{ label: 'All Event', value: 'all' }}
+                  defaultValue={{ label: 'All Events', value: 'all' }}
                   options={dataEvents?.toEventsList()}
                   className={`fs-sm`}
                   isBorder={true}
@@ -209,7 +258,7 @@ const FlowDetailContainer = observer((props) => {
             {dataConversion?.toConversionList()?.length && (
               <Col lg="2" className="mb-2 mb-lg-0">
                 <AesirXSelect
-                  defaultValue={{ label: 'All Conversion', value: 'all' }}
+                  defaultValue={{ label: 'All Conversions', value: 'all' }}
                   options={dataConversion?.toConversionList()}
                   className={`fs-sm`}
                   isBorder={true}
@@ -245,13 +294,16 @@ const FlowDetailContainer = observer((props) => {
               ) : (
                 <>
                   {relatedVisitorData?.data?.map((item, key) => {
+                    const ogData = fetchOG.find((i) => item.uuid == i.uuid);
                     return (
                       <div className="d-flex align-items-center mb-24 flow-detail-item" key={key}>
-                        <div className="flow-detail-item-image me-10">
+                        <div className="flow-detail-item-image me-18px">
                           <Image
-                            className={`object-fit-contain`}
-                            style={{ width: 32, height: 32 }}
-                            src={`${env.PUBLIC_URL}/assets/images/flow_icon.png`}
+                            className={`object-fit-cover rounded-3 overflow-hidden`}
+                            style={{ width: 148, height: 95 }}
+                            src={
+                              ogData?.image ? ogData?.image : `/assets/images/default_preview.jpg`
+                            }
                             alt={'icons'}
                           />
                         </div>
@@ -261,17 +313,29 @@ const FlowDetailContainer = observer((props) => {
                               ?.utc()
                               ?.format('HH:mm:ss')}
                           </div>
-                          <div
-                            className={`flow_detail_item_content_action text-white fw-medium d-inline-flex my-sm ${
-                              item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit'
-                                ? 'text-capitalize'
-                                : ''
-                            }`}
-                          >
-                            {item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit'
-                              ? 'Visited'
-                              : item[BI_VISITOR_FIELD_KEY.EVENT_NAME]}
+                          <div className="d-flex mb-sm fs-14 fw-medium">
+                            <div
+                              className={`flow_detail_item_content_action ${
+                                item[BI_VISITOR_FIELD_KEY.EVENT_TYPE]
+                              } text-white text-capitalize`}
+                            >
+                              {item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'action'
+                                ? t('txt_visitor')
+                                : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'conversion'
+                                ? t('txt_conversion')
+                                : t('txt_event')}
+                            </div>
+                            <span className="flow_detail_item_content_name ms-sm">
+                              {item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit'
+                                ? 'Visited'
+                                : item[BI_VISITOR_FIELD_KEY.EVENT_NAME]}
+                            </span>
                           </div>
+                          {ogData?.title && (
+                            <p className="mb-0 fw-medium w-100 lh-base text-gray-heading fs-14">
+                              {ogData.title}
+                            </p>
+                          )}
                           <div className="w-100">
                             <a
                               href={`${item[BI_VISITOR_FIELD_KEY.URL]}`}

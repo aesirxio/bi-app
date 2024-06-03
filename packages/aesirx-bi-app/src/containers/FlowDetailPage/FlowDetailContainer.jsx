@@ -302,7 +302,9 @@ const FlowDetailContainer = observer((props) => {
                             className={`object-fit-cover rounded-3 overflow-hidden`}
                             style={{ width: 148, height: 95 }}
                             src={
-                              ogData?.image ? ogData?.image : `/assets/images/default_preview.jpg`
+                              ogData?.image
+                                ? ogData?.image
+                                : env.PUBLIC_URL + `/assets/images/default_preview.jpg`
                             }
                             alt={'icons'}
                           />

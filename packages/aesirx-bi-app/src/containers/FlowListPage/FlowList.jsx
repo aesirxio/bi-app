@@ -173,8 +173,8 @@ const FlowList = observer(
             <Row className="mb-24 ChartWrapper">
               <Col lg={12}>
                 <OverviewComponent
-                  bars={['event', 'conversion']}
-                  barColors={['#0066FF', '#96C0FF']}
+                  bars={['event', 'conversion', 'pageview']}
+                  barColors={['#0066FF', '#96C0FF', '#2C94EA']}
                   listViewModel={this.flowListListViewModel}
                   status={this.flowListListViewModel?.statusChart}
                   data={this.flowListListViewModel?.eventDateData?.toAreaChart()}

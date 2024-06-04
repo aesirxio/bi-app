@@ -288,6 +288,7 @@ class FlowListModel {
         name: date && moment(date, 'YYYY-MM-DD').format('DD'),
         event: filterDate?.[BI_FLOW_LIST_FIELD_KEY.EVENT] ?? 0,
         conversion: filterDate?.[BI_FLOW_LIST_FIELD_KEY.CONVERSION] ?? 0,
+        pageview: filterDate?.[BI_FLOW_LIST_FIELD_KEY.PAGEVIEW] ?? 0,
       };
     });
 
@@ -295,13 +296,18 @@ class FlowListModel {
       const filterMonthDate = this.data.filter((_item) => moment(_item?.date).month() === index);
       let totalVisitorCount = 0;
       let totalPageViewCount = 0;
+      let totalConversionCount = 0;
       if (filterMonthDate) {
         totalVisitorCount = filterMonthDate.reduce(
           (acc, item) => acc + item[BI_FLOW_LIST_FIELD_KEY.EVENT],
           0
         );
-        totalPageViewCount = filterMonthDate.reduce(
+        totalConversionCount = filterMonthDate.reduce(
           (acc, item) => acc + item[BI_FLOW_LIST_FIELD_KEY.CONVERSION],
+          0
+        );
+        totalPageViewCount = filterMonthDate.reduce(
+          (acc, item) => acc + item[BI_FLOW_LIST_FIELD_KEY.PAGEVIEW],
           0
         );
       }
@@ -309,7 +315,8 @@ class FlowListModel {
       return {
         name: month,
         event: totalVisitorCount,
-        conversion: totalPageViewCount,
+        conversion: totalConversionCount,
+        pageview: totalPageViewCount,
       };
     });
 
@@ -324,6 +331,7 @@ class FlowListModel {
         weekData[weekName] = {
           event: 0,
           conversion: 0,
+          pageview: 0,
         };
       }
 
@@ -336,13 +344,18 @@ class FlowListModel {
           (acc, item) => acc + item[BI_FLOW_LIST_FIELD_KEY.EVENT],
           0
         );
-        const totalPageViewCount = filterWeekDate.reduce(
+        const totalConversionCount = filterWeekDate.reduce(
           (acc, item) => acc + item[BI_FLOW_LIST_FIELD_KEY.CONVERSION],
+          0
+        );
+        const totalPageViewCount = filterWeekDate.reduce(
+          (acc, item) => acc + item[BI_FLOW_LIST_FIELD_KEY.PAGEVIEW],
           0
         );
 
         weekData[weekName].event += totalVisitorCount;
-        weekData[weekName].conversion += totalPageViewCount;
+        weekData[weekName].conversion += totalConversionCount;
+        weekData[weekName].pageview += totalPageViewCount;
       }
     });
 
@@ -351,6 +364,7 @@ class FlowListModel {
       name: weekName,
       event: weekData[weekName].event,
       conversion: weekData[weekName].conversion,
+      pageview: weekData[weekName].pageview,
     }));
 
     return [{ action: month }, { action: date }, { action: week }];

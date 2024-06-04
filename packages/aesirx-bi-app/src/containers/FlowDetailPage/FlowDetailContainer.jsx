@@ -276,7 +276,7 @@ const FlowDetailContainer = observer((props) => {
             )}
             <Col lg="6" className="mb-2 mb-lg-0">
               <span className="search_url d-flex position-relative border rounded-2">
-                <div className="px-2 bg-gray-400 d-flex align-items-center">
+                <div className="px-2 bg-gray-400 d-flex align-items-center text-nowrap">
                   https://{activeDomain}/
                 </div>
                 <input

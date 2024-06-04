@@ -62,21 +62,21 @@ const FlowDetailContainer = observer((props) => {
     return () => {};
   }, [activeDomain]);
 
-  const getOG = async (data) => {
+  const getOG = async (url) => {
     try {
-      const response = await axios.get(data?.url);
+      const response = await axios.get(url);
       const parser = new DOMParser();
-      const doc = parser.parseFromString(response.data, 'text/html');
+      const doc = parser.parseFromString(response?.data, 'text/html');
       const ogImageTag = doc.querySelector('meta[property="og:image"]');
       const webTitle = doc.querySelector('title');
       return {
-        ...data,
+        url,
         image: ogImageTag ? ogImageTag.getAttribute('content') : null,
         title: webTitle ? webTitle.innerText : null,
       };
     } catch (error) {
       return {
-        ...data,
+        url,
       };
     }
   };
@@ -84,15 +84,16 @@ const FlowDetailContainer = observer((props) => {
   useEffect(() => {
     const getListOG = async () => {
       if (relatedVisitorData?.data?.length && !fetchOG?.length) {
-        const listFetch = relatedVisitorData.data.map((item) => {
-          return {
-            uuid: item.uuid,
-            url: item.url,
-          };
-        });
+        const listFetchs = relatedVisitorData.data.reduce((acc, cur) => {
+          const isExisted = acc.some((i) => i == cur.url);
+          if (!isExisted) {
+            acc.push(cur.url);
+          }
+          return acc;
+        }, []);
         const listOG = await Promise.all(
-          listFetch.map(async (item) => {
-            return await getOG(item);
+          listFetchs.map(async (url) => {
+            return await getOG(url);
           })
         );
         setFetchOG(listOG);
@@ -205,12 +206,15 @@ const FlowDetailContainer = observer((props) => {
             if (props.integration) {
               handleChangeLink(e, `flow-list`);
             } else {
+              const search = {
+                ...dataFilter,
+              };
               history.push(
                 `/flow-list?date_end=${dateFilter?.date_end}&date_start=${
                   dateFilter?.date_start
                 }&domain=${activeDomain}&pagination=${
                   dataFilter?.pagination ? dataFilter?.pagination : '1'
-                }`
+                }&${queryString.stringify(search)}`
               );
             }
           }}
@@ -294,7 +298,7 @@ const FlowDetailContainer = observer((props) => {
               ) : (
                 <>
                   {relatedVisitorData?.data?.map((item, key) => {
-                    const ogData = fetchOG.find((i) => item.uuid == i.uuid);
+                    const ogData = fetchOG.find((i) => item.url == i.url);
                     return (
                       <div className="d-flex align-items-center mb-24 flow-detail-item" key={key}>
                         <div className="flow-detail-item-image me-18px">
@@ -302,7 +306,9 @@ const FlowDetailContainer = observer((props) => {
                             className={`object-fit-cover rounded-3 overflow-hidden`}
                             style={{ width: 148, height: 95 }}
                             src={
-                              ogData?.image ? ogData?.image : `/assets/images/default_preview.jpg`
+                              ogData?.image
+                                ? ogData?.image
+                                : env.PUBLIC_URL + `/assets/images/default_preview.jpg`
                             }
                             alt={'icons'}
                           />

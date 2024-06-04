@@ -322,7 +322,9 @@ const FlowDetailContainer = observer((props) => {
                           <div className="d-flex mb-sm fs-14 fw-medium">
                             <div
                               className={`flow_detail_item_content_action ${
-                                item[BI_VISITOR_FIELD_KEY.EVENT_TYPE]
+                                item[BI_VISITOR_FIELD_KEY.EVENT_NAME] == 'visit'
+                                  ? 'visit'
+                                  : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE]
                               } text-white text-capitalize`}
                             >
                               {item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'action'

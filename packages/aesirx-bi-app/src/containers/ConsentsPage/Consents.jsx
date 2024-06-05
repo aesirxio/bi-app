@@ -63,7 +63,7 @@ const Consents = observer(() => {
         <div className="position-relative">
           <h2 className="fw-bold mb-3 mt-3">{t('txt_menu_consents')}</h2>
         </div>
-        <div className="position-relative">
+        <div className="position-relative havePrintButton">
           <DateRangePicker onChange={handleDateRangeChange} />
         </div>
       </div>

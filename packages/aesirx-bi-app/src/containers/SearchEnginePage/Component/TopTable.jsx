@@ -62,7 +62,7 @@ const TopTableComponent = (props) => {
           allowSort: item?.allowSort || false,
           subRows: item?.subRows ?? [],
           Header: (
-            <span className="align-middle text-gray-900 fw-medium">
+            <span className="align-middle text-gray-900 fw-medium position-relative">
               {t(item.Header)}
               {tooltip && (
                 <>
@@ -71,6 +71,7 @@ const TopTableComponent = (props) => {
                     data-tooltip-content={t(tooltip)}
                     className="mx-sm fs-12 mb-1"
                     data-tooltip-place={`${index === data?.header?.length - 1 ? 'top-end' : 'top'}`}
+                    style={{ position: 'absolute', right: '-5px', top: '-8px' }}
                     icon={faCircleInfo}
                   />
                   <Tooltip id="tooltipTable" />

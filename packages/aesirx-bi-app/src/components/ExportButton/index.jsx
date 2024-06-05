@@ -33,7 +33,7 @@ function ExportButton({
   return (
     <div className={`${classWrapper ? '' : 'printButton'} me-2`}>
       <Dropdown align="end">
-        <Dropdown.Toggle variant="light" className="text-nowrap py-13 lh-sm rounded-1">
+        <Dropdown.Toggle variant="success" className="text-nowrap py-13 lh-sm rounded-1">
           <Translation>{(t) => t('txt_export')}</Translation>
         </Dropdown.Toggle>
 

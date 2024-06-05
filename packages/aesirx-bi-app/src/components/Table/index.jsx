@@ -157,15 +157,23 @@ const Table = ({
                                 sortParams !== 'number' &&
                                 sortParams !== 'selection' ? (
                                   sortBy['sort_direction[]'] === 'desc' ? (
-                                    <FontAwesomeIcon
-                                      className="sort-icon sort-icon-down ms-sm mt-n3"
-                                      icon={faSortDown}
+                                    <ComponentSVG
+                                      url={env.PUBLIC_URL + '/assets/images/sort_down.svg'}
+                                      color="#5F5E70"
                                     />
                                   ) : (
-                                    <FontAwesomeIcon
-                                      className="sort-icon sort-icon-up ms-sm mb-nsm"
-                                      icon={faSortUp}
-                                    />
+                                    <span
+                                      style={{
+                                        transform: 'rotate(180deg)',
+                                        display: 'inline-block',
+                                      }}
+                                    >
+                                      <ComponentSVG
+                                        url={env.PUBLIC_URL + '/assets/images/sort_down.svg'}
+                                        color="#5F5E70"
+                                        height={'16px'}
+                                      />
+                                    </span>
                                   )
                                 ) : (
                                   // <ComponentSVG

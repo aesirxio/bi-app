@@ -11,7 +11,7 @@ import { env } from 'aesirx-lib';
 import { BI_FLOW_DETAIL_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { Col, Image, Row } from 'react-bootstrap';
-import { BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
+import { BI_VISITOR_FIELD_KEY, BI_EVENTS_FIELD_KEY } from 'aesirx-lib';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { AesirXSelect, PAGE_STATUS, RingLoaderComponent, history } from 'aesirx-uikit';
@@ -82,24 +82,26 @@ const FlowDetailContainer = observer((props) => {
   };
 
   useEffect(() => {
-    const getListOG = async () => {
-      if (relatedVisitorData?.data?.length && !fetchOG?.length) {
-        const listFetchs = relatedVisitorData.data.reduce((acc, cur) => {
-          const isExisted = acc.some((i) => i == cur.url);
-          if (!isExisted) {
-            acc.push(cur.url);
-          }
-          return acc;
-        }, []);
-        const listOG = await Promise.all(
-          listFetchs.map(async (url) => {
-            return await getOG(url);
-          })
-        );
-        setFetchOG(listOG);
-      }
-    };
-    getListOG();
+    if (props.integration) {
+      const getListOG = async () => {
+        if (relatedVisitorData?.data?.length && !fetchOG?.length) {
+          const listFetchs = relatedVisitorData.data.reduce((acc, cur) => {
+            const isExisted = acc.some((i) => i == cur.url);
+            if (!isExisted) {
+              acc.push(cur.url);
+            }
+            return acc;
+          }, []);
+          const listOG = await Promise.all(
+            listFetchs.map(async (url) => {
+              return await getOG(url);
+            })
+          );
+          setFetchOG(listOG);
+        }
+      };
+      getListOG();
+    }
   }, [relatedVisitorData?.data]);
 
   const CardData = useMemo(
@@ -306,7 +308,9 @@ const FlowDetailContainer = observer((props) => {
                             className={`object-fit-cover rounded-3 overflow-hidden`}
                             style={{ width: 148, height: 95 }}
                             src={
-                              ogData?.image
+                              item?.[BI_EVENTS_FIELD_KEY.OG_IMAGE]
+                                ? item?.[BI_EVENTS_FIELD_KEY.OG_IMAGE]
+                                : ogData?.image
                                 ? ogData?.image
                                 : env.PUBLIC_URL + `/assets/images/default_preview.jpg`
                             }
@@ -322,7 +326,9 @@ const FlowDetailContainer = observer((props) => {
                           <div className="d-flex mb-sm fs-14 fw-medium">
                             <div
                               className={`flow_detail_item_content_action ${
-                                item[BI_VISITOR_FIELD_KEY.EVENT_TYPE]
+                                item[BI_VISITOR_FIELD_KEY.EVENT_NAME] == 'visit'
+                                  ? 'visit'
+                                  : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE]
                               } text-white text-capitalize`}
                             >
                               {item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'action'
@@ -337,9 +343,9 @@ const FlowDetailContainer = observer((props) => {
                                 : item[BI_VISITOR_FIELD_KEY.EVENT_NAME]}
                             </span>
                           </div>
-                          {ogData?.title && (
+                          {(ogData?.title || item?.[BI_EVENTS_FIELD_KEY.OG_TITLE]) && (
                             <p className="mb-0 fw-medium w-100 lh-base text-gray-heading fs-14">
-                              {ogData.title}
+                              {item?.[BI_EVENTS_FIELD_KEY.OG_TITLE] ?? ogData.title}
                             </p>
                           )}
                           <div className="w-100">

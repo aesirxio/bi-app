@@ -189,14 +189,14 @@
 }
 
 .flow_detail_item_content_action {
-  background-color: #003059;
+  background-color: #0f674c;
   padding: 2px 10px;
   border-radius: 4px;
   &.conversion {
     background-color: #6a3e73;
   }
-  &.click {
-    background-color: #0f674c;
+  &.visit {
+    background-color: #003059;
   }
 }
 .flow_detail_item_content_name {

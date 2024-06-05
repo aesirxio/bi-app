@@ -58,7 +58,8 @@ const FlowList = observer(
             ...(this.params['filter[device]'] && {
               'filter[device]': this.params['filter[device]'],
             }),
-          }
+          },
+          this.props.integration
         );
       }
 
@@ -85,7 +86,8 @@ const FlowList = observer(
             ...(this.params['filter[device]'] && {
               'filter[device]': this.params['filter[device]'],
             }),
-          }
+          },
+          this.props.integration
         );
       }
     };
@@ -110,7 +112,8 @@ const FlowList = observer(
           }),
           ...(this.params['filter[url]'] && { 'filter[url]': this.params['filter[url]'] }),
           ...(this.params['filter[device]'] && { 'filter[device]': this.params['filter[device]'] }),
-        }
+        },
+        this.props.integration
       );
     };
 
@@ -129,31 +132,47 @@ const FlowList = observer(
           'sort[]': column?.id === BI_FLOW_LIST_FIELD_KEY.GEO ? 'geo.country.name' : column?.id,
           'sort_direction[]':
             this.flowListListViewModel?.sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
-        }
+        },
+        this.props.integration
       );
     };
 
     onSelectionChange = async (data) => {
-      await this.flowListListViewModel.getFlowList({
-        'filter[domain]': this.props.activeDomain,
-        'filter_not[device]': data?.value ? 'all' : 'bot',
-      });
+      await this.flowListListViewModel.getFlowList(
+        {
+          'filter[domain]': this.props.activeDomain,
+          'filter_not[device]': data?.value ? 'all' : 'bot',
+        },
+        {},
+        {},
+        this.props.integration
+      );
       this.flowListListViewModel.toggleShowbot();
     };
     onSelectionChangeEvent = async (data) => {
-      await this.flowListListViewModel.getFlowList({
-        'filter[domain]': this.props.activeDomain,
-        'filter[event_name]': data?.value,
-      });
+      await this.flowListListViewModel.getFlowList(
+        {
+          'filter[domain]': this.props.activeDomain,
+          'filter[event_name]': data?.value,
+        },
+        {},
+        {},
+        this.props.integration
+      );
     };
 
     debouncedChangeHandler = _.debounce(async (value) => {
-      await this.flowListListViewModel.getFlowList({
-        'filter[domain]': this.props.activeDomain,
-        'filter[url]': value.target?.value
-          ? `https://${this.context.biListViewModel.activeDomain}/${value.target?.value}`
-          : 'clearDataFilter',
-      });
+      await this.flowListListViewModel.getFlowList(
+        {
+          'filter[domain]': this.props.activeDomain,
+          'filter[url]': value.target?.value
+            ? `https://${this.context.biListViewModel.activeDomain}/${value.target?.value}`
+            : 'clearDataFilter',
+        },
+        {},
+        {},
+        this.props.integration
+      );
     }, 400);
 
     render() {
@@ -222,7 +241,7 @@ const FlowList = observer(
               )}
               <Col lg="6" className="mb-2 mb-lg-0">
                 <span className="search_url d-flex position-relative border rounded-2">
-                  <div className="px-2 bg-gray-400 d-flex align-items-center">
+                  <div className="px-2 bg-gray-400 d-flex align-items-center text-nowrap">
                     https://{this.context.biListViewModel.activeDomain}/
                   </div>
                   <input
@@ -262,13 +281,19 @@ const FlowList = observer(
                   )}
                   pagination={this.flowListListViewModel?.countriesTableData?.pagination}
                   selectPage={async (value) => {
-                    await this.flowListListViewModel.handleFilterFlowList({ page: value });
+                    await this.flowListListViewModel.handleFilterFlowList(
+                      { page: value },
+                      this.props.integration
+                    );
                   }}
                   selectPageSize={async (value) => {
-                    await this.flowListListViewModel.handleFilterFlowList({
-                      page: 1,
-                      page_size: value,
-                    });
+                    await this.flowListListViewModel.handleFilterFlowList(
+                      {
+                        page: 1,
+                        page_size: value,
+                      },
+                      this.props.integration
+                    );
                   }}
                   status={statusTable}
                   sortAPI={true}

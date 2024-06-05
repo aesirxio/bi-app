@@ -29,8 +29,13 @@ class FlowListListViewModel {
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
-  initialize = (dataFilter, dateFilter, dataFilterTable) => {
-    this.getFlowList({ ...dataFilter, ...dataFilterTable }, dateFilter, dataFilterTable);
+  initialize = (dataFilter, dateFilter, dataFilterTable, intergration) => {
+    this.getFlowList(
+      { ...dataFilter, ...dataFilterTable },
+      dateFilter,
+      dataFilterTable,
+      intergration
+    );
     this.getEvents(dataFilter, dateFilter);
     this.getConversion(dataFilter, dateFilter);
     this.getFlowDate(dataFilter, dateFilter);
@@ -39,7 +44,8 @@ class FlowListListViewModel {
   getFlowList = (
     dataFilter,
     dateFilter,
-    sortBy = { 'sort[]': 'start', 'sort_direction[]': 'desc' }
+    sortBy = { 'sort[]': 'start', 'sort_direction[]': 'desc' },
+    intergration
   ) => {
     this.statusTable = PAGE_STATUS.LOADING;
     this.sortBy = sortBy;
@@ -92,7 +98,7 @@ class FlowListListViewModel {
       this.dataFilter['filter[url]'] && delete this.dataFilter['filter[url]'];
       search['filter[url]'] && delete search['filter[url]'];
     }
-    if (sortBy || dataFilter) {
+    if ((sortBy || dataFilter) && !intergration) {
       window.history.replaceState('', '', `/flow-list?${queryString.stringify(search)}`);
     }
     this.flowlistStore.getFlowList(
@@ -176,7 +182,7 @@ class FlowListListViewModel {
     this.initialize(this.dataFilter, dateRangeFilter);
   };
 
-  handleFilterFlowList = async (dataFilter) => {
+  handleFilterFlowList = async (dataFilter, intergration) => {
     const location = history.location;
     this.statusTable = PAGE_STATUS.LOADING;
 
@@ -195,7 +201,8 @@ class FlowListListViewModel {
         ...queryString.parse(location.search),
         ...{ pagination: dataFilter?.page },
       };
-      window.history.replaceState('', '', `/flow-list?${queryString.stringify(search)}`);
+      !intergration &&
+        window.history.replaceState('', '', `/flow-list?${queryString.stringify(search)}`);
     }
   };
 

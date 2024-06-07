@@ -4,9 +4,8 @@ import { AesirXSelect, PulseLoaderComponent } from 'aesirx-uikit';
 
 import PAGE_STATUS from '../../constants/PageStatus';
 import { env } from 'aesirx-lib';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'react-bootstrap';
+import ComponentSVG from 'components/ComponentSVG';
 const ComponentCard = ({
   title,
   icon,
@@ -59,12 +58,18 @@ const ComponentCard = ({
           <h6 className="mb-0 fw-medium text-gray-900">{title}</h6>
           {tooltip && (
             <>
-              <FontAwesomeIcon
+              <div
+                className="mx-sm fs-12 mb-1 cursor-pointer"
                 data-tooltip-id="tooltipTable"
                 data-tooltip-content={tooltip}
-                className="mx-sm fs-12 mb-1"
-                icon={faCircleInfo}
-              />
+              >
+                <ComponentSVG
+                  url={env.PUBLIC_URL + '/assets/images/info.svg'}
+                  width={'12px'}
+                  height={'12px'}
+                  color={'#5F5E70'}
+                />
+              </div>
               <Tooltip id="tooltipTable" />
             </>
           )}

@@ -189,7 +189,7 @@ const Events = observer((props) => {
               handleSort={handleSort}
               sortBy={sortBy}
               handleSearch={handleSearch}
-              tdClass={'align-top'}
+              tdClass={'py-2 align-top'}
               {...props}
             />
           )}

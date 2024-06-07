@@ -45,7 +45,7 @@ const Isps = observer(
       const { statusTopBrowser, ispsTableData } = this.platformsListViewModel;
 
       return (
-        <div className="position-relative ChartWrapper h-100">
+        <div className="position-relative ChartWrapper h-100 d-flex flex-column">
           {statusTopBrowser === PAGE_STATUS.LOADING ? (
             <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white" />
           ) : (
@@ -57,8 +57,8 @@ const Isps = observer(
                       <h4 className="me-24 mb-0 fw-semibold fs-5">Isps</h4>
                     </div>
                     <Tab.Content className="h-100">
-                      <Tab.Pane eventKey="browser">
-                        <div>
+                      <Tab.Pane eventKey="browser" className="h-100">
+                        <div className="h-100 d-flex flex-column">
                           <TopTable
                             data={ispsTableData.list}
                             pagination={ispsTableData.pagination}

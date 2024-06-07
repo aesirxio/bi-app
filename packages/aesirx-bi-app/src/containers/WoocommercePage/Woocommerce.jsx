@@ -133,7 +133,7 @@ const Woocommerce = observer(() => {
       </div>
       <Row className="my-24 pb-24">
         <Col lg={6} className="mb-24">
-          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
             <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_search')}</h4>
             <TopTable
               data={woocommerceList?.productSearchTableData?.list}
@@ -146,7 +146,7 @@ const Woocommerce = observer(() => {
           </div>
         </Col>
         <Col lg={6} className="mb-24">
-          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
             <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_product_add_to_cart')}</h4>
             <TopTable
               data={woocommerceList?.productCartTableData?.list}
@@ -159,7 +159,7 @@ const Woocommerce = observer(() => {
           </div>
         </Col>
         <Col lg={6} className="mb-24">
-          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
             <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_products')}</h4>
             <TopTable
               data={productTableTopData?.list}
@@ -172,7 +172,7 @@ const Woocommerce = observer(() => {
           </div>
         </Col>
         <Col lg={6} className="mb-24">
-          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+          <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
             <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_view')}</h4>
             <TopTable
               data={woocommerceList?.productViewTableData?.list}

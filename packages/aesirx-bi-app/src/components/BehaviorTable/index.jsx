@@ -25,9 +25,9 @@ const BehaviorTable = ({
     () =>
       header.map((item, index) => ({
         ...item,
-        className: `px-3 py-16 fs-sm fw-semibold border-bottom border-gray-800 align-middle ${
+        className: `py-16 fs-sm fw-semibold border-bottom border-gray-800 align-middle ${
           index + 1 === header.length ? 'rounded-top-end-3' : ''
-        } ${index === 0 ? 'rounded-top-start-3' : ''}`,
+        } ${index === 0 ? 'pe-3 rounded-top-start-3' : 'px-3'}`,
         width: item?.width ?? 100,
         allowSort: item?.allowSort || false,
         ...(isTranslate

@@ -228,7 +228,7 @@ const Dashboard = observer(
           </Row>
           <Row className="mt-4">
             <Col lg={6} className="mb-24">
-              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
                 <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_sources')}</h4>
                 <TopTable
                   data={this.dashboardListViewModel?.sourcesTableData?.list}
@@ -248,12 +248,13 @@ const Dashboard = observer(
                   sortAPI={true}
                   handleSort={this.handleSortSources}
                   sortBy={this.dashboardListViewModel?.sortBySources}
+                  tdClass={'py-1'}
                   {...this.props}
                 />
               </div>
             </Col>
             <Col lg={6} className="mb-24">
-              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
                 <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_pages')}</h4>
                 <TopTable
                   data={this.dashboardListViewModel?.pagesTableData?.list}
@@ -273,6 +274,7 @@ const Dashboard = observer(
                   sortAPI={true}
                   handleSort={this.handleSortPage}
                   sortBy={this.dashboardListViewModel?.sortByPages}
+                  tdClass={'py-1'}
                   {...this.props}
                 />
               </div>

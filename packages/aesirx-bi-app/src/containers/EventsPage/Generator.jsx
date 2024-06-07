@@ -279,7 +279,7 @@ const Generator = observer(() => {
                 </Form.Group>
               </>
             )}
-            <Button variant="primary" onClick={submitForm} className="py-2 px-3">
+            <Button variant="success" onClick={submitForm} className="py-2 px-3">
               Generate Button
             </Button>
           </Form>

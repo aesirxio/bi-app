@@ -128,7 +128,7 @@ const Country = observer(
             </div>
             <Row className="my-24 pb-24">
               <Col lg={6} className="mb-24">
-                <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
                   <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_region')}</h4>
                   <TopTable
                     data={this.countryListViewModel?.regionTableData?.list}
@@ -153,7 +153,7 @@ const Country = observer(
                 </div>
               </Col>
               <Col lg={6} className="mb-24">
-                <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
                   <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_city')}</h4>
                   <TopTable
                     data={this.countryListViewModel?.citiesTableData?.list}

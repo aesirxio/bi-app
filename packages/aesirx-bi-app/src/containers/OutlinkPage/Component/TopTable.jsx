@@ -7,8 +7,6 @@ import ComponentNoData from '../../../components/ComponentNoData';
 import { BI_SUMMARY_FIELD_KEY, env } from 'aesirx-lib';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { Tooltip } from 'react-tooltip';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons/faCircleInfo';
 
 const TopTableComponent = (props) => {
   const {
@@ -55,25 +53,33 @@ const TopTableComponent = (props) => {
 
         return {
           ...item,
-          className: `px-15 py-16 fs-sm fw-semibold border-bottom border-gray-800 align-middle ${
+          className: `py-16 fs-sm fw-semibold border-bottom border-gray-800 align-middle ${
             index !== 1 ? 'rounded-top-end-3 text-end' : ''
-          } ${index === 1 ? 'rounded-top-start-3' : ''}`,
+          } ${index === 1 ? 'rounded-top-start-3' : ''} ${index !== 0 ? 'px-15' : 'pe-15'}`,
           width: item.width ? item.width : index === 0 ? 'auto' : 170,
           allowSort: item?.allowSort || false,
           subRows: item?.subRows ?? [],
           Header: (
-            <span className="align-middle text-gray-900 fw-medium position-relative">
+            <span
+              className="align-middle text-gray-900 fw-medium position-relative"
+              data-tooltip-id="tooltipTable"
+              data-tooltip-place={`${index === data?.header?.length - 1 ? 'top-end' : 'top'}`}
+              data-tooltip-content={t(tooltip)}
+            >
               {t(item.Header)}
               {tooltip && (
                 <>
-                  <FontAwesomeIcon
-                    data-tooltip-id="tooltipTable"
-                    data-tooltip-content={t(tooltip)}
+                  <div
                     className="mx-sm fs-12 mb-1"
-                    data-tooltip-place={`${index === data?.header?.length - 1 ? 'top-end' : 'top'}`}
-                    style={{ position: 'absolute', right: '-5px', top: '-8px' }}
-                    icon={faCircleInfo}
-                  />
+                    style={{ position: 'absolute', right: '-5px', top: '-12px' }}
+                  >
+                    <ComponentSVG
+                      url={env.PUBLIC_URL + '/assets/images/info.svg'}
+                      width={'12px'}
+                      height={'12px'}
+                      color={'#5F5E70'}
+                    />
+                  </div>
                   <Tooltip id="tooltipTable" />
                 </>
               )}

@@ -187,7 +187,7 @@ const Generator = observer(() => {
                 </Form.Group>
               </Col>
             </Row>
-            <Button variant="primary" onClick={submitForm} className="py-2 px-3">
+            <Button variant="success" onClick={submitForm} className="py-2 px-3">
               Generate URL
             </Button>
           </Form>

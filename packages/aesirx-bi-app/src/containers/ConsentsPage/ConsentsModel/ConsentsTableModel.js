@@ -65,7 +65,7 @@ class ConsentsTableModel {
                 {cell?.value && moment(cell?.value).format('YYYY-MM-DD HH:mm:ss')}
               </div>
             ) : (
-              <div className={'px-15'}>{cell?.value}</div>
+              <div className={`${index === 0 ? 'pe-15' : 'px-15'}`}>{cell?.value}</div>
             ),
         };
       });

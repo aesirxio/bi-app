@@ -57,6 +57,19 @@
   text-align: center;
   --rt-opacity: 1;
 }
+#tooltipChart {
+  z-index: 1;
+  padding: 30px;
+  border-radius: 6px;
+  text-align: center;
+  --rt-opacity: 1;
+  background-color: $white;
+  color: $body-color;
+  box-shadow: 0px 20px 25px -4px #1a22261a;
+  .react-tooltip-arrow {
+    display: none;
+  }
+}
 .aesirxui {
   .nav-pills.nav-custom {
     .nav-link {

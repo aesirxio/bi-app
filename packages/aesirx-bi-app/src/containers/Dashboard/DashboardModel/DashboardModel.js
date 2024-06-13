@@ -483,7 +483,6 @@ class DashboardModel {
               ? 220
               : 170,
           Cell: ({ cell, column }) => {
-            console.log('index', index);
             return (
               <>
                 {column.id === BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME ? (

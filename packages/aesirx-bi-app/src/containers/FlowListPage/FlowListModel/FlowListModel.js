@@ -215,6 +215,8 @@ class FlowListModel {
                   )}
                 </div>
               );
+            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.SOP_ID) {
+              return <div className={'px-3'}>{cell?.value ? cell?.value : 'Not Available'}</div>;
             } else {
               return <div className={'px-3'}>{cell?.value}</div>;
             }

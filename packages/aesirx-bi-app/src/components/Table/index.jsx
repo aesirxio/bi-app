@@ -98,7 +98,7 @@ const Table = ({
     : [...Array(pageOptions.length)];
   return (
     <>
-      <div className="bg-white fs-14 rounded-3 position-relative text-gray-900">
+      <div className="bg-white fs-14 rounded-3 position-relative text-gray-900 px-24">
         {rows.length ? (
           <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
             <thead>
@@ -157,15 +157,23 @@ const Table = ({
                                 sortParams !== 'number' &&
                                 sortParams !== 'selection' ? (
                                   sortBy['sort_direction[]'] === 'desc' ? (
-                                    <FontAwesomeIcon
-                                      className="sort-icon sort-icon-down ms-sm mt-n3"
-                                      icon={faSortDown}
+                                    <ComponentSVG
+                                      url={env.PUBLIC_URL + '/assets/images/sort_down.svg'}
+                                      color="#5F5E70"
                                     />
                                   ) : (
-                                    <FontAwesomeIcon
-                                      className="sort-icon sort-icon-up ms-sm mb-nsm"
-                                      icon={faSortUp}
-                                    />
+                                    <span
+                                      style={{
+                                        transform: 'rotate(180deg)',
+                                        display: 'inline-block',
+                                      }}
+                                    >
+                                      <ComponentSVG
+                                        url={env.PUBLIC_URL + '/assets/images/sort_down.svg'}
+                                        color="#5F5E70"
+                                        height={'16px'}
+                                      />
+                                    </span>
                                   )
                                 ) : (
                                   // <ComponentSVG
@@ -244,7 +252,7 @@ const Table = ({
                             <td
                               key={index}
                               {...cell.getCellProps({ style: { width: cell.column.width } })}
-                              className={`py-2 wb-all ${tdClass ? tdClass : 'align-middle'}`}
+                              className={`wb-all ${tdClass ? tdClass : 'py-2 align-middle'}`}
                             >
                               {cell.render('Cell')}
                             </td>
@@ -273,166 +281,85 @@ const Table = ({
         ) : null}
       </div>
       {pagination && pageOptions.length ? (
-        <div className={`d-flex align-items-center justify-content-between ${paginationClass}`}>
-          {!simplePagination ? (
-            <div className="d-flex align-items-center">
-              <span className="text-gray-600 me-16">Showing</span>
-              <div className="bg-white">
-                <AesirXSelect
-                  isClearable={false}
-                  isSearchable={false}
-                  isBorder={false}
-                  isShadow={false}
-                  menuPlacement={'top'}
-                  options={[
-                    { label: 5, value: 5 },
-                    { label: 10, value: 10 },
-                    { label: 20, value: 20 },
-                    { label: 30, value: 30 },
-                    { label: 40, value: 40 },
-                    { label: 50, value: 50 },
-                  ]}
-                  getOptionLabel={(options) => (
-                    <div className="showing-option d-flex align-items-center">
-                      <span>{options.label} items</span>
-                    </div>
-                  )}
-                  className="shadow-none select-bg-white"
-                  onChange={(data) => {
-                    isPaginationAPI
-                      ? handlePageSize(Number(data.value))
-                      : setPageSize(Number(data.value));
-                  }}
-                  defaultValue={{
-                    label: isPaginationAPI ? paginationResponse?.page_size : pageSize,
-                    value: isPaginationAPI ? paginationResponse?.page_size : pageSize,
-                  }}
-                />
+        <div className="mt-auto mb-0">
+          <div className={`d-flex align-items-center justify-content-between ${paginationClass}`}>
+            {!simplePagination ? (
+              <div className="d-flex align-items-center">
+                <span className="text-gray-600 me-16">Showing</span>
+                <div className="bg-white">
+                  <AesirXSelect
+                    isClearable={false}
+                    isSearchable={false}
+                    isBorder={false}
+                    isShadow={false}
+                    menuPlacement={'top'}
+                    options={[
+                      { label: 5, value: 5 },
+                      { label: 10, value: 10 },
+                      { label: 20, value: 20 },
+                      { label: 30, value: 30 },
+                      { label: 40, value: 40 },
+                      { label: 50, value: 50 },
+                    ]}
+                    getOptionLabel={(options) => (
+                      <div className="showing-option d-flex align-items-center">
+                        <span>{options.label} items</span>
+                      </div>
+                    )}
+                    className="shadow-none select-bg-white"
+                    onChange={(data) => {
+                      isPaginationAPI
+                        ? handlePageSize(Number(data.value))
+                        : setPageSize(Number(data.value));
+                    }}
+                    defaultValue={{
+                      label: isPaginationAPI ? paginationResponse?.page_size : pageSize,
+                      value: isPaginationAPI ? paginationResponse?.page_size : pageSize,
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="text-gray-900 fw-light">
-              {paginationResponse?.page === 1
-                ? 1
-                : paginationResponse?.page_size * (paginationResponse?.page - 1)}
-              -
-              {paginationResponse?.total_elements <= paginationResponse?.page_size
-                ? paginationResponse?.total_elements
-                : paginationResponse?.page_size * paginationResponse?.page}{' '}
-              to {paginationResponse?.total_elements}
-            </div>
-          )}
-          <div className="mt-2 pb-2 text-center pagination d-flex justify-content-end align-items-center">
-            <button
-              className={`${
-                !simplePagination ? 'border-1 border-gray-800' : 'border-0'
-              } bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-start rounded-bottom-start`}
-              onClick={() =>
-                isPaginationAPI ? handlePagination(paginationResponse?.page - 1) : previousPage()
-              }
-              disabled={isPaginationAPI ? paginationResponse?.page === 1 : !canPreviousPage}
-            >
-              <ComponentSVG
-                url={env.PUBLIC_URL + '/assets/images/chevron_left.svg'}
-                color={
-                  isPaginationAPI
-                    ? paginationResponse?.page === 1
+            ) : (
+              <div className="text-gray-900 fw-light">
+                {paginationResponse?.page === 1
+                  ? 1
+                  : paginationResponse?.page_size * (paginationResponse?.page - 1)}
+                -
+                {paginationResponse?.total_elements <= paginationResponse?.page_size
+                  ? paginationResponse?.total_elements
+                  : paginationResponse?.page_size * paginationResponse?.page}{' '}
+                to {paginationResponse?.total_elements}
+              </div>
+            )}
+            <div className="mt-2 pb-2 text-center pagination d-flex justify-content-end align-items-center">
+              <button
+                className={`${
+                  !simplePagination ? 'border-1 border-gray-800' : 'border-0'
+                } bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-start rounded-bottom-start`}
+                onClick={() =>
+                  isPaginationAPI ? handlePagination(paginationResponse?.page - 1) : previousPage()
+                }
+                disabled={isPaginationAPI ? paginationResponse?.page === 1 : !canPreviousPage}
+              >
+                <ComponentSVG
+                  url={env.PUBLIC_URL + '/assets/images/chevron_left.svg'}
+                  color={
+                    isPaginationAPI
+                      ? paginationResponse?.page === 1
+                        ? '#5F5E70'
+                        : '#1ab394'
+                      : !canPreviousPage
                       ? '#5F5E70'
                       : '#1ab394'
-                    : !canPreviousPage
-                    ? '#5F5E70'
-                    : '#1ab394'
-                }
-              />
-            </button>{' '}
-            {!simplePagination && (
-              <>
-                <button
-                  onClick={() => (isPaginationAPI ? handlePagination(1) : gotoPage(0))}
-                  className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
-                    (isPaginationAPI ? paginationResponse?.page === 1 : pageIndex + 1 === 1)
-                      ? 'bg-gray-900 text-white'
-                      : 'bg-white text-body'
-                  }`}
-                  style={{
-                    width: '38px',
-                    height: '38px',
-                  }}
-                >
-                  {1}
-                </button>
-                {(isPaginationAPI ? paginationResponse?.page > 3 : pageIndex > 3) && (
+                  }
+                />
+              </button>{' '}
+              {!simplePagination && (
+                <>
                   <button
-                    className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
-                    style={{
-                      width: '38px',
-                      height: '38px',
-                    }}
-                  >
-                    ...
-                  </button>
-                )}
-                {totalPage.map((x, index) => {
-                  let activePage = isPaginationAPI
-                    ? paginationResponse?.page === index + 1
-                    : pageIndex + 1 === index + 1;
-                  let conditionShowNumber = isPaginationAPI
-                    ? index !== 0 &&
-                      index !== paginationResponse?.total_pages - 1 &&
-                      index < paginationResponse?.page - 1 + 3 &&
-                      index > paginationResponse?.page - 1 - 3
-                    : index !== 0 &&
-                      index !== pageOptions.length - 1 &&
-                      index < pageIndex + 3 &&
-                      index > pageIndex - 3;
-                  return (
-                    conditionShowNumber && (
-                      <button
-                        onClick={() =>
-                          isPaginationAPI ? handlePagination(index + 1) : gotoPage(index)
-                        }
-                        key={index}
-                        className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
-                          activePage ? 'bg-gray-900 text-white' : 'bg-white text-body'
-                        }`}
-                        style={{
-                          width: '38px',
-                          height: '38px',
-                        }}
-                      >
-                        {index + 1}
-                      </button>
-                    )
-                  );
-                })}
-                {(isPaginationAPI
-                  ? paginationResponse?.page < paginationResponse?.total_pages - 3
-                  : pageIndex < pageOptions.length - 4) && (
-                  <button
-                    className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
-                    style={{
-                      width: '38px',
-                      height: '38px',
-                    }}
-                  >
-                    ...
-                  </button>
-                )}
-                {(isPaginationAPI
-                  ? paginationResponse?.total_pages > 1
-                  : pageOptions.length > 1) && (
-                  <button
-                    onClick={() =>
-                      isPaginationAPI
-                        ? handlePagination(paginationResponse?.total_pages)
-                        : gotoPage(pageCount - 1)
-                    }
+                    onClick={() => (isPaginationAPI ? handlePagination(1) : gotoPage(0))}
                     className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
-                      (
-                        isPaginationAPI
-                          ? paginationResponse?.page === paginationResponse?.total_pages
-                          : pageIndex + 1 === pageOptions.length
-                      )
+                      (isPaginationAPI ? paginationResponse?.page === 1 : pageIndex + 1 === 1)
                         ? 'bg-gray-900 text-white'
                         : 'bg-white text-body'
                     }`}
@@ -441,37 +368,120 @@ const Table = ({
                       height: '38px',
                     }}
                   >
-                    {isPaginationAPI ? paginationResponse?.total_pages : pageOptions.length}
+                    {1}
                   </button>
-                )}
-              </>
-            )}
-            <button
-              className={` ${
-                !simplePagination ? 'border-1 border-gray-800' : 'border-0'
-              } bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-end rounded-bottom-end`}
-              onClick={() =>
-                isPaginationAPI ? handlePagination(paginationResponse?.page + 1) : nextPage()
-              }
-              disabled={
-                isPaginationAPI
-                  ? paginationResponse?.page === paginationResponse?.total_pages
-                  : !canNextPage
-              }
-            >
-              <ComponentSVG
-                url={env.PUBLIC_URL + '/assets/images/chevron_right.svg'}
-                color={
+                  {(isPaginationAPI ? paginationResponse?.page > 3 : pageIndex > 3) && (
+                    <button
+                      className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
+                      style={{
+                        width: '38px',
+                        height: '38px',
+                      }}
+                    >
+                      ...
+                    </button>
+                  )}
+                  {totalPage.map((x, index) => {
+                    let activePage = isPaginationAPI
+                      ? paginationResponse?.page === index + 1
+                      : pageIndex + 1 === index + 1;
+                    let conditionShowNumber = isPaginationAPI
+                      ? index !== 0 &&
+                        index !== paginationResponse?.total_pages - 1 &&
+                        index < paginationResponse?.page - 1 + 3 &&
+                        index > paginationResponse?.page - 1 - 3
+                      : index !== 0 &&
+                        index !== pageOptions.length - 1 &&
+                        index < pageIndex + 3 &&
+                        index > pageIndex - 3;
+                    return (
+                      conditionShowNumber && (
+                        <button
+                          onClick={() =>
+                            isPaginationAPI ? handlePagination(index + 1) : gotoPage(index)
+                          }
+                          key={index}
+                          className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
+                            activePage ? 'bg-gray-900 text-white' : 'bg-white text-body'
+                          }`}
+                          style={{
+                            width: '38px',
+                            height: '38px',
+                          }}
+                        >
+                          {index + 1}
+                        </button>
+                      )
+                    );
+                  })}
+                  {(isPaginationAPI
+                    ? paginationResponse?.page < paginationResponse?.total_pages - 3
+                    : pageIndex < pageOptions.length - 4) && (
+                    <button
+                      className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px bg-white text-body`}
+                      style={{
+                        width: '38px',
+                        height: '38px',
+                      }}
+                    >
+                      ...
+                    </button>
+                  )}
+                  {(isPaginationAPI
+                    ? paginationResponse?.total_pages > 1
+                    : pageOptions.length > 1) && (
+                    <button
+                      onClick={() =>
+                        isPaginationAPI
+                          ? handlePagination(paginationResponse?.total_pages)
+                          : gotoPage(pageCount - 1)
+                      }
+                      className={`border-1 border-gray-800 rounded-0 btn p-0 w-40px h-40px ${
+                        (
+                          isPaginationAPI
+                            ? paginationResponse?.page === paginationResponse?.total_pages
+                            : pageIndex + 1 === pageOptions.length
+                        )
+                          ? 'bg-gray-900 text-white'
+                          : 'bg-white text-body'
+                      }`}
+                      style={{
+                        width: '38px',
+                        height: '38px',
+                      }}
+                    >
+                      {isPaginationAPI ? paginationResponse?.total_pages : pageOptions.length}
+                    </button>
+                  )}
+                </>
+              )}
+              <button
+                className={` ${
+                  !simplePagination ? 'border-1 border-gray-800' : 'border-0'
+                } bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-end rounded-bottom-end`}
+                onClick={() =>
+                  isPaginationAPI ? handlePagination(paginationResponse?.page + 1) : nextPage()
+                }
+                disabled={
                   isPaginationAPI
                     ? paginationResponse?.page === paginationResponse?.total_pages
+                    : !canNextPage
+                }
+              >
+                <ComponentSVG
+                  url={env.PUBLIC_URL + '/assets/images/chevron_right.svg'}
+                  color={
+                    isPaginationAPI
+                      ? paginationResponse?.page === paginationResponse?.total_pages
+                        ? '#5F5E70'
+                        : '#1ab394'
+                      : !canNextPage
                       ? '#5F5E70'
                       : '#1ab394'
-                    : !canNextPage
-                    ? '#5F5E70'
-                    : '#1ab394'
-                }
-              />
-            </button>
+                  }
+                />
+              </button>
+            </div>
           </div>
         </div>
       ) : null}

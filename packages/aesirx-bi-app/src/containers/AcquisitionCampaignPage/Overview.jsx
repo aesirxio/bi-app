@@ -111,7 +111,7 @@ class AcquisitionCampaignOverviewPage extends Component {
           <div className="position-relative">
             <h2 className="fw-bold mb-8px">{t('txt_behavior')}</h2>
           </div>
-          <div className="position-relative">
+          <div className="position-relative havePrintButton">
             <DateRangePicker />
           </div>
         </div>

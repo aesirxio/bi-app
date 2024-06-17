@@ -7,7 +7,7 @@ import ComponentNoData from '../../../components/ComponentNoData';
 import { BI_SUMMARY_FIELD_KEY, env } from 'aesirx-lib';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { Tooltip } from 'react-tooltip';
-
+import ComponentSVG from 'components/ComponentSVG';
 const TopTableComponent = (props) => {
   const {
     data,

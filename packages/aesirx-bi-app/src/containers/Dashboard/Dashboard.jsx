@@ -21,6 +21,7 @@ import Countries from './Component/Countries';
 import Browsers from './Component/Browsers';
 import TopTable from '../VisitorsPage/Component/TopTable';
 import { Image } from 'aesirx-uikit';
+import moment from 'moment';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -47,10 +48,25 @@ const Dashboard = observer(
       }
     };
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
       this.dashboardListViewModel.initialize({
         'filter[domain]': this.context.biListViewModel.activeDomain,
       });
+      try {
+        setInterval(async () => {
+          if (
+            moment(this.context.biListViewModel?.dateFilter?.date_end).isSameOrAfter(
+              moment().format('YYYY-MM-DD')
+            )
+          ) {
+            this.dashboardListViewModel.initialize({
+              'filter[domain]': this.context.biListViewModel.activeDomain,
+            });
+          }
+        }, 30000);
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     handleDateRangeChange = (startDate, endDate) => {

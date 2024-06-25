@@ -110,9 +110,11 @@ const Table = ({
                       (item) => !dataList.some((other) => item.id === other)
                     ))
                   : (newHeaderGroup = headerGroup.headers);
-
+                let props = {
+                  role: headerGroup.getHeaderGroupProps()?.role,
+                };
                 return (
-                  <tr key={index} {...headerGroup.getHeaderGroupProps()}>
+                  <tr key={index} {...props}>
                     {newHeaderGroup.map((column, index) => {
                       let sortParams = column.sortParams ?? column.id;
                       let columnInside = '';
@@ -244,14 +246,20 @@ const Table = ({
                       ))
                     : (newRowCells = row.cells);
                   const subRow = row.cells.find((item) => item?.column?.id === idKey)?.value ?? [];
+                  let props = { role: rowProps?.role };
                   return (
                     <React.Fragment key={row.getRowProps().key}>
-                      <tr {...row.getRowProps()}>
+                      <tr key={row.getRowProps().key} {...props}>
                         {newRowCells.map((cell, index) => {
+                          let props = {
+                            role: cell.getCellProps({ style: { width: cell.column.width } })?.role,
+                            style: cell.getCellProps({ style: { width: cell.column.width } })
+                              ?.style,
+                          };
                           return (
                             <td
                               key={index}
-                              {...cell.getCellProps({ style: { width: cell.column.width } })}
+                              {...props}
                               className={`wb-all ${tdClass ? tdClass : 'py-2 align-middle'}`}
                             >
                               {cell.render('Cell')}

@@ -78,14 +78,18 @@ class ChannelModel {
                     onClick={(e) =>
                       this.handleChangeLink(e, `acquisition/detail?url=${cell?.value}}`)
                     }
-                    className={'px-15 d-block text-secondary-50 text-capitalize mt-sm'}
+                    className={`${
+                      index === 0 ? 'pe-15' : 'px-15'
+                    } d-block text-secondary-50 text-capitalize mt-sm`}
                   >
                     <span>{cell?.value}</span>
                   </a>
                 ) : (
                   <NavLink
                     to={`/acquisition/detail?url=${cell?.value}`}
-                    className={'px-15 d-block text-secondary-50 text-capitalize mt-sm'}
+                    className={`${
+                      index === 0 ? 'pe-15' : 'px-15'
+                    } d-block text-secondary-50 text-capitalize mt-sm`}
                   >
                     {cell?.value}
                   </NavLink>

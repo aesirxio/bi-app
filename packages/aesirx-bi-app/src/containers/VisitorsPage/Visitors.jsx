@@ -79,7 +79,7 @@ const VisitorsPage = observer(
             <div>
               <h2 className="fw-bold mb-3 mt-3">{t('txt_visitors')}</h2>
             </div>
-            <div className="position-relative">
+            <div className="position-relative havePrintButton">
               <DateRangePicker onChange={this.handleDateRangeChange} />
             </div>
           </div>

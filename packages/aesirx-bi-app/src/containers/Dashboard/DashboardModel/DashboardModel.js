@@ -487,9 +487,9 @@ class DashboardModel {
               <>
                 {column.id === BI_EVENTS_TYPE_FIELD_KEY.EVENT_NAME ? (
                   <div
-                    className={
-                      'd-flex align-items-center text-capitalize py-sm px-20 position-relative'
-                    }
+                    className={`d-flex align-items-center text-capitalize py-sm position-relative ${
+                      index === 0 ? 'pe-20' : 'px-20'
+                    }`}
                   >
                     <div className="z-1">{cell?.value === '' ? 'Unknown' : cell?.value}</div>
                   </div>
@@ -565,9 +565,9 @@ class DashboardModel {
               <>
                 {column.id === BI_ATTRIBUTE_FIELD_KEY.VALUE ? (
                   <div
-                    className={
-                      'd-flex align-items-center text-capitalize py-sm px-20 position-relative'
-                    }
+                    className={`d-flex align-items-center text-capitalize py-sm position-relative ${
+                      index === 0 ? 'pe-20' : 'px-20'
+                    }`}
                   >
                     <div className="z-1">{cell?.value === '' ? 'Unknown' : cell?.value}</div>
                   </div>

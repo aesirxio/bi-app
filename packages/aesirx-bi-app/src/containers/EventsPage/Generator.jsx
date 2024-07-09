@@ -64,9 +64,8 @@ const Generator = observer(() => {
                   '"'
               }
           >${values.buttonName}</${tagHtml}>`
-        : `trackEvent(
+        : `window.trackEventAnalytics(
             "${url}",
-            "${values.visitorUUID}",
             "${values.referer}",
             {
               event_name: "${values.eventName}",
@@ -253,19 +252,6 @@ const Generator = observer(() => {
             </Form.Group>
             {values.generatorType === 'event' && (
               <>
-                <Form.Group className="mb-3" controlId="formvisitorUUID">
-                  <Form.Label className="fw-semibold">Visitor UUID</Form.Label>
-                  <Form.Control
-                    as="input"
-                    placeholder="Visitor UUID"
-                    name="visitorUUID"
-                    defaultValue={values.visitorUUID}
-                    onChange={handleChange('visitorUUID')}
-                  />
-                  <p className="fs-sm ps-1 fst-italic">
-                    (visitor_uuid is the params get from url - it will auto generated)
-                  </p>
-                </Form.Group>
                 <Form.Group className="mb-3" controlId="formreferer">
                   <Form.Label className="fw-semibold">Referer</Form.Label>
                   <Form.Control

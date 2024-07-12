@@ -107,29 +107,6 @@ const ConsentsTemplate = observer(() => {
               <div className="border rounded-2 shadow-sm mb-3">
                 <Image
                   className={`w-100`}
-                  src={`${env.PUBLIC_URL}/assets/images/consent_original.png`}
-                  alt={'icons'}
-                />
-              </div>
-              <Form.Check
-                inline
-                label={`Original template`}
-                onChange={() => {
-                  handleChange('original');
-                }}
-                checked={values?.template === 'original'}
-                value={`original`}
-                name="group1"
-                type="radio"
-                id={`inline-radio-original`}
-              />
-            </div>
-          </Col>
-          <Col lg="4" className="mb-3">
-            <div className="d-flex justify-content-between flex-column h-100">
-              <div className="border rounded-2 shadow-sm mb-3">
-                <Image
-                  className={`w-100`}
                   src={`${env.PUBLIC_URL}/assets/images/consent_default.png`}
                   alt={'icons'}
                 />
@@ -168,51 +145,6 @@ const ConsentsTemplate = observer(() => {
                 name="group1"
                 type="radio"
                 id={`inline-radio-simple`}
-              />
-            </div>
-          </Col>
-          <Col lg="4" className="mb-3">
-            <div className="d-flex justify-content-between flex-column h-100">
-              <div className="border rounded-2 shadow-sm mb-3">
-                <Image
-                  className={`w-100`}
-                  src={`${env.PUBLIC_URL}/assets/images/consent_advance_mode.png`}
-                  alt={'icons'}
-                />
-              </div>
-              <Form.Check
-                inline
-                label={`Advance Consent Mode`}
-                onChange={() => {
-                  handleChange('advance-consent-mode');
-                }}
-                checked={values?.template === 'advance-consent-mode'}
-                value={`advance-consent-mode`}
-                name="group1"
-                type="radio"
-                id={`inline-radio-advance`}
-              />
-            </div>
-          </Col>
-          <Col lg="4" className="mb-3">
-            <div className="d-flex justify-content-between flex-column h-100">
-              <div className="border rounded-2 shadow-sm mb-3">
-                <Image
-                  className={`w-100`}
-                  src={`${env.PUBLIC_URL}/assets/images/consent_simple_web2.png`}
-                  alt={'icons'}
-                />
-              </div>
-              <Form.Check
-                inline
-                label={`Simple Web2`}
-                onChange={() => {
-                  handleChange('simple-web-2');
-                }}
-                value={`simple-web-2`}
-                name="group1"
-                type="radio"
-                id={`inline-radio-simple-web2`}
               />
             </div>
           </Col>

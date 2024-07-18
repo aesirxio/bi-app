@@ -32,7 +32,11 @@ const VisitorsPage = observer(
     }
     componentDidMount = () => {
       this.visitorsListViewModel.initialize({
-        'filter[domain]': this.context.biListViewModel.activeDomain,
+        ...this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       });
     };
     componentDidUpdate = (prevProps) => {
@@ -41,7 +45,11 @@ const VisitorsPage = observer(
         this.props.activeDomain !== prevProps.activeDomain
       ) {
         this.visitorsListViewModel.initialize({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         });
       }
     };
@@ -52,7 +60,11 @@ const VisitorsPage = observer(
     handleSortFlowList = async (column) => {
       this.visitorsListViewModel.getFlowList(
         {
-          'filter[domain]': this.props.domain,
+          ...this.props.domain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'with[]': 'events',
         },
         {},

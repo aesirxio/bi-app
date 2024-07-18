@@ -32,7 +32,11 @@ const WoocommerceProduct = observer(() => {
   useEffect(() => {
     const execute = async () => {
       await initializeProduct({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       });
     };
     execute();

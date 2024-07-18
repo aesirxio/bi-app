@@ -29,7 +29,11 @@ const UserFlowPage = observer(
     componentDidMount = () => {
       this.userFlowListViewModel.initialize(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         { ...(this.params?.pagination && { page: this.params?.pagination }) }
@@ -42,7 +46,11 @@ const UserFlowPage = observer(
       ) {
         this.userFlowListViewModel.initialize(
           {
-            'filter[domain]': this.context.biListViewModel.activeDomain,
+            ...this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           },
           {},
           { ...(this.params?.pagination && { page: this.params?.pagination }) }
@@ -56,7 +64,11 @@ const UserFlowPage = observer(
     handleSort = async (column) => {
       this.userFlowListViewModel.getPages(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {
@@ -70,7 +82,11 @@ const UserFlowPage = observer(
     handleSearch = async (search) => {
       this.userFlowListViewModel.getPages(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {},

@@ -23,7 +23,7 @@ const ConsentsTemplate = observer(() => {
 
   useEffect(() => {
     const execute = async () => {
-      await initialize(activeDomain);
+      await initialize(activeDomain[0]);
     };
     execute();
     return () => {};
@@ -35,14 +35,14 @@ const ConsentsTemplate = observer(() => {
   }, [consentsTemplate]);
 
   const [values, setValues] = useState({
-    domain: activeDomain,
+    domain: activeDomain[0],
     template: '',
     gtag_id: '',
     gtm_id: '',
   });
 
   const handleChange = (name) => {
-    setValues({ ...values, domain: activeDomain, template: name });
+    setValues({ ...values, domain: activeDomain[0], template: name });
   };
   const handleSubmit = async () => {
     if (values?.template) {
@@ -72,7 +72,7 @@ const ConsentsTemplate = observer(() => {
       </div>
       <Form.Group className="mb-3" controlId="formExport">
         <Form.Label className="fw-semibold w-100">
-          Fill your Google tag id, Google Tag Manager id for {activeDomain} (optional)
+          Fill your Google tag id, Google Tag Manager id for {activeDomain[0]} (optional)
         </Form.Label>
         <Row className="mb-3">
           <Col lg="6">
@@ -99,7 +99,7 @@ const ConsentsTemplate = observer(() => {
           </Col>
         </Row>
         <Form.Label className="fw-semibold w-100">
-          Choose consent template for {activeDomain}
+          Choose consent template for {activeDomain[0]}
         </Form.Label>
         <Row>
           <Col lg="4" className="mb-3">

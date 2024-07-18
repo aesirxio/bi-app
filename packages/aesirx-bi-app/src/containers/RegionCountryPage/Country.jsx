@@ -30,20 +30,32 @@ const Country = observer(
     componentDidUpdate = (prevProps) => {
       if (this.props.location !== prevProps.location && !this.props.integration) {
         this.countryListViewModel.initialize({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         });
       }
 
       if (this.props.activeDomain !== prevProps.activeDomain && this.props.integration) {
         this.countryListViewModel.initialize({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         });
       }
     };
 
     componentDidMount = () => {
       this.countryListViewModel.initialize({
-        'filter[domain]': this.context.biListViewModel.activeDomain,
+        ...this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       });
     };
 
@@ -54,7 +66,11 @@ const Country = observer(
     handleSortRegion = async (column) => {
       this.countryListViewModel.getRegion(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {

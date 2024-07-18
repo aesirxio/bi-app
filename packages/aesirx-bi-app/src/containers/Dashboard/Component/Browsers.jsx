@@ -27,7 +27,11 @@ const Browsers = observer(
     handleSortDevices = async (column) => {
       this.dashboardListViewModel.getDevices(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {
@@ -43,7 +47,11 @@ const Browsers = observer(
     handleSortBrowsers = async (column) => {
       this.dashboardListViewModel.getBrowsers(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {

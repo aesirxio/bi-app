@@ -15,7 +15,7 @@ class BiListViewModel {
   paginationCollections = null;
   status = PAGE_STATUS.READY;
   data = [];
-  listDomain = JSON.parse(env.REACT_APP_DATA_STREAM) ?? [];
+  listDomain = env.REACT_APP_DATA_STREAM ? JSON.parse(env.REACT_APP_DATA_STREAM) : [];
   tableRowHeader = null;
   dateFilter = {
     date_start: moment().subtract(7, 'd').format('YYYY-MM-DD'),
@@ -32,8 +32,10 @@ class BiListViewModel {
 
     const checkPage = queryString.parse(location.search);
     this.activeDomain = checkPage?.domain
-      ? checkPage?.domain
-      : env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain;
+      ? Array.isArray(checkPage?.domain)
+        ? checkPage?.domain
+        : checkPage?.domain?.split(',')
+      : env.REACT_APP_DATA_STREAM && [JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain];
     this.integrationLink = checkPage?.page
       ? checkPage?.page?.replace('aesirx-bi-', '')
       : 'dashboard';

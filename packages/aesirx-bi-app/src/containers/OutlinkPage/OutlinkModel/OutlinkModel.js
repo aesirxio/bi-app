@@ -50,7 +50,7 @@ class OutlinkModel {
                   href={`//${cell?.value}`}
                   target="_blank"
                   rel="noreferrer"
-                  className={'px-15 d-block text-secondary-50'}
+                  className={`${index === 0 ? 'pe-15' : 'px-15'} d-block text-secondary-50`}
                 >
                   <span>{cell?.value}</span>
                 </a>
@@ -92,7 +92,7 @@ class OutlinkModel {
                   href={`//${value}`}
                   target="_blank"
                   rel="noreferrer"
-                  className={'px-15 d-block text-secondary-50'}
+                  className={`${index === 0 ? 'pe-15' : 'px-15'} d-block text-secondary-50`}
                 >
                   <span>{value}</span>
                 </a>

@@ -74,7 +74,7 @@ const Country = observer(
               <div className="position-relative">
                 <h2 className="fw-bold mb-3 mt-3">{t('txt_menu_region')}</h2>
               </div>
-              <div className="position-relative">
+              <div className="position-relative havePrintButton">
                 <DateRangePicker onChange={this.handleDateRangeChange} />
               </div>
             </div>
@@ -128,7 +128,7 @@ const Country = observer(
             </div>
             <Row className="my-24 pb-24">
               <Col lg={6} className="mb-24">
-                <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
                   <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_region')}</h4>
                   <TopTable
                     data={this.countryListViewModel?.regionTableData?.list}
@@ -153,7 +153,7 @@ const Country = observer(
                 </div>
               </Col>
               <Col lg={6} className="mb-24">
-                <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
                   <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_city')}</h4>
                   <TopTable
                     data={this.countryListViewModel?.citiesTableData?.list}

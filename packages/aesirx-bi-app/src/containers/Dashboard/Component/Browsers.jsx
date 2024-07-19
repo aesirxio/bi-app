@@ -60,7 +60,7 @@ const Browsers = observer(
       const { t } = this.props;
       const { status } = this.dashboardListViewModel;
       return (
-        <div className="position-relative ChartWrapper h-100">
+        <div className="position-relative ChartWrapper h-100 d-flex flex-column">
           {status === PAGE_STATUS.LOADING ? (
             <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white" />
           ) : (
@@ -84,8 +84,8 @@ const Browsers = observer(
                       </Nav>
                     </div>
                     <Tab.Content className="h-100">
-                      <Tab.Pane eventKey="browser">
-                        <div className="browser-table">
+                      <Tab.Pane eventKey="browser" className="h-100">
+                        <div className="browser-table d-flex flex-column h-100">
                           <TopTable
                             data={this.dashboardListViewModel?.browsersData?.list}
                             pagination={this.dashboardListViewModel?.browsersData?.pagination}
@@ -106,12 +106,13 @@ const Browsers = observer(
                             sortAPI={true}
                             handleSort={this.handleSortBrowsers}
                             sortBy={this.dashboardListViewModel?.sortByBrowsers}
+                            tdClass={'py-1'}
                             {...this.props}
                           />
                         </div>
                       </Tab.Pane>
-                      <Tab.Pane eventKey="types">
-                        <div className="browser-table">
+                      <Tab.Pane eventKey="types" className="h-100">
+                        <div className="browser-table d-flex flex-column h-100">
                           <TopTable
                             data={this.dashboardListViewModel?.devicesTableData?.list}
                             pagination={this.dashboardListViewModel?.devicesTableData?.pagination}
@@ -130,6 +131,7 @@ const Browsers = observer(
                             sortAPI={true}
                             handleSort={this.handleSortDevices}
                             sortBy={this.dashboardListViewModel?.sortByDevices}
+                            tdClass={'py-1'}
                             {...this.props}
                           />
                         </div>

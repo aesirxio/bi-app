@@ -90,7 +90,7 @@ const Events = observer((props) => {
         <div className="position-relative">
           <h2 className="fw-bold mb-3 mt-3">{t('txt_menu_events')}</h2>
         </div>
-        <div className="position-relative">
+        <div className="position-relative havePrintButton haveEventButton">
           <DateRangePicker onChange={handleDateRangeChange} />
         </div>
       </div>
@@ -189,7 +189,7 @@ const Events = observer((props) => {
               handleSort={handleSort}
               sortBy={sortBy}
               handleSearch={handleSearch}
-              tdClass={'align-top'}
+              tdClass={'py-2 align-top'}
               {...props}
             />
           )}

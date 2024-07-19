@@ -53,12 +53,12 @@ const Platform = observer(
           </div>
           <div className="row justify-content-center g-4 mb-4">
             <div className="col">
-              <div className="bg-white p-3 rounded">
+              <div className="bg-white p-3 rounded h-100">
                 <Browers />
               </div>
             </div>
             <div className="col">
-              <div className="bg-white p-3 rounded">
+              <div className="bg-white p-3 rounded h-100">
                 <Isps />
               </div>
             </div>
@@ -66,7 +66,7 @@ const Platform = observer(
 
           <div className="row justify-content-center align-items-center g-4">
             <div className="col">
-              <div className="bg-white p-3 rounded">
+              <div className="bg-white p-3 rounded h-100">
                 <Divices />
               </div>
             </div>

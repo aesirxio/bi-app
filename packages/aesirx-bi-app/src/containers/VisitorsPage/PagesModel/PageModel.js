@@ -138,7 +138,7 @@ class PageModel {
                   <a
                     href="#"
                     onClick={(e) => this.handleChangeLink(e, `behavior/detail?url=${cell?.value}}`)}
-                    className={'px-15 d-block text-secondary-50'}
+                    className={`${index === 0 ? 'pe-15' : 'px-15'} d-block text-secondary-50`}
                   >
                     <span>
                       {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
@@ -147,7 +147,7 @@ class PageModel {
                 ) : (
                   <NavLink
                     to={`/behavior/detail?url=${cell?.value}`}
-                    className={'px-15 d-block text-secondary-50'}
+                    className={`${index === 0 ? 'pe-15' : 'px-15'} d-block text-secondary-50`}
                   >
                     {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
                   </NavLink>

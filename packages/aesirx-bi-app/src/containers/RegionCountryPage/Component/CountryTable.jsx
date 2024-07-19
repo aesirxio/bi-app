@@ -1,10 +1,9 @@
-import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
+import { BI_SUMMARY_FIELD_KEY, env } from 'aesirx-lib';
 import Table from '../../../components/Table';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Tooltip } from 'react-tooltip';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons/faCircleInfo';
+import ComponentSVG from 'components/ComponentSVG';
 const CountryTable = (props) => {
   const { data, t } = props;
   const columnsTable = React.useMemo(
@@ -41,17 +40,26 @@ const CountryTable = (props) => {
           width: item.width ? item.width : index === 0 ? 'auto' : 170,
           allowSort: item?.allowSort || false,
           Header: (
-            <span className="align-middle">
+            <span
+              className="align-middle position-relative"
+              data-tooltip-id="tooltipTable"
+              data-tooltip-content={t(tooltip)}
+              data-tooltip-place={`${index === data?.header?.length - 1 ? 'top-end' : 'top'}`}
+            >
               {t(item.Header)}
               {tooltip && (
                 <>
-                  <FontAwesomeIcon
-                    data-tooltip-id="tooltipTable"
-                    data-tooltip-content={t(tooltip)}
+                  <div
                     className="mx-sm fs-12 mb-1"
-                    data-tooltip-place={`${index === data?.header?.length - 1 ? 'top-end' : 'top'}`}
-                    icon={faCircleInfo}
-                  />
+                    style={{ position: 'absolute', right: '-5px', top: '-12px' }}
+                  >
+                    <ComponentSVG
+                      url={env.PUBLIC_URL + '/assets/images/info.svg'}
+                      width={'12px'}
+                      height={'12px'}
+                      color={'#5F5E70'}
+                    />
+                  </div>
                   <Tooltip id="tooltipTable" />
                 </>
               )}

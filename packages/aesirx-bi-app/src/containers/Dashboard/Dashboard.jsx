@@ -21,6 +21,7 @@ import Countries from './Component/Countries';
 import Browsers from './Component/Browsers';
 import TopTable from '../VisitorsPage/Component/TopTable';
 import { Image } from 'aesirx-uikit';
+import moment from 'moment';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -47,10 +48,25 @@ const Dashboard = observer(
       }
     };
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
       this.dashboardListViewModel.initialize({
         'filter[domain]': this.context.biListViewModel.activeDomain,
       });
+      try {
+        setInterval(async () => {
+          if (
+            moment(this.context.biListViewModel?.dateFilter?.date_end).isSameOrAfter(
+              moment().format('YYYY-MM-DD')
+            )
+          ) {
+            this.dashboardListViewModel.initialize({
+              'filter[domain]': this.context.biListViewModel.activeDomain,
+            });
+          }
+        }, 30000);
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     handleDateRangeChange = (startDate, endDate) => {
@@ -118,7 +134,7 @@ const Dashboard = observer(
             <div className="position-relative">
               <h2 className="fw-bold mb-3 mt-3">{t('txt_dashboard')}</h2>
             </div>
-            <div className="position-relative">
+            <div className="position-relative havePrintButton">
               <DateRangePicker onChange={this.handleDateRangeChange} />
             </div>
           </div>
@@ -228,7 +244,7 @@ const Dashboard = observer(
           </Row>
           <Row className="mt-4">
             <Col lg={6} className="mb-24">
-              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
                 <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_sources')}</h4>
                 <TopTable
                   data={this.dashboardListViewModel?.sourcesTableData?.list}
@@ -248,12 +264,13 @@ const Dashboard = observer(
                   sortAPI={true}
                   handleSort={this.handleSortSources}
                   sortBy={this.dashboardListViewModel?.sortBySources}
+                  tdClass={'py-1'}
                   {...this.props}
                 />
               </div>
             </Col>
             <Col lg={6} className="mb-24">
-              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative d-flex flex-column">
                 <h4 className="me-24 mb-24 fw-semibold fs-5">{t('txt_top_pages')}</h4>
                 <TopTable
                   data={this.dashboardListViewModel?.pagesTableData?.list}
@@ -273,6 +290,7 @@ const Dashboard = observer(
                   sortAPI={true}
                   handleSort={this.handleSortPage}
                   sortBy={this.dashboardListViewModel?.sortByPages}
+                  tdClass={'py-1'}
                   {...this.props}
                 />
               </div>

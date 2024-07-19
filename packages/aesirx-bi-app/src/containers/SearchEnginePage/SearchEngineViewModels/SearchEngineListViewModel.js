@@ -30,6 +30,13 @@ class SearchEngineListViewModel {
   }
 
   initialize = (dataFilter, dateFilter, page) => {
+    if (!dateFilter) {
+      for (const key in this.dataFilter) {
+        if (key.startsWith('filter[domain]')) {
+          delete this.dataFilter[key];
+        }
+      }
+    }
     this.getVisits(dataFilter, dateFilter);
     this.getOutlink(dataFilter, dateFilter, page, {});
   };

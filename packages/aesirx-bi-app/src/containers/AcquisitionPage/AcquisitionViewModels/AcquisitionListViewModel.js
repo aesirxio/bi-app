@@ -36,6 +36,13 @@ class AcquisitionListViewModel {
   }
 
   initialize = async (dataFilter, dateFilter, page) => {
+    if (!dateFilter) {
+      for (const key in this.dataFilter) {
+        if (key.startsWith('filter[domain]')) {
+          delete this.dataFilter[key];
+        }
+      }
+    }
     this.getVisits(dataFilter, dateFilter);
     this.getMetrics(dataFilter, dateFilter);
     await this.getOutlink(dataFilter, dateFilter, page, {}, page);

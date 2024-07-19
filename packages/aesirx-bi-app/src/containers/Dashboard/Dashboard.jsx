@@ -21,7 +21,6 @@ import Countries from './Component/Countries';
 import Browsers from './Component/Browsers';
 import TopTable from '../VisitorsPage/Component/TopTable';
 import { Image, PAGE_STATUS } from 'aesirx-uikit';
-import moment from 'moment';
 
 const Dashboard = observer(
   class Dashboard extends Component {

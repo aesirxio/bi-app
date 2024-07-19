@@ -26,6 +26,13 @@ class CountryListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
+    if (!dateFilter) {
+      for (const key in this.dataFilter) {
+        if (key.startsWith('filter[domain]')) {
+          delete this.dataFilter[key];
+        }
+      }
+    }
     this.getCountries(dataFilter, dateFilter);
     this.getRegion(dataFilter, dateFilter);
     this.getCities(dataFilter, dateFilter);

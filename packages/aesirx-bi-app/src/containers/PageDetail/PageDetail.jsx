@@ -46,7 +46,7 @@ const PageDetail = observer(
         this.props.activeDomain !== prevProps.activeDomain
       ) {
         this.pageDetailListViewModel.initialize({
-         ...this.context.biListViewModel.activeDomain
+          ...this.context.biListViewModel.activeDomain
             ?.map((value, index) => ({
               [`filter[domain][${index + 1}]`]: value,
             }))
@@ -58,11 +58,11 @@ const PageDetail = observer(
 
     componentDidMount = () => {
       this.pageDetailListViewModel.initialize({
-       ...this.context.biListViewModel.activeDomain
-            ?.map((value, index) => ({
-              [`filter[domain][${index + 1}]`]: value,
-            }))
-            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+        ...this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[url]': this.params?.url,
       });
     };

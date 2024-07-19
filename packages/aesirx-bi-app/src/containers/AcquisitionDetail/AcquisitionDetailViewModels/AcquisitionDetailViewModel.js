@@ -32,6 +32,13 @@ class AcquisitionDetailListViewModel {
   }
 
   initialize = (dataFilter, dateFilter, page) => {
+    if (!dateFilter) {
+      for (const key in this.dataFilter) {
+        if (key.startsWith('filter[domain]')) {
+          delete this.dataFilter[key];
+        }
+      }
+    }
     this.getVisits(dataFilter, dateFilter);
     this.getPages(dataFilter, dateFilter, page, {}, page);
   };

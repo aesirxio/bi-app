@@ -28,6 +28,13 @@ class PlatformsListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
+    if (!dateFilter) {
+      for (const key in this.dataFilter) {
+        if (key.startsWith('filter[domain]')) {
+          delete this.dataFilter[key];
+        }
+      }
+    }
     this.getBrowsers(dataFilter, dateFilter);
     this.getDevices(dataFilter, dateFilter);
     this.getIsps(dataFilter, dateFilter);

@@ -52,6 +52,13 @@ class VisitorsListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
+    if (!dateFilter) {
+      for (const key in this.dataFilter) {
+        if (key.startsWith('filter[domain]')) {
+          delete this.dataFilter[key];
+        }
+      }
+    }
     this.getMetrics(dataFilter, dateFilter);
     // this.getVisitors(dataFilter, dateFilter);
     this.getVisits(dataFilter, dateFilter);
@@ -64,6 +71,13 @@ class VisitorsListViewModel {
   };
 
   initializeBehavior = async (dataFilter, dateFilter, page) => {
+    if (!dateFilter) {
+      for (const key in this.dataFilter) {
+        if (key.startsWith('filter[domain]')) {
+          delete this.dataFilter[key];
+        }
+      }
+    }
     this.getVisitors(dataFilter, dateFilter);
     this.getMetrics(dataFilter, dateFilter);
     await this.getPages(dataFilter, dateFilter, null, page);

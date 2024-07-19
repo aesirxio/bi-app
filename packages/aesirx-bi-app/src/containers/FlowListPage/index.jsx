@@ -34,7 +34,6 @@ const FlowListContainer = observer(
 
     componentDidMount = () => {
       if (!this.props.integration && history.location.pathname === '/') {
-        console.log('hehe');
         history.push(`${this.biListViewModel.activeDomain[0]}`);
       }
     };

@@ -2,8 +2,8 @@
  * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
  * @license     GNU General Public License version 3, see LICENSE.
  */
-import React, { useState } from 'react';
-import { Collapse, Button, Form, Dropdown } from 'react-bootstrap';
+import React from 'react';
+import { Form, Dropdown } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { useTranslation } from 'react-i18next';
@@ -12,25 +12,8 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { mainMenu } from 'routes/menu';
 import './index.scss';
 const DataStream = observer(({ integration }) => {
-  const [isOpenCollapse, setIsOpenCollapse] = useState('default');
   const { t } = useTranslation();
   const biStore = useBiViewModel();
-
-  const handleOpen = (clickedIndex, parentIndex) => {
-    if (isOpenCollapse === clickedIndex.toString()) {
-      if (parentIndex) {
-        setIsOpenCollapse(parentIndex.toString());
-      } else {
-        setIsOpenCollapse(null);
-      }
-    } else {
-      if (isOpenCollapse?.includes(clickedIndex.toString())) {
-        setIsOpenCollapse(null);
-      } else {
-        setIsOpenCollapse(clickedIndex.toString());
-      }
-    }
-  };
 
   const handleChangeLink = (e, link) => {
     e.preventDefault();

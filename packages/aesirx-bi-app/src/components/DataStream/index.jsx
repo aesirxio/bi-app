@@ -122,7 +122,9 @@ const DataStream = observer(({ integration }) => {
                 className="bg-white shadow-lg rounded-1 w-100 list-unstyled mb-0 p-0 border"
               >
                 <div
-                  className="py-sm px-16 pb-5 position-absolute w-100 h-100 overflow-auto"
+                  className={`py-sm px-16 ${
+                    biStore.biListViewModel?.listDomain?.length > 1 ? 'pb-5' : ''
+                  } position-absolute w-100 h-100 overflow-auto`}
                   style={{ height: '320px' }}
                 >
                   {biStore.biListViewModel?.listDomain.map((item, index) => {
@@ -159,34 +161,38 @@ const DataStream = observer(({ integration }) => {
                     );
                   })}
                 </div>
-                <div
-                  className={`${styles?.datastream_all_menu} item_menu cursor-pointer mb-0 p-0 border-bottom bg-white w-100 py-1 ps-16 pe-20`}
-                  name={`datastream-all`}
-                >
-                  <Form.Label
-                    className={`text-decoration-none mb-0 d-flex align-items-center justify-content-between`}
+                {biStore.biListViewModel?.listDomain?.length > 1 ? (
+                  <div
+                    className={`${styles?.datastream_all_menu} item_menu cursor-pointer mb-0 p-0 border-bottom bg-white w-100 py-1 ps-16 pe-20`}
+                    name={`datastream-all`}
                   >
-                    <div
-                      className={`d-block py-2 link_menu text-decoration-none fs-5 fw-semibold `}
+                    <Form.Label
+                      className={`text-decoration-none mb-0 d-flex align-items-center justify-content-between`}
                     >
-                      Select All
-                    </div>
-                    <Form.Check
-                      onChange={() => {
-                        handleChange('all');
-                      }}
-                      checked={
-                        biStore.biListViewModel?.activeDomain?.length ===
-                        biStore.biListViewModel?.listDomain?.length
-                      }
-                      value={`all`}
-                      name={`datastream-all`}
-                      type="checkbox"
-                      id={`datastream-checkbox--all`}
-                      className="data_stream_checkbox"
-                    />
-                  </Form.Label>
-                </div>
+                      <div
+                        className={`d-block py-2 link_menu text-decoration-none fs-5 fw-semibold `}
+                      >
+                        Select All
+                      </div>
+                      <Form.Check
+                        onChange={() => {
+                          handleChange('all');
+                        }}
+                        checked={
+                          biStore.biListViewModel?.activeDomain?.length ===
+                          biStore.biListViewModel?.listDomain?.length
+                        }
+                        value={`all`}
+                        name={`datastream-all`}
+                        type="checkbox"
+                        id={`datastream-checkbox--all`}
+                        className="data_stream_checkbox"
+                      />
+                    </Form.Label>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </Dropdown.Menu>
             </Dropdown>
           </div>

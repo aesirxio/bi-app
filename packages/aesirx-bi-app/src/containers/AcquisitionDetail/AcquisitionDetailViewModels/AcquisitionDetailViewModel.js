@@ -33,11 +33,14 @@ class AcquisitionDetailListViewModel {
 
   initialize = (dataFilter, dateFilter, page) => {
     if (!dateFilter) {
-      for (const key in this.dataFilter) {
-        if (key.startsWith('filter[domain]')) {
-          delete this.dataFilter[key];
+      const dataFilterObjects = [this.dataFilter, this.dataFilterPages];
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
         }
-      }
+      });
     }
     this.getVisits(dataFilter, dateFilter);
     this.getPages(dataFilter, dateFilter, page, {}, page);

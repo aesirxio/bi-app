@@ -30,11 +30,14 @@ class ConsentsListViewModel {
 
   initialize = async (dataFilter, dateFilter) => {
     if (!dateFilter) {
-      for (const key in this.dataFilter) {
-        if (key.startsWith('filter[domain]')) {
-          delete this.dataFilter[key];
+      const dataFilterObjects = [this.dataFilterConsentsList, this.dataFilterConsentsDate];
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
         }
-      }
+      });
     }
     this.getConsentsList(
       {

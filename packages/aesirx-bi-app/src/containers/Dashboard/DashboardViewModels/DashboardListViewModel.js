@@ -10,6 +10,7 @@ import moment from 'moment';
 import DashboardModel from '../DashboardModel/DashboardModel';
 import CountryModel from '../../RegionCountryPage/CountryModel/CountryModel';
 import PageModel from '../../VisitorsPage/PagesModel/PageModel';
+
 class DashboardListViewModel {
   dashboardStore = null;
   status = PAGE_STATUS.READY;
@@ -43,11 +44,22 @@ class DashboardListViewModel {
 
   initialize = (dataFilter, dateFilter) => {
     if (!dateFilter) {
-      for (const key in this.dataFilter) {
-        if (key.startsWith('filter[domain]')) {
-          delete this.dataFilter[key];
+      const dataFilterObjects = [
+        this.dataFilter,
+        this.dataFilterBrowsers,
+        this.dataFilterDevices,
+        this.dataFilterPages,
+        this.dataFilterEventsType,
+        this.dataFilterSources,
+      ];
+
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
         }
-      }
+      });
     }
     this.getMetrics(dataFilter, dateFilter);
     this.getVisitors(dataFilter, dateFilter);

@@ -45,11 +45,19 @@ class WoocommerceListViewModel {
 
   initialize = async (dataFilter, dateFilter) => {
     if (!dateFilter) {
-      for (const key in this.dataFilter) {
-        if (key.startsWith('filter[domain]')) {
-          delete this.dataFilter[key];
+      const dataFilterObjects = [
+        this.dataFilterStatistic,
+        this.dataFilterStatisticChart,
+        this.dataFilterProduct,
+        this.dataFilterAttribute,
+      ];
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
         }
-      }
+      });
     }
     this.getWoocommerceStatistic(
       {

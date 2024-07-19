@@ -23,6 +23,16 @@ class OutlinkListViewModel {
   }
 
   initialize = (dataFilter, dateFilter, page) => {
+    if (!dateFilter) {
+      const dataFilterObjects = [this.dataFilterOutlink];
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
+        }
+      });
+    }
     this.getOutlink(dataFilter, dateFilter, page, {});
   };
 

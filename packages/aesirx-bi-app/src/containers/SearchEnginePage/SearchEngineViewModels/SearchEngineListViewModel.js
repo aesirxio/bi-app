@@ -31,11 +31,14 @@ class SearchEngineListViewModel {
 
   initialize = (dataFilter, dateFilter, page) => {
     if (!dateFilter) {
-      for (const key in this.dataFilter) {
-        if (key.startsWith('filter[domain]')) {
-          delete this.dataFilter[key];
+      const dataFilterObjects = [this.dataFilter, this.dataFilterChannel, this.dataFilterOutlink];
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
         }
-      }
+      });
     }
     this.getVisits(dataFilter, dateFilter);
     this.getOutlink(dataFilter, dateFilter, page, {});

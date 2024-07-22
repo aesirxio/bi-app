@@ -36,6 +36,22 @@ class PageDetailListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
+    if (!dateFilter) {
+      const dataFilterObjects = [
+        this.dataFilter,
+        this.dataFilterBrowsers,
+        this.dataFilterDevices,
+        this.dataFilterPages,
+        this.dataFilterSources,
+      ];
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
+        }
+      });
+    }
     this.getMetrics(dataFilter, dateFilter);
     this.getVisitors(dataFilter, dateFilter);
     this.getCountries(dataFilter, dateFilter);

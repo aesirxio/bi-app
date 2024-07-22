@@ -22,13 +22,21 @@ const Platform = observer(
 
     componentDidMount = () => {
       this.viewModel.platformsListViewModel.initialize({
-        'filter[domain]': this.context.biListViewModel.activeDomain,
+        ...this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       });
     };
 
     componentDidUpdate = () => {
       this.viewModel.platformsListViewModel.initialize({
-        'filter[domain]': this.context.biListViewModel.activeDomain,
+        ...this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       });
     };
 

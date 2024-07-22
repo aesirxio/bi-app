@@ -42,7 +42,11 @@ const AcquisitionDetail = observer(
         this.props.activeDomain !== prevProps.activeDomain
       ) {
         this.acquisitionDetailListViewModel.initialize({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter[acquisition]': true,
           ...(this.params?.url === 'direct'
             ? { 'filter[filter_not]': '' }
@@ -53,7 +57,11 @@ const AcquisitionDetail = observer(
 
     componentDidMount = () => {
       this.acquisitionDetailListViewModel.initialize({
-        'filter[domain]': this.context.biListViewModel.activeDomain,
+        ...this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[acquisition]': true,
         ...(this.params?.url === 'direct'
           ? { 'filter[filter_not]': '' }
@@ -71,7 +79,11 @@ const AcquisitionDetail = observer(
     handleSort = async (column) => {
       this.acquisitionDetailListViewModel.getPages(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter[acquisition]': true,
           ...(this.params?.url === 'direct'
             ? { 'filter[filter_not]': '' }
@@ -91,7 +103,11 @@ const AcquisitionDetail = observer(
     handleSearch = async (search) => {
       this.acquisitionDetailListViewModel.getPages(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter[acquisition]': true,
           ...(this.params?.url === 'direct'
             ? { 'filter[filter_not]': '' }

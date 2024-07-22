@@ -64,15 +64,27 @@ const UTMTrackingPage = observer((props) => {
   useEffect(() => {
     const execute = async () => {
       await getAttributeDate({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
       });
       await getVisitor({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
       });
       await getAttributeList({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
       });
     };
@@ -81,7 +93,11 @@ const UTMTrackingPage = observer((props) => {
   }, [activeDomain]);
   const onSelectionChange = async (data) => {
     await getVisitor({
-      'filter[domain]': activeDomain,
+      ...activeDomain
+        ?.map((value, index) => ({
+          [`filter[domain][${index + 1}]`]: value,
+        }))
+        ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       'filter[attribute_name]': 'utm_source',
       'filter[attribute_value]': data?.value,
     });
@@ -89,7 +105,11 @@ const UTMTrackingPage = observer((props) => {
   const handleSort = async (column) => {
     await getVisitor(
       {
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
       },
       {},

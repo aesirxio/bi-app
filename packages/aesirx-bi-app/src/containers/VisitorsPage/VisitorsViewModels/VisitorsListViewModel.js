@@ -52,6 +52,23 @@ class VisitorsListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
+    if (!dateFilter) {
+      const dataFilterObjects = [
+        this.dataFilter,
+        this.dataFilterCountries,
+        this.dataFilterCities,
+        this.dataFilterBrowsers,
+        this.dataFilterDevices,
+        this.dataFilterLanguages,
+      ];
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
+        }
+      });
+    }
     this.getMetrics(dataFilter, dateFilter);
     // this.getVisitors(dataFilter, dateFilter);
     this.getVisits(dataFilter, dateFilter);
@@ -64,6 +81,16 @@ class VisitorsListViewModel {
   };
 
   initializeBehavior = async (dataFilter, dateFilter, page) => {
+    if (!dateFilter) {
+      const dataFilterObjects = [this.dataFilter, this.dataFilterPages];
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
+        }
+      });
+    }
     this.getVisitors(dataFilter, dateFilter);
     this.getMetrics(dataFilter, dateFilter);
     await this.getPages(dataFilter, dateFilter, null, page);

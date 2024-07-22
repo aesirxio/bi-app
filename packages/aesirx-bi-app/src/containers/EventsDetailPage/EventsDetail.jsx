@@ -24,24 +24,6 @@ const Events = observer((props) => {
     handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
   }, []);
 
-  // useEffect(() => {
-  //   const execute = async () => {
-  //     getVisitor(
-  //       {
-  //         'filter[domain]': activeDomain,
-  //         'filter_not[event_name]': 'visit',
-  //       },
-  //       {},
-  //       { 'sort[]': 'start', 'sort_direction[]': 'desc' }
-  //     );
-  //     getEvents({
-  //       'filter[domain]': activeDomain,
-  //       'filter_not[event_name]': 'visit',
-  //     });
-  //   };
-  //   execute();
-  //   return () => {};
-  // }, [activeDomain]);
   const { eventName } = useParams();
   const params = queryString.parse(props.location.search);
   const eventNameDetail = props.integration
@@ -52,7 +34,11 @@ const Events = observer((props) => {
   useEffect(() => {
     const execute = async () => {
       await getEventDetail({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[event_name]': eventNameDetail,
       });
     };

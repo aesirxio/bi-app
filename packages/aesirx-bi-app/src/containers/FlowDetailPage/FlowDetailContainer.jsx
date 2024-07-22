@@ -50,11 +50,19 @@ const FlowDetailContainer = observer((props) => {
         'with[]': 'events',
       });
       await getEvents({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'with[]': 'events',
       });
       await getConversion({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'with[]': 'events',
       });
     };
@@ -279,7 +287,7 @@ const FlowDetailContainer = observer((props) => {
             <Col lg="6" className="mb-2 mb-lg-0">
               <span className="search_url d-flex position-relative border rounded-2">
                 <div className="px-2 bg-gray-400 d-flex align-items-center text-nowrap">
-                  https://{activeDomain}/
+                  https://{activeDomain[0]}/
                 </div>
                 <input
                   placeholder={t('txt_search_url')}

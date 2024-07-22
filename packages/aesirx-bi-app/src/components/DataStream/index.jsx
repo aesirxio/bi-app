@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { mainMenu } from 'routes/menu';
-import styles from './index.module.scss';
 const DataStream = observer(({ integration }) => {
   const { t } = useTranslation();
   const biStore = useBiViewModel();
@@ -163,7 +162,7 @@ const DataStream = observer(({ integration }) => {
                 </div>
                 {biStore.biListViewModel?.listDomain?.length > 1 ? (
                   <div
-                    className={`${styles?.datastream_all_menu} item_menu cursor-pointer mb-0 p-0 border-bottom bg-white w-100 py-1 ps-16 pe-20`}
+                    className={`datastream_all_menu item_menu cursor-pointer mb-0 p-0 border-bottom bg-white w-100 py-1 ps-16 pe-20`}
                     name={`datastream-all`}
                   >
                     <Form.Label

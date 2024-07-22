@@ -196,6 +196,15 @@
       height: 20px;
     }
   }
+  .datastream_all_menu {
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: 1px solid #1ab394;
+  }
 }
 
 .item_menu.intergration {

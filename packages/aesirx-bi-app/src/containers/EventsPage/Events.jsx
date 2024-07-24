@@ -39,7 +39,11 @@ const Events = observer((props) => {
     const execute = async () => {
       getVisitor(
         {
-          'filter[domain]': activeDomain,
+          ...activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter_not[event_name]': 'visit',
           ...(params?.pagination && { page: params?.pagination }),
         },
@@ -47,7 +51,11 @@ const Events = observer((props) => {
         { 'sort[]': 'start', 'sort_direction[]': 'desc' }
       );
       getEvents({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter_not[event_name]': 'visit',
       });
     };
@@ -57,7 +65,11 @@ const Events = observer((props) => {
   const handleSort = async (column) => {
     getVisitor(
       {
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter_not[event_name]': 'visit',
       },
       {},
@@ -70,7 +82,11 @@ const Events = observer((props) => {
   const handleSearch = async (search) => {
     getVisitor(
       {
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       },
       {},
       {},
@@ -79,7 +95,11 @@ const Events = observer((props) => {
   };
   const onSelectionChange = async (data) => {
     await getVisitor({
-      'filter[domain]': activeDomain,
+      ...activeDomain
+        ?.map((value, index) => ({
+          [`filter[domain][${index + 1}]`]: value,
+        }))
+        ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       'filter[event_name]': data?.value,
     });
   };

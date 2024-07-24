@@ -34,17 +34,29 @@ const AcquisitionCampaignPage = observer((props) => {
   useEffect(() => {
     const execute = async () => {
       await getAttributeDate({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
         'filter[acquisition]': true,
       });
       await getAttributeTable({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
         'filter[acquisition]': true,
       });
       await getAttributeList({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
         'filter[acquisition]': true,
       });
@@ -55,7 +67,11 @@ const AcquisitionCampaignPage = observer((props) => {
   const handleSort = async (column) => {
     await getAttributeTable(
       {
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
       },
       {},

@@ -32,7 +32,11 @@ const AcquisitionPage = observer(
     componentDidMount = () => {
       this.acquisitionListViewModel.initialize(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter[acquisition]': true,
         },
         {},
@@ -46,7 +50,11 @@ const AcquisitionPage = observer(
       ) {
         this.acquisitionListViewModel.initialize(
           {
-            'filter[domain]': this.context.biListViewModel.activeDomain,
+            ...this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
             'filter[acquisition]': true,
           },
           {},
@@ -125,7 +133,11 @@ const AcquisitionPage = observer(
     handleSort = async (column) => {
       this.acquisitionListViewModel.getChannel(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {
@@ -139,7 +151,11 @@ const AcquisitionPage = observer(
     handleSearch = async (search) => {
       this.acquisitionListViewModel.getChannel(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {},

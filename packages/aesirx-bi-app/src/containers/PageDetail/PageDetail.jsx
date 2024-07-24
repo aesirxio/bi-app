@@ -46,7 +46,11 @@ const PageDetail = observer(
         this.props.activeDomain !== prevProps.activeDomain
       ) {
         this.pageDetailListViewModel.initialize({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter[url]': this.params?.url,
         });
       }
@@ -54,7 +58,11 @@ const PageDetail = observer(
 
     componentDidMount = () => {
       this.pageDetailListViewModel.initialize({
-        'filter[domain]': this.context.biListViewModel.activeDomain,
+        ...this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[url]': this.params?.url,
       });
     };
@@ -69,7 +77,11 @@ const PageDetail = observer(
     handleSortSources = async (column) => {
       this.pageDetailListViewModel.getReferer(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter[url]': this.params?.url,
         },
         {},

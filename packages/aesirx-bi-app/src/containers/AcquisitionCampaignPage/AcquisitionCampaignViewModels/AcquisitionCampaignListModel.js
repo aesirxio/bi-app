@@ -119,12 +119,6 @@ class AcquisitionCampaignListModel {
       this.callbackOnDataAttributeSuccessHandler,
       this.callbackOnErrorHandler
     );
-    this.acquisitionCampaignStore.getAttributeList(
-      this.dataFilterAttributeList,
-      dateRangeFilter,
-      this.callbackOnDataAttributeSuccessHandler,
-      this.callbackOnErrorHandler
-    );
   };
 
   handleFilterTable = async (dataFilter) => {

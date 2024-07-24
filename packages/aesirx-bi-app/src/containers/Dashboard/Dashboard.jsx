@@ -16,12 +16,11 @@ import { BiViewModelContext } from '../../store/BiStore/BiViewModelContextProvid
 import { BI_DEVICES_FIELD_KEY, BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import DateRangePicker from '../../components/DateRangePicker';
 import { env } from 'aesirx-lib';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Spinner } from 'react-bootstrap';
 import Countries from './Component/Countries';
 import Browsers from './Component/Browsers';
 import TopTable from '../VisitorsPage/Component/TopTable';
-import { Image } from 'aesirx-uikit';
-import moment from 'moment';
+import { Image, PAGE_STATUS } from 'aesirx-uikit';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -42,31 +41,39 @@ const Dashboard = observer(
         this.props.location !== prevProps.location ||
         this.props.activeDomain !== prevProps.activeDomain
       ) {
-        this.dashboardListViewModel.initialize({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        });
+        this.dashboardListViewModel.initialize(
+          this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {})
+        );
       }
     };
 
     componentDidMount = async () => {
-      this.dashboardListViewModel.initialize({
-        'filter[domain]': this.context.biListViewModel.activeDomain,
-      });
-      try {
-        setInterval(async () => {
-          if (
-            moment(this.context.biListViewModel?.dateFilter?.date_end).isSameOrAfter(
-              moment().format('YYYY-MM-DD')
-            )
-          ) {
-            this.dashboardListViewModel.initialize({
-              'filter[domain]': this.context.biListViewModel.activeDomain,
-            });
-          }
-        }, 30000);
-      } catch (e) {
-        console.log(e);
-      }
+      this.dashboardListViewModel.initialize(
+        this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {})
+      );
+      // try {
+      //   setInterval(async () => {
+      //     if (
+      //       moment(this.context.biListViewModel?.dateFilter?.date_end).isSameOrAfter(
+      //         moment().format('YYYY-MM-DD')
+      //       )
+      //     ) {
+      //       this.dashboardListViewModel.initialize({
+      //         'filter[domain]': this.context.biListViewModel.activeDomain,
+      //       });
+      //     }
+      //   }, 30000);
+      // } catch (e) {
+      //   console.log(e);
+      // }
     };
 
     handleDateRangeChange = (startDate, endDate) => {
@@ -75,9 +82,11 @@ const Dashboard = observer(
 
     handleSortPage = async (column) => {
       this.dashboardListViewModel.getPages(
-        {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        },
+        this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         {},
         {
           'sort[]': column?.id,
@@ -91,9 +100,11 @@ const Dashboard = observer(
 
     handleSortSources = async (column) => {
       this.dashboardListViewModel.getReferer(
-        {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        },
+        this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         {},
         {
           'sort[]': column?.id,
@@ -127,7 +138,6 @@ const Dashboard = observer(
       //       0
       //     )) *
       //     100;
-
       return (
         <div className="py-4 px-4 h-100 d-flex flex-column">
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -146,11 +156,15 @@ const Dashboard = observer(
                     <h5 className="fs-6 mb-12px fw-medium">
                       {t('txt_visitors')} <span className="text-success ms-1">•</span>
                     </h5>
-                    <div className="fs-24">
-                      {Helper.numberWithCommas(
-                        this.dashboardListViewModel.summaryData?.[
-                          BI_SUMMARY_FIELD_KEY.TOTAL_NUMBER_OF_VISITORS
-                        ]
+                    <div className="fs-24 position-relative">
+                      {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                        <Spinner size="sm" variant="success" />
+                      ) : (
+                        Helper.numberWithCommas(
+                          this.dashboardListViewModel.summaryData?.[
+                            BI_SUMMARY_FIELD_KEY.TOTAL_NUMBER_OF_VISITORS
+                          ]
+                        )
                       )}
                     </div>
                   </div>
@@ -158,21 +172,29 @@ const Dashboard = observer(
                     <h5 className="fs-6 mb-12px text-gray-900 fw-medium">
                       {t('txt_unique_visitors')}
                     </h5>
-                    <div className="fs-24">
-                      {Helper.numberWithCommas(
-                        this.dashboardListViewModel.summaryData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
-                        ]
+                    <div className="fs-24 position-relative">
+                      {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                        <Spinner size="sm" variant="success" />
+                      ) : (
+                        Helper.numberWithCommas(
+                          this.dashboardListViewModel.summaryData?.[
+                            BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+                          ]
+                        )
                       )}
                     </div>
                   </div>
                   <div className="bg-white p-24 pt-0 rounded-3 rounded-bottom-0 fw-medium">
                     <h5 className="fs-6 mb-12px text-gray-900 fw-medium">{t('txt_page_views')}</h5>
-                    <div className="fs-24">
-                      {Helper.numberWithCommas(
-                        this.dashboardListViewModel.summaryData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
-                        ]
+                    <div className="fs-24 position-relative">
+                      {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                        <Spinner size="sm" variant="success" />
+                      ) : (
+                        Helper.numberWithCommas(
+                          this.dashboardListViewModel.summaryData?.[
+                            BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
+                          ]
+                        )
                       )}
                     </div>
                   </div>
@@ -208,22 +230,28 @@ const Dashboard = observer(
                           </div>
                         </div>
                         <div className="d-flex align-items-center">
-                          {
-                            <div className="fs-sm me-12px text-gray-900">
-                              {(
-                                (device[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS] /
-                                  this.dashboardListViewModel.devicesData.reduce(
-                                    (a, b) => +a + +b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
-                                    0
-                                  )) *
-                                100
-                              )?.toFixed(2)}
-                              %
-                            </div>
-                          }
-                          <div className="fw-medium fs-18px">
-                            {device[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS]}
-                          </div>
+                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                            <Spinner size="sm" variant="success" />
+                          ) : (
+                            <>
+                              {
+                                <div className="fs-sm me-12px text-gray-900">
+                                  {(
+                                    (device[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS] /
+                                      this.dashboardListViewModel.devicesData.reduce(
+                                        (a, b) => +a + +b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
+                                        0
+                                      )) *
+                                    100
+                                  )?.toFixed(2)}
+                                  %
+                                </div>
+                              }
+                              <div className="fw-medium fs-18px">
+                                {device[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS]}
+                              </div>
+                            </>
+                          )}
                         </div>
                       </div>
                     );

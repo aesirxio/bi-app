@@ -37,7 +37,11 @@ const FlowList = observer(
       if (this.props.location !== prevProps.location && !this.props.integration) {
         this.flowListListViewModel.initialize(
           {
-            'filter[domain]': this.context.biListViewModel.activeDomain,
+            ...this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
             'with[]': 'events',
             ...(this.params?.pagination && { page: this.params?.pagination }),
           },
@@ -66,7 +70,11 @@ const FlowList = observer(
       if (this.props.activeDomain !== prevProps.activeDomain && this.props.integration) {
         this.flowListListViewModel.initialize(
           {
-            'filter[domain]': this.context.biListViewModel.activeDomain,
+            ...this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
             'with[]': 'events',
           },
           {},
@@ -95,7 +103,11 @@ const FlowList = observer(
     componentDidMount = () => {
       this.flowListListViewModel.initialize(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'with[]': 'events',
           ...(this.params?.pagination && { page: this.params?.pagination }),
         },
@@ -124,7 +136,11 @@ const FlowList = observer(
     handleSortFlowList = async (column) => {
       this.flowListListViewModel.getFlowList(
         {
-          'filter[domain]': this.props.activeDomain,
+          ...this.props.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'with[]': 'events',
         },
         {},
@@ -140,7 +156,11 @@ const FlowList = observer(
     onSelectionChange = async (data) => {
       await this.flowListListViewModel.getFlowList(
         {
-          'filter[domain]': this.props.activeDomain,
+          ...this.props.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter_not[device]': data?.value ? 'all' : 'bot',
         },
         {},
@@ -152,7 +172,11 @@ const FlowList = observer(
     onSelectionChangeEvent = async (data) => {
       await this.flowListListViewModel.getFlowList(
         {
-          'filter[domain]': this.props.activeDomain,
+          ...this.props.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter[event_name]': data?.value,
         },
         {},
@@ -164,7 +188,11 @@ const FlowList = observer(
     debouncedChangeHandler = _.debounce(async (value) => {
       await this.flowListListViewModel.getFlowList(
         {
-          'filter[domain]': this.props.activeDomain,
+          ...this.props.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter[url]': value.target?.value
             ? `https://${this.context.biListViewModel.activeDomain}/${value.target?.value}`
             : 'clearDataFilter',
@@ -242,7 +270,7 @@ const FlowList = observer(
               <Col lg="6" className="mb-2 mb-lg-0">
                 <span className="search_url d-flex position-relative border rounded-2">
                   <div className="px-2 bg-gray-400 d-flex align-items-center text-nowrap">
-                    https://{this.context.biListViewModel.activeDomain}/
+                    https://{this.context.biListViewModel.activeDomain[0]}/
                   </div>
                   <input
                     placeholder={t('txt_search_url')}

@@ -10,6 +10,7 @@ import moment from 'moment';
 import DashboardModel from '../DashboardModel/DashboardModel';
 import CountryModel from '../../RegionCountryPage/CountryModel/CountryModel';
 import PageModel from '../../VisitorsPage/PagesModel/PageModel';
+
 class DashboardListViewModel {
   dashboardStore = null;
   status = PAGE_STATUS.READY;
@@ -42,6 +43,24 @@ class DashboardListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
+    if (!dateFilter) {
+      const dataFilterObjects = [
+        this.dataFilter,
+        this.dataFilterBrowsers,
+        this.dataFilterDevices,
+        this.dataFilterPages,
+        this.dataFilterEventsType,
+        this.dataFilterSources,
+      ];
+
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
+        }
+      });
+    }
     this.getMetrics(dataFilter, dateFilter);
     this.getVisitors(dataFilter, dateFilter);
     this.getCountries(dataFilter, dateFilter);
@@ -55,6 +74,7 @@ class DashboardListViewModel {
 
   getMetrics = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
+    console.log('this.status', this.status);
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
     this.dashboardStore.getMetrics(
@@ -315,7 +335,7 @@ class DashboardListViewModel {
 
   callbackOnSummaryDataSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.status = PAGE_STATUS.READY;
         this.summaryData = data;
       }
@@ -326,7 +346,7 @@ class DashboardListViewModel {
   };
   callbackOnVisitorSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.status = PAGE_STATUS.READY;
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.visitorData = transformData;
@@ -339,7 +359,7 @@ class DashboardListViewModel {
 
   callbackOnCountriesSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         const transformData = new CountryModel(data.list, this.globalStoreViewModel);
         this.countriesData = transformData.toCountries();
         this.status = PAGE_STATUS.READY;
@@ -352,7 +372,7 @@ class DashboardListViewModel {
 
   callbackOnBrowsersSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.browsersData = {
           list: transformData.toBrowsersTableTop(),
@@ -368,7 +388,7 @@ class DashboardListViewModel {
 
   callbackOnDevicesSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.devicesData = data?.list;
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.devicesTableData = {
@@ -385,7 +405,7 @@ class DashboardListViewModel {
 
   callbackOnAttributesSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         const transformFormat = data?.list?.map((item) => {
           return item.values[0];
         });
@@ -405,7 +425,7 @@ class DashboardListViewModel {
 
   callbackOnEventNameTypeSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.eventNameTypeData = data?.list;
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.eventNameTypeTableData = {
@@ -422,7 +442,7 @@ class DashboardListViewModel {
 
   callbackOnPagesSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.status = PAGE_STATUS.READY;
         this.statusTopPageTable = PAGE_STATUS.READY;
         const transformData = new PageModel(data.list, this.globalStoreViewModel);
@@ -440,8 +460,7 @@ class DashboardListViewModel {
 
   callbackOnSourcesSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
-        this.status = PAGE_STATUS.READY;
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.statusTopSourceTable = PAGE_STATUS.READY;
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.sourcesTableData = {
@@ -450,7 +469,6 @@ class DashboardListViewModel {
         };
       }
     } else {
-      this.status = PAGE_STATUS.ERROR;
       this.statusTopSourceTable = PAGE_STATUS.ERROR;
       this.data = [];
     }

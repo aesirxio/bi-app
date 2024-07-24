@@ -28,6 +28,20 @@ class PlatformsListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
+    if (!dateFilter) {
+      const dataFilterObjects = [
+        this.dataFilterBrowsers,
+        this.dataFilterDevices,
+        this.dataFilterIsps,
+      ];
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
+        }
+      });
+    }
     this.getBrowsers(dataFilter, dateFilter);
     this.getDevices(dataFilter, dateFilter);
     this.getIsps(dataFilter, dateFilter);

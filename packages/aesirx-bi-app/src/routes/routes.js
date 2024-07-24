@@ -31,7 +31,7 @@ const authRoutes = [
   {
     path: '/login',
     exact: true,
-    main: () => <LoginPage text="BI" />,
+    main: () => <LoginPage text="BI" loginEmail={process.env.REACT_APP_LOGIN_EMAIL} />,
   },
 ];
 

@@ -30,6 +30,16 @@ class FlowListListViewModel {
   }
 
   initialize = (dataFilter, dateFilter, dataFilterTable, intergration) => {
+    if (!dateFilter) {
+      const dataFilterObjects = [this.dataFilter, this.dataFilterEvents, this.dataFilterConversion];
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
+        }
+      });
+    }
     this.getFlowList(
       { ...dataFilter, ...dataFilterTable },
       dateFilter,

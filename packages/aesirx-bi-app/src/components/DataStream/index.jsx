@@ -15,7 +15,6 @@ const DataStream = observer(({ integration }) => {
   const { t } = useTranslation();
   const biStore = useBiViewModel();
 
- 
   const handleChange = (state) => {
     if (
       biStore.biListViewModel?.activeDomain?.length === 1 &&

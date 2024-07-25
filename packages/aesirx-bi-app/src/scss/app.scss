@@ -214,12 +214,12 @@
       &:hover,
       &.active,
       &:active {
-        background-color: #1D55A933;
+        background-color: #1d55a933;
         color: $primary;
       }
     }
     button.btn.show {
-      background-color: #1D55A933;
+      background-color: #1d55a933;
       color: $primary;
       border-color: $border-color;
     }
@@ -230,7 +230,7 @@
     .dropdown-menu {
       border-radius: 12px;
       &::before {
-        content: "";
+        content: '';
         width: 12px;
         height: 12px;
         transform: rotate(45deg);
@@ -242,7 +242,7 @@
         border: 1px solid $border-color;
       }
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         left: 0;
@@ -266,7 +266,7 @@
         }
         &:hover,
         &.active {
-          background-color: #1D55A933;
+          background-color: #1d55a933;
         }
       }
     }

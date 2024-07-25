@@ -151,7 +151,6 @@ const App = observer((props) => {
   const { t } = props;
   const handleChangeLink = (e, link) => {
     e.preventDefault();
-    console.log('link',link);
     if (link) {
       setIntegrationLink(link);
     }
@@ -159,14 +158,14 @@ const App = observer((props) => {
 
   return (
     <Suspense fallback={<Spinner />}>
-      {mainMenu ?
+      {mainMenu ? (
         <div className="menu_intergration d-flex flex-wrap mt-2 mx-4">
           {mainMenu?.map((menuList, menuListKey) => {
             return (
               <div key={menuListKey} className={`item_menu mb-0 intergration`}>
                 {menuList?.link && (
                   <>
-                  {menuList?.submenu ?
+                    {menuList?.submenu ? (
                       <NavHoverDropDown>
                         <Dropdown.Toggle
                           className={`d-flex align-items-center me-3 px-4 py-10 mb-1 text-decoration-none fw-medium border rounded-pill bg-white text-primary ${
@@ -193,69 +192,82 @@ const App = observer((props) => {
                           </i>
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu className='dropdown-menu border py-0 mt-2'>
+                        <Dropdown.Menu className="dropdown-menu border py-0 mt-2">
                           {menuList?.submenu?.map((submenuList, submenuListKey) => {
-                            return <div key={submenuListKey} className={`subitem_menu text px-3 fs-sm cursor-pointer ${
-                              integrationLink === submenuList.page ? 'active' : ''
-                            }`} onClick={(e) => handleChangeLink(e, submenuList?.page)}>
-                                <div className='w-100 py-2 border-bottom'>
+                            return (
+                              <div
+                                key={submenuListKey}
+                                className={`subitem_menu text px-3 fs-sm cursor-pointer ${
+                                  integrationLink === submenuList.page ? 'active' : ''
+                                }`}
+                                onClick={(e) => handleChangeLink(e, submenuList?.page)}
+                              >
+                                <div className="w-100 py-2 border-bottom">
                                   {t(submenuList?.text)}
                                 </div>
                               </div>
+                            );
                           })}
                         </Dropdown.Menu>
                       </NavHoverDropDown>
-                        :
-                        <a
-                          href="#"
-                          onClick={(e) => handleChangeLink(e, menuList?.page)}
-                          className={`d-flex align-items-center me-3 px-4 py-10 text-decoration-none fw-medium border rounded-pill ${
-                            integrationLink === menuList.page ? 'active' : ''
-                          }`}
-                        >
-                          {menuList?.icons_fa ? (
-                            <i>
-                              <FontAwesomeIcon icon={menuList?.icons_fa} />
-                            </i>
-                          ) : (
-                            <span
-                              className="icon d-inline-block align-text-bottom me-2"
-                              style={{
-                                WebkitMaskImage: `url(${menuList?.icons_color})`,
-                                WebkitMaskRepeat: 'no-repeat',
-                                backgroundColor: '#222328',
-                              }}
-                            ></span>
-                          )}
-                          <span className="text d-inline-block fs-sm">{t(menuList?.text)}</span>
-                      </a>}
+                    ) : (
+                      <a
+                        href="#"
+                        onClick={(e) => handleChangeLink(e, menuList?.page)}
+                        className={`d-flex align-items-center me-3 px-4 py-10 text-decoration-none fw-medium border rounded-pill ${
+                          integrationLink === menuList.page ? 'active' : ''
+                        }`}
+                      >
+                        {menuList?.icons_fa ? (
+                          <i>
+                            <FontAwesomeIcon icon={menuList?.icons_fa} />
+                          </i>
+                        ) : (
+                          <span
+                            className="icon d-inline-block align-text-bottom me-2"
+                            style={{
+                              WebkitMaskImage: `url(${menuList?.icons_color})`,
+                              WebkitMaskRepeat: 'no-repeat',
+                              backgroundColor: '#222328',
+                            }}
+                          ></span>
+                        )}
+                        <span className="text d-inline-block fs-sm">{t(menuList?.text)}</span>
+                      </a>
+                    )}
                   </>
                 )}
               </div>
             );
           })}
         </div>
-        :
-      <></>}
+      ) : (
+        <></>
+      )}
       <RenderComponent link={integrationLink} activeDomain={activeDomain} {...props} />
     </Suspense>
   );
 });
 
-
 const NavHoverDropDown = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const handleMouseOver = () => {
-      setDropdownOpen(true);
-  }
+    setDropdownOpen(true);
+  };
   const handleMouseOut = () => {
-      setDropdownOpen(false);
-  }
+    setDropdownOpen(false);
+  };
   return (
-      <Dropdown className='pb-2' autoClose="outside" show={dropdownOpen} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-          {props.children}
-      </Dropdown>
-  )
-}
+    <Dropdown
+      className="pb-2"
+      autoClose="outside"
+      show={dropdownOpen}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
+      {props.children}
+    </Dropdown>
+  );
+};
 
 export default withTranslation()(MainLayoutIntegration);

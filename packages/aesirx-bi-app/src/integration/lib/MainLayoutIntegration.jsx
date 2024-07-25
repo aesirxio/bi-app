@@ -19,7 +19,7 @@ import SbarLeftIntegration from './SbarLeftIntegration';
 import { Storage } from 'aesirx-lib';
 import { mainMenu } from 'routes/menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Dropdown } from 'react-bootstrap';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -148,7 +148,7 @@ const App = observer((props) => {
   const {
     biListViewModel: { integrationLink, activeDomain, setIntegrationLink },
   } = useBiViewModel();
-  const { t } = props;
+  const { t } = useTranslation();
   const handleChangeLink = (e, link) => {
     e.preventDefault();
     if (link) {
@@ -270,4 +270,4 @@ const NavHoverDropDown = (props) => {
   );
 };
 
-export default withTranslation()(MainLayoutIntegration);
+export default MainLayoutIntegration;

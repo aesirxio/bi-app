@@ -9,18 +9,12 @@ import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { mainMenu } from 'routes/menu';
+import { Image } from 'aesirx-uikit';
+import { env } from 'aesirx-lib';
 const DataStream = observer(({ integration }) => {
   const { t } = useTranslation();
   const biStore = useBiViewModel();
 
-  const handleChangeLink = (e, link) => {
-    e.preventDefault();
-
-    if (link) {
-      biStore.biListViewModel.setIntegrationLink(link);
-    }
-  };
   const handleChange = (state) => {
     if (
       biStore.biListViewModel?.activeDomain?.length === 1 &&
@@ -53,30 +47,11 @@ const DataStream = observer(({ integration }) => {
     <>
       {integration ? (
         <>
-          {mainMenu?.map((menuList) => {
-            if (
-              biStore?.biListViewModel?.integrationLink === menuList?.link?.replace('/', '') ||
-              menuList?.submenu?.find((i) => i?.page === biStore?.biListViewModel?.integrationLink)
-            ) {
-              return menuList?.submenu?.map((value, menuListSubkey) => {
-                return (
-                  <div key={menuListSubkey} className={`item_menu intergration`}>
-                    {value.link && (
-                      <a
-                        href="#"
-                        onClick={(e) => handleChangeLink(e, value.page)}
-                        className={`d-block me-24 py-16 text-decoration-none fw-medium ${
-                          biStore.biListViewModel.integrationLink === value.page ? 'active' : ''
-                        }`}
-                      >
-                        <span className="text d-inline-block">{t(value.text)}</span>
-                      </a>
-                    )}
-                  </div>
-                );
-              });
-            }
-          })}
+          <Image
+            className={`logo_white pe-3`}
+            src={env.PUBLIC_URL + '/assets/images/logo_primary.svg'}
+            alt="AesirX"
+          />
         </>
       ) : (
         <>

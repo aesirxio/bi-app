@@ -13,6 +13,7 @@ const mainMenu = [
     link: `/acquisition`,
     icons: env.PUBLIC_URL + '/assets/images/acquisition.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/acquisition.svg',
+    page: 'acquisition',
     submenu: [
       {
         text: 'txt_menu_overview',
@@ -39,6 +40,7 @@ const mainMenu = [
     link: `/behavior`,
     icons: env.PUBLIC_URL + '/assets/images/behavior.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/behavior.svg',
+    page: 'behavior',
     submenu: [
       {
         text: 'txt_menu_pages',
@@ -71,6 +73,7 @@ const mainMenu = [
     link: `/consents`,
     icons: env.PUBLIC_URL + '/assets/images/audience.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
+    page: 'consents',
     submenu: [
       {
         text: 'txt_menu_overview',
@@ -91,6 +94,7 @@ const mainMenu = [
     link: `/utm-tracking`,
     icons: env.PUBLIC_URL + '/assets/images/utm-tracking.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/utm-tracking.svg',
+    page: 'utm-tracking',
     submenu: [
       {
         text: 'txt_menu_overview',
@@ -111,6 +115,7 @@ const mainMenu = [
     link: `/visitors`,
     icons: env.PUBLIC_URL + '/assets/images/visitors.svg',
     icons_color: env.PUBLIC_URL + '/assets/images/visitors.svg',
+    page: 'visitors',
     submenu: [
       {
         text: 'txt_menu_overview',

@@ -166,7 +166,7 @@ const VisitorsBehaviorPage = observer(
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-24">
             <div>
-              <h2 className="fw-bold mb-3 mt-3">{t('txt_behavior')}</h2>
+              <h2 className="fw-medium mb-3 mt-3">{t('txt_behavior')}</h2>
             </div>
             <div className="position-relative havePrintButton">
               <DateRangePicker onChange={this.handleDateRangeChange} />

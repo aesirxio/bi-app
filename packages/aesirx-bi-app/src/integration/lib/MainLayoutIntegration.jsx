@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 
 import { BiStoreProvider, useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { BiViewModel } from '../../store/BiStore/BiViewModel';
@@ -17,6 +17,11 @@ import { DataStream } from '../../components/DataStream';
 import { appLanguages } from '../../translations';
 import SbarLeftIntegration from './SbarLeftIntegration';
 import { Storage } from 'aesirx-lib';
+import { mainMenu } from 'routes/menu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { withTranslation } from 'react-i18next';
+import { Dropdown } from 'react-bootstrap';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const DashboardPage = lazy(() => import('../../containers/Dashboard'));
 const UTMTrackingPage = lazy(() => import('../../containers/UTMTrackingPage'));
@@ -141,14 +146,116 @@ const RenderComponent = ({ link, ...props }) => {
 };
 const App = observer((props) => {
   const {
-    biListViewModel: { integrationLink, activeDomain },
+    biListViewModel: { integrationLink, activeDomain, setIntegrationLink },
   } = useBiViewModel();
+  const { t } = props;
+  const handleChangeLink = (e, link) => {
+    e.preventDefault();
+    console.log('link',link);
+    if (link) {
+      setIntegrationLink(link);
+    }
+  };
 
   return (
     <Suspense fallback={<Spinner />}>
+      {mainMenu ?
+        <div className="menu_intergration d-flex flex-wrap mt-2 mx-4">
+          {mainMenu?.map((menuList, menuListKey) => {
+            return (
+              <div key={menuListKey} className={`item_menu mb-0 intergration`}>
+                {menuList?.link && (
+                  <>
+                  {menuList?.submenu ?
+                      <NavHoverDropDown>
+                        <Dropdown.Toggle
+                          className={`d-flex align-items-center me-3 px-4 py-10 mb-1 text-decoration-none fw-medium border rounded-pill bg-white text-primary ${
+                            integrationLink === menuList.page ? 'active' : ''
+                          }`}
+                        >
+                          {menuList?.icons_fa ? (
+                            <i>
+                              <FontAwesomeIcon icon={menuList?.icons_fa} />
+                            </i>
+                          ) : (
+                            <span
+                              className="icon d-inline-block align-text-bottom me-2"
+                              style={{
+                                WebkitMaskImage: `url(${menuList?.icons_color})`,
+                                WebkitMaskRepeat: 'no-repeat',
+                                backgroundColor: '#222328',
+                              }}
+                            ></span>
+                          )}
+                          <span className="text d-inline-block fs-sm">{t(menuList?.text)}</span>
+                          <i className="ps-1 icons text-primary mt-n1">
+                            <FontAwesomeIcon icon={faChevronDown} />
+                          </i>
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu className='dropdown-menu border py-0 mt-2'>
+                          {menuList?.submenu?.map((submenuList, submenuListKey) => {
+                            return <div key={submenuListKey} className={`subitem_menu text px-3 fs-sm cursor-pointer ${
+                              integrationLink === submenuList.page ? 'active' : ''
+                            }`} onClick={(e) => handleChangeLink(e, submenuList?.page)}>
+                                <div className='w-100 py-2 border-bottom'>
+                                  {t(submenuList?.text)}
+                                </div>
+                              </div>
+                          })}
+                        </Dropdown.Menu>
+                      </NavHoverDropDown>
+                        :
+                        <a
+                          href="#"
+                          onClick={(e) => handleChangeLink(e, menuList?.page)}
+                          className={`d-flex align-items-center me-3 px-4 py-10 text-decoration-none fw-medium border rounded-pill ${
+                            integrationLink === menuList.page ? 'active' : ''
+                          }`}
+                        >
+                          {menuList?.icons_fa ? (
+                            <i>
+                              <FontAwesomeIcon icon={menuList?.icons_fa} />
+                            </i>
+                          ) : (
+                            <span
+                              className="icon d-inline-block align-text-bottom me-2"
+                              style={{
+                                WebkitMaskImage: `url(${menuList?.icons_color})`,
+                                WebkitMaskRepeat: 'no-repeat',
+                                backgroundColor: '#222328',
+                              }}
+                            ></span>
+                          )}
+                          <span className="text d-inline-block fs-sm">{t(menuList?.text)}</span>
+                      </a>}
+                  </>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        :
+      <></>}
       <RenderComponent link={integrationLink} activeDomain={activeDomain} {...props} />
     </Suspense>
   );
 });
 
-export default MainLayoutIntegration;
+
+const NavHoverDropDown = (props) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const handleMouseOver = () => {
+      setDropdownOpen(true);
+  }
+  const handleMouseOut = () => {
+      setDropdownOpen(false);
+  }
+  return (
+      <Dropdown className='pb-2' autoClose="outside" show={dropdownOpen} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+          {props.children}
+      </Dropdown>
+  )
+}
+
+export default withTranslation()(MainLayoutIntegration);

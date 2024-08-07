@@ -20,7 +20,6 @@ const BehaviorTable = ({
   // handleSearch,
   limit,
 }) => {
-  console.log('limitlimitlimit', limit);
   const columnsTable = React.useMemo(
     () =>
       header.map((item, index) => ({

@@ -5,7 +5,16 @@ import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector } from 'rechar
 import './index.scss';
 import { withTranslation } from 'react-i18next';
 import { env } from 'aesirx-lib';
-const PieChartComponent = ({ data, status, colors, height, chartTitle, link, ...props }) => {
+const PieChartComponent = ({
+  data,
+  status,
+  colors,
+  height,
+  chartTitle,
+  link,
+  showTotal = false,
+  ...props
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const RADIAN = Math.PI / 180;
 
@@ -29,23 +38,32 @@ const PieChartComponent = ({ data, status, colors, height, chartTitle, link, ...
   };
   const customizedLegend = ({ payload }) => {
     return (
-      <div className="piechart-legend mb-0 mt-1 d-flex align-items-center flex-wrap">
-        {payload.map((entry, index) => (
-          <div className="pe-1 mb-1 d-flex w-50 justify-content-center" key={`item-${index}`}>
-            <div
-              className="rounded-circle me-8px d-flex align-items-center justify-content-center mt-1"
-              style={{ backgroundColor: entry?.color, width: 14, height: 14 }}
-            ></div>
-            <div
-              className="d-flex flex-wrap cursor-pointer"
-              onClick={() => onPieEnter(entry, index)}
-            >
-              <div className="fs-sm w-100">{entry.value}</div>
-              <div className="fw-semibold">{(entry.payload.percent * 100)?.toFixed(1)}%</div>
-            </div>
+      <>
+        {showTotal ? (
+          <div className="fw-medium mb-1">
+            Total: {payload?.reduce((n, { payload }) => n + payload.value, 0)}
           </div>
-        ))}
-      </div>
+        ) : (
+          <></>
+        )}
+        <div className="piechart-legend mb-0 mt-1 d-flex align-items-center flex-wrap">
+          {payload.map((entry, index) => (
+            <div className="pe-1 mb-1 d-flex w-50 " key={`item-${index}`}>
+              <div
+                className="rounded-circle me-8px d-flex align-items-center justify-content-center mt-1"
+                style={{ backgroundColor: entry?.color, width: 14, height: 14 }}
+              ></div>
+              <div
+                className="d-flex flex-wrap cursor-pointer"
+                onClick={() => onPieEnter(entry, index)}
+              >
+                <div className="fs-sm w-100">{entry.value}</div>
+                <div className="fw-semibold">{(entry.payload.percent * 100)?.toFixed(1)}%</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </>
     );
   };
   const onPieEnter = (_, index) => {

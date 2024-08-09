@@ -7,6 +7,7 @@ import {
   BI_VISITOR_FIELD_KEY,
   BI_CONSENTS_DATE_FIELD_KEY,
   BI_CONSENTS_TIER_FIELD_KEY,
+  BI_EVENTS_TYPE_FIELD_KEY,
 } from 'aesirx-lib';
 import moment from 'moment';
 import { enumerateDaysBetweenDates } from 'aesirx-lib';
@@ -98,10 +99,34 @@ class ConsentsListModel {
   };
   toChartByTier = () => {
     const tierData = this.data.map((item) => {
-      return {
-        name: 'Tier ' + item[BI_CONSENTS_TIER_FIELD_KEY.TIER],
-        value: item[BI_CONSENTS_TIER_FIELD_KEY.TOTAL],
-      };
+      if (item[BI_CONSENTS_TIER_FIELD_KEY.TIER]) {
+        let nameConsent = 'Consent';
+        switch (item[BI_CONSENTS_TIER_FIELD_KEY.TIER]) {
+          case 1:
+            nameConsent = 'Consent';
+            break;
+          case 3:
+            nameConsent = 'Decentralized Consent';
+            break;
+          case 4:
+            nameConsent = 'Decentralized Consent + SoP';
+            break;
+        }
+        return {
+          name: nameConsent,
+          value: item[BI_CONSENTS_TIER_FIELD_KEY.TOTAL],
+        };
+      } else if (item[BI_EVENTS_TYPE_FIELD_KEY.EVENT_TYPE] === 'reject-consent') {
+        return {
+          name: 'Reject Consent',
+          value: item[BI_EVENTS_TYPE_FIELD_KEY.TOTAL_VISITOR],
+        };
+      } else {
+        return {
+          name: 'Revoke Consent',
+          value: item[BI_EVENTS_TYPE_FIELD_KEY.TOTAL_VISITOR],
+        };
+      }
     });
     return tierData;
   };
@@ -129,8 +154,6 @@ class ConsentsListModel {
       const filterDate = this.data.find(
         (_item) => moment(_item.date).format('YYYY-MM-DD') === date
       );
-      console.log('this.data', this.data);
-      console.log('filterDate', filterDate);
       return {
         name: date && moment(date, 'YYYY-MM-DD').format('DD MMM'),
         Total: filterDate?.[BI_CONSENTS_DATE_FIELD_KEY.TOTAL] ?? 0,
@@ -185,11 +208,6 @@ class ConsentsListModel {
       name: weekName,
       Total: weekData[weekName].quantity,
     }));
-    console.log('this.consentsDateData', [
-      { visitors: month },
-      { visitors: date },
-      { visitors: week },
-    ]);
     return [{ visitors: month }, { visitors: date }, { visitors: week }];
   };
 }

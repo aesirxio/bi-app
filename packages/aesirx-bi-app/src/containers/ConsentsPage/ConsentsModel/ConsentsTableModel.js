@@ -22,21 +22,21 @@ class ConsentsTableModel {
 
   toConsentsListTable = () => {
     const headerTable = [
-      'txt_tier',
-      'txt_wallet',
-      'txt_web3id',
-      // 'txt_consent',
       'txt_datetime',
       'txt_expiration',
+      'txt_consent',
+      'txt_web3id',
+      'txt_wallet',
+      // 'txt_consent',
       'txt_uuid',
     ];
     const accessor = [
-      BI_CONSENTS_LIST_FIELD_KEY.TIER,
-      BI_CONSENTS_LIST_FIELD_KEY.WALLET,
-      BI_CONSENTS_LIST_FIELD_KEY.WEB3ID,
-      // BI_CONSENTS_LIST_FIELD_KEY.CONSENT,
       BI_CONSENTS_LIST_FIELD_KEY.DATETIME,
       BI_CONSENTS_LIST_FIELD_KEY.EXPIRATION,
+      BI_CONSENTS_LIST_FIELD_KEY.TIER,
+      BI_CONSENTS_LIST_FIELD_KEY.WEB3ID,
+      BI_CONSENTS_LIST_FIELD_KEY.WALLET,
+      // BI_CONSENTS_LIST_FIELD_KEY.CONSENT,
       BI_CONSENTS_LIST_FIELD_KEY.UUID,
     ];
     if (this.data?.length) {
@@ -46,7 +46,7 @@ class ConsentsTableModel {
           accessor: key,
           width:
             key === BI_CONSENTS_LIST_FIELD_KEY.TIER
-              ? 50
+              ? 100
               : key === BI_CONSENTS_LIST_FIELD_KEY.WEB3ID
               ? 100
               : 170,
@@ -63,6 +63,14 @@ class ConsentsTableModel {
             ) : column.id === BI_CONSENTS_LIST_FIELD_KEY.EXPIRATION ? (
               <div className={'px-15'}>
                 {cell?.value && moment(cell?.value).format('YYYY-MM-DD HH:mm:ss')}
+              </div>
+            ) : column.id === BI_CONSENTS_LIST_FIELD_KEY.TIER ? (
+              <div className={`px-15`}>
+                {cell?.value === '3'
+                  ? 'Decentralized Consent'
+                  : cell?.value === '4'
+                  ? 'Decentralized Consent + SoP'
+                  : 'Consent'}
               </div>
             ) : (
               <div className={`${index === 0 ? 'pe-15' : 'px-15'}`}>{cell?.value}</div>

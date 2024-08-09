@@ -246,7 +246,7 @@
   "txt_avg_quantity": "Cantidad promedio",
   "txt_top_products": "Productos principales",
   "txt_menu_consents": "Consentimientos",
-  "txt_web3id": "Web3ID",
+  "txt_web3id": "SoP ID",
   "txt_wallet": "Monedero",
   "txt_consent": "Consentimiento",
   "txt_tier": "Nivel",
@@ -257,5 +257,6 @@
   "txt_source": "Fuente",
   "txt_total_conversions": "Conversiones Totales",
   "txt_page_view": "Vistas De Página",
-  "txt_visitor": "Visitantes"
+  "txt_visitor": "Visitantes",
+  "txt_manage_track": "Administrar y realizar un seguimiento de las preferencias de consentimiento del usuario para la recopilación de datos"
 }

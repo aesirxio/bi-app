@@ -10,6 +10,7 @@ import { env } from 'aesirx-lib';
 import BarChartComponent from 'components/BarChartComponent';
 import { Col, Row } from 'react-bootstrap';
 import PieChartComponent from 'components/PieChartComponent';
+import { PAGE_STATUS } from 'aesirx-uikit';
 
 const Consents = observer(() => {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ const Consents = observer(() => {
       consentsDateData,
       statusConsentsDate,
       consentsTierData,
-      statusConsentsTier,
+      statusTierChart,
       sortBy,
       getConsentsList,
     },
@@ -105,15 +106,17 @@ const Consents = observer(() => {
           </div>
         </Col>
         <Col lg="4">
-          <div className="mb-24 ChartWrapper bg-white rounded-3 d-flex align-items-center w-100 h-100 position-relative">
+          <div className="mb-24 ChartWrapper bg-white rounded-3 d-flex align-items-start w-100 h-100 position-relative">
             <div className="w-100">
-              {consentsTierData?.length ? (
+              {consentsTierData?.length || statusTierChart === PAGE_STATUS.LOADING ? (
                 <PieChartComponent
-                  height={300}
+                  height={350}
                   data={consentsTierData}
-                  status={statusConsentsTier}
-                  colors={['#0066FF', '#4747EB', '#96C0FF', '#D5EEFF']}
+                  status={statusTierChart}
+                  colors={['#1A2B88', '#4855A0', '#67A4FF', '#ADCEFF', '#A3AACF']}
                   legendPosition="bottom"
+                  chartTitle={t('txt_manage_track')}
+                  showTotal={true}
                 />
               ) : (
                 <div className="position-absolute top-50 start-50 translate-middle">

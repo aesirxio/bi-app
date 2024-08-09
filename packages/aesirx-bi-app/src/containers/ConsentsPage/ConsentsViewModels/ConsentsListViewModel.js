@@ -20,7 +20,8 @@ class ConsentsListViewModel {
   statusConsentsDate = PAGE_STATUS.READY;
   consentsDateData = null;
   statusConsentsTier = PAGE_STATUS.READY;
-  consentsTierData = null;
+  statusTierChart = PAGE_STATUS.READY;
+  consentsTierData = [];
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
   constructor(consentsStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -29,6 +30,7 @@ class ConsentsListViewModel {
   }
 
   initialize = async (dataFilter, dateFilter) => {
+    this.statusTierChart = PAGE_STATUS.LOADING;
     if (!dateFilter) {
       const dataFilterObjects = [this.dataFilterConsentsList, this.dataFilterConsentsDate];
       dataFilterObjects?.forEach((dataFilterObj) => {
@@ -51,12 +53,34 @@ class ConsentsListViewModel {
       },
       dateFilter
     );
-    this.getConsentsTier(
-      {
-        ...dataFilter,
-      },
-      dateFilter
-    );
+    Promise.all([
+      this.getConsentsTier(
+        {
+          ...dataFilter,
+        },
+        dateFilter
+      ),
+      this.getEventsType(
+        {
+          ...dataFilter,
+        },
+        dateFilter,
+        {
+          'filter[event_name]': 'Reject consent',
+        }
+      ),
+      this.getEventsType(
+        {
+          ...dataFilter,
+        },
+        dateFilter,
+        {
+          'filter[event_name]': 'Revoke consent',
+        }
+      ),
+    ]).then(() => {
+      this.statusTierChart = PAGE_STATUS.READY;
+    });
   };
 
   getConsentsList = (
@@ -100,7 +124,7 @@ class ConsentsListViewModel {
   };
 
   getConsentsTier = (dataFilter, dateFilter) => {
-    this.statusConsentsDate = PAGE_STATUS.LOADING;
+    this.statusConsentsTier = PAGE_STATUS.LOADING;
     this.dataFilterConsentsDate = {
       page_size: '999',
       ...this.dataFilterConsentsDate,
@@ -110,6 +134,32 @@ class ConsentsListViewModel {
 
     this.consentsStore.getConsentsTier(
       this.dataFilterConsentsDate,
+      dateRangeFilter,
+      this.callbackOnDataConsentsTierSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getEventsType = async (
+    dataFilter,
+    dateFilter,
+    sortBy = {
+      'sort[]': 'number_of_page_views',
+      'sort_direction[]': 'desc',
+    }
+  ) => {
+    this.statusConsentsTier = PAGE_STATUS.LOADING;
+    this.sortByEventsType = sortBy;
+    this.dataFilterEventsType = {
+      page_size: '999',
+      ...this.dataFilterEventsType,
+      ...dataFilter,
+      ...this.sortByEventsType,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    await this.consentsStore.getEventsType(
+      this.dataFilterEventsType,
       dateRangeFilter,
       this.callbackOnDataConsentsTierSuccessHandler,
       this.callbackOnErrorHandler
@@ -131,6 +181,7 @@ class ConsentsListViewModel {
     };
 
     this.dateFilter = { ...this.dateFilter, ...dateRangeFilter };
+    this.consentsTierData = [];
     this.initialize(this.dataFilter, dateRangeFilter);
   };
 
@@ -186,8 +237,8 @@ class ConsentsListViewModel {
     if (data?.list) {
       this.statusConsentsTier = PAGE_STATUS.READY;
       const transformData = new ConsentsListModel(data?.list, this.globalStoreViewModel);
-      this.consentsTierData = transformData?.toChartByTier();
-      console.log('this.consentsTierData', this.consentsTierData);
+      this.consentsTierData = [...this.consentsTierData, ...transformData?.toChartByTier()];
+      this.consentsTierData?.sort((a, b) => (a.value > b.value ? -1 : 1));
     } else {
       this.statusConsentsTier = PAGE_STATUS.ERROR;
       this.consentsTierData = [];

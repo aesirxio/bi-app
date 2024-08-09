@@ -13,14 +13,14 @@ import OverviewComponent from './Component/Overview';
 
 import { withDashboardViewModel } from './DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from '../../store/BiStore/BiViewModelContextProvider';
-import { BI_DEVICES_FIELD_KEY, BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
+import { BI_FLOW_DETAIL_KEY, Helper } from 'aesirx-lib';
 import DateRangePicker from '../../components/DateRangePicker';
-import { env } from 'aesirx-lib';
 import { Col, Row, Spinner } from 'react-bootstrap';
 import Countries from './Component/Countries';
 import Browsers from './Component/Browsers';
 import TopTable from '../VisitorsPage/Component/TopTable';
-import { Image, PAGE_STATUS } from 'aesirx-uikit';
+import { PAGE_STATUS, RingLoaderComponent } from 'aesirx-uikit';
+import { Link } from 'react-router-dom';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -59,21 +59,24 @@ const Dashboard = observer(
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {})
       );
-      // try {
-      //   setInterval(async () => {
-      //     if (
-      //       moment(this.context.biListViewModel?.dateFilter?.date_end).isSameOrAfter(
-      //         moment().format('YYYY-MM-DD')
-      //       )
-      //     ) {
-      //       this.dashboardListViewModel.initialize({
-      //         'filter[domain]': this.context.biListViewModel.activeDomain,
-      //       });
-      //     }
-      //   }, 30000);
-      // } catch (e) {
-      //   console.log(e);
-      // }
+      try {
+        setInterval(async () => {
+          this.dashboardListViewModel.getLiveVisitorsTotal(
+            {
+              'filter[domain]': this.context.biListViewModel.activeDomain,
+            },
+            true
+          );
+          this.dashboardListViewModel.getLiveVisitorsList(
+            {
+              'filter[domain]': this.context.biListViewModel.activeDomain,
+            },
+            true
+          );
+        }, 15000);
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     handleDateRangeChange = (startDate, endDate) => {
@@ -117,27 +120,7 @@ const Dashboard = observer(
     };
     render() {
       const { t } = this.props;
-
-      // let maxDevices =
-      //   this.dashboardListViewModel.devicesData?.length &&
-      //   this.dashboardListViewModel.devicesData.reduce(function (prev, current) {
-      //     if (
-      //       +current[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] >
-      //       +prev[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-      //     ) {
-      //       return current;
-      //     } else {
-      //       return prev;
-      //     }
-      //   });
-      // const maxDevicePercent =
-      //   this.dashboardListViewModel.devicesData?.length &&
-      //   (maxDevices[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] /
-      //     this.dashboardListViewModel.devicesData.reduce(
-      //       (a, b) => +a + +b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
-      //       0
-      //     )) *
-      //     100;
+      console.log('this.props', this.props);
       return (
         <div className="py-4 px-4 h-100 d-flex flex-column">
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -149,117 +132,86 @@ const Dashboard = observer(
             </div>
           </div>
           <Row>
-            <Col lg="3">
+            <Col lg="4">
               <div className="bg-white shadow-sm rounded-3 h-100">
                 <div className="bg-white border-bottom">
-                  <div className="bg-dark-blue text-white p-24 rounded-3 rounded-bottom-0 fw-medium">
-                    <h5 className="fs-6 mb-12px fw-medium">
-                      {t('txt_visitors')} <span className="text-success ms-1">•</span>
-                    </h5>
-                    <div className="fs-24 position-relative">
-                      {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
-                        <Spinner size="sm" variant="success" />
+                  <div className="bg-dark-blue text-white p-24 rounded-3 rounded-bottom-0 fw-medium d-flex align-items-center justify-content-between">
+                    <h5 className="fs-6 mb-0 fw-medium">{t('txt_real_time_active_users')}</h5>
+                    <div className="fs-1 position-relative">
+                      {this.dashboardListViewModel?.statusLiveVisitorsTotal ===
+                      PAGE_STATUS.LOADING ? (
+                        <Spinner size="sm" variant="success" className="fs-6" />
                       ) : (
-                        Helper.numberWithCommas(
-                          this.dashboardListViewModel.summaryData?.[
-                            BI_SUMMARY_FIELD_KEY.TOTAL_NUMBER_OF_VISITORS
-                          ]
-                        )
-                      )}
-                    </div>
-                  </div>
-                  <div className="bg-white p-24 pb-18px rounded-3 rounded-bottom-0 fw-medium">
-                    <h5 className="fs-6 mb-12px text-gray-900 fw-medium">
-                      {t('txt_unique_visitors')}
-                    </h5>
-                    <div className="fs-24 position-relative">
-                      {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
-                        <Spinner size="sm" variant="success" />
-                      ) : (
-                        Helper.numberWithCommas(
-                          this.dashboardListViewModel.summaryData?.[
-                            BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
-                          ]
-                        )
-                      )}
-                    </div>
-                  </div>
-                  <div className="bg-white p-24 pt-0 rounded-3 rounded-bottom-0 fw-medium">
-                    <h5 className="fs-6 mb-12px text-gray-900 fw-medium">{t('txt_page_views')}</h5>
-                    <div className="fs-24 position-relative">
-                      {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
-                        <Spinner size="sm" variant="success" />
-                      ) : (
-                        Helper.numberWithCommas(
-                          this.dashboardListViewModel.summaryData?.[
-                            BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
-                          ]
-                        )
+                        Helper.numberWithCommas(this.dashboardListViewModel.liveVisitorsTotalData)
                       )}
                     </div>
                   </div>
                 </div>
-                <div className="bg-white p-24 rounded-3 rounded-top-0">
-                  {this.dashboardListViewModel.devicesData?.map((device, index) => {
-                    let imgIcon = `${env.PUBLIC_URL}/assets/images/device_mobile.png`;
-                    switch (device[BI_DEVICES_FIELD_KEY?.DEVICE]) {
-                      case 'desktop':
-                        imgIcon = `${env.PUBLIC_URL}/assets/images/device_desktop.png`;
-                        break;
-                      case 'iPad':
-                        imgIcon = `${env.PUBLIC_URL}/assets/images/device_tablet.png`;
-                        break;
-                      case 'tablet':
-                        imgIcon = `${env.PUBLIC_URL}/assets/images/device_tablet.png`;
-                        break;
-                    }
-                    return (
-                      <div
-                        className="d-flex align-items-center justify-content-between w-100 mb-12px"
-                        key={index}
-                      >
-                        <div className="d-flex align-items-center">
-                          <Image
-                            className={`me-12px`}
-                            style={{ width: 44, height: 44 }}
-                            src={imgIcon}
-                            alt={'icons'}
-                          />
-                          <div className="fw-medium text-capitalize">
-                            {device[BI_DEVICES_FIELD_KEY?.DEVICE]}
-                          </div>
-                        </div>
-                        <div className="d-flex align-items-center">
-                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
-                            <Spinner size="sm" variant="success" />
-                          ) : (
-                            <>
-                              {
-                                <div className="fs-sm me-12px text-gray-900">
-                                  {(
-                                    (device[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS] /
-                                      this.dashboardListViewModel.devicesData.reduce(
-                                        (a, b) => +a + +b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
-                                        0
-                                      )) *
-                                    100
-                                  )?.toFixed(2)}
-                                  %
+                <div className="bg-white rounded-3 rounded-top-0 position-relative ChartWrapper">
+                  <div className="bg-secondary-25 py-2">
+                    <Row>
+                      <Col sm="3">
+                        <div className="text-gray-heading fw-semibold text-center">Local</div>
+                      </Col>
+                      <Col sm="9">
+                        <div className="text-gray-heading fw-semibold">Page</div>
+                      </Col>
+                    </Row>
+                  </div>
+                  {this.dashboardListViewModel?.statusLiveVisitorsList === PAGE_STATUS.LOADING ? (
+                    <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
+                  ) : (
+                    <>
+                      <div>
+                        {this.dashboardListViewModel.liveVisitorsListData?.map((item, index) => {
+                          const urlParams =
+                            item?.events[item?.events?.length - 1]?.url &&
+                            new URL(item?.events[item?.events?.length - 1]?.url);
+                          return (
+                            <Row key={index} className="py-10">
+                              <Col sm="3">
+                                <div className="text-center">
+                                  <span
+                                    className={`me-1 fi fi-${item[
+                                      BI_FLOW_DETAIL_KEY.GEO
+                                    ]?.country?.code?.toLowerCase()}`}
+                                  ></span>
                                 </div>
-                              }
-                              <div className="fw-medium fs-18px">
-                                {device[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS]}
-                              </div>
-                            </>
-                          )}
-                        </div>
+                              </Col>
+                              <Col sm="9">
+                                <div className="">
+                                  {urlParams === ''
+                                    ? 'Unknown'
+                                    : urlParams?.pathname !== '/'
+                                    ? urlParams?.pathname + urlParams?.search
+                                    : urlParams?.host}
+                                </div>
+                              </Col>
+                            </Row>
+                          );
+                        })}
                       </div>
-                    );
-                  })}
+                      <div className="bg-white border-top text-center py-3">
+                        {this.props.integration ? (
+                          <a
+                            href="#"
+                            onClick={(e) => this.props.handleChangeLink(e, `/flow-list`)}
+                            className={'text-secondary-50 text-nowrap fw-medium'}
+                          >
+                            {t('txt_view_more')}
+                          </a>
+                        ) : (
+                          <Link to="/flow-list" className="text-secondary-50 text-nowrap fw-medium">
+                            {t('txt_view_more')}
+                          </Link>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </Col>
-            <Col lg="9">
+            <Col lg="8">
               <OverviewComponent
                 bars={['visits', 'page_views']}
                 barColors={['#0066FF', '#96C0FF']}

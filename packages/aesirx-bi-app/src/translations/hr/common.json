@@ -246,7 +246,7 @@
   "txt_avg_quantity": "Prosj. KOLIČINA",
   "txt_top_products": "Najbolji proizvodi",
   "txt_menu_consents": "Pristanci",
-  "txt_web3id": "Web3ID",
+  "txt_web3id": "SoP ID",
   "txt_wallet": "Novčanik",
   "txt_consent": "Pristanak",
   "txt_tier": "Razina",
@@ -257,5 +257,6 @@
   "txt_source": "Izvor",
   "txt_total_conversions": "Ukupne Konverzije",
   "txt_page_view": "Prikazi Stranice",
-  "txt_visitor": "Posjetitelji"
+  "txt_visitor": "Posjetitelji",
+  "txt_manage_track": "Upravljajte i pratite postavke pristanka korisnika za prikupljanje podataka"
 }

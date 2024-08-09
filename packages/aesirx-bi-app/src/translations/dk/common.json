@@ -175,7 +175,7 @@
   "txt_avg_quantity": "Gns. ANTAL",
   "txt_top_products": "Topprodukter",
   "txt_menu_consents": "Samtykke",
-  "txt_web3id": "Web3ID",
+  "txt_web3id": "SoP ID",
   "txt_wallet": "Tegnebog",
   "txt_consent": "Samtykke",
   "txt_tier": "Tier",
@@ -186,5 +186,6 @@
   "txt_source": "Kilde",
   "txt_total_conversions": "Totale Konverteringer",
   "txt_page_view": "Sidevisninger",
-  "txt_visitor": "Besøgende"
+  "txt_visitor": "Besøgende",
+  "txt_manage_track": "Administrer og spor brugersamtykkepræferencer for dataindsamling"
 }

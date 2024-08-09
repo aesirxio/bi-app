@@ -10,11 +10,15 @@ import moment from 'moment';
 import FlowListModel from '../FlowListModel/FlowListModel';
 import queryString from 'query-string';
 import EventsListModel from 'containers/EventsPage/EventsModel/EventsListEventModel';
+import { BI_LIVE_VISITORS_TOTAL_FIELD_KEY } from 'aesirx-lib';
+
 class FlowListListViewModel {
   flowlistStore = null;
   status = PAGE_STATUS.READY;
   statusTable = PAGE_STATUS.READY;
   statusChart = PAGE_STATUS.READY;
+  statusLiveVisitorsTotal = PAGE_STATUS.READY;
+  statusLiveVisitorsDevice = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   countriesTableData = null;
   dataEvents = null;
@@ -22,7 +26,10 @@ class FlowListListViewModel {
   eventDateData = null;
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
   isShowbot = true;
+  isShowlive = false;
   dataFilterFlowList = {};
+  liveVisitorsTotalData = null;
+  liveVisitorsDeviceData = null;
   constructor(flowlistStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.flowlistStore = flowlistStore;
@@ -171,6 +178,30 @@ class FlowListListViewModel {
     );
   };
 
+  getLiveVisitorsTotal = async (dataFilter, isReload = false) => {
+    this.statusLiveVisitorsTotal = !isReload ? PAGE_STATUS.LOADING : PAGE_STATUS.READY;
+    this.dataFilterLiveVisitors = {
+      ...dataFilter,
+    };
+    await this.flowlistStore.getLiveVisitorsTotal(
+      this.dataFilterLiveVisitors,
+      this.callbackOnLiveVisitorsTotalSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+  getLiveVisitorsDevice = async (dataFilter, isReload = false) => {
+    this.statusLiveVisitorsDevice = !isReload ? PAGE_STATUS.LOADING : PAGE_STATUS.READY;
+    this.dataFilterLiveVisitors = {
+      page_size: '8',
+      ...dataFilter,
+    };
+    await this.flowlistStore.getLiveVisitorsDevice(
+      this.dataFilterLiveVisitors,
+      this.callbackOnLiveVisitorsDeviceSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   handleFilter = (dataFilter) => {
     this.status = PAGE_STATUS.LOADING;
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
@@ -278,6 +309,33 @@ class FlowListListViewModel {
   };
   toggleShowbot = () => {
     this.isShowbot = !this.isShowbot;
+  };
+  toggleShowlive = () => {
+    this.isShowlive = !this.isShowlive;
+  };
+
+  callbackOnLiveVisitorsTotalSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
+        this.liveVisitorsTotalData = data?.list[BI_LIVE_VISITORS_TOTAL_FIELD_KEY.TOTAL];
+        this.statusLiveVisitorsTotal = PAGE_STATUS.READY;
+      }
+    } else {
+      this.statusLiveVisitorsTotal = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnLiveVisitorsDeviceSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
+        this.liveVisitorsDeviceData = data?.list;
+        this.statusLiveVisitorsDevice = PAGE_STATUS.READY;
+      }
+    } else {
+      this.statusLiveVisitorsDevice = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
   };
 }
 

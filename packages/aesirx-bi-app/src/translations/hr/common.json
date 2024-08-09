@@ -258,5 +258,6 @@
   "txt_total_conversions": "Ukupne Konverzije",
   "txt_page_view": "Prikazi Stranice",
   "txt_visitor": "Posjetitelji",
-  "txt_manage_track": "Upravljajte i pratite postavke pristanka korisnika za prikupljanje podataka"
+  "txt_manage_track": "Upravljajte i pratite postavke pristanka korisnika za prikupljanje podataka",
+  "txt_real_time_active_users": "Aktivni korisnici u stvarnom vremenu"
 }

@@ -224,5 +224,6 @@
   "txt_total_conversions": "Conversions Totales",
   "txt_page_view": "Vues De Page",
   "txt_visitor": "Visiteurs",
-  "txt_manage_track": "Gérer et suivre les préférences de consentement des utilisateurs pour la collecte de données"
+  "txt_manage_track": "Gérer et suivre les préférences de consentement des utilisateurs pour la collecte de données",
+  "txt_real_time_active_users": "Utilisateurs actifs en temps réel"
 }

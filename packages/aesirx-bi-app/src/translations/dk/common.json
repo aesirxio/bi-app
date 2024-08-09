@@ -187,5 +187,6 @@
   "txt_total_conversions": "Totale Konverteringer",
   "txt_page_view": "Sidevisninger",
   "txt_visitor": "Besøgende",
-  "txt_manage_track": "Administrer og spor brugersamtykkepræferencer for dataindsamling"
+  "txt_manage_track": "Administrer og spor brugersamtykkepræferencer for dataindsamling",
+  "txt_real_time_active_users": "Aktive brugere i realtid"
 }

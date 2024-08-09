@@ -18,7 +18,7 @@ const OverviewComponent = observer(
       return (
         <div className="position-relative h-100">
           <BarChartComponent
-            height={500}
+            height={450}
             data={data}
             colors={['#1AB394']}
             layout="horizontal"

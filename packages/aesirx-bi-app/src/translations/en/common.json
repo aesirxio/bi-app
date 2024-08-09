@@ -232,5 +232,6 @@
   "txt_total_conversions": "Total Convertions",
   "txt_page_view": "Page view",
   "txt_visitor": "Visitor",
-  "txt_manage_track": "Manage and track user consent preferences for data collection"
+  "txt_manage_track": "Manage and track user consent preferences for data collection",
+  "txt_real_time_active_users": "Real-time Active Users"
 }

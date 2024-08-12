@@ -21,7 +21,7 @@
     "d3-color": "^3"
   },
   "scripts": {
-    "prepare": "nx run aesirx-sso:build && nx run-many -t build -p aesirx-uikit aesirx-lib && nx run-many -t build:lib --exclude aesirx-uikit aesirx-lib aesirx-bi-app",
+    "prepare": "nx run aesirx-lib:build && nx run aesirx-sso:build && nx run aesirx-uikit:build && nx run-many -t build:lib --exclude aesirx-uikit aesirx-lib aesirx-bi-app",
     "dev": "nx run-many -t dev -p aesirx-uikit aesirx-lib aesirx-bi-app",
     "build": "nx run aesirx-bi-app:build",
     "build:lib": "nx run aesirx-bi-app:build:lib",

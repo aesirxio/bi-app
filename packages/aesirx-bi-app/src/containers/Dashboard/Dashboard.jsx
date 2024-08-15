@@ -61,18 +61,16 @@ const Dashboard = observer(
       );
       try {
         setInterval(async () => {
-          this.dashboardListViewModel.getLiveVisitorsTotal(
-            {
-              'filter[domain]': this.context.biListViewModel.activeDomain,
-            },
-            true
-          );
-          this.dashboardListViewModel.getLiveVisitorsList(
-            {
-              'filter[domain]': this.context.biListViewModel.activeDomain,
-            },
-            true
-          );
+          this.dashboardListViewModel.getLiveVisitorsTotal( this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}), false);
+          this.dashboardListViewModel.getLiveVisitorsList( this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}), false);
         }, 15000);
       } catch (e) {
         console.log(e);

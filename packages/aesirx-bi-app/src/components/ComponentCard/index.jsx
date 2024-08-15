@@ -4,7 +4,7 @@ import { AesirXSelect, PulseLoaderComponent } from 'aesirx-uikit';
 
 import PAGE_STATUS from '../../constants/PageStatus';
 import { env } from 'aesirx-lib';
-import { Tooltip } from 'react-bootstrap';
+import { Tooltip } from 'react-tooltip';
 import ComponentSVG from 'components/ComponentSVG';
 const ComponentCard = ({
   title,

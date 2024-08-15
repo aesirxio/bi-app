@@ -61,16 +61,22 @@ const Dashboard = observer(
       );
       try {
         setInterval(async () => {
-          this.dashboardListViewModel.getLiveVisitorsTotal( this.context.biListViewModel.activeDomain
-            ?.map((value, index) => ({
-              [`filter[domain][${index + 1}]`]: value,
-            }))
-            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}), false);
-          this.dashboardListViewModel.getLiveVisitorsList( this.context.biListViewModel.activeDomain
-            ?.map((value, index) => ({
-              [`filter[domain][${index + 1}]`]: value,
-            }))
-            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}), false);
+          this.dashboardListViewModel.getLiveVisitorsTotal(
+            this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+            false
+          );
+          this.dashboardListViewModel.getLiveVisitorsList(
+            this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+            false
+          );
         }, 15000);
       } catch (e) {
         console.log(e);
@@ -161,9 +167,7 @@ const Dashboard = observer(
                     <>
                       <div>
                         {this.dashboardListViewModel.liveVisitorsListData?.map((item, index) => {
-                          const urlParams =
-                            item?.events[item?.events?.length - 1]?.url &&
-                            new URL(item?.events[item?.events?.length - 1]?.url);
+                          const urlParams = item?.url && new URL(item?.url);
                           return (
                             <Row key={index} className="py-10">
                               <Col sm="3">
@@ -188,21 +192,28 @@ const Dashboard = observer(
                           );
                         })}
                       </div>
-                      <div className="bg-white border-top text-center py-3">
-                        {this.props.integration ? (
-                          <a
-                            href="#"
-                            onClick={(e) => this.props.handleChangeLink(e, `/flow-list`)}
-                            className={'text-secondary-50 text-nowrap fw-medium'}
-                          >
-                            {t('txt_view_more')}
-                          </a>
-                        ) : (
-                          <Link to="/flow-list" className="text-secondary-50 text-nowrap fw-medium">
-                            {t('txt_view_more')}
-                          </Link>
-                        )}
-                      </div>
+                      {this.dashboardListViewModel.liveVisitorsListData?.length ? (
+                        <div className="bg-white border-top text-center py-3">
+                          {this.props.integration ? (
+                            <a
+                              href="#"
+                              onClick={(e) => this.props.handleChangeLink(e, `/flow-list`)}
+                              className={'text-secondary-50 text-nowrap fw-medium'}
+                            >
+                              {t('txt_view_more')}
+                            </a>
+                          ) : (
+                            <Link
+                              to="/flow-list"
+                              className="text-secondary-50 text-nowrap fw-medium"
+                            >
+                              {t('txt_view_more')}
+                            </Link>
+                          )}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
                     </>
                   )}
                 </div>

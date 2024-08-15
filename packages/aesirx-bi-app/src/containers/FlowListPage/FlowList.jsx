@@ -137,15 +137,19 @@ const FlowList = observer(
           this.flowListListViewModel.isShowlive &&
             (await Promise.all([
               this.flowListListViewModel.getLiveVisitorsTotal(
-                {
-                  'filter[domain]': this.context.biListViewModel.activeDomain,
-                },
+                this.context.biListViewModel.activeDomain
+                  ?.map((value, index) => ({
+                    [`filter[domain][${index + 1}]`]: value,
+                  }))
+                  ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
                 true
               ),
               this.flowListListViewModel.getLiveVisitorsDevice(
-                {
-                  'filter[domain]': this.context.biListViewModel.activeDomain,
-                },
+                this.context.biListViewModel.activeDomain
+                  ?.map((value, index) => ({
+                    [`filter[domain][${index + 1}]`]: value,
+                  }))
+                  ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
                 true
               ),
             ]));
@@ -188,6 +192,7 @@ const FlowList = observer(
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter_not[device]': data?.value ? 'all' : 'bot',
+          'filter[bad_user]': data?.value ? 'true' : 'false',
         },
         {},
         {},
@@ -435,7 +440,7 @@ const FlowList = observer(
                         this.onSelectionChange({ value: !this.flowListListViewModel.isShowbot });
                       }}
                       type={'switch'}
-                      label={`Show bot`}
+                      label={`Show Bot/Bad Traffic`}
                     />
                   </div>
                   <div key={`live-checkbox`}>

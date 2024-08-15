@@ -107,6 +107,10 @@ class FlowListListViewModel {
       this.dataFilter['filter_not[device]'] && delete this.dataFilter['filter_not[device]'];
       search['filter_not[device]'] && delete search['filter_not[device]'];
     }
+    if (dataFilter['filter[bad_user]'] === 'true') {
+      this.dataFilter['filter[bad_user]'] && delete this.dataFilter['filter[bad_user]'];
+      search['filter[bad_user]'] && delete search['filter[bad_user]'];
+    }
     if (dataFilter['filter[event_name]'] === 'all') {
       this.dataFilter['filter[event_name]'] && delete this.dataFilter['filter[event_name]'];
       search['filter[event_name]'] && delete search['filter[event_name]'];

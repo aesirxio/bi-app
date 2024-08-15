@@ -29,8 +29,8 @@ Follow the instructions in: [https://github.com/aesirxio/analytics/tree/master](
 3. Replace license keys in the `.env` file with the one provided in your profile account.
     1. Replace the `REACT_APP_BI_ENDPOINT_URL` in the `.env` file with the link to your `1st party server for AesirX Analytics`.
     1. Replace the `REACT_APP_DATA_STREAM` in the `.env` file with the `name` and `domain` to the your data-stream endpoint.
-    1. Replace the `REACT_APP_SSO_CLIENT_ID` in the `.env` file with the provided REACT_APP_SSO_CLIENT_ID from https://bi.aesirx.io/.
-    1. Replace the `REACT_APP_SSO_CLIENT_SECRET` in the `.env` file with the provided REACT_APP_SSO_CLIENT_SECRET from https://bi.aesirx.io/.
+    1. Replace the `REACT_APP_SSO_CLIENT_ID` in the `.env` file with the provided REACT_APP_SSO_CLIENT_ID from https://dapp.shield.aesirx.io/licenses.
+    1. Replace the `REACT_APP_SSO_CLIENT_SECRET` in the `.env` file with the provided REACT_APP_SSO_CLIENT_SECRET from https://dapp.shield.aesirx.io/licenses.
     1. `PORT` change the port. Default is 3000
 
 5. Run  `yarn dev`

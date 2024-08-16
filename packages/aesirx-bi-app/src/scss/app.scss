@@ -145,6 +145,12 @@
     display: -webkit-inline-box;
     -webkit-box-orient: vertical;
   }
+  .text-ellipsis-block {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    -webkit-box-orient: vertical;
+  }
   .line-clamp-1 {
     -webkit-line-clamp: 1;
   }

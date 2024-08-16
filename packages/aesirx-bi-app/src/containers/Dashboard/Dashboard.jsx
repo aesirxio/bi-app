@@ -67,7 +67,7 @@ const Dashboard = observer(
                 [`filter[domain][${index + 1}]`]: value,
               }))
               ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-            false
+            true
           );
           this.dashboardListViewModel.getLiveVisitorsList(
             this.context.biListViewModel.activeDomain
@@ -75,9 +75,9 @@ const Dashboard = observer(
                 [`filter[domain][${index + 1}]`]: value,
               }))
               ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-            false
+            true
           );
-        }, 15000);
+        }, 30000);
       } catch (e) {
         console.log(e);
       }
@@ -180,12 +180,14 @@ const Dashboard = observer(
                                 </div>
                               </Col>
                               <Col sm="9">
-                                <div className="">
-                                  {urlParams === ''
-                                    ? 'Unknown'
-                                    : urlParams?.pathname !== '/'
-                                    ? urlParams?.pathname + urlParams?.search
-                                    : urlParams?.host}
+                                <div className="text-ellipsis-block text-nowrap">
+                                  <a href={item?.url} target="_blank" rel="noreferrer">
+                                    {urlParams === ''
+                                      ? 'Unknown'
+                                      : urlParams?.pathname !== '/'
+                                      ? urlParams?.pathname + urlParams?.search
+                                      : urlParams?.host}
+                                  </a>
                                 </div>
                               </Col>
                             </Row>

@@ -10,6 +10,7 @@ import moment from 'moment';
 import DashboardModel from '../DashboardModel/DashboardModel';
 import CountryModel from '../../RegionCountryPage/CountryModel/CountryModel';
 import PageModel from '../../VisitorsPage/PagesModel/PageModel';
+import { BI_LIVE_VISITORS_TOTAL_FIELD_KEY } from 'aesirx-lib';
 
 class DashboardListViewModel {
   dashboardStore = null;
@@ -17,6 +18,8 @@ class DashboardListViewModel {
   statusTopPageTable = PAGE_STATUS.READY;
   statusTopBrowser = PAGE_STATUS.READY;
   statusTopSourceTable = PAGE_STATUS.READY;
+  statusLiveVisitorsTotal = PAGE_STATUS.READY;
+  statusLiveVisitorsList = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   summaryData = null;
   visitorData = null;
@@ -30,6 +33,8 @@ class DashboardListViewModel {
   sourcesTableData = null;
   dataAttributesType = null;
   eventNameTypeDataType = null;
+  liveVisitorsTotalData = null;
+  liveVisitorsListData = null;
   sortByPages = { 'sort[]': '', 'sort_direction[]': '' };
   sortByDevices = { 'sort[]': '', 'sort_direction[]': '' };
   sortByBrowsers = { 'sort[]': '', 'sort_direction[]': '' };
@@ -51,6 +56,7 @@ class DashboardListViewModel {
         this.dataFilterPages,
         this.dataFilterEventsType,
         this.dataFilterSources,
+        this.dataFilterLiveVisitors,
       ];
 
       dataFilterObjects?.forEach((dataFilterObj) => {
@@ -61,7 +67,6 @@ class DashboardListViewModel {
         }
       });
     }
-    this.getMetrics(dataFilter, dateFilter);
     this.getVisitors(dataFilter, dateFilter);
     this.getCountries(dataFilter, dateFilter);
     this.getBrowsers(dataFilter, dateFilter);
@@ -70,11 +75,12 @@ class DashboardListViewModel {
     this.getReferer(dataFilter, dateFilter);
     this.getEventsType(dataFilter, dateFilter);
     this.getAttribute(dataFilter, dateFilter);
+    this.getLiveVisitorsTotal(dataFilter, false);
+    this.getLiveVisitorsList(dataFilter, false);
   };
 
   getMetrics = (dataFilter, dateFilter) => {
     this.status = PAGE_STATUS.LOADING;
-    console.log('this.status', this.status);
     this.dataFilter = { ...this.dataFilter, ...dataFilter };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
     this.dashboardStore.getMetrics(
@@ -232,6 +238,30 @@ class DashboardListViewModel {
       this.dataFilterPages,
       dateRangeFilter,
       this.callbackOnAttributesSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getLiveVisitorsTotal = async (dataFilter, isReload = false) => {
+    this.statusLiveVisitorsTotal = !isReload ? PAGE_STATUS.LOADING : PAGE_STATUS.READY;
+    this.dataFilterLiveVisitors = {
+      ...dataFilter,
+    };
+    await this.dashboardStore.getLiveVisitorsTotal(
+      this.dataFilterLiveVisitors,
+      this.callbackOnLiveVisitorsTotalSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+  getLiveVisitorsList = async (dataFilter, isReload = false) => {
+    this.statusLiveVisitorsList = !isReload ? PAGE_STATUS.LOADING : PAGE_STATUS.READY;
+    this.dataFilterLiveVisitors = {
+      page_size: '8',
+      ...dataFilter,
+    };
+    await this.dashboardStore.getLiveVisitorsList(
+      this.dataFilterLiveVisitors,
+      this.callbackOnLiveVisitorsListSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -419,6 +449,30 @@ class DashboardListViewModel {
       }
     } else {
       this.statusTopBrowser = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnLiveVisitorsTotalSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
+        this.liveVisitorsTotalData = data?.list[BI_LIVE_VISITORS_TOTAL_FIELD_KEY.TOTAL];
+        this.statusLiveVisitorsTotal = PAGE_STATUS.READY;
+      }
+    } else {
+      this.statusLiveVisitorsTotal = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnLiveVisitorsListSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
+        this.liveVisitorsListData = data?.list;
+        this.statusLiveVisitorsList = PAGE_STATUS.READY;
+      }
+    } else {
+      this.statusLiveVisitorsList = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

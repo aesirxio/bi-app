@@ -187,5 +187,6 @@
   "txt_total_conversions": "Toplam Dönüşümler",
   "txt_page_view": "Sayfa Görüntülemeleri",
   "txt_visitor": "Ziyaretçiler",
-  "txt_manage_track": "Veri toplama için kullanıcı onay tercihlerini yönetin ve izleyin"
+  "txt_manage_track": "Veri toplama için kullanıcı onay tercihlerini yönetin ve izleyin",
+  "txt_real_time_active_users": "Gerçek Zamanlı Etkin Kullanıcılar"
 }

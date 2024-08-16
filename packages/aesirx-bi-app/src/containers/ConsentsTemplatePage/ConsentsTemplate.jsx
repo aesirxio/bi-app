@@ -4,7 +4,7 @@ import { useConsentsTemplateViewModel } from './ConsentsTemplateViewModels/Conse
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
-import { Image, PAGE_STATUS, notify } from 'aesirx-uikit';
+import { Image, PAGE_STATUS, notify, FormEditor } from 'aesirx-uikit';
 import { env } from 'aesirx-lib';
 
 const ConsentsTemplate = observer(() => {
@@ -30,7 +30,6 @@ const ConsentsTemplate = observer(() => {
   }, [activeDomain]);
 
   useEffect(() => {
-    console.log('consentsTemplate', consentsTemplate);
     setValues(consentsTemplate);
   }, [consentsTemplate]);
 
@@ -149,6 +148,15 @@ const ConsentsTemplate = observer(() => {
             </div>
           </Col>
         </Row>
+        <Form.Label className="mt-2 fw-semibold w-100">Customize consent text</Form.Label>
+        <FormEditor
+          field={{
+            getValueSelected: values?.consent_text ?? '',
+            handleChange: (data) => {
+              setValues({ ...values, consent_text: data });
+            },
+          }}
+        />
       </Form.Group>
     </div>
   );

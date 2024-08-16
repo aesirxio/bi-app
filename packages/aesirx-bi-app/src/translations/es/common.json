@@ -258,5 +258,6 @@
   "txt_total_conversions": "Conversiones Totales",
   "txt_page_view": "Vistas De Página",
   "txt_visitor": "Visitantes",
-  "txt_manage_track": "Administrar y realizar un seguimiento de las preferencias de consentimiento del usuario para la recopilación de datos"
+  "txt_manage_track": "Administrar y realizar un seguimiento de las preferencias de consentimiento del usuario para la recopilación de datos",
+  "txt_real_time_active_users": "Usuarios activos en tiempo real"
 }

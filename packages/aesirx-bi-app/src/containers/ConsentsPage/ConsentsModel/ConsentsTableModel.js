@@ -66,9 +66,9 @@ class ConsentsTableModel {
               </div>
             ) : column.id === BI_CONSENTS_LIST_FIELD_KEY.TIER ? (
               <div className={`px-15`}>
-                {cell?.value === '3'
+                {cell?.value?.toString() === '3'
                   ? 'Decentralized Consent'
-                  : cell?.value === '4'
+                  : cell?.value?.toString() === '4'
                   ? 'Decentralized Consent + SoP'
                   : 'Consent'}
               </div>

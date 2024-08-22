@@ -175,7 +175,12 @@ const FlowList = observer(
         },
         {},
         {
-          'sort[]': column?.id === BI_FLOW_LIST_FIELD_KEY.GEO ? 'geo.country.name' : column?.id,
+          'sort[]':
+            column?.id === BI_FLOW_LIST_FIELD_KEY.GEO
+              ? 'geo.country.name'
+              : column?.id === BI_FLOW_LIST_FIELD_KEY.TRAFFIC
+              ? 'device'
+              : column?.id,
           'sort_direction[]':
             this.flowListListViewModel?.sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
         },

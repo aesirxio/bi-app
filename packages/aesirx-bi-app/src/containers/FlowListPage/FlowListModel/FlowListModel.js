@@ -91,7 +91,12 @@ class FlowListModel {
               ? 80
               : 100,
           allowSort: true,
-          sortParams: key === BI_FLOW_LIST_FIELD_KEY.GEO ? 'geo.country.name' : key,
+          sortParams:
+            key === BI_FLOW_LIST_FIELD_KEY.GEO
+              ? 'geo.country.name'
+              : key === BI_FLOW_LIST_FIELD_KEY.TRAFFIC
+              ? 'device'
+              : key,
           Cell: ({ cell, column, row }) => {
             if (column.id === BI_FLOW_LIST_FIELD_KEY.GEO) {
               return (

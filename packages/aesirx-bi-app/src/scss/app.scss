@@ -289,6 +289,17 @@
   }
 }
 
+@media (min-width: 992px) {
+  #biapp {
+    .w-lg-70 {
+      width: 70%;
+    }
+    .w-lg-30 {
+      width: 30%;
+    }
+  }
+}
+
 .back_icon {
   width: 30px;
   height: 30px;

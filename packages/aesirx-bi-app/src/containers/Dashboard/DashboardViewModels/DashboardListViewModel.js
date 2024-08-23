@@ -67,6 +67,7 @@ class DashboardListViewModel {
         }
       });
     }
+    this.getMetrics(dataFilter, dateFilter);
     this.getVisitors(dataFilter, dateFilter);
     this.getCountries(dataFilter, dateFilter);
     this.getBrowsers(dataFilter, dateFilter);

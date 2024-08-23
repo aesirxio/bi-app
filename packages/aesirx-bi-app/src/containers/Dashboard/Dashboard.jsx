@@ -13,7 +13,7 @@ import OverviewComponent from './Component/Overview';
 
 import { withDashboardViewModel } from './DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from '../../store/BiStore/BiViewModelContextProvider';
-import { BI_FLOW_DETAIL_KEY, Helper } from 'aesirx-lib';
+import { BI_FLOW_DETAIL_KEY, BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import DateRangePicker from '../../components/DateRangePicker';
 import { Col, Row, Spinner } from 'react-bootstrap';
 import Countries from './Component/Countries';
@@ -21,6 +21,7 @@ import Browsers from './Component/Browsers';
 import TopTable from '../VisitorsPage/Component/TopTable';
 import { PAGE_STATUS, RingLoaderComponent } from 'aesirx-uikit';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -135,7 +136,7 @@ const Dashboard = observer(
             </div>
           </div>
           <Row>
-            <Col lg="4">
+            <div className="w-100 w-lg-30">
               <div className="bg-white shadow-sm rounded-3 h-100">
                 <div className="bg-white border-bottom">
                   <div className="bg-dark-blue text-white p-24 rounded-3 rounded-bottom-0 fw-medium d-flex align-items-center justify-content-between">
@@ -220,8 +221,8 @@ const Dashboard = observer(
                   )}
                 </div>
               </div>
-            </Col>
-            <Col lg="8">
+            </div>
+            <div className="w-100 w-lg-70">
               <OverviewComponent
                 bars={['visits', 'page_views']}
                 barColors={['#0066FF', '#96C0FF']}
@@ -229,8 +230,105 @@ const Dashboard = observer(
                 status={this.dashboardListViewModel?.status}
                 data={this.dashboardListViewModel?.visitorData?.toAreaChart()}
                 filterData={this.dashboardListViewModel?.visitorData?.getFilterName()}
+                chartTitle={
+                  <>
+                    <div className="d-flex align-items-start ms-24 mb-24">
+                      <div className="bg-white me-3">
+                        <h5 className="fs-6 mb-12px fw-normal">
+                          <span className="text-success me-1 d-none d-xxl-inline-block">•</span>{' '}
+                          {t('txt_visitors')}
+                        </h5>
+                        <div className="fs-5 fw-semibold position-relative">
+                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                            <Spinner size="sm" variant="success" />
+                          ) : (
+                            Helper.numberWithCommas(
+                              this.dashboardListViewModel.summaryData?.[
+                                BI_SUMMARY_FIELD_KEY.TOTAL_NUMBER_OF_VISITORS
+                              ]
+                            )
+                          )}
+                        </div>
+                      </div>
+                      <div className="bg-white me-3">
+                        <h5 className="fs-6 mb-12px fw-normal">
+                          <span className="text-success me-1 d-none d-xxl-inline-block">•</span>{' '}
+                          {t('txt_unique_visitors')}
+                        </h5>
+                        <div className="fs-5 fw-semibold position-relative">
+                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                            <Spinner size="sm" variant="success" />
+                          ) : (
+                            Helper.numberWithCommas(
+                              this.dashboardListViewModel.summaryData?.[
+                                BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+                              ]
+                            )
+                          )}
+                        </div>
+                      </div>
+                      <div className="bg-white me-3">
+                        <h5 className="fs-6 mb-12px fw-normal">
+                          <span className="text-success me-1 d-none d-xxl-inline-block">•</span>{' '}
+                          {t('txt_page_views')}
+                        </h5>
+                        <div className="fs-5 fw-semibold position-relative">
+                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                            <Spinner size="sm" variant="success" />
+                          ) : (
+                            Helper.numberWithCommas(
+                              this.dashboardListViewModel.summaryData?.[
+                                BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
+                              ]
+                            )
+                          )}
+                        </div>
+                      </div>
+                      <div className="bg-white me-3">
+                        <h5 className="fs-6 mb-12px fw-normal">
+                          <span className="text-success me-1 d-none d-xxl-inline-block">•</span>{' '}
+                          {t('txt_avg_visit_duration')}
+                        </h5>
+                        <div className="fs-5 fw-semibold position-relative">
+                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                            <Spinner size="sm" variant="success" />
+                          ) : this.dashboardListViewModel.summaryData?.[
+                              BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+                            ] ? (
+                            moment
+                              .utc(
+                                this.dashboardListViewModel.summaryData?.[
+                                  BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+                                ] * 1000
+                              )
+                              .format('m [min] s [s]')
+                          ) : (
+                            '0 min 0s'
+                          )}
+                        </div>
+                      </div>
+                      <div className="bg-white">
+                        <h5 className="fs-6 mb-12px fw-normal">
+                          <span className="text-success me-1 d-none d-xxl-inline-block">•</span>{' '}
+                          {t('txt_bounce_rate')}
+                        </h5>
+                        <div className="fs-5 fw-semibold position-relative">
+                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                            <Spinner size="sm" variant="success" />
+                          ) : (
+                            Helper.numberWithCommas(
+                              this.dashboardListViewModel.summaryData?.[
+                                BI_SUMMARY_FIELD_KEY.BOUNCE_RATE
+                              ]
+                            )
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                }
               />
-            </Col>
+            </div>
           </Row>
           <Row className="mt-4">
             <Col lg={6} className="mb-24">

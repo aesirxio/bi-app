@@ -50,6 +50,85 @@ const ConsentsTemplate = observer(() => {
       notify('Please choose template', 'error');
     }
   };
+
+  useEffect(() => {
+    updateDefaultConsentText();
+  }, []);
+
+  const [defaulConsentText, setDefaulConsentText] = useState();
+  const updateDefaultConsentText = (template) => {
+    console.log('template', template);
+    const text = `
+    <p class="mt-0 mb-1 mb-lg-2 text-black fw-semibold">
+      Manage Your Consent Preferences
+    </p>
+    <p class="mt-0 mb-1 mb-lg-3">
+     ${
+       template === 'simple-consent-mode'
+         ? `Choose how we use your data: “Reject” data collection, allow tracking [“Consent”].`
+         : `Choose how we use your data: “Reject” data collection, allow tracking [“Consent”], or use “Decentralized Consent” for more control over your personal data & rewards.`
+     }
+    </p>
+    <div class="mb-1 mb-lg-3">
+      <p class="mb-1 mb-lg-2 text-black">
+        By consenting, you allow us to collect & use your data for:
+      </p>
+      <div class="d-flex align-items-start check-line">
+        <span>
+          <img src="${
+            env.PUBLIC_URL + '/assets/images/check_circle.svg'
+          }" width={'14px'} height={'15px'} />
+        </span>
+        <div class="ms-10px">
+          <div>Analytics & Behavioral Data: To improve our services & personalize your experience.</div>
+        </div>
+      </div>
+      <div class="d-flex align-items-start check-line">
+        <span>
+          <img src="${
+            env.PUBLIC_URL + '/assets/images/check_circle.svg'
+          }" width={'14px'} height={'15px'} />
+        </span>
+        <div class="ms-10px">
+          <div>Form Data: When you contact us.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="mb-1 mb-lg-2 text-black">Please note</p>
+      <div class="d-flex align-items-start check-line">
+        <span>
+          <img src="${
+            env.PUBLIC_URL + '/assets/images/check_circle.svg'
+          }" width={'14px'} height={'15px'} />
+        </span>
+        <div class="ms-10px">
+          <div>We do not share your data with third parties without your explicit consent.</div>
+        </div>
+      </div>
+      <div class="d-flex align-items-start check-line">
+        <span>
+          <img src="${
+            env.PUBLIC_URL + '/assets/images/check_circle.svg'
+          }" width={'14px'} height={'15px'} />
+        </span>
+        <div class="ms-10px">
+          <div>You can opt-in later for specific features without giving blanket consent.</div>
+        </div>
+      </div>
+      <div class="d-flex align-items-start check-line">
+        <span>
+          <img src="${
+            env.PUBLIC_URL + '/assets/images/check_circle.svg'
+          }" width={'14px'} height={'15px'} />
+        </span>
+        <div class="ms-10px">
+          For more details, refer to our <a class='text-success fw-semibold text-decoration-underline' href='https://aesirx.io/privacy-policy' target='_blank'>privacy policy.</a>
+        </div>
+      </div>
+    </div>`;
+    setDefaulConsentText(text);
+  };
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column min-vh-100">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -115,6 +194,7 @@ const ConsentsTemplate = observer(() => {
                 label={`Default template`}
                 onChange={() => {
                   handleChange('default');
+                  updateDefaultConsentText('default');
                 }}
                 checked={values?.template === 'default'}
                 value={`default`}
@@ -138,6 +218,7 @@ const ConsentsTemplate = observer(() => {
                 label={`Simple Consent Mode`}
                 onChange={() => {
                   handleChange('simple-consent-mode');
+                  updateDefaultConsentText('simple-consent-mode');
                 }}
                 checked={values?.template === 'simple-consent-mode'}
                 value={`simple-consent-mode`}
@@ -149,14 +230,16 @@ const ConsentsTemplate = observer(() => {
           </Col>
         </Row>
         <Form.Label className="mt-2 fw-semibold w-100">Customize consent text</Form.Label>
-        <FormEditor
-          field={{
-            getValueSelected: values?.consent_text ?? '',
-            handleChange: (data) => {
-              setValues({ ...values, consent_text: data });
-            },
-          }}
-        />
+        <React.Fragment key={defaulConsentText}>
+          <FormEditor
+            field={{
+              getValueSelected: values?.consent_text ?? defaulConsentText,
+              handleChange: (data) => {
+                setValues({ ...values, consent_text: data ?? '' });
+              },
+            }}
+          />
+        </React.Fragment>
       </Form.Group>
     </div>
   );

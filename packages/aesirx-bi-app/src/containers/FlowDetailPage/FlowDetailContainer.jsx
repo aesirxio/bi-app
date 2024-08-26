@@ -70,6 +70,10 @@ const FlowDetailContainer = observer((props) => {
     return () => {};
   }, [activeDomain]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const getOG = async (url) => {
     try {
       const response = await axios.get(url);

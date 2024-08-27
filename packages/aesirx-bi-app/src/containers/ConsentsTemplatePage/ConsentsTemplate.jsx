@@ -29,10 +29,6 @@ const ConsentsTemplate = observer(() => {
     return () => {};
   }, [activeDomain]);
 
-  useEffect(() => {
-    setValues(consentsTemplate);
-  }, [consentsTemplate]);
-
   const [values, setValues] = useState({
     domain: activeDomain[0],
     template: '',
@@ -40,6 +36,14 @@ const ConsentsTemplate = observer(() => {
     gtm_id: '',
   });
 
+  const [defaulConsentText, setDefaulConsentText] = useState();
+
+  useEffect(() => {
+    setValues(consentsTemplate);
+    if (consentsTemplate && !consentsTemplate?.consent_text) {
+      updateDefaultConsentText(consentsTemplate?.template);
+    }
+  }, [consentsTemplate]);
   const handleChange = (name) => {
     setValues({ ...values, domain: activeDomain[0], template: name });
   };
@@ -50,12 +54,6 @@ const ConsentsTemplate = observer(() => {
       notify('Please choose template', 'error');
     }
   };
-
-  useEffect(() => {
-    updateDefaultConsentText();
-  }, []);
-
-  const [defaulConsentText, setDefaulConsentText] = useState();
   const updateDefaultConsentText = (template) => {
     console.log('template', template);
     const text = `
@@ -181,7 +179,7 @@ const ConsentsTemplate = observer(() => {
         </Form.Label>
         <Row>
           <Col lg="4" className="mb-3">
-            <div className="d-flex justify-content-between flex-column h-100">
+            <div className="d-flex justify-content-start flex-column h-100">
               <div className="border rounded-2 shadow-sm mb-3">
                 <Image
                   className={`w-100`}
@@ -194,7 +192,6 @@ const ConsentsTemplate = observer(() => {
                 label={`Default template`}
                 onChange={() => {
                   handleChange('default');
-                  updateDefaultConsentText('default');
                 }}
                 checked={values?.template === 'default'}
                 value={`default`}
@@ -202,11 +199,15 @@ const ConsentsTemplate = observer(() => {
                 type="radio"
                 id={`inline-radio-default`}
               />
+              <p className="mt-3 fs-sm">
+                AesirX Consent Management is improving Google Consent Mode 2.0 by not loading any
+                tags until after consent is given reducing the compliance risk
+              </p>
             </div>
           </Col>
           <Col lg="4" className="mb-3">
-            <div className="d-flex justify-content-between flex-column h-100">
-              <div className="border rounded-2 shadow-sm mb-3">
+            <div className="d-flex justify-content-start flex-column h-100">
+              <div className="border rounded-2 shadow-sm mb-4">
                 <Image
                   className={`w-100`}
                   src={`${env.PUBLIC_URL}/assets/images/consent_simple_mode.png`}
@@ -218,7 +219,6 @@ const ConsentsTemplate = observer(() => {
                 label={`Simple Consent Mode`}
                 onChange={() => {
                   handleChange('simple-consent-mode');
-                  updateDefaultConsentText('simple-consent-mode');
                 }}
                 checked={values?.template === 'simple-consent-mode'}
                 value={`simple-consent-mode`}
@@ -233,9 +233,13 @@ const ConsentsTemplate = observer(() => {
         <React.Fragment key={defaulConsentText}>
           <FormEditor
             field={{
-              getValueSelected: values?.consent_text ?? defaulConsentText,
+              getValueSelected: values?.consent_text
+                ? values?.consent_text
+                : defaulConsentText ?? '',
               handleChange: (data) => {
-                setValues({ ...values, consent_text: data ?? '' });
+                if (values?.template) {
+                  setValues({ ...values, consent_text: data ?? '' });
+                }
               },
             }}
           />

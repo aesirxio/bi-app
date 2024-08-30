@@ -336,7 +336,7 @@ const Dashboard = observer(
                                 BI_SUMMARY_FIELD_KEY.BOUNCE_RATE
                               ]
                             )
-                          )}
+                          )} %
                         </div>
                       </div>
                     </div>

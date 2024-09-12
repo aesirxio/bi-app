@@ -232,10 +232,13 @@ const Dashboard = observer(
                 filterData={this.dashboardListViewModel?.visitorData?.getFilterName()}
                 chartTitle={
                   <>
-                    <div className="d-flex align-items-start ms-24 mb-24">
-                      <div className="bg-white me-3">
+                    <div className="d-flex align-items-start ms-24 mb-24 border p-10 rounded-2">
+                      <div className="bg-white pe-2 me-2 border-end">
                         <h5 className="fs-6 mb-12px fw-normal">
-                          <span className="text-success me-1 d-none d-xxl-inline-block">•</span>{' '}
+                          <div
+                            className="rounded-circle me-8px d-none d-xxl-inline-block"
+                            style={{ backgroundColor: '#1A2B88', width: 14, height: 14 }}
+                          ></div>
                           {t('txt_visitors')}
                         </h5>
                         <div className="fs-5 fw-semibold position-relative">
@@ -250,9 +253,12 @@ const Dashboard = observer(
                           )}
                         </div>
                       </div>
-                      <div className="bg-white me-3">
+                      <div className="bg-white pe-2 me-2 border-end">
                         <h5 className="fs-6 mb-12px fw-normal">
-                          <span className="text-success me-1 d-none d-xxl-inline-block">•</span>{' '}
+                          <div
+                            className="rounded-circle me-8px d-none d-xxl-inline-block"
+                            style={{ backgroundColor: '#4855A0', width: 14, height: 14 }}
+                          ></div>
                           {t('txt_unique_visitors')}
                         </h5>
                         <div className="fs-5 fw-semibold position-relative">
@@ -267,9 +273,12 @@ const Dashboard = observer(
                           )}
                         </div>
                       </div>
-                      <div className="bg-white me-3">
+                      <div className="bg-white pe-2 me-2 border-end">
                         <h5 className="fs-6 mb-12px fw-normal">
-                          <span className="text-success me-1 d-none d-xxl-inline-block">•</span>{' '}
+                          <div
+                            className="rounded-circle me-8px d-none d-xxl-inline-block"
+                            style={{ backgroundColor: '#67A4FF', width: 14, height: 14 }}
+                          ></div>
                           {t('txt_page_views')}
                         </h5>
                         <div className="fs-5 fw-semibold position-relative">
@@ -284,9 +293,12 @@ const Dashboard = observer(
                           )}
                         </div>
                       </div>
-                      <div className="bg-white me-3">
+                      <div className="bg-white pe-2 me-2 border-end">
                         <h5 className="fs-6 mb-12px fw-normal">
-                          <span className="text-success me-1 d-none d-xxl-inline-block">•</span>{' '}
+                          <div
+                            className="rounded-circle me-8px d-none d-xxl-inline-block"
+                            style={{ backgroundColor: '#ADCEFF', width: 14, height: 14 }}
+                          ></div>
                           {t('txt_avg_visit_duration')}
                         </h5>
                         <div className="fs-5 fw-semibold position-relative">
@@ -309,7 +321,10 @@ const Dashboard = observer(
                       </div>
                       <div className="bg-white">
                         <h5 className="fs-6 mb-12px fw-normal">
-                          <span className="text-success me-1 d-none d-xxl-inline-block">•</span>{' '}
+                          <div
+                            className="rounded-circle me-8px d-none d-xxl-inline-block"
+                            style={{ backgroundColor: '#A3AACF', width: 14, height: 14 }}
+                          ></div>
                           {t('txt_bounce_rate')}
                         </h5>
                         <div className="fs-5 fw-semibold position-relative">
@@ -321,7 +336,8 @@ const Dashboard = observer(
                                 BI_SUMMARY_FIELD_KEY.BOUNCE_RATE
                               ]
                             )
-                          )}
+                          )}{' '}
+                          %
                         </div>
                       </div>
                     </div>

@@ -352,6 +352,16 @@ const FlowDetailContainer = observer((props) => {
                             <span className="flow_detail_item_content_name ms-sm">
                               {item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit'
                                 ? 'Visited'
+                                : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'consent' &&
+                                  item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]?.find(
+                                    (o) => o.name === 'tier'
+                                  )?.value === '3'
+                                ? 'Decentralized Consent'
+                                : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'consent' &&
+                                  item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]?.find(
+                                    (o) => o.name === 'tier'
+                                  )?.value === '4'
+                                ? 'Decentralized Consent + Shield of Privacy'
                                 : item[BI_VISITOR_FIELD_KEY.EVENT_NAME]}
                             </span>
                           </div>

@@ -18,7 +18,7 @@
     "postcss": "^8",
     "json5": "^2",
     "@types/react": "^18",
-    "path-to-regexp": "^2.2.1",
+    "path-to-regexp": "^3.3.0",
     "elliptic": "^6.5.7",
     "ws": "^8.18.0",
     "d3-color": "^3"

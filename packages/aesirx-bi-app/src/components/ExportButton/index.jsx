@@ -191,7 +191,7 @@ function ExportButton({
                 ) : data?.length ? (
                   <button
                     className="btn btn-light text-nowrap py-13 lh-sm rounded-1"
-                    onClick={() => downloadExcel(data, `${nameFile}`)}
+                    onClick={async () => await downloadExcel(data, `${nameFile}`)}
                   >
                     Export
                   </button>

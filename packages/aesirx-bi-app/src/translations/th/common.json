@@ -246,7 +246,7 @@
   "txt_avg_quantity": "จำนวนเฉลี่ย",
   "txt_top_products": "ผลิตภัณฑ์ยอดนิยม",
   "txt_menu_consents": "ยินยอม",
-  "txt_web3id": "Web3ID",
+  "txt_web3id": "SoP ID",
   "txt_wallet": "กระเป๋าเงิน",
   "txt_consent": "ยินยอม",
   "txt_tier": "ระดับ",
@@ -257,5 +257,8 @@
   "txt_source": "แหล่งที่มา",
   "txt_total_conversions": "ยอดการแปลงทั้งหมด",
   "txt_page_view": "ยอดเข้าชมหน้า",
-  "txt_visitor": "ผู้เยี่ยมชม"
+  "txt_visitor": "ผู้เยี่ยมชม",
+  "txt_manage_track": "จัดการและติดตามการตั้งค่าความยินยอมของผู้ใช้สำหรับการรวบรวมข้อมูล",
+  "txt_real_time_active_users": "ผู้ใช้ที่ใช้งานแบบเรียลไทม์",
+  "txt_avg_visit_duration": "ระยะเวลาการเยี่ยมชมโดยเฉลี่ย"
 }

@@ -29,7 +29,11 @@ const SearchEnginePage = observer(
     componentDidMount = () => {
       this.searchEngineListViewModel.initialize(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter[acquisition]': true,
         },
         {},
@@ -43,7 +47,11 @@ const SearchEnginePage = observer(
       ) {
         this.searchEngineListViewModel.initialize(
           {
-            'filter[domain]': this.context.biListViewModel.activeDomain,
+            ...this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
             'filter[acquisition]': true,
           },
           {},
@@ -118,7 +126,11 @@ const SearchEnginePage = observer(
     handleSort = async (column) => {
       this.searchEngineListViewModel.getOutlink(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {
@@ -132,7 +144,11 @@ const SearchEnginePage = observer(
     handleSearch = async (search) => {
       this.searchEngineListViewModel.getPages(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {},
@@ -146,7 +162,7 @@ const SearchEnginePage = observer(
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-24">
             <div>
-              <h2 className="fw-bold mb-3 mt-3">{t('txt_search_engines')}</h2>
+              <h2 className="fw-medium mb-3 mt-3">{t('txt_search_engines')}</h2>
             </div>
             <div className="position-relative havePrintButton">
               <DateRangePicker onChange={this.handleDateRangeChange} />

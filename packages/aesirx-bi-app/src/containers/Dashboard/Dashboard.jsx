@@ -13,14 +13,14 @@ import OverviewComponent from './Component/Overview';
 
 import { withDashboardViewModel } from './DashboardViewModels/DashboardViewModelContextProvider';
 import { BiViewModelContext } from '../../store/BiStore/BiViewModelContextProvider';
-import { BI_DEVICES_FIELD_KEY, BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
+import { BI_FLOW_DETAIL_KEY, BI_SUMMARY_FIELD_KEY, Helper } from 'aesirx-lib';
 import DateRangePicker from '../../components/DateRangePicker';
-import { env } from 'aesirx-lib';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Spinner } from 'react-bootstrap';
 import Countries from './Component/Countries';
 import Browsers from './Component/Browsers';
 import TopTable from '../VisitorsPage/Component/TopTable';
-import { Image } from 'aesirx-uikit';
+import { PAGE_STATUS, RingLoaderComponent } from 'aesirx-uikit';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 const Dashboard = observer(
@@ -42,27 +42,42 @@ const Dashboard = observer(
         this.props.location !== prevProps.location ||
         this.props.activeDomain !== prevProps.activeDomain
       ) {
-        this.dashboardListViewModel.initialize({
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        });
+        this.dashboardListViewModel.initialize(
+          this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {})
+        );
       }
     };
 
     componentDidMount = async () => {
-      this.dashboardListViewModel.initialize({
-        'filter[domain]': this.context.biListViewModel.activeDomain,
-      });
+      this.dashboardListViewModel.initialize(
+        this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {})
+      );
       try {
         setInterval(async () => {
-          if (
-            moment(this.context.biListViewModel?.dateFilter?.date_end).isSameOrAfter(
-              moment().format('YYYY-MM-DD')
-            )
-          ) {
-            this.dashboardListViewModel.initialize({
-              'filter[domain]': this.context.biListViewModel.activeDomain,
-            });
-          }
+          this.dashboardListViewModel.getLiveVisitorsTotal(
+            this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+            true
+          );
+          this.dashboardListViewModel.getLiveVisitorsList(
+            this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+            true
+          );
         }, 30000);
       } catch (e) {
         console.log(e);
@@ -75,9 +90,11 @@ const Dashboard = observer(
 
     handleSortPage = async (column) => {
       this.dashboardListViewModel.getPages(
-        {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        },
+        this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         {},
         {
           'sort[]': column?.id,
@@ -91,9 +108,11 @@ const Dashboard = observer(
 
     handleSortSources = async (column) => {
       this.dashboardListViewModel.getReferer(
-        {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
-        },
+        this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         {},
         {
           'sort[]': column?.id,
@@ -106,132 +125,104 @@ const Dashboard = observer(
     };
     render() {
       const { t } = this.props;
-
-      // let maxDevices =
-      //   this.dashboardListViewModel.devicesData?.length &&
-      //   this.dashboardListViewModel.devicesData.reduce(function (prev, current) {
-      //     if (
-      //       +current[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] >
-      //       +prev[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-      //     ) {
-      //       return current;
-      //     } else {
-      //       return prev;
-      //     }
-      //   });
-      // const maxDevicePercent =
-      //   this.dashboardListViewModel.devicesData?.length &&
-      //   (maxDevices[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS] /
-      //     this.dashboardListViewModel.devicesData.reduce(
-      //       (a, b) => +a + +b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
-      //       0
-      //     )) *
-      //     100;
-
       return (
         <div className="py-4 px-4 h-100 d-flex flex-column">
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
             <div className="position-relative">
-              <h2 className="fw-bold mb-3 mt-3">{t('txt_dashboard')}</h2>
+              <h2 className="fw-medium mb-3 mt-3">{t('txt_dashboard')}</h2>
             </div>
             <div className="position-relative havePrintButton">
               <DateRangePicker onChange={this.handleDateRangeChange} />
             </div>
           </div>
           <Row>
-            <Col lg="3">
+            <div className="w-100 w-lg-30">
               <div className="bg-white shadow-sm rounded-3 h-100">
                 <div className="bg-white border-bottom">
-                  <div className="bg-dark-blue text-white p-24 rounded-3 rounded-bottom-0 fw-medium">
-                    <h5 className="fs-6 mb-12px fw-medium">
-                      {t('txt_visitors')} <span className="text-success ms-1">•</span>
-                    </h5>
-                    <div className="fs-24">
-                      {Helper.numberWithCommas(
-                        this.dashboardListViewModel.summaryData?.[
-                          BI_SUMMARY_FIELD_KEY.TOTAL_NUMBER_OF_VISITORS
-                        ]
-                      )}
-                    </div>
-                  </div>
-                  <div className="bg-white p-24 pb-18px rounded-3 rounded-bottom-0 fw-medium">
-                    <h5 className="fs-6 mb-12px text-gray-900 fw-medium">
-                      {t('txt_unique_visitors')}
-                    </h5>
-                    <div className="fs-24">
-                      {Helper.numberWithCommas(
-                        this.dashboardListViewModel.summaryData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
-                        ]
-                      )}
-                    </div>
-                  </div>
-                  <div className="bg-white p-24 pt-0 rounded-3 rounded-bottom-0 fw-medium">
-                    <h5 className="fs-6 mb-12px text-gray-900 fw-medium">{t('txt_page_views')}</h5>
-                    <div className="fs-24">
-                      {Helper.numberWithCommas(
-                        this.dashboardListViewModel.summaryData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
-                        ]
+                  <div className="bg-dark-blue text-white p-24 rounded-3 rounded-bottom-0 fw-medium d-flex align-items-center justify-content-between">
+                    <h5 className="fs-6 mb-0 fw-medium">{t('txt_real_time_active_users')}</h5>
+                    <div className="fs-1 position-relative">
+                      {this.dashboardListViewModel?.statusLiveVisitorsTotal ===
+                      PAGE_STATUS.LOADING ? (
+                        <Spinner size="sm" variant="success" className="fs-6" />
+                      ) : (
+                        Helper.numberWithCommas(this.dashboardListViewModel.liveVisitorsTotalData)
                       )}
                     </div>
                   </div>
                 </div>
-                <div className="bg-white p-24 rounded-3 rounded-top-0">
-                  {this.dashboardListViewModel.devicesData?.map((device, index) => {
-                    let imgIcon = `${env.PUBLIC_URL}/assets/images/device_mobile.png`;
-                    switch (device[BI_DEVICES_FIELD_KEY?.DEVICE]) {
-                      case 'desktop':
-                        imgIcon = `${env.PUBLIC_URL}/assets/images/device_desktop.png`;
-                        break;
-                      case 'iPad':
-                        imgIcon = `${env.PUBLIC_URL}/assets/images/device_tablet.png`;
-                        break;
-                      case 'tablet':
-                        imgIcon = `${env.PUBLIC_URL}/assets/images/device_tablet.png`;
-                        break;
-                    }
-                    return (
-                      <div
-                        className="d-flex align-items-center justify-content-between w-100 mb-12px"
-                        key={index}
-                      >
-                        <div className="d-flex align-items-center">
-                          <Image
-                            className={`me-12px`}
-                            style={{ width: 44, height: 44 }}
-                            src={imgIcon}
-                            alt={'icons'}
-                          />
-                          <div className="fw-medium text-capitalize">
-                            {device[BI_DEVICES_FIELD_KEY?.DEVICE]}
-                          </div>
-                        </div>
-                        <div className="d-flex align-items-center">
-                          {
-                            <div className="fs-sm me-12px text-gray-900">
-                              {(
-                                (device[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS] /
-                                  this.dashboardListViewModel.devicesData.reduce(
-                                    (a, b) => +a + +b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
-                                    0
-                                  )) *
-                                100
-                              )?.toFixed(2)}
-                              %
-                            </div>
-                          }
-                          <div className="fw-medium fs-18px">
-                            {device[BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS]}
-                          </div>
-                        </div>
+                <div className="bg-white rounded-3 rounded-top-0 position-relative ChartWrapper">
+                  <div className="bg-secondary-25 py-2">
+                    <Row>
+                      <Col sm="3">
+                        <div className="text-gray-heading fw-semibold text-center">Local</div>
+                      </Col>
+                      <Col sm="9">
+                        <div className="text-gray-heading fw-semibold">Page</div>
+                      </Col>
+                    </Row>
+                  </div>
+                  {this.dashboardListViewModel?.statusLiveVisitorsList === PAGE_STATUS.LOADING ? (
+                    <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
+                  ) : (
+                    <>
+                      <div>
+                        {this.dashboardListViewModel.liveVisitorsListData?.map((item, index) => {
+                          const urlParams = item?.url && new URL(item?.url);
+                          return (
+                            <Row key={index} className="py-10">
+                              <Col sm="3">
+                                <div className="text-center">
+                                  <span
+                                    className={`me-1 fi fi-${item[
+                                      BI_FLOW_DETAIL_KEY.GEO
+                                    ]?.country?.code?.toLowerCase()}`}
+                                  ></span>
+                                </div>
+                              </Col>
+                              <Col sm="9">
+                                <div className="text-ellipsis-block text-nowrap">
+                                  <a href={item?.url} target="_blank" rel="noreferrer">
+                                    {urlParams === ''
+                                      ? 'Unknown'
+                                      : urlParams?.pathname !== '/'
+                                      ? urlParams?.pathname + urlParams?.search
+                                      : urlParams?.host}
+                                  </a>
+                                </div>
+                              </Col>
+                            </Row>
+                          );
+                        })}
                       </div>
-                    );
-                  })}
+                      {this.dashboardListViewModel.liveVisitorsListData?.length ? (
+                        <div className="bg-white border-top text-center py-3">
+                          {this.props.integration ? (
+                            <a
+                              href="#"
+                              onClick={(e) => this.props.handleChangeLink(e, `/flow-list`)}
+                              className={'text-secondary-50 text-nowrap fw-medium'}
+                            >
+                              {t('txt_view_more')}
+                            </a>
+                          ) : (
+                            <Link
+                              to="/flow-list"
+                              className="text-secondary-50 text-nowrap fw-medium"
+                            >
+                              {t('txt_view_more')}
+                            </Link>
+                          )}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
-            </Col>
-            <Col lg="9">
+            </div>
+            <div className="w-100 w-lg-70">
               <OverviewComponent
                 bars={['visits', 'page_views']}
                 barColors={['#0066FF', '#96C0FF']}
@@ -239,8 +230,121 @@ const Dashboard = observer(
                 status={this.dashboardListViewModel?.status}
                 data={this.dashboardListViewModel?.visitorData?.toAreaChart()}
                 filterData={this.dashboardListViewModel?.visitorData?.getFilterName()}
+                chartTitle={
+                  <>
+                    <div className="d-flex align-items-start ms-24 mb-24 border p-10 rounded-2">
+                      <div className="bg-white pe-2 me-2 border-end">
+                        <h5 className="fs-6 mb-12px fw-normal">
+                          <div
+                            className="rounded-circle me-8px d-none d-xxl-inline-block"
+                            style={{ backgroundColor: '#1A2B88', width: 14, height: 14 }}
+                          ></div>
+                          {t('txt_visitors')}
+                        </h5>
+                        <div className="fs-5 fw-semibold position-relative">
+                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                            <Spinner size="sm" variant="success" />
+                          ) : (
+                            Helper.numberWithCommas(
+                              this.dashboardListViewModel.summaryData?.[
+                                BI_SUMMARY_FIELD_KEY.TOTAL_NUMBER_OF_VISITORS
+                              ]
+                            )
+                          )}
+                        </div>
+                      </div>
+                      <div className="bg-white pe-2 me-2 border-end">
+                        <h5 className="fs-6 mb-12px fw-normal">
+                          <div
+                            className="rounded-circle me-8px d-none d-xxl-inline-block"
+                            style={{ backgroundColor: '#4855A0', width: 14, height: 14 }}
+                          ></div>
+                          {t('txt_unique_visitors')}
+                        </h5>
+                        <div className="fs-5 fw-semibold position-relative">
+                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                            <Spinner size="sm" variant="success" />
+                          ) : (
+                            Helper.numberWithCommas(
+                              this.dashboardListViewModel.summaryData?.[
+                                BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
+                              ]
+                            )
+                          )}
+                        </div>
+                      </div>
+                      <div className="bg-white pe-2 me-2 border-end">
+                        <h5 className="fs-6 mb-12px fw-normal">
+                          <div
+                            className="rounded-circle me-8px d-none d-xxl-inline-block"
+                            style={{ backgroundColor: '#67A4FF', width: 14, height: 14 }}
+                          ></div>
+                          {t('txt_page_views')}
+                        </h5>
+                        <div className="fs-5 fw-semibold position-relative">
+                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                            <Spinner size="sm" variant="success" />
+                          ) : (
+                            Helper.numberWithCommas(
+                              this.dashboardListViewModel.summaryData?.[
+                                BI_SUMMARY_FIELD_KEY.NUMBER_OF_PAGE_VIEWS
+                              ]
+                            )
+                          )}
+                        </div>
+                      </div>
+                      <div className="bg-white pe-2 me-2 border-end">
+                        <h5 className="fs-6 mb-12px fw-normal">
+                          <div
+                            className="rounded-circle me-8px d-none d-xxl-inline-block"
+                            style={{ backgroundColor: '#ADCEFF', width: 14, height: 14 }}
+                          ></div>
+                          {t('txt_avg_visit_duration')}
+                        </h5>
+                        <div className="fs-5 fw-semibold position-relative">
+                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                            <Spinner size="sm" variant="success" />
+                          ) : this.dashboardListViewModel.summaryData?.[
+                              BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+                            ] ? (
+                            moment
+                              .utc(
+                                this.dashboardListViewModel.summaryData?.[
+                                  BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION
+                                ] * 1000
+                              )
+                              .format('m [min] s [s]')
+                          ) : (
+                            '0 min 0s'
+                          )}
+                        </div>
+                      </div>
+                      <div className="bg-white">
+                        <h5 className="fs-6 mb-12px fw-normal">
+                          <div
+                            className="rounded-circle me-8px d-none d-xxl-inline-block"
+                            style={{ backgroundColor: '#A3AACF', width: 14, height: 14 }}
+                          ></div>
+                          {t('txt_bounce_rate')}
+                        </h5>
+                        <div className="fs-5 fw-semibold position-relative">
+                          {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
+                            <Spinner size="sm" variant="success" />
+                          ) : (
+                            Helper.numberWithCommas(
+                              this.dashboardListViewModel.summaryData?.[
+                                BI_SUMMARY_FIELD_KEY.BOUNCE_RATE
+                              ]
+                            )
+                          )}{' '}
+                          %
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                }
               />
-            </Col>
+            </div>
           </Row>
           <Row className="mt-4">
             <Col lg={6} className="mb-24">

@@ -29,7 +29,11 @@ const UserFlowPage = observer(
     componentDidMount = () => {
       this.userFlowListViewModel.initialize(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         { ...(this.params?.pagination && { page: this.params?.pagination }) }
@@ -42,7 +46,11 @@ const UserFlowPage = observer(
       ) {
         this.userFlowListViewModel.initialize(
           {
-            'filter[domain]': this.context.biListViewModel.activeDomain,
+            ...this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           },
           {},
           { ...(this.params?.pagination && { page: this.params?.pagination }) }
@@ -56,7 +64,11 @@ const UserFlowPage = observer(
     handleSort = async (column) => {
       this.userFlowListViewModel.getPages(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {
@@ -70,7 +82,11 @@ const UserFlowPage = observer(
     handleSearch = async (search) => {
       this.userFlowListViewModel.getPages(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {},
@@ -84,7 +100,7 @@ const UserFlowPage = observer(
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-24">
             <div>
-              <h2 className="fw-bold mb-3 mt-3">{t('txt_users_flow')}</h2>
+              <h2 className="fw-medium mb-3 mt-3">{t('txt_users_flow')}</h2>
             </div>
             <div className="position-relative">
               <DateRangePicker onChange={this.handleDateRangeChange} />

@@ -32,7 +32,11 @@ const AcquisitionPage = observer(
     componentDidMount = () => {
       this.acquisitionListViewModel.initialize(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter[acquisition]': true,
         },
         {},
@@ -46,7 +50,11 @@ const AcquisitionPage = observer(
       ) {
         this.acquisitionListViewModel.initialize(
           {
-            'filter[domain]': this.context.biListViewModel.activeDomain,
+            ...this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
             'filter[acquisition]': true,
           },
           {},
@@ -125,7 +133,11 @@ const AcquisitionPage = observer(
     handleSort = async (column) => {
       this.acquisitionListViewModel.getChannel(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {
@@ -139,7 +151,11 @@ const AcquisitionPage = observer(
     handleSearch = async (search) => {
       this.acquisitionListViewModel.getChannel(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {},
@@ -154,7 +170,7 @@ const AcquisitionPage = observer(
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-24">
             <div>
-              <h2 className="fw-bold mb-3 mt-3">{t('txt_acquisition')}</h2>
+              <h2 className="fw-medium mb-3 mt-3">{t('txt_acquisition')}</h2>
             </div>
             <div className="position-relative havePrintButton">
               <DateRangePicker onChange={this.handleDateRangeChange} />

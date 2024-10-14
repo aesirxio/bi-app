@@ -64,15 +64,27 @@ const UTMTrackingPage = observer((props) => {
   useEffect(() => {
     const execute = async () => {
       await getAttributeDate({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
       });
       await getVisitor({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
       });
       await getAttributeList({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
       });
     };
@@ -81,7 +93,11 @@ const UTMTrackingPage = observer((props) => {
   }, [activeDomain]);
   const onSelectionChange = async (data) => {
     await getVisitor({
-      'filter[domain]': activeDomain,
+      ...activeDomain
+        ?.map((value, index) => ({
+          [`filter[domain][${index + 1}]`]: value,
+        }))
+        ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       'filter[attribute_name]': 'utm_source',
       'filter[attribute_value]': data?.value,
     });
@@ -89,7 +105,11 @@ const UTMTrackingPage = observer((props) => {
   const handleSort = async (column) => {
     await getVisitor(
       {
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
       },
       {},
@@ -103,7 +123,7 @@ const UTMTrackingPage = observer((props) => {
     <div className="py-4 px-4 h-100">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
         <div className="position-relative">
-          <h2 className="fw-bold mb-3 mt-3">{t('txt_menu_utm_tracking')}</h2>
+          <h2 className="fw-medium mb-3 mt-3">{t('txt_menu_utm_tracking')}</h2>
         </div>
         <div className="position-relative havePrintButton">
           <DateRangePicker onChange={handleDateRangeChange} />

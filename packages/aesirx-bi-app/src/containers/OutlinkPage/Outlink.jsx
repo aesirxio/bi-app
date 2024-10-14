@@ -23,7 +23,11 @@ const OutlinkPage = observer(
     componentDidMount = () => {
       this.outlinkListViewModel.initialize(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         { ...(this.params?.pagination && { page: this.params?.pagination }) }
@@ -36,7 +40,11 @@ const OutlinkPage = observer(
       ) {
         this.outlinkListViewModel.initialize(
           {
-            'filter[domain]': this.context.biListViewModel.activeDomain,
+            ...this.context.biListViewModel.activeDomain
+              ?.map((value, index) => ({
+                [`filter[domain][${index + 1}]`]: value,
+              }))
+              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           },
           {},
           { ...(this.params?.pagination && { page: this.params?.pagination }) }
@@ -50,7 +58,11 @@ const OutlinkPage = observer(
     handleSort = async (column) => {
       this.outlinkListViewModel.getOutlink(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {
@@ -64,7 +76,11 @@ const OutlinkPage = observer(
     handleSearch = async (search) => {
       this.outlinkListViewModel.getPages(
         {
-          'filter[domain]': this.context.biListViewModel.activeDomain,
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {},
@@ -78,7 +94,7 @@ const OutlinkPage = observer(
         <div className="py-4 px-4">
           <div className="d-flex align-items-center justify-content-between mb-24">
             <div>
-              <h2 className="fw-bold mb-3 mt-3">{t('txt_outlinks')}</h2>
+              <h2 className="fw-medium mb-3 mt-3">{t('txt_outlinks')}</h2>
             </div>
             <div className="position-relative">
               <DateRangePicker onChange={this.handleDateRangeChange} />

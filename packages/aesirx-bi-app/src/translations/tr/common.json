@@ -175,7 +175,7 @@
   "txt_avg_quantity": "Ort. Adet",
   "txt_top_products": "En Popüler Ürünler",
   "txt_menu_consents": "Onaylar",
-  "txt_web3id": "Web3ID",
+  "txt_web3id": "SoP ID",
   "txt_wallet": "Cüzdan",
   "txt_consent": "Onay",
   "txt_tier": "Kademe",
@@ -186,5 +186,8 @@
   "txt_source": "Kaynak",
   "txt_total_conversions": "Toplam Dönüşümler",
   "txt_page_view": "Sayfa Görüntülemeleri",
-  "txt_visitor": "Ziyaretçiler"
+  "txt_visitor": "Ziyaretçiler",
+  "txt_manage_track": "Veri toplama için kullanıcı onay tercihlerini yönetin ve izleyin",
+  "txt_real_time_active_users": "Gerçek Zamanlı Etkin Kullanıcılar",
+  "txt_avg_visit_duration": "Ortalama ziyaret süresi"
 }

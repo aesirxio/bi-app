@@ -4,7 +4,7 @@ import { useConsentsTemplateViewModel } from './ConsentsTemplateViewModels/Conse
 import { observer } from 'mobx-react';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
-import { Image, PAGE_STATUS, notify } from 'aesirx-uikit';
+import { Image, PAGE_STATUS, notify, FormEditor } from 'aesirx-uikit';
 import { env } from 'aesirx-lib';
 
 const ConsentsTemplate = observer(() => {
@@ -23,26 +23,29 @@ const ConsentsTemplate = observer(() => {
 
   useEffect(() => {
     const execute = async () => {
-      await initialize(activeDomain);
+      await initialize(activeDomain[0]);
     };
     execute();
     return () => {};
   }, [activeDomain]);
 
-  useEffect(() => {
-    console.log('consentsTemplate', consentsTemplate);
-    setValues(consentsTemplate);
-  }, [consentsTemplate]);
-
   const [values, setValues] = useState({
-    domain: activeDomain,
+    domain: activeDomain[0],
     template: '',
     gtag_id: '',
     gtm_id: '',
   });
 
+  const [defaulConsentText, setDefaulConsentText] = useState();
+
+  useEffect(() => {
+    setValues(consentsTemplate);
+    if (consentsTemplate && !consentsTemplate?.consent_text) {
+      updateDefaultConsentText(consentsTemplate?.template);
+    }
+  }, [consentsTemplate]);
   const handleChange = (name) => {
-    setValues({ ...values, domain: activeDomain, template: name });
+    setValues({ ...values, domain: activeDomain[0], template: name });
   };
   const handleSubmit = async () => {
     if (values?.template) {
@@ -50,6 +53,79 @@ const ConsentsTemplate = observer(() => {
     } else {
       notify('Please choose template', 'error');
     }
+  };
+  const updateDefaultConsentText = (template) => {
+    console.log('template', template);
+    const text = `
+    <p class="mt-0 mb-1 mb-lg-2 text-black fw-semibold">
+      Manage Your Consent Preferences
+    </p>
+    <p class="mt-0 mb-1 mb-lg-3">
+     ${
+       template === 'simple-consent-mode'
+         ? `Choose how we use your data: “Reject” data collection, allow tracking [“Consent”].`
+         : `Choose how we use your data: “Reject” data collection, allow tracking [“Consent”], or use “Decentralized Consent” for more control over your personal data & rewards.`
+     }
+    </p>
+    <div class="mb-1 mb-lg-3">
+      <p class="mb-1 mb-lg-2 text-black">
+        By consenting, you allow us to collect & use your data for:
+      </p>
+      <div class="d-flex align-items-start check-line">
+        <span>
+          <img src="${
+            env.PUBLIC_URL + '/assets/images/check_circle.svg'
+          }" width={'14px'} height={'15px'} />
+        </span>
+        <div class="ms-10px">
+          <div>Analytics & Behavioral Data: To improve our services & personalize your experience.</div>
+        </div>
+      </div>
+      <div class="d-flex align-items-start check-line">
+        <span>
+          <img src="${
+            env.PUBLIC_URL + '/assets/images/check_circle.svg'
+          }" width={'14px'} height={'15px'} />
+        </span>
+        <div class="ms-10px">
+          <div>Form Data: When you contact us.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="mb-1 mb-lg-2 text-black">Please note</p>
+      <div class="d-flex align-items-start check-line">
+        <span>
+          <img src="${
+            env.PUBLIC_URL + '/assets/images/check_circle.svg'
+          }" width={'14px'} height={'15px'} />
+        </span>
+        <div class="ms-10px">
+          <div>We do not share your data with third parties without your explicit consent.</div>
+        </div>
+      </div>
+      <div class="d-flex align-items-start check-line">
+        <span>
+          <img src="${
+            env.PUBLIC_URL + '/assets/images/check_circle.svg'
+          }" width={'14px'} height={'15px'} />
+        </span>
+        <div class="ms-10px">
+          <div>You can opt-in later for specific features without giving blanket consent.</div>
+        </div>
+      </div>
+      <div class="d-flex align-items-start check-line">
+        <span>
+          <img src="${
+            env.PUBLIC_URL + '/assets/images/check_circle.svg'
+          }" width={'14px'} height={'15px'} />
+        </span>
+        <div class="ms-10px">
+          For more details, refer to our <a class='text-success fw-semibold text-decoration-underline' href='https://aesirx.io/privacy-policy' target='_blank'>privacy policy.</a>
+        </div>
+      </div>
+    </div>`;
+    setDefaulConsentText(text);
   };
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column min-vh-100">
@@ -72,7 +148,7 @@ const ConsentsTemplate = observer(() => {
       </div>
       <Form.Group className="mb-3" controlId="formExport">
         <Form.Label className="fw-semibold w-100">
-          Fill your Google tag id, Google Tag Manager id for {activeDomain} (optional)
+          Fill your Google tag id, Google Tag Manager id for {activeDomain[0]} (optional)
         </Form.Label>
         <Row className="mb-3">
           <Col lg="6">
@@ -99,11 +175,11 @@ const ConsentsTemplate = observer(() => {
           </Col>
         </Row>
         <Form.Label className="fw-semibold w-100">
-          Choose consent template for {activeDomain}
+          Choose consent template for {activeDomain[0]}
         </Form.Label>
         <Row>
           <Col lg="4" className="mb-3">
-            <div className="d-flex justify-content-between flex-column h-100">
+            <div className="d-flex justify-content-start flex-column h-100">
               <div className="border rounded-2 shadow-sm mb-3">
                 <Image
                   className={`w-100`}
@@ -123,11 +199,15 @@ const ConsentsTemplate = observer(() => {
                 type="radio"
                 id={`inline-radio-default`}
               />
+              <p className="mt-3 fs-sm">
+                AesirX Consent Management is improving Google Consent Mode 2.0 by not loading any
+                tags until after consent is given reducing the compliance risk
+              </p>
             </div>
           </Col>
           <Col lg="4" className="mb-3">
-            <div className="d-flex justify-content-between flex-column h-100">
-              <div className="border rounded-2 shadow-sm mb-3">
+            <div className="d-flex justify-content-start flex-column h-100">
+              <div className="border rounded-2 shadow-sm mb-4">
                 <Image
                   className={`w-100`}
                   src={`${env.PUBLIC_URL}/assets/images/consent_simple_mode.png`}
@@ -149,6 +229,21 @@ const ConsentsTemplate = observer(() => {
             </div>
           </Col>
         </Row>
+        <Form.Label className="mt-2 fw-semibold w-100">Customize consent text</Form.Label>
+        <React.Fragment key={defaulConsentText}>
+          <FormEditor
+            field={{
+              getValueSelected: values?.consent_text
+                ? values?.consent_text
+                : defaulConsentText ?? '',
+              handleChange: (data) => {
+                if (values?.template) {
+                  setValues({ ...values, consent_text: data ?? '' });
+                }
+              },
+            }}
+          />
+        </React.Fragment>
       </Form.Group>
     </div>
   );

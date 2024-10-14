@@ -8,6 +8,8 @@ import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 import { enumerateDaysBetweenDates } from 'aesirx-lib';
 import ComponentSVG from 'components/ComponentSVG';
+import { Image } from 'react-bootstrap';
+import { Tooltip } from 'react-tooltip';
 
 class FlowListModel {
   data = [];
@@ -38,8 +40,9 @@ class FlowListModel {
       'txt_action',
       'txt_event',
       'txt_conversion',
-      'txt_source',
+      'txt_traffic',
       // 'txt_url',
+      '',
       '',
       // 'txt_tier',
       // 'txt_session',
@@ -55,7 +58,7 @@ class FlowListModel {
       BI_FLOW_LIST_FIELD_KEY.ACTION,
       BI_FLOW_LIST_FIELD_KEY.EVENT,
       BI_FLOW_LIST_FIELD_KEY.CONVERSION,
-      BI_FLOW_LIST_FIELD_KEY.DEVICE,
+      BI_FLOW_LIST_FIELD_KEY.TRAFFIC,
       // BI_FLOW_LIST_FIELD_KEY.URL,
       BI_FLOW_LIST_FIELD_KEY.UUID,
       // BI_FLOW_LIST_FIELD_KEY.TIER,
@@ -88,7 +91,12 @@ class FlowListModel {
               ? 80
               : 100,
           allowSort: true,
-          sortParams: key === BI_FLOW_LIST_FIELD_KEY.GEO ? 'geo.country.name' : key,
+          sortParams:
+            key === BI_FLOW_LIST_FIELD_KEY.GEO
+              ? 'geo.country.name'
+              : key === BI_FLOW_LIST_FIELD_KEY.TRAFFIC
+              ? 'device'
+              : key,
           Cell: ({ cell, column, row }) => {
             if (column.id === BI_FLOW_LIST_FIELD_KEY.GEO) {
               return (
@@ -200,15 +208,39 @@ class FlowListModel {
                   </div>
                 </div>
               );
-            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.DEVICE) {
+            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.TRAFFIC) {
               return (
-                <div className={'px-3 d-flex'}>
-                  {cell?.value === 'bot' ? (
+                <div className={'px-3 d-flex align-items-center'}>
+                  {cell?.value[BI_FLOW_LIST_FIELD_KEY.DEVICE] === 'bot' ? (
                     <div
-                      className="text-success py-1 px-12px rounded-1 fw-semibold text-center"
-                      style={{ backgroundColor: '#1AB39426' }}
+                      className="me-sm cursor-pointer"
+                      data-tooltip-id="tooltipBotUser"
+                      data-tooltip-content={'Bot'}
                     >
-                      Bot
+                      <Image
+                        className={`me-sm object-fit-contain`}
+                        style={{ width: 20, height: 20 }}
+                        src={env.PUBLIC_URL + '/assets/images/bot_user.svg'}
+                        alt={'icons'}
+                      />
+                      <Tooltip id="tooltipBotUser" />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  {cell?.value[BI_FLOW_LIST_FIELD_KEY.BAD_USER] ? (
+                    <div
+                      className="cursor-pointer"
+                      data-tooltip-id="tooltipBadUser"
+                      data-tooltip-content={'Bad User'}
+                    >
+                      <Image
+                        className={`me-sm object-fit-contain`}
+                        style={{ width: 20, height: 20 }}
+                        src={env.PUBLIC_URL + '/assets/images/bad_user.svg'}
+                        alt={'icons'}
+                      />
+                      <Tooltip id="tooltipBadUser" />
                     </div>
                   ) : (
                     <></>

@@ -10,12 +10,16 @@ import moment from 'moment';
 import DashboardModel from '../DashboardModel/DashboardModel';
 import CountryModel from '../../RegionCountryPage/CountryModel/CountryModel';
 import PageModel from '../../VisitorsPage/PagesModel/PageModel';
+import { BI_LIVE_VISITORS_TOTAL_FIELD_KEY } from 'aesirx-lib';
+
 class DashboardListViewModel {
   dashboardStore = null;
   status = PAGE_STATUS.READY;
   statusTopPageTable = PAGE_STATUS.READY;
   statusTopBrowser = PAGE_STATUS.READY;
   statusTopSourceTable = PAGE_STATUS.READY;
+  statusLiveVisitorsTotal = PAGE_STATUS.READY;
+  statusLiveVisitorsList = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   summaryData = null;
   visitorData = null;
@@ -29,6 +33,8 @@ class DashboardListViewModel {
   sourcesTableData = null;
   dataAttributesType = null;
   eventNameTypeDataType = null;
+  liveVisitorsTotalData = null;
+  liveVisitorsListData = null;
   sortByPages = { 'sort[]': '', 'sort_direction[]': '' };
   sortByDevices = { 'sort[]': '', 'sort_direction[]': '' };
   sortByBrowsers = { 'sort[]': '', 'sort_direction[]': '' };
@@ -42,6 +48,25 @@ class DashboardListViewModel {
   }
 
   initialize = (dataFilter, dateFilter) => {
+    if (!dateFilter) {
+      const dataFilterObjects = [
+        this.dataFilter,
+        this.dataFilterBrowsers,
+        this.dataFilterDevices,
+        this.dataFilterPages,
+        this.dataFilterEventsType,
+        this.dataFilterSources,
+        this.dataFilterLiveVisitors,
+      ];
+
+      dataFilterObjects?.forEach((dataFilterObj) => {
+        for (const key in dataFilterObj) {
+          if (key.startsWith('filter[domain]')) {
+            delete dataFilterObj[key];
+          }
+        }
+      });
+    }
     this.getMetrics(dataFilter, dateFilter);
     this.getVisitors(dataFilter, dateFilter);
     this.getCountries(dataFilter, dateFilter);
@@ -51,6 +76,8 @@ class DashboardListViewModel {
     this.getReferer(dataFilter, dateFilter);
     this.getEventsType(dataFilter, dateFilter);
     this.getAttribute(dataFilter, dateFilter);
+    this.getLiveVisitorsTotal(dataFilter, false);
+    this.getLiveVisitorsList(dataFilter, false);
   };
 
   getMetrics = (dataFilter, dateFilter) => {
@@ -216,6 +243,30 @@ class DashboardListViewModel {
     );
   };
 
+  getLiveVisitorsTotal = async (dataFilter, isReload = false) => {
+    this.statusLiveVisitorsTotal = !isReload ? PAGE_STATUS.LOADING : PAGE_STATUS.READY;
+    this.dataFilterLiveVisitors = {
+      ...dataFilter,
+    };
+    await this.dashboardStore.getLiveVisitorsTotal(
+      this.dataFilterLiveVisitors,
+      this.callbackOnLiveVisitorsTotalSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+  getLiveVisitorsList = async (dataFilter, isReload = false) => {
+    this.statusLiveVisitorsList = !isReload ? PAGE_STATUS.LOADING : PAGE_STATUS.READY;
+    this.dataFilterLiveVisitors = {
+      page_size: '8',
+      ...dataFilter,
+    };
+    await this.dashboardStore.getLiveVisitorsList(
+      this.dataFilterLiveVisitors,
+      this.callbackOnLiveVisitorsListSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   getEventsType = async (
     dataFilter,
     dateFilter,
@@ -315,7 +366,7 @@ class DashboardListViewModel {
 
   callbackOnSummaryDataSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.status = PAGE_STATUS.READY;
         this.summaryData = data;
       }
@@ -326,7 +377,7 @@ class DashboardListViewModel {
   };
   callbackOnVisitorSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.status = PAGE_STATUS.READY;
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.visitorData = transformData;
@@ -339,7 +390,7 @@ class DashboardListViewModel {
 
   callbackOnCountriesSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         const transformData = new CountryModel(data.list, this.globalStoreViewModel);
         this.countriesData = transformData.toCountries();
         this.status = PAGE_STATUS.READY;
@@ -352,7 +403,7 @@ class DashboardListViewModel {
 
   callbackOnBrowsersSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.browsersData = {
           list: transformData.toBrowsersTableTop(),
@@ -368,7 +419,7 @@ class DashboardListViewModel {
 
   callbackOnDevicesSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.devicesData = data?.list;
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.devicesTableData = {
@@ -385,7 +436,7 @@ class DashboardListViewModel {
 
   callbackOnAttributesSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         const transformFormat = data?.list?.map((item) => {
           return item.values[0];
         });
@@ -403,9 +454,33 @@ class DashboardListViewModel {
     }
   };
 
+  callbackOnLiveVisitorsTotalSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
+        this.liveVisitorsTotalData = data?.list[BI_LIVE_VISITORS_TOTAL_FIELD_KEY.TOTAL];
+        this.statusLiveVisitorsTotal = PAGE_STATUS.READY;
+      }
+    } else {
+      this.statusLiveVisitorsTotal = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnLiveVisitorsListSuccessHandler = (data) => {
+    if (data) {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
+        this.liveVisitorsListData = data?.list;
+        this.statusLiveVisitorsList = PAGE_STATUS.READY;
+      }
+    } else {
+      this.statusLiveVisitorsList = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
   callbackOnEventNameTypeSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.eventNameTypeData = data?.list;
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.eventNameTypeTableData = {
@@ -422,7 +497,7 @@ class DashboardListViewModel {
 
   callbackOnPagesSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.status = PAGE_STATUS.READY;
         this.statusTopPageTable = PAGE_STATUS.READY;
         const transformData = new PageModel(data.list, this.globalStoreViewModel);
@@ -440,8 +515,7 @@ class DashboardListViewModel {
 
   callbackOnSourcesSuccessHandler = (data) => {
     if (data) {
-      if (data?.message !== 'canceled') {
-        this.status = PAGE_STATUS.READY;
+      if (data?.message !== 'canceled' && data?.message !== 'isCancle') {
         this.statusTopSourceTable = PAGE_STATUS.READY;
         const transformData = new DashboardModel(data.list, this.globalStoreViewModel);
         this.sourcesTableData = {
@@ -450,7 +524,6 @@ class DashboardListViewModel {
         };
       }
     } else {
-      this.status = PAGE_STATUS.ERROR;
       this.statusTopSourceTable = PAGE_STATUS.ERROR;
       this.data = [];
     }

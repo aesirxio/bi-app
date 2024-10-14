@@ -16,7 +16,11 @@ const TopTabs = observer(
     handleSortCountries = async (column) => {
       this.listViewModel.getCountries(
         {
-          'filter[domain]': this.props.domain,
+          ...this.props.domain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {
@@ -30,7 +34,11 @@ const TopTabs = observer(
     handleSortCities = async (column) => {
       this.listViewModel.getCities(
         {
-          'filter[domain]': this.props.domain,
+          ...this.props.domain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {
@@ -44,7 +52,11 @@ const TopTabs = observer(
     handleSortBrowsers = async (column) => {
       this.listViewModel.getBrowsers(
         {
-          'filter[domain]': this.props.domain,
+          ...this.props.domain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {
@@ -58,7 +70,11 @@ const TopTabs = observer(
     handleSortDevices = async (column) => {
       this.listViewModel.getDevices(
         {
-          'filter[domain]': this.props.domain,
+          ...this.props.domain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {
@@ -72,7 +88,11 @@ const TopTabs = observer(
     handleSortLanguages = async (column) => {
       this.listViewModel.getLanguages(
         {
-          'filter[domain]': this.props.domain,
+          ...this.props.domain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         },
         {},
         {

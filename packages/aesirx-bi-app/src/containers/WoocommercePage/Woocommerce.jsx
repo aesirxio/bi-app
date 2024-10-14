@@ -33,7 +33,11 @@ const Woocommerce = observer(() => {
   useEffect(() => {
     const execute = async () => {
       await initialize({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       });
     };
     execute();
@@ -43,7 +47,7 @@ const Woocommerce = observer(() => {
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
         <div className="position-relative">
-          <h2 className="fw-bold mb-3 mt-3">{t('txt_menu_woocommerce')}</h2>
+          <h2 className="fw-medium mb-3 mt-3">{t('txt_menu_woocommerce')}</h2>
         </div>
         <div className="position-relative havePrintButton">
           <DateRangePicker onChange={handleDateRangeChange} />

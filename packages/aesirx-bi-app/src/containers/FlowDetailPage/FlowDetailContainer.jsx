@@ -50,17 +50,29 @@ const FlowDetailContainer = observer((props) => {
         'with[]': 'events',
       });
       await getEvents({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'with[]': 'events',
       });
       await getConversion({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'with[]': 'events',
       });
     };
     execute();
     return () => {};
   }, [activeDomain]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const getOG = async (url) => {
     try {
@@ -279,7 +291,7 @@ const FlowDetailContainer = observer((props) => {
             <Col lg="6" className="mb-2 mb-lg-0">
               <span className="search_url d-flex position-relative border rounded-2">
                 <div className="px-2 bg-gray-400 d-flex align-items-center text-nowrap">
-                  https://{activeDomain}/
+                  https://{activeDomain[0]}/
                 </div>
                 <input
                   placeholder={t('txt_search_url')}
@@ -340,6 +352,16 @@ const FlowDetailContainer = observer((props) => {
                             <span className="flow_detail_item_content_name ms-sm">
                               {item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit'
                                 ? 'Visited'
+                                : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'consent' &&
+                                  item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]?.find(
+                                    (o) => o.name === 'tier'
+                                  )?.value === '3'
+                                ? 'Decentralized Consent'
+                                : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'consent' &&
+                                  item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]?.find(
+                                    (o) => o.name === 'tier'
+                                  )?.value === '4'
+                                ? 'Decentralized Consent + Shield of Privacy'
                                 : item[BI_VISITOR_FIELD_KEY.EVENT_NAME]}
                             </span>
                           </div>

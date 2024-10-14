@@ -39,7 +39,11 @@ const Events = observer((props) => {
     const execute = async () => {
       getVisitor(
         {
-          'filter[domain]': activeDomain,
+          ...activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
           'filter_not[event_name]': 'visit',
           ...(params?.pagination && { page: params?.pagination }),
         },
@@ -47,7 +51,11 @@ const Events = observer((props) => {
         { 'sort[]': 'start', 'sort_direction[]': 'desc' }
       );
       getEvents({
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter_not[event_name]': 'visit',
       });
     };
@@ -57,7 +65,11 @@ const Events = observer((props) => {
   const handleSort = async (column) => {
     getVisitor(
       {
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter_not[event_name]': 'visit',
       },
       {},
@@ -70,7 +82,11 @@ const Events = observer((props) => {
   const handleSearch = async (search) => {
     getVisitor(
       {
-        'filter[domain]': activeDomain,
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       },
       {},
       {},
@@ -79,7 +95,11 @@ const Events = observer((props) => {
   };
   const onSelectionChange = async (data) => {
     await getVisitor({
-      'filter[domain]': activeDomain,
+      ...activeDomain
+        ?.map((value, index) => ({
+          [`filter[domain][${index + 1}]`]: value,
+        }))
+        ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       'filter[event_name]': data?.value,
     });
   };
@@ -88,7 +108,7 @@ const Events = observer((props) => {
     <div className="py-4 px-4 h-100 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
         <div className="position-relative">
-          <h2 className="fw-bold mb-3 mt-3">{t('txt_menu_events')}</h2>
+          <h2 className="fw-medium mb-3 mt-3">{t('txt_menu_events')}</h2>
         </div>
         <div className="position-relative havePrintButton haveEventButton">
           <DateRangePicker onChange={handleDateRangeChange} />

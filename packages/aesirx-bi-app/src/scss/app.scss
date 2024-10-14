@@ -145,6 +145,12 @@
     display: -webkit-inline-box;
     -webkit-box-orient: vertical;
   }
+  .text-ellipsis-block {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    -webkit-box-orient: vertical;
+  }
   .line-clamp-1 {
     -webkit-line-clamp: 1;
   }
@@ -190,16 +196,110 @@
       }
     }
   }
+  .data_stream_checkbox {
+    .form-check-input {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .datastream_all_menu {
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: 1px solid #1ab394;
+  }
 }
-
-.item_menu.intergration {
-  a {
-    &:hover,
-    &.active {
-      border-bottom: 2px solid $success;
+.menu_intergration {
+  display: flex;
+  .item_menu.intergration {
+    .btn,
+    a {
+      &:hover,
+      &.active,
+      &:active {
+        background-color: #1d55a933;
+        color: $primary;
+      }
+    }
+    button.btn.show {
+      background-color: #1d55a933;
+      color: $primary;
+      border-color: $border-color;
+    }
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+    .dropdown-menu {
+      border-radius: 12px;
+      &::before {
+        content: '';
+        width: 12px;
+        height: 12px;
+        transform: rotate(45deg);
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        left: calc(50% - 10px);
+        top: -6px;
+        border: 1px solid $border-color;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        background: white;
+        border-radius: 12px;
+      }
+      .subitem_menu {
+        background-color: $white;
+        z-index: 3;
+        position: relative;
+        &:first-child {
+          border-top-left-radius: 12px;
+          border-top-right-radius: 12px;
+        }
+        &:last-child {
+          border-bottom-left-radius: 12px;
+          border-bottom-right-radius: 12px;
+        }
+        &:hover,
+        &.active {
+          background-color: #1d55a933;
+        }
+      }
     }
   }
 }
+.bi-intergration_layout {
+  .printButton {
+    top: 100px;
+  }
+  @media (max-width: 1600px) {
+    .printButton {
+      top: 158px;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  #biapp {
+    .w-lg-70 {
+      width: 70%;
+    }
+    .w-lg-30 {
+      width: 30%;
+    }
+  }
+}
+
 .back_icon {
   width: 30px;
   height: 30px;

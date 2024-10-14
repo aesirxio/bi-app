@@ -14,11 +14,11 @@ const OverviewComponent = observer(
     }
 
     render() {
-      const { t, status, bars, barColors, data, filterData } = this.props;
+      const { t, status, bars, barColors, data, filterData, chartTitle } = this.props;
       return (
         <div className="position-relative h-100">
           <BarChartComponent
-            height={500}
+            height={450}
             data={data}
             colors={['#1AB394']}
             layout="horizontal"
@@ -38,6 +38,7 @@ const OverviewComponent = observer(
             isSelection={false}
             isLegend={true}
             filterButtons={['days', 'months', 'weeks']}
+            chartTitle={chartTitle}
           />
         </div>
       );

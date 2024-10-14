@@ -246,7 +246,7 @@
   "txt_avg_quantity": "Середня кількість",
   "txt_top_products": "Найпопулярніші продукти",
   "txt_menu_consents": "Згода",
-  "txt_web3id": "Web3ID",
+  "txt_web3id": "SoP ID",
   "txt_wallet": "Гаманець",
   "txt_consent": "Згода",
   "txt_tier": "Рівень",
@@ -257,5 +257,8 @@
   "txt_source": "Джерело",
   "txt_total_conversions": "Загальні Конверсії",
   "txt_page_view": "Перегляди Сторінок",
-  "txt_visitor": "Відвідувачі"
+  "txt_visitor": "Відвідувачі",
+  "txt_manage_track": "Керування та відстеження параметрів згоди користувача для збору даних",
+  "txt_real_time_active_users": "Активні користувачі в реальному часі",
+  "txt_avg_visit_duration": "Середня тривалість відвідування"
 }

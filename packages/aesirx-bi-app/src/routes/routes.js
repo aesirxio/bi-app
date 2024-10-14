@@ -5,6 +5,7 @@
 
 import React, { lazy } from 'react';
 import { LoginPage, ProfilePage } from 'aesirx-uikit';
+import { env } from 'aesirx-lib';
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
 const PageDetail = lazy(() => import('../containers/PageDetail'));
 const AcquisitionPage = lazy(() => import('../containers/AcquisitionPage'));
@@ -31,7 +32,7 @@ const authRoutes = [
   {
     path: '/login',
     exact: true,
-    main: () => <LoginPage text="BI" />,
+    main: () => <LoginPage text="BI" loginEmail={env.REACT_APP_LOGIN_EMAIL} />,
   },
 ];
 

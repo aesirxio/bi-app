@@ -124,6 +124,7 @@ const Dashboard = observer(
       );
     };
     render() {
+      console.log('this.dashboardListViewModel?.visitorData');
       const { t } = this.props;
       return (
         <div className="py-4 px-4 h-100 d-flex flex-column">
@@ -224,11 +225,11 @@ const Dashboard = observer(
             </div>
             <div className="w-100 w-lg-70">
               <OverviewComponent
-                bars={['visits', 'page_views']}
+                bars={['unique_visits', 'unique_page_views']}
                 barColors={['#0066FF', '#96C0FF']}
                 listViewModel={this.dashboardListViewModel}
                 status={this.dashboardListViewModel?.status}
-                data={this.dashboardListViewModel?.visitorData?.toAreaChart()}
+                data={this.dashboardListViewModel?.visitorData?.toAreaChart(true)}
                 filterData={this.dashboardListViewModel?.visitorData?.getFilterName()}
                 chartTitle={
                   <>
@@ -265,10 +266,9 @@ const Dashboard = observer(
                           {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
                             <Spinner size="sm" variant="success" />
                           ) : (
-                            Helper.numberWithCommas(
-                              this.dashboardListViewModel.summaryData?.[
-                                BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
-                              ]
+                            this.dashboardListViewModel?.visitorData?.data?.reduce(
+                              (n, { visits }) => n + visits,
+                              0
                             )
                           )}
                         </div>

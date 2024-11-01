@@ -57,7 +57,7 @@ class PageDetailModel {
       return {
         name: date && moment(date, 'YYYY-MM-DD').format('DD'),
         visits: filterDate?.[BI_VISITORS_FIELD_KEY.VISITS] ?? 0,
-        page_views: filterDate?.[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS] ?? 0,
+        unique_page_views: filterDate?.[BI_VISITORS_FIELD_KEY.TOTAL_PAGE_VIEWS] ?? 0,
         unique_visits: filterDate?.['unique_visits'] ?? 0,
       };
     });
@@ -85,7 +85,7 @@ class PageDetailModel {
       return {
         name: month,
         visits: totalVisitorCount,
-        page_views: totalPageViewCount,
+        unique_page_views: totalPageViewCount,
         unique_visits: totalUniqueVisitorCount,
       };
     });

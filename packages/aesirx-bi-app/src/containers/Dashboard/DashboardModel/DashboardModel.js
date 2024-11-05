@@ -82,7 +82,8 @@ class DashboardModel {
           0
         );
         totalUniqueVisitorCount = filterMonthDate.reduce(
-          (acc, item) => acc + item['unique_visits'],
+          (acc, item) =>
+            acc + (isDashboard ? item[BI_VISITORS_FIELD_KEY.VISITS] : item['unique_visits']),
           0
         );
       }
@@ -105,7 +106,7 @@ class DashboardModel {
       if (!weekData[weekName]) {
         weekData[weekName] = {
           visits: 0,
-          page_views: 0,
+          unique_page_views: 0,
           unique_visits: 0,
         };
       }
@@ -113,7 +114,6 @@ class DashboardModel {
       const filterWeekDate = this.data.filter((item) =>
         moment(item?.date).isBetween(startOfWeek, endOfWeek, null, '[]')
       );
-
       if (filterWeekDate) {
         const totalVisitorCount = filterWeekDate.reduce(
           (acc, item) => acc + item[BI_VISITORS_FIELD_KEY.VISITS],
@@ -124,13 +124,14 @@ class DashboardModel {
           0
         );
         const totalUniqueVisitorCount = filterWeekDate.reduce(
-          (acc, item) => acc + item['unique_visits'],
+          (acc, item) =>
+            acc + (isDashboard ? item[BI_VISITORS_FIELD_KEY.VISITS] : item['unique_visits']),
           0
         );
 
-        weekData[weekName].visits += totalVisitorCount;
-        weekData[weekName].page_views += totalPageViewCount;
-        weekData[weekName].unique_visits += totalUniqueVisitorCount;
+        weekData[weekName].visits = totalVisitorCount;
+        weekData[weekName].unique_page_views = totalPageViewCount;
+        weekData[weekName].unique_visits = totalUniqueVisitorCount;
       }
     });
 
@@ -138,7 +139,7 @@ class DashboardModel {
     const week = Object.keys(weekData).map((weekName) => ({
       name: weekName,
       visits: weekData[weekName].visits,
-      page_views: weekData[weekName].page_views,
+      unique_page_views: weekData[weekName].unique_page_views,
       unique_visits: weekData[weekName].unique_visits,
     }));
 

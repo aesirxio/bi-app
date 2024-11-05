@@ -123,8 +123,25 @@ const Dashboard = observer(
         }
       );
     };
+
+    handleSortEventType = async (column) => {
+      this.dashboardListViewModel.getEventsType(
+        this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.dashboardListViewModel?.sortByEventNameType['sort_direction[]'] === 'desc'
+              ? 'asc'
+              : 'desc',
+        }
+      );
+    };
     render() {
-      console.log('this.dashboardListViewModel?.visitorData');
       const { t } = this.props;
       return (
         <div className="py-4 px-4 h-100 d-flex flex-column">
@@ -266,9 +283,11 @@ const Dashboard = observer(
                           {this.dashboardListViewModel?.status === PAGE_STATUS.LOADING ? (
                             <Spinner size="sm" variant="success" />
                           ) : (
-                            this.dashboardListViewModel?.visitorData?.data?.reduce(
-                              (n, { visits }) => n + visits,
-                              0
+                            Helper.numberWithCommas(
+                              this.dashboardListViewModel?.visitorData?.data?.reduce(
+                                (n, { visits }) => n + visits,
+                                0
+                              )
                             )
                           )}
                         </div>
@@ -421,17 +440,17 @@ const Dashboard = observer(
                   isPagination={true}
                   simplePagination={true}
                   selectPage={async (value) => {
-                    await this.dashboardListViewModel.handleFilterSources({ page: value });
+                    await this.dashboardListViewModel.handleFilterEventType({ page: value });
                   }}
                   selectPageSize={async (value) => {
-                    await this.dashboardListViewModel.handleFilterSources({
+                    await this.dashboardListViewModel.handleFilterEventType({
                       page: 1,
                       page_size: value,
                     });
                   }}
-                  status={this.dashboardListViewModel?.statusTopBrowser}
+                  status={this.dashboardListViewModel?.statusEventTypeTable}
                   sortAPI={true}
-                  handleSort={this.handleSortSources}
+                  handleSort={this.handleSortEventType}
                   sortBy={this.dashboardListViewModel?.sortByEventsType}
                   {...this.props}
                 />

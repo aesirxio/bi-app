@@ -18,6 +18,7 @@ class DashboardListViewModel {
   statusTopPageTable = PAGE_STATUS.READY;
   statusTopBrowser = PAGE_STATUS.READY;
   statusTopSourceTable = PAGE_STATUS.READY;
+  statusEventTypeTable = PAGE_STATUS.READY;
   statusLiveVisitorsTotal = PAGE_STATUS.READY;
   statusLiveVisitorsList = PAGE_STATUS.READY;
   globalStoreViewModel = null;
@@ -272,7 +273,7 @@ class DashboardListViewModel {
     dateFilter,
     sortBy = { 'sort[]': 'number_of_page_views', 'sort_direction[]': 'desc' }
   ) => {
-    this.statusTopBrowser = PAGE_STATUS.LOADING;
+    this.statusEventTypeTable = PAGE_STATUS.LOADING;
     this.sortByEventsType = sortBy;
     this.dataFilterEventsType = {
       page_size: '8',
@@ -357,6 +358,19 @@ class DashboardListViewModel {
       this.callbackOnErrorHandler
     );
   };
+
+  handleFilterEventType = async (dataFilter) => {
+    this.statusEventTypeTable = PAGE_STATUS.LOADING;
+    this.dataFilterEventsType = { ...this.dataFilterEventsType, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.dashboardStore.getEventsType(
+      this.dataFilterEventsType,
+      dateRangeFilter,
+      this.callbackOnEventNameTypeSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+  E;
 
   callbackOnErrorHandler = (error) => {
     this.status = PAGE_STATUS.READY;
@@ -487,10 +501,10 @@ class DashboardListViewModel {
           list: transformData.toEventsTypeTableTop(),
           pagination: data.pagination,
         };
-        this.statusTopBrowser = PAGE_STATUS.READY;
+        this.statusEventTypeTable = PAGE_STATUS.READY;
       }
     } else {
-      this.statusTopBrowser = PAGE_STATUS.ERROR;
+      this.statusEventTypeTable = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

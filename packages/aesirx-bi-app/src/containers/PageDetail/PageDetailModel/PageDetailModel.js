@@ -100,7 +100,7 @@ class PageDetailModel {
       if (!weekData[weekName]) {
         weekData[weekName] = {
           visits: 0,
-          page_views: 0,
+          unique_page_views: 0,
           unique_visits: 0,
         };
       }
@@ -124,7 +124,7 @@ class PageDetailModel {
         );
 
         weekData[weekName].visits += totalVisitorCount;
-        weekData[weekName].page_views += totalPageViewCount;
+        weekData[weekName].unique_page_views += totalPageViewCount;
         weekData[weekName].unique_visits += totalUniqueVisitorCount;
       }
     });
@@ -133,7 +133,7 @@ class PageDetailModel {
     const week = Object.keys(weekData).map((weekName) => ({
       name: weekName,
       visits: weekData[weekName].visits,
-      page_views: weekData[weekName].page_views,
+      unique_page_views: weekData[weekName].unique_page_views,
       unique_visits: weekData[weekName].unique_visits,
     }));
 

@@ -30,7 +30,6 @@ const Events = observer((props) => {
   const {
     biListViewModel: { activeDomain },
   } = useBiViewModel();
-  console.log('props', props);
   const handleDateRangeChange = useCallback((startDate, endDate) => {
     handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
   }, []);

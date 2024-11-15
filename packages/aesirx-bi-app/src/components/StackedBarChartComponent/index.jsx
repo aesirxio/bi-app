@@ -21,7 +21,24 @@ import { env } from 'aesirx-lib';
 import { Tooltip as TooltipReact } from 'react-tooltip';
 import ReactDOMServer from 'react-dom/server';
 import { Col, Row } from 'react-bootstrap';
-
+const getRandomColor = (areaColors) => {
+  return areaColors[Math.floor(Math.random() * areaColors.length)];
+};
+const defaultAreaColors = [
+  '#0066FF',
+  '#1AB394',
+  '#4747EB',
+  '#96C0FF',
+  '#D5EEFF',
+  '#2196F3',
+  '#F44336',
+  '#FF9800',
+  '#00BCD4',
+  '#009688',
+  '#9C27B0',
+  '#E91E63',
+  '#673AB7',
+];
 const StackedBarChartComponent = ({
   data = [],
   height,
@@ -179,6 +196,7 @@ const StackedBarChartComponent = ({
             {lines && (
               <defs>
                 {lines.map((item, index) => {
+                  const colorRandom = getRandomColor(defaultAreaColors);
                   return (
                     <linearGradient
                       key={index}
@@ -188,8 +206,16 @@ const StackedBarChartComponent = ({
                       x2="0"
                       y2="1"
                     >
-                      <stop offset="5%" stopColor={areaColors[index]} stopOpacity={0.2} />
-                      <stop offset="95%" stopColor={areaColors[index]} stopOpacity={0} />
+                      <stop
+                        offset="5%"
+                        stopColor={areaColors[index] ? areaColors[index] : colorRandom}
+                        stopOpacity={0.2}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor={areaColors[index] ? areaColors[index] : colorRandom}
+                        stopOpacity={0}
+                      />
                     </linearGradient>
                   );
                 })}
@@ -217,12 +243,13 @@ const StackedBarChartComponent = ({
             {isLegend && <Legend content={renderLegend} />}
             {lines &&
               lines.map((item, index) => {
+                const colorRandom = getRandomColor(defaultAreaColors);
                 return (
                   <Bar
                     key={index}
                     dataKey={item}
                     stackId="a"
-                    fill={areaColors[index]}
+                    fill={areaColors[index] ? areaColors[index] : colorRandom}
                     barSize={28}
                     maxBarSize={76}
                   />

@@ -318,6 +318,117 @@ class EventsListModel {
     }
   };
 
+  toEventTableDetail = (integration) => {
+    const headerTable = ['Name', 'Type', 'URL', 'Attributes', 'Date', ''];
+    const accessor = [
+      BI_VISITOR_FIELD_KEY.EVENT_NAME,
+      BI_VISITOR_FIELD_KEY.EVENT_TYPE,
+      BI_VISITOR_FIELD_KEY.URL,
+      BI_VISITOR_FIELD_KEY.ATTRIBUTES,
+      BI_VISITOR_FIELD_KEY.START_DATE,
+      BI_VISITOR_FIELD_KEY.UUID,
+    ];
+    if (this.data.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          width:
+            key === BI_VISITOR_FIELD_KEY.UUID
+              ? 10
+              : key === BI_VISITOR_FIELD_KEY.EVENT_TYPE
+              ? 50
+              : 170,
+          allowSort: true,
+          Cell: ({ cell, column }) => {
+            if (column.id === BI_VISITOR_FIELD_KEY.EVENT_NAME && cell?.value) {
+              return (
+                <>
+                  {integration ? (
+                    <a
+                      href="#"
+                      onClick={(e) => this.handleChangeLink(e, `events-detail&id=${cell?.value}`)}
+                      className={'px-3 text-secondary-50'}
+                    >
+                      <span>{cell?.value ?? null}</span>
+                    </a>
+                  ) : (
+                    <NavLink
+                      to={`/events-detail/${cell?.value}`}
+                      className={'px-3 text-secondary-50'}
+                    >
+                      {cell?.value ?? null}
+                    </NavLink>
+                  )}
+                </>
+              );
+            } else if (column.id === BI_VISITOR_FIELD_KEY.ATTRIBUTES) {
+              return (
+                <div>
+                  {cell?.value?.map((item, key) => (
+                    <div className={'w-100'} key={key}>
+                      {item?.name}: {item?.value}
+                    </div>
+                  ))}
+                </div>
+              );
+            } else if (column.id === BI_VISITOR_FIELD_KEY.UUID) {
+              return <></>;
+            } else if (
+              (column.id === BI_VISITOR_FIELD_KEY.REFERER ||
+                column.id === BI_VISITOR_FIELD_KEY.URL) &&
+              cell?.value
+            ) {
+              const urlParams = new URL(cell?.value);
+              return (
+                <div className={'px-3'}>
+                  {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
+                </div>
+              );
+            } else {
+              return <div className={'px-3'}>{cell?.value ?? null}</div>;
+            }
+          },
+        };
+      });
+      const data = this.data.map((item) => {
+        return {
+          ...item,
+          ...accessor
+            .map((i) => {
+              if (i === BI_VISITOR_FIELD_KEY.START_DATE) {
+                return {
+                  [i]: moment(item[i]).format('DD-MM-YYYY HH:mm:ss'),
+                };
+              } else {
+                return {
+                  [i]: item[i],
+                };
+              }
+            })
+            .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
+        };
+      });
+      const filteredData = data?.map((obj) => {
+        for (let prop in obj) {
+          if (!accessor.includes(prop)) {
+            delete obj[prop];
+          }
+        }
+        return obj;
+      });
+      return {
+        header,
+        data: filteredData,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
+  };
+
   toEventsList = () => {
     const result = this.data?.length
       ? this.data?.map((item) => {

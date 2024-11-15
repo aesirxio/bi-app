@@ -8,6 +8,7 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 import EventsDetailModel from '../EventsDetailModel/EventsDetailModel';
+import EventsListModel from 'containers/EventsPage/EventsModel/EventsListEventModel';
 class EventsDetailViewModel {
   EventsDetailStore = null;
   status = PAGE_STATUS.READY;
@@ -18,7 +19,7 @@ class EventsDetailViewModel {
   dataFilter = {};
   attributeData = null;
   search = {};
-  sortBy = { 'sort[]': '', 'sort_direction[]': '' };
+  sortByEventsList = { 'sort[]': '', 'sort_direction[]': '' };
 
   constructor(EventsDetailStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -30,15 +31,15 @@ class EventsDetailViewModel {
     return new EventsDetailModel(this.data);
   };
 
-  getVisitor = async (dataFilter, dateFilter, sortBy = {}, search = {}) => {
+  getVisitor = async (dataFilter, dateFilter, sortByEventsList = {}, search = {}) => {
     this.statusTable = PAGE_STATUS.LOADING;
-    this.sortBy = sortBy;
+    this.sortByEventsList = sortByEventsList;
     this.search = search;
     this.dataFilterTable = {
       page_size: '5',
       ...this.dataFilterTable,
       ...dataFilter,
-      ...this.sortBy,
+      ...this.sortByEventsList,
       ...this.search,
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
@@ -130,7 +131,7 @@ class EventsDetailViewModel {
     if (data?.list) {
       if (data?.message !== 'canceled') {
         this.statusTable = PAGE_STATUS.READY;
-        const transformData = new EventsDetailModel(data?.list, this.globalStoreViewModel);
+        const transformData = new EventsListModel(data?.list, this.globalStoreViewModel);
         this.data = {
           list: transformData,
           pagination: data.pagination,

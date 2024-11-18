@@ -240,7 +240,14 @@ const BarChartComponent = ({
         </div>
       )}
       {isPagination ? (
-        <>
+        <div className="d-flex align-items-center justify-content-between">
+          <div className="text-gray-900 fs-14">
+            {paginationPage === 0 ? 1 : 10 * paginationPage + 1}-
+            {paginationPage === Math.floor(data?.length / 10)
+              ? data?.length
+              : 10 * (paginationPage + 1)}{' '}
+            to {data?.length}
+          </div>
           <div className="mt-2 pb-2 text-center pagination d-flex justify-content-end align-items-center">
             <button
               className={`border-0 bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-start rounded-bottom-start`}
@@ -275,7 +282,7 @@ const BarChartComponent = ({
               />
             </button>
           </div>
-        </>
+        </div>
       ) : (
         <></>
       )}

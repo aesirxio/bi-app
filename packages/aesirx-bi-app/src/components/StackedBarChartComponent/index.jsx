@@ -84,19 +84,20 @@ const StackedBarChartComponent = ({
   const customizedTooltip = useMemo(
     () =>
       ({ payload }) => {
+        const topList = payload?.slice(0, 10);
         return (
           <div
             className="areachart-tooltip p-15 text-white rounded-6"
             style={{ backgroundColor: '#132342' }}
           >
-            <p className="fw-semibold fs-14 mb-sm">
+            {/* <p className="fw-semibold fs-14 mb-sm">
               {payload?.length > 0 ? payload[0].payload.name : ''}
-            </p>
-            {payload &&
-              payload.map((item, index) => {
+            </p> */}
+            {topList &&
+              topList.map((item, index) => {
                 return (
                   <div key={index} className="mb-0 fs-12 d-flex flex-nowrap">
-                    {payload?.length > 1 && <div className=" fw-bold">{item.name}:</div>}
+                    {topList?.length > 1 && <div className=" fw-bold">{item.name}:</div>}
                     <div className="ps-sm">
                       <p className="mb-0">
                         <span className="mr-2">{tooltipComponent?.value}</span>
@@ -106,6 +107,7 @@ const StackedBarChartComponent = ({
                   </div>
                 );
               })}
+            {payload?.length > 10 ? <>...</> : <></>}
           </div>
         );
       },
@@ -117,7 +119,7 @@ const StackedBarChartComponent = ({
     const columns = payload?.length === 6 ? 12 : payload?.length === 7 ? 6 : 4;
     return (
       <>
-        <ul className="ms-3 mt-2 mb-1 d-flex align-items-center flex-wrap">
+        <ul className="ms-3 mt-2 mb-1 d-flex align-items-center flex-wrap" index={1}>
           {payload?.map((entry, index) => {
             if (index <= 4)
               return (
@@ -129,7 +131,6 @@ const StackedBarChartComponent = ({
                   {entry.value}
                 </li>
               );
-            else return <></>;
           })}
         </ul>
         {payload?.length > 5 ? (
@@ -157,10 +158,9 @@ const StackedBarChartComponent = ({
                                 height: 14,
                               }}
                             ></div>
-                            {entry.value}
+                            <div className="text-start">{entry.value}</div>
                           </Col>
                         );
-                      else return <></>;
                     })}
                   </Row>
                 </>

@@ -17,6 +17,7 @@ import {
   Legend,
 } from 'recharts';
 import CHART_TYPE from 'constants/ChartType';
+import ComponentSVG from 'components/ComponentSVG';
 
 const BarChartComponent = ({
   data = [],
@@ -34,11 +35,15 @@ const BarChartComponent = ({
   isLegend = false,
   filterButtons = [],
   tooltipComponent,
+  isPagination = false,
 }) => {
   const { t } = useTranslation();
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
   const [currentData, setCurrentData] = useState(data[0]);
   const [view, setView] = useState(CHART_TYPE.DAY);
+
+  const [dataPagination, setDataPagination] = useState([]);
+  const [paginationPage, setPaginationPage] = useState(0);
 
   useEffect(() => {
     const [month, date, week] = data;
@@ -59,6 +64,13 @@ const BarChartComponent = ({
   }, [view, data]);
 
   useEffect(() => {
+    if (isPagination && data?.length) {
+      const topList = data?.sort((a, b) => b.number - a.number)?.slice(0, 10);
+      setDataPagination(topList);
+    }
+  }, [data]);
+
+  useEffect(() => {
     setCurrentSelection(filterData[0]);
     return () => {};
   }, [filterData]);
@@ -67,13 +79,14 @@ const BarChartComponent = ({
     if (payload && payload.value) {
       return (
         <Text
-          fontSize={'12px'}
-          width={50}
+          fontSize={'10px'}
+          width={150}
           x={x}
           y={y}
           textAnchor="end"
           verticalAnchor="middle"
-          maxLines="2"
+          maxLines={1}
+          whitespace="nowrap"
         >
           {payload?.value?.replaceAll('_', ' ')}
         </Text>
@@ -128,6 +141,7 @@ const BarChartComponent = ({
       },
     [tooltipComponent]
   );
+
   return (
     <div className="bg-white rounded-3 px-24 py-3 shadow-sm position-relative h-100">
       {loading === PAGE_STATUS.LOADING ? (
@@ -146,7 +160,13 @@ const BarChartComponent = ({
           />
           <ResponsiveContainer width="100%" height={height ?? 500}>
             <BarChart
-              data={filterData?.length ? currentData?.[currentSelection.value] : data}
+              data={
+                filterData?.length
+                  ? currentData?.[currentSelection.value]
+                  : isPagination
+                  ? dataPagination
+                  : data
+              }
               layout={layout ? layout : 'vertical'}
               margin={margin}
             >
@@ -218,6 +238,46 @@ const BarChartComponent = ({
             width="w-50"
           />
         </div>
+      )}
+      {isPagination ? (
+        <>
+          <div className="mt-2 pb-2 text-center pagination d-flex justify-content-end align-items-center">
+            <button
+              className={`border-0 bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-start rounded-bottom-start`}
+              onClick={() => {
+                const topListPagination = data
+                  ?.sort((a, b) => b.number - a.number)
+                  ?.slice((paginationPage - 1) * 10, 10 * paginationPage);
+                setDataPagination(topListPagination);
+                setPaginationPage(paginationPage - 1);
+              }}
+              disabled={paginationPage === 0}
+            >
+              <ComponentSVG
+                url={env.PUBLIC_URL + '/assets/images/chevron_left.svg'}
+                color={paginationPage === 0 ? '#5F5E70' : '#1ab394'}
+              />
+            </button>
+            <button
+              className={`border-0 bg-white text-body btn p-0 w-40px h-40px rounded-0 rounded-top-end rounded-bottom-end`}
+              onClick={() => {
+                const topListPagination = data
+                  ?.sort((a, b) => b.number - a.number)
+                  ?.slice((paginationPage + 1) * 10, 10 * (paginationPage + 2));
+                setDataPagination(topListPagination);
+                setPaginationPage(paginationPage + 1);
+              }}
+              disabled={paginationPage === Math.floor(data?.length / 10)}
+            >
+              <ComponentSVG
+                url={env.PUBLIC_URL + '/assets/images/chevron_right.svg'}
+                color={paginationPage === Math.floor(data?.length / 10) ? '#5F5E70' : '#1ab394'}
+              />
+            </button>
+          </div>
+        </>
+      ) : (
+        <></>
       )}
     </div>
   );

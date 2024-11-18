@@ -206,10 +206,11 @@ class EventsListModel {
 
   toBarChart = () => {
     const transform = this.transformEventsResponse();
-    return Object.keys(transform).map((item) => ({
+    const list = Object.keys(transform).map((item) => ({
       name: item,
       number: transform[item]?.reduce((a, b) => a + b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR], 0),
     }));
+    return list;
   };
   handleChangeLink = (e, link) => {
     e.preventDefault();
@@ -247,14 +248,14 @@ class EventsListModel {
                     <a
                       href="#"
                       onClick={(e) => this.handleChangeLink(e, `events-detail&id=${cell?.value}`)}
-                      className={'px-3 text-secondary-50'}
+                      className={'pe-3 text-secondary-50'}
                     >
                       <span>{cell?.value ?? null}</span>
                     </a>
                   ) : (
                     <NavLink
                       to={`/events-detail/${cell?.value}`}
-                      className={'px-3 text-secondary-50'}
+                      className={'pe-3 text-secondary-50'}
                     >
                       {cell?.value ?? null}
                     </NavLink>

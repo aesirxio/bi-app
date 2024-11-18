@@ -43,7 +43,8 @@ const Events = observer((props) => {
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-          'filter_not[event_name]': 'visit',
+          'filter_not[event_name][0]': 'visit',
+          'filter_not[event_name][1]': 'Reject consent',
           ...(params?.pagination && { page: params?.pagination }),
         },
         {},
@@ -55,7 +56,10 @@ const Events = observer((props) => {
             [`filter[domain][${index + 1}]`]: value,
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-        'filter_not[event_name]': 'visit',
+        'filter_not[event_name][0]': 'visit',
+        'filter_not[event_name][1]': 'Reject consent',
+        'sort[]': 'total_visitor',
+        'sort_direction[]': 'desc',
       });
     };
     execute();
@@ -173,9 +177,10 @@ const Events = observer((props) => {
             bars={['number']}
             barColors={['#0066FF']}
             data={dataEvents?.toBarChart()}
-            margin={{ left: 40 }}
+            margin={{ left: 100 }}
             filterButtons={[]}
             isSelection={false}
+            isPagination={true}
           />
         </div>
       </div>

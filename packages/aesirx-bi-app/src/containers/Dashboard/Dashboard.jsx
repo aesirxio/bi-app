@@ -123,6 +123,24 @@ const Dashboard = observer(
         }
       );
     };
+
+    handleSortEventType = async (column) => {
+      this.dashboardListViewModel.getEventsType(
+        this.context.biListViewModel.activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+        {},
+        {
+          'sort[]': column?.id,
+          'sort_direction[]':
+            this.dashboardListViewModel?.sortByEventNameType['sort_direction[]'] === 'desc'
+              ? 'asc'
+              : 'desc',
+        }
+      );
+    };
     render() {
       const { t } = this.props;
       return (
@@ -224,11 +242,11 @@ const Dashboard = observer(
             </div>
             <div className="w-100 w-lg-70">
               <OverviewComponent
-                bars={['visits', 'page_views']}
+                bars={['unique_visits', 'unique_page_views']}
                 barColors={['#0066FF', '#96C0FF']}
                 listViewModel={this.dashboardListViewModel}
                 status={this.dashboardListViewModel?.status}
-                data={this.dashboardListViewModel?.visitorData?.toAreaChart()}
+                data={this.dashboardListViewModel?.visitorData?.toAreaChart(true)}
                 filterData={this.dashboardListViewModel?.visitorData?.getFilterName()}
                 chartTitle={
                   <>
@@ -266,9 +284,10 @@ const Dashboard = observer(
                             <Spinner size="sm" variant="success" />
                           ) : (
                             Helper.numberWithCommas(
-                              this.dashboardListViewModel.summaryData?.[
-                                BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
-                              ]
+                              this.dashboardListViewModel?.visitorData?.data?.reduce(
+                                (n, { visits }) => n + visits,
+                                0
+                              )
                             )
                           )}
                         </div>
@@ -421,17 +440,17 @@ const Dashboard = observer(
                   isPagination={true}
                   simplePagination={true}
                   selectPage={async (value) => {
-                    await this.dashboardListViewModel.handleFilterSources({ page: value });
+                    await this.dashboardListViewModel.handleFilterEventType({ page: value });
                   }}
                   selectPageSize={async (value) => {
-                    await this.dashboardListViewModel.handleFilterSources({
+                    await this.dashboardListViewModel.handleFilterEventType({
                       page: 1,
                       page_size: value,
                     });
                   }}
-                  status={this.dashboardListViewModel?.statusTopBrowser}
+                  status={this.dashboardListViewModel?.statusEventTypeTable}
                   sortAPI={true}
-                  handleSort={this.handleSortSources}
+                  handleSort={this.handleSortEventType}
                   sortBy={this.dashboardListViewModel?.sortByEventsType}
                   {...this.props}
                 />

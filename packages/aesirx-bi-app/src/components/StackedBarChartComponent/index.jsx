@@ -21,7 +21,24 @@ import { env } from 'aesirx-lib';
 import { Tooltip as TooltipReact } from 'react-tooltip';
 import ReactDOMServer from 'react-dom/server';
 import { Col, Row } from 'react-bootstrap';
-
+const getRandomColor = (areaColors) => {
+  return areaColors[Math.floor(Math.random() * areaColors.length)];
+};
+const defaultAreaColors = [
+  '#0066FF',
+  '#1AB394',
+  '#4747EB',
+  '#96C0FF',
+  '#D5EEFF',
+  '#2196F3',
+  '#F44336',
+  '#FF9800',
+  '#00BCD4',
+  '#009688',
+  '#9C27B0',
+  '#E91E63',
+  '#673AB7',
+];
 const StackedBarChartComponent = ({
   data = [],
   height,
@@ -67,19 +84,20 @@ const StackedBarChartComponent = ({
   const customizedTooltip = useMemo(
     () =>
       ({ payload }) => {
+        const topList = payload?.slice(0, 10);
         return (
           <div
             className="areachart-tooltip p-15 text-white rounded-6"
             style={{ backgroundColor: '#132342' }}
           >
-            <p className="fw-semibold fs-14 mb-sm">
+            {/* <p className="fw-semibold fs-14 mb-sm">
               {payload?.length > 0 ? payload[0].payload.name : ''}
-            </p>
-            {payload &&
-              payload.map((item, index) => {
+            </p> */}
+            {topList &&
+              topList.map((item, index) => {
                 return (
                   <div key={index} className="mb-0 fs-12 d-flex flex-nowrap">
-                    {payload?.length > 1 && <div className=" fw-bold">{item.name}:</div>}
+                    {topList?.length > 1 && <div className=" fw-bold">{item.name}:</div>}
                     <div className="ps-sm">
                       <p className="mb-0">
                         <span className="mr-2">{tooltipComponent?.value}</span>
@@ -89,6 +107,7 @@ const StackedBarChartComponent = ({
                   </div>
                 );
               })}
+            {payload?.length > 10 ? <>...</> : <></>}
           </div>
         );
       },
@@ -100,7 +119,7 @@ const StackedBarChartComponent = ({
     const columns = payload?.length === 6 ? 12 : payload?.length === 7 ? 6 : 4;
     return (
       <>
-        <ul className="ms-3 mt-2 mb-1 d-flex align-items-center flex-wrap">
+        <ul className="ms-3 mt-2 mb-1 d-flex align-items-center flex-wrap" key={1}>
           {payload?.map((entry, index) => {
             if (index <= 4)
               return (
@@ -112,7 +131,6 @@ const StackedBarChartComponent = ({
                   {entry.value}
                 </li>
               );
-            else return <></>;
           })}
         </ul>
         {payload?.length > 5 ? (
@@ -140,10 +158,9 @@ const StackedBarChartComponent = ({
                                 height: 14,
                               }}
                             ></div>
-                            {entry.value}
+                            <div className="text-start">{entry.value}</div>
                           </Col>
                         );
-                      else return <></>;
                     })}
                   </Row>
                 </>
@@ -179,6 +196,7 @@ const StackedBarChartComponent = ({
             {lines && (
               <defs>
                 {lines.map((item, index) => {
+                  const colorRandom = getRandomColor(defaultAreaColors);
                   return (
                     <linearGradient
                       key={index}
@@ -188,8 +206,16 @@ const StackedBarChartComponent = ({
                       x2="0"
                       y2="1"
                     >
-                      <stop offset="5%" stopColor={areaColors[index]} stopOpacity={0.2} />
-                      <stop offset="95%" stopColor={areaColors[index]} stopOpacity={0} />
+                      <stop
+                        offset="5%"
+                        stopColor={areaColors[index] ? areaColors[index] : colorRandom}
+                        stopOpacity={0.2}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor={areaColors[index] ? areaColors[index] : colorRandom}
+                        stopOpacity={0}
+                      />
                     </linearGradient>
                   );
                 })}
@@ -217,12 +243,13 @@ const StackedBarChartComponent = ({
             {isLegend && <Legend content={renderLegend} />}
             {lines &&
               lines.map((item, index) => {
+                const colorRandom = getRandomColor(defaultAreaColors);
                 return (
                   <Bar
                     key={index}
                     dataKey={item}
                     stackId="a"
-                    fill={areaColors[index]}
+                    fill={areaColors[index] ? areaColors[index] : colorRandom}
                     barSize={28}
                     maxBarSize={76}
                   />

@@ -90,7 +90,7 @@ const Events = observer((props) => {
       {},
       {
         'sort[]': column?.id,
-        'sort_direction[]': sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+        'sort_direction[]': sortByEventsList['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
       }
     );
   };

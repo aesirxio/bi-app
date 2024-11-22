@@ -119,7 +119,7 @@ const StackedBarChartComponent = ({
     const columns = payload?.length === 6 ? 12 : payload?.length === 7 ? 6 : 4;
     return (
       <>
-        <ul className="ms-3 mt-2 mb-1 d-flex align-items-center flex-wrap" index={1}>
+        <ul className="ms-3 mt-2 mb-1 d-flex align-items-center flex-wrap" key={1}>
           {payload?.map((entry, index) => {
             if (index <= 4)
               return (

@@ -48,7 +48,7 @@ class DashboardListViewModel {
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
-  initialize = (dataFilter, dateFilter) => {
+  initialize = async (dataFilter, dateFilter) => {
     if (!dateFilter) {
       const dataFilterObjects = [
         this.dataFilter,
@@ -68,17 +68,29 @@ class DashboardListViewModel {
         }
       });
     }
-    this.getMetrics(dataFilter, dateFilter);
-    this.getVisitors(dataFilter, dateFilter);
-    this.getCountries(dataFilter, dateFilter);
-    this.getBrowsers(dataFilter, dateFilter);
-    this.getDevices(dataFilter, dateFilter);
-    this.getPages(dataFilter, dateFilter);
-    this.getReferer(dataFilter, dateFilter);
-    this.getEventsType(dataFilter, dateFilter);
-    this.getAttribute(dataFilter, dateFilter);
-    this.getLiveVisitorsTotal(dataFilter, false);
-    this.getLiveVisitorsList(dataFilter, false);
+    const limitRequest = process.env.REACT_APP_REQUEST_LIMIT ? parseInt(process.env.REACT_APP_REQUEST_LIMIT) : 8;
+    const functionConfigs = [
+      { func: this.getMetrics, args: [dataFilter, dateFilter] },
+      { func: this.getVisitors, args: [dataFilter, dateFilter] },
+      { func: this.getCountries, args: [dataFilter, dateFilter] },
+      { func: this.getBrowsers, args: [dataFilter, dateFilter] },
+      { func: this.getDevices, args: [dataFilter, dateFilter] },
+      { func: this.getPages, args: [dataFilter, dateFilter] },
+      { func: this.getReferer, args: [dataFilter, dateFilter] },
+      { func: this.getEventsType, args: [dataFilter, dateFilter] },
+      { func: this.getAttribute, args: [dataFilter, dateFilter] },
+      { func: this.getLiveVisitorsTotal, args: [dataFilter, false] },
+      { func: this.getLiveVisitorsList, args: [dataFilter, false] },
+    ];
+
+    for (let i = 0; i < functionConfigs.length; i++) {
+      const { func, args } = functionConfigs[i];
+      if (i >= limitRequest) {
+          await func.apply(this, args);
+      } else {
+          func.apply(this, args);
+      }
+    }
   };
 
   getMetrics = (dataFilter, dateFilter) => {

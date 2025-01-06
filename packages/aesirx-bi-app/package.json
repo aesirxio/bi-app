@@ -89,7 +89,7 @@
     "react-inject-env": "^2.1.0",
     "react-scripts": "^5.0.1",
     "sass": "^1.62",
-    "serve": "^14.2.3",
+    "serve": "^14.2.4",
     "tsup": "^6.7.0"
   },
   "files": [

@@ -123,9 +123,10 @@ const VisitorsPage = observer(
                     </h5>
                     <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                       {Helper.numberWithCommas(
-                        this.visitorsListViewModel.metricsData?.[
-                          BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS
-                        ]
+                        this.visitorsListViewModel?.visitsData?.data?.reduce(
+                          (n, { unique_visits }) => n + unique_visits,
+                          0
+                        )
                       )}
                     </div>
                   </div>

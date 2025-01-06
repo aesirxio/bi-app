@@ -176,7 +176,7 @@ const VisitorsBehaviorPage = observer(
           <Row className="mb-24 ChartWrapper">
             <Col lg={6}>
               <OverviewComponent
-                bars={['page_views']}
+                bars={['unique_page_views']}
                 barColors={['#0066FF']}
                 isSelection={false}
                 listViewModel={this.visitorsListViewModel}

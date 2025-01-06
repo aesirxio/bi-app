@@ -234,7 +234,7 @@ const PageDetail = observer(
             </Col>
             <Col lg="9">
               <OverviewComponent
-                bars={['visits', 'page_views']}
+                bars={['visits', 'unique_page_views']}
                 barColors={['#0066FF', '#96C0FF']}
                 listViewModel={this.pageDetailListViewModel}
                 status={this.pageDetailListViewModel?.status}

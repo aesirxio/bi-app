@@ -9,12 +9,23 @@ import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { history } from 'aesirx-uikit';
+import { Helper } from 'aesirx-lib';
 import queryString from 'query-string';
+import BehaviorTable from 'components/BehaviorTable';
 
 const Events = observer((props) => {
   const { t } = useTranslation();
   const {
-    eventsDetail: { handleFilterDateRange, getEventDetail, dataEvents },
+    eventsDetail: {
+      handleFilterDateRange,
+      getEventDetail,
+      dataEvents,
+      getVisitor,
+      data,
+      handleFilterTable,
+      statusTable,
+      sortByEventsList,
+    },
   } = useEventsDetailViewModel();
   const {
     biListViewModel: { activeDomain, dateFilter, dataFilter, integrationLink, setIntegrationLink },
@@ -33,7 +44,7 @@ const Events = observer((props) => {
     : eventName;
   useEffect(() => {
     const execute = async () => {
-      await getEventDetail({
+      getEventDetail({
         ...activeDomain
           ?.map((value, index) => ({
             [`filter[domain][${index + 1}]`]: value,
@@ -41,6 +52,20 @@ const Events = observer((props) => {
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[event_name]': eventNameDetail,
       });
+      getVisitor(
+        {
+          ...activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[event_name]': 'visit',
+          'filter[event_name]': eventNameDetail,
+          ...(params?.pagination && { page: params?.pagination }),
+        },
+        {},
+        { 'sort[]': 'start', 'sort_direction[]': 'desc' }
+      );
     };
     execute();
     return () => {};
@@ -50,6 +75,24 @@ const Events = observer((props) => {
     if (link) {
       setIntegrationLink(link);
     }
+  };
+  const handleSortEventList = async (column) => {
+    getVisitor(
+      {
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+        'filter_not[event_name]': 'visit',
+        'filter[event_name]': eventNameDetail,
+      },
+      {},
+      {
+        'sort[]': column?.id,
+        'sort_direction[]': sortByEventsList['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+      }
+    );
   };
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column">
@@ -88,25 +131,25 @@ const Events = observer((props) => {
                   {t('txt_event_count')}
                 </h5>
                 <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
-                  0
+                  {Helper.numberWithCommas(
+                    dataEvents?.data?.reduce((n, { total_visitor }) => n + total_visitor, 0)
+                  )}
                 </div>
               </div>
-              <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
+              {/* <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
                 <h5 className="fs-6 mb-14px text-gray-900 fw-medium" style={{ fontSize: '16px' }}>
                   {t('txt_total_users')}
                 </h5>
                 <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                   0
                 </div>
-              </div>
-              <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
+              </div> */}
+              {/* <div className="bg-white pb-20 rounded-3  fw-medium d-flex flex-column flex-grow-1 align-items-start justify-content-center">
                 <h5 className="fs-6 mb-14px text-gray-900 fw-medium" style={{ fontSize: '16px' }}>
                   {t('txt_event_count_per_user')}
                 </h5>
-                <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
-                  0
-                </div>
-              </div>
+                <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}></div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -147,6 +190,23 @@ const Events = observer((props) => {
             filterButtons={['days', 'weeks', 'months']}
             isSelection={false}
           />
+        </div>
+      </div>
+      <div className="row gx-24 mb-24">
+        <div className="col-12 ">
+          {data?.list && (
+            <BehaviorTable
+              data={data?.list?.toEventTableDetail(props.integration)}
+              pagination={data.pagination}
+              handleFilterTable={handleFilterTable}
+              statusTable={statusTable}
+              isPaginationAPI={true}
+              handleSort={handleSortEventList}
+              sortBy={sortByEventsList}
+              tdClass={'py-2 align-top'}
+              {...props}
+            />
+          )}
         </div>
       </div>
     </div>

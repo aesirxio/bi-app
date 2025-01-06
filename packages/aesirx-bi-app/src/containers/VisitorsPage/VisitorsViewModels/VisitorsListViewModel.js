@@ -51,7 +51,7 @@ class VisitorsListViewModel {
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
-  initialize = (dataFilter, dateFilter) => {
+  initialize = async (dataFilter, dateFilter) => {
     if (!dateFilter) {
       const dataFilterObjects = [
         this.dataFilter,
@@ -69,15 +69,28 @@ class VisitorsListViewModel {
         }
       });
     }
-    this.getMetrics(dataFilter, dateFilter);
-    // this.getVisitors(dataFilter, dateFilter);
-    this.getVisits(dataFilter, dateFilter);
-    this.getCountries(dataFilter, dateFilter);
-    this.getCities(dataFilter, dateFilter);
-    this.getBrowsers(dataFilter, dateFilter);
-    this.getDevices(dataFilter, dateFilter);
-    this.getLanguages(dataFilter, dateFilter);
-    this.getFlowList(dataFilter, dateFilter);
+    const limitRequest = process.env.REACT_APP_REQUEST_LIMIT
+      ? parseInt(process.env.REACT_APP_REQUEST_LIMIT)
+      : 8;
+    const functionConfigs = [
+      { func: this.getMetrics, args: [dataFilter, dateFilter] },
+      { func: this.getVisits, args: [dataFilter, dateFilter] },
+      { func: this.getCountries, args: [dataFilter, dateFilter] },
+      { func: this.getCities, args: [dataFilter, dateFilter] },
+      { func: this.getBrowsers, args: [dataFilter, dateFilter] },
+      { func: this.getDevices, args: [dataFilter, dateFilter] },
+      { func: this.getLanguages, args: [dataFilter, dateFilter] },
+      { func: this.getFlowList, args: [dataFilter, dateFilter] },
+    ];
+
+    for (let i = 0; i < functionConfigs.length; i++) {
+      const { func, args } = functionConfigs[i];
+      if (i >= limitRequest) {
+        await func.apply(this, args);
+      } else {
+        func.apply(this, args);
+      }
+    }
   };
 
   initializeBehavior = async (dataFilter, dateFilter, page) => {

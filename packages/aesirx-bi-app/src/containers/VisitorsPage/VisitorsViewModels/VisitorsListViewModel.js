@@ -69,7 +69,9 @@ class VisitorsListViewModel {
         }
       });
     }
-    const limitRequest = process.env.REACT_APP_REQUEST_LIMIT ? parseInt(process.env.REACT_APP_REQUEST_LIMIT) : 8;
+    const limitRequest = process.env.REACT_APP_REQUEST_LIMIT
+      ? parseInt(process.env.REACT_APP_REQUEST_LIMIT)
+      : 8;
     const functionConfigs = [
       { func: this.getMetrics, args: [dataFilter, dateFilter] },
       { func: this.getVisits, args: [dataFilter, dateFilter] },
@@ -84,9 +86,9 @@ class VisitorsListViewModel {
     for (let i = 0; i < functionConfigs.length; i++) {
       const { func, args } = functionConfigs[i];
       if (i >= limitRequest) {
-          await func.apply(this, args);
+        await func.apply(this, args);
       } else {
-          func.apply(this, args);
+        func.apply(this, args);
       }
     }
   };

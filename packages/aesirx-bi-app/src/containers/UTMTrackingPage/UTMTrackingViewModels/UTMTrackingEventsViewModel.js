@@ -44,11 +44,22 @@ class UTMTrackingEventsViewModel {
       ...dataFilter,
       ...this.sortBy,
     };
-    if (dataFilter['filter[attribute_value]'] === 'all') {
-      if (this.dataFilterTable['filter[attribute_value]']) {
-        delete this.dataFilterTable['filter[attribute_value]'];
+    if (dataFilter['filter[attribute_value][0]'] === 'all') {
+      if (this.dataFilterTable['filter[attribute_value][0]']) {
+        delete this.dataFilterTable['filter[attribute_value][0]'];
       }
     }
+    if (dataFilter['filter[attribute_value][1]'] === 'all') {
+      if (this.dataFilterTable['filter[attribute_value][1]']) {
+        delete this.dataFilterTable['filter[attribute_value][1]'];
+      }
+    }
+    if (dataFilter['filter[attribute_name][0]'] === 'all') {
+      if (this.dataFilterTable['filter[attribute_name][0]']) {
+        delete this.dataFilterTable['filter[attribute_name][0]'];
+      }
+    }
+
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 
     this.utmTrackingStore.getVisitor(
@@ -59,7 +70,7 @@ class UTMTrackingEventsViewModel {
     );
   };
 
-  getAttributeList = (dataFilter, dateFilter) => {
+  getAttributeList = async (dataFilter, dateFilter) => {
     this.statusTable = PAGE_STATUS.LOADING;
     this.dataFilterAttributeList = {
       page_size: '5',
@@ -76,7 +87,7 @@ class UTMTrackingEventsViewModel {
     );
   };
 
-  getAttributeDate = (dataFilter, dateFilter) => {
+  getAttributeDate = async (dataFilter, dateFilter) => {
     this.statusAttribute = PAGE_STATUS.LOADING;
     this.dataFilterAttribute = {
       page_size: '1000',
@@ -158,6 +169,23 @@ class UTMTrackingEventsViewModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.statusAttribute = PAGE_STATUS.READY;
+        if (data?.length) {
+          data = data?.map((item) => {
+            return {
+              date: item?.date,
+              name: item?.name,
+              values:
+                item?.name === 'gad_source'
+                  ? [
+                      {
+                        value: 'Google Adword',
+                        count: item?.values?.reduce((n, { count }) => n + count, 0),
+                      },
+                    ]
+                  : item?.values,
+            };
+          });
+        }
         const transformData = new UTMTrackingEventModel(data, this.globalStoreViewModel);
         this.dataAttribute = transformData;
       }

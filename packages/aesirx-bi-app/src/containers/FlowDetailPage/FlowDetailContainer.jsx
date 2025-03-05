@@ -115,7 +115,7 @@ const FlowDetailContainer = observer((props) => {
       getListOG();
     }
   }, [relatedVisitorData?.data]);
-
+  console.log('relatedVisitorData?.data');
   const CardData = useMemo(
     () => [
       // {
@@ -311,79 +311,81 @@ const FlowDetailContainer = observer((props) => {
                 <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
               ) : (
                 <>
-                  {relatedVisitorData?.data?.map((item, key) => {
-                    const ogData = fetchOG.find((i) => item.url == i.url);
-                    return (
-                      <div className="d-flex align-items-center mb-24 flow-detail-item" key={key}>
-                        <div className="flow-detail-item-image me-18px">
-                          <Image
-                            className={`object-fit-cover rounded-3 overflow-hidden`}
-                            style={{ width: 148, height: 95 }}
-                            src={
-                              item?.[BI_EVENTS_FIELD_KEY.OG_IMAGE]
-                                ? item?.[BI_EVENTS_FIELD_KEY.OG_IMAGE]
-                                : ogData?.image
-                                ? ogData?.image
-                                : env.PUBLIC_URL + `/assets/images/default_preview.jpg`
-                            }
-                            alt={'icons'}
-                          />
-                        </div>
-                        <div className="flow-detail-item-content d-flex flex-wrap">
-                          <div className="fs-14 w-100" style={{ color: '#5F5E70' }}>
-                            {moment(item[BI_VISITOR_FIELD_KEY.START_DATE])
-                              ?.utc()
-                              ?.format('HH:mm:ss')}
+                  {relatedVisitorData?.data
+                    ?.sort((a, b) => new Date(a.start) - new Date(b.start))
+                    ?.map((item, key) => {
+                      const ogData = fetchOG.find((i) => item.url == i.url);
+                      return (
+                        <div className="d-flex align-items-center mb-24 flow-detail-item" key={key}>
+                          <div className="flow-detail-item-image me-18px">
+                            <Image
+                              className={`object-fit-cover rounded-3 overflow-hidden`}
+                              style={{ width: 148, height: 95 }}
+                              src={
+                                item?.[BI_EVENTS_FIELD_KEY.OG_IMAGE]
+                                  ? item?.[BI_EVENTS_FIELD_KEY.OG_IMAGE]
+                                  : ogData?.image
+                                  ? ogData?.image
+                                  : env.PUBLIC_URL + `/assets/images/default_preview.jpg`
+                              }
+                              alt={'icons'}
+                            />
                           </div>
-                          <div className="d-flex mb-sm fs-14 fw-medium">
-                            <div
-                              className={`flow_detail_item_content_action ${
-                                item[BI_VISITOR_FIELD_KEY.EVENT_NAME] == 'visit'
-                                  ? 'visit'
-                                  : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE]
-                              } text-white text-capitalize`}
-                            >
-                              {item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'action'
-                                ? t('txt_visitor')
-                                : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'conversion'
-                                ? t('txt_conversion')
-                                : t('txt_event')}
+                          <div className="flow-detail-item-content d-flex flex-wrap">
+                            <div className="fs-14 w-100" style={{ color: '#5F5E70' }}>
+                              {moment(item[BI_VISITOR_FIELD_KEY.START_DATE])
+                                ?.utc()
+                                ?.format('HH:mm:ss')}
                             </div>
-                            <span className="flow_detail_item_content_name ms-sm">
-                              {item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit'
-                                ? 'Visited'
-                                : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'consent' &&
-                                  item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]?.find(
-                                    (o) => o.name === 'tier'
-                                  )?.value === '3'
-                                ? 'Decentralized Consent'
-                                : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'consent' &&
-                                  item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]?.find(
-                                    (o) => o.name === 'tier'
-                                  )?.value === '4'
-                                ? 'Decentralized Consent + Shield of Privacy'
-                                : item[BI_VISITOR_FIELD_KEY.EVENT_NAME]}
-                            </span>
-                          </div>
-                          {(ogData?.title || item?.[BI_EVENTS_FIELD_KEY.OG_TITLE]) && (
-                            <p className="mb-0 fw-medium w-100 lh-base text-gray-heading fs-14">
-                              {item?.[BI_EVENTS_FIELD_KEY.OG_TITLE] ?? ogData.title}
-                            </p>
-                          )}
-                          <div className="w-100">
-                            <a
-                              href={`${item[BI_VISITOR_FIELD_KEY.URL]}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              className={`flow_detail_item_content_link fw-semibold`}
-                            >
-                              {item[BI_VISITOR_FIELD_KEY.URL]}
-                            </a>
+                            <div className="d-flex mb-sm fs-14 fw-medium">
+                              <div
+                                className={`flow_detail_item_content_action ${
+                                  item[BI_VISITOR_FIELD_KEY.EVENT_NAME] == 'visit'
+                                    ? 'visit'
+                                    : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE]
+                                } text-white text-capitalize`}
+                              >
+                                {item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'action'
+                                  ? t('txt_visitor')
+                                  : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'conversion'
+                                  ? t('txt_conversion')
+                                  : t('txt_event')}
+                              </div>
+                              <span className="flow_detail_item_content_name ms-sm">
+                                {item[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'visit'
+                                  ? 'Visited'
+                                  : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'consent' &&
+                                    item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]?.find(
+                                      (o) => o.name === 'tier'
+                                    )?.value === '3'
+                                  ? 'Decentralized Consent'
+                                  : item[BI_VISITOR_FIELD_KEY.EVENT_TYPE] === 'consent' &&
+                                    item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]?.find(
+                                      (o) => o.name === 'tier'
+                                    )?.value === '4'
+                                  ? 'Decentralized Consent + Shield of Privacy'
+                                  : item[BI_VISITOR_FIELD_KEY.EVENT_NAME]}
+                              </span>
+                            </div>
+                            {(ogData?.title || item?.[BI_EVENTS_FIELD_KEY.OG_TITLE]) && (
+                              <p className="mb-0 fw-medium w-100 lh-base text-gray-heading fs-14">
+                                {item?.[BI_EVENTS_FIELD_KEY.OG_TITLE] ?? ogData.title}
+                              </p>
+                            )}
+                            <div className="w-100">
+                              <a
+                                href={`${item[BI_VISITOR_FIELD_KEY.URL]}`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className={`flow_detail_item_content_link fw-semibold`}
+                              >
+                                {item[BI_VISITOR_FIELD_KEY.URL]}
+                              </a>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                 </>
               )}
             </div>

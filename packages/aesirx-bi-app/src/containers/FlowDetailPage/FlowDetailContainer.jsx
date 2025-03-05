@@ -115,7 +115,6 @@ const FlowDetailContainer = observer((props) => {
       getListOG();
     }
   }, [relatedVisitorData?.data]);
-  console.log('relatedVisitorData?.data');
   const CardData = useMemo(
     () => [
       // {

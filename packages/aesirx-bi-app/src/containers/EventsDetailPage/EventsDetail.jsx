@@ -132,7 +132,10 @@ const Events = observer((props) => {
                 </h5>
                 <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                   {Helper.numberWithCommas(
-                    dataEvents?.data?.reduce((n, { total_visitor }) => n + total_visitor, 0)
+                    dataEvents?.data?.reduce(
+                      (n, { total_visitor }) => parseInt(n) + parseInt(total_visitor),
+                      0
+                    )
                   )}
                 </div>
               </div>

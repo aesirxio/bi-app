@@ -124,7 +124,7 @@ const VisitorsPage = observer(
                     <div className="fs-24 d-flex align-items-center" style={{ fontSize: '24px' }}>
                       {Helper.numberWithCommas(
                         this.visitorsListViewModel?.visitsData?.data?.reduce(
-                          (n, { unique_visits }) => n + unique_visits,
+                          (n, { unique_visits }) => parseInt(n) + parseInt(unique_visits),
                           0
                         )
                       )}

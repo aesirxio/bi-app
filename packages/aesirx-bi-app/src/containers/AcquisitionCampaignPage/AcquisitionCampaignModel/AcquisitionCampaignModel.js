@@ -203,6 +203,10 @@ class AcquisitionCampaignModel {
               <div className={'px-15'}>
                 {cell?.value ? moment.utc(cell?.value * 1000).format('HH:mm:ss') : '00:00:00'}
               </div>
+            ) : column.id === 'value' ? (
+              <div className={'px-15'}>
+                {cell?.row?.original?.gad_source ? 'Google Adwords' : cell?.value ?? null}
+              </div>
             ) : (
               <div className={'px-15'}>{cell?.value ?? null}</div>
             );

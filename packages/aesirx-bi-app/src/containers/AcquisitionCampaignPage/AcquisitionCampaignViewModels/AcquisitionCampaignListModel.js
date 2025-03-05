@@ -143,8 +143,46 @@ class AcquisitionCampaignListModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.statusTable = PAGE_STATUS.READY;
-
-        const transformFormat = data?.list[0]?.values?.map((item) => {
+        const utmObject =
+          data?.list?.find((item) => {
+            return item?.name === 'utm_source';
+          }) ?? {};
+        const gadObject =
+          data?.list?.find((item) => {
+            return item?.name === 'gad_source';
+          }) ?? {};
+        const gadValues = gadObject
+          ? [
+              {
+                value: 'Google Adword',
+                [BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS]: gadObject?.values?.reduce(
+                  (n, { number_of_visitors }) => parseInt(n) + parseInt(number_of_visitors),
+                  0
+                ),
+                [BI_SUMMARY_FIELD_KEY?.TOTAL_NUMBER_OF_VISITORS]: gadObject?.values?.reduce(
+                  (n, { total_number_of_visitors }) =>
+                    parseInt(n) + parseInt(total_number_of_visitors),
+                  0
+                ),
+                [BI_SUMMARY_FIELD_KEY?.AVERAGE_SESSION_DURATION]: gadObject?.values?.reduce(
+                  (n, { average_session_duration }) =>
+                    parseInt(n) + parseInt(average_session_duration),
+                  0
+                ),
+                [BI_SUMMARY_FIELD_KEY?.NUMBER_OF_PAGES_PER_SESSION]: gadObject?.values?.reduce(
+                  (n, { average_number_of_pages_per_session }) =>
+                    parseInt(n) + parseInt(average_number_of_pages_per_session),
+                  0
+                ),
+                [BI_SUMMARY_FIELD_KEY?.BOUNCE_RATE]: gadObject?.values?.reduce(
+                  (n, { bounce_rate }) => parseInt(n) + parseInt(bounce_rate),
+                  0
+                ),
+              },
+            ]
+          : [];
+        const values = [...utmObject?.values, ...gadValues];
+        const transformFormat = values?.map((item) => {
           return {
             value: item?.value,
             [BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS]:
@@ -177,6 +215,26 @@ class AcquisitionCampaignListModel {
     if (data) {
       if (data?.message !== 'canceled') {
         this.statusAttribute = PAGE_STATUS.READY;
+        if (data?.length) {
+          data = data?.map((item) => {
+            return {
+              date: item?.date,
+              name: item?.name,
+              values:
+                item?.name === 'gad_source'
+                  ? [
+                      {
+                        value: 'Google Adword',
+                        count: item?.values?.reduce(
+                          (n, { count }) => parseInt(n) + parseInt(count),
+                          0
+                        ),
+                      },
+                    ]
+                  : item?.values,
+            };
+          });
+        }
         const transformData = new AcquisitionCampaignModel(data, this.globalStoreViewModel);
         this.dataAttribute = transformData;
       }

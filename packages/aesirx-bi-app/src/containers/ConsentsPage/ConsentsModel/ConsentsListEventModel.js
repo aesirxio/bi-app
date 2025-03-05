@@ -88,7 +88,10 @@ class ConsentsListModel {
     const transform = this.transformConsentsResponse();
     return Object.keys(transform).map((item) => ({
       name: item,
-      number: transform[item]?.reduce((a, b) => a + b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR], 0),
+      number: transform[item]?.reduce(
+        (a, b) => parseInt(a) + parseInt(b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR]),
+        0
+      ),
     }));
   };
   handleChangeLink = (e, link) => {

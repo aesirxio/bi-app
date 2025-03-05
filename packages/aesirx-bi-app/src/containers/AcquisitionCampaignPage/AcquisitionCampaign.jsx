@@ -39,7 +39,8 @@ const AcquisitionCampaignPage = observer((props) => {
             [`filter[domain][${index + 1}]`]: value,
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-        'filter[attribute_name]': 'utm_source',
+        'filter[attribute_name][0]': 'utm_source',
+        'filter[attribute_name][1]': 'gad_source',
         'filter[acquisition]': true,
       });
       await getAttributeTable({
@@ -48,7 +49,8 @@ const AcquisitionCampaignPage = observer((props) => {
             [`filter[domain][${index + 1}]`]: value,
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-        'filter[attribute_name]': 'utm_source',
+        'filter[attribute_name][0]': 'utm_source',
+        'filter[attribute_name][1]': 'gad_source',
         'filter[acquisition]': true,
       });
       await getAttributeList({
@@ -57,7 +59,8 @@ const AcquisitionCampaignPage = observer((props) => {
             [`filter[domain][${index + 1}]`]: value,
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-        'filter[attribute_name]': 'utm_source',
+        'filter[attribute_name][0]': 'utm_source',
+        'filter[attribute_name][1]': 'gad_source',
         'filter[acquisition]': true,
       });
     };

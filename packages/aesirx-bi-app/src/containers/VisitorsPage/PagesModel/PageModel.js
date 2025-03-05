@@ -224,7 +224,7 @@ class PageModel {
       return {
         name: urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search,
         number: transform[item]?.reduce(
-          (a, b) => a + b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS],
+          (a, b) => parseInt(a) + parseInt(b[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]),
           0
         ),
       };

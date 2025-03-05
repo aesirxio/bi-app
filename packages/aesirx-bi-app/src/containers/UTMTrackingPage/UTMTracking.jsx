@@ -63,23 +63,25 @@ const UTMTrackingPage = observer((props) => {
   }, []);
   useEffect(() => {
     const execute = async () => {
-      await getAttributeDate({
+      getAttributeDate({
         ...activeDomain
           ?.map((value, index) => ({
             [`filter[domain][${index + 1}]`]: value,
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-        'filter[attribute_name]': 'utm_source',
+        'filter[attribute_name][0]': 'utm_source',
+        'filter[attribute_name][1]': 'gad_source',
       });
-      await getVisitor({
+      getVisitor({
         ...activeDomain
           ?.map((value, index) => ({
             [`filter[domain][${index + 1}]`]: value,
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-        'filter[attribute_name]': 'utm_source',
+        'filter[attribute_name][0]': 'utm_source',
+        'filter[attribute_name][1]': 'gad_source',
       });
-      await getAttributeList({
+      getAttributeList({
         ...activeDomain
           ?.map((value, index) => ({
             [`filter[domain][${index + 1}]`]: value,
@@ -98,8 +100,9 @@ const UTMTrackingPage = observer((props) => {
           [`filter[domain][${index + 1}]`]: value,
         }))
         ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-      'filter[attribute_name]': 'utm_source',
-      'filter[attribute_value]': data?.value,
+      ...(data?.value === 'gad_source'
+        ? { 'filter[attribute_name][0]': 'gad_source' }
+        : { 'filter[attribute_name][0]': 'utm_source', 'filter[attribute_value][0]': data?.value }),
     });
   };
   const handleSort = async (column) => {

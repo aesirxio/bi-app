@@ -41,7 +41,7 @@ const PieChartComponent = ({
       <>
         {showTotal ? (
           <div className="fw-medium mb-1">
-            Total: {payload?.reduce((n, { payload }) => n + payload.value, 0)}
+            Total: {payload?.reduce((n, { payload }) => parseInt(n) + parseInt(payload.value), 0)}
           </div>
         ) : (
           <></>

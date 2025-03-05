@@ -250,6 +250,12 @@ class UTMTrackingEventModel {
                   {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
                 </div>
               );
+            } else if (column.id === 'utm_source') {
+              return (
+                <div className={'px-3'}>
+                  {cell?.row?.original?.gad_source ? 'Google Adwords' : cell?.value ?? null}
+                </div>
+              );
             } else {
               return <div className={'px-3'}>{cell?.value ?? null}</div>;
             }
@@ -261,7 +267,7 @@ class UTMTrackingEventModel {
         .map((item) => {
           const utm = item[BI_VISITOR_FIELD_KEY.ATTRIBUTES]
             .map((attr) => {
-              if (accessor.includes(attr.name)) {
+              if (accessor.includes(attr.name) || attr.name === 'gad_source') {
                 return { [attr.name]: attr.value };
               }
             })
@@ -291,6 +297,7 @@ class UTMTrackingEventModel {
         data?.sort(
           (a, b) => moment(b.start, 'DD-MM-YYYY HH:mm:ss') - moment(a.start, 'DD-MM-YYYY HH:mm:ss')
         );
+
       return {
         header,
         data: data,
@@ -306,7 +313,11 @@ class UTMTrackingEventModel {
   toAttributeList = () => {
     const transform = this.transformResponseUTM();
     const result = Object.keys(transform)?.map((item) => ({ value: item, label: item }));
-    return [{ label: 'All Campaign', value: 'all' }, ...result];
+    return [
+      { label: 'All Campaign', value: 'all' },
+      ...result,
+      { label: 'Google Adwords', value: 'gad_source' },
+    ];
   };
 }
 

@@ -179,7 +179,10 @@ class UTMTrackingEventsViewModel {
                   ? [
                       {
                         value: 'Google Adword',
-                        count: item?.values?.reduce((n, { count }) => n + count, 0),
+                        count: item?.values?.reduce(
+                          (n, { count }) => parseInt(n) + parseInt(count),
+                          0
+                        ),
                       },
                     ]
                   : item?.values,

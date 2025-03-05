@@ -285,7 +285,7 @@ const Dashboard = observer(
                           ) : (
                             Helper.numberWithCommas(
                               this.dashboardListViewModel?.visitorData?.data?.reduce(
-                                (n, { visits }) => n + visits,
+                                (n, { visits }) => parseInt(n) + parseInt(visits),
                                 0
                               )
                             )

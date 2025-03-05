@@ -156,24 +156,26 @@ class AcquisitionCampaignListModel {
               {
                 value: 'Google Adword',
                 [BI_SUMMARY_FIELD_KEY?.NUMBER_OF_VISITORS]: gadObject?.values?.reduce(
-                  (n, { number_of_visitors }) => n + number_of_visitors,
+                  (n, { number_of_visitors }) => parseInt(n) + parseInt(number_of_visitors),
                   0
                 ),
                 [BI_SUMMARY_FIELD_KEY?.TOTAL_NUMBER_OF_VISITORS]: gadObject?.values?.reduce(
-                  (n, { total_number_of_visitors }) => n + total_number_of_visitors,
+                  (n, { total_number_of_visitors }) =>
+                    parseInt(n) + parseInt(total_number_of_visitors),
                   0
                 ),
                 [BI_SUMMARY_FIELD_KEY?.AVERAGE_SESSION_DURATION]: gadObject?.values?.reduce(
-                  (n, { average_session_duration }) => n + average_session_duration,
+                  (n, { average_session_duration }) =>
+                    parseInt(n) + parseInt(average_session_duration),
                   0
                 ),
                 [BI_SUMMARY_FIELD_KEY?.NUMBER_OF_PAGES_PER_SESSION]: gadObject?.values?.reduce(
                   (n, { average_number_of_pages_per_session }) =>
-                    n + average_number_of_pages_per_session,
+                    parseInt(n) + parseInt(average_number_of_pages_per_session),
                   0
                 ),
                 [BI_SUMMARY_FIELD_KEY?.BOUNCE_RATE]: gadObject?.values?.reduce(
-                  (n, { bounce_rate }) => n + bounce_rate,
+                  (n, { bounce_rate }) => parseInt(n) + parseInt(bounce_rate),
                   0
                 ),
               },
@@ -223,7 +225,10 @@ class AcquisitionCampaignListModel {
                   ? [
                       {
                         value: 'Google Adword',
-                        count: item?.values?.reduce((n, { count }) => n + count, 0),
+                        count: item?.values?.reduce(
+                          (n, { count }) => parseInt(n) + parseInt(count),
+                          0
+                        ),
                       },
                     ]
                   : item?.values,

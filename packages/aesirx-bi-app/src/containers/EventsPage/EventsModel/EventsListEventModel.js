@@ -137,7 +137,7 @@ class EventsListModel {
                 ?.filter(
                   (_item) => moment(_item[BI_EVENTS_FIELD_KEY.DATE], 'YYYY-MM-DD').month() === index
                 )
-                ?.reduce((a, b) => a + b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR], 0);
+                ?.reduce((a, b) => parseInt(a) + parseInt(b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR]), 0);
               return { [item]: filterMonthDate ?? 0 };
             })
             .reduce((accumulator, currentValue) => ({ ...currentValue, ...accumulator }), {}),
@@ -151,7 +151,7 @@ class EventsListModel {
                 ?.filter(
                   (_item) => moment(_item[BI_EVENTS_FIELD_KEY.DATE], 'YYYY-MM-DD').month() === index
                 )
-                ?.reduce((a, b) => a + b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR], 0);
+                ?.reduce((a, b) => parseInt(a) + parseInt(b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR]), 0);
               if (filterMonthDate) {
                 return {
                   name: month,
@@ -208,7 +208,10 @@ class EventsListModel {
     const transform = this.transformEventsResponse();
     const list = Object.keys(transform).map((item) => ({
       name: item,
-      number: transform[item]?.reduce((a, b) => a + b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR], 0),
+      number: transform[item]?.reduce(
+        (a, b) => parseInt(a) + parseInt(b[BI_EVENTS_FIELD_KEY.TOTAL_VISITOR]),
+        0
+      ),
     }));
     return list;
   };

@@ -46,7 +46,10 @@ class ConsentsTableModel {
           accessor: key,
           width:
             key === BI_CONSENTS_LIST_FIELD_KEY.TIER
-              ? 100
+              ? 240
+              : key === BI_CONSENTS_LIST_FIELD_KEY.DATETIME ||
+                key === BI_CONSENTS_LIST_FIELD_KEY.EXPIRATION
+              ? 150
               : key === BI_CONSENTS_LIST_FIELD_KEY.WEB3ID
               ? 100
               : 170,
@@ -57,7 +60,7 @@ class ConsentsTableModel {
             ) : column.id === BI_CONSENTS_LIST_FIELD_KEY.WALLET ? (
               <div className={'px-15'}>{cell?.value?.address}</div>
             ) : column.id === BI_CONSENTS_LIST_FIELD_KEY.DATETIME ? (
-              <div className={'px-15'}>
+              <div className={'pe-15'}>
                 {cell?.value && moment(cell?.value).format('YYYY-MM-DD HH:mm:ss')}
               </div>
             ) : column.id === BI_CONSENTS_LIST_FIELD_KEY.EXPIRATION ? (
@@ -70,6 +73,8 @@ class ConsentsTableModel {
                   ? 'Decentralized Consent'
                   : cell?.value?.toString() === '4'
                   ? 'Decentralized Consent + SoP'
+                  : cell?.value?.toString() === '5'
+                  ? 'Category-base & Granular Consent'
                   : 'Consent'}
               </div>
             ) : (

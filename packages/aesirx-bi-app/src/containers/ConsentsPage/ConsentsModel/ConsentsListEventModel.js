@@ -114,6 +114,9 @@ class ConsentsListModel {
           case 4:
             nameConsent = 'Decentralized Consent + SoP';
             break;
+          case 5:
+            nameConsent = 'Decentralized Consent + SoP';
+            break;
         }
         return {
           name: nameConsent,

@@ -55,6 +55,7 @@ const PieChartComponent = ({
               ></div>
               <div
                 className="d-flex flex-wrap cursor-pointer"
+                style={{ width: 'calc(100% - 14px)' }}
                 onClick={() => onPieEnter(entry, index)}
               >
                 <div className="fs-sm w-100">{entry.value}</div>

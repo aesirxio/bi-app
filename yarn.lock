@@ -1890,12 +1890,14 @@
   dependencies:
     "@protobuf-ts/runtime-rpc" "^2.9.1"
 
-"@concordium/react-components@0.4.0-rc.7":
-  version "0.4.0-rc.7"
-  resolved "https://registry.yarnpkg.com/@concordium/react-components/-/react-components-0.4.0-rc.7.tgz#0e696996318a896ee2e1dfd01ed23837c1d69efc"
-  integrity sha512-RCKfch4e6Ypo7TeZnZQJcU68MrmMLiC4T0Q0YIqUI0f27zClTHsv8ObMCeUzjN/N0OIylxssFvoMr1pRuq9dwg==
+"@concordium/react-components@0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@concordium/react-components/-/react-components-0.6.1.tgz#d138eb52ef0bd51bec398a483710b7acbf18c09f"
+  integrity sha512-zMc+7dsI52tnTPVPP/Tawva06bYuNA35+PoHLjrZiewxzYdTQzk5hLvg2bukaKf0FBFF2mscs+JWAgZOmzJZVQ==
   dependencies:
-    "@concordium/wallet-connectors" "^0.4.0-rc.6"
+    "@concordium/wallet-connectors" "^0.6.1"
+    "@protobuf-ts/grpcweb-transport" "^2.9.4"
+    buffer "^6.0.3"
 
 "@concordium/react-components@^0.4.0-rc.7":
   version "0.4.0"
@@ -1914,7 +1916,7 @@
   resolved "https://registry.yarnpkg.com/@concordium/rust-bindings/-/rust-bindings-3.2.1.tgz#372edcba32b482fc1a5c37c6c51fd86ef0c50ea4"
   integrity sha512-5mcuLWmPgjJNTqzd5LrXzBwh/pSrvLH0pEeWC4LF6ZO07a/Yj34H9NMFNz2QxLloioc9EcuJ+ec4HhOBeVu7rw==
 
-"@concordium/wallet-connectors@^0.4.0", "@concordium/wallet-connectors@^0.4.0-rc.6":
+"@concordium/wallet-connectors@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@concordium/wallet-connectors/-/wallet-connectors-0.4.0.tgz#c2a140ed39ae2723c1c1184c22c4a751f006ee6c"
   integrity sha512-zVnndnkT4eGMSHxYwqMtyycB1Vn1lpYX+1IKlNs8H72PoEVc0l41Me95gSJY9M4zhltYJfxOajnLC1eLSdGqhA==
@@ -1922,6 +1924,18 @@
     "@concordium/browser-wallet-api-helpers" "^3.0.0"
     "@walletconnect/qrcode-modal" "^1.8.0"
     "@walletconnect/sign-client" "^2.1.4"
+
+"@concordium/wallet-connectors@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@concordium/wallet-connectors/-/wallet-connectors-0.6.1.tgz#77a72186cfdd7682152b33fe21144fdeb6c08ac9"
+  integrity sha512-M9EeO5r47xm20UpC0aFldQfbdD5xfmkfcQ1QUrj78qcSboMaksTD1SOIhiiA/+Blp6orUW4lJWMNUv+SJmr6gA==
+  dependencies:
+    "@concordium/browser-wallet-api-helpers" "^3.0.0"
+    "@protobuf-ts/grpcweb-transport" "^2.9.4"
+    "@walletconnect/modal" "^2.6.2"
+    "@walletconnect/modal-core" "^2.6.2"
+    "@walletconnect/sign-client" "^2.1.4"
+    buffer "^6.0.3"
 
 "@concordium/web-sdk@7.1.0":
   version "7.1.0"
@@ -3703,6 +3717,14 @@
     "@protobuf-ts/runtime" "^2.9.4"
     "@protobuf-ts/runtime-rpc" "^2.9.4"
 
+"@protobuf-ts/grpcweb-transport@^2.9.4":
+  version "2.9.6"
+  resolved "https://registry.yarnpkg.com/@protobuf-ts/grpcweb-transport/-/grpcweb-transport-2.9.6.tgz#9ef5a746c1b2042334af6737f4efe8771c411bae"
+  integrity sha512-TDBLxRkPSe/2daIlEpNEGQKDikBPtl4gUqYx7ap+b69YUkCcYH08w/12VuuA+uvnWdEEbS0DSxsJQZQyhptZHA==
+  dependencies:
+    "@protobuf-ts/runtime" "^2.9.6"
+    "@protobuf-ts/runtime-rpc" "^2.9.6"
+
 "@protobuf-ts/runtime-rpc@^2.8.2", "@protobuf-ts/runtime-rpc@^2.9.1", "@protobuf-ts/runtime-rpc@^2.9.4":
   version "2.9.4"
   resolved "https://registry.yarnpkg.com/@protobuf-ts/runtime-rpc/-/runtime-rpc-2.9.4.tgz#d6ab2316c0ba67ce5a08863bb23203a837ff2a3b"
@@ -3710,10 +3732,22 @@
   dependencies:
     "@protobuf-ts/runtime" "^2.9.4"
 
+"@protobuf-ts/runtime-rpc@^2.9.6":
+  version "2.9.6"
+  resolved "https://registry.yarnpkg.com/@protobuf-ts/runtime-rpc/-/runtime-rpc-2.9.6.tgz#b5c11a01f3105ef5df0284fda915168c1c39d8ef"
+  integrity sha512-0UeqDRzNxgsh08lY5eWzFJNfD3gZ8Xf+WG1HzbIAbVAigzigwjwsYNNhTeas5H3gco1U5owTzCg177aambKOOw==
+  dependencies:
+    "@protobuf-ts/runtime" "^2.9.6"
+
 "@protobuf-ts/runtime@^2.9.4":
   version "2.9.4"
   resolved "https://registry.yarnpkg.com/@protobuf-ts/runtime/-/runtime-2.9.4.tgz#db8a78b1c409e26d258ca39464f4757d804add8f"
   integrity sha512-vHRFWtJJB/SiogWDF0ypoKfRIZ41Kq+G9cEFj6Qm1eQaAhJ1LDFvgZ7Ja4tb3iLOQhz0PaoPnnOijF1qmEqTxg==
+
+"@protobuf-ts/runtime@^2.9.6":
+  version "2.9.6"
+  resolved "https://registry.yarnpkg.com/@protobuf-ts/runtime/-/runtime-2.9.6.tgz#a687ce90d76e053b3b8a3b1abbe99264d2d6bda2"
+  integrity sha512-C0CfpKx4n4LBbUrajOdRj2BTbd3qBoK0SiKWLq7RgCoU6xiN4wesBMFHUOBp3fFzKeZwgU8Q2KtzaqzIvPLRXg==
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
@@ -5396,7 +5430,7 @@
   dependencies:
     valtio "1.11.2"
 
-"@walletconnect/modal-core@2.7.0":
+"@walletconnect/modal-core@2.7.0", "@walletconnect/modal-core@^2.6.2":
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/@walletconnect/modal-core/-/modal-core-2.7.0.tgz#73c13c3b7b0abf9ccdbac9b242254a86327ce0a4"
   integrity sha512-oyMIfdlNdpyKF2kTJowTixZSo0PGlCJRdssUN/EZdA6H6v03hZnf09JnwpljZNfir2M65Dvjm/15nGrDQnlxSA==

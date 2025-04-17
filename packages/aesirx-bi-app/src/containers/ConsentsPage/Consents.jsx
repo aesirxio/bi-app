@@ -110,7 +110,7 @@ const Consents = observer(() => {
             <div className="w-100">
               {consentsTierData?.length || statusTierChart === PAGE_STATUS.LOADING ? (
                 <PieChartComponent
-                  height={350}
+                  height={450}
                   data={consentsTierData}
                   status={statusTierChart}
                   colors={['#1A2B88', '#4855A0', '#67A4FF', '#ADCEFF', '#A3AACF']}

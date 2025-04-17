@@ -75,6 +75,8 @@ class ConsentsTableModel {
                   ? 'Decentralized Consent + SoP'
                   : cell?.value?.toString() === '5'
                   ? 'Category-base & Granular Consent'
+                  : cell?.value?.toString() === '6'
+                  ? 'Opt-Out Consent'
                   : 'Consent'}
               </div>
             ) : (

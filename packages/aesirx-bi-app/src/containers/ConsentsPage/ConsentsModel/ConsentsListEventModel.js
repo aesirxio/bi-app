@@ -117,6 +117,9 @@ class ConsentsListModel {
           case 5:
             nameConsent = 'Category-base & Granular Consent';
             break;
+          case 6:
+            nameConsent = 'Opt-Out Consent';
+            break;
         }
         return {
           name: nameConsent,

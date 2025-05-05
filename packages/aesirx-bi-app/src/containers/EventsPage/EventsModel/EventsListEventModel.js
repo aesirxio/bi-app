@@ -222,7 +222,7 @@ class EventsListModel {
     }
   };
   toEventTable = (integration) => {
-    const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Date', ''];
+    const headerTable = ['Name', 'Type', 'URL', 'Referer', 'Date', '', ''];
     const accessor = [
       BI_VISITOR_FIELD_KEY.EVENT_NAME,
       BI_VISITOR_FIELD_KEY.EVENT_TYPE,
@@ -230,6 +230,7 @@ class EventsListModel {
       BI_VISITOR_FIELD_KEY.REFERER,
       BI_VISITOR_FIELD_KEY.START_DATE,
       BI_VISITOR_FIELD_KEY.UUID,
+      BI_VISITOR_FIELD_KEY.ATTRIBUTES,
     ];
     if (this.data.length) {
       const header = accessor.map((key, index) => {
@@ -237,7 +238,7 @@ class EventsListModel {
           Header: headerTable[index],
           accessor: key,
           width:
-            key === BI_VISITOR_FIELD_KEY.UUID
+            key === BI_VISITOR_FIELD_KEY.UUID || key === BI_VISITOR_FIELD_KEY.ATTRIBUTES
               ? 10
               : key === BI_VISITOR_FIELD_KEY.EVENT_TYPE
               ? 50
@@ -265,7 +266,10 @@ class EventsListModel {
                   )}
                 </>
               );
-            } else if (column.id === BI_VISITOR_FIELD_KEY.UUID) {
+            } else if (
+              column.id === BI_VISITOR_FIELD_KEY.UUID ||
+              column.id === BI_VISITOR_FIELD_KEY.ATTRIBUTES
+            ) {
               return <></>;
             } else if (
               (column.id === BI_VISITOR_FIELD_KEY.REFERER ||
@@ -273,11 +277,14 @@ class EventsListModel {
               cell?.value
             ) {
               const urlParams = new URL(cell?.value);
-              return (
-                <div className={'px-3'}>
-                  {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
-                </div>
-              );
+              let url = urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search;
+              if (cell.row.original[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'Scan Website WP') {
+                url =
+                  cell.row.original[BI_VISITOR_FIELD_KEY.ATTRIBUTES]?.find((obj) => {
+                    return obj.name === 'WP Domain';
+                  })?.value ?? '';
+              }
+              return <div className={'px-3'}>{url}</div>;
             } else {
               return <div className={'px-3'}>{cell?.value ?? null}</div>;
             }
@@ -384,11 +391,14 @@ class EventsListModel {
               cell?.value
             ) {
               const urlParams = new URL(cell?.value);
-              return (
-                <div className={'px-3'}>
-                  {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}
-                </div>
-              );
+              let url = urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search;
+              if (cell.row.original[BI_VISITOR_FIELD_KEY.EVENT_NAME] === 'Scan Website WP') {
+                url =
+                  cell.row.original[BI_VISITOR_FIELD_KEY.ATTRIBUTES]?.find((obj) => {
+                    return obj.name === 'WP Domain';
+                  })?.value ?? '';
+              }
+              return <div className={'px-3'}>{url}</div>;
             } else {
               return <div className={'px-3'}>{cell?.value ?? null}</div>;
             }

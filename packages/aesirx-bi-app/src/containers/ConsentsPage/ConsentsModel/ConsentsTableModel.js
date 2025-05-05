@@ -29,6 +29,7 @@ class ConsentsTableModel {
       'txt_wallet',
       // 'txt_consent',
       'txt_uuid',
+      'txt_ip',
     ];
     const accessor = [
       BI_CONSENTS_LIST_FIELD_KEY.DATETIME,
@@ -38,6 +39,7 @@ class ConsentsTableModel {
       BI_CONSENTS_LIST_FIELD_KEY.WALLET,
       // BI_CONSENTS_LIST_FIELD_KEY.CONSENT,
       BI_CONSENTS_LIST_FIELD_KEY.UUID,
+      'ip',
     ];
     if (this.data?.length) {
       const header = accessor.map((key, index) => {
@@ -49,6 +51,8 @@ class ConsentsTableModel {
               ? 240
               : key === BI_CONSENTS_LIST_FIELD_KEY.DATETIME ||
                 key === BI_CONSENTS_LIST_FIELD_KEY.EXPIRATION
+              ? 160
+              : key === 'ip'
               ? 150
               : key === BI_CONSENTS_LIST_FIELD_KEY.WEB3ID
               ? 100

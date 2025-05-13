@@ -234,5 +234,12 @@
   "txt_visitor": "Visitor",
   "txt_manage_track": "Manage and track user consent preferences for data collection",
   "txt_real_time_active_users": "Real-time Active Users",
-  "txt_avg_visit_duration": "Avg visit duration"
+  "txt_avg_visit_duration": "Avg visit duration",
+  "txt_menu_advance": "Advance",
+  "txt_menu_advance_consents": "Advance Consents",
+  "txt_consent_behavior_metrics": "Consent Behavior Metrics",
+  "txt_category_level_stats": "Category-Level Stats",
+  "txt_consent_status_per_category": "Consent status per category",
+  "txt_accepted_consent_per_category": "Accepted consents per category",
+  "txt_rejected_consent_per_category": "Rejected consents per category"
 }

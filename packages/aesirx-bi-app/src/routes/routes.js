@@ -22,6 +22,7 @@ const EventsDetailPage = lazy(() => import('../containers/EventsDetailPage'));
 const WoocommercePage = lazy(() => import('../containers/WoocommercePage'));
 const ConsentsPage = lazy(() => import('../containers/ConsentsPage'));
 const ConsentsTemplatePage = lazy(() => import('../containers/ConsentsTemplatePage'));
+const ConsentsAdvancePage = lazy(() => import('../containers/ConsentsAdvancePage'));
 
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const FlowListPage = lazy(() => import('../containers/FlowListPage'));
@@ -145,6 +146,12 @@ const mainRoutes = [
     page: ['consents-template'],
     exact: true,
     main: () => <ConsentsTemplatePage />,
+  },
+  {
+    path: ['/consents/advance'],
+    page: ['consents-advance'],
+    exact: true,
+    main: () => <ConsentsAdvancePage />,
   },
   {
     path: '/visitors/platforms',

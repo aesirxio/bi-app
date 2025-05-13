@@ -36,6 +36,8 @@ const BarChartComponent = ({
   filterButtons = [],
   tooltipComponent,
   isPagination = false,
+  isPercentage = false,
+  isStacked = false,
 }) => {
   const { t } = useTranslation();
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
@@ -141,6 +143,7 @@ const BarChartComponent = ({
       },
     [tooltipComponent]
   );
+  const toPercent = (number) => `${number}%`;
 
   return (
     <div className="bg-white rounded-3 px-24 py-3 shadow-sm position-relative h-100">
@@ -196,6 +199,7 @@ const BarChartComponent = ({
                 <>
                   <XAxis
                     type="number"
+                    {...(isPercentage ? { tickFormatter: toPercent } : {})}
                     axisLine={XAxisOptions?.axisLine ?? false}
                     tickLine={false}
                     style={{
@@ -223,6 +227,7 @@ const BarChartComponent = ({
                       key={index}
                       dataKey={item}
                       fill={barColors[index]}
+                      {...(isStacked ? { stackId: 'a' } : {})}
                     />
                   );
                 })}

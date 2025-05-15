@@ -53,6 +53,7 @@ const StackedBarChartComponent = ({
   isLegend,
   isSelection = true,
   filterButtons,
+  chartTitleClass,
 }) => {
   const [currentSelection, setCurrentSelection] = useState(filterData[0]);
   const [currentData, setCurrentData] = useState(data[0]);
@@ -177,12 +178,16 @@ const StackedBarChartComponent = ({
     );
   };
   return (
-    <div className="bg-white rounded-3 p-24 shadow-sm h-100 ChartWrapper position-relative">
+    <div
+      className="bg-white rounded-3 p-24 shadow-sm h-100 ChartWrapper position-relative"
+      style={{ minHeight: 390 }}
+    >
       <HeaderFilterComponent
         currentSelection={currentSelection}
         onSelectionChange={setCurrentSelection}
         selectionData={filterData}
         chartTitle={chartTitle}
+        chartTitleClass={chartTitleClass}
         isSelection={isSelection}
         filterButtons={filterButtons}
         view={view}

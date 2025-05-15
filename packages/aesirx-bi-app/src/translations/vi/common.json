@@ -260,5 +260,21 @@
   "txt_visitor": "Khách Tham Quan",
   "txt_manage_track": "Quản lý và theo dõi tùy chọn đồng ý của người dùng để thu thập dữ liệu",
   "txt_real_time_active_users": "Người dùng đang hoạt động theo thời gian thực",
-  "txt_avg_visit_duration": "Thời lượng truy cập trung bình"
+  "txt_avg_visit_duration": "Thời lượng truy cập trung bình",
+  "txt_menu_advance": "Nâng cao",
+  "txt_menu_advance_consents": "Đồng ý nâng cao",
+  "txt_consent_behavior_metrics": "Số liệu hành vi đồng ý",
+  "txt_category_level_stats": "Thống kê cấp độ danh mục",
+  "txt_consent_status_per_category": "Trạng thái đồng ý theo danh mục",
+  "txt_accepted_consent_per_category": "Đồng ý được chấp nhận theo danh mục",
+  "txt_rejected_consent_per_category": "Đồng ý bị từ chối theo danh mục",
+  "txt_timezone_language": "Ngôn ngữ & Múi giờ",
+  "txt_users_percentage": "Người dùng (%)",
+  "txt_opt_in_percenntage": "Đã chọn tham gia (%)",
+  "txt_opt_out_percenntage": "Đã chọn không tham gia (%)",
+  "txt_override_action": "Ghi đè hành động",
+  "txt_manually_changed_region": "Khu vực đã thay đổi thủ công",
+  "txt_accepted_default": "Mặc định đã chấp nhận",
+  "txt_region_based_consent_report": "Báo cáo đồng ý theo khu vực",
+  "txt_user_override_report": "Báo cáo ghi đè của người dùng"
 }

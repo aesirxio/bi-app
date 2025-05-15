@@ -39,6 +39,7 @@ const UserFlowPage = lazy(() => import('../../containers/UserFlowPage'));
 const PlatformsPage = lazy(() => import('../../containers/PlatformsPage'));
 const ConsentsPage = lazy(() => import('../../containers/ConsentsPage'));
 const ConsentsTemplatePage = lazy(() => import('../../containers/ConsentsTemplatePage'));
+const ConsentsAdvancePage = lazy(() => import('../../containers/ConsentsAdvancePage'));
 const EventsDetailPage = lazy(() => import('../../containers/EventsDetailPage'));
 
 const biViewModel = new BiViewModel();
@@ -134,6 +135,9 @@ const RenderComponent = ({ link, ...props }) => {
 
     case 'consents-template':
       return <ConsentsTemplatePage {...props} />;
+
+    case 'consents-advance':
+      return <ConsentsAdvancePage {...props} />;
 
     case link.startsWith('flow') ? link : '':
       return <FlowPage {...props} />;

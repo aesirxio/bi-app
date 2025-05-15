@@ -260,5 +260,21 @@
   "txt_visitor": "Visitantes",
   "txt_manage_track": "Administrar y realizar un seguimiento de las preferencias de consentimiento del usuario para la recopilación de datos",
   "txt_real_time_active_users": "Usuarios activos en tiempo real",
-  "txt_avg_visit_duration": "Duración media de la visita"
+  "txt_avg_visit_duration": "Duración promedio de la visita",
+  "txt_menu_advance": "Avanzado",
+  "txt_menu_advance_consents": "Consentimientos avanzados",
+  "txt_consent_behavior_metrics": "Métricas del comportamiento del consentimiento",
+  "txt_category_level_stats": "Estadísticas por categoría",
+  "txt_consent_status_per_category": "Estado del consentimiento por categoría",
+  "txt_accepted_consent_per_category": "Consentimientos aceptados por categoría",
+  "txt_rejected_consent_per_category": "Consentimientos rechazados por categoría",
+  "txt_timezone_language": "Idioma y zona horaria",
+  "txt_users_percentage": "Usuarios (%)",
+  "txt_opt_in_percenntage": "Suscritos (%)",
+  "txt_opt_out_percenntage": "Desactivado (%)",
+  "txt_override_action": "Acción de anulación",
+  "txt_manually_changed_region": "Región modificada manualmente",
+  "txt_accepted_default": "Valor predeterminado aceptado",
+  "txt_region_based_consent_report": "Informe de consentimiento basado en la región",
+  "txt_user_override_report": "Informe de anulación del usuario"
 }

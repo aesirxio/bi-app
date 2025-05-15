@@ -8,6 +8,7 @@ import { AesirXSelect } from 'aesirx-uikit';
 
 const HeaderFilterComponent = ({
   chartTitle,
+  chartTitleClass,
   isSelection,
   viewMoreLink,
   filterButtons = [],
@@ -20,9 +21,13 @@ const HeaderFilterComponent = ({
   const { t } = useTranslation();
   return (
     <div className="d-flex justify-content-between align-items-start flex-wrap mb-24">
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center flex-wrap">
         {chartTitle && (
-          <h4 className={`me-24 mb-0 ${!filterButtons?.length && !isSelection ? 'mt-20' : ''}`}>
+          <h4
+            className={`me-24 mb-0 ${
+              !filterButtons?.length && !isSelection ? 'mt-20' : ''
+            } ${chartTitleClass}`}
+          >
             {chartTitle}
           </h4>
         )}
@@ -56,7 +61,7 @@ const HeaderFilterComponent = ({
         </a>
       )}
       {filterButtons?.length ? (
-        <ButtonGroup>
+        <ButtonGroup className="ms-auto me-0">
           {filterButtons?.includes('days') && (
             <Button
               onClick={() => setView(CHART_TYPE.DAY)}

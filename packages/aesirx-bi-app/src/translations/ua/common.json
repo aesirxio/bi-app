@@ -260,5 +260,21 @@
   "txt_visitor": "Відвідувачі",
   "txt_manage_track": "Керування та відстеження параметрів згоди користувача для збору даних",
   "txt_real_time_active_users": "Активні користувачі в реальному часі",
-  "txt_avg_visit_duration": "Середня тривалість відвідування"
+  "txt_avg_visit_duration": "Середня тривалість відвідування",
+  "txt_menu_advance": "Попередньо",
+  "txt_menu_advance_consents": "Попередні згоди",
+  "txt_consent_behavior_metrics": "Показники поведінки згоди",
+  "txt_category_level_stats": "Статистика рівня категорії",
+  "txt_consent_status_per_category": "Статус згоди на категорію",
+  "txt_accepted_consent_per_category": "Прийняті згоди на категорію",
+  "txt_rejected_consent_per_category": "Відхилені згоди на категорію",
+  "txt_timezone_language": "Мова та часовий пояс",
+  "txt_users_percentage": "Користувачі (%)",
+  "txt_opt_in_percenntage": "Увімкнено (%)",
+  "txt_opt_out_percenntage": "Відмовився (%)",
+  "txt_override_action": "Перевизначити дію",
+  "txt_manually_changed_region": "Регіон, змінений вручну",
+  "txt_accepted_default": "Прийнято за умовчанням",
+  "txt_region_based_consent_report": "Звіт про згоду на основі регіону",
+  "txt_user_override_report": "Звіт про заміну користувача"
 }

@@ -260,5 +260,21 @@
   "txt_visitor": "Posjetitelji",
   "txt_manage_track": "Upravljajte i pratite postavke pristanka korisnika za prikupljanje podataka",
   "txt_real_time_active_users": "Aktivni korisnici u stvarnom vremenu",
-  "txt_avg_visit_duration": "Prosječno trajanje posjeta"
+  "txt_avg_visit_duration": "Prosječno trajanje posjeta",
+  "txt_menu_advance": "Napred",
+  "txt_menu_advance_consents": "Unaprijed suglasnosti",
+  "txt_consent_behavior_metrics": "Mjerni podaci o ponašanju pristanka",
+  "txt_category_level_stats": "Statistika na razini kategorije",
+  "txt_consent_status_per_category": "Status pristanka po kategoriji",
+  "txt_accepted_consent_per_category": "Prihvaćeni pristanci po kategoriji",
+  "txt_rejected_consent_per_category": "Odbijeni pristanci po kategoriji",
+  "txt_timezone_language": "Jezik i vremenska zona",
+  "txt_users_percentage": "Korisnici (%)",
+  "txt_opt_in_percenntage": "Uključeno (%)",
+  "txt_opt_out_percenntage": "Isključeno (%)",
+  "txt_override_action": "Nadjačaj radnju",
+  "txt_manually_changed_region": "Ručno promijenjena regija",
+  "txt_accepted_default": "Prihvaćeno zadano",
+  "txt_region_based_consent_report": "Izvješće o pristanku temeljeno na regiji",
+  "txt_user_override_report": "Izvješće o nadjačavanju korisnika"
 }

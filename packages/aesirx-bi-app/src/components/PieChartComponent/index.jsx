@@ -141,7 +141,7 @@ const PieChartComponent = ({
     <div className="p-24 bg-white rounded-3">
       {chartTitle && (
         <div className="d-flex justify-content-between">
-          <h5 className="fw-semibold">{chartTitle} </h5>
+          <h5 className="fw-medium">{chartTitle} </h5>
           {link && (
             <a href={link} className="fs-14 text-body">
               <span className="pe-1">{t('txt_view_detail')}</span>

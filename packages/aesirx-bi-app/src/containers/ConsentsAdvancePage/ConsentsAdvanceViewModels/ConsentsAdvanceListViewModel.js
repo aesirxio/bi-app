@@ -26,6 +26,8 @@ class ConsentsListViewModel {
   statusConsentsCategory = PAGE_STATUS.READY;
   consentsCategoryByDateData = null;
   statusConsentsCategoryByDate = PAGE_STATUS.READY;
+  consentsOverrideLanguageData = null;
+  statusConsentsOverrideLanguage = PAGE_STATUS.READY;
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
   constructor(consentsAdvanceStore, globalStoreViewModel) {
     makeAutoObservable(this);
@@ -57,6 +59,19 @@ class ConsentsListViewModel {
       },
       dateFilter
     );
+    this.getConsentsRegion(
+      {
+        ...dataFilter,
+      },
+      dateFilter
+    );
+    this.getConsentsOverrideLanguage(
+      {
+        ...dataFilter,
+      },
+      dateFilter
+    );
+
     Promise.all([
       this.getConsentsTier(
         {
@@ -164,6 +179,51 @@ class ConsentsListViewModel {
     );
   };
 
+  getConsentsRegion = (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'datetime', 'sort_direction[]': 'desc' }
+  ) => {
+    this.statusConsentsList = PAGE_STATUS.LOADING;
+    this.sortBy = sortBy;
+    this.dataFilterConsentsList = {
+      page_size: '5',
+      ...this.dataFilterConsentsList,
+      ...dataFilter,
+      ...this.sortBy,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.consentsAdvanceStore.getConsentsRegion(
+      this.dataFilterConsentsList,
+      dateRangeFilter,
+      this.callbackOnDataConsentsListSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+  getConsentsOverrideLanguage = (
+    dataFilter,
+    dateFilter,
+    sortBy = { 'sort[]': 'datetime', 'sort_direction[]': 'desc' }
+  ) => {
+    this.statusConsentsOverrideLanguage = PAGE_STATUS.LOADING;
+    this.sortByOverrideLanguage = sortBy;
+    this.dataFilterConsentsOverrideLanguage = {
+      page_size: '5',
+      ...this.dataFilterConsentsOverrideLanguage,
+      ...dataFilter,
+      ...this.sortBy,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.consentsAdvanceStore.getConsentsOverrideLanguage(
+      this.dataFilterConsentsOverrideLanguage,
+      dateRangeFilter,
+      this.callbackOnDataConsentsOverrideLanguageSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   setDataFilter = (dataFilter) => {
     this.dataFilter = dataFilter;
   };
@@ -183,9 +243,65 @@ class ConsentsListViewModel {
     this.initialize(this.dataFilter, dateRangeFilter);
   };
 
+  handleFilterTableConsentsList = async (dataFilter) => {
+    this.statusConsentsList = PAGE_STATUS.LOADING;
+    this.dataFilterConsentsList = {
+      ...this.dataFilterConsentsList,
+      ...dataFilter,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.consentsAdvanceStore.getConsentsRegion(
+      this.dataFilterConsentsList,
+      dateRangeFilter,
+      this.callbackOnDataConsentsListSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   callbackOnErrorHandler = (error) => {
     this.status = PAGE_STATUS.READY;
+    this.statusConsentsCategory = PAGE_STATUS.READY;
+    this.statusConsentsCategoryByDate = PAGE_STATUS.READY;
     notify(error.message, 'error');
+  };
+
+  callbackOnDataConsentsListSuccessHandler = (data) => {
+    if (data?.list) {
+      this.statusConsentsList = PAGE_STATUS.READY;
+      const transformData = new ConsentsTableModel(data.list, this.globalStoreViewModel);
+      this.consentsListData = {
+        list: transformData?.toConsentsListTable(),
+        pagination: data.pagination,
+      };
+    } else {
+      this.statusConsentsList = PAGE_STATUS.ERROR;
+      this.consentsListData = [];
+    }
+  };
+
+  callbackOnDataConsentsListSuccessHandler = (data) => {
+    if (data?.list) {
+      this.statusConsentsList = PAGE_STATUS.READY;
+      const transformData = new ConsentsTableModel(data.list, this.globalStoreViewModel);
+      this.consentsListData = {
+        list: transformData?.toConsentsListTable(),
+        pagination: data.pagination,
+      };
+    } else {
+      this.statusConsentsList = PAGE_STATUS.ERROR;
+      this.consentsListData = [];
+    }
+  };
+
+  callbackOnDataConsentsOverrideLanguageSuccessHandler = (data) => {
+    if (data) {
+      this.statusConsentsOverrideLanguage = PAGE_STATUS.READY;
+      const transformData = new ConsentsListModel(data, this.globalStoreViewModel);
+      this.consentsOverrideLanguageData = transformData;
+    } else {
+      this.statusConsentsOverrideLanguage = PAGE_STATUS.ERROR;
+      this.consentsOverrideLanguageData = null;
+    }
   };
 
   callbackOnDataConsentsTierSuccessHandler = (data) => {
@@ -206,6 +322,7 @@ class ConsentsListViewModel {
       const transformData = new ConsentsListModel(data?.list, this.globalStoreViewModel);
       this.consentsCategoryData = transformData;
     } else {
+      this.consentsCategoryData = null;
       this.statusConsentsCategory = PAGE_STATUS.ERROR;
     }
   };
@@ -216,6 +333,7 @@ class ConsentsListViewModel {
       const transformData = new ConsentsListModel(data?.list, this.globalStoreViewModel);
       this.consentsCategoryByDateData = transformData;
     } else {
+      this.consentsCategoryByDateData = null;
       this.statusConsentsCategoryByDate = PAGE_STATUS.ERROR;
     }
   };

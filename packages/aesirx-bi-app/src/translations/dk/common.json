@@ -188,5 +188,22 @@
   "txt_page_view": "Sidevisninger",
   "txt_visitor": "Besøgende",
   "txt_manage_track": "Administrer og spor brugersamtykkepræferencer for dataindsamling",
-  "txt_real_time_active_users": "Aktive brugere i realtid"
+  "txt_real_time_active_users": "Aktive brugere i realtid",
+  "txt_avg_visit_duration": "Gns. besøgsvarighed",
+  "txt_menu_advance": "Avanceret",
+  "txt_menu_advance_consents": "Forudgående samtykker",
+  "txt_consent_behavior_metrics": "Metrics for samtykkeadfærd",
+  "txt_category_level_stats": "Statistik på kategoriniveau",
+  "txt_consent_status_per_category": "Samtykkestatus pr. kategori",
+  "txt_accepted_consent_per_category": "Accepterede samtykker pr. kategori",
+  "txt_rejected_consent_per_category": "Afviste samtykker pr. kategori",
+  "txt_timezone_language": "Sprog og tidszone",
+  "txt_users_percentage": "Brugere (%)",
+  "txt_opt_in_percentage": "Tilmeldt (%)",
+  "txt_opt_out_percentage": "Fravalgt (%)",
+  "txt_override_action": "Tilsidesæt handling",
+  "txt_manually_changed_region": "Manuelt ændret region",
+  "txt_accepted_default": "Accepteret standard",
+  "txt_region_based_consent_report": "Regionsbaseret samtykkerapport",
+  "txt_user_override_report": "Brugertilsidesættelsesrapport"
 }

@@ -25,6 +25,12 @@ const ConsentsAdvance = observer(() => {
       consentsCategoryByDateData,
       statusConsentsCategory,
       statusConsentsCategoryByDate,
+      consentsListData,
+      handleFilterTableConsentsList,
+      statusConsentsList,
+      sortBy,
+      consentsOverrideLanguageData,
+      statusConsentsOverrideLanguage,
     },
   } = useConsentsAdvanceViewModel();
   const {
@@ -34,6 +40,24 @@ const ConsentsAdvance = observer(() => {
   const handleDateRangeChange = useCallback((startDate, endDate) => {
     handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
   }, []);
+
+  const handleSort = async (column) => {
+    getConsentsList(
+      {
+        ...activeDomain
+          ?.map((value, index) => ({
+            [`filter[domain][${index + 1}]`]: value,
+          }))
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+      },
+      {},
+      {
+        'sort[]': column?.id,
+        'sort_direction[]': sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+      }
+    );
+  };
+
   useEffect(() => {
     const execute = async () => {
       await initialize({
@@ -47,7 +71,7 @@ const ConsentsAdvance = observer(() => {
     execute();
     return () => {};
   }, [activeDomain]);
-
+  console.log('consentsOverrideLanguageData', consentsOverrideLanguageData);
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column min-vh-100">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -145,6 +169,76 @@ const ConsentsAdvance = observer(() => {
             isLegend={true}
             filterButtons={['days', 'months']}
           />
+        </Col>
+      </Row>
+      <Row className="mb-24">
+        <Col lg="8">
+          <div className="bg-white position-relative ChartWrapper rounded-3 shadow-sm">
+            <h4 className="mb-0 p-24">{t('txt_region_based_consent_report')}</h4>
+            {consentsListData?.list ? (
+              <BehaviorTable
+                data={consentsListData?.list}
+                statusTable={statusConsentsList}
+                isPaginationAPI={true}
+                pagination={consentsListData?.pagination}
+                isTranslate={true}
+                handleFilterTable={handleFilterTableConsentsList}
+                handleSort={handleSort}
+                sortBy={sortBy}
+              />
+            ) : (
+              <div className="position-absolute top-50 start-50 translate-middle">
+                <ComponentNoData
+                  icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
+                  title={t('txt_no_data')}
+                  width="w-50"
+                />
+              </div>
+            )}
+          </div>
+        </Col>
+        <Col lg="4">
+          <div className="bg-white position-relative ChartWrapper rounded-3 shadow-sm h-100">
+            <h4 className="mb-0 p-24">{t('txt_user_override_report')}</h4>
+            <div className="bg-white fs-14 rounded-3 position-relative text-gray-900 px-24">
+              <table className="w-100 mb-0">
+                <tr>
+                  <th className="py-16 fs-sm border-bottom border-gray-800 align-middle pe-3 rounded-top-start-3 text-gray-900 fw-medium">
+                    {t('txt_override_acction')}
+                  </th>
+                  <th className="py-16 fs-sm border-bottom border-gray-800 align-middle pe-3 rounded-top-start-3 text-gray-900 fw-medium">
+                    {t('txt_users_percentage')}
+                  </th>
+                </tr>
+                <tr>
+                  <td className="py-2">{t('txt_manually_changed_region')}</td>
+                  <td className="py-2">
+                    {consentsOverrideLanguageData?.data?.user_override
+                      ? Math.round(
+                          (consentsOverrideLanguageData?.data?.user_override /
+                            consentsOverrideLanguageData?.data?.total_consent) *
+                            100
+                        )
+                      : 0}
+                    %
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2">{t('txt_accepted_default')}</td>
+                  <td className="py-2">
+                    {consentsOverrideLanguageData?.data?.not_override
+                      ? Math.round(
+                          (consentsOverrideLanguageData?.data?.not_override /
+                            consentsOverrideLanguageData?.data?.total_consent) *
+                            100
+                        )
+                      : 0}
+                    %
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </Col>
       </Row>
     </div>

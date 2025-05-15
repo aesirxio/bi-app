@@ -241,5 +241,14 @@
   "txt_category_level_stats": "Category-Level Stats",
   "txt_consent_status_per_category": "Consent status per category",
   "txt_accepted_consent_per_category": "Accepted consents per category",
-  "txt_rejected_consent_per_category": "Rejected consents per category"
+  "txt_rejected_consent_per_category": "Rejected consents per category",
+  "txt_timezone_language": "Language & Time Zone",
+  "txt_users_percentage": "Users (%)",
+  "txt_opt_in_percenntage": "Opted In (%)",
+  "txt_opt_out_percenntage": "Opted Out (%)",
+  "txt_override_acction": "Override Action",
+  "txt_manually_changed_region": "Manually Changed Region",
+  "txt_accepted_default": "Accepted Default",
+  "txt_region_based_consent_report": "Region-Based Consent Report",
+  "txt_user_override_report": "User Override Report"
 }

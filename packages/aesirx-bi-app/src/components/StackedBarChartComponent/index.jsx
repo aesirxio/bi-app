@@ -178,7 +178,10 @@ const StackedBarChartComponent = ({
     );
   };
   return (
-    <div className="bg-white rounded-3 p-24 shadow-sm h-100 ChartWrapper position-relative">
+    <div
+      className="bg-white rounded-3 p-24 shadow-sm h-100 ChartWrapper position-relative"
+      style={{ minHeight: 390 }}
+    >
       <HeaderFilterComponent
         currentSelection={currentSelection}
         onSelectionChange={setCurrentSelection}

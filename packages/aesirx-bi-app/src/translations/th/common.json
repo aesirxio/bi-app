@@ -260,5 +260,21 @@
   "txt_visitor": "ผู้เยี่ยมชม",
   "txt_manage_track": "จัดการและติดตามการตั้งค่าความยินยอมของผู้ใช้สำหรับการรวบรวมข้อมูล",
   "txt_real_time_active_users": "ผู้ใช้ที่ใช้งานแบบเรียลไทม์",
-  "txt_avg_visit_duration": "ระยะเวลาการเยี่ยมชมโดยเฉลี่ย"
+  "txt_avg_visit_duration": "ระยะเวลาการเยี่ยมชมโดยเฉลี่ย",
+  "txt_menu_advance": "ขั้นสูง",
+  "txt_menu_advance_consents": "ความยินยอมล่วงหน้า",
+  "txt_consent_behavior_metrics": "ตัวชี้วัดพฤติกรรมความยินยอม",
+  "txt_category_level_stats": "สถิติระดับหมวดหมู่",
+  "txt_consent_status_per_category": "สถานะความยินยอมต่อหมวดหมู่",
+  "txt_accepted_consent_per_category": "ความยินยอมที่ยอมรับต่อหมวดหมู่",
+  "txt_rejected_consent_per_category": "ความยินยอมที่ถูกปฏิเสธต่อหมวดหมู่",
+  "txt_timezone_language": "ภาษาและเขตเวลา",
+  "txt_users_percentage": "ผู้ใช้ (%)",
+  "txt_opt_in_percenntage": "เลือกเข้าร่วม (%)",
+  "txt_opt_out_percentntage": "เลือกไม่เข้าร่วม (%)",
+  "txt_override_acction": "การดำเนินการแทนที่",
+  "txt_manually_changed_region": "ภูมิภาคที่เปลี่ยนแปลงด้วยตนเอง",
+  "txt_accepted_default": "ค่าเริ่มต้นที่ยอมรับ",
+  "txt_region_based_consent_report": "รายงานการยินยอมตามภูมิภาค",
+  "txt_user_override_report": "รายงานการแทนที่ของผู้ใช้"
 }

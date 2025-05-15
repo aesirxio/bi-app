@@ -8,7 +8,7 @@ import BehaviorTable from 'components/BehaviorTable';
 import ComponentNoData from 'components/ComponentNoData';
 import { env } from 'aesirx-lib';
 import BarChartComponent from 'components/BarChartComponent';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Spinner } from 'react-bootstrap';
 import PieChartComponent from 'components/PieChartComponent';
 import { PAGE_STATUS } from 'aesirx-uikit';
 import StackedBarChartComponent from 'components/StackedBarChartComponent';
@@ -31,6 +31,7 @@ const ConsentsAdvance = observer(() => {
       sortBy,
       consentsOverrideLanguageData,
       statusConsentsOverrideLanguage,
+      getConsentsRegion,
     },
   } = useConsentsAdvanceViewModel();
   const {
@@ -42,7 +43,7 @@ const ConsentsAdvance = observer(() => {
   }, []);
 
   const handleSort = async (column) => {
-    getConsentsList(
+    getConsentsRegion(
       {
         ...activeDomain
           ?.map((value, index) => ({
@@ -71,7 +72,6 @@ const ConsentsAdvance = observer(() => {
     execute();
     return () => {};
   }, [activeDomain]);
-  console.log('consentsOverrideLanguageData', consentsOverrideLanguageData);
   return (
     <div className="py-4 px-4 h-100 d-flex flex-column min-vh-100">
       <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -84,7 +84,7 @@ const ConsentsAdvance = observer(() => {
       </div>
       <Row className="mb-24">
         <Col lg="6">
-          <div className="mb-24 ChartWrapper bg-white rounded-3 d-flex align-items-start w-100 h-100 position-relative">
+          <div className="mb-24 ChartWrapper bg-white rounded-3 d-flex align-items-start w-100 h-100 position-relative shadow-sm">
             <div className="w-100">
               {consentsTierData?.length || statusTierChart === PAGE_STATUS.LOADING ? (
                 <PieChartComponent
@@ -204,7 +204,7 @@ const ConsentsAdvance = observer(() => {
               <table className="w-100 mb-0">
                 <tr>
                   <th className="py-16 fs-sm border-bottom border-gray-800 align-middle pe-3 rounded-top-start-3 text-gray-900 fw-medium">
-                    {t('txt_override_acction')}
+                    {t('txt_override_action')}
                   </th>
                   <th className="py-16 fs-sm border-bottom border-gray-800 align-middle pe-3 rounded-top-start-3 text-gray-900 fw-medium">
                     {t('txt_users_percentage')}
@@ -213,27 +213,39 @@ const ConsentsAdvance = observer(() => {
                 <tr>
                   <td className="py-2">{t('txt_manually_changed_region')}</td>
                   <td className="py-2">
-                    {consentsOverrideLanguageData?.data?.user_override
-                      ? Math.round(
-                          (consentsOverrideLanguageData?.data?.user_override /
-                            consentsOverrideLanguageData?.data?.total_consent) *
-                            100
-                        )
-                      : 0}
-                    %
+                    {statusConsentsOverrideLanguage === PAGE_STATUS.LOADING ? (
+                      <Spinner size="sm" variant="success" />
+                    ) : (
+                      <>
+                        {consentsOverrideLanguageData?.data?.user_override
+                          ? Math.round(
+                              (consentsOverrideLanguageData?.data?.user_override /
+                                consentsOverrideLanguageData?.data?.total_consent) *
+                                100
+                            )
+                          : 0}
+                        %
+                      </>
+                    )}
                   </td>
                 </tr>
                 <tr>
                   <td className="py-2">{t('txt_accepted_default')}</td>
                   <td className="py-2">
-                    {consentsOverrideLanguageData?.data?.not_override
-                      ? Math.round(
-                          (consentsOverrideLanguageData?.data?.not_override /
-                            consentsOverrideLanguageData?.data?.total_consent) *
-                            100
-                        )
-                      : 0}
-                    %
+                    {statusConsentsOverrideLanguage === PAGE_STATUS.LOADING ? (
+                      <Spinner size="sm" variant="success" />
+                    ) : (
+                      <>
+                        {consentsOverrideLanguageData?.data?.not_override
+                          ? Math.round(
+                              (consentsOverrideLanguageData?.data?.not_override /
+                                consentsOverrideLanguageData?.data?.total_consent) *
+                                100
+                            )
+                          : 0}
+                        %
+                      </>
+                    )}
                   </td>
                 </tr>
               </table>

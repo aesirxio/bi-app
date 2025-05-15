@@ -279,20 +279,6 @@ class ConsentsListViewModel {
     }
   };
 
-  callbackOnDataConsentsListSuccessHandler = (data) => {
-    if (data?.list) {
-      this.statusConsentsList = PAGE_STATUS.READY;
-      const transformData = new ConsentsTableModel(data.list, this.globalStoreViewModel);
-      this.consentsListData = {
-        list: transformData?.toConsentsListTable(),
-        pagination: data.pagination,
-      };
-    } else {
-      this.statusConsentsList = PAGE_STATUS.ERROR;
-      this.consentsListData = [];
-    }
-  };
-
   callbackOnDataConsentsOverrideLanguageSuccessHandler = (data) => {
     if (data) {
       this.statusConsentsOverrideLanguage = PAGE_STATUS.READY;

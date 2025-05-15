@@ -201,7 +201,7 @@
   "txt_users_percentage": "Kullanıcılar (%)",
   "txt_opt_in_percentntage": "Katıldı (%)",
   "txt_opt_out_percentntage": "Katılmadı (%)",
-  "txt_override_acction": "Geçersiz Kılma Eylemi",
+  "txt_override_action": "Geçersiz Kılma Eylemi",
   "txt_manually_changed_region": "Manuel Olarak Değiştirilen Bölge",
   "txt_accepted_default": "Kabul Edilen Varsayılan",
   "txt_region_based_consent_report": "Bölge Tabanlı Onay Raporu",

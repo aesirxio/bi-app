@@ -272,7 +272,7 @@
   "txt_users_percentage": "Usuarios (%)",
   "txt_opt_in_percenntage": "Suscritos (%)",
   "txt_opt_out_percenntage": "Desactivado (%)",
-  "txt_override_acction": "Acción de anulación",
+  "txt_override_action": "Acción de anulación",
   "txt_manually_changed_region": "Región modificada manualmente",
   "txt_accepted_default": "Valor predeterminado aceptado",
   "txt_region_based_consent_report": "Informe de consentimiento basado en la región",

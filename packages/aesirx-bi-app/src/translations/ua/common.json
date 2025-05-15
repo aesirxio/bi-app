@@ -272,7 +272,7 @@
   "txt_users_percentage": "Користувачі (%)",
   "txt_opt_in_percenntage": "Увімкнено (%)",
   "txt_opt_out_percenntage": "Відмовився (%)",
-  "txt_override_acction": "Перевизначити дію",
+  "txt_override_action": "Перевизначити дію",
   "txt_manually_changed_region": "Регіон, змінений вручну",
   "txt_accepted_default": "Прийнято за умовчанням",
   "txt_region_based_consent_report": "Звіт про згоду на основі регіону",

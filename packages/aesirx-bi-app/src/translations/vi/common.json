@@ -272,7 +272,7 @@
   "txt_users_percentage": "Người dùng (%)",
   "txt_opt_in_percenntage": "Đã chọn tham gia (%)",
   "txt_opt_out_percenntage": "Đã chọn không tham gia (%)",
-  "txt_override_acction": "Ghi đè hành động",
+  "txt_override_action": "Ghi đè hành động",
   "txt_manually_changed_region": "Khu vực đã thay đổi thủ công",
   "txt_accepted_default": "Mặc định đã chấp nhận",
   "txt_region_based_consent_report": "Báo cáo đồng ý theo khu vực",

@@ -272,7 +272,7 @@
   "txt_users_percentage": "ผู้ใช้ (%)",
   "txt_opt_in_percenntage": "เลือกเข้าร่วม (%)",
   "txt_opt_out_percentntage": "เลือกไม่เข้าร่วม (%)",
-  "txt_override_acction": "การดำเนินการแทนที่",
+  "txt_override_action": "การดำเนินการแทนที่",
   "txt_manually_changed_region": "ภูมิภาคที่เปลี่ยนแปลงด้วยตนเอง",
   "txt_accepted_default": "ค่าเริ่มต้นที่ยอมรับ",
   "txt_region_based_consent_report": "รายงานการยินยอมตามภูมิภาค",

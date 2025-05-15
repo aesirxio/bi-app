@@ -246,7 +246,7 @@
   "txt_users_percentage": "Users (%)",
   "txt_opt_in_percenntage": "Opted In (%)",
   "txt_opt_out_percenntage": "Opted Out (%)",
-  "txt_override_acction": "Override Action",
+  "txt_override_action": "Override Action",
   "txt_manually_changed_region": "Manually Changed Region",
   "txt_accepted_default": "Accepted Default",
   "txt_region_based_consent_report": "Region-Based Consent Report",

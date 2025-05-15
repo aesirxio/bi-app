@@ -89,18 +89,6 @@ class ConsentsListModel {
     return data;
   };
 
-  getFilterName = () => {
-    const transform = this.transformResponse();
-    const filter = Object.keys(transform).map((item) => ({ value: item, label: item }));
-    filter?.unshift({ value: 'all', label: 'All' });
-    return filter;
-  };
-
-  getListLine = () => {
-    const transform = this.transformResponse();
-    return Object.keys(transform).map((item) => item);
-  };
-
   handleChangeLink = (e, link) => {
     e.preventDefault();
     if (link) {

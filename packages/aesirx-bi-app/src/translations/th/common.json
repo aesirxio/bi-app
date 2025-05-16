@@ -262,7 +262,7 @@
   "txt_real_time_active_users": "ผู้ใช้ที่ใช้งานแบบเรียลไทม์",
   "txt_avg_visit_duration": "ระยะเวลาการเยี่ยมชมโดยเฉลี่ย",
   "txt_menu_advance": "ขั้นสูง",
-  "txt_menu_advance_consents": "ความยินยอมล่วงหน้า",
+  "txt_menu_consents_analytics": "การวิเคราะห์ความยินยอม",
   "txt_consent_behavior_metrics": "ตัวชี้วัดพฤติกรรมความยินยอม",
   "txt_category_level_stats": "สถิติระดับหมวดหมู่",
   "txt_consent_status_per_category": "สถานะความยินยอมต่อหมวดหมู่",

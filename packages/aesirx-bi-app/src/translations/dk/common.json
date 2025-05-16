@@ -191,7 +191,7 @@
   "txt_real_time_active_users": "Aktive brugere i realtid",
   "txt_avg_visit_duration": "Gns. besøgsvarighed",
   "txt_menu_advance": "Avanceret",
-  "txt_menu_advance_consents": "Forudgående samtykker",
+  "txt_menu_consents_analytics": "Samtykkeanalyse",
   "txt_consent_behavior_metrics": "Metrics for samtykkeadfærd",
   "txt_category_level_stats": "Statistik på kategoriniveau",
   "txt_consent_status_per_category": "Samtykkestatus pr. kategori",

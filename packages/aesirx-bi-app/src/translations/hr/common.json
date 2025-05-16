@@ -262,7 +262,7 @@
   "txt_real_time_active_users": "Aktivni korisnici u stvarnom vremenu",
   "txt_avg_visit_duration": "Prosječno trajanje posjeta",
   "txt_menu_advance": "Napred",
-  "txt_menu_advance_consents": "Unaprijed suglasnosti",
+  "txt_menu_consents_analytics": "Analitika pristanka",
   "txt_consent_behavior_metrics": "Mjerni podaci o ponašanju pristanka",
   "txt_category_level_stats": "Statistika na razini kategorije",
   "txt_consent_status_per_category": "Status pristanka po kategoriji",

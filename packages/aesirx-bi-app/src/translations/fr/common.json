@@ -236,7 +236,7 @@
   "txt_real_time_active_users": "Utilisateurs actifs en temps réel",
   "txt_avg_visit_duration": "Durée moyenne de la visite",
   "txt_menu_advance": "Avancé",
-  "txt_menu_advance_consents": "Consentements avancés",
+  "txt_menu_consents_analytics": "Analyse du consentement",
   "txt_consent_behavior_metrics": "Indicateurs de comportement de consentement",
   "txt_category_level_stats": "Statistiques par catégorie",
   "txt_consent_status_per_category": "État du consentement par catégorie",

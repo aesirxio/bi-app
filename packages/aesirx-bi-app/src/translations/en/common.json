@@ -236,7 +236,7 @@
   "txt_real_time_active_users": "Real-time Active Users",
   "txt_avg_visit_duration": "Avg visit duration",
   "txt_menu_advance": "Advance",
-  "txt_menu_advance_consents": "Advance Consents",
+  "txt_menu_consents_analytics": "Consent Analytics",
   "txt_consent_behavior_metrics": "Consent Behavior Metrics",
   "txt_category_level_stats": "Category-Level Stats",
   "txt_consent_status_per_category": "Consent status per category",
@@ -250,5 +250,6 @@
   "txt_manually_changed_region": "Manually Changed Region",
   "txt_accepted_default": "Accepted Default",
   "txt_region_based_consent_report": "Region-Based Consent Report",
-  "txt_user_override_report": "User Override Report"
+  "txt_user_override_report": "User Override Report",
+  "txt_consent_log": "Consent Log"
 }

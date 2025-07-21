@@ -127,12 +127,12 @@ class ConsentsListModel {
         };
       } else if (item[BI_EVENTS_TYPE_FIELD_KEY.EVENT_TYPE] === 'reject-consent') {
         return {
-          name: 'Reject Consent',
+          name: 'Rejected Consent',
           value: item[BI_EVENTS_TYPE_FIELD_KEY.TOTAL_VISITOR],
         };
       } else {
         return {
-          name: 'Revoke Consent',
+          name: 'Revoked Consent',
           value: item[BI_EVENTS_TYPE_FIELD_KEY.TOTAL_VISITOR],
         };
       }

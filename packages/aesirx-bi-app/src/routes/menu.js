@@ -172,6 +172,24 @@ const mainMenu = [
   },
 ];
 
+const getMainMenu = (isAdmin = false) => {
+  const mainMenuDashboard = [
+    ...mainMenu,
+    ...(isAdmin
+      ? [
+          {
+            text: 'User Handling',
+            mini_text: 'User Handling',
+            link: `/user-handling`,
+            icons: env.PUBLIC_URL + '/assets/images/visitors.svg',
+            icons_color: env.PUBLIC_URL + '/assets/images/visitors.svg',
+          },
+        ]
+      : []),
+  ];
+  return mainMenuDashboard;
+};
+
 const integrationMenu = () => {
   return [
     ...mainMenu.map((item) => {
@@ -186,4 +204,4 @@ const integrationMenu = () => {
   ];
 };
 
-export { mainMenu, integrationMenu };
+export { mainMenu, getMainMenu, integrationMenu };

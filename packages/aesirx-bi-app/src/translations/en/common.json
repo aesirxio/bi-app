@@ -251,5 +251,11 @@
   "txt_accepted_default": "Accepted Default",
   "txt_region_based_consent_report": "Region-Based Consent Report",
   "txt_user_override_report": "User Override Report",
-  "txt_consent_log": "Consent Log"
+  "txt_consent_log": "Consent Log",
+  "txt_nodata": "No Data",
+  "txt_items": "Items",
+  "txt_add_new": "Add New",
+  "txt_save_close": "Save & Close",
+  "txt_user": "User",
+  "txt_row_select_error": "Please first make a selection from the list."
 }

@@ -5,7 +5,7 @@
 
 import { notify, history } from 'aesirx-uikit';
 import PAGE_STATUS from '../../constants/PageStatus';
-import { env } from 'aesirx-lib';
+import { AesirxCmpApiService, env } from 'aesirx-lib';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 
@@ -27,6 +27,8 @@ class BiListViewModel {
   activeDomain = env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain;
   isSearch = false;
   integrationLink = 'dashboard';
+  dataStream = {};
+  dataStreamStatus = PAGE_STATUS.READY;
   constructor() {
     makeAutoObservable(this);
 
@@ -77,6 +79,28 @@ class BiListViewModel {
     }
     this.activeDomain = domain;
   };
+
+  setDataStream = async (domain) => {
+    this.dataStreamStatus = PAGE_STATUS.LOADING;
+    const dataStream = await this.getDataStream(domain);
+    if (dataStream?.response?.respondedData) {
+      this.dataStream = dataStream?.response?.respondedData;
+    }
+    this.dataStreamStatus = PAGE_STATUS.READY;
+  };
+
+  async getDataStream(activeDomain) {
+    try {
+      const getAPIService = new AesirxCmpApiService();
+      const respondedData = await getAPIService.getConsentsTemplate(
+        activeDomain,
+        Math.floor(Date.now() / 1000)
+      );
+      return { error: false, response: { respondedData } };
+    } catch (error) {
+      return { error: true, response: error?.response?.data };
+    }
+  }
 
   setIntegrationLink = (link) => {
     if (

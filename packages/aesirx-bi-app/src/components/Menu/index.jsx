@@ -3,17 +3,19 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Menu as AesirXMenu } from 'aesirx-uikit';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-import { mainMenu } from '../../routes/menu';
+import { getMainMenu } from '../../routes/menu';
 import { observer } from 'mobx-react';
 
 const Menu = observer((props) => {
   const biStore = useBiViewModel();
+  const [mainMenu, setMainMenu] = useState([]);
   useEffect(() => {
     let fetchData = async () => {
+      await biStore.biListViewModel.setDataStream(biStore.biListViewModel.activeDomain);
       biStore.biListViewModel.setActiveDomain(biStore.biListViewModel.activeDomain);
       biStore.biListViewModel.setDateFilter(
         biStore.biListViewModel.dateFilter['date_start'],
@@ -22,6 +24,13 @@ const Menu = observer((props) => {
     };
     fetchData();
   }, [props.location.pathname]);
+  useEffect(() => {
+    if (biStore?.biListViewModel?.dataStream?.is_user_admin) {
+      setMainMenu(getMainMenu(true));
+    } else {
+      setMainMenu(getMainMenu(false));
+    }
+  }, [biStore?.biListViewModel?.dataStream?.is_user_admin]);
   return <AesirXMenu dataMenu={mainMenu} />;
 });
 

@@ -4,7 +4,7 @@
  */
 
 import React, { lazy } from 'react';
-import { LoginPage, ProfilePage } from 'aesirx-uikit';
+import { history, LoginPage, ProfilePage } from 'aesirx-uikit';
 import { env } from 'aesirx-lib';
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
 const PageDetail = lazy(() => import('../containers/PageDetail'));
@@ -28,6 +28,8 @@ const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const FlowListPage = lazy(() => import('../containers/FlowListPage'));
 const FlowPage = lazy(() => import('../containers/FlowDetailPage'));
 const PlatformsPage = lazy(() => import('../containers/PlatformsPage'));
+const UserPage = lazy(() => import('../containers/UserPage'));
+const EditUserProvider = lazy(() => import('../containers/UserPage/edit'));
 
 const authRoutes = [
   {
@@ -159,6 +161,21 @@ const mainRoutes = [
     exact: true,
     main: () => <PlatformsPage />,
   },
+  {
+    path: ['/user-handling'],
+    exact: true,
+    main: () => <UserPage />,
+  },
+  {
+    path: ['/user-handling/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditUserProvider match={match} />,
+  },
+  {
+    path: ['/user-handling/add'],
+    exact: true,
+    main: () => <EditUserProvider />,
+  },
 ];
 
 const settingRoutes = [
@@ -180,4 +197,8 @@ const integrationRoutes = () =>
     return item;
   });
 
-export { authRoutes, mainRoutes, settingRoutes, integrationRoutes };
+const historyPush = (link) => {
+  return history.push('' + link);
+};
+
+export { authRoutes, mainRoutes, settingRoutes, integrationRoutes, historyPush };

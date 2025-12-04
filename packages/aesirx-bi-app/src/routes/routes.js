@@ -30,6 +30,8 @@ const FlowPage = lazy(() => import('../containers/FlowDetailPage'));
 const PlatformsPage = lazy(() => import('../containers/PlatformsPage'));
 const UserPage = lazy(() => import('../containers/UserPage'));
 const EditUserProvider = lazy(() => import('../containers/UserPage/edit'));
+const UtmLinkPage = lazy(() => import('../containers/UTMLinkPage'));
+const EditUtmLinkProvider = lazy(() => import('../containers/UTMLinkPage/edit'));
 
 const authRoutes = [
   {
@@ -175,6 +177,21 @@ const mainRoutes = [
     path: ['/user-handling/add'],
     exact: true,
     main: () => <EditUserProvider />,
+  },
+  {
+    path: ['/utm-links'],
+    exact: true,
+    main: () => <UtmLinkPage />,
+  },
+  {
+    path: ['/utm-links/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditUtmLinkProvider match={match} />,
+  },
+  {
+    path: ['/utm-links/add'],
+    exact: true,
+    main: () => <EditUtmLinkProvider />,
   },
 ];
 

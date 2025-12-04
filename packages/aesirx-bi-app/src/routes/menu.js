@@ -60,33 +60,6 @@ const mainMenu = [
         link: `/behavior/events`,
         page: 'behavior-events',
       },
-      // {
-      //   text: 'txt_menu_users_flow',
-      //   mini_text: 'txt_menu_users_flow',
-      //   link: `/behavior/users-flow`,
-      //   page: 'behavior-users-flow',
-      // },
-    ],
-  },
-  {
-    text: 'txt_menu_consents',
-    link: `/consents`,
-    icons: env.PUBLIC_URL + '/assets/images/audience.svg',
-    icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
-    page: 'consents',
-    submenu: [
-      {
-        text: 'txt_menu_overview',
-        mini_text: 'txt_menu_consents',
-        link: `/consents`,
-        page: 'consents',
-      },
-      {
-        text: 'txt_menu_consents_template',
-        mini_text: 'txt_menu_consents_template',
-        link: `/consents/template`,
-        page: 'consents-template',
-      },
     ],
   },
   {
@@ -105,8 +78,14 @@ const mainMenu = [
       {
         text: 'txt_menu_generator',
         mini_text: 'txt_menu_generator',
-        link: `/utm-tracking/generator`,
-        page: 'utm-tracking-generator',
+        link: `/utm-links/add`,
+        page: 'utm-links-add',
+      },
+      {
+        text: 'UTM Value Mapping',
+        mini_text: 'UTM Value Mapping',
+        link: `/utm-links`,
+        page: 'utm-links',
       },
     ],
   },

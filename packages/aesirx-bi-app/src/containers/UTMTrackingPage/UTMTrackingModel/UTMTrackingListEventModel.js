@@ -29,19 +29,19 @@ class UTMTrackingEventModel {
     }
   };
 
-  transformResponseUTM = () => {
+  transformResponseUTM = (labelSelector = 'value') => {
     let data = {};
     if (this.data?.length > 0) {
       this.data?.forEach((item) => {
         item.values?.forEach((sub_item) => {
           const dataFilterAttributeName = this.data.filter((_item) => {
             return _item?.values.some((e) => {
-              return e?.value === sub_item?.value;
+              return e?.[labelSelector] === sub_item?.[labelSelector];
             });
           });
           data = {
             ...data,
-            [sub_item?.value]: dataFilterAttributeName,
+            [sub_item?.[labelSelector]]: dataFilterAttributeName,
           };
         });
       });
@@ -50,15 +50,15 @@ class UTMTrackingEventModel {
     return data;
   };
 
-  getFilterNameUTM = () => {
-    const transform = this.transformResponseUTM();
+  getFilterNameUTM = (labelSelector) => {
+    const transform = this.transformResponseUTM(labelSelector);
     const filter = Object.keys(transform).map((item) => ({ value: item, label: item }));
     filter?.unshift({ value: 'all', label: 'All' });
     return filter;
   };
 
-  getListLineUTM = () => {
-    const transform = this.transformResponseUTM();
+  getListLineUTM = (labelSelector) => {
+    const transform = this.transformResponseUTM(labelSelector);
     return Object.keys(transform).map((item) => item);
   };
 
@@ -78,8 +78,8 @@ class UTMTrackingEventModel {
     });
   };
 
-  toAreaChartUTM = () => {
-    const transform = this.transformResponseUTM();
+  toAreaChartUTM = (valueSelector = 'count', labelSelector = 'value') => {
+    const transform = this.transformResponseUTM(labelSelector);
     const twelveMonth = [
       'Jan',
       'Feb',
@@ -111,7 +111,7 @@ class UTMTrackingEventModel {
               );
               return {
                 [item]: filterDate?.length
-                  ? filterDate[0]?.values?.find((e) => e?.value === item)?.count
+                  ? filterDate[0]?.values?.find((e) => e?.[labelSelector] === item)?.[valueSelector]
                   : 0,
               };
             })
@@ -128,7 +128,7 @@ class UTMTrackingEventModel {
               return {
                 name: date && moment(date, 'YYYY-MM-DD').format('MM-DD'),
                 [item]: filterDate?.length
-                  ? filterDate[0]?.values?.find((e) => e?.value === item)?.count
+                  ? filterDate[0]?.values?.find((e) => e?.[labelSelector] === item)?.[valueSelector]
                   : 0,
               };
             }),
@@ -147,7 +147,9 @@ class UTMTrackingEventModel {
               );
               return {
                 [item]: filterMonthDate?.length
-                  ? filterMonthDate[0]?.values?.find((e) => e?.value === item)?.count
+                  ? filterMonthDate[0]?.values?.find((e) => e?.[labelSelector] === item)?.[
+                      valueSelector
+                    ]
                   : 0,
               };
             })
@@ -164,7 +166,9 @@ class UTMTrackingEventModel {
               return {
                 name: month,
                 [item]: filterMonthDate?.length
-                  ? filterMonthDate[0]?.values?.find((e) => e?.value === item)?.count
+                  ? filterMonthDate[0]?.values?.find((e) => e?.[labelSelector] === item)?.[
+                      valueSelector
+                    ]
                   : 0,
               };
             }),
@@ -318,6 +322,57 @@ class UTMTrackingEventModel {
       ...result,
       { label: 'Google Adwords', value: 'gad_source' },
     ];
+  };
+
+  toAttributeUtm = (currency = '') => {
+    const headerTable = [
+      'Campaign Label',
+      'Campaign Name',
+      'Campaign Source',
+      'Total Value',
+      'Engagement Score',
+    ];
+    const accessor = [
+      'campaign_label',
+      'utm_campaign',
+      'utm_source',
+      'total_value',
+      'engagement_score',
+    ];
+    if (this.data.length) {
+      const header = accessor.map((key, index) => {
+        return {
+          Header: headerTable[index],
+          accessor: key,
+          width: key === 'campaign_label' ? 200 : 100,
+          allowSort: false,
+          Cell: ({ cell, column }) => {
+            if (column.id === 'total_value' && cell?.value) {
+              return <div className={'px-3'}>{cell?.value + ' ' + currency ?? null}</div>;
+            } else {
+              return <div className={'px-3'}>{cell?.value ?? null}</div>;
+            }
+          },
+        };
+      });
+
+      const data = this.data;
+
+      data?.length &&
+        data?.sort(
+          (a, b) => moment(b.start, 'DD-MM-YYYY HH:mm:ss') - moment(a.start, 'DD-MM-YYYY HH:mm:ss')
+        );
+
+      return {
+        header,
+        data: data,
+      };
+    } else {
+      return {
+        header: [],
+        data: [],
+      };
+    }
   };
 }
 

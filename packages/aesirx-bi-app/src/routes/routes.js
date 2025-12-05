@@ -20,9 +20,9 @@ const UTMTrackingPage = lazy(() => import('../containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('../containers/EventsPage'));
 const EventsDetailPage = lazy(() => import('../containers/EventsDetailPage'));
 const WoocommercePage = lazy(() => import('../containers/WoocommercePage'));
-const ConsentsPage = lazy(() => import('../containers/ConsentsPage'));
-const ConsentsTemplatePage = lazy(() => import('../containers/ConsentsTemplatePage'));
-const ConsentsAdvancePage = lazy(() => import('../containers/ConsentsAdvancePage'));
+// const ConsentsPage = lazy(() => import('../containers/ConsentsPage'));
+// const ConsentsTemplatePage = lazy(() => import('../containers/ConsentsTemplatePage'));
+// const ConsentsAdvancePage = lazy(() => import('../containers/ConsentsAdvancePage'));
 
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const FlowListPage = lazy(() => import('../containers/FlowListPage'));
@@ -30,6 +30,8 @@ const FlowPage = lazy(() => import('../containers/FlowDetailPage'));
 const PlatformsPage = lazy(() => import('../containers/PlatformsPage'));
 const UserPage = lazy(() => import('../containers/UserPage'));
 const EditUserProvider = lazy(() => import('../containers/UserPage/edit'));
+const UtmLinkPage = lazy(() => import('../containers/UTMLinkPage'));
+const EditUtmLinkProvider = lazy(() => import('../containers/UTMLinkPage/edit'));
 
 const authRoutes = [
   {
@@ -137,24 +139,24 @@ const mainRoutes = [
     exact: true,
     main: () => <FlowListPage />,
   },
-  {
-    path: ['/consents'],
-    page: ['consents'],
-    exact: true,
-    main: () => <ConsentsPage />,
-  },
-  {
-    path: ['/consents/template'],
-    page: ['consents-template'],
-    exact: true,
-    main: () => <ConsentsTemplatePage />,
-  },
-  {
-    path: ['/consents/advance'],
-    page: ['consents-advance'],
-    exact: true,
-    main: () => <ConsentsAdvancePage />,
-  },
+  // {
+  //   path: ['/consents'],
+  //   page: ['consents'],
+  //   exact: true,
+  //   main: () => <ConsentsPage />,
+  // },
+  // {
+  //   path: ['/consents/template'],
+  //   page: ['consents-template'],
+  //   exact: true,
+  //   main: () => <ConsentsTemplatePage />,
+  // },
+  // {
+  //   path: ['/consents/advance'],
+  //   page: ['consents-advance'],
+  //   exact: true,
+  //   main: () => <ConsentsAdvancePage />,
+  // },
   {
     path: '/visitors/platforms',
     page: 'platforms',
@@ -175,6 +177,26 @@ const mainRoutes = [
     path: ['/user-handling/add'],
     exact: true,
     main: () => <EditUserProvider />,
+  },
+  {
+    path: ['/utm-links'],
+    exact: true,
+    main: () => <UtmLinkPage />,
+  },
+  {
+    path: ['/utm-links/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditUtmLinkProvider match={match} />,
+  },
+  {
+    path: ['/utm-links/add'],
+    exact: true,
+    main: () => <EditUtmLinkProvider />,
+  },
+  {
+    path: ['/utm-links/link'],
+    exact: true,
+    main: () => <EditUtmLinkProvider isLink />,
   },
 ];
 

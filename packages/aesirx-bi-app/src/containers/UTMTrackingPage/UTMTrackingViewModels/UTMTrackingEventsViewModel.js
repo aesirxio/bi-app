@@ -12,6 +12,7 @@ class UTMTrackingEventsViewModel {
   utmTrackingStore = null;
   statusAttribute = PAGE_STATUS.READY;
   statusAttributeList = PAGE_STATUS.READY;
+  statusAttributeUtm = PAGE_STATUS.READY;
   statusTable = PAGE_STATUS.READY;
   globalStoreViewModel = null;
   data = null;
@@ -19,6 +20,7 @@ class UTMTrackingEventsViewModel {
   attributeData = null;
   dataAttribute = null;
   dataAttributeList = null;
+  dataAttributeUtm = null;
 
   sortBy = { 'sort[]': '', 'sort_direction[]': '' };
   constructor(utmTrackingStore, globalStoreViewModel) {
@@ -99,6 +101,35 @@ class UTMTrackingEventsViewModel {
       this.dataFilterAttribute,
       dateRangeFilter,
       this.callbackOnDataAttributeSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  getAttributeUtm = async (dataFilter, dateFilter) => {
+    this.statusTable = PAGE_STATUS.LOADING;
+    this.dataFilterAttributeUtm = {
+      page_size: '5',
+      ...this.dataFilterAttributeUtm,
+      ...dataFilter,
+    };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
+
+    this.utmTrackingStore.getAttributeUtm(
+      this.dataFilterAttributeUtm,
+      dateRangeFilter,
+      this.callbackOnDataAttributeUtmSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilterAttributeUtm = async (dataFilter) => {
+    this.statusAttributeList = PAGE_STATUS.LOADING;
+    this.dataFilterAttributeUtm = { ...this.dataFilterAttributeUtm, ...dataFilter };
+    const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter };
+    await this.utmTrackingStore.getAttributeUtm(
+      this.dataFilterAttributeUtm,
+      dateRangeFilter,
+      this.callbackOnDataAttributeUtmSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -207,6 +238,25 @@ class UTMTrackingEventsViewModel {
       }
     } else {
       this.statusAttributeList = PAGE_STATUS.ERROR;
+      this.data = [];
+    }
+  };
+
+  callbackOnDataAttributeUtmSuccessHandler = (data) => {
+    if (data?.list) {
+      if (data?.message !== 'canceled') {
+        this.statusAttributeUtm = PAGE_STATUS.READY;
+        const transformData = new UTMTrackingEventModel(
+          data?.list[0]?.values,
+          this.globalStoreViewModel
+        );
+        this.dataAttributeUtm = {
+          list: transformData,
+          pagination: data.pagination,
+        };
+      }
+    } else {
+      this.statusAttributeUtm = PAGE_STATUS.ERROR;
       this.data = [];
     }
   };

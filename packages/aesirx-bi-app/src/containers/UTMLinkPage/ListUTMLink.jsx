@@ -13,7 +13,7 @@ const ListUTMLink = observer((props) => {
   let listSelected = [];
   const viewModel = props.model.utmLinkListViewModel;
   const {
-    biListViewModel: { activeDomain, dataStream },
+    biListViewModel: { activeDomain },
   } = useBiViewModel();
   useEffect(() => {
     viewModel.initializeAllData(activeDomain, props.globalViewModel);
@@ -28,7 +28,12 @@ const ListUTMLink = observer((props) => {
         return (
           <>
             <div className="d-flex align-items-center py-8px align-items-center">
-              <a href={row.cells[8].value} target="_blank" className="text-decoration-underline">
+              <a
+                href={row.cells[8].value}
+                rel="noreferrer"
+                target="_blank"
+                className="text-decoration-underline"
+              >
                 {value}
               </a>
               <div className="text-green ms-2">

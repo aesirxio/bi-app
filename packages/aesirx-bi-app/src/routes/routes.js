@@ -20,9 +20,9 @@ const UTMTrackingPage = lazy(() => import('../containers/UTMTrackingPage'));
 const EventsPage = lazy(() => import('../containers/EventsPage'));
 const EventsDetailPage = lazy(() => import('../containers/EventsDetailPage'));
 const WoocommercePage = lazy(() => import('../containers/WoocommercePage'));
-const ConsentsPage = lazy(() => import('../containers/ConsentsPage'));
-const ConsentsTemplatePage = lazy(() => import('../containers/ConsentsTemplatePage'));
-const ConsentsAdvancePage = lazy(() => import('../containers/ConsentsAdvancePage'));
+// const ConsentsPage = lazy(() => import('../containers/ConsentsPage'));
+// const ConsentsTemplatePage = lazy(() => import('../containers/ConsentsTemplatePage'));
+// const ConsentsAdvancePage = lazy(() => import('../containers/ConsentsAdvancePage'));
 
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const FlowListPage = lazy(() => import('../containers/FlowListPage'));

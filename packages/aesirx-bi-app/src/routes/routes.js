@@ -139,24 +139,24 @@ const mainRoutes = [
     exact: true,
     main: () => <FlowListPage />,
   },
-  {
-    path: ['/consents'],
-    page: ['consents'],
-    exact: true,
-    main: () => <ConsentsPage />,
-  },
-  {
-    path: ['/consents/template'],
-    page: ['consents-template'],
-    exact: true,
-    main: () => <ConsentsTemplatePage />,
-  },
-  {
-    path: ['/consents/advance'],
-    page: ['consents-advance'],
-    exact: true,
-    main: () => <ConsentsAdvancePage />,
-  },
+  // {
+  //   path: ['/consents'],
+  //   page: ['consents'],
+  //   exact: true,
+  //   main: () => <ConsentsPage />,
+  // },
+  // {
+  //   path: ['/consents/template'],
+  //   page: ['consents-template'],
+  //   exact: true,
+  //   main: () => <ConsentsTemplatePage />,
+  // },
+  // {
+  //   path: ['/consents/advance'],
+  //   page: ['consents-advance'],
+  //   exact: true,
+  //   main: () => <ConsentsAdvancePage />,
+  // },
   {
     path: '/visitors/platforms',
     page: 'platforms',
@@ -192,6 +192,11 @@ const mainRoutes = [
     path: ['/utm-links/add'],
     exact: true,
     main: () => <EditUtmLinkProvider />,
+  },
+  {
+    path: ['/utm-links/link'],
+    exact: true,
+    main: () => <EditUtmLinkProvider isLink />,
   },
 ];
 

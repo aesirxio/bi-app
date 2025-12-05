@@ -13,8 +13,9 @@ import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
 import { withUTMLinkViewModel } from '../UTMLinkViewModel/UTMLinkViewModelContextProvider';
 import EditHeader from 'components/EditHeader';
-import { PAGE_STATUS, Spinner, Input, ActionsBar } from 'aesirx-uikit';
+import { PAGE_STATUS, Spinner, Input, ActionsBar, FormSelection } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
+import CreatableSelect from 'react-select/creatable';
 
 const EditUTMLink = observer(
   class EditUTMLink extends Component {
@@ -38,15 +39,35 @@ const EditUTMLink = observer(
 
       this.utmLinkDetailViewModel.setForm(this);
       this.isEdit = props.match.params?.id ? true : false;
+      this.formPropsData.is_generated = !props?.isLink ?? true;
     }
 
     async componentDidMount() {
       const { match } = this.props;
+      const tasks = [];
       if (this.isEdit) {
         this.formPropsData._id.$oid = match.params?.id;
-        await this.utmLinkDetailViewModel.initializeData(this.props?.activeDomain[0]);
+        tasks.push(this.utmLinkDetailViewModel.initializeData(this.props?.activeDomain[0]));
       }
-      this.utmLinkDetailViewModel.handleAliasChange('');
+      tasks.push(
+        this.utmLinkDetailViewModel.getUniqueUtmValueType({
+          'filter[domain][0]': this.props?.activeDomain[0],
+          page_size: 1000,
+        })
+      );
+      if (!this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData?.is_generated) {
+        tasks.push(
+          this.utmLinkDetailViewModel.getUniqueUtmLinks({
+            'filter[domain][0]': this.props?.activeDomain[0],
+            page_size: 20,
+          })
+        );
+      }
+
+      await Promise.all(tasks);
+      this.validator = new SimpleReactValidator({
+        autoForceUpdate: this,
+      });
     }
 
     generateLink() {
@@ -56,21 +77,24 @@ const EditUTMLink = observer(
       } else {
         const formPropsData = this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData;
         const params = new URLSearchParams({
-          utm_source: formPropsData.utm_source,
-          utm_medium: formPropsData.utm_medium,
-          utm_campaign: formPropsData.utm_campaign,
-          utm_id: formPropsData.utm_id,
+          ...(formPropsData.utm_source && { utm_source: formPropsData.utm_source }),
+          ...(formPropsData.utm_medium && { utm_medium: formPropsData.utm_medium }),
+          ...(formPropsData.utm_campaign && { utm_campaign: formPropsData.utm_campaign }),
+          ...(formPropsData.utm_id && { utm_id: formPropsData.utm_id }),
           ...(formPropsData.utm_term && { utm_term: formPropsData.utm_term }),
           ...(formPropsData.utm_content && { utm_content: formPropsData.utm_content }),
         });
+        let url = this.formPropsData?.websiteURL + '?' + params.toString();
+        if (!this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData?.is_generated) {
+          url = this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData.link;
+        }
         this.setState((prevState) => {
           return {
             ...prevState,
-            generateUrl: this.formPropsData?.websiteURL + '?' + params.toString(),
+            generateUrl: url,
           };
         });
-        this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData.link =
-          this.formPropsData?.websiteURL + '?' + params.toString();
+        this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData.link = url;
       }
     }
 
@@ -86,9 +110,26 @@ const EditUTMLink = observer(
       this.validator.showMessages();
     }
 
-    debouncedChangeHandler = _.debounce((value) => {
-      this.utmLinkDetailViewModel.handleAliasChange(value);
-    }, 300);
+    loadUtmExternalLinkOptions = _.debounce(async (inputValue, callback) => {
+      try {
+        await this.utmLinkDetailViewModel?.getUniqueUtmLinks({
+          'filter[domain][0]': this.props?.activeDomain[0],
+          'filter[search]': inputValue || '',
+          page_size: 20,
+        });
+        const options =
+          this.utmLinkDetailViewModel?.uniqueUtmLinks?.map((item) => {
+            return {
+              label: item?.link,
+              value: item?.link,
+            };
+          }) || [];
+        callback(options);
+      } catch (err) {
+        console.error('Error loading UTM links:', err);
+        callback([]);
+      }
+    }, 500);
     render() {
       const { t } = this.props;
       // eslint-disable-next-line no-console
@@ -161,7 +202,107 @@ const EditUTMLink = observer(
             <Row>
               <Col lg="9">
                 <Row>
-                  <Col sm="12">
+                  {!this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                    ?.is_generated ? (
+                    <Col sm={`12`}>
+                      <Form.Group className="mb-3" controlId="formExternalLink">
+                        <Form.Label className="fw-semibold">
+                          UTM External Link <span className="text-danger">*</span>
+                        </Form.Label>
+                        <div className="mb-3 position-relative">
+                          {this.utmLinkDetailViewModel.formUtmLinksStatus ===
+                            PAGE_STATUS.LOADING && (
+                            <Spinner className="spinner-overlay w-auto h-auto" size={25} />
+                          )}
+                          <FormSelection
+                            field={{
+                              getValueSelected: this.utmLinkDetailViewModel.utmLinkDetailViewModel
+                                .formPropsData.link
+                                ? {
+                                    label:
+                                      this.utmLinkDetailViewModel.utmLinkDetailViewModel
+                                        .formPropsData.link,
+                                    value:
+                                      this.utmLinkDetailViewModel.utmLinkDetailViewModel
+                                        .formPropsData.link,
+                                  }
+                                : null,
+                              defaultOptions: this.utmLinkDetailViewModel?.uniqueUtmLinks?.length
+                                ? this.utmLinkDetailViewModel?.uniqueUtmLinks?.map((item) => {
+                                    return {
+                                      label: item?.link,
+                                      value: item?.link,
+                                    };
+                                  })
+                                : [],
+                              async: true,
+                              loadOptions: (inputValue, callback) => {
+                                this.loadUtmExternalLinkOptions(inputValue, callback);
+                              },
+                              arrowColor: 'var(--dropdown-indicator-color)',
+                              handleChange: (data) => {
+                                if (data?.value) {
+                                  this.utmLinkDetailViewModel.handleFormPropsData(
+                                    'link',
+                                    data.value
+                                  );
+                                  const params = new URL(data.value)?.searchParams;
+                                  this.utmLinkDetailViewModel.handleFormPropsData(
+                                    'utm_source',
+                                    params?.get('utm_source')
+                                  );
+                                  this.utmLinkDetailViewModel.handleFormPropsData(
+                                    'utm_medium',
+                                    params?.get('utm_medium')
+                                  );
+                                  this.utmLinkDetailViewModel.handleFormPropsData(
+                                    'utm_campaign',
+                                    params?.get('utm_campaign')
+                                  );
+                                  this.utmLinkDetailViewModel.handleFormPropsData(
+                                    'utm_term',
+                                    params?.get('utm_term')
+                                  );
+                                  this.utmLinkDetailViewModel.handleFormPropsData(
+                                    'utm_content',
+                                    params?.get('utm_content')
+                                  );
+                                  this.utmLinkDetailViewModel.handleFormPropsData(
+                                    'utm_id',
+                                    params?.get('utm_id')
+                                  );
+                                }
+                              },
+                              required: true,
+                              validation: 'required',
+                              blurred: () => {
+                                this.validator.showMessageFor('link');
+                              },
+                            }}
+                          />
+                        </div>
+
+                        {this.validator.message(
+                          'link',
+                          this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData?.link,
+                          'required',
+                          {
+                            className: 'text-danger mt-8px',
+                          }
+                        )}
+                      </Form.Group>
+                    </Col>
+                  ) : (
+                    <></>
+                  )}
+                  <Col
+                    sm={`${
+                      !this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                        ?.is_generated
+                        ? '6'
+                        : '12'
+                    }`}
+                  >
                     <Form.Group className="mb-3" controlId="formCampaignLabel">
                       <Form.Label className="fw-semibold">
                         Campaign Label <span className="text-danger">*</span>
@@ -200,240 +341,249 @@ const EditUTMLink = observer(
                       )}
                     </Form.Group>
                   </Col>
-                  <Col sm="6">
-                    <Form.Group className="mb-3" controlId="formURL">
-                      <Form.Label className="fw-semibold">
-                        Website URL <span className="text-danger">*</span>
-                      </Form.Label>
-                      <Input
-                        field={{
-                          getValueSelected:
-                            this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
-                              ?.websiteURL,
-                          classNameInput: 'py-10 fs-4',
-                          placeholder: 'website URL',
-                          handleChange: (event) => {
-                            this.utmLinkDetailViewModel.handleFormPropsData(
-                              'websiteURL',
-                              event.target.value
-                            );
-                          },
-                          required: true,
-                          validation: 'required',
-                          blurred: () => {
-                            this.validator.showMessageFor('websiteURL');
-                          },
-                        }}
-                      />
-                      <p className="fs-sm ps-1 fst-italic">The full website URL</p>
-                    </Form.Group>
-                  </Col>
-                  <Col sm="6">
-                    <Form.Group className="mb-3" controlId="formCampaignName">
-                      <Form.Label className="fw-semibold">
-                        Campaign name <span className="text-danger">*</span>
-                      </Form.Label>
-                      <Input
-                        field={{
-                          getValueSelected:
+                  {this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                    ?.is_generated ? (
+                    <>
+                      <Col sm="6">
+                        <Form.Group className="mb-3" controlId="formURL">
+                          <Form.Label className="fw-semibold">
+                            Website URL <span className="text-danger">*</span>
+                          </Form.Label>
+                          <Input
+                            field={{
+                              getValueSelected:
+                                this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                                  ?.websiteURL,
+                              classNameInput: 'py-10 fs-4',
+                              placeholder: 'website URL',
+                              handleChange: (event) => {
+                                this.utmLinkDetailViewModel.handleFormPropsData(
+                                  'websiteURL',
+                                  event.target.value
+                                );
+                              },
+                              required: true,
+                              validation: 'required',
+                              blurred: () => {
+                                this.validator.showMessageFor('websiteURL');
+                              },
+                            }}
+                          />
+                          <p className="fs-sm ps-1 fst-italic">The full website URL</p>
+                        </Form.Group>
+                      </Col>
+                      <Col sm="6">
+                        <Form.Group className="mb-3" controlId="formCampaignName">
+                          <Form.Label className="fw-semibold">
+                            Campaign name <span className="text-danger">*</span>
+                          </Form.Label>
+                          <Input
+                            field={{
+                              getValueSelected:
+                                this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                                  ?.utm_campaign,
+                              classNameInput: 'py-10 fs-4',
+                              placeholder: 'campaign name',
+                              handleChange: (event) => {
+                                this.utmLinkDetailViewModel.handleFormPropsData(
+                                  'utm_campaign',
+                                  event.target.value
+                                );
+                              },
+                              required: true,
+                              validation: 'required',
+                              blurred: () => {
+                                this.validator.showMessageFor('utm_campaign');
+                              },
+                            }}
+                          />
+                          <p className="fs-sm ps-1 fst-italic">
+                            Product, promo code, or slogan (e.g. spring_sale) One of campaign name
+                            or campaign id are required.
+                          </p>
+                          {this.validator.message(
+                            'utm_campaign',
                             this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
                               ?.utm_campaign,
-                          classNameInput: 'py-10 fs-4',
-                          placeholder: 'campaign name',
-                          handleChange: (event) => {
-                            this.utmLinkDetailViewModel.handleFormPropsData(
-                              'utm_campaign',
-                              event.target.value
-                            );
-                          },
-                          required: true,
-                          validation: 'required',
-                          blurred: () => {
-                            this.validator.showMessageFor('utm_campaign');
-                          },
-                        }}
-                      />
-                      <p className="fs-sm ps-1 fst-italic">
-                        Product, promo code, or slogan (e.g. spring_sale) One of campaign name or
-                        campaign id are required.
-                      </p>
-                      {this.validator.message(
-                        'utm_campaign',
-                        this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
-                          ?.utm_campaign,
-                        'required',
-                        {
-                          className: 'text-danger mt-8px',
-                        }
-                      )}
-                    </Form.Group>
-                  </Col>
-                  <Col sm="6">
-                    <Form.Group className="mb-3" controlId="formCampaignID">
-                      <Form.Label className="fw-semibold">
-                        Campaign ID <span className="text-danger">*</span>
-                      </Form.Label>
-                      <Input
-                        field={{
-                          getValueSelected:
+                            'required',
+                            {
+                              className: 'text-danger mt-8px',
+                            }
+                          )}
+                        </Form.Group>
+                      </Col>
+                      <Col sm="6">
+                        <Form.Group className="mb-3" controlId="formCampaignID">
+                          <Form.Label className="fw-semibold">
+                            Campaign ID <span className="text-danger">*</span>
+                          </Form.Label>
+                          <Input
+                            field={{
+                              getValueSelected:
+                                this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                                  ?.utm_id,
+                              classNameInput: 'py-10 fs-4',
+                              placeholder: 'campaign ID',
+                              handleChange: (event) => {
+                                this.utmLinkDetailViewModel.handleFormPropsData(
+                                  'utm_id',
+                                  event.target.value
+                                );
+                              },
+                              required: true,
+                              validation: 'required',
+                              blurred: () => {
+                                this.validator.showMessageFor('utm_id');
+                              },
+                            }}
+                          />
+                          <p className="fs-sm ps-1 fst-italic">The ads campaign id.</p>
+                          {this.validator.message(
+                            'utm_id',
                             this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
                               ?.utm_id,
-                          classNameInput: 'py-10 fs-4',
-                          placeholder: 'campaign ID',
-                          handleChange: (event) => {
-                            this.utmLinkDetailViewModel.handleFormPropsData(
-                              'utm_id',
-                              event.target.value
-                            );
-                          },
-                          required: true,
-                          validation: 'required',
-                          blurred: () => {
-                            this.validator.showMessageFor('utm_id');
-                          },
-                        }}
-                      />
-                      <p className="fs-sm ps-1 fst-italic">The ads campaign id.</p>
-                      {this.validator.message(
-                        'utm_id',
-                        this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData?.utm_id,
-                        'required',
-                        {
-                          className: 'text-danger mt-8px',
-                        }
-                      )}
-                    </Form.Group>
-                  </Col>
-                  <Col sm="6">
-                    <Form.Group className="mb-3" controlId="formutm_content">
-                      <Form.Label className="fw-semibold">Campaign term</Form.Label>
-                      <Input
-                        field={{
-                          getValueSelected:
-                            this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
-                              ?.utm_term,
-                          classNameInput: 'py-10 fs-4',
-                          placeholder: 'campaign term',
-                          handleChange: (event) => {
-                            this.utmLinkDetailViewModel.handleFormPropsData(
-                              'utm_term',
-                              event.target.value
-                            );
-                          },
-                          required: true,
-                          validation: 'required',
-                          blurred: () => {
-                            this.validator.showMessageFor('utm_term');
-                          },
-                        }}
-                      />
-                      <p className="fs-sm ps-1 fst-italic">Identify the paid keywords</p>
-                    </Form.Group>
-                  </Col>
-                  <Col sm="6">
-                    <Form.Group className="mb-3" controlId="formCampaignSource">
-                      <Form.Label className="fw-semibold">
-                        Campaign source <span className="text-danger">*</span>
-                      </Form.Label>
-                      <Input
-                        field={{
-                          getValueSelected:
+                            'required',
+                            {
+                              className: 'text-danger mt-8px',
+                            }
+                          )}
+                        </Form.Group>
+                      </Col>
+                      <Col sm="6">
+                        <Form.Group className="mb-3" controlId="formutm_content">
+                          <Form.Label className="fw-semibold">Campaign term</Form.Label>
+                          <Input
+                            field={{
+                              getValueSelected:
+                                this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                                  ?.utm_term,
+                              classNameInput: 'py-10 fs-4',
+                              placeholder: 'campaign term',
+                              handleChange: (event) => {
+                                this.utmLinkDetailViewModel.handleFormPropsData(
+                                  'utm_term',
+                                  event.target.value
+                                );
+                              },
+                              required: true,
+                              validation: 'required',
+                              blurred: () => {
+                                this.validator.showMessageFor('utm_term');
+                              },
+                            }}
+                          />
+                          <p className="fs-sm ps-1 fst-italic">Identify the paid keywords</p>
+                        </Form.Group>
+                      </Col>
+                      <Col sm="6">
+                        <Form.Group className="mb-3" controlId="formCampaignSource">
+                          <Form.Label className="fw-semibold">
+                            Campaign source <span className="text-danger">*</span>
+                          </Form.Label>
+                          <Input
+                            field={{
+                              getValueSelected:
+                                this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                                  ?.utm_source,
+                              classNameInput: 'py-10 fs-4',
+                              placeholder: 'campaign source',
+                              handleChange: (event) => {
+                                this.utmLinkDetailViewModel.handleFormPropsData(
+                                  'utm_source',
+                                  event.target.value
+                                );
+                              },
+                              required: true,
+                              validation: 'required',
+                              blurred: () => {
+                                this.validator.showMessageFor('utm_source');
+                              },
+                            }}
+                          />
+                          <p className="fs-sm ps-1 fst-italic">
+                            The referrer (e.g. google, newsletter)
+                          </p>
+                          {this.validator.message(
+                            'utm_source',
                             this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
                               ?.utm_source,
-                          classNameInput: 'py-10 fs-4',
-                          placeholder: 'campaign source',
-                          handleChange: (event) => {
-                            this.utmLinkDetailViewModel.handleFormPropsData(
-                              'utm_source',
-                              event.target.value
-                            );
-                          },
-                          required: true,
-                          validation: 'required',
-                          blurred: () => {
-                            this.validator.showMessageFor('utm_source');
-                          },
-                        }}
-                      />
-                      <p className="fs-sm ps-1 fst-italic">
-                        The referrer (e.g. google, newsletter)
-                      </p>
-                      {this.validator.message(
-                        'utm_source',
-                        this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
-                          ?.utm_source,
-                        'required',
-                        {
-                          className: 'text-danger mt-8px',
-                        }
-                      )}
-                    </Form.Group>
-                  </Col>
-                  <Col sm="6">
-                    <Form.Group className="mb-3" controlId="formCampaignContent">
-                      <Form.Label className="fw-semibold">Campaign content</Form.Label>
-                      <Input
-                        field={{
-                          getValueSelected:
-                            this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
-                              ?.utm_content,
-                          classNameInput: 'py-10 fs-4',
-                          placeholder: 'campaign content',
-                          handleChange: (event) => {
-                            this.utmLinkDetailViewModel.handleFormPropsData(
-                              'utm_content',
-                              event.target.value
-                            );
-                          },
-                          required: true,
-                          validation: 'required',
-                          blurred: () => {
-                            this.validator.showMessageFor('utm_content');
-                          },
-                        }}
-                      />
-                      <p className="fs-sm ps-1 fst-italic">Use to differentiate ads</p>
-                    </Form.Group>
-                  </Col>
-                  <Col sm="6">
-                    <Form.Group className="mb-3" controlId="formCampaignMedium">
-                      <Form.Label className="fw-semibold">
-                        Campaign medium <span className="text-danger">*</span>
-                      </Form.Label>
-                      <Input
-                        field={{
-                          getValueSelected:
+                            'required',
+                            {
+                              className: 'text-danger mt-8px',
+                            }
+                          )}
+                        </Form.Group>
+                      </Col>
+                      <Col sm="6">
+                        <Form.Group className="mb-3" controlId="formCampaignContent">
+                          <Form.Label className="fw-semibold">Campaign content</Form.Label>
+                          <Input
+                            field={{
+                              getValueSelected:
+                                this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                                  ?.utm_content,
+                              classNameInput: 'py-10 fs-4',
+                              placeholder: 'campaign content',
+                              handleChange: (event) => {
+                                this.utmLinkDetailViewModel.handleFormPropsData(
+                                  'utm_content',
+                                  event.target.value
+                                );
+                              },
+                              required: true,
+                              validation: 'required',
+                              blurred: () => {
+                                this.validator.showMessageFor('utm_content');
+                              },
+                            }}
+                          />
+                          <p className="fs-sm ps-1 fst-italic">Use to differentiate ads</p>
+                        </Form.Group>
+                      </Col>
+                      <Col sm="6">
+                        <Form.Group className="mb-3" controlId="formCampaignMedium">
+                          <Form.Label className="fw-semibold">
+                            Campaign medium <span className="text-danger">*</span>
+                          </Form.Label>
+                          <Input
+                            field={{
+                              getValueSelected:
+                                this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                                  ?.utm_medium,
+                              classNameInput: 'py-10 fs-4',
+                              placeholder: 'campaign medium',
+                              handleChange: (event) => {
+                                this.utmLinkDetailViewModel.handleFormPropsData(
+                                  'utm_medium',
+                                  event.target.value
+                                );
+                              },
+                              required: true,
+                              validation: 'required',
+                              blurred: () => {
+                                this.validator.showMessageFor('utm_medium');
+                              },
+                            }}
+                          />
+                          <p className="fs-sm ps-1 fst-italic">
+                            Marketing medium (e.g. cpc, banner, email)
+                          </p>
+                          {this.validator.message(
+                            'utm_medium',
                             this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
                               ?.utm_medium,
-                          classNameInput: 'py-10 fs-4',
-                          placeholder: 'campaign medium',
-                          handleChange: (event) => {
-                            this.utmLinkDetailViewModel.handleFormPropsData(
-                              'utm_medium',
-                              event.target.value
-                            );
-                          },
-                          required: true,
-                          validation: 'required',
-                          blurred: () => {
-                            this.validator.showMessageFor('utm_medium');
-                          },
-                        }}
-                      />
-                      <p className="fs-sm ps-1 fst-italic">
-                        Marketing medium (e.g. cpc, banner, email)
-                      </p>
-                      {this.validator.message(
-                        'utm_medium',
-                        this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
-                          ?.utm_medium,
-                        'required',
-                        {
-                          className: 'text-danger mt-8px',
-                        }
-                      )}
-                    </Form.Group>
-                  </Col>
+                            'required',
+                            {
+                              className: 'text-danger mt-8px',
+                            }
+                          )}
+                        </Form.Group>
+                      </Col>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
                   <Col sm="6">
                     <Form.Group className="mb-3" controlId="formValue">
                       <Form.Label className="fw-semibold">Value</Form.Label>
@@ -452,48 +602,54 @@ const EditUTMLink = observer(
                           },
                         }}
                       />
+                      <p className="fs-sm ps-1 fst-italic">Enter a fiscal value i.e. 100</p>
                     </Form.Group>
                   </Col>
                   <Col sm="6">
                     <Form.Group className="mb-3" controlId="formValueType">
                       <Form.Label className="fw-semibold">Value Type</Form.Label>
-                      <Input
-                        field={{
-                          getValueSelected:
-                            this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
-                              ?.value_type,
-                          classNameInput: 'py-10 fs-4',
-                          placeholder: 'value type (visit, signup, purchase), etc,...)',
-                          handleChange: (event) => {
+                      <CreatableSelect
+                        className="fs-sm"
+                        value={
+                          this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                            .value_type
+                            ? {
+                                label:
+                                  this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                                    .value_type,
+                                value:
+                                  this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
+                                    .value_type,
+                              }
+                            : null
+                        }
+                        options={
+                          this.utmLinkDetailViewModel?.uniqueUtmValueType?.length
+                            ? this.utmLinkDetailViewModel?.uniqueUtmValueType?.map((item) => {
+                                return {
+                                  label: item?.value_type,
+                                  value: item?.value_type,
+                                };
+                              })
+                            : []
+                        }
+                        onChange={(data) => {
+                          if (data?.value) {
                             this.utmLinkDetailViewModel.handleFormPropsData(
                               'value_type',
-                              event.target.value
+                              data.value
                             );
-                          },
+                            this.forceUpdate();
+                          }
                         }}
+                        placeholder="value type (visit, signup, purchase), etc,...)"
                       />
+                      <p className="fs-sm ps-1 fst-italic">
+                        Enter a type of event: visit, signup, purchase, etc (remember we have to
+                        change this in next release to not be just free text but selection)
+                      </p>
                     </Form.Group>
                   </Col>
-                  {/* <Col sm="6">
-                    <Form.Group className="mb-3" controlId="formEventType">
-                      <Form.Label className="fw-semibold">Event Type</Form.Label>
-                      <Input
-                        field={{
-                          getValueSelected:
-                            this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData
-                              ?.event_type,
-                          classNameInput: 'py-10 fs-4',
-                          placeholder: 'event type (purchase, signup, etc,...)',
-                          handleChange: (event) => {
-                            this.utmLinkDetailViewModel.handleFormPropsData(
-                              'event_type',
-                              event.target.value
-                            );
-                          },
-                        }}
-                      />
-                    </Form.Group>
-                  </Col> */}
                   <Col sm="6">
                     <Form.Group className="mb-3" controlId="formEngagementWeight">
                       <Form.Label className="fw-semibold">Engagement weight</Form.Label>
@@ -513,6 +669,10 @@ const EditUTMLink = observer(
                           },
                         }}
                       />
+                      <p className="fs-sm ps-1 fst-italic">
+                        Additional user engagement score value i.e. 20, which will be added to the
+                        user flow total engagement score
+                      </p>
                     </Form.Group>
                   </Col>
                 </Row>

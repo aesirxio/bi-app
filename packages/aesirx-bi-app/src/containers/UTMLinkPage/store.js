@@ -68,7 +68,6 @@ class UTMLinkStore {
   async updateConsentsTemplate(updateFieldData) {
     try {
       let resultOnSave;
-      console.log('updateFieldData', updateFieldData);
       const updateOrganizationApiService = new AesirxBiApiService();
       // eslint-disable-next-line prefer-const
       resultOnSave = await updateOrganizationApiService.updateConsentsTemplate(updateFieldData);
@@ -120,6 +119,25 @@ class UTMLinkStore {
       });
     }
   };
+  async getUniqueUtmLinks(filterData) {
+    try {
+      const getListAPIService = new AesirxBiApiService();
+      const respondedData = await getListAPIService.getUniqueUtmLinks(filterData);
+      return { error: false, response: respondedData };
+    } catch (error) {
+      return { error: true, response: error?.response?.data };
+    }
+  }
+
+  async getUniqueUtmValueType(filterData) {
+    try {
+      const getListAPIService = new AesirxBiApiService();
+      const respondedData = await getListAPIService.getUniqueUtmValueType(filterData);
+      return { error: false, response: respondedData };
+    } catch (error) {
+      return { error: true, response: error?.response?.data };
+    }
+  }
 }
 
 export { UTMLinkStore };

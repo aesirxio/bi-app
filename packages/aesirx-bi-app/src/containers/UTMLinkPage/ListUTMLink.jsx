@@ -101,9 +101,11 @@ const ListUTMLink = observer((props) => {
           <>
             <div className="d-flex align-items-center py-8px align-items-center">
               <div className="">
-                {viewModel.utmLinkListViewModel.formPropsData?.utm_currency
-                  ? value + ' ' + viewModel.utmLinkListViewModel.formPropsData?.utm_currency
-                  : value}
+                {value
+                  ? viewModel.utmLinkListViewModel.formPropsData?.utm_currency
+                    ? value + ' ' + viewModel.utmLinkListViewModel.formPropsData?.utm_currency
+                    : value
+                  : 0}
               </div>
             </div>
           </>
@@ -119,7 +121,7 @@ const ListUTMLink = observer((props) => {
         return (
           <>
             <div className="d-flex align-items-center py-8px align-items-center">
-              <div className="">{value}</div>
+              <div className="">{value ? value : 0}</div>
             </div>
           </>
         );
@@ -192,10 +194,6 @@ const ListUTMLink = observer((props) => {
       viewModel.deleteUTMLinks(listSelected, activeDomain, props.globalViewModel);
     }
   };
-  console.log(
-    'viewModel.utmLinkListViewModel.formPropsData',
-    viewModel.utmLinkListViewModel.formPropsData
-  );
   return (
     <div className="px-3 pb-4">
       <div className="mb-3 d-flex align-items-center justify-content-between">
@@ -214,11 +212,19 @@ const ListUTMLink = observer((props) => {
               },
             },
             {
-              title: t('txt_add_new'),
+              title: 'Generate UTM Link',
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
                 historyPush('/utm-links/add');
+              },
+            },
+            {
+              title: t('txt_add_new'),
+              icon: '/assets/images/plus.svg',
+              variant: 'success',
+              handle: async () => {
+                historyPush('/utm-links/link');
               },
             },
           ]}

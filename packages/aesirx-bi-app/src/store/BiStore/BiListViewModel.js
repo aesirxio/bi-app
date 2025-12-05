@@ -141,10 +141,19 @@ class BiListViewModel {
           : moment(date_start).format('YYYY-MM-DD'),
       },
     };
-    history.push({
-      ...location,
-      ...{ search: queryString.stringify(search) },
-    });
+    if (
+      location?.pathname !== '/user-handling' &&
+      location?.pathname !== '/user-handling/add' &&
+      !location?.pathname?.startsWith('/user-handling/edit') &&
+      location?.pathname !== '/utm-links/link' &&
+      !location?.pathname?.startsWith('/utm-links/edit') &&
+      location?.pathname !== '/utm-links/add'
+    ) {
+      history.push({
+        ...location,
+        ...{ search: queryString.stringify(search) },
+      });
+    }
   };
 
   resetObservableProperties = () => {};

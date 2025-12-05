@@ -7,9 +7,12 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { PAGE_STATUS, notify } from 'aesirx-uikit';
 class UTMLinkDetailViewModel {
   formStatus = PAGE_STATUS.READY;
+  formUtmLinksStatus = PAGE_STATUS.READY;
   utmLinkDetailViewModel = { formPropsData: [{}] };
   aliasChange = '';
   utmLinkList = [];
+  uniqueUtmLinks = [];
+  uniqueUtmValueType = [];
   successResponse = {
     state: true,
     content_id: '',
@@ -101,6 +104,7 @@ class UTMLinkDetailViewModel {
     this.successResponse.state = false;
     this.successResponse.content_id = error?.result;
     this.formStatus = PAGE_STATUS.READY;
+    this.formUtmLinksStatus = PAGE_STATUS.READY;
   };
 
   onSuccessHandler = (result, message) => {
@@ -139,6 +143,47 @@ class UTMLinkDetailViewModel {
   };
   handleAliasChange = (value) => {
     this.aliasChange = value;
+  };
+
+  getUniqueUtmLinks = async (filterData) => {
+    runInAction(() => {
+      this.formUtmLinksStatus = PAGE_STATUS.LOADING;
+    });
+    const data = await this.utmLinkStore.getUniqueUtmLinks(filterData);
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onGetUniqueUtmLinksSuccessHandler(data?.response);
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
+  };
+  onGetUniqueUtmLinksSuccessHandler = (result) => {
+    if (result) {
+      this.uniqueUtmLinks = result;
+    }
+    this.formUtmLinksStatus = PAGE_STATUS.READY;
+  };
+  getUniqueUtmValueType = async (filterData) => {
+    runInAction(() => {
+      this.formStatus = PAGE_STATUS.LOADING;
+    });
+    const data = await this.utmLinkStore.getUniqueUtmValueType(filterData);
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onGetUniqueUtmValueTypeSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
+  };
+  onGetUniqueUtmValueTypeSuccessHandler = (result) => {
+    if (result) {
+      this.uniqueUtmValueType = result;
+    }
+    this.formStatus = PAGE_STATUS.READY;
   };
 }
 

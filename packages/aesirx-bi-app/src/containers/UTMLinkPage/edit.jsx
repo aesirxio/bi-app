@@ -32,7 +32,7 @@ const EditUTMLinkProvider = observer(
           {dataStreamStatus === PAGE_STATUS.READY ? (
             <>
               {dataStream?.is_user_admin ? (
-                <EditUTMLink activeDomain={activeDomain} />
+                <EditUTMLink activeDomain={activeDomain} isLink={this.props?.isLink} />
               ) : (
                 <p className="p-3 fw-semibold">Current user does not have access!</p>
               )}

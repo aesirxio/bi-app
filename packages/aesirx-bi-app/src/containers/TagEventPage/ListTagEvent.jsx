@@ -1,11 +1,11 @@
-import { Table, Spinner, ActionsBar, notify, Input, PAGE_STATUS } from 'aesirx-uikit';
+import { Table, Spinner, ActionsBar, notify } from 'aesirx-uikit';
 import React, { useEffect } from 'react';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withTagEventViewModel } from './TagEventViewModel/TagEventViewModelContextProvider';
 import { historyPush } from 'routes/routes';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-import { Button, Col, Form, Row, Spinner as BootstrapSpinner } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 import StackedBarChartComponent from 'components/StackedBarChartComponent';
 
 const ListTagEvent = observer((props) => {

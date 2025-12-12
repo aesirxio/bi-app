@@ -35,7 +35,14 @@ const FlowDetailContainer = observer((props) => {
     },
   } = useFlowViewModel();
   const {
-    biListViewModel: { activeDomain, dateFilter, dataFilter, integrationLink, setIntegrationLink },
+    biListViewModel: {
+      activeDomain,
+      dateFilter,
+      dataFilter,
+      integrationLink,
+      setIntegrationLink,
+      dataStream,
+    },
   } = useBiViewModel();
   const { uuid } = useParams();
   const params = queryString.parse(props.location.search);
@@ -148,8 +155,28 @@ const FlowDetailContainer = observer((props) => {
     ],
     [data]
   );
-  const LeftTableData = useMemo(
-    () => [
+  const LeftTableData = useMemo(() => {
+    const total_tag_metric_value = data?.events?.reduce(
+      (sum, item) => sum + (item.tag_metric_value || 0),
+      0
+    );
+    const total_utm_value = data?.events?.reduce((sum, item) => {
+      if (item.utm_value_type === item.event_name) {
+        return sum + (item.utm_value || 0);
+      }
+      return sum;
+    }, 0);
+    const total_metric_value = total_tag_metric_value + total_utm_value;
+    const total_tag_engagement_score = data?.events?.reduce(
+      (sum, item) => sum + (item.tag_engagement_value || 0),
+      0
+    );
+    const total_utm_engagement_score = data?.events?.reduce(
+      (sum, item) => sum + (item.utm_engagement_weight || 0),
+      0
+    );
+    const total_engagement_score = total_tag_engagement_score + total_utm_engagement_score;
+    return [
       {
         text: t('txt_date'),
         value: data?.[BI_FLOW_DETAIL_KEY.START]
@@ -177,16 +204,21 @@ const FlowDetailContainer = observer((props) => {
         value: moment.utc(data?.[BI_FLOW_DETAIL_KEY.DURATION] * 1000).format('mm:ss') ?? 0,
       },
       {
-        text: 'UX %',
-        value: (data?.[BI_FLOW_DETAIL_KEY.UX_PERCENT] ?? 0) + '%',
+        text: 'UX score',
+        value: data?.[BI_FLOW_DETAIL_KEY.UX_PERCENT] + total_engagement_score ?? 0,
       },
       {
         text: t('txt_page_view'),
         value: data?.[BI_FLOW_DETAIL_KEY.PAGE_VIEW] ?? 0,
       },
-    ],
-    [data]
-  );
+      {
+        text: 'Total metric value',
+        value: `${total_metric_value ? total_metric_value : 0}${
+          dataStream?.utm_currency ? ` ${dataStream?.utm_currency}` : ''
+        }`,
+      },
+    ];
+  }, [data]);
   const handleChangeLink = (e, link) => {
     e.preventDefault();
     if (link) {
@@ -314,12 +346,17 @@ const FlowDetailContainer = observer((props) => {
                     ?.sort((a, b) => new Date(a.start) - new Date(b.start))
                     ?.map((item, key) => {
                       const ogData = fetchOG.find((i) => item.url == i.url);
+                      const utm_value =
+                        item.utm_value_type === item.event_name ? item.utm_value : 0;
+                      const metric_value = item.tag_metric_value + utm_value;
+                      const engagement_score =
+                        item.tag_engagement_value + item.utm_engagement_weight;
                       return (
                         <div className="d-flex align-items-center mb-24 flow-detail-item" key={key}>
                           <div className="flow-detail-item-image me-18px">
                             <Image
                               className={`object-fit-cover rounded-3 overflow-hidden`}
-                              style={{ width: 148, height: 95 }}
+                              style={{ minWidth: 148, width: 148, minHeight: 95, height: 95 }}
                               src={
                                 item?.[BI_EVENTS_FIELD_KEY.OG_IMAGE]
                                   ? item?.[BI_EVENTS_FIELD_KEY.OG_IMAGE]
@@ -381,6 +418,21 @@ const FlowDetailContainer = observer((props) => {
                                 {item[BI_VISITOR_FIELD_KEY.URL]}
                               </a>
                             </div>
+                            {metric_value ? (
+                              <div className="w-100 mb-0 fw-medium w-100 lh-base text-gray-heading fs-14">
+                                Metric value: {metric_value}
+                                {dataStream?.utm_currency ? ` ${dataStream?.utm_currency}` : ''}
+                              </div>
+                            ) : (
+                              <></>
+                            )}
+                            {engagement_score ? (
+                              <div className="w-100 mb-0 fw-medium w-100 lh-base text-gray-heading fs-14">
+                                Engagement score: {engagement_score}
+                              </div>
+                            ) : (
+                              <></>
+                            )}
                           </div>
                         </div>
                       );

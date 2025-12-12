@@ -60,6 +60,12 @@ const mainMenu = [
         link: `/behavior/events`,
         page: 'behavior-events',
       },
+      {
+        text: 'Tag Value Mapping',
+        mini_text: 'Tag Value Mapping',
+        link: `/tag-events`,
+        page: 'tag-events',
+      },
     ],
   },
   {

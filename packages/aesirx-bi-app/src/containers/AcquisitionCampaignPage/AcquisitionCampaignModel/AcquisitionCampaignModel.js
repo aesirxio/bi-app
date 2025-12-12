@@ -198,7 +198,7 @@ class AcquisitionCampaignModel {
           accessor: key,
           Cell: ({ cell, column }) => {
             return column.id === BI_SUMMARY_FIELD_KEY.BOUNCE_RATE ? (
-              <div className={'px-3'}>{cell?.value + '%' ?? null}</div>
+              <div className={'px-3'}>{cell?.value ? cell?.value : 0 + '%' ?? null}</div>
             ) : column.id === BI_SUMMARY_FIELD_KEY.AVERAGE_SESSION_DURATION ? (
               <div className={'px-15'}>
                 {cell?.value ? moment.utc(cell?.value * 1000).format('HH:mm:ss') : '00:00:00'}

@@ -42,40 +42,48 @@ const Dashboard = observer(
         this.props.location !== prevProps.location ||
         this.props.activeDomain !== prevProps.activeDomain
       ) {
-        this.dashboardListViewModel.initialize(
-          this.context.biListViewModel.activeDomain
+        this.dashboardListViewModel.initialize({
+          ...this.context.biListViewModel.activeDomain
             ?.map((value, index) => ({
               [`filter[domain][${index + 1}]`]: value,
             }))
-            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {})
-        );
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
+        });
       }
     };
 
     componentDidMount = async () => {
-      this.dashboardListViewModel.initialize(
-        this.context.biListViewModel.activeDomain
+      this.dashboardListViewModel.initialize({
+        ...this.context.biListViewModel.activeDomain
           ?.map((value, index) => ({
             [`filter[domain][${index + 1}]`]: value,
           }))
-          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {})
-      );
+          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+        'filter_not[visibility_change]': 'true',
+      });
       try {
         setInterval(async () => {
           this.dashboardListViewModel.getLiveVisitorsTotal(
-            this.context.biListViewModel.activeDomain
-              ?.map((value, index) => ({
-                [`filter[domain][${index + 1}]`]: value,
-              }))
-              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+            {
+              ...this.context.biListViewModel.activeDomain
+                ?.map((value, index) => ({
+                  [`filter[domain][${index + 1}]`]: value,
+                }))
+                ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+              'filter_not[visibility_change]': 'true',
+            },
             true
           );
           this.dashboardListViewModel.getLiveVisitorsList(
-            this.context.biListViewModel.activeDomain
-              ?.map((value, index) => ({
-                [`filter[domain][${index + 1}]`]: value,
-              }))
-              ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+            {
+              ...this.context.biListViewModel.activeDomain
+                ?.map((value, index) => ({
+                  [`filter[domain][${index + 1}]`]: value,
+                }))
+                ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+              'filter_not[visibility_change]': 'true',
+            },
             true
           );
         }, 30000);
@@ -90,11 +98,14 @@ const Dashboard = observer(
 
     handleSortPage = async (column) => {
       this.dashboardListViewModel.getPages(
-        this.context.biListViewModel.activeDomain
-          ?.map((value, index) => ({
-            [`filter[domain][${index + 1}]`]: value,
-          }))
-          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+        {
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
+        },
         {},
         {
           'sort[]': column?.id,
@@ -108,11 +119,14 @@ const Dashboard = observer(
 
     handleSortSources = async (column) => {
       this.dashboardListViewModel.getReferer(
-        this.context.biListViewModel.activeDomain
-          ?.map((value, index) => ({
-            [`filter[domain][${index + 1}]`]: value,
-          }))
-          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+        {
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
+        },
         {},
         {
           'sort[]': column?.id,
@@ -126,11 +140,14 @@ const Dashboard = observer(
 
     handleSortEventType = async (column) => {
       this.dashboardListViewModel.getEventsType(
-        this.context.biListViewModel.activeDomain
-          ?.map((value, index) => ({
-            [`filter[domain][${index + 1}]`]: value,
-          }))
-          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+        {
+          ...this.context.biListViewModel.activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
+        },
         {},
         {
           'sort[]': column?.id,

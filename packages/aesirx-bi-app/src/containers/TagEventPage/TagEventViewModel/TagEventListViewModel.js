@@ -7,12 +7,12 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { PAGE_STATUS, notify } from 'aesirx-uikit';
 import UTMTrackingEventModel from 'containers/UTMTrackingPage/UTMTrackingModel/UTMTrackingListEventModel';
 
-class UTMLinkListViewModel {
+class TagEventListViewModel {
   formStatus = PAGE_STATUS.READY;
   formCurrencyStatus = PAGE_STATUS.READY;
   statusUTM = PAGE_STATUS.READY;
   dataUTM = null;
-  utmLinkListViewModel = { formPropsData: [{ utm_currency: '' }] };
+  tagEventListViewModel = { formPropsData: [{ utm_currency: '' }] };
   items = [];
   filter = {};
   successResponse = {
@@ -23,20 +23,20 @@ class UTMLinkListViewModel {
     filters: {
       'list[limit]': 50,
     },
-    listUTMLinks: [],
+    listTagEvents: [],
     pagination: null,
-    listUTMLinksWithoutPagination: [],
+    listTagEventsWithoutPagination: [],
   };
 
-  constructor(utmLinkStore, globalStoreViewModel) {
+  constructor(tagEventStore, globalStoreViewModel) {
     makeAutoObservable(this);
-    this.utmLinkStore = utmLinkStore;
+    this.tagEventStore = tagEventStore;
     console.log('globalStoreViewModelneee', globalStoreViewModel);
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
-  setForm = (utmLinkListViewModel) => {
-    this.utmLinkListViewModel = utmLinkListViewModel;
+  setForm = (tagEventListViewModel) => {
+    this.tagEventListViewModel = tagEventListViewModel;
   };
 
   getUTMData = async (dataFilter, dateFilter, globalStoreViewModel) => {
@@ -50,7 +50,7 @@ class UTMLinkListViewModel {
       ...(globalStoreViewModel.dateFilter ? { ...globalStoreViewModel.dateFilter } : {}),
       ...dateFilter,
     };
-    this.utmLinkStore.getAttributeDateUtm(
+    this.tagEventStore.getAttributeDateTagEvent(
       this.dataFilterUTM,
       dateRangeFilter,
       this.callbackOnDataUTMSuccessHandler,
@@ -63,11 +63,11 @@ class UTMLinkListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
-    const data = await this.utmLinkStore.getList(activeDomain[0]);
+    const data = await this.tagEventStore.getList(activeDomain[0]);
 
     runInAction(() => {
       if (!data?.error) {
-        this.callbackOnSuccessGetUTMLinksHandler(data?.response);
+        this.callbackOnSuccessGetTagEventsHandler(data?.response);
       } else {
         this.onErrorListHandler(data?.response);
       }
@@ -81,14 +81,12 @@ class UTMLinkListViewModel {
             [`filter[domain][${index + 1}]`]: value,
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-        'filter[attribute_name][0]': 'utm_campaign',
-        'filter_not[visibility_change]': 'true',
       },
       null,
       globalStoreViewModel
     );
-    if (!this.utmLinkListViewModel.formPropsData.utm_currency) {
-      this.utmLinkListViewModel.formPropsData.utm_currency =
+    if (!this.tagEventListViewModel.formPropsData.utm_currency) {
+      this.tagEventListViewModel.formPropsData.utm_currency =
         globalStoreViewModel?.dataStream?.utm_currency;
     }
   };
@@ -113,7 +111,7 @@ class UTMLinkListViewModel {
   };
 
   onErrorListHandler = (error) => {
-    this.successResponse.listUTMLinksWithoutPagination = [];
+    this.successResponse.listTagEventsWithoutPagination = [];
     if (error?.code === 404) {
       notify('Cannot create!', 'error');
     } else {
@@ -127,8 +125,8 @@ class UTMLinkListViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  deleteUTMLinks = async (arr, activeDomain, globalStoreViewModel) => {
-    const data = await this.utmLinkStore.delete(arr);
+  deleteTagEvents = async (arr, activeDomain, globalStoreViewModel) => {
+    const data = await this.tagEventStore.delete(arr);
     runInAction(async () => {
       if (!data?.error) {
         await this.initializeAllData(activeDomain, globalStoreViewModel);
@@ -140,19 +138,15 @@ class UTMLinkListViewModel {
     });
   };
 
-  callbackOnSuccessGetUTMLinksHandler = (result) => {
+  callbackOnSuccessGetTagEventsHandler = (result) => {
     if (result?.length) {
-      this.successResponse.listUTMLinksWithoutPagination = result?.map((o) => {
+      this.successResponse.listTagEventsWithoutPagination = result?.map((o) => {
         return {
           id: o?._id?.$oid,
-          label: o?.campaign_label,
-          utm_source: o?.utm_source,
-          utm_campaign: o?.utm_campaign,
-          value: o?.value,
-          value_type: o?.value_type,
-          engagement_weight: o?.engagement_weight,
+          metric_value: o?.metric_value,
+          engagement_value: o?.engagement_value,
           publish: o?.publish,
-          link: o?.link,
+          event_name: o?.event_name,
         };
       });
     }
@@ -166,7 +160,7 @@ class UTMLinkListViewModel {
 
   update = async (formData, activeDomain, globalStoreViewModel) => {
     this.formStatus = PAGE_STATUS.LOADING;
-    const data = await this.utmLinkStore.update(formData);
+    const data = await this.tagEventStore.update(formData);
     runInAction(async () => {
       if (!data?.error) {
         await this.initializeAllData(activeDomain, globalStoreViewModel);
@@ -181,10 +175,10 @@ class UTMLinkListViewModel {
 
   updateConsentsTemplate = async (formData, activeDomain, globalStoreViewModel) => {
     this.formCurrencyStatus = PAGE_STATUS.LOADING;
-    const data = await this.utmLinkStore.updateConsentsTemplate(formData);
+    const data = await this.tagEventStore.updateConsentsTemplate(formData);
     runInAction(async () => {
       if (!data?.error) {
-        this.utmLinkListViewModel.formPropsData.utm_currency = formData?.utm_currency;
+        this.tagEventListViewModel.formPropsData.utm_currency = formData?.utm_currency;
         await this.initializeAllData(activeDomain, globalStoreViewModel);
         this.onSuccessConsentTemplateHandler(data?.response, 'Updated successfully');
       } else {
@@ -239,4 +233,4 @@ class UTMLinkListViewModel {
   };
 }
 
-export default UTMLinkListViewModel;
+export default TagEventListViewModel;

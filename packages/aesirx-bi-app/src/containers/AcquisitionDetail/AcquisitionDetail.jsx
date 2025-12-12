@@ -47,6 +47,7 @@ const AcquisitionDetail = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
           'filter[acquisition]': true,
           ...(this.params?.url === 'direct'
             ? { 'filter[filter_not]': '' }
@@ -62,6 +63,7 @@ const AcquisitionDetail = observer(
             [`filter[domain][${index + 1}]`]: value,
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+        'filter_not[visibility_change]': 'true',
         'filter[acquisition]': true,
         ...(this.params?.url === 'direct'
           ? { 'filter[filter_not]': '' }
@@ -84,6 +86,7 @@ const AcquisitionDetail = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
           'filter[acquisition]': true,
           ...(this.params?.url === 'direct'
             ? { 'filter[filter_not]': '' }
@@ -108,6 +111,7 @@ const AcquisitionDetail = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
           'filter[acquisition]': true,
           ...(this.params?.url === 'direct'
             ? { 'filter[filter_not]': '' }

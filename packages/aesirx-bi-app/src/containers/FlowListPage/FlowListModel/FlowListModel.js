@@ -29,17 +29,20 @@ class FlowListModel {
       this.globalViewModel.setIntegrationLink(link);
     }
   };
-  toFlowListTable = (integration) => {
+  toFlowListTable = (integration, utm_currency = '') => {
+    console.log('this.data', this.data);
+
     const headerTable = [
       'txt_time_utc',
       'txt_locale',
       'txt_sop_id',
-      'txt_ux_percent',
+      'txt_ux_score',
       'txt_duration',
       'txt_page_views',
       'txt_action',
       'txt_event',
       'txt_conversion',
+      'Metric Value',
       'txt_traffic',
       // 'txt_url',
       '',
@@ -58,6 +61,7 @@ class FlowListModel {
       BI_FLOW_LIST_FIELD_KEY.ACTION,
       BI_FLOW_LIST_FIELD_KEY.EVENT,
       BI_FLOW_LIST_FIELD_KEY.CONVERSION,
+      BI_FLOW_LIST_FIELD_KEY.EVENTS,
       BI_FLOW_LIST_FIELD_KEY.TRAFFIC,
       // BI_FLOW_LIST_FIELD_KEY.URL,
       BI_FLOW_LIST_FIELD_KEY.UUID,
@@ -73,7 +77,7 @@ class FlowListModel {
           width:
             key === BI_FLOW_LIST_FIELD_KEY.START
               ? 160
-              : key === BI_FLOW_LIST_FIELD_KEY.SOP_ID
+              : key === BI_FLOW_LIST_FIELD_KEY.SOP_ID || key === BI_FLOW_LIST_FIELD_KEY.EVENTS
               ? 100
               : key === BI_FLOW_LIST_FIELD_KEY.EVENT ||
                 key === BI_FLOW_LIST_FIELD_KEY.DURATION ||
@@ -84,7 +88,7 @@ class FlowListModel {
                 key === BI_FLOW_LIST_FIELD_KEY.GEO
               ? 10
               : key === BI_FLOW_LIST_FIELD_KEY.UX_PERCENT
-              ? 50
+              ? 80
               : key === BI_FLOW_LIST_FIELD_KEY.URL
               ? 230
               : key === BI_FLOW_LIST_FIELD_KEY.UUID
@@ -171,39 +175,75 @@ class FlowListModel {
               return <div className={'px-3'}>{cell?.value}%</div>;
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.UX_PERCENT) {
               const uxPercentDetail = cell?.row?.original?.uxPercentDetail ?? {};
+              const total_tag_metric_value = cell?.row?.original?.events?.length
+                ? cell?.row?.original?.events?.reduce(
+                    (sum, item) => sum + (item.tag_metric_value || 0),
+                    0
+                  )
+                : 0;
+              const total_utm_value = cell?.row?.original?.events?.length
+                ? cell?.row?.original?.events?.reduce((sum, item) => {
+                    if (item.utm_value_type === item.event_name) {
+                      return sum + (item.utm_value || 0);
+                    }
+                    return sum;
+                  }, 0)
+                : 0;
               return (
                 <div className="ux-percent position-relative d-flex align-items-center">
                   <div className="set-size charts-container">
                     <div className="pie-wrapper progress-75 style-2">
-                      <div className={`pie ${cell?.value <= 50 ? 'below-50' : 'above-50'}`}>
+                      <div
+                        className={`pie ${
+                          cell?.value + total_utm_value + total_tag_metric_value <= 50
+                            ? 'below-50'
+                            : 'above-50'
+                        }`}
+                      >
                         <div
                           className="left-side half-circle"
-                          style={{ transform: `rotate(${cell?.value * 3.6}deg)` }}
+                          style={{
+                            transform: `rotate(${
+                              cell?.value + total_utm_value + total_tag_metric_value > 100
+                                ? 360
+                                : (cell?.value + total_utm_value + total_tag_metric_value) * 3.6
+                            }deg)`,
+                          }}
                         ></div>
                         <div className="right-side half-circle"></div>
                       </div>
                       <div className="shadow-pie"></div>
                     </div>
                   </div>
-                  <div className="ms-2"> {cell?.value}%</div>
+                  <div className="ms-2">
+                    {cell?.value + total_utm_value + total_tag_metric_value}
+                  </div>
                   <div className="position-absolute ux-percent-detail">
                     <p className="d-flex justify-content-between mb-0 text-white">
                       Visit Actions
                       <span className="fw-semibold">
-                        {uxPercentDetail[BI_FLOW_LIST_FIELD_KEY.VISIT_ACTIONS] ?? 0}%
+                        {uxPercentDetail[BI_FLOW_LIST_FIELD_KEY.VISIT_ACTIONS] ?? 0}
                       </span>
                     </p>
                     <p className="d-flex justify-content-between mb-0 text-white">
                       Event Actions
                       <span className="fw-semibold">
-                        {uxPercentDetail[BI_FLOW_LIST_FIELD_KEY.EVENT_ACTIONS] ?? 0}%
+                        {uxPercentDetail[BI_FLOW_LIST_FIELD_KEY.EVENT_ACTIONS] ?? 0}
                       </span>
                     </p>
                     <p className="d-flex justify-content-between mb-0 text-white">
                       Conversion Actions
                       <span className="fw-semibold">
-                        {uxPercentDetail[BI_FLOW_LIST_FIELD_KEY.CONVERSION_ACTIONS] ?? 0}%
+                        {uxPercentDetail[BI_FLOW_LIST_FIELD_KEY.CONVERSION_ACTIONS] ?? 0}
                       </span>
+                    </p>
+                    <p className="d-flex justify-content-between mb-0 text-white">
+                      UTM engagement score
+                      <span className="fw-semibold">{total_utm_value ?? 0}</span>
+                    </p>
+                    <p className="d-flex justify-content-between mb-0 text-white">
+                      Tag value engagement score
+                      <span className="fw-semibold">{total_tag_metric_value ?? 0}</span>
                     </p>
                   </div>
                 </div>
@@ -245,6 +285,25 @@ class FlowListModel {
                   ) : (
                     <></>
                   )}
+                </div>
+              );
+            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.EVENTS) {
+              const total_tag_metric_value = cell?.value?.length
+                ? cell?.value?.reduce((sum, item) => sum + (item.tag_metric_value || 0), 0)
+                : 0;
+              const total_utm_value = cell?.value?.length
+                ? cell?.value?.reduce((sum, item) => {
+                    if (item.utm_value_type === item.event_name) {
+                      return sum + (item.utm_value || 0);
+                    }
+                    return sum;
+                  }, 0)
+                : 0;
+              const total_metric_value = total_tag_metric_value + total_utm_value;
+              return (
+                <div className={'px-3'}>
+                  {total_metric_value ? total_metric_value : 0}{' '}
+                  {`${utm_currency ? utm_currency : ''}`}
                 </div>
               );
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.SOP_ID) {

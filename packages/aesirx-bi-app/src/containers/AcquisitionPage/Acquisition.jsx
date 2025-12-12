@@ -37,6 +37,7 @@ const AcquisitionPage = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
           'filter[acquisition]': true,
         },
         {},
@@ -55,6 +56,7 @@ const AcquisitionPage = observer(
                 [`filter[domain][${index + 1}]`]: value,
               }))
               ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+            'filter_not[visibility_change]': 'true',
             'filter[acquisition]': true,
           },
           {},
@@ -138,6 +140,7 @@ const AcquisitionPage = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
         },
         {},
         {
@@ -156,6 +159,7 @@ const AcquisitionPage = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
         },
         {},
         {},

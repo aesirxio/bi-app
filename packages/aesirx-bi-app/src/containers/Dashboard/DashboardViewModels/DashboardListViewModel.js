@@ -132,6 +132,7 @@ class DashboardListViewModel {
       {
         ...this.dataFilter,
         page_size: '10',
+        'filter_not[visibility_change]': 'true',
         'sort[]': 'number_of_page_views',
         'sort_direction[]': 'desc',
       },
@@ -150,7 +151,6 @@ class DashboardListViewModel {
     this.sortByBrowsers = sortBy;
     this.dataFilterBrowsers = {
       page_size: '8',
-
       ...this.dataFilterBrowsers,
       ...dataFilter,
       ...this.sortByBrowsers,
@@ -186,6 +186,7 @@ class DashboardListViewModel {
     this.sortByDevices = sortBy;
     this.dataFilterDevices = {
       page_size: '8',
+
       ...this.dataFilterDevices,
       ...dataFilter,
       ...this.sortByDevices,

@@ -37,7 +37,6 @@ const VisitorsPage = observer(
             [`filter[domain][${index + 1}]`]: value,
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-        'filter_not[visibility_change]': 'true',
       });
     };
     componentDidUpdate = (prevProps) => {
@@ -51,7 +50,6 @@ const VisitorsPage = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-          'filter_not[visibility_change]': 'true',
         });
       }
     };
@@ -67,7 +65,6 @@ const VisitorsPage = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-          'filter_not[visibility_change]': 'true',
           'with[]': 'events',
         },
         {},

@@ -47,7 +47,6 @@ const FlowList = observer(
                 [`filter[domain][${index + 1}]`]: value,
               }))
               ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-            'filter_not[visibility_change]': 'true',
             'with[]': 'events',
             ...(this.params?.pagination && { page: this.params?.pagination }),
           },
@@ -81,7 +80,6 @@ const FlowList = observer(
                 [`filter[domain][${index + 1}]`]: value,
               }))
               ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-            'filter_not[visibility_change]': 'true',
             'with[]': 'events',
           },
           {},
@@ -115,7 +113,6 @@ const FlowList = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-          'filter_not[visibility_change]': 'true',
           'with[]': 'events',
           ...(this.params?.pagination && { page: this.params?.pagination }),
         },
@@ -174,7 +171,6 @@ const FlowList = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-          'filter_not[visibility_change]': 'true',
           'with[]': 'events',
         },
         {},

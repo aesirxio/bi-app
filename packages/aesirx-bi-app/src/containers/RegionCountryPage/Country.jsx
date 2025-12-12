@@ -35,7 +35,6 @@ const Country = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-          'filter_not[visibility_change]': 'true',
         });
       }
 
@@ -46,7 +45,6 @@ const Country = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-          'filter_not[visibility_change]': 'true',
         });
       }
     };
@@ -58,7 +56,6 @@ const Country = observer(
             [`filter[domain][${index + 1}]`]: value,
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-        'filter_not[visibility_change]': 'true',
       });
     };
 
@@ -74,7 +71,6 @@ const Country = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-          'filter_not[visibility_change]': 'true',
         },
         {},
         {

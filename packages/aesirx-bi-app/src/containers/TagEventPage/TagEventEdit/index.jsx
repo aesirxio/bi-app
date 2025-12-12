@@ -15,7 +15,6 @@ import { withTagEventViewModel } from '../TagEventViewModel/TagEventViewModelCon
 import EditHeader from 'components/EditHeader';
 import { PAGE_STATUS, Spinner, Input, ActionsBar, FormSelection } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
-import CreatableSelect from 'react-select/creatable';
 
 const EditTagEvent = observer(
   class EditTagEvent extends Component {

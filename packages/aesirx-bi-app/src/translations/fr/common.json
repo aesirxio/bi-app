@@ -225,7 +225,7 @@
   "txt_input_gtag_id": "ID de balise d'entrée",
   "txt_input_gtm_id": "ID d'entrée GTM",
   "txt_clicks": "Clics",
-  "txt_ux_percent": "% UX",
+  "txt_ux_score": "UX score",
   "txt_search_url": "URL de recherche",
   "txt_total_events": "Total d'événements",
   "txt_total_actions": "Total des actions",

@@ -225,7 +225,7 @@
   "txt_input_gtag_id": "Input Gtag ID",
   "txt_input_gtm_id": "Input GTM ID",
   "txt_clicks": "Clicks",
-  "txt_ux_percent": "UX %",
+  "txt_ux_score": "UX score",
   "txt_search_url": "Search URL",
   "txt_total_events": "Total Events",
   "txt_total_actions": "Total Actions",

@@ -42,6 +42,7 @@ const AcquisitionCampaignPage = observer((props) => {
         'filter[attribute_name][0]': 'utm_source',
         'filter[attribute_name][1]': 'gad_source',
         'filter[acquisition]': true,
+        'filter_not[visibility_change]': 'true',
       });
       await getAttributeTable({
         ...activeDomain
@@ -52,6 +53,7 @@ const AcquisitionCampaignPage = observer((props) => {
         'filter[attribute_name][0]': 'utm_source',
         'filter[attribute_name][1]': 'gad_source',
         'filter[acquisition]': true,
+        'filter_not[visibility_change]': 'true',
       });
       await getAttributeList({
         ...activeDomain
@@ -62,6 +64,7 @@ const AcquisitionCampaignPage = observer((props) => {
         'filter[attribute_name][0]': 'utm_source',
         'filter[attribute_name][1]': 'gad_source',
         'filter[acquisition]': true,
+        'filter_not[visibility_change]': 'true',
       });
     };
     execute();
@@ -76,6 +79,7 @@ const AcquisitionCampaignPage = observer((props) => {
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
+        'filter_not[visibility_change]': 'true',
       },
       {},
       {

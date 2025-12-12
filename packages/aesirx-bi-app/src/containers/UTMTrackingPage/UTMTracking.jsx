@@ -75,6 +75,7 @@ const UTMTrackingPage = observer((props) => {
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name][0]': 'utm_source',
         'filter[attribute_name][1]': 'gad_source',
+        'filter_not[visibility_change]': 'true',
       });
       getVisitor({
         ...activeDomain
@@ -84,6 +85,7 @@ const UTMTrackingPage = observer((props) => {
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name][0]': 'utm_source',
         'filter[attribute_name][1]': 'gad_source',
+        'filter_not[visibility_change]': 'true',
       });
       getAttributeList({
         ...activeDomain
@@ -100,6 +102,7 @@ const UTMTrackingPage = observer((props) => {
           }))
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name][0]': 'utm_campaign',
+        'filter_not[visibility_change]': 'true',
       });
     };
     execute();

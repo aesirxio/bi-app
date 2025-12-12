@@ -37,6 +37,7 @@ const VisitorsBehaviorPage = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
         },
         {},
         { ...(this.params?.pagination && { page: this.params?.pagination }) }
@@ -54,6 +55,7 @@ const VisitorsBehaviorPage = observer(
                 [`filter[domain][${index + 1}]`]: value,
               }))
               ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+            'filter_not[visibility_change]': 'true',
           },
           {},
           { ...(this.params?.pagination && { page: this.params?.pagination }) }
@@ -130,6 +132,7 @@ const VisitorsBehaviorPage = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
         },
         {},
         {
@@ -148,6 +151,7 @@ const VisitorsBehaviorPage = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
         },
         {},
         {},

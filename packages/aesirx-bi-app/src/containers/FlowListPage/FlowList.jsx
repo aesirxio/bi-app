@@ -47,6 +47,7 @@ const FlowList = observer(
                 [`filter[domain][${index + 1}]`]: value,
               }))
               ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+            'filter_not[visibility_change]': 'true',
             'with[]': 'events',
             ...(this.params?.pagination && { page: this.params?.pagination }),
           },
@@ -80,6 +81,7 @@ const FlowList = observer(
                 [`filter[domain][${index + 1}]`]: value,
               }))
               ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+            'filter_not[visibility_change]': 'true',
             'with[]': 'events',
           },
           {},
@@ -113,6 +115,7 @@ const FlowList = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
           'with[]': 'events',
           ...(this.params?.pagination && { page: this.params?.pagination }),
         },
@@ -171,6 +174,7 @@ const FlowList = observer(
               [`filter[domain][${index + 1}]`]: value,
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter_not[visibility_change]': 'true',
           'with[]': 'events',
         },
         {},
@@ -478,7 +482,8 @@ const FlowList = observer(
               ) : this.flowListListViewModel?.countriesTableData?.list ? (
                 <FlowListTable
                   data={this.flowListListViewModel?.countriesTableData?.list?.toFlowListTable(
-                    this.props.integration
+                    this.props.integration,
+                    this.context.biListViewModel.dataStream?.utm_currency
                   )}
                   pagination={this.flowListListViewModel?.countriesTableData?.pagination}
                   selectPage={async (value) => {

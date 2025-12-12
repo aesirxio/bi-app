@@ -32,7 +32,8 @@ const UserPage = lazy(() => import('../containers/UserPage'));
 const EditUserProvider = lazy(() => import('../containers/UserPage/edit'));
 const UtmLinkPage = lazy(() => import('../containers/UTMLinkPage'));
 const EditUtmLinkProvider = lazy(() => import('../containers/UTMLinkPage/edit'));
-
+const TagEventPage = lazy(() => import('../containers/TagEventPage'));
+const EditTagEventProvider = lazy(() => import('../containers/TagEventPage/edit'));
 const authRoutes = [
   {
     path: '/login',
@@ -197,6 +198,21 @@ const mainRoutes = [
     path: ['/utm-links/link'],
     exact: true,
     main: () => <EditUtmLinkProvider isLink />,
+  },
+  {
+    path: ['/tag-events'],
+    exact: true,
+    main: () => <TagEventPage />,
+  },
+  {
+    path: ['/tag-events/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditTagEventProvider match={match} />,
+  },
+  {
+    path: ['/tag-events/link'],
+    exact: true,
+    main: () => <EditTagEventProvider isLink />,
   },
 ];
 

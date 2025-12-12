@@ -115,7 +115,6 @@ class DashboardListViewModel {
     this.dashboardStore.getVisitors(
       {
         ...this.dataFilter,
-        // 'filter_not[visibility_change]': 'true',
         page_size: '1000',
       },
       dateRangeFilter,
@@ -152,7 +151,6 @@ class DashboardListViewModel {
     this.sortByBrowsers = sortBy;
     this.dataFilterBrowsers = {
       page_size: '8',
-      // 'filter_not[visibility_change]': 'true',
       ...this.dataFilterBrowsers,
       ...dataFilter,
       ...this.sortByBrowsers,
@@ -188,7 +186,7 @@ class DashboardListViewModel {
     this.sortByDevices = sortBy;
     this.dataFilterDevices = {
       page_size: '8',
-      // 'filter_not[visibility_change]': 'true',
+
       ...this.dataFilterDevices,
       ...dataFilter,
       ...this.sortByDevices,
@@ -224,7 +222,6 @@ class DashboardListViewModel {
     this.sortByPages = sortBy;
     this.dataFilterPages = {
       page_size: '8',
-      // 'filter_not[visibility_change]': 'true',
       ...this.dataFilterPages,
       ...dataFilter,
       ...this.sortByPages,
@@ -248,7 +245,6 @@ class DashboardListViewModel {
     this.sortByAttribute = sortBy;
     this.dataFilterPages = {
       page_size: '8',
-      // 'filter_not[visibility_change]': 'true',
       ...this.dataFilterPages,
       ...dataFilter,
       ...this.sortByAttribute,
@@ -296,7 +292,6 @@ class DashboardListViewModel {
     this.sortByEventsType = sortBy;
     this.dataFilterEventsType = {
       page_size: '8',
-      // 'filter_not[visibility_change]': 'true',
       ...this.dataFilterEventsType,
       ...dataFilter,
       ...this.sortByEventsType,
@@ -320,7 +315,6 @@ class DashboardListViewModel {
     this.sortBySources = sortBy;
     this.dataFilterSources = {
       page_size: '8',
-      // 'filter_not[visibility_change]': 'true',
       ...this.dataFilterSources,
       ...dataFilter,
       ...this.sortBySources,

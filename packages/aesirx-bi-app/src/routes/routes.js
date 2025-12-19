@@ -34,6 +34,7 @@ const UtmLinkPage = lazy(() => import('../containers/UTMLinkPage'));
 const EditUtmLinkProvider = lazy(() => import('../containers/UTMLinkPage/edit'));
 const TagEventPage = lazy(() => import('../containers/TagEventPage'));
 const EditTagEventProvider = lazy(() => import('../containers/TagEventPage/edit'));
+const RealTimePage = lazy(() => import('../containers/RealTimePage'));
 const authRoutes = [
   {
     path: '/login',
@@ -133,6 +134,12 @@ const mainRoutes = [
     page: 'visitors-locations',
     exact: true,
     main: () => <RegionCountryPage />,
+  },
+  {
+    path: '/visitors/realtime',
+    page: 'visitors-realtime',
+    exact: true,
+    main: () => <RealTimePage />,
   },
   {
     path: '/flow-list',

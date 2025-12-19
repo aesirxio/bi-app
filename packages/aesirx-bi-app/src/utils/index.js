@@ -22,4 +22,26 @@ const downloadExcel = async (data, nameFile) => {
   link.download = `${nameFile}.xlsx`;
   link.click();
 };
-export { downloadExcel };
+const timeAgo = (isoString) => {
+  const now = Date.now();
+  const past = new Date(isoString).getTime();
+  const diff = Math.floor((now - past) / 1000); // seconds
+
+  if (diff < 60) {
+    return `${diff}s ago`;
+  }
+
+  const minutes = Math.floor(diff / 60);
+  if (minutes < 60) {
+    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+  }
+
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) {
+    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+  }
+
+  const days = Math.floor(hours / 24);
+  return `${days} day${days > 1 ? 's' : ''} ago`;
+};
+export { downloadExcel, timeAgo };

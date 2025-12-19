@@ -131,6 +131,7 @@ class VisitorsListViewModel {
       {
         ...this.dataFilter,
         page_size: '1000',
+        'filter_not[visibility_change]': 'true',
       },
       dateRangeFilter,
       this.callbackOnVisitorSuccessHandler,
@@ -145,6 +146,7 @@ class VisitorsListViewModel {
     this.visitorsStore.getVisits(
       {
         ...this.dataFilter,
+        'filter_not[visibility_change]': 'true',
         page_size: '1000',
       },
       dateRangeFilter,

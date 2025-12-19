@@ -35,6 +35,7 @@ const Dashboard = observer(
       this.dashboardListViewModel = this.viewModel
         ? this.viewModel.getDashboardListViewModel()
         : null;
+      this.realtimeInterval = null;
     }
 
     componentDidUpdate = (prevProps) => {
@@ -61,7 +62,7 @@ const Dashboard = observer(
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
       });
       try {
-        setInterval(async () => {
+        this.realtimeInterval = setInterval(async () => {
           this.dashboardListViewModel.getLiveVisitorsTotal(
             {
               ...this.context.biListViewModel.activeDomain
@@ -82,11 +83,18 @@ const Dashboard = observer(
             },
             true
           );
-        }, 30000);
+        }, 15000);
       } catch (e) {
         console.log(e);
       }
     };
+
+    componentWillUnmount() {
+      if (this.realtimeInterval) {
+        clearInterval(this.realtimeInterval);
+        this.realtimeInterval = null;
+      }
+    }
 
     handleDateRangeChange = (startDate, endDate) => {
       this.dashboardListViewModel.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
@@ -228,14 +236,14 @@ const Dashboard = observer(
                           {this.props.integration ? (
                             <a
                               href="#"
-                              onClick={(e) => this.props.handleChangeLink(e, `/flow-list`)}
+                              onClick={(e) => this.props.handleChangeLink(e, `/visitors/realtime`)}
                               className={'text-secondary-50 text-nowrap fw-medium'}
                             >
                               {t('txt_view_more')}
                             </a>
                           ) : (
                             <Link
-                              to="/flow-list"
+                              to="/visitors/realtime"
                               className="text-secondary-50 text-nowrap fw-medium"
                             >
                               {t('txt_view_more')}

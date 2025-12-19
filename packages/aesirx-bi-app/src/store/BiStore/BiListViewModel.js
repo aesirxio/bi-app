@@ -111,10 +111,6 @@ class BiListViewModel {
         ...queryString.parse(location.search),
         ...{ page: 'aesirx-bi-' + link },
       };
-      console.log(
-        'unescape(queryString.stringify(search))',
-        unescape(queryString.stringify(search))
-      );
       history.push({
         ...location,
         ...{ search: unescape(queryString.stringify(search)) },
@@ -147,7 +143,8 @@ class BiListViewModel {
       !location?.pathname?.startsWith('/user-handling/edit') &&
       location?.pathname !== '/utm-links/link' &&
       !location?.pathname?.startsWith('/utm-links/edit') &&
-      location?.pathname !== '/utm-links/add'
+      location?.pathname !== '/utm-links/add' &&
+      location?.pathname !== '/visitors/realtime'
     ) {
       history.push({
         ...location,

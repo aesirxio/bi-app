@@ -115,6 +115,7 @@ class DashboardListViewModel {
     this.dashboardStore.getVisitors(
       {
         ...this.dataFilter,
+        'filter_not[visibility_change]': 'true',
         page_size: '1000',
       },
       dateRangeFilter,
@@ -248,6 +249,7 @@ class DashboardListViewModel {
       ...this.dataFilterPages,
       ...dataFilter,
       ...this.sortByAttribute,
+      'filter_not[visibility_change]': 'true',
     };
     const dateRangeFilter = { ...this.globalStoreViewModel.dateFilter, ...dateFilter };
 

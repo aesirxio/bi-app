@@ -120,6 +120,12 @@ const mainMenu = [
         link: `/visitors/platforms`,
         page: 'visitors-platforms',
       },
+      {
+        text: 'Real-Time',
+        mini_text: 'Real-Time',
+        link: `/visitors/realtime`,
+        page: 'visitors-realtime',
+      },
     ],
   },
   {

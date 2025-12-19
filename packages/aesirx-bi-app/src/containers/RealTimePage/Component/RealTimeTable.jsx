@@ -1,4 +1,3 @@
-import { BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 import Table from '../../../components/Table';
 import React from 'react';
 import { withTranslation } from 'react-i18next';

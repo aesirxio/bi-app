@@ -9,7 +9,6 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import moment from 'moment';
 import RealTimeModel from '../RealTimeModel/RealTimeModel';
 import queryString from 'query-string';
-import EventsListModel from 'containers/EventsPage/EventsModel/EventsListEventModel';
 import { BI_LIVE_VISITORS_TOTAL_FIELD_KEY } from 'aesirx-lib';
 
 class RealTimeListViewModel {

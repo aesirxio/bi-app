@@ -13,7 +13,6 @@ import 'flag-icons/sass/flag-icons.scss';
 import queryString from 'query-string';
 import { Col, Row, Spinner } from 'react-bootstrap';
 import { AesirXSelect } from 'aesirx-uikit';
-import _ from 'lodash';
 const RealTime = observer(
   class RealTime extends Component {
     static contextType = BiViewModelContext;

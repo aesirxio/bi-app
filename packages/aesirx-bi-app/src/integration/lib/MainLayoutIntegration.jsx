@@ -252,7 +252,7 @@ const App = observer((props) => {
                         }}
                         className={`d-flex align-items-center me-3 px-4 py-10 text-decoration-none fw-medium border rounded-pill ${
                           integrationLink === menuList.page ? 'active' : ''
-                        }`}
+                        } ${menuList?.page === 'cmp' && !env.REACT_APP_CMP_LINK ? 'd-none' : ''}`}
                       >
                         {menuList?.icons_fa ? (
                           <i>

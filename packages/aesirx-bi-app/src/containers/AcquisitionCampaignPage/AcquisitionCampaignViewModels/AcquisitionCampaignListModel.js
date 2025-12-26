@@ -181,7 +181,7 @@ class AcquisitionCampaignListModel {
               },
             ]
           : [];
-        const values = [...utmObject?.values, ...gadValues];
+        const values = utmObject?.values ? [...utmObject?.values, ...gadValues] : [...gadValues];
         const transformFormat = values?.map((item) => {
           return {
             value: item?.value,

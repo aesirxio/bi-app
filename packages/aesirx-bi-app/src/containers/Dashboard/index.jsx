@@ -64,7 +64,7 @@ const DashboardContainer = observer(
             componentRef={this.componentRef}
             sectionName={'dashboard'}
           />
-          <ComponentToPrint ref={(el) => (this.componentRef = el)} />
+          <ComponentToPrint ref={(el) => (this.componentRef = el)} {...this.props} />
         </DashboardViewModelContextProvider>
       );
     }

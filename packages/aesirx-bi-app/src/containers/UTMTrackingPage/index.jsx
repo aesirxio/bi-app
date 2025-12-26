@@ -42,7 +42,7 @@ const UTMTrackingPage = observer(
       );
     }
     render() {
-      const { integration = false } = this.props;
+      const { integration = false, isFreemium = true } = this.props;
       const { integrationLink, activeDomain } = this.biListViewModel;
 
       const match = matchPath(history.location.pathname, {
@@ -67,6 +67,7 @@ const UTMTrackingPage = observer(
 
           <ComponentToPrint
             integration={integration}
+            isFreemium={isFreemium}
             integrationLink={integrationLink}
             activeDomain={activeDomain}
             ref={(el) => (this.componentRef = el)}

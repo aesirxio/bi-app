@@ -11,15 +11,17 @@ import { env } from 'aesirx-lib';
 
 import { Collapse } from 'react-bootstrap';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
-import { mainMenu } from '../../routes/menu';
+import { mainMenu, freemiumMainMenu } from '../../routes/menu';
 
-const SbarLeftIntegration = observer(() => {
+const SbarLeftIntegration = observer((props) => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
   const [dataStreamActive, setDataStreamActive] = useState(
     env.REACT_APP_DATA_STREAM && JSON.parse(env.REACT_APP_DATA_STREAM)[0].domain
   );
   const biStore = useBiViewModel();
   const { t } = useTranslation();
+
+  const [menuList, setMenuList] = useState(mainMenu);
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {
       if (parentIndex) {
@@ -55,6 +57,12 @@ const SbarLeftIntegration = observer(() => {
     fetchData();
   }, [biStore.biListViewModel.activeDomain, dataStreamActive]);
 
+  useEffect(() => {
+    if (props?.isFreemium) {
+      setMenuList(freemiumMainMenu);
+    }
+  }, [props?.isFreemium]);
+
   return (
     <aside
       className={`sidebar w-260 mt-0 position-relative bg-menu mh-100 h-100 d-flex flex-column z-index-100 justify-content-between`}
@@ -62,7 +70,7 @@ const SbarLeftIntegration = observer(() => {
       <nav className="main-menu py-24 mt-0">
         <p className="menu_title text-dark-blue fs-14 mb-0 text-uppercase">{t('txt_main_menu')}</p>
         <ul id="wr_list_menu" className="list-unstyled mb-0 pt-md-1">
-          {mainMenu.map((menuList, menuListkey) => {
+          {menuList.map((menuList, menuListkey) => {
             return (
               <li
                 key={menuListkey}

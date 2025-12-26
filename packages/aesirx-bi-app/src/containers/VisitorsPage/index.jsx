@@ -44,7 +44,7 @@ const VisitorsContainer = observer(
     }
 
     render() {
-      const { integration = false } = this.props;
+      const { integration = false, isFreemium = true } = this.props;
       const { integrationLink, activeDomain } = this.biListViewModel;
       const matchVisitor = matchPath(history.location.pathname, {
         path: process.env.REACT_APP_INTERGRATION ? '/bi' : '' + '/visitors',
@@ -105,6 +105,7 @@ const VisitorsContainer = observer(
             integrationLink={integrationLink}
             activeDomain={activeDomain}
             ref={(el) => (this.componentRef = el)}
+            isFreemium={isFreemium}
           />
         </VisitorsViewModelContextProvider>
       );

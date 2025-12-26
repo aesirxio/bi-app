@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React, { lazy, Suspense, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 
 import { BiStoreProvider, useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
 import { BiViewModel } from '../../store/BiStore/BiViewModel';
@@ -16,8 +16,8 @@ import { authRoutes, mainRoutes } from '../../routes/routes';
 import { DataStream } from '../../components/DataStream';
 import { appLanguages } from '../../translations';
 import SbarLeftIntegration from './SbarLeftIntegration';
-import { Storage } from 'aesirx-lib';
-import { mainMenu } from 'routes/menu';
+import { env, Storage } from 'aesirx-lib';
+import { freemiumMainMenu, mainMenu } from 'routes/menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslation } from 'react-i18next';
 import { Dropdown } from 'react-bootstrap';
@@ -46,7 +46,7 @@ const biViewModel = new BiViewModel();
 
 const MainLayoutIntegration = (props) => {
   const isAuthenticated = Storage.getItem('auth');
-
+  const isFreemium = props?.isFreemium ?? true;
   return (
     <BiStoreProvider viewModel={biViewModel}>
       <AppProvider
@@ -56,7 +56,8 @@ const MainLayoutIntegration = (props) => {
         isLogin={() => true}
         componentHeader={<DataStream integration={true} />}
         integration={true}
-        leftMenu={<SbarLeftIntegration />}
+        isFreemium={isFreemium}
+        leftMenu={<SbarLeftIntegration isFreemium={isFreemium} />}
         rootId="#biapp"
         noavatar={true}
         isColorMode={false}
@@ -65,7 +66,7 @@ const MainLayoutIntegration = (props) => {
           {!isAuthenticated && window.env.STORAGE === 'external' ? (
             <LoginPage text="BI" />
           ) : (
-            <App {...props} integration={true} />
+            <App {...props} integration={true} isFreemium={isFreemium} />
           )}
         </div>
       </AppProvider>
@@ -78,6 +79,24 @@ String.prototype.startsWith = function (str) {
 };
 
 const RenderComponent = ({ link, ...props }) => {
+  const isFreemium = props?.isFreemium ?? true;
+
+  if (
+    isFreemium &&
+    ([
+      'woocommerce',
+      'woocommerce-product',
+      'consents',
+      'consents-template',
+      'consents-advance',
+      'flow-list',
+    ].includes(link) ||
+      link.startsWith('flow') ||
+      link.startsWith('events-detail'))
+  ) {
+    return <DashboardPage {...props} />;
+  }
+
   switch (link) {
     case 'visitors':
       return <VisitorsPage {...props} />;
@@ -153,6 +172,8 @@ const App = observer((props) => {
     biListViewModel: { integrationLink, activeDomain, setIntegrationLink },
   } = useBiViewModel();
   const { t } = useTranslation();
+  const [menuList, setMenuList] = useState(mainMenu);
+
   const handleChangeLink = (e, link) => {
     e.preventDefault();
     if (link) {
@@ -160,11 +181,17 @@ const App = observer((props) => {
     }
   };
 
+  useEffect(() => {
+    if (props?.isFreemium) {
+      setMenuList(freemiumMainMenu);
+    }
+  }, [props?.isFreemium]);
+
   return (
     <Suspense fallback={<Spinner />}>
-      {mainMenu ? (
+      {menuList ? (
         <div className="menu_intergration d-flex flex-wrap mt-2 mx-4">
-          {mainMenu?.map((menuList, menuListKey) => {
+          {menuList?.map((menuList, menuListKey) => {
             return (
               <div key={menuListKey} className={`item_menu mb-0 intergration`}>
                 {menuList?.link && (
@@ -216,8 +243,13 @@ const App = observer((props) => {
                       </NavHoverDropDown>
                     ) : (
                       <a
-                        href="#"
-                        onClick={(e) => handleChangeLink(e, menuList?.page)}
+                        href={`${menuList?.page === 'cmp' ? `${env.REACT_APP_CMP_LINK}` : '#'} `}
+                        {...(menuList?.page === 'cmp' ? { target: '_blank' } : {})}
+                        onClick={(e) => {
+                          if (menuList?.page !== 'cmp') {
+                            handleChangeLink(e, menuList?.page);
+                          }
+                        }}
                         className={`d-flex align-items-center me-3 px-4 py-10 text-decoration-none fw-medium border rounded-pill ${
                           integrationLink === menuList.page ? 'active' : ''
                         }`}

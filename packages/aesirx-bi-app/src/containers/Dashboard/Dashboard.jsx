@@ -190,11 +190,21 @@ const Dashboard = observer(
                 <div className="bg-white rounded-3 rounded-top-0 position-relative ChartWrapper">
                   <div className="bg-secondary-25 py-2">
                     <Row>
-                      <Col sm="3">
-                        <div className="text-gray-heading fw-semibold text-center">Local</div>
-                      </Col>
-                      <Col sm="9">
-                        <div className="text-gray-heading fw-semibold">Page</div>
+                      {this.props.integration && this.props.isFreemium ? (
+                        <></>
+                      ) : (
+                        <Col sm="3">
+                          <div className="text-gray-heading fw-semibold text-center">Local</div>
+                        </Col>
+                      )}
+                      <Col sm={`${this.props.integration && this.props.isFreemium ? '12' : '9'}`}>
+                        <div
+                          className={`text-gray-heading fw-semibold ${
+                            this.props.integration && this.props.isFreemium ? 'ps-3' : ''
+                          }`}
+                        >
+                          Page
+                        </div>
                       </Col>
                     </Row>
                   </div>
@@ -207,17 +217,29 @@ const Dashboard = observer(
                           const urlParams = item?.url && new URL(item?.url);
                           return (
                             <Row key={index} className="py-10">
-                              <Col sm="3">
-                                <div className="text-center">
-                                  <span
-                                    className={`me-1 fi fi-${item[
-                                      BI_FLOW_DETAIL_KEY.GEO
-                                    ]?.country?.code?.toLowerCase()}`}
-                                  ></span>
-                                </div>
-                              </Col>
-                              <Col sm="9">
-                                <div className="text-ellipsis-block text-nowrap">
+                              {this.props.integration && this.props.isFreemium ? (
+                                <></>
+                              ) : (
+                                <Col sm="3">
+                                  <div className="text-center">
+                                    <span
+                                      className={`me-1 fi fi-${item[
+                                        BI_FLOW_DETAIL_KEY.GEO
+                                      ]?.country?.code?.toLowerCase()}`}
+                                    ></span>
+                                  </div>
+                                </Col>
+                              )}
+                              <Col
+                                sm={`${
+                                  this.props.integration && this.props.isFreemium ? '12' : '9'
+                                }`}
+                              >
+                                <div
+                                  className={`text-ellipsis-block text-nowrap ${
+                                    this.props.integration && this.props.isFreemium ? 'ps-3' : ''
+                                  }`}
+                                >
                                   <a href={item?.url} target="_blank" rel="noreferrer">
                                     {urlParams === ''
                                       ? 'Unknown'
@@ -234,13 +256,21 @@ const Dashboard = observer(
                       {this.dashboardListViewModel.liveVisitorsListData?.length ? (
                         <div className="bg-white border-top text-center py-3">
                           {this.props.integration ? (
-                            <a
-                              href="#"
-                              onClick={(e) => this.props.handleChangeLink(e, `/visitors/realtime`)}
-                              className={'text-secondary-50 text-nowrap fw-medium'}
-                            >
-                              {t('txt_view_more')}
-                            </a>
+                            <>
+                              {!this.props.isFreemium ? (
+                                <a
+                                  href="#"
+                                  onClick={(e) =>
+                                    this.props.handleChangeLink(e, `/visitors/realtime`)
+                                  }
+                                  className={'text-secondary-50 text-nowrap fw-medium'}
+                                >
+                                  {t('txt_view_more')}
+                                </a>
+                              ) : (
+                                <></>
+                              )}
+                            </>
                           ) : (
                             <Link
                               to="/visitors/realtime"
@@ -436,12 +466,19 @@ const Dashboard = observer(
                 />
               </div>
             </Col>
-            <Col lg={6} className="mb-24">
-              <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
-                <Countries {...this.props} />
-              </div>
-            </Col>
-            <Col lg={6} className="mb-24">
+            {this.props.integration && this.props.isFreemium ? (
+              <></>
+            ) : (
+              <Col lg={6} className="mb-24">
+                <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
+                  <Countries {...this.props} />
+                </div>
+              </Col>
+            )}
+            <Col
+              lg={`${this.props.integration && this.props.isFreemium ? '12' : '6'}`}
+              className="mb-24"
+            >
               <div className="bg-white rounded-3 p-24 shadow-sm h-100 position-relative">
                 <Browsers {...this.props} />
               </div>

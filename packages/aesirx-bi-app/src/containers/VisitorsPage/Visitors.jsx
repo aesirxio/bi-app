@@ -201,61 +201,65 @@ const VisitorsPage = observer(
             handleChangeLink={this.handleChangeLink}
             {...this.props}
           />
-          <div className="position-relative ChartWrapper my-4 bg-white rounded-3 p-3">
-            <div className="d-flex align-items-center justify-content-between">
-              <h4 className="ps-3">{t('txt_user_experience')}</h4>
-              {this.props.integration ? (
-                <a
-                  href="#"
-                  onClick={(e) => this.handleChangeLink(e, `/flow-list`)}
-                  className={'text-success me-2 text-nowrap fw-semibold'}
-                >
-                  {t('txt_view_more')}
-                </a>
+          {this.props.integration && this.props.isFreemium ? (
+            <></>
+          ) : (
+            <div className="position-relative ChartWrapper my-4 bg-white rounded-3 p-3">
+              <div className="d-flex align-items-center justify-content-between">
+                <h4 className="ps-3">{t('txt_user_experience')}</h4>
+                {this.props.integration ? (
+                  <a
+                    href="#"
+                    onClick={(e) => this.handleChangeLink(e, `/flow-list`)}
+                    className={'text-success me-2 text-nowrap fw-semibold'}
+                  >
+                    {t('txt_view_more')}
+                  </a>
+                ) : (
+                  <Link to="/flow-list" className="text-success me-2 text-nowrap fw-semibold">
+                    {t('txt_view_more')}
+                  </Link>
+                )}
+              </div>
+
+              {this.visitorsListViewModel?.statusFlowList === PAGE_STATUS.LOADING ? (
+                <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
+              ) : this.visitorsListViewModel?.flowListTableData?.list ? (
+                <FlowListTable
+                  data={this.visitorsListViewModel?.flowListTableData?.list?.toFlowListTable(
+                    this.props.integration,
+                    this.context.biListViewModel.dataStream?.utm_currency
+                  )}
+                  isPagination={false}
+                  pagination={this.visitorsListViewModel?.flowListTableData?.pagination}
+                  selectPage={async (value) => {
+                    await this.visitorsListViewModel.handleFilterFlowList({ page: value });
+                  }}
+                  selectPageSize={async (value) => {
+                    await this.visitorsListViewModel.handleFilterFlowList({
+                      page: 1,
+                      page_size: value,
+                    });
+                  }}
+                  status={status}
+                  sortAPI={true}
+                  handleSort={this.handleSortFlowList}
+                  sortBy={this.visitorsListViewModel?.sortByFlowList}
+                  {...this.props}
+                />
               ) : (
-                <Link to="/flow-list" className="text-success me-2 text-nowrap fw-semibold">
-                  {t('txt_view_more')}
-                </Link>
+                <div className="position-relative ChartWrapper bg-white rounded-3 shadow-sm">
+                  <div className="position-absolute top-50 start-50 translate-middle">
+                    <ComponentNoData
+                      icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
+                      title={t('txt_no_data')}
+                      width="w-50"
+                    />
+                  </div>
+                </div>
               )}
             </div>
-
-            {this.visitorsListViewModel?.statusFlowList === PAGE_STATUS.LOADING ? (
-              <RingLoaderComponent className="d-flex justify-content-center align-items-center bg-white rounded-3 shadow-sm" />
-            ) : this.visitorsListViewModel?.flowListTableData?.list ? (
-              <FlowListTable
-                data={this.visitorsListViewModel?.flowListTableData?.list?.toFlowListTable(
-                  this.props.integration,
-                  this.context.biListViewModel.dataStream?.utm_currency
-                )}
-                isPagination={false}
-                pagination={this.visitorsListViewModel?.flowListTableData?.pagination}
-                selectPage={async (value) => {
-                  await this.visitorsListViewModel.handleFilterFlowList({ page: value });
-                }}
-                selectPageSize={async (value) => {
-                  await this.visitorsListViewModel.handleFilterFlowList({
-                    page: 1,
-                    page_size: value,
-                  });
-                }}
-                status={status}
-                sortAPI={true}
-                handleSort={this.handleSortFlowList}
-                sortBy={this.visitorsListViewModel?.sortByFlowList}
-                {...this.props}
-              />
-            ) : (
-              <div className="position-relative ChartWrapper bg-white rounded-3 shadow-sm">
-                <div className="position-absolute top-50 start-50 translate-middle">
-                  <ComponentNoData
-                    icons={env.PUBLIC_URL + '/assets/images/ic_project.svg'}
-                    title={t('txt_no_data')}
-                    width="w-50"
-                  />
-                </div>
-              </div>
-            )}
-          </div>
+          )}
         </div>
       );
     }

@@ -95,15 +95,16 @@ const UTMTrackingPage = observer((props) => {
           ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
         'filter[attribute_name]': 'utm_source',
       });
-      getAttributeUtm({
-        ...activeDomain
-          ?.map((value, index) => ({
-            [`filter[domain][${index + 1}]`]: value,
-          }))
-          ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
-        'filter[attribute_name][0]': 'utm_campaign',
-        'filter_not[visibility_change]': 'true',
-      });
+      !(props.integration && props.isFreemium) &&
+        getAttributeUtm({
+          ...activeDomain
+            ?.map((value, index) => ({
+              [`filter[domain][${index + 1}]`]: value,
+            }))
+            ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+          'filter[attribute_name][0]': 'utm_campaign',
+          'filter_not[visibility_change]': 'true',
+        });
     };
     execute();
     return () => {};
@@ -234,23 +235,29 @@ const UTMTrackingPage = observer((props) => {
           />
         </div>
       </div>
-      <h4 className="mb-3 mt-4">UTM Value & Engagement Score</h4>
-      <div className="row gx-24 mb-24">
-        <div className="col-12">
-          {dataAttributeUtm?.list?.data && (
-            <BehaviorTable
-              data={dataAttributeUtm?.list?.toAttributeUtm(dataStream?.utm_currency)}
-              statusTable={statusAttributeUtm}
-              isPaginationAPI={true}
-              pagination={dataAttributeUtm?.pagination}
-              handleFilterTable={handleFilterAttributeUtm}
-              handleSort={handleSort}
-              sortBy={sortBy}
-              {...props}
-            />
-          )}
-        </div>
-      </div>
+      {props.integration && props.isFreemium ? (
+        <></>
+      ) : (
+        <>
+          <h4 className="mb-3 mt-4">UTM Value & Engagement Score</h4>
+          <div className="row gx-24 mb-24">
+            <div className="col-12">
+              {dataAttributeUtm?.list?.data && (
+                <BehaviorTable
+                  data={dataAttributeUtm?.list?.toAttributeUtm(dataStream?.utm_currency)}
+                  statusTable={statusAttributeUtm}
+                  isPaginationAPI={true}
+                  pagination={dataAttributeUtm?.pagination}
+                  handleFilterTable={handleFilterAttributeUtm}
+                  handleSort={handleSort}
+                  sortBy={sortBy}
+                  {...props}
+                />
+              )}
+            </div>
+          </div>
+        </>
+      )}
       <h4 className="mb-3 mt-4">List Campaign</h4>
       {dataAttributeList?.toAttributeList()?.length && (
         <Row className="mb-2">

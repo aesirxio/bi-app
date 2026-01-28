@@ -22,6 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslation } from 'react-i18next';
 import { Dropdown } from 'react-bootstrap';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { getLicense } from 'utils';
 
 const DashboardPage = lazy(() => import('../../containers/Dashboard'));
 const UTMTrackingPage = lazy(() => import('../../containers/UTMTrackingPage'));
@@ -46,7 +47,24 @@ const biViewModel = new BiViewModel();
 
 const MainLayoutIntegration = (props) => {
   const isAuthenticated = Storage.getItem('auth');
-  const isFreemium = props?.isFreemium ?? true;
+  const [isFreemium, setIsFreemium] = useState(true);
+
+  useEffect(() => {
+    const init = async () => {
+      setIsFreemium(true);
+      if (window.env.STORAGE === 'internal' && window.env.LICENSE) {
+        const response = await getLicense(window.env.LICENSE);
+        console.log('responseneee', response?.data?.result);
+        if (
+          response?.data?.result?.success &&
+          response?.data?.result?.subscription_product === 'product-aesirx-cmp'
+        ) {
+          setIsFreemium(false);
+        }
+      }
+    };
+    init();
+  }, []);
   return (
     <BiStoreProvider viewModel={biViewModel}>
       <AppProvider

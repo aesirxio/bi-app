@@ -276,6 +276,126 @@ const freemiumMainMenu = [
   },
 ];
 
+const proMainMenu = [
+  {
+    text: 'txt_menu_dashboard',
+    link: `/`,
+    icons: env.PUBLIC_URL + '/assets/images/dashboard.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/dashboard.svg',
+    page: 'dashboard',
+  },
+  {
+    text: 'txt_menu_acquisition',
+    link: `/acquisition`,
+    icons: env.PUBLIC_URL + '/assets/images/acquisition.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/acquisition.svg',
+    page: 'acquisition',
+    submenu: [
+      {
+        text: 'txt_menu_overview',
+        mini_text: 'txt_menu_acquisition',
+        link: `/acquisition`,
+        page: 'acquisition',
+      },
+      {
+        text: 'txt_menu_search_engines',
+        mini_text: 'txt_menu_search_engines',
+        link: `/acquisition/search-engines`,
+        page: 'acquisition-search-engines',
+      },
+      {
+        text: 'txt_menu_campaigns',
+        mini_text: 'txt_menu_campaigns',
+        link: `/acquisition/campaigns`,
+        page: 'acquisition-campaigns',
+      },
+    ],
+  },
+  {
+    text: 'txt_menu_behavior',
+    link: `/behavior`,
+    icons: env.PUBLIC_URL + '/assets/images/behavior.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/behavior.svg',
+    page: 'behavior',
+    submenu: [
+      {
+        text: 'txt_menu_pages',
+        mini_text: 'txt_menu_pages',
+        link: `/behavior`,
+        page: 'behavior',
+      },
+      {
+        text: 'txt_menu_outlinks',
+        mini_text: 'txt_menu_outlinks',
+        link: `/behavior/outlinks`,
+        page: 'behavior-outlinks',
+      },
+      {
+        text: 'txt_menu_events',
+        mini_text: 'txt_menu_events',
+        link: `/behavior/events`,
+        page: 'behavior-events',
+      },
+    ],
+  },
+  {
+    text: 'txt_menu_utm_tracking',
+    link: `/utm-tracking`,
+    icons: env.PUBLIC_URL + '/assets/images/utm-tracking.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/utm-tracking.svg',
+    page: 'utm-tracking',
+    submenu: [
+      {
+        text: 'txt_menu_overview',
+        mini_text: 'txt_menu_utm_tracking',
+        link: `/utm-tracking`,
+        page: 'utm-tracking',
+      },
+      {
+        text: 'txt_menu_generator',
+        mini_text: 'txt_menu_generator',
+        link: `/utm-tracking/generator`,
+        page: 'utm-tracking-generator',
+      },
+    ],
+  },
+  {
+    text: 'txt_menu_visitors',
+    link: `/visitors`,
+    icons: env.PUBLIC_URL + '/assets/images/visitors.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/visitors.svg',
+    page: 'visitors',
+    submenu: [
+      {
+        text: 'txt_menu_overview',
+        mini_text: 'txt_menu_visitors',
+        link: `/visitors`,
+        page: 'visitors',
+      },
+      {
+        text: 'txt_menu_platforms',
+        mini_text: 'txt_menu_platforms',
+        link: `/visitors/platforms`,
+        page: 'visitors-platforms',
+      },
+    ],
+  },
+  {
+    text: 'txt_menu_user_experience',
+    link: `/flow-list`,
+    page: 'flow-list',
+    icons: env.PUBLIC_URL + '/assets/images/ux.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/ux.svg',
+  },
+  {
+    text: 'CMP',
+    link: `/cmp`,
+    icons: env.PUBLIC_URL + '/assets/images/audience.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
+    page: 'cmp',
+  },
+];
+
 const getMainMenu = (isAdmin = false) => {
   const mainMenuDashboard = [
     ...mainMenu,
@@ -308,4 +428,4 @@ const integrationMenu = () => {
   ];
 };
 
-export { mainMenu, freemiumMainMenu, getMainMenu, integrationMenu };
+export { mainMenu, freemiumMainMenu, proMainMenu, getMainMenu, integrationMenu };

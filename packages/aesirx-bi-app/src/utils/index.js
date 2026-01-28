@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as ExcelJS from 'exceljs';
 
 const downloadExcel = async (data, nameFile) => {
@@ -44,4 +45,15 @@ const timeAgo = (isoString) => {
   const days = Math.floor(hours / 24);
   return `${days} day${days > 1 ? 's' : ''} ago`;
 };
-export { downloadExcel, timeAgo };
+
+const getLicense = async (license) => {
+  try {
+    const response = axios.get(
+      `https://api.aesirx.io/index.php?webserviceClient=site&webserviceVersion=1.0.0&option=member&task=validateWPLicense&api=hal&license=${license}`
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+export { downloadExcel, timeAgo, getLicense };

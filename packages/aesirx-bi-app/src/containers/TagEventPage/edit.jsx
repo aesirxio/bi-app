@@ -26,13 +26,22 @@ const EditTagEventProvider = observer(
       this.tagEventViewModel = new TagEventViewModel(this.tagEventStore, this.biListViewModel);
     }
     render() {
-      const { dataStream, dataStreamStatus, activeDomain } = this.biListViewModel;
+      const { integration = false } = this.props;
+      const { dataStream, dataStreamStatus, activeDomain, integrationLink, setIntegrationLink } =
+        this.biListViewModel;
       return (
         <TagEventViewModelContextProvider>
           {dataStreamStatus === PAGE_STATUS.READY ? (
             <>
-              {dataStream?.is_user_admin ? (
-                <EditTagEvent activeDomain={activeDomain} isLink={this.props?.isLink} />
+              {dataStream?.is_user_admin || integration ? (
+                <EditTagEvent
+                  key={integrationLink}
+                  activeDomain={activeDomain}
+                  isLink={this.props?.isLink}
+                  integrationLink={integrationLink}
+                  integration={integration}
+                  setIntegrationLink={setIntegrationLink}
+                />
               ) : (
                 <p className="p-3 fw-semibold">Current user does not have access!</p>
               )}

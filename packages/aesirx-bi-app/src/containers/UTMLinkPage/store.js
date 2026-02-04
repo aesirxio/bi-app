@@ -65,12 +65,14 @@ class UTMLinkStore {
     }
   }
 
-  async updateConsentsTemplate(updateFieldData) {
+  async updateConsentsTemplate(updateFieldData, integration = false) {
     try {
       let resultOnSave;
       const updateOrganizationApiService = new AesirxBiApiService();
       // eslint-disable-next-line prefer-const
-      resultOnSave = await updateOrganizationApiService.updateConsentsTemplate(updateFieldData);
+      resultOnSave = integration
+        ? await updateOrganizationApiService.updateAnalyticsSetting(updateFieldData)
+        : await updateOrganizationApiService.updateConsentsTemplate(updateFieldData);
       return { error: false, response: resultOnSave };
     } catch (error) {
       return { error: true, response: error?.response?.data };

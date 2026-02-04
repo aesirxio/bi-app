@@ -17,7 +17,7 @@ import { DataStream } from '../../components/DataStream';
 import { appLanguages } from '../../translations';
 import SbarLeftIntegration from './SbarLeftIntegration';
 import { env, Storage } from 'aesirx-lib';
-import { freemiumMainMenu, mainMenu } from 'routes/menu';
+import { freemiumMainMenu, proMainMenu } from 'routes/menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslation } from 'react-i18next';
 import { Dropdown } from 'react-bootstrap';
@@ -42,6 +42,12 @@ const ConsentsPage = lazy(() => import('../../containers/ConsentsPage'));
 const ConsentsTemplatePage = lazy(() => import('../../containers/ConsentsTemplatePage'));
 const ConsentsAdvancePage = lazy(() => import('../../containers/ConsentsAdvancePage'));
 const EventsDetailPage = lazy(() => import('../../containers/EventsDetailPage'));
+
+const UtmLinkPage = lazy(() => import('../../containers/UTMLinkPage'));
+const EditUtmLinkProvider = lazy(() => import('../../containers/UTMLinkPage/edit'));
+const TagEventPage = lazy(() => import('../../containers/TagEventPage'));
+const EditTagEventProvider = lazy(() => import('../../containers/TagEventPage/edit'));
+const RealTimePage = lazy(() => import('../../containers/RealTimePage'));
 
 const biViewModel = new BiViewModel();
 
@@ -108,9 +114,18 @@ const RenderComponent = ({ link, ...props }) => {
       'consents-template',
       'consents-advance',
       'flow-list',
+      'visitors-realtime',
+      'tag-events',
+      'tag-events-add',
+      'tag-events-link',
+      'utm-links',
+      'utm-links-add',
+      'utm-links-link',
     ].includes(link) ||
       link.startsWith('flow') ||
-      link.startsWith('events-detail'))
+      link.startsWith('events-detail') ||
+      link.startsWith('tag-events-edit') ||
+      link.startsWith('utm-links-edit'))
   ) {
     return <DashboardPage {...props} />;
   }
@@ -124,6 +139,9 @@ const RenderComponent = ({ link, ...props }) => {
 
     case 'visitors-behavior':
       return <VisitorsPage {...props} />;
+
+    case 'visitors-realtime':
+      return <RealTimePage {...props} />;
 
     case 'flow-list':
       return <FlowListPage {...props} />;
@@ -145,6 +163,27 @@ const RenderComponent = ({ link, ...props }) => {
 
     case 'behavior-events-generator':
       return <EventsPage {...props} />;
+
+    case 'tag-events':
+      return <TagEventPage {...props} />;
+
+    case 'tag-events-link':
+      return <EditTagEventProvider isLink {...props} />;
+
+    case link.startsWith('tag-events-edit') ? link : '':
+      return <EditTagEventProvider {...props} />;
+
+    case 'utm-links':
+      return <UtmLinkPage {...props} />;
+
+    case 'utm-links-add':
+      return <EditUtmLinkProvider {...props} />;
+
+    case 'utm-links-link':
+      return <EditUtmLinkProvider isLink {...props} />;
+
+    case link.startsWith('utm-links-edit') ? link : '':
+      return <EditUtmLinkProvider {...props} />;
 
     case 'utm-tracking':
       return <UTMTrackingPage {...props} />;
@@ -187,10 +226,10 @@ const RenderComponent = ({ link, ...props }) => {
 };
 const App = observer((props) => {
   const {
-    biListViewModel: { integrationLink, activeDomain, setIntegrationLink },
+    biListViewModel: { integrationLink, activeDomain, setIntegrationLink, setDataStream },
   } = useBiViewModel();
   const { t } = useTranslation();
-  const [menuList, setMenuList] = useState(mainMenu);
+  const [menuList, setMenuList] = useState(proMainMenu);
 
   const handleChangeLink = (e, link) => {
     e.preventDefault();
@@ -202,8 +241,18 @@ const App = observer((props) => {
   useEffect(() => {
     if (props?.isFreemium) {
       setMenuList(freemiumMainMenu);
+    } else {
+      setMenuList(proMainMenu);
     }
   }, [props?.isFreemium]);
+
+  useEffect(() => {
+    setDataStream(activeDomain, true);
+  }, []);
+
+  useEffect(() => {
+    setDataStream(activeDomain, true);
+  }, [integrationLink]);
 
   return (
     <Suspense fallback={<Spinner />}>

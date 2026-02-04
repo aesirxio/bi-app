@@ -188,9 +188,9 @@ class RealTimeListViewModel {
     }
   };
 
-  updateConsentsTemplate = async (formData) => {
+  updateConsentsTemplate = async (formData, integration) => {
     this.formSelectTimeStatus = PAGE_STATUS.LOADING;
-    const data = await this.realTimeStore.updateConsentsTemplate(formData);
+    const data = await this.realTimeStore.updateConsentsTemplate(formData, integration);
     runInAction(async () => {
       if (!data?.error) {
         this.onSuccessConsentTemplateHandler(data?.response, 'Updated successfully');

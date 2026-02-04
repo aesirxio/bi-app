@@ -241,7 +241,7 @@ class EventsListModel {
             key === BI_VISITOR_FIELD_KEY.UUID || key === BI_VISITOR_FIELD_KEY.ATTRIBUTES
               ? 10
               : key === BI_VISITOR_FIELD_KEY.EVENT_TYPE
-              ? 50
+              ? 100
               : 170,
           allowSort: true,
           Cell: ({ cell, column }) => {

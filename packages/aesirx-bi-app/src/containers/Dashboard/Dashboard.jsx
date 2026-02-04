@@ -261,7 +261,7 @@ const Dashboard = observer(
                                 <a
                                   href="#"
                                   onClick={(e) =>
-                                    this.props.handleChangeLink(e, `/visitors/realtime`)
+                                    this.props.handleChangeLink(e, `visitors/realtime`)
                                   }
                                   className={'text-secondary-50 text-nowrap fw-medium'}
                                 >

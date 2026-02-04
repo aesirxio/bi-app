@@ -16,6 +16,8 @@ import EditHeader from 'components/EditHeader';
 import { PAGE_STATUS, Spinner, Input, ActionsBar, FormSelection } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
 import CreatableSelect from 'react-select/creatable';
+import queryString from 'query-string';
+import { decodeHtml } from 'utils';
 
 const EditUTMLink = observer(
   class EditUTMLink extends Component {
@@ -38,15 +40,20 @@ const EditUTMLink = observer(
         : null;
 
       this.utmLinkDetailViewModel.setForm(this);
-      this.isEdit = props.match.params?.id ? true : false;
+      this.params = queryString.parse(props.location.search);
+      this.editID = props.integration
+        ? props?.integrationLink?.split('&utmid=')[1]
+          ? props?.integrationLink?.split('&utmid=')[1]
+          : this.params?.utmid
+        : props.match.params?.id;
+      this.isEdit = this.editID ? true : false;
       this.formPropsData.is_generated = !props?.isLink ?? true;
     }
 
     async componentDidMount() {
-      const { match } = this.props;
       const tasks = [];
       if (this.isEdit) {
-        this.formPropsData._id.$oid = match.params?.id;
+        this.formPropsData._id.$oid = this.editID;
         tasks.push(this.utmLinkDetailViewModel.initializeData(this.props?.activeDomain[0]));
       }
       tasks.push(
@@ -120,8 +127,8 @@ const EditUTMLink = observer(
         const options =
           this.utmLinkDetailViewModel?.uniqueUtmLinks?.map((item) => {
             return {
-              label: item?.link,
-              value: item?.link,
+              label: decodeHtml(item?.link),
+              value: decodeHtml(item?.link),
             };
           }) || [];
         callback(options);
@@ -130,6 +137,13 @@ const EditUTMLink = observer(
         callback([]);
       }
     }, 500);
+
+    handleChangeLink = (e, link, deleteParams) => {
+      e.preventDefault();
+      if (link) {
+        this.props.setIntegrationLink(link, deleteParams);
+      }
+    };
     render() {
       const { t } = this.props;
       // eslint-disable-next-line no-console
@@ -143,28 +157,33 @@ const EditUTMLink = observer(
               props={this.props}
               title={'UTM Links'}
               isEdit={this.isEdit}
-              redirectUrl={'/utm-links'}
+              redirectUrl={this.props.integration ? 'utm-links' : '/utm-links'}
+              handleChangeLink={this.handleChangeLink}
             />
             <div className="position-relative">
               <ActionsBar
                 buttons={[
                   {
                     title: t('txt_cancel'),
-                    handle: async () => {
-                      historyPush(`/utm-links`);
+                    handle: async (e) => {
+                      this.props.integration
+                        ? this.handleChangeLink(e, `utm-links`)
+                        : historyPush(`/utm-links`);
                     },
-                    icon: '/assets/images/cancel.svg',
+                    icon: env.PUBLIC_URL + '/assets/images/cancel.svg',
                   },
                   {
                     title: t('txt_save_close'),
-                    handle: async () => {
+                    handle: async (e) => {
                       if (this.validator.allValid()) {
                         this.generateLink();
                         const result = this.isEdit
                           ? await this.utmLinkDetailViewModel.update()
                           : await this.utmLinkDetailViewModel.create();
                         if (!result?.error) {
-                          historyPush(`/utm-links`);
+                          this.props.integration
+                            ? this.handleChangeLink(e, `utm-links`)
+                            : historyPush(`/utm-links`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -174,7 +193,7 @@ const EditUTMLink = observer(
                   {
                     title: t('txt_save'),
                     validator: this.validator,
-                    handle: async () => {
+                    handle: async (e) => {
                       if (this.validator.allValid()) {
                         this.generateLink();
                         if (this.isEdit) {
@@ -184,21 +203,29 @@ const EditUTMLink = observer(
                         } else {
                           const result = await this.utmLinkDetailViewModel.create();
                           if (!result?.error) {
-                            historyPush(`/utm-links/edit/${result?.response?._id?.$oid}`);
+                            if (this.props.integration) {
+                              this.handleChangeLink(
+                                e,
+                                `utm-links-edit&utmid=${result?.response?._id?.$oid}`
+                              );
+                              this.forceUpdate();
+                            } else {
+                              historyPush(`/utm-links/edit/${result?.response?._id?.$oid}`);
+                            }
                           }
                         }
                       } else {
                         this.handleValidateForm();
                       }
                     },
-                    icon: '/assets/images/save.svg',
+                    icon: env.PUBLIC_URL + '/assets/images/save.svg',
                     variant: 'success',
                   },
                 ]}
               />
             </div>
           </div>
-          <Form>
+          <Form className="pb-3">
             <Row>
               <Col lg="9">
                 <Row>
@@ -230,8 +257,8 @@ const EditUTMLink = observer(
                               defaultOptions: this.utmLinkDetailViewModel?.uniqueUtmLinks?.length
                                 ? this.utmLinkDetailViewModel?.uniqueUtmLinks?.map((item) => {
                                     return {
-                                      label: item?.link,
-                                      value: item?.link,
+                                      label: decodeHtml(item?.link),
+                                      value: decodeHtml(item?.link),
                                     };
                                   })
                                 : [],
@@ -242,11 +269,12 @@ const EditUTMLink = observer(
                               arrowColor: 'var(--dropdown-indicator-color)',
                               handleChange: (data) => {
                                 if (data?.value) {
+                                  const dataValue = decodeHtml(data?.value);
                                   this.utmLinkDetailViewModel.handleFormPropsData(
                                     'link',
-                                    data.value
+                                    dataValue
                                   );
-                                  const params = new URL(data.value)?.searchParams;
+                                  const params = new URL(dataValue)?.searchParams;
                                   this.utmLinkDetailViewModel.handleFormPropsData(
                                     'utm_source',
                                     params?.get('utm_source')
@@ -684,12 +712,16 @@ const EditUTMLink = observer(
               <h3>Campaign URL</h3>
               <div className="p-24 bg-dark text-white">
                 <a
-                  href={this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData.link}
+                  href={decodeHtml(
+                    this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData.link
+                  )}
                   target="_blank"
                   rel="noreferrer"
                   className="ps-1 text-white text-decoration-none fs-4 text-break"
                 >
-                  {this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData.link}
+                  {decodeHtml(
+                    this.utmLinkDetailViewModel.utmLinkDetailViewModel.formPropsData.link
+                  )}
                 </a>
               </div>
             </div>

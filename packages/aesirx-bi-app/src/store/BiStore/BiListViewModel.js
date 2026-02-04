@@ -5,7 +5,7 @@
 
 import { notify, history } from 'aesirx-uikit';
 import PAGE_STATUS from '../../constants/PageStatus';
-import { AesirxCmpApiService, env } from 'aesirx-lib';
+import { AesirxBiApiService, env } from 'aesirx-lib';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 
@@ -80,29 +80,32 @@ class BiListViewModel {
     this.activeDomain = domain;
   };
 
-  setDataStream = async (domain) => {
+  setDataStream = async (domain, integration = false) => {
     this.dataStreamStatus = PAGE_STATUS.LOADING;
-    const dataStream = await this.getDataStream(domain);
+    const dataStream = await this.getDataStream(domain, integration);
     if (dataStream?.response?.respondedData) {
       this.dataStream = dataStream?.response?.respondedData;
     }
     this.dataStreamStatus = PAGE_STATUS.READY;
   };
 
-  async getDataStream(activeDomain) {
+  async getDataStream(activeDomain, integration) {
     try {
-      const getAPIService = new AesirxCmpApiService();
-      const respondedData = await getAPIService.getConsentsTemplate(
-        activeDomain,
-        Math.floor(Date.now() / 1000)
-      );
+      const getAPIService = new AesirxBiApiService();
+      const respondedData = integration
+        ? await getAPIService.getAnalyticsSetting(activeDomain, Math.floor(Date.now() / 1000))
+        : await getAPIService.getConsentsTemplate(activeDomain, Math.floor(Date.now() / 1000));
+      if (respondedData?.realtime_sync !== undefined) {
+        respondedData.realtime_sync = parseInt(respondedData.realtime_sync, 10);
+      }
+      console.log('respondedData', respondedData);
       return { error: false, response: { respondedData } };
     } catch (error) {
       return { error: true, response: error?.response?.data };
     }
   }
 
-  setIntegrationLink = (link) => {
+  setIntegrationLink = (link, deleteParams = []) => {
     if (
       location.pathname === '/wp-admin/admin.php' ||
       location.pathname === '/administrator/index.php'
@@ -111,6 +114,23 @@ class BiListViewModel {
         ...queryString.parse(location.search),
         ...{ page: 'aesirx-bi-' + link },
       };
+
+      const paramsToDelete = new Set(Array.isArray(deleteParams) ? deleteParams : [deleteParams]);
+
+      if (!link.includes('tag-events-edit')) {
+        paramsToDelete.add('tagid');
+      }
+      if (!link.includes('utm-links-edit')) {
+        paramsToDelete.add('utmid');
+      }
+      if (!link.includes('flow') && !link.includes('events-detail')) {
+        paramsToDelete.add('id');
+      }
+
+      paramsToDelete.forEach((param) => {
+        delete search[param];
+      });
+
       history.push({
         ...location,
         ...{ search: unescape(queryString.stringify(search)) },

@@ -56,4 +56,14 @@ const getLicense = async (license) => {
     console.error(error);
   }
 };
-export { downloadExcel, timeAgo, getLicense };
+
+const decodeHtml = (html) => {
+  if (html) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
+  } else {
+    return '';
+  }
+};
+export { downloadExcel, timeAgo, getLicense, decodeHtml };

@@ -38,8 +38,8 @@ const Events = observer((props) => {
   const { eventName } = useParams();
   const params = queryString.parse(props.location.search);
   const eventNameDetail = props.integration
-    ? integrationLink?.split('&id=')[1]
-      ? integrationLink?.split('&id=')[1]
+    ? integrationLink?.split('&tagid=')[1]
+      ? integrationLink?.split('&tagid=')[1]
       : params?.id
     : eventName;
   useEffect(() => {

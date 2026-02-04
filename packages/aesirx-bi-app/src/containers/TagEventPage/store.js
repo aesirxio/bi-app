@@ -65,18 +65,6 @@ class TagEventStore {
     }
   }
 
-  async updateConsentsTemplate(updateFieldData) {
-    try {
-      let resultOnSave;
-      const updateOrganizationApiService = new AesirxBiApiService();
-      // eslint-disable-next-line prefer-const
-      resultOnSave = await updateOrganizationApiService.updateConsentsTemplate(updateFieldData);
-      return { error: false, response: resultOnSave };
-    } catch (error) {
-      return { error: true, response: error?.response?.data };
-    }
-  }
-
   getAttributeDateTagEvent = async (
     dataFilter,
     dateFilter,

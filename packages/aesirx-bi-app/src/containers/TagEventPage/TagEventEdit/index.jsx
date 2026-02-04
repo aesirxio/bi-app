@@ -15,6 +15,7 @@ import { withTagEventViewModel } from '../TagEventViewModel/TagEventViewModelCon
 import EditHeader from 'components/EditHeader';
 import { PAGE_STATUS, Spinner, Input, ActionsBar, FormSelection } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
+import queryString from 'query-string';
 
 const EditTagEvent = observer(
   class EditTagEvent extends Component {
@@ -36,15 +37,20 @@ const EditTagEvent = observer(
         : null;
 
       this.tagEventDetailViewModel.setForm(this);
-      this.isEdit = props.match.params?.id ? true : false;
+      this.params = queryString.parse(props.location.search);
+      this.editID = props.integration
+        ? props?.integrationLink?.split('&tagid=')[1]
+          ? props?.integrationLink?.split('&tagid=')[1]
+          : this.params?.tagid
+        : props.match.params?.id;
+      this.isEdit = this.editID ? true : false;
       this.formPropsData.is_generated = !props?.isLink ?? true;
     }
 
     async componentDidMount() {
-      const { match } = this.props;
       const tasks = [];
       if (this.isEdit) {
-        this.formPropsData._id.$oid = match.params?.id;
+        this.formPropsData._id.$oid = this.editID;
         tasks.push(this.tagEventDetailViewModel.initializeData(this.props?.activeDomain[0]));
       }
       if (!this.tagEventDetailViewModel.tagEventDetailViewModel.formPropsData?.is_generated) {
@@ -96,6 +102,13 @@ const EditTagEvent = observer(
         callback([]);
       }
     }, 500);
+
+    handleChangeLink = (e, link, deleteParams) => {
+      e.preventDefault();
+      if (link) {
+        this.props.setIntegrationLink(link, deleteParams);
+      }
+    };
     render() {
       const { t } = this.props;
       // eslint-disable-next-line no-console
@@ -109,27 +122,32 @@ const EditTagEvent = observer(
               props={this.props}
               title={'Tag Value'}
               isEdit={this.isEdit}
-              redirectUrl={'/tag-events'}
+              redirectUrl={this.props.integration ? 'tag-events' : '/tag-events'}
+              handleChangeLink={this.handleChangeLink}
             />
             <div className="position-relative">
               <ActionsBar
                 buttons={[
                   {
                     title: t('txt_cancel'),
-                    handle: async () => {
-                      historyPush(`/tag-events`);
+                    handle: async (e) => {
+                      this.props.integration
+                        ? this.handleChangeLink(e, `tag-events`)
+                        : historyPush(`/tag-events`);
                     },
-                    icon: '/assets/images/cancel.svg',
+                    icon: env.PUBLIC_URL + '/assets/images/cancel.svg',
                   },
                   {
                     title: t('txt_save_close'),
-                    handle: async () => {
+                    handle: async (e) => {
                       if (this.validator.allValid()) {
                         const result = this.isEdit
                           ? await this.tagEventDetailViewModel.update()
                           : await this.tagEventDetailViewModel.create();
                         if (!result?.error) {
-                          historyPush(`/tag-events`);
+                          this.props.integration
+                            ? this.handleChangeLink(e, `tag-events`)
+                            : historyPush(`/tag-events`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -139,7 +157,7 @@ const EditTagEvent = observer(
                   {
                     title: t('txt_save'),
                     validator: this.validator,
-                    handle: async () => {
+                    handle: async (e) => {
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
                           await this.tagEventDetailViewModel.update();
@@ -148,14 +166,21 @@ const EditTagEvent = observer(
                         } else {
                           const result = await this.tagEventDetailViewModel.create();
                           if (!result?.error) {
-                            historyPush(`/tag-events/edit/${result?.response?._id?.$oid}`);
+                            if (this.props.integration) {
+                              this.handleChangeLink(
+                                e,
+                                `tag-events-edit&tagid=${result?.response?._id?.$oid}`
+                              );
+                            } else {
+                              historyPush(`/tag-events/edit/${result?.response?._id?.$oid}`);
+                            }
                           }
                         }
                       } else {
                         this.handleValidateForm();
                       }
                     },
-                    icon: '/assets/images/save.svg',
+                    icon: env.PUBLIC_URL + '/assets/images/save.svg',
                     variant: 'success',
                   },
                 ]}

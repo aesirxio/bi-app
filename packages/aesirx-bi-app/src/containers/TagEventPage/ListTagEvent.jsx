@@ -13,7 +13,7 @@ const ListTagEvent = observer((props) => {
   let listSelected = [];
   const viewModel = props.model.tagEventListViewModel;
   const {
-    biListViewModel: { activeDomain },
+    biListViewModel: { activeDomain, setIntegrationLink, dataStream },
   } = useBiViewModel();
   useEffect(() => {
     viewModel.initializeAllData(activeDomain, props.globalViewModel);
@@ -31,8 +31,10 @@ const ListTagEvent = observer((props) => {
               {value}
               <div className="text-green ms-2">
                 <button
-                  onClick={() => {
-                    historyPush(`/tag-events/edit/${row.cells[5].value}`);
+                  onClick={(e) => {
+                    props.integration
+                      ? handleChangeLink(e, `tag-events-edit&tagid=${row.cells[5].value}`)
+                      : historyPush(`/tag-events/edit/${row.cells[5].value}`);
                   }}
                   className="p-0 border-0 bg-transparent d-inline-block text-green"
                 >
@@ -55,8 +57,8 @@ const ListTagEvent = observer((props) => {
             <div className="d-flex align-items-center py-8px align-items-center">
               <div className="">
                 {value
-                  ? viewModel.tagEventListViewModel.formPropsData?.utm_currency
-                    ? value + ' ' + viewModel.tagEventListViewModel.formPropsData?.utm_currency
+                  ? dataStream?.utm_currency
+                    ? value + ' ' + dataStream?.utm_currency
                     : value
                   : 0}
               </div>
@@ -138,6 +140,13 @@ const ListTagEvent = observer((props) => {
       viewModel.deleteTagEvents(listSelected, activeDomain, props.globalViewModel);
     }
   };
+  const handleChangeLink = (e, link) => {
+    e.preventDefault();
+    if (link) {
+      setIntegrationLink(link);
+    }
+  };
+
   return (
     <div className="px-3 pb-4">
       <div className="mb-3 d-flex align-items-center justify-content-between">
@@ -148,7 +157,7 @@ const ListTagEvent = observer((props) => {
           buttons={[
             {
               title: t('txt_delete'),
-              icon: '/assets/images/delete.svg',
+              icon: env.PUBLIC_URL + '/assets/images/delete.svg',
               iconColor: '#cb222c',
               textColor: '#cb222c',
               handle: async () => {
@@ -157,10 +166,12 @@ const ListTagEvent = observer((props) => {
             },
             {
               title: t('txt_add_new'),
-              icon: '/assets/images/plus.svg',
+              icon: env.PUBLIC_URL + '/assets/images/plus.svg',
               variant: 'success',
-              handle: async () => {
-                historyPush('/tag-events/link');
+              handle: async (e) => {
+                props.integration
+                  ? handleChangeLink(e, `tag-events-link`)
+                  : historyPush('/tag-events/link');
               },
             },
           ]}
@@ -186,9 +197,7 @@ const ListTagEvent = observer((props) => {
           <StackedBarChartComponent
             loading={viewModel.statusUTM}
             chartTitle={`Total Value ${
-              viewModel.tagEventListViewModel.formPropsData?.utm_currency
-                ? `(${viewModel.tagEventListViewModel.formPropsData?.utm_currency})`
-                : ''
+              dataStream?.utm_currency ? `(${dataStream?.utm_currency})` : ''
             }`}
             height={390}
             data={viewModel.dataUTM?.toAreaChartUTM('total_value', 'event_name')}

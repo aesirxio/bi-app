@@ -96,7 +96,7 @@ const RealTime = observer(
     }
 
     render() {
-      const { t } = this.props;
+      const { t, integration } = this.props;
       const { statusTable } = this.realTimeListViewModel;
       const realTimeSyncArr = [
         { label: 'Last 1 minutes', value: 1 },
@@ -126,10 +126,13 @@ const RealTime = observer(
                   options={realTimeSyncArr}
                   className="border rounded-1"
                   onChange={async (data) => {
-                    await this.realTimeListViewModel.updateConsentsTemplate({
-                      domain: this.context.biListViewModel.activeDomain[0],
-                      realtime_sync: data?.value,
-                    });
+                    await this.realTimeListViewModel.updateConsentsTemplate(
+                      {
+                        domain: this.context.biListViewModel.activeDomain[0],
+                        realtime_sync: data?.value,
+                      },
+                      integration
+                    );
                     this.context.biListViewModel.dataStream.realtime_sync = data?.value;
                     await this.loadRealTimeData(false);
                   }}

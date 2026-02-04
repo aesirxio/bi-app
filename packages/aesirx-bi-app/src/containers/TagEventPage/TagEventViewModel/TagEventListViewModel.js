@@ -31,7 +31,6 @@ class TagEventListViewModel {
   constructor(tagEventStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.tagEventStore = tagEventStore;
-    console.log('globalStoreViewModelneee', globalStoreViewModel);
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
@@ -149,6 +148,8 @@ class TagEventListViewModel {
           event_name: o?.event_name,
         };
       });
+    } else {
+      this.successResponse.listTagEventsWithoutPagination = [];
     }
   };
 
@@ -173,21 +174,6 @@ class TagEventListViewModel {
     return data;
   };
 
-  updateConsentsTemplate = async (formData, activeDomain, globalStoreViewModel) => {
-    this.formCurrencyStatus = PAGE_STATUS.LOADING;
-    const data = await this.tagEventStore.updateConsentsTemplate(formData);
-    runInAction(async () => {
-      if (!data?.error) {
-        this.tagEventListViewModel.formPropsData.utm_currency = formData?.utm_currency;
-        await this.initializeAllData(activeDomain, globalStoreViewModel);
-        this.onSuccessConsentTemplateHandler(data?.response, 'Updated successfully');
-      } else {
-        this.onErrorHandler(data?.response);
-      }
-      this.successResponse.state = true;
-    });
-    return data;
-  };
   onSuccessConsentTemplateHandler = (result, message) => {
     if (result && message) {
       notify(message, 'success');

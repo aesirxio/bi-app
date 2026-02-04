@@ -26,13 +26,22 @@ const EditUTMLinkProvider = observer(
       this.utmLinkViewModel = new UTMLinkViewModel(this.utmLinkStore, this.biListViewModel);
     }
     render() {
-      const { dataStream, dataStreamStatus, activeDomain } = this.biListViewModel;
+      const { integration = false } = this.props;
+      const { dataStream, dataStreamStatus, activeDomain, integrationLink, setIntegrationLink } =
+        this.biListViewModel;
       return (
         <UTMLinkViewModelContextProvider>
           {dataStreamStatus === PAGE_STATUS.READY ? (
             <>
-              {dataStream?.is_user_admin ? (
-                <EditUTMLink activeDomain={activeDomain} isLink={this.props?.isLink} />
+              {dataStream?.is_user_admin || integration ? (
+                <EditUTMLink
+                  key={integrationLink}
+                  activeDomain={activeDomain}
+                  isLink={this.props?.isLink}
+                  integrationLink={integrationLink}
+                  integration={integration}
+                  setIntegrationLink={setIntegrationLink}
+                />
               ) : (
                 <p className="p-3 fw-semibold">Current user does not have access!</p>
               )}

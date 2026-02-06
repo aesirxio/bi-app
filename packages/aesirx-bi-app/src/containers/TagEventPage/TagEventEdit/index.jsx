@@ -16,6 +16,7 @@ import EditHeader from 'components/EditHeader';
 import { PAGE_STATUS, Spinner, Input, ActionsBar, FormSelection } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
 import queryString from 'query-string';
+import { env } from 'aesirx-lib';
 
 const EditTagEvent = observer(
   class EditTagEvent extends Component {

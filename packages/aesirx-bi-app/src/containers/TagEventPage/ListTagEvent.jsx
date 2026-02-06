@@ -7,6 +7,7 @@ import { historyPush } from 'routes/routes';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { Button, Col, Row } from 'react-bootstrap';
 import StackedBarChartComponent from 'components/StackedBarChartComponent';
+import { env } from 'aesirx-lib';
 
 const ListTagEvent = observer((props) => {
   const { t } = useTranslation();

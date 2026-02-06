@@ -3,6 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
+import { env } from 'aesirx-lib';
 import { SVGComponent } from 'aesirx-uikit';
 import React from 'react';
 import { historyPush } from 'routes/routes';

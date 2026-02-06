@@ -182,7 +182,10 @@ const FlowList = observer(
               ? 'device'
               : column?.id,
           'sort_direction[]':
-            this.flowListListViewModel?.sortBy['sort_direction[]'] === 'desc' ? 'asc' : 'desc',
+            this.flowListListViewModel?.sortBy['sort[]'] !== column?.id ||
+            this.flowListListViewModel?.sortBy['sort_direction[]'] === 'asc'
+              ? 'desc'
+              : 'asc',
         },
         this.props.integration
       );

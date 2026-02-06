@@ -176,7 +176,6 @@ const FlowDetailContainer = observer((props) => {
       0
     );
     const total_engagement_score = total_tag_engagement_score + total_utm_engagement_score;
-    console.log('total_metric_value', total_metric_value);
     return [
       {
         text: t('txt_date'),

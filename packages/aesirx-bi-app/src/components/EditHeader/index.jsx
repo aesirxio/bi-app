@@ -3,22 +3,25 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
+import { env } from 'aesirx-lib';
 import { SVGComponent } from 'aesirx-uikit';
 import React from 'react';
 import { historyPush } from 'routes/routes';
 
-const EditHeader = ({ props, title, isEdit, redirectUrl }) => {
+const EditHeader = ({ props, title, isEdit, redirectUrl, handleChangeLink, deleteParams }) => {
   const { t } = props;
   return (
     <div className="position-relative">
       <h2 className="fw-bold mb-8px d-flex align-items-center">
         <div
           className="p-sm ps-0 cursor-pointer d-flex"
-          onClick={() => {
-            historyPush(redirectUrl);
+          onClick={(e) => {
+            props.integration
+              ? handleChangeLink(e, redirectUrl, deleteParams)
+              : historyPush(redirectUrl);
           }}
         >
-          <SVGComponent url="/assets/images/back.svg" className={'bg-success'} />
+          <SVGComponent url={env.PUBLIC_URL + `/assets/images/back.svg`} className={'bg-success'} />
         </div>
         {isEdit ? t('txt_edit') : t('txt_add_new')} {title}
       </h2>

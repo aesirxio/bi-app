@@ -276,6 +276,17 @@ const freemiumMainMenu = [
   },
 ];
 
+const proMainMenu = [
+  ...mainMenu,
+  {
+    text: 'CMP',
+    link: `/cmp`,
+    icons: env.PUBLIC_URL + '/assets/images/audience.svg',
+    icons_color: env.PUBLIC_URL + '/assets/images/audience.svg',
+    page: 'cmp',
+  },
+];
+
 const getMainMenu = (isAdmin = false) => {
   const mainMenuDashboard = [
     ...mainMenu,
@@ -308,4 +319,4 @@ const integrationMenu = () => {
   ];
 };
 
-export { mainMenu, freemiumMainMenu, getMainMenu, integrationMenu };
+export { mainMenu, freemiumMainMenu, proMainMenu, getMainMenu, integrationMenu };

@@ -157,25 +157,26 @@ const FlowDetailContainer = observer((props) => {
   );
   const LeftTableData = useMemo(() => {
     const total_tag_metric_value = data?.events?.reduce(
-      (sum, item) => sum + (item.tag_metric_value || 0),
+      (sum, item) => sum + (parseInt(item.tag_metric_value) || 0),
       0
     );
     const total_utm_value = data?.events?.reduce((sum, item) => {
       if (item.utm_value_type === item.event_name) {
-        return sum + (item.utm_value || 0);
+        return sum + (parseInt(item.utm_value) || 0);
       }
       return sum;
     }, 0);
     const total_metric_value = total_tag_metric_value + total_utm_value;
     const total_tag_engagement_score = data?.events?.reduce(
-      (sum, item) => sum + (item.tag_engagement_value || 0),
+      (sum, item) => sum + (parseInt(item.tag_engagement_value) || 0),
       0
     );
     const total_utm_engagement_score = data?.events?.reduce(
-      (sum, item) => sum + (item.utm_engagement_weight || 0),
+      (sum, item) => sum + (parseInt(item.utm_engagement_weight) || 0),
       0
     );
     const total_engagement_score = total_tag_engagement_score + total_utm_engagement_score;
+    console.log('total_metric_value', total_metric_value);
     return [
       {
         text: t('txt_date'),
@@ -205,7 +206,8 @@ const FlowDetailContainer = observer((props) => {
       },
       {
         text: 'UX score',
-        value: data?.[BI_FLOW_DETAIL_KEY.UX_PERCENT] + total_engagement_score ?? 0,
+        value:
+          parseInt(data?.[BI_FLOW_DETAIL_KEY.UX_PERCENT]) + parseInt(total_engagement_score) ?? 0,
       },
       {
         text: t('txt_page_view'),
@@ -347,10 +349,10 @@ const FlowDetailContainer = observer((props) => {
                     ?.map((item, key) => {
                       const ogData = fetchOG.find((i) => item.url == i.url);
                       const utm_value =
-                        item.utm_value_type === item.event_name ? item.utm_value : 0;
-                      const metric_value = item.tag_metric_value + utm_value;
+                        item.utm_value_type === item.event_name ? parseInt(item.utm_value) : 0;
+                      const metric_value = parseInt(item.tag_metric_value) + utm_value;
                       const engagement_score =
-                        item.tag_engagement_value + item.utm_engagement_weight;
+                        parseInt(item.tag_engagement_value) + parseInt(item.utm_engagement_weight);
                       return (
                         <div className="d-flex align-items-center mb-24 flow-detail-item" key={key}>
                           <div className="flow-detail-item-image me-18px">

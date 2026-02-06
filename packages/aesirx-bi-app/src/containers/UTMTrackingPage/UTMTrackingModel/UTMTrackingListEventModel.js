@@ -7,6 +7,7 @@ import { BI_VISITORS_FIELD_KEY, BI_VISITOR_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 import { enumerateDaysBetweenDates } from 'aesirx-lib';
+import { decodeHtml } from 'utils';
 
 class UTMTrackingEventModel {
   data = null;
@@ -248,7 +249,8 @@ class UTMTrackingEventModel {
                 column.id === BI_VISITOR_FIELD_KEY.URL) &&
               cell?.value
             ) {
-              const urlParams = new URL(cell?.value);
+              const url = cell?.value ? decodeHtml(cell?.value) : '';
+              const urlParams = new URL(url);
               return (
                 <div className={'px-3'}>
                   {urlParams === '' ? 'Unknown' : urlParams.pathname + urlParams.search}

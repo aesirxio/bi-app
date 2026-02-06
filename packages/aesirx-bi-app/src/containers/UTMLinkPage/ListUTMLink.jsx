@@ -7,17 +7,26 @@ import { historyPush } from 'routes/routes';
 import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { Button, Col, Form, Row, Spinner as BootstrapSpinner } from 'react-bootstrap';
 import StackedBarChartComponent from 'components/StackedBarChartComponent';
+import { decodeHtml } from 'utils';
+import { env } from 'aesirx-lib';
 
 const ListUTMLink = observer((props) => {
   const { t } = useTranslation();
   let listSelected = [];
   const viewModel = props.model.utmLinkListViewModel;
   const {
-    biListViewModel: { activeDomain },
+    biListViewModel: { activeDomain, setIntegrationLink },
   } = useBiViewModel();
   useEffect(() => {
     viewModel.initializeAllData(activeDomain, props.globalViewModel);
   }, []);
+
+  const handleChangeLink = (e, link) => {
+    e.preventDefault();
+    if (link) {
+      setIntegrationLink(link);
+    }
+  };
   const columnsTable = [
     {
       Header: 'Campaign Label',
@@ -29,7 +38,7 @@ const ListUTMLink = observer((props) => {
           <>
             <div className="d-flex align-items-center py-8px align-items-center">
               <a
-                href={row.cells[8].value}
+                href={decodeHtml(row.cells[8].value)}
                 rel="noreferrer"
                 target="_blank"
                 className="text-decoration-underline"
@@ -38,8 +47,10 @@ const ListUTMLink = observer((props) => {
               </a>
               <div className="text-green ms-2">
                 <button
-                  onClick={() => {
-                    historyPush(`/utm-links/edit/${row.cells[9].value}`);
+                  onClick={(e) => {
+                    props.integration
+                      ? handleChangeLink(e, `utm-links-edit&utmid=${row.cells[9].value}`)
+                      : historyPush(`/utm-links/edit/${row.cells[9].value}`);
                   }}
                   className="p-0 border-0 bg-transparent d-inline-block text-green"
                 >
@@ -209,7 +220,7 @@ const ListUTMLink = observer((props) => {
           buttons={[
             {
               title: t('txt_delete'),
-              icon: '/assets/images/delete.svg',
+              icon: env.PUBLIC_URL + '/assets/images/delete.svg',
               iconColor: '#cb222c',
               textColor: '#cb222c',
               handle: async () => {
@@ -218,18 +229,22 @@ const ListUTMLink = observer((props) => {
             },
             {
               title: 'Generate UTM Link',
-              icon: '/assets/images/plus.svg',
+              icon: env.PUBLIC_URL + '/assets/images/plus.svg',
               variant: 'success',
-              handle: async () => {
-                historyPush('/utm-links/add');
+              handle: async (e) => {
+                props.integration
+                  ? handleChangeLink(e, `utm-links-add`)
+                  : historyPush('/utm-links/add');
               },
             },
             {
               title: t('txt_add_new'),
-              icon: '/assets/images/plus.svg',
+              icon: env.PUBLIC_URL + '/assets/images/plus.svg',
               variant: 'success',
-              handle: async () => {
-                historyPush('/utm-links/link');
+              handle: async (e) => {
+                props.integration
+                  ? handleChangeLink(e, `utm-links-link`)
+                  : historyPush('/utm-links/link');
               },
             },
           ]}
@@ -261,7 +276,8 @@ const ListUTMLink = observer((props) => {
                           utm_currency: viewModel.utmLinkListViewModel.formPropsData?.utm_currency,
                         },
                         activeDomain,
-                        props.globalViewModel
+                        props.globalViewModel,
+                        props.integration
                       );
                     }}
                     variant="success"

@@ -159,6 +159,13 @@ const Dashboard = observer(
         }
       );
     };
+
+    handleChangeLink = (e, link) => {
+      e.preventDefault();
+      if (link) {
+        this.context.biListViewModel.setIntegrationLink(link);
+      }
+    };
     render() {
       const { t } = this.props;
       return (
@@ -260,9 +267,7 @@ const Dashboard = observer(
                               {!this.props.isFreemium ? (
                                 <a
                                   href="#"
-                                  onClick={(e) =>
-                                    this.props.handleChangeLink(e, `/visitors/realtime`)
-                                  }
+                                  onClick={(e) => this.handleChangeLink(e, `visitors-realtime`)}
                                   className={'text-secondary-50 text-nowrap fw-medium'}
                                 >
                                   {t('txt_view_more')}

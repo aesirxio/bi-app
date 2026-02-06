@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as ExcelJS from 'exceljs';
 
 const downloadExcel = async (data, nameFile) => {
@@ -24,7 +25,8 @@ const downloadExcel = async (data, nameFile) => {
 };
 const timeAgo = (isoString) => {
   const now = Date.now();
-  const past = new Date(isoString).getTime();
+  const utcDate = new Date(isoString.replace(' ', 'T') + 'Z');
+  const past = utcDate.getTime();
   const diff = Math.floor((now - past) / 1000); // seconds
 
   if (diff < 60) {
@@ -44,4 +46,25 @@ const timeAgo = (isoString) => {
   const days = Math.floor(hours / 24);
   return `${days} day${days > 1 ? 's' : ''} ago`;
 };
-export { downloadExcel, timeAgo };
+
+const getLicense = async (license) => {
+  try {
+    const response = axios.get(
+      `https://api.aesirx.io/index.php?webserviceClient=site&webserviceVersion=1.0.0&option=member&task=validateWPLicense&api=hal&license=${license}`
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const decodeHtml = (html) => {
+  if (html) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
+  } else {
+    return '';
+  }
+};
+export { downloadExcel, timeAgo, getLicense, decodeHtml };

@@ -11,7 +11,7 @@ import { env } from 'aesirx-lib';
 
 import { Collapse } from 'react-bootstrap';
 import { useBiViewModel } from '../../store/BiStore/BiViewModelContextProvider';
-import { mainMenu, freemiumMainMenu } from '../../routes/menu';
+import { proMainMenu, freemiumMainMenu } from '../../routes/menu';
 
 const SbarLeftIntegration = observer((props) => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
@@ -20,8 +20,7 @@ const SbarLeftIntegration = observer((props) => {
   );
   const biStore = useBiViewModel();
   const { t } = useTranslation();
-
-  const [menuList, setMenuList] = useState(mainMenu);
+  const [menuList, setMenuList] = useState(proMainMenu);
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {
       if (parentIndex) {
@@ -60,6 +59,8 @@ const SbarLeftIntegration = observer((props) => {
   useEffect(() => {
     if (props?.isFreemium) {
       setMenuList(freemiumMainMenu);
+    } else {
+      setMenuList(proMainMenu);
     }
   }, [props?.isFreemium]);
 

@@ -31,7 +31,6 @@ class UTMLinkListViewModel {
   constructor(utmLinkStore, globalStoreViewModel) {
     makeAutoObservable(this);
     this.utmLinkStore = utmLinkStore;
-    console.log('globalStoreViewModelneee', globalStoreViewModel);
     this.globalStoreViewModel = globalStoreViewModel;
   }
 
@@ -155,6 +154,8 @@ class UTMLinkListViewModel {
           link: o?.link,
         };
       });
+    } else {
+      this.successResponse.listUTMLinksWithoutPagination = [];
     }
   };
 
@@ -179,9 +180,9 @@ class UTMLinkListViewModel {
     return data;
   };
 
-  updateConsentsTemplate = async (formData, activeDomain, globalStoreViewModel) => {
+  updateConsentsTemplate = async (formData, activeDomain, globalStoreViewModel, integration) => {
     this.formCurrencyStatus = PAGE_STATUS.LOADING;
-    const data = await this.utmLinkStore.updateConsentsTemplate(formData);
+    const data = await this.utmLinkStore.updateConsentsTemplate(formData, integration);
     runInAction(async () => {
       if (!data?.error) {
         this.utmLinkListViewModel.formPropsData.utm_currency = formData?.utm_currency;

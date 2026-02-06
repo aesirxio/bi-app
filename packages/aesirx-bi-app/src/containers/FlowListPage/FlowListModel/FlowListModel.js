@@ -177,14 +177,14 @@ class FlowListModel {
               const uxPercentDetail = cell?.row?.original?.uxPercentDetail ?? {};
               const total_tag_metric_value = cell?.row?.original?.events?.length
                 ? cell?.row?.original?.events?.reduce(
-                    (sum, item) => sum + (item.tag_metric_value || 0),
+                    (sum, item) => parseInt(sum) + (parseInt(item.tag_metric_value) || 0),
                     0
                   )
                 : 0;
               const total_utm_value = cell?.row?.original?.events?.length
                 ? cell?.row?.original?.events?.reduce((sum, item) => {
                     if (item.utm_value_type === item.event_name) {
-                      return sum + (item.utm_value || 0);
+                      return parseInt(sum) + (parseInt(item.utm_value) || 0);
                     }
                     return sum;
                   }, 0)
@@ -195,7 +195,7 @@ class FlowListModel {
                     <div className="pie-wrapper progress-75 style-2">
                       <div
                         className={`pie ${
-                          cell?.value + total_utm_value + total_tag_metric_value <= 50
+                          parseInt(cell?.value) + total_utm_value + total_tag_metric_value <= 50
                             ? 'below-50'
                             : 'above-50'
                         }`}
@@ -204,9 +204,12 @@ class FlowListModel {
                           className="left-side half-circle"
                           style={{
                             transform: `rotate(${
-                              cell?.value + total_utm_value + total_tag_metric_value > 100
+                              parseInt(cell?.value) + total_utm_value + total_tag_metric_value > 100
                                 ? 360
-                                : (cell?.value + total_utm_value + total_tag_metric_value) * 3.6
+                                : (parseInt(cell?.value) +
+                                    total_utm_value +
+                                    total_tag_metric_value) *
+                                  3.6
                             }deg)`,
                           }}
                         ></div>
@@ -216,7 +219,7 @@ class FlowListModel {
                     </div>
                   </div>
                   <div className="ms-2">
-                    {cell?.value + total_utm_value + total_tag_metric_value}
+                    {parseInt(cell?.value) + total_utm_value + total_tag_metric_value}
                   </div>
                   <div className="position-absolute ux-percent-detail">
                     <p className="d-flex justify-content-between mb-0 text-white">

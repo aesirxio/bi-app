@@ -146,7 +146,7 @@ const TopTabs = observer(
                     {this.props.integration ? (
                       <a
                         href="#"
-                        onClick={(e) => this.props.handleChangeLink(e, `/visitors-locations`)}
+                        onClick={(e) => this.props.handleChangeLink(e, `visitors-locations`)}
                         className={'text-success me-2 text-nowrap fw-semibold'}
                       >
                         {t('txt_view_more')}

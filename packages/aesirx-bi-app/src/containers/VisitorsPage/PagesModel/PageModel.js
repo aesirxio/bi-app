@@ -6,6 +6,7 @@ import React from 'react';
 import { BI_PAGES_FIELD_KEY, BI_SUMMARY_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
+import { decodeHtml } from 'utils';
 
 class PageModel {
   data = [];
@@ -38,10 +39,11 @@ class PageModel {
           accessor: key,
           allowSort: true,
           Cell: ({ cell, column, row }) => {
-            const urlParams = column.id === BI_PAGES_FIELD_KEY.URL && new URL(cell?.value);
+            const urlParams =
+              column.id === BI_PAGES_FIELD_KEY.URL && new URL(decodeHtml(cell?.value));
             return column.id === BI_PAGES_FIELD_KEY.URL ? (
               <a
-                href={`${cell?.value}`}
+                href={`${decodeHtml(cell?.value)}`}
                 target="_blank"
                 rel="noreferrer"
                 className={'d-block position-relative px-20 py-sm table-link text-gray-900'}

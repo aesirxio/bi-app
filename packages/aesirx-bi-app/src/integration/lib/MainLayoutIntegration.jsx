@@ -59,13 +59,16 @@ const MainLayoutIntegration = (props) => {
     const init = async () => {
       setIsFreemium(true);
       if (window.env.STORAGE === 'internal' && window.env.LICENSE) {
-        const response = await getLicense(window.env.LICENSE);
-        console.log('responseneee', response?.data?.result);
-        if (
-          response?.data?.result?.success &&
-          response?.data?.result?.subscription_product === 'product-aesirx-cmp'
-        ) {
+        if (window.env.LICENSE === 'trial') {
           setIsFreemium(false);
+        } else {
+          const response = await getLicense(window.env.LICENSE);
+          if (
+            response?.data?.result?.success &&
+            response?.data?.result?.subscription_product === 'product-aesirx-analytics'
+          ) {
+            setIsFreemium(false);
+          }
         }
       }
     };

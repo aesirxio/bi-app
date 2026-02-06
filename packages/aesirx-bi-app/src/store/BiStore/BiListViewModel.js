@@ -98,7 +98,6 @@ class BiListViewModel {
       if (respondedData?.realtime_sync !== undefined) {
         respondedData.realtime_sync = parseInt(respondedData.realtime_sync, 10);
       }
-      console.log('respondedData', respondedData);
       return { error: false, response: { respondedData } };
     } catch (error) {
       return { error: true, response: error?.response?.data };
@@ -123,7 +122,10 @@ class BiListViewModel {
       if (!link.includes('utm-links-edit')) {
         paramsToDelete.add('utmid');
       }
-      if (!link.includes('flow') && !link.includes('events-detail')) {
+      if (
+        (!link.includes('flow') || link.includes('flow-list')) &&
+        !link.includes('events-detail')
+      ) {
         paramsToDelete.add('id');
       }
 

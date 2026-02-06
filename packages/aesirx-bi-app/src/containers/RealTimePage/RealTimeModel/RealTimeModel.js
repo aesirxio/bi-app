@@ -5,7 +5,7 @@
 import React from 'react';
 import { BI_FLOW_LIST_FIELD_KEY } from 'aesirx-lib';
 import { Link } from 'react-router-dom';
-import { timeAgo } from 'utils';
+import { decodeHtml, timeAgo } from 'utils';
 
 class RealTimeModel {
   data = [];
@@ -82,18 +82,36 @@ class RealTimeModel {
               );
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.FLOW_UUID) {
               return (
-                <Link
-                  to={`/flow/${cell?.value}`}
-                  className={'d-block px-3 text-secondary'}
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    width: '100px',
-                  }}
-                >
-                  {cell?.value}
-                </Link>
+                <>
+                  {integration ? (
+                    <a
+                      href="#"
+                      onClick={(e) => this.handleChangeLink(e, `flow&id=${cell?.value}`)}
+                      className={'d-block px-3 text-secondary'}
+                      style={{
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        width: '100px',
+                      }}
+                    >
+                      {cell?.value}
+                    </a>
+                  ) : (
+                    <Link
+                      to={`/flow/${cell?.value}`}
+                      className={'d-block px-3 text-secondary'}
+                      style={{
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        width: '100px',
+                      }}
+                    >
+                      {cell?.value}
+                    </Link>
+                  )}
+                </>
               );
             } else if (column.id === BI_FLOW_LIST_FIELD_KEY.END) {
               return <div className={'px-3'}>{cell?.value ? timeAgo(cell?.value) : ''}</div>;
@@ -149,6 +167,8 @@ class RealTimeModel {
                   {total_utm_value + total_tag_value} {utm_currency ? utm_currency : ''}
                 </div>
               );
+            } else if (column.id === BI_FLOW_LIST_FIELD_KEY.URL) {
+              return <div className={'px-3'}>{decodeHtml(cell?.value)}</div>;
             } else {
               return <div className={'px-3'}>{cell?.value}</div>;
             }

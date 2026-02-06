@@ -25,7 +25,8 @@ const downloadExcel = async (data, nameFile) => {
 };
 const timeAgo = (isoString) => {
   const now = Date.now();
-  const past = new Date(isoString).getTime();
+  const utcDate = new Date(isoString.replace(' ', 'T') + 'Z');
+  const past = utcDate.getTime();
   const diff = Math.floor((now - past) / 1000); // seconds
 
   if (diff < 60) {
